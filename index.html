@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Tool Collection</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@400;500;600;700&display=swap');
+
+    :root{
+      --bg:#f4efe6;
+      --panel:#fffdf8;
+      --panel-2:#f8f1e3;
+      --line:#d8c9ac;
+      --text:#1e1d1a;
+      --muted:#6d6659;
+      --accent:#0f766e;
+      --accent-2:#115e59;
+      --shadow:0 18px 45px rgba(64,45,14,.10);
+      --radius:24px;
+    }
+
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family:'IBM Plex Sans KR',sans-serif;
+      color:var(--text);
+      background:
+        radial-gradient(circle at top left, rgba(15,118,110,.10), transparent 28%),
+        radial-gradient(circle at top right, rgba(217,119,6,.10), transparent 24%),
+        linear-gradient(180deg, #f6f2e9 0%, #efe6d8 100%);
+      min-height:100vh;
+    }
+
+    .wrap{max-width:1120px;margin:0 auto;padding:40px 20px 80px}
+    .hero{
+      background:rgba(255,253,248,.88);
+      border:1px solid rgba(216,201,172,.9);
+      border-radius:32px;
+      padding:36px;
+      box-shadow:var(--shadow);
+      backdrop-filter:blur(10px);
+    }
+    .eyebrow{
+      display:inline-block;
+      padding:8px 12px;
+      border-radius:999px;
+      background:#e6f4f2;
+      color:var(--accent-2);
+      font-size:13px;
+      font-weight:700;
+      letter-spacing:.02em;
+    }
+    h1{
+      margin:18px 0 10px;
+      font-size:clamp(34px,6vw,64px);
+      line-height:1.04;
+      letter-spacing:-.03em;
+    }
+    .lead{
+      max-width:760px;
+      margin:0;
+      color:var(--muted);
+      font-size:17px;
+      line-height:1.7;
+    }
+    .cta{
+      display:flex;
+      gap:12px;
+      flex-wrap:wrap;
+      margin-top:24px;
+    }
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      min-height:48px;
+      padding:0 18px;
+      border-radius:999px;
+      text-decoration:none;
+      font-weight:700;
+      transition:.18s ease;
+      border:1px solid transparent;
+    }
+    .btn.primary{background:var(--accent);color:#fff}
+    .btn.secondary{background:transparent;color:var(--text);border-color:var(--line)}
+    .btn:hover{transform:translateY(-1px)}
+
+    .section{
+      margin-top:28px;
+      background:rgba(255,253,248,.82);
+      border:1px solid rgba(216,201,172,.88);
+      border-radius:28px;
+      padding:28px;
+      box-shadow:var(--shadow);
+    }
+    .section h2{
+      margin:0 0 16px;
+      font-size:24px;
+      letter-spacing:-.02em;
+    }
+    .grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+      gap:18px;
+    }
+    .card{
+      display:flex;
+      flex-direction:column;
+      gap:12px;
+      background:var(--panel);
+      border:1px solid var(--line);
+      border-radius:22px;
+      padding:20px;
+    }
+    .card .tag{
+      width:max-content;
+      padding:6px 10px;
+      border-radius:999px;
+      font-size:12px;
+      font-weight:700;
+      background:var(--panel-2);
+      color:#7c5b18;
+    }
+    .card h3{
+      margin:0;
+      font-size:20px;
+    }
+    .card p{
+      margin:0;
+      color:var(--muted);
+      line-height:1.6;
+      font-size:14px;
+    }
+    .card a{
+      margin-top:auto;
+      color:var(--accent-2);
+      font-weight:700;
+      text-decoration:none;
+    }
+
+    .steps{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+      gap:16px;
+    }
+    .step{
+      background:var(--panel);
+      border:1px solid var(--line);
+      border-radius:20px;
+      padding:18px;
+    }
+    .step strong{
+      display:block;
+      margin-bottom:8px;
+      font-size:15px;
+    }
+    .step p{
+      margin:0;
+      color:var(--muted);
+      line-height:1.6;
+      font-size:14px;
+    }
+
+    code{
+      padding:2px 6px;
+      border-radius:8px;
+      background:#efe7d9;
+      font-family:Consolas,monospace;
+      font-size:.95em;
+    }
+
+    @media (max-width:700px){
+      .wrap{padding:20px 14px 48px}
+      .hero,.section{padding:20px}
+    }
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <section class="hero">
+      <span class="eyebrow">GitHub Pages Ready</span>
+      <h1>내 툴 모음집을<br>계속 추가하는 구조</h1>
+      <p class="lead">
+        이 저장소는 서로 성격이 다른 HTML 툴들을 한곳에 모아 배포하기 위한 시작점입니다.
+        앞으로 툴을 만들 때마다 폴더 하나씩 추가하고, GitHub에 push하면 홈페이지에 바로 반영되게 구성하면 됩니다.
+      </p>
+      <div class="cta">
+        <a class="btn primary" href="./tools/document-builder/">문서 빌더 열기</a>
+        <a class="btn secondary" href="https://github.com/" target="_blank" rel="noreferrer">GitHub 저장소 만들기</a>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>현재 등록된 툴</h2>
+      <div class="grid">
+        <article class="card">
+          <span class="tag">Document</span>
+          <h3>Document Builder v3</h3>
+          <p>문서 작성과 구조 편집에 초점을 둔 독립형 HTML 툴입니다. 현재 파일을 배포용 경로로 연결해두었습니다.</p>
+          <a href="./tools/document-builder/">바로 가기</a>
+        </article>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>새 툴 추가 방식</h2>
+      <div class="steps">
+        <div class="step">
+          <strong>1. 폴더 생성</strong>
+          <p><code>tools/새-툴-이름/index.html</code> 형태로 추가하면 됩니다.</p>
+        </div>
+        <div class="step">
+          <strong>2. 홈에 카드 추가</strong>
+          <p>이 페이지의 카드 한 칸만 복사해서 이름, 설명, 링크만 바꾸면 모음집에 노출됩니다.</p>
+        </div>
+        <div class="step">
+          <strong>3. GitHub에 push</strong>
+          <p><code>main</code> 브랜치에 push하면 GitHub Pages 배포 워크플로가 자동 실행됩니다.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+</body>
+</html>
