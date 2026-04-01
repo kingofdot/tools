@@ -32,6 +32,7 @@
 ```
 
 메타 태그가 없으면 폴더명과 기본 설명으로 자동 등록됩니다.
+루트 `tools` 바로 아래의 단일 `.html` 파일은 이제 자동 등록하지 않습니다.
 
 ## GitHub Pages 연결 순서
 
@@ -46,7 +47,7 @@
 - 툴 내부에 필요한 `css`, `js`, `assets`도 해당 툴 폴더 안에 같이 보관
 - 이름 충돌 방지를 위해 URL 슬러그는 영어 소문자와 하이픈 사용
 - 공용 소개 페이지는 루트 `index.html`에서 자동 목록을 읽어 표시
-- `scripts/build-tool-catalog.ps1`가 `tools/*/index.html`을 스캔해 `tools/catalog.json`을 생성
+- `scripts/build-tool-catalog.ps1`가 `tools/*/index.html`만 스캔해 `tools/catalog.json`을 생성
 
 ## 참고
 

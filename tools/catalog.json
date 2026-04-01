@@ -7,11 +7,11 @@
         "path":  "./tools/document-builder/"
     },
     {
-        "slug":  "excel_merger_fixed",
+        "slug":  "excel-merger",
         "name":  "Excel Merger",
         "tag":  "Excel",
         "description":  "엑셀 파일을 병합하고 시각화하는 HTML 툴",
-        "path":  "./tools/excel_merger_fixed.html"
+        "path":  "./tools/excel-merger/"
     },
     {
         "slug":  "item-builder",
@@ -21,24 +21,10 @@
         "path":  "./tools/item-builder/"
     },
     {
-        "slug":  "item-editor (2)",
-        "name":  "ITEM FORGE — 아이템 정의 에디터",
-        "tag":  "Tool",
-        "description":  "?덈줈 異붽????낅┰??HTML ?댁엯?덈떎.",
-        "path":  "./tools/item-editor (2).html"
-    },
-    {
         "slug":  "magic-builder",
         "name":  "Magic Builder",
         "tag":  "Magic",
         "description":  "스킬과 마법 계열 정의를 다루는 포지형 HTML 툴",
         "path":  "./tools/magic-builder/"
-    },
-    {
-        "slug":  "skill-editor (1)",
-        "name":  "SKILL FORGE — 스킬 정의 에디터",
-        "tag":  "Tool",
-        "description":  "?덈줈 異붽????낅┰??HTML ?댁엯?덈떎.",
-        "path":  "./tools/skill-editor (1).html"
     }
 ]

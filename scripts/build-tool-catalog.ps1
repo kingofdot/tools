@@ -32,26 +32,13 @@ $toolDirs = Get-ChildItem -Path $toolsRoot -Directory |
   Where-Object { Test-Path (Join-Path $_.FullName 'index.html') } |
   Sort-Object Name
 
-$directHtmlFiles = Get-ChildItem -Path $toolsRoot -File -Filter '*.html' |
-  Sort-Object Name
-
-$catalog = foreach ($entry in @(
-    $toolDirs | ForEach-Object {
-      [pscustomobject]@{
-        Slug = $_.Name
-        IndexPath = Join-Path $_.FullName 'index.html'
-        Path = "./tools/$($_.Name)/"
-      }
+$catalog = foreach ($entry in $toolDirs | ForEach-Object {
+    [pscustomobject]@{
+      Slug = $_.Name
+      IndexPath = Join-Path $_.FullName 'index.html'
+      Path = "./tools/$($_.Name)/"
     }
-  ) + @(
-    $directHtmlFiles | ForEach-Object {
-      [pscustomobject]@{
-        Slug = [System.IO.Path]::GetFileNameWithoutExtension($_.Name)
-        IndexPath = $_.FullName
-        Path = "./tools/$($_.Name)"
-      }
-    }
-  ) | Sort-Object Slug) {
+  } | Sort-Object Slug) {
   $indexPath = $entry.IndexPath
   $html = Get-Content -LiteralPath $indexPath -Raw -Encoding UTF8
 
