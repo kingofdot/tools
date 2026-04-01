@@ -32,8 +32,27 @@ $toolDirs = Get-ChildItem -Path $toolsRoot -Directory |
   Where-Object { Test-Path (Join-Path $_.FullName 'index.html') } |
   Sort-Object Name
 
-$catalog = foreach ($dir in $toolDirs) {
-  $indexPath = Join-Path $dir.FullName 'index.html'
+$directHtmlFiles = Get-ChildItem -Path $toolsRoot -File -Filter '*.html' |
+  Sort-Object Name
+
+$catalog = foreach ($entry in @(
+    $toolDirs | ForEach-Object {
+      [pscustomobject]@{
+        Slug = $_.Name
+        IndexPath = Join-Path $_.FullName 'index.html'
+        Path = "./tools/$($_.Name)/"
+      }
+    }
+  ) + @(
+    $directHtmlFiles | ForEach-Object {
+      [pscustomobject]@{
+        Slug = [System.IO.Path]::GetFileNameWithoutExtension($_.Name)
+        IndexPath = $_.FullName
+        Path = "./tools/$($_.Name)"
+      }
+    }
+  ) | Sort-Object Slug) {
+  $indexPath = $entry.IndexPath
   $html = Get-Content -LiteralPath $indexPath -Raw -Encoding UTF8
 
   $titleMatch = [regex]::Match($html, '<title>(.*?)</title>', [System.Text.RegularExpressions.RegexOptions]::IgnoreCase -bor [System.Text.RegularExpressions.RegexOptions]::Singleline)
@@ -43,16 +62,16 @@ $catalog = foreach ($dir in $toolDirs) {
   $metaTag = Normalize-Text (Get-MetaContent -Html $html -Name 'tool-tag')
   $metaDescription = Normalize-Text (Get-MetaContent -Html $html -Name 'tool-description')
 
-  $defaultName = ($dir.Name -split '[-_ ]+' | ForEach-Object {
+  $defaultName = ($entry.Slug -split '[-_ ]+' | ForEach-Object {
     if ($_.Length -gt 0) { $_.Substring(0, 1).ToUpper() + $_.Substring(1) }
   }) -join ' '
 
   [pscustomobject]@{
-    slug = $dir.Name
+    slug = $entry.Slug
     name = if ($metaName) { $metaName } elseif ($title) { $title } else { $defaultName }
     tag = if ($metaTag) { $metaTag } else { 'Tool' }
     description = if ($metaDescription) { $metaDescription } else { '새로 추가된 독립형 HTML 툴입니다.' }
-    path = "./tools/$($dir.Name)/"
+    path = $entry.Path
   }
 }
 
