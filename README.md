@@ -10,6 +10,10 @@
 ├─ tools/
 │  └─ document-builder/
 │     └─ index.html
+│  └─ item-builder/
+│     └─ index.html
+│  └─ magic-builder/
+│     └─ index.html
 └─ .github/
    └─ workflows/
       └─ deploy-pages.yml
