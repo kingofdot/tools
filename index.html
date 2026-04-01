@@ -138,6 +138,12 @@
       font-weight:700;
       text-decoration:none;
     }
+    .status{
+      color:var(--muted);
+      font-size:14px;
+      line-height:1.6;
+      padding:12px 2px 2px;
+    }
 
     .steps{
       display:grid;
@@ -193,26 +199,8 @@
 
     <section class="section">
       <h2>현재 등록된 툴</h2>
-      <div class="grid">
-        <article class="card">
-          <span class="tag">Document</span>
-          <h3>Document Builder v3</h3>
-          <p>문서 작성과 구조 편집에 초점을 둔 독립형 HTML 툴입니다. 현재 파일을 배포용 경로로 연결해두었습니다.</p>
-          <a href="./tools/document-builder/">바로 가기</a>
-        </article>
-        <article class="card">
-          <span class="tag">Item</span>
-          <h3>Item Builder</h3>
-          <p>아이템 데이터와 정의를 편집하는 포지형 툴입니다. 배포용 경로를 따로 만들어 모음집에서 바로 열리게 연결했습니다.</p>
-          <a href="./tools/item-builder/">바로 가기</a>
-        </article>
-        <article class="card">
-          <span class="tag">Magic</span>
-          <h3>Magic Builder</h3>
-          <p>스킬과 마법 계열 정의를 다루는 툴입니다. 문서 빌더와 같은 방식으로 GitHub Pages 경로에 포함되도록 연결했습니다.</p>
-          <a href="./tools/magic-builder/">바로 가기</a>
-        </article>
-      </div>
+      <div class="grid" id="toolGrid"></div>
+      <p class="status" id="toolStatus">툴 목록을 불러오는 중입니다.</p>
     </section>
 
     <section class="section">
@@ -223,15 +211,57 @@
           <p><code>tools/새-툴-이름/index.html</code> 형태로 추가하면 됩니다.</p>
         </div>
         <div class="step">
-          <strong>2. 홈에 카드 추가</strong>
-          <p>이 페이지의 카드 한 칸만 복사해서 이름, 설명, 링크만 바꾸면 모음집에 노출됩니다.</p>
+          <strong>2. 메타 정보는 선택</strong>
+          <p>필요하면 각 툴 HTML의 <code>meta</code> 태그로 이름, 설명, 분류를 넣고, 없어도 기본값으로 자동 등록됩니다.</p>
         </div>
         <div class="step">
           <strong>3. GitHub에 push</strong>
-          <p><code>main</code> 브랜치에 push하면 GitHub Pages 배포 워크플로가 자동 실행됩니다.</p>
+          <p><code>main</code> 브랜치에 push하면 GitHub Actions가 목록을 만들고 GitHub Pages에 자동 배포합니다.</p>
         </div>
       </div>
     </section>
   </main>
+  <script>
+    const toolGrid = document.getElementById('toolGrid');
+    const toolStatus = document.getElementById('toolStatus');
+
+    function escapeHtml(value) {
+      return String(value).replace(/[&<>"']/g, (char) => ({
+        '&': '&amp;',
+        '<': '&lt;',
+        '>': '&gt;',
+        '"': '&quot;',
+        "'": '&#39;'
+      }[char]));
+    }
+
+    async function loadTools() {
+      try {
+        const response = await fetch('./tools/catalog.json', { cache: 'no-store' });
+        if (!response.ok) throw new Error('catalog fetch failed');
+        const tools = await response.json();
+
+        if (!Array.isArray(tools) || tools.length === 0) {
+          toolStatus.textContent = '등록된 툴이 아직 없습니다.';
+          return;
+        }
+
+        toolGrid.innerHTML = tools.map((tool) => `
+          <article class="card">
+            <span class="tag">${escapeHtml(tool.tag || 'Tool')}</span>
+            <h3>${escapeHtml(tool.name || tool.slug)}</h3>
+            <p>${escapeHtml(tool.description || '새로 추가된 독립형 HTML 툴입니다.')}</p>
+            <a href="${escapeHtml(tool.path)}">바로 가기</a>
+          </article>
+        `).join('');
+
+        toolStatus.textContent = `총 ${tools.length}개의 툴이 자동으로 등록되었습니다.`;
+      } catch (error) {
+        toolStatus.textContent = '툴 목록을 불러오지 못했습니다. 배포 후 다시 확인해주세요.';
+      }
+    }
+
+    loadTools();
+  </script>
 </body>
 </html>

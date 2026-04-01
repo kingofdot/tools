@@ -22,8 +22,16 @@
 ## 새 툴 추가 방법
 
 1. `tools/새-툴-이름/index.html` 생성
-2. 루트 `index.html`에 카드 추가
+2. 필요하면 HTML의 `<head>`에 아래 메타 태그 추가
 3. GitHub 저장소에 push
+
+```html
+<meta name="tool-name" content="Item Builder">
+<meta name="tool-tag" content="Item">
+<meta name="tool-description" content="아이템 데이터와 정의를 편집하는 툴">
+```
+
+메타 태그가 없으면 폴더명과 기본 설명으로 자동 등록됩니다.
 
 ## GitHub Pages 연결 순서
 
@@ -37,7 +45,8 @@
 - 툴 하나당 폴더 하나
 - 툴 내부에 필요한 `css`, `js`, `assets`도 해당 툴 폴더 안에 같이 보관
 - 이름 충돌 방지를 위해 URL 슬러그는 영어 소문자와 하이픈 사용
-- 공용 소개 페이지는 루트 `index.html`에서 관리
+- 공용 소개 페이지는 루트 `index.html`에서 자동 목록을 읽어 표시
+- `scripts/build-tool-catalog.ps1`가 `tools/*/index.html`을 스캔해 `tools/catalog.json`을 생성
 
 ## 참고
 

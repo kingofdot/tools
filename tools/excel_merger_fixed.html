@@ -1,0 +1,2677 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Excel Merger</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=DM+Sans:wght@300;400;500;600&display=swap');
+
+    :root {
+      --bg: #0d0f14;
+      --surface: #161a22;
+      --border: #252b38;
+      --accent: #4ade80;
+      --accent2: #22d3ee;
+      --text: #e2e8f0;
+      --muted: #64748b;
+      --danger: #f87171;
+      --warning: #fbbf24;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'DM Sans', sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 40px 20px;
+    }
+
+    header {
+      width: 100%;
+      max-width: 860px;
+      margin-bottom: 40px;
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+    }
+
+    .logo {
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      color: var(--accent);
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      border: 1px solid var(--accent);
+      padding: 4px 10px;
+      border-radius: 3px;
+    }
+
+    h1 {
+      font-size: 32px;
+      font-weight: 600;
+      letter-spacing: -0.03em;
+      line-height: 1.1;
+    }
+
+    h1 span {
+      color: var(--accent);
+    }
+
+    .sub {
+      font-size: 13px;
+      color: var(--muted);
+      margin-top: 4px;
+    }
+
+    .main {
+      width: 100%;
+      max-width: 860px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    /* DROP ZONE */
+    .drop-zone {
+      border: 2px dashed var(--border);
+      border-radius: 16px;
+      padding: 60px 40px;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      background: var(--surface);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .drop-zone::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at center, rgba(74, 222, 128, 0.04) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .drop-zone.drag-over {
+      border-color: var(--accent);
+      background: rgba(74, 222, 128, 0.05);
+    }
+
+    .drop-zone.drag-over::before {
+      background: radial-gradient(ellipse at center, rgba(74, 222, 128, 0.12) 0%, transparent 70%);
+    }
+
+    .drop-icon {
+      font-size: 48px;
+      margin-bottom: 16px;
+      display: block;
+      filter: grayscale(0.3);
+    }
+
+    .drop-title {
+      font-size: 18px;
+      font-weight: 500;
+      margin-bottom: 8px;
+    }
+
+    .drop-sub {
+      font-size: 13px;
+      color: var(--muted);
+      margin-bottom: 24px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--accent);
+      color: #0d0f14;
+      border: none;
+      padding: 10px 22px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: opacity 0.15s;
+      font-family: 'DM Sans', sans-serif;
+    }
+
+    .btn:hover {
+      opacity: 0.85;
+    }
+
+    .btn:disabled {
+      opacity: 0.3;
+      cursor: not-allowed;
+    }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--text);
+      border: 1px solid var(--border);
+    }
+
+    .btn-outline:hover {
+      border-color: var(--muted);
+      opacity: 1;
+    }
+
+    .btn-danger {
+      background: transparent;
+      color: var(--danger);
+      border: 1px solid rgba(248, 113, 113, 0.3);
+      font-size: 11px;
+      padding: 4px 10px;
+    }
+
+    #fileInput {
+      display: none;
+    }
+
+    /* FILE LIST */
+    .file-list {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+    }
+
+    .file-list-header {
+      padding: 14px 20px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .file-list-title {
+      font-size: 12px;
+      font-family: 'DM Mono', monospace;
+      color: var(--muted);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    .file-count {
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      background: rgba(74, 222, 128, 0.12);
+      color: var(--accent);
+      padding: 2px 8px;
+      border-radius: 20px;
+    }
+
+    .file-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 14px 20px;
+      border-bottom: 1px solid var(--border);
+      transition: background 0.15s;
+      animation: slideIn 0.25s ease;
+    }
+
+    @keyframes slideIn {
+      from {
+        opacity: 0;
+        transform: translateY(-8px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .file-item:last-child {
+      border-bottom: none;
+    }
+
+    .file-item:hover {
+      background: rgba(255, 255, 255, 0.02);
+    }
+
+    .file-icon {
+      font-size: 20px;
+      flex-shrink: 0;
+    }
+
+    .file-info {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .file-name {
+      font-size: 13px;
+      font-weight: 500;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .file-meta {
+      font-size: 11px;
+      color: var(--muted);
+      font-family: 'DM Mono', monospace;
+      margin-top: 2px;
+    }
+
+    .file-status {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 11px;
+      font-family: 'DM Mono', monospace;
+    }
+
+    .status-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--muted);
+      flex-shrink: 0;
+    }
+
+    .status-dot.ok {
+      background: var(--accent);
+      box-shadow: 0 0 6px rgba(74, 222, 128, 0.5);
+    }
+
+    .status-dot.warn {
+      background: var(--warning);
+    }
+
+    .status-dot.err {
+      background: var(--danger);
+    }
+
+    /* OPTIONS */
+    .options-panel {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .options-title {
+      font-size: 12px;
+      font-family: 'DM Mono', monospace;
+      color: var(--muted);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 4px;
+    }
+
+    .option-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .option-label {
+      font-size: 13px;
+      font-weight: 500;
+    }
+
+    .option-desc {
+      font-size: 11px;
+      color: var(--muted);
+      margin-top: 2px;
+    }
+
+    .toggle {
+      position: relative;
+      width: 36px;
+      height: 20px;
+      flex-shrink: 0;
+    }
+
+    .toggle input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+
+    .toggle-slider {
+      position: absolute;
+      inset: 0;
+      background: var(--border);
+      border-radius: 20px;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .toggle-slider::after {
+      content: '';
+      position: absolute;
+      top: 3px;
+      left: 3px;
+      width: 14px;
+      height: 14px;
+      background: white;
+      border-radius: 50%;
+      transition: transform 0.2s;
+    }
+
+    .toggle input:checked+.toggle-slider {
+      background: var(--accent);
+    }
+
+    .toggle input:checked+.toggle-slider::after {
+      transform: translateX(16px);
+    }
+
+    .select-field {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 8px 12px;
+      border-radius: 8px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 13px;
+      cursor: pointer;
+    }
+
+    /* PREVIEW */
+    .preview-panel {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+    }
+
+    .preview-header {
+      padding: 14px 20px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .preview-scroll {
+      overflow-x: auto;
+      max-height: 260px;
+      overflow-y: auto;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 12px;
+      font-family: 'DM Mono', monospace;
+    }
+
+    th {
+      background: rgba(74, 222, 128, 0.08);
+      color: var(--accent);
+      padding: 8px 14px;
+      text-align: left;
+      position: sticky;
+      top: 0;
+      white-space: nowrap;
+      border-bottom: 1px solid var(--border);
+      font-weight: 500;
+      font-size: 11px;
+    }
+
+    td {
+      padding: 7px 14px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+      white-space: nowrap;
+      color: var(--text);
+      max-width: 200px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    tr:last-child td {
+      border-bottom: none;
+    }
+
+    tr:hover td {
+      background: rgba(255, 255, 255, 0.02);
+    }
+
+    /* LOG */
+    .log-panel {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px 20px;
+      font-family: 'DM Mono', monospace;
+      font-size: 12px;
+      max-height: 160px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .log-line {
+      display: flex;
+      gap: 10px;
+    }
+
+    .log-time {
+      color: var(--muted);
+      flex-shrink: 0;
+    }
+
+    .log-ok {
+      color: var(--accent);
+    }
+
+    .log-warn {
+      color: var(--warning);
+    }
+
+    .log-err {
+      color: var(--danger);
+    }
+
+    .log-info {
+      color: var(--accent2);
+    }
+
+    /* ACTIONS */
+    .actions {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      justify-content: flex-end;
+    }
+
+    .stat-bar {
+      flex: 1;
+      display: flex;
+      gap: 20px;
+    }
+
+    .stat {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .stat-val {
+      font-family: 'DM Mono', monospace;
+      font-size: 20px;
+      font-weight: 500;
+      color: var(--accent);
+      line-height: 1;
+    }
+
+    .stat-lbl {
+      font-size: 11px;
+      color: var(--muted);
+      margin-top: 3px;
+    }
+
+    .progress-bar {
+      height: 3px;
+      background: var(--border);
+      border-radius: 2px;
+      overflow: hidden;
+      margin-top: 8px;
+    }
+
+    .progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--accent), var(--accent2));
+      border-radius: 2px;
+      transition: width 0.3s ease;
+      width: 0%;
+    }
+
+    .empty-state {
+      padding: 30px;
+      text-align: center;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .badge {
+      display: inline-block;
+      font-size: 10px;
+      font-family: 'DM Mono', monospace;
+      background: rgba(34, 211, 238, 0.1);
+      color: var(--accent2);
+      border: 1px solid rgba(34, 211, 238, 0.2);
+      padding: 1px 6px;
+      border-radius: 3px;
+      margin-left: 6px;
+    }
+
+    /* FILTER PANEL */
+    .filter-panel {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+    }
+
+    .filter-panel-header {
+      padding: 14px 20px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .filter-panel-header:hover {
+      background: rgba(255, 255, 255, 0.02);
+    }
+
+    .filter-panel-body {
+      padding: 16px 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .filter-row {
+      display: grid;
+      grid-template-columns: 1fr 120px 1fr 36px;
+      gap: 8px;
+      align-items: center;
+      animation: slideIn 0.2s ease;
+    }
+
+    .filter-input {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 7px 10px;
+      border-radius: 7px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 12px;
+      width: 100%;
+      transition: border-color 0.15s;
+    }
+
+    .filter-input:focus {
+      outline: none;
+      border-color: var(--accent2);
+    }
+
+    .filter-select {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 7px 8px;
+      border-radius: 7px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 12px;
+      cursor: pointer;
+      width: 100%;
+    }
+
+    .filter-col-select {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 7px 10px;
+      border-radius: 7px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 12px;
+      cursor: pointer;
+      width: 100%;
+    }
+
+    .filter-del-btn {
+      background: transparent;
+      border: 1px solid rgba(248, 113, 113, 0.3);
+      color: var(--danger);
+      border-radius: 7px;
+      width: 36px;
+      height: 34px;
+      cursor: pointer;
+      font-size: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.15s;
+      flex-shrink: 0;
+    }
+
+    .filter-del-btn:hover {
+      background: rgba(248, 113, 113, 0.1);
+    }
+
+    .filter-add-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: transparent;
+      border: 1px dashed var(--border);
+      color: var(--muted);
+      padding: 7px 14px;
+      border-radius: 7px;
+      font-size: 12px;
+      cursor: pointer;
+      transition: all 0.15s;
+      font-family: 'DM Sans', sans-serif;
+      align-self: flex-start;
+    }
+
+    .filter-add-btn:hover {
+      border-color: var(--accent2);
+      color: var(--accent2);
+    }
+
+    .filter-logic-toggle {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .logic-btn {
+      padding: 3px 10px;
+      border-radius: 5px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--muted);
+      font-size: 11px;
+      font-family: 'DM Mono', monospace;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+
+    .logic-btn.active {
+      background: rgba(74, 222, 128, 0.15);
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    .filter-summary {
+      font-size: 11px;
+      font-family: 'DM Mono', monospace;
+      color: var(--accent2);
+      padding: 4px 8px;
+      background: rgba(34, 211, 238, 0.08);
+      border-radius: 5px;
+      border: 1px solid rgba(34, 211, 238, 0.15);
+    }
+
+    .filter-chevron {
+      color: var(--muted);
+      font-size: 11px;
+      transition: transform 0.2s;
+    }
+
+    .filter-chevron.open {
+      transform: rotate(180deg);
+    }
+
+    /* ROW SELECTION */
+    .select-all-bar {
+      padding: 10px 16px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: rgba(74, 222, 128, 0.03);
+      flex-wrap: wrap;
+    }
+
+    .row-checkbox {
+      width: 15px;
+      height: 15px;
+      accent-color: var(--accent);
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+
+    tr.selected td {
+      background: rgba(74, 222, 128, 0.06) !important;
+    }
+
+    tr.selected td:first-child {
+      border-left: 2px solid var(--accent);
+    }
+
+    td.cb-cell,
+    th.cb-cell {
+      width: 36px;
+      padding: 7px 10px;
+      text-align: center;
+    }
+
+    .sel-count-badge {
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      background: rgba(74, 222, 128, 0.12);
+      color: var(--accent);
+      border: 1px solid rgba(74, 222, 128, 0.3);
+      padding: 2px 8px;
+      border-radius: 20px;
+    }
+
+    .sel-actions {
+      display: flex;
+      gap: 6px;
+      margin-left: auto;
+    }
+
+    /* HEADER SELECTOR PANEL */
+    .header-panel {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+    }
+
+    .header-panel-header {
+      padding: 14px 20px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      cursor: pointer;
+      user-select: none;
+      transition: background 0.15s;
+    }
+
+    .header-panel-header:hover {
+      background: rgba(255, 255, 255, 0.02);
+    }
+
+    .header-panel-body {
+      padding: 16px 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .header-chips-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .header-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 5px 11px;
+      border-radius: 20px;
+      border: 1px solid var(--border);
+      font-size: 12px;
+      font-family: 'DM Mono', monospace;
+      cursor: pointer;
+      transition: all 0.15s;
+      background: var(--bg);
+      color: var(--muted);
+      user-select: none;
+    }
+
+    .header-chip:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    .header-chip.selected {
+      background: rgba(74, 222, 128, 0.1);
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    .header-chip .chip-icon {
+      font-size: 9px;
+    }
+
+    .header-chip-actions {
+      display: flex;
+      gap: 6px;
+      align-items: center;
+      padding-top: 8px;
+      border-top: 1px solid var(--border);
+    }
+
+    .header-chip.renamed {
+      background: rgba(251, 191, 36, 0.08);
+      border-color: rgba(251, 191, 36, 0.4);
+      color: var(--warning);
+    }
+
+    .header-chip.renamed.selected {
+      background: rgba(251, 191, 36, 0.15);
+    }
+
+    .chip-orig {
+      font-size: 9px;
+      color: var(--muted);
+      margin-left: 2px;
+      font-style: italic;
+    }
+
+    .hchevron {
+      color: var(--muted);
+      font-size: 11px;
+      transition: transform 0.2s;
+    }
+
+    .hchevron.open {
+      transform: rotate(180deg);
+    }
+
+    /* DATE ANALYSIS collapsible */
+    .date-panel-header {
+      cursor: pointer;
+      user-select: none;
+      transition: background 0.15s;
+    }
+
+    .date-panel-header:hover {
+      background: rgba(255, 255, 255, 0.02);
+    }
+
+    .dchevron {
+      color: var(--muted);
+      font-size: 11px;
+      transition: transform 0.2s;
+    }
+
+    .dchevron.open {
+      transform: rotate(180deg);
+    }
+
+    .date-panel {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+    }
+
+    .date-panel-header {
+      padding: 14px 20px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .date-panel-body {
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .date-col-selector {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .date-col-label {
+      font-size: 13px;
+      color: var(--muted);
+      flex-shrink: 0;
+    }
+
+    .col-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 5px 12px;
+      border-radius: 20px;
+      border: 1px solid var(--border);
+      font-size: 12px;
+      font-family: 'DM Mono', monospace;
+      cursor: pointer;
+      transition: all 0.15s;
+      background: var(--bg);
+      color: var(--muted);
+    }
+
+    .col-chip:hover {
+      border-color: var(--accent2);
+      color: var(--accent2);
+    }
+
+    .col-chip.selected {
+      background: rgba(34, 211, 238, 0.1);
+      border-color: var(--accent2);
+      color: var(--accent2);
+    }
+
+    .col-chip .chip-dot {
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: currentColor;
+    }
+
+    .date-results {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .year-block {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      overflow: hidden;
+      animation: slideIn 0.2s ease;
+    }
+
+    .year-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 16px;
+      cursor: pointer;
+      user-select: none;
+      transition: background 0.15s;
+    }
+
+    .year-header:hover {
+      background: rgba(255, 255, 255, 0.02);
+    }
+
+    .year-title {
+      font-family: 'DM Mono', monospace;
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--text);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .year-days {
+      font-family: 'DM Mono', monospace;
+      font-size: 24px;
+      font-weight: 500;
+      color: var(--accent);
+    }
+
+    .year-days-label {
+      font-size: 11px;
+      color: var(--muted);
+      text-align: right;
+    }
+
+    .year-chevron {
+      color: var(--muted);
+      font-size: 11px;
+      transition: transform 0.2s;
+    }
+
+    .year-chevron.open {
+      transform: rotate(180deg);
+    }
+
+    .year-body {
+      border-top: 1px solid var(--border);
+      padding: 12px 16px;
+    }
+
+    .month-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 8px;
+    }
+
+    .month-cell {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 10px 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      transition: border-color 0.15s;
+    }
+
+    .month-cell.has-data {
+      border-color: rgba(34, 211, 238, 0.2);
+    }
+
+    .day-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 3px;
+      margin-top: 6px;
+    }
+
+    .day-tag {
+      font-family: 'DM Mono', monospace;
+      font-size: 10px;
+      background: rgba(34, 211, 238, 0.08);
+      color: var(--accent2);
+      border: 1px solid rgba(34, 211, 238, 0.15);
+      padding: 1px 5px;
+      border-radius: 3px;
+      line-height: 1.6;
+    }
+
+    .summary-card-main {
+      border-color: rgba(74, 222, 128, 0.3) !important;
+      background: rgba(74, 222, 128, 0.04) !important;
+    }
+
+    .month-name {
+      font-size: 11px;
+      color: var(--muted);
+    }
+
+    .month-count {
+      font-family: 'DM Mono', monospace;
+      font-size: 16px;
+      font-weight: 500;
+    }
+
+    .month-count.has-data {
+      color: var(--accent2);
+    }
+
+    .month-count.no-data {
+      color: var(--border);
+    }
+
+    .month-bar {
+      height: 3px;
+      background: var(--border);
+      border-radius: 2px;
+      margin-top: 4px;
+      overflow: hidden;
+    }
+
+    .month-bar-fill {
+      height: 100%;
+      background: var(--accent2);
+      border-radius: 2px;
+      transition: width 0.4s ease;
+    }
+
+    .date-summary-cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+    }
+
+    .summary-card {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 14px 16px;
+    }
+
+    .summary-card-val {
+      font-family: 'DM Mono', monospace;
+      font-size: 28px;
+      font-weight: 500;
+      color: var(--accent);
+      line-height: 1;
+    }
+
+    .summary-card-lbl {
+      font-size: 11px;
+      color: var(--muted);
+      margin-top: 5px;
+    }
+
+    .date-empty {
+      padding: 24px;
+      text-align: center;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .detected-badge {
+      font-size: 10px;
+      font-family: 'DM Mono', monospace;
+      background: rgba(251, 191, 36, 0.1);
+      color: var(--warning);
+      border: 1px solid rgba(251, 191, 36, 0.2);
+      padding: 1px 6px;
+      border-radius: 3px;
+      margin-left: 6px;
+    }
+
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: var(--border);
+      border-radius: 3px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <div>
+      <h1>Excel <span>Merger</span></h1>
+      <p class="sub">엑셀 파일을 넣으면 가동일을 분석하고, 제출용 병합 파일을 생성합니다</p>
+    </div>
+    <div class="logo">v1.2</div>
+  </header>
+
+  <div class="main">
+
+    <!-- DROP ZONE -->
+    <div class="drop-zone" id="dropZone">
+      <span class="drop-icon">📊</span>
+      <div class="drop-title">엑셀 파일을 여기에 드래그하세요</div>
+      <div class="drop-sub">.xlsx, .xls, .csv 파일 지원 · 여러 파일 동시 추가 가능</div>
+      <button class="btn" onclick="document.getElementById('fileInput').click()">
+        ＋ 파일 선택
+      </button>
+      <input type="file" id="fileInput" multiple accept=".xlsx,.xls,.csv">
+    </div>
+
+    <!-- ★ 가동일 분석 (최상단 배치) -->
+    <div class="date-panel" id="datePanel" style="display:none">
+      <div class="date-panel-header" onclick="toggleDatePanel()">
+        <div style="display:flex;align-items:center;gap:10px">
+          <span style="font-size:15px;font-weight:600">📅 가동일 분석</span>
+          <span class="badge" id="dateDetectedBadge" style="display:none">날짜 열 자동감지</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:8px">
+          <span style="font-size:11px;color:var(--muted)" id="dateHint">클릭해서 접기</span>
+          <span class="dchevron open" id="dateChevron">▼</span>
+        </div>
+      </div>
+      <div id="datePanelBody">
+        <div class="date-panel-body">
+          <div class="date-col-selector">
+            <span class="date-col-label">날짜 열 선택:</span>
+            <div id="dateColChips" style="display:flex;gap:6px;flex-wrap:wrap;">
+              <span style="font-size:12px;color:var(--muted)">파일을 추가하면 열 목록이 표시됩니다</span>
+            </div>
+          </div>
+          <div id="dateResultArea">
+            <div class="date-empty">엑셀 파일을 드래그하면 날짜 열을 자동 감지하여 가동일을 분석합니다</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ★ 다운로드 액션 (가동일 바로 아래) -->
+    <div class="actions" id="actionsBar" style="display:none">
+      <div class="stat-bar">
+        <div class="stat">
+          <div class="stat-val" id="statFiles">0</div>
+          <div class="stat-lbl">파일</div>
+        </div>
+        <div class="stat">
+          <div class="stat-val" id="statRows">0</div>
+          <div class="stat-lbl">총 행수</div>
+        </div>
+        <div class="stat">
+          <div class="stat-val" id="statCols">0</div>
+          <div class="stat-lbl">공통 열수</div>
+        </div>
+      </div>
+      <button class="btn btn-outline" onclick="clearAll()">초기화</button>
+      <button class="btn" id="mergeBtn" onclick="mergeAndDownload()" style="font-size:14px;padding:12px 28px">⬇ 병합
+        다운로드</button>
+    </div>
+
+    <div class="progress-bar" id="progressBar" style="display:none">
+      <div class="progress-fill" id="progressFill"></div>
+    </div>
+
+    <!-- FILE LIST -->
+    <div class="file-list" id="fileListContainer" style="display:none">
+      <div class="file-list-header">
+        <span class="file-list-title">추가된 파일</span>
+        <div style="display:flex;gap:8px;align-items:center">
+          <span class="file-count" id="fileCount">0개</span>
+          <button class="btn btn-outline" onclick="clearAll()" style="font-size:11px;padding:4px 10px">전체 삭제</button>
+        </div>
+      </div>
+      <div id="fileListBody"></div>
+    </div>
+
+    <!-- OPTIONS -->
+    <div class="options-panel" id="optionsPanel" style="display:none">
+      <div class="options-title">병합 옵션</div>
+      <div class="option-row">
+        <div>
+          <div class="option-label">파일명 컬럼 추가</div>
+          <div class="option-desc">각 행에 원본 파일명을 기록합니다</div>
+        </div>
+        <label class="toggle">
+          <input type="checkbox" id="optAddSource" checked>
+          <span class="toggle-slider"></span>
+        </label>
+      </div>
+      <div class="option-row">
+        <div>
+          <div class="option-label">빈 행 제거</div>
+          <div class="option-desc">데이터가 없는 행을 자동으로 제거합니다</div>
+        </div>
+        <label class="toggle">
+          <input type="checkbox" id="optRemoveEmpty" checked>
+          <span class="toggle-slider"></span>
+        </label>
+      </div>
+      <div class="option-row">
+        <div>
+          <div class="option-label">헤더가 없는 열 처리</div>
+          <div class="option-desc">공통 헤더 기준으로 매칭되지 않는 열은 제외합니다</div>
+        </div>
+        <label class="toggle">
+          <input type="checkbox" id="optOnlyCommon" checked>
+          <span class="toggle-slider"></span>
+        </label>
+      </div>
+      <div class="option-row">
+        <div>
+          <div class="option-label">시트 선택</div>
+          <div class="option-desc">각 파일에서 읽어올 시트 번호 (1부터 시작)</div>
+        </div>
+        <select class="select-field" id="optSheetIndex">
+          <option value="0">1번째 시트</option>
+          <option value="1">2번째 시트</option>
+          <option value="2">3번째 시트</option>
+        </select>
+      </div>
+      <div class="option-row">
+        <div>
+          <div class="option-label">출력 파일명</div>
+        </div>
+        <input type="text" id="optOutputName" value="merged_output" class="select-field" style="width:200px">
+      </div>
+    </div>
+
+    <!-- PREVIEW -->
+    <div class="preview-panel" id="previewPanel" style="display:none">
+      <div class="preview-header">
+        <div>
+          <span style="font-size:13px;font-weight:500">미리보기</span>
+          <span class="badge" id="previewBadge">0행 · 0열</span>
+        </div>
+        <button class="btn btn-outline" onclick="refreshPreview()" style="font-size:11px;padding:6px 12px">↺
+          새로고침</button>
+      </div>
+      <div class="select-all-bar" id="selectAllBar" style="display:none">
+        <input type="checkbox" class="row-checkbox" id="checkAll" onclick="toggleSelectAll(this.checked)"
+          title="전체 선택/해제">
+        <span style="font-size:12px;color:var(--muted)">전체 선택</span>
+        <span class="sel-count-badge" id="selCountBadge">0행 선택</span>
+        <div class="sel-actions">
+          <button class="btn btn-outline" onclick="selectFiltered()" style="font-size:11px;padding:4px 10px">필터 결과만
+            선택</button>
+          <button class="btn" onclick="downloadSelected()" style="font-size:11px;padding:4px 10px">⬇ 선택 행 다운로드</button>
+        </div>
+      </div>
+      <div class="preview-scroll" id="previewTable">
+        <div class="empty-state">파일을 추가하면 미리보기가 표시됩니다</div>
+      </div>
+    </div>
+
+    <!-- FILTER PANEL -->
+    <div class="filter-panel" id="filterPanel" style="display:none">
+      <div class="filter-panel-header" onclick="toggleFilterPanel()">
+        <div style="display:flex;align-items:center;gap:10px">
+          <span style="font-size:13px;font-weight:500">🔍 행 필터</span>
+          <span id="filterSummaryBadge" style="display:none" class="filter-summary"></span>
+        </div>
+        <div style="display:flex;align-items:center;gap:10px">
+          <span style="font-size:11px;color:var(--muted)" id="filterHint">클릭해서 펼치기</span>
+          <span class="filter-chevron" id="filterChevron">▼</span>
+        </div>
+      </div>
+      <div class="filter-panel-body" id="filterPanelBody" style="display:none">
+        <div class="filter-logic-toggle">
+          <span>조건 결합:</span>
+          <button class="logic-btn active" id="logicAnd" onclick="setLogic('AND')">AND (모두 충족)</button>
+          <button class="logic-btn" id="logicOr" onclick="setLogic('OR')">OR (하나라도 충족)</button>
+        </div>
+        <div id="filterRows"></div>
+        <button class="filter-add-btn" onclick="addFilterRow()">＋ 조건 추가</button>
+        <div style="display:flex;gap:8px;align-items:center;padding-top:4px;border-top:1px solid var(--border)">
+          <button class="btn" onclick="applyFilters()" style="font-size:12px;padding:7px 16px">✓ 필터 적용</button>
+          <button class="btn btn-outline" onclick="clearFilters()" style="font-size:12px;padding:7px 16px">✕
+            초기화</button>
+          <span id="filterResultCount"
+            style="font-size:12px;color:var(--muted);font-family:'DM Mono',monospace;margin-left:4px"></span>
+        </div>
+      </div>
+    </div>
+
+    <!-- HEADER SELECTOR -->
+    <div class="header-panel" id="headerPanel" style="display:none">
+      <div class="header-panel-header" onclick="toggleHeaderPanel()">
+        <div style="display:flex;align-items:center;gap:10px">
+          <span style="font-size:13px;font-weight:500">📋 출력 헤더 선택</span>
+          <span class="badge" id="headerSelBadge">전체</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:8px">
+          <span style="font-size:11px;color:var(--muted)" id="headerHint">클릭해서 펼치기</span>
+          <span class="hchevron" id="headerChevron">▼</span>
+        </div>
+      </div>
+      <div class="header-panel-body" id="headerPanelBody" style="display:none">
+        <div class="header-chips-grid" id="headerChipsGrid"></div>
+        <div class="header-chip-actions">
+          <button class="btn btn-outline" onclick="selectAllHeaders()" style="font-size:11px;padding:5px 12px">전체
+            선택</button>
+          <button class="btn btn-outline" onclick="deselectAllHeaders()" style="font-size:11px;padding:5px 12px">전체
+            해제</button>
+          <button class="btn" onclick="applyHeaderSelection()" style="font-size:11px;padding:5px 14px">✓ 적용</button>
+          <span id="headerSelCount"
+            style="font-size:11px;color:var(--muted);font-family:'DM Mono',monospace;margin-left:4px"></span>
+        </div>
+      </div>
+    </div>
+
+    <!-- LOG -->
+    <div class="log-panel" id="logPanel" style="display:none">
+      <div class="log-line">
+        <span class="log-time">--:--:--</span>
+        <span class="log-info">시스템 준비 완료</span>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    let files = [];
+    let parsedData = [];
+
+    function log(msg, type = 'info') {
+      const panel = document.getElementById('logPanel');
+      panel.style.display = 'flex';
+      const now = new Date();
+      const t = `${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}:${String(now.getSeconds()).padStart(2, '0')}`;
+      const line = document.createElement('div');
+      line.className = 'log-line';
+      line.innerHTML = `<span class="log-time">${t}</span><span class="log-${type}">${msg}</span>`;
+      panel.appendChild(line);
+      panel.scrollTop = panel.scrollHeight;
+    }
+
+    function formatSize(bytes) {
+      if (bytes < 1024) return bytes + 'B';
+      if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(1) + 'KB';
+      return (bytes / 1024 / 1024).toFixed(1) + 'MB';
+    }
+
+    function now() { return new Date().toLocaleTimeString('ko-KR'); }
+
+    // Drag & Drop
+    const dropZone = document.getElementById('dropZone');
+
+    dropZone.addEventListener('dragover', e => { e.preventDefault(); dropZone.classList.add('drag-over'); });
+    dropZone.addEventListener('dragleave', () => dropZone.classList.remove('drag-over'));
+    dropZone.addEventListener('drop', e => {
+      e.preventDefault();
+      dropZone.classList.remove('drag-over');
+      handleFiles([...e.dataTransfer.files]);
+    });
+
+    document.getElementById('fileInput').addEventListener('change', e => {
+      handleFiles([...e.target.files]);
+      e.target.value = '';
+    });
+
+    function handleFiles(newFiles) {
+      const valid = newFiles.filter(f => /\.(xlsx|xls|csv)$/i.test(f.name));
+      const invalid = newFiles.length - valid.length;
+      if (invalid > 0) log(`${invalid}개 파일은 지원되지 않는 형식입니다 (xlsx/xls/csv만 가능)`, 'warn');
+
+      valid.forEach(f => {
+        if (files.find(existing => existing.name === f.name)) {
+          log(`"${f.name}" 은 이미 추가된 파일입니다`, 'warn');
+          return;
+        }
+        files.push(f);
+        log(`"${f.name}" 추가됨 (${formatSize(f.size)})`, 'ok');
+      });
+
+      renderFileList();
+      parseAll();
+    }
+
+    function renderFileList() {
+      const container = document.getElementById('fileListContainer');
+      const body = document.getElementById('fileListBody');
+
+      if (files.length === 0) {
+        container.style.display = 'none';
+        document.getElementById('optionsPanel').style.display = 'none';
+        document.getElementById('previewPanel').style.display = 'none';
+        document.getElementById('filterPanel').style.display = 'none';
+        document.getElementById('headerPanel').style.display = 'none';
+        document.getElementById('datePanel').style.display = 'none';
+        document.getElementById('actionsBar').style.display = 'none';
+        return;
+      }
+
+      container.style.display = 'block';
+      document.getElementById('optionsPanel').style.display = 'flex';
+      document.getElementById('previewPanel').style.display = 'block';
+      document.getElementById('filterPanel').style.display = 'block';
+      document.getElementById('headerPanel').style.display = 'block';
+      document.getElementById('datePanel').style.display = 'block';
+      document.getElementById('actionsBar').style.display = 'flex';
+      document.getElementById('fileCount').textContent = files.length + '개';
+
+      body.innerHTML = files.map((f, i) => {
+        const parsed = parsedData[i];
+        const rows = parsed ? parsed.rows.length : '?';
+        const cols = parsed ? parsed.headers.length : '?';
+        const skipped = parsed && parsed.skipped > 0 ? ` · 헤더중복 ${parsed.skipped}행 제거` : '';
+        const statusClass = parsed ? (parsed.error ? 'err' : 'ok') : '';
+        const statusText = parsed ? (parsed.error ? '오류' : `${rows}행 · ${cols}열${skipped}`) : '읽는 중...';
+        return `
+    <div class="file-item">
+      <span class="file-icon">📄</span>
+      <div class="file-info">
+        <div class="file-name">${f.name}</div>
+        <div class="file-meta">${formatSize(f.size)}</div>
+      </div>
+      <div class="file-status">
+        <span class="status-dot ${statusClass}"></span>
+        <span style="color:var(--muted)">${statusText}</span>
+      </div>
+      <button class="btn btn-danger" onclick="removeFile(${i})">제거</button>
+    </div>`;
+      }).join('');
+    }
+
+    function removeFile(i) {
+      log(`"${files[i].name}" 제거됨`, 'warn');
+      files.splice(i, 1);
+      parsedData.splice(i, 1);
+      renderFileList();
+      updateStats();
+      refreshPreview();
+    }
+
+    function clearAll() {
+      files = [];
+      parsedData = [];
+      log('모든 파일이 초기화되었습니다', 'warn');
+      renderFileList();
+      document.getElementById('previewTable').innerHTML = '<div class="empty-state">파일을 추가하면 미리보기가 표시됩니다</div>';
+      document.getElementById('statFiles').textContent = '0';
+      document.getElementById('statRows').textContent = '0';
+      document.getElementById('statCols').textContent = '0';
+    }
+
+    async function parseAll() {
+      parsedData = new Array(files.length).fill(null);
+      const sheetIdx = parseInt(document.getElementById('optSheetIndex').value);
+
+      const promises = files.map((f, i) => parseFile(f, sheetIdx).then(result => {
+        parsedData[i] = result;
+        renderFileList();
+      }));
+
+      await Promise.all(promises);
+      // 헤더 중복 행 제거 결과 로그
+      parsedData.forEach((p, i) => {
+        if (p && p.skipped > 0) log(`"${files[i].name}" — 중간 헤더 반복 행 ${p.skipped}개 자동 제거`, 'warn');
+        if (p && p.dateColumns && p.dateColumns.length > 0 && i === 0) {
+          log(`날짜 열 자동 감지: ${p.dateColumns.join(', ')}`, 'ok');
+        }
+      });
+      updateStats();
+      refreshPreview();
+    }
+
+    function parseFile(file, sheetIdx) {
+      return new Promise((resolve) => {
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          try {
+            const data = new Uint8Array(e.target.result);
+            const wb = XLSX.read(data, { type: 'array' });
+            const sheetName = wb.SheetNames[sheetIdx] || wb.SheetNames[0];
+            const ws = wb.Sheets[sheetName];
+            const json = XLSX.utils.sheet_to_json(ws, { defval: '' });
+            const headers = json.length > 0 ? Object.keys(json[0]) : [];
+
+            // 중간에 껴든 헤더 반복 행 제거
+            // 행의 값들이 헤더명과 절반 이상 일치하면 헤더 행으로 판단해 제외
+            const headerSet = new Set(headers);
+            const rows = json.filter(row => {
+              const vals = headers.map(h => String(row[h] ?? '').trim());
+              const matchCount = vals.filter(v => headerSet.has(v)).length;
+              return matchCount < Math.ceil(headers.length / 2);
+            });
+            const skipped = json.length - rows.length;
+            if (skipped > 0) console.log(`[${file.name}] 헤더 반복 행 ${skipped}개 제거됨`);
+
+            // 날짜 열 자동 감지: 샘플 행에서 날짜로 파싱되는 비율이 70% 이상인 열
+            const sample = rows.slice(0, 20);
+            // 날짜 관련 헤더명 힌트 (소문자 포함)
+            const DATE_HEADER_HINTS = ['날짜', '일자', '일시', 'date', 'dt', 'time', 'ymd', 'yyyymmdd', '생산일', '작업일', '가동일', '입고일', '출하일', '출고일'];
+            const dateColumns = headers.filter(h => {
+              if (sample.length === 0) return false;
+              const nonEmpty = sample.filter(r => r[h] !== '' && r[h] !== null && r[h] !== undefined);
+              if (nonEmpty.length === 0) return false;
+
+              // 헤더명에 날짜 힌트가 없으면 숫자 시리얼로만 판단하지 않음
+              const hLower = h.toLowerCase().replace(/\s/g, '');
+              const hasDateHint = DATE_HEADER_HINTS.some(hint => hLower.includes(hint));
+
+              const dateCount = nonEmpty.filter(r => {
+                const v = r[h];
+                // Excel 날짜 시리얼 (숫자): 헤더명 힌트가 있을 때만 허용
+                if (typeof v === 'number' && v > 10000 && v < 100000) return hasDateHint;
+                // 문자열 날짜 패턴 (YYYY-MM-DD, YYYY/MM/DD, YYYYMMDD 등)
+                const s = String(v).trim();
+                return /^\d{4}[-\/\.]\d{1,2}[-\/\.]\d{1,2}/.test(s) || /^\d{8}$/.test(s);
+              }).length;
+              return dateCount / nonEmpty.length >= 0.7;
+            });
+
+            resolve({ headers, rows, sheetName, skipped, dateColumns, error: null });
+          } catch (err) {
+            resolve({ headers: [], rows: [], sheetName: '', skipped: 0, dateColumns: [], error: err.message });
+          }
+        };
+        reader.readAsArrayBuffer(file);
+      });
+    }
+
+    function getCommonHeaders() {
+      const valid = parsedData.filter(p => p && !p.error && p.headers.length > 0);
+      if (valid.length === 0) return [];
+      let common = valid[0].headers;
+      valid.forEach(p => {
+        common = common.filter(h => p.headers.includes(h));
+      });
+      return common;
+    }
+
+    function getAllHeaders() {
+      const all = new Set();
+      parsedData.forEach(p => { if (p && !p.error) p.headers.forEach(h => all.add(h)); });
+      return [...all];
+    }
+
+    function updateStats() {
+      const valid = parsedData.filter(p => p && !p.error);
+      const totalRows = valid.reduce((s, p) => s + p.rows.length, 0);
+      const commonCols = getCommonHeaders().length;
+      document.getElementById('statFiles').textContent = files.length;
+      document.getElementById('statRows').textContent = totalRows.toLocaleString();
+      document.getElementById('statCols').textContent = commonCols;
+    }
+
+    // 전체 병합 행 캐시 (체크박스 상태 유지용)
+    let allMergedRows = [];
+    let selectedRowIndices = new Set();
+
+    function refreshPreview() {
+      const addSource = document.getElementById('optAddSource').checked;
+      const removeEmpty = document.getElementById('optRemoveEmpty').checked;
+      const headers = getEffectiveHeaders();
+
+      allMergedRows = buildMerged(headers, addSource, removeEmpty);
+      selectedRowIndices = new Set(allMergedRows.map((_, i) => i)); // 기본: 전체 선택
+
+      const tableEl = document.getElementById('previewTable');
+      const selectBar = document.getElementById('selectAllBar');
+
+      if (headers.length === 0) {
+        tableEl.innerHTML = '<div class="empty-state">파일을 추가하면 미리보기가 표시됩니다</div>';
+        selectBar.style.display = 'none';
+        return;
+      }
+
+      selectBar.style.display = 'flex';
+      const displayHeaders = addSource ? ['__source__', ...headers] : headers;
+
+      let html = `<table><thead><tr><th class="cb-cell"><input type="checkbox" class="row-checkbox" id="checkAll" checked onclick="toggleSelectAll(this.checked)"></th>`
+        + displayHeaders.map(h => `<th>${getDisplayName(h)}</th>`).join('')
+        + '</tr></thead><tbody>';
+
+      allMergedRows.forEach((row, i) => {
+        html += `<tr class="selected" data-idx="${i}" onclick="toggleRowSelect(${i}, event)">
+      <td class="cb-cell"><input type="checkbox" class="row-checkbox" data-row="${i}" checked onclick="event.stopPropagation();toggleRowCheck(${i}, this.checked)"></td>`
+          + displayHeaders.map(h => {
+            let v = row[h] !== undefined ? row[h] : '';
+            if (v instanceof Date) v = formatDateKR(v);
+            return `<td>${v}</td>`;
+          }).join('')
+          + '</tr>';
+      });
+
+      html += '</tbody></table>';
+      tableEl.innerHTML = html;
+
+      // preview-scroll 높이를 전체 보이도록 확장
+      document.querySelector('.preview-scroll').style.maxHeight = '480px';
+
+      updateSelCount();
+      document.getElementById('previewBadge').textContent = `${allMergedRows.length.toLocaleString()}행 · ${displayHeaders.length}열`;
+    }
+
+    function toggleRowSelect(idx, e) {
+      if (e.target.type === 'checkbox') return;
+      toggleRowCheck(idx, !selectedRowIndices.has(idx));
+      const cb = document.querySelector(`input[data-row="${idx}"]`);
+      if (cb) cb.checked = selectedRowIndices.has(idx);
+    }
+
+    function toggleRowCheck(idx, checked) {
+      const tr = document.querySelector(`tr[data-idx="${idx}"]`);
+      if (checked) {
+        selectedRowIndices.add(idx);
+        if (tr) tr.classList.add('selected');
+      } else {
+        selectedRowIndices.delete(idx);
+        if (tr) tr.classList.remove('selected');
+      }
+      updateSelCount();
+      syncCheckAll();
+    }
+
+    function toggleSelectAll(checked) {
+      allMergedRows.forEach((_, i) => {
+        const tr = document.querySelector(`tr[data-idx="${i}"]`);
+        const cb = document.querySelector(`input[data-row="${i}"]`);
+        if (checked) {
+          selectedRowIndices.add(i);
+          tr?.classList.add('selected');
+        } else {
+          selectedRowIndices.delete(i);
+          tr?.classList.remove('selected');
+        }
+        if (cb) cb.checked = checked;
+      });
+      updateSelCount();
+    }
+
+    function syncCheckAll() {
+      const ca = document.getElementById('checkAll');
+      if (!ca) return;
+      if (selectedRowIndices.size === allMergedRows.length) ca.checked = true;
+      else if (selectedRowIndices.size === 0) ca.checked = false;
+      else { ca.checked = false; ca.indeterminate = true; return; }
+      ca.indeterminate = false;
+    }
+
+    function selectFiltered() {
+      // 현재 activeFilters 기준으로 해당 행만 선택
+      allMergedRows.forEach((row, i) => {
+        const match = activeFilters.length === 0 ? true : filterRow(row);
+        const tr = document.querySelector(`tr[data-idx="${i}"]`);
+        const cb = document.querySelector(`input[data-row="${i}"]`);
+        if (match) {
+          selectedRowIndices.add(i);
+          tr?.classList.add('selected');
+        } else {
+          selectedRowIndices.delete(i);
+          tr?.classList.remove('selected');
+        }
+        if (cb) cb.checked = match;
+      });
+      updateSelCount();
+      syncCheckAll();
+      log(`필터 기준 ${selectedRowIndices.size.toLocaleString()}행 선택됨`, 'ok');
+    }
+
+    function updateSelCount() {
+      const badge = document.getElementById('selCountBadge');
+      if (badge) badge.textContent = `${selectedRowIndices.size.toLocaleString()}행 선택`;
+    }
+
+    async function downloadSelected() {
+      const selectedRows = [...selectedRowIndices].sort((a, b) => a - b).map(i => allMergedRows[i]);
+      if (selectedRows.length === 0) { log('선택된 행이 없습니다', 'warn'); return; }
+
+      const onlyCommon = document.getElementById('optOnlyCommon').checked;
+      const addSource = document.getElementById('optAddSource').checked;
+      const headers = getEffectiveHeaders();
+      const displayHeaders = addSource ? ['__source__', ...headers] : headers;
+      const dateCols = new Set(getDateColumns());
+      const outputName = document.getElementById('optOutputName').value || 'merged_output';
+
+      const aoa = [
+        displayHeaders.map(h => getDisplayName(h)),
+        ...selectedRows.map(row => displayHeaders.map(h => row[h] !== undefined ? row[h] : ''))
+      ];
+
+      const wb = XLSX.utils.book_new();
+      const ws = XLSX.utils.aoa_to_sheet(aoa);
+
+      // 날짜 셀 서식
+      const DATE_FMT = 'YYYY-MM-DD';
+      const dateColIndices = new Set(displayHeaders.map((h, i) => dateCols.has(h) ? i : -1).filter(i => i >= 0));
+      if (dateColIndices.size > 0) {
+        const range = XLSX.utils.decode_range(ws['!ref']);
+        for (let R = 1; R <= range.e.r; R++) {
+          dateColIndices.forEach(C => {
+            const addr = XLSX.utils.encode_cell({ r: R, c: C });
+            const cell = ws[addr];
+            if (cell && cell.v instanceof Date) { cell.t = 'd'; cell.z = DATE_FMT; }
+            else if (cell && cell.v) {
+              const d = excelSerialToDate(cell.v);
+              if (d) { cell.v = d; cell.t = 'd'; cell.z = DATE_FMT; }
+            }
+          });
+        }
+      }
+
+      ws['!cols'] = displayHeaders.map(h => ({ wch: dateCols.has(h) ? 14 : Math.max(h.length + 2, 12) }));
+      XLSX.utils.book_append_sheet(wb, ws, '선택행');
+      XLSX.writeFile(wb, `${outputName}_선택${selectedRows.length}행.xlsx`);
+      log(`선택 행 ${selectedRows.length.toLocaleString()}개 다운로드 완료`, 'ok');
+    }
+
+    function getDateColumns() {
+      const first = parsedData.find(p => p && !p.error && p.dateColumns);
+      return first ? first.dateColumns : [];
+    }
+
+    function excelSerialToDate(v) {
+      if (typeof v === 'number' && v > 10000 && v < 100000) {
+        return new Date(Math.round((v - 25569) * 86400 * 1000));
+      }
+      const s = String(v).trim();
+      const m8 = s.match(/^(\d{4})(\d{2})(\d{2})$/);
+      if (m8) return new Date(`${m8[1]}-${m8[2]}-${m8[3]}`);
+      const d = new Date(s);
+      if (!isNaN(d) && d.getFullYear() > 1970) return d;
+      return null;
+    }
+
+    function formatDateKR(d) {
+      if (!d) return '';
+      return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+    }
+
+    function buildMergedRaw(headers, addSource, removeEmpty) {
+      const merged = [];
+      const dateCols = new Set(getDateColumns());
+      parsedData.forEach((p, i) => {
+        if (!p || p.error) return;
+        p.rows.forEach(row => {
+          if (removeEmpty && headers.every(h => row[h] === '' || row[h] === null || row[h] === undefined)) return;
+          const newRow = {};
+          if (addSource) newRow['__source__'] = files[i].name;
+          headers.forEach(h => {
+            let val = row[h] !== undefined ? row[h] : '';
+            if (dateCols.has(h) && val !== '') {
+              const d = excelSerialToDate(val);
+              if (d) val = d;
+            }
+            newRow[h] = val;
+          });
+          merged.push(newRow);
+        });
+      });
+      return merged;
+    }
+
+    function buildMerged(headers, addSource, removeEmpty) {
+      const all = buildMergedRaw(headers, addSource, removeEmpty);
+      if (activeFilters.length === 0) return all;
+      return all.filter(row => filterRow(row));
+    }
+
+    async function mergeAndDownload() {
+      const btn = document.getElementById('mergeBtn');
+      btn.disabled = true;
+      btn.textContent = '병합 중...';
+
+      const progressBar = document.getElementById('progressBar');
+      const progressFill = document.getElementById('progressFill');
+      progressBar.style.display = 'block';
+
+      const onlyCommon = document.getElementById('optOnlyCommon').checked;
+      const addSource = document.getElementById('optAddSource').checked;
+      const removeEmpty = document.getElementById('optRemoveEmpty').checked;
+      const outputName = document.getElementById('optOutputName').value || 'merged_output';
+
+      const headers = getEffectiveHeaders();
+
+      progressFill.style.width = '30%';
+      log('병합 시작...', 'info');
+
+      await new Promise(r => setTimeout(r, 80));
+      // 선택된 행만 사용 (전체 선택이면 그대로)
+      const allRows = buildMerged(headers, addSource, removeEmpty);
+      const merged = selectedRowIndices.size > 0 && selectedRowIndices.size < allRows.length
+        ? [...selectedRowIndices].sort((a, b) => a - b).map(i => allRows[i]).filter(Boolean)
+        : allRows;
+      progressFill.style.width = '70%';
+
+      const selNote = selectedRowIndices.size < allRows.length ? ` (${merged.length}행 선택)` : '';
+      log(`총 ${merged.length.toLocaleString()}행 · ${headers.length}열 병합 완료${selNote}`, 'ok');
+
+      await new Promise(r => setTimeout(r, 80));
+
+      const wb = XLSX.utils.book_new();
+
+      // merged에서 Date 객체를 셀로 직접 쓰기 위해 aoa 방식 사용
+      const displayHeaders = addSource ? ['__source__', ...headers] : headers;
+      const dateCols = new Set(getDateColumns());
+      const dateColIndices = new Set(
+        displayHeaders.map((h, i) => dateCols.has(h) ? i : -1).filter(i => i >= 0)
+      );
+
+      // 헤더 행 + 데이터 행 배열로 변환 (이름 변경된 헤더 반영)
+      const aoa = [
+        displayHeaders.map(h => getDisplayName(h)),
+        ...merged.map(row => displayHeaders.map(h => {
+          const v = row[h] !== undefined ? row[h] : '';
+          return v;
+        }))
+      ];
+
+      const ws = XLSX.utils.aoa_to_sheet(aoa);
+
+      // 날짜 열 셀 서식 적용 (YYYY-MM-DD)
+      const DATE_FMT = 'YYYY-MM-DD';
+      if (dateColIndices.size > 0) {
+        const range = XLSX.utils.decode_range(ws['!ref']);
+        for (let R = 1; R <= range.e.r; R++) { // 헤더 제외, 1행부터
+          dateColIndices.forEach(C => {
+            const cellAddr = XLSX.utils.encode_cell({ r: R, c: C });
+            const cell = ws[cellAddr];
+            if (cell && cell.v instanceof Date) {
+              cell.t = 'd';
+              cell.z = DATE_FMT;
+            } else if (cell && cell.v) {
+              // 문자열로 남아있는 경우도 Date 시도
+              const d = excelSerialToDate(cell.v);
+              if (d) {
+                cell.v = d;
+                cell.t = 'd';
+                cell.z = DATE_FMT;
+              }
+            }
+          });
+        }
+      }
+
+      // 열 너비 설정 (날짜 열은 조금 더 넓게)
+      const colWidths = displayHeaders.map(h => ({
+        wch: dateCols.has(h) ? 14 : Math.max(h.length + 2, 12)
+      }));
+      ws['!cols'] = colWidths;
+
+      XLSX.utils.book_append_sheet(wb, ws, '병합결과');
+
+      // Summary sheet
+      const summaryData = [
+        { '항목': '병합 파일 수', '값': files.length },
+        { '항목': '총 행 수', '값': merged.length },
+        { '항목': '열 수', '값': headers.length },
+        { '항목': '병합 일시', '값': new Date().toLocaleString('ko-KR') },
+        { '항목': '', '값': '' },
+        { '항목': '포함된 파일', '값': '' },
+        ...files.map((f, i) => ({
+          '항목': `  파일 ${i + 1}`,
+          '값': f.name
+        }))
+      ];
+      const ws2 = XLSX.utils.json_to_sheet(summaryData);
+      ws2['!cols'] = [{ wch: 20 }, { wch: 40 }];
+      XLSX.utils.book_append_sheet(wb, ws2, '병합정보');
+
+      progressFill.style.width = '100%';
+      XLSX.writeFile(wb, `${outputName}.xlsx`);
+      log(`"${outputName}.xlsx" 다운로드 완료! ✓`, 'ok');
+
+      await new Promise(r => setTimeout(r, 600));
+      progressBar.style.display = 'none';
+      progressFill.style.width = '0%';
+      btn.disabled = false;
+      btn.textContent = '⬇ 병합 다운로드';
+    }
+
+
+    // ── HEADER SELECTOR ────────────────────────────────────────────────────────
+
+    let selectedHeaders = null; // null = 전체 선택 상태
+    let headerRenames = {};     // { 원본헤더: 변경된이름 }
+
+    function toggleHeaderPanel() {
+      const body = document.getElementById('headerPanelBody');
+      const chevron = document.getElementById('headerChevron');
+      const hint = document.getElementById('headerHint');
+      const open = body.style.display !== 'none';
+      body.style.display = open ? 'none' : 'block';
+      chevron.classList.toggle('open', !open);
+      hint.textContent = open ? '클릭해서 펼치기' : '클릭해서 접기';
+      if (!open) renderHeaderChips();
+    }
+
+    function renderHeaderChips() {
+      const allH = getAllHeaders();
+      const grid = document.getElementById('headerChipsGrid');
+      if (!allH.length) {
+        grid.innerHTML = '<span style="font-size:12px;color:var(--muted)">파일을 추가하면 열 목록이 표시됩니다</span>';
+        return;
+      }
+
+      if (selectedHeaders === null) selectedHeaders = new Set(allH);
+
+      grid.innerHTML = allH.map(h => {
+        const sel = selectedHeaders.has(h);
+        const isDate = getDateColumns().includes(h);
+        const renamed = headerRenames[h];
+        const displayName = renamed ? renamed : h;
+        const encodedH = h.replace(/\\/g, '\\\\').replace(/'/g, "\\'");
+        return `<span class="header-chip ${sel ? 'selected' : ''} ${renamed ? 'renamed' : ''}"
+        data-key="${encodedH}"
+        onclick="toggleHeaderChip('${encodedH}')"
+        ondblclick="startHeaderRename(this, '${encodedH}')"
+        title="더블클릭으로 이름 변경">
+      <span class="chip-icon">${sel ? '✓' : '+'}</span>
+      <span class="chip-label">${displayName}</span>
+      ${renamed ? `<span class="chip-orig">(원본: ${h})</span>` : ''}
+      ${isDate ? '<span>📅</span>' : ''}
+    </span>`;
+      }).join('');
+
+      updateHeaderSelCount();
+    }
+
+    function startHeaderRename(chipEl, originalKey) {
+      // 이미 편집 중이면 무시
+      if (chipEl.querySelector('input')) return;
+
+      const labelEl = chipEl.querySelector('.chip-label');
+      const currentName = labelEl.textContent;
+
+      // 칩을 인라인 입력으로 교체
+      chipEl.style.padding = '3px 8px';
+      const input = document.createElement('input');
+      input.value = currentName;
+      input.className = 'chip-rename-input';
+      input.style.cssText = `
+    background: transparent; border: none; outline: none;
+    color: var(--accent); font-family: 'DM Mono', monospace;
+    font-size: 12px; width: ${Math.max(currentName.length * 8, 60)}px;
+    padding: 0; margin: 0;
+  `;
+
+      // 기존 내용 숨기고 input 삽입
+      chipEl.querySelectorAll(':not(input)').forEach(el => el.style.display = 'none');
+      chipEl.appendChild(input);
+      input.focus();
+      input.select();
+
+      function commit() {
+        const newName = input.value.trim();
+        if (newName && newName !== originalKey) {
+          headerRenames[originalKey] = newName;
+          log(`헤더 이름 변경: "${originalKey}" → "${newName}"`, 'ok');
+        } else if (!newName || newName === originalKey) {
+          delete headerRenames[originalKey];
+        }
+        renderHeaderChips();
+        updateRenamedBadge();
+      }
+
+      input.addEventListener('keydown', e => {
+        if (e.key === 'Enter') { e.preventDefault(); commit(); }
+        if (e.key === 'Escape') { renderHeaderChips(); } // 취소
+        e.stopPropagation();
+      });
+      input.addEventListener('blur', commit);
+      input.addEventListener('click', e => e.stopPropagation());
+    }
+
+    function updateRenamedBadge() {
+      const count = Object.keys(headerRenames).length;
+      const badge = document.getElementById('headerSelBadge');
+      // 이름 변경 수도 배지에 반영
+      updateHeaderSelCount();
+    }
+
+    function toggleHeaderChip(h) {
+      if (!selectedHeaders) selectedHeaders = new Set(getAllHeaders());
+      if (selectedHeaders.has(h)) selectedHeaders.delete(h);
+      else selectedHeaders.add(h);
+      renderHeaderChips();
+    }
+
+    function selectAllHeaders() {
+      selectedHeaders = new Set(getAllHeaders());
+      renderHeaderChips();
+    }
+
+    function deselectAllHeaders() {
+      selectedHeaders = new Set();
+      renderHeaderChips();
+    }
+
+    function updateHeaderSelCount() {
+      const all = getAllHeaders().length;
+      const sel = selectedHeaders ? selectedHeaders.size : all;
+      const renamedCount = Object.keys(headerRenames).length;
+      document.getElementById('headerSelCount').textContent =
+        `${sel} / ${all}개 선택${renamedCount > 0 ? ` · ${renamedCount}개 이름변경` : ''}`;
+      const badge = document.getElementById('headerSelBadge');
+      const hasChange = sel !== all || renamedCount > 0;
+      badge.textContent = !hasChange ? '전체' : `${sel}개 선택${renamedCount > 0 ? ` · ${renamedCount}개 변경` : ''}`;
+      badge.style.background = hasChange ? 'rgba(251,191,36,0.1)' : '';
+      badge.style.color = hasChange ? 'var(--warning)' : '';
+      badge.style.borderColor = hasChange ? 'rgba(251,191,36,0.2)' : '';
+    }
+
+    function applyHeaderSelection() {
+      refreshPreview();
+      const rCount = Object.keys(headerRenames).length;
+      log(`출력 헤더 ${selectedHeaders ? selectedHeaders.size : getAllHeaders().length}개 적용${rCount > 0 ? ` (${rCount}개 이름 변경 포함)` : ''}`, 'ok');
+    }
+
+    function getEffectiveHeaders() {
+      const onlyCommon = document.getElementById('optOnlyCommon').checked;
+      const base = onlyCommon ? getCommonHeaders() : getAllHeaders();
+      if (!selectedHeaders) return base;
+      return base.filter(h => selectedHeaders.has(h));
+    }
+
+    // 헤더 표시명 반환 (이름 변경된 경우 변경된 이름)
+    function getDisplayName(h) {
+      return headerRenames[h] || (h === '__source__' ? '원본파일' : h);
+    }
+
+    // ── DATE PANEL TOGGLE ──────────────────────────────────────────────────────
+
+    function toggleDatePanel() {
+      const body = document.getElementById('datePanelBody');
+      const chevron = document.getElementById('dateChevron');
+      const hint = document.getElementById('dateHint');
+      const open = body.style.display !== 'none';
+      body.style.display = open ? 'none' : 'block';
+      chevron.classList.toggle('open', !open);
+      hint.textContent = open ? '클릭해서 펼치기' : '클릭해서 접기';
+    }
+
+    // Auto-expand date panel when files are loaded
+    function autoExpandDatePanel() {
+      const body = document.getElementById('datePanelBody');
+      const chevron = document.getElementById('dateChevron');
+      const hint = document.getElementById('dateHint');
+      body.style.display = 'block';
+      chevron.classList.add('open');
+      hint.textContent = '클릭해서 접기';
+    }
+
+    // ── FILTER LOGIC ───────────────────────────────────────────────────────────
+
+    let filterConditions = [];   // [{ col, op, val }]
+    let filterLogic = 'AND';
+    let activeFilters = [];      // applied snapshot
+
+    function toggleFilterPanel() {
+      const body = document.getElementById('filterPanelBody');
+      const chevron = document.getElementById('filterChevron');
+      const hint = document.getElementById('filterHint');
+      const open = body.style.display !== 'none';
+      body.style.display = open ? 'none' : 'flex';
+      chevron.classList.toggle('open', !open);
+      hint.textContent = open ? '클릭해서 펼치기' : '클릭해서 접기';
+      if (!open) refreshFilterColOptions();
+    }
+
+    function setLogic(l) {
+      filterLogic = l;
+      document.getElementById('logicAnd').classList.toggle('active', l === 'AND');
+      document.getElementById('logicOr').classList.toggle('active', l === 'OR');
+    }
+
+    const OPERATORS = [
+      { v: 'contains', label: '포함' },
+      { v: 'not_contains', label: '미포함' },
+      { v: 'eq', label: '=' },
+      { v: 'neq', label: '≠' },
+      { v: 'gt', label: '>' },
+      { v: 'gte', label: '>=' },
+      { v: 'lt', label: '<' },
+      { v: 'lte', label: '<=' },
+      { v: 'starts', label: '시작' },
+      { v: 'ends', label: '끝' },
+      { v: 'empty', label: '비어있음' },
+      { v: 'not_empty', label: '비어있지않음' },
+    ];
+
+    function refreshFilterColOptions() {
+      const headers = getAllHeaders();
+      document.querySelectorAll('.filter-col-select').forEach(sel => {
+        const cur = sel.value;
+        sel.innerHTML = headers.map(h => `<option value="${h}"${h === cur ? ' selected' : ''}>${h}</option>`).join('');
+      });
+    }
+
+    let filterIdCounter = 0;
+
+    function addFilterRow(col = '', op = 'contains', val = '') {
+      const headers = getAllHeaders();
+      if (headers.length === 0) return;
+      const id = ++filterIdCounter;
+      const colOpts = headers.map(h => `<option value="${h}"${h === col ? ' selected' : ''}>${h}</option>`).join('');
+      const opOpts = OPERATORS.map(o => `<option value="${o.v}"${o.v === op ? ' selected' : ''}>${o.label}</option>`).join('');
+      const needsVal = !['empty', 'not_empty'].includes(op);
+
+      const div = document.createElement('div');
+      div.className = 'filter-row';
+      div.id = `fr-${id}`;
+      div.innerHTML = `
+    <select class="filter-col-select" id="fc-${id}" onchange="updateFilterRowOp(${id})">${colOpts}</select>
+    <select class="filter-select" id="fo-${id}" onchange="updateFilterRowOp(${id})">${opOpts}</select>
+    <input class="filter-input" id="fv-${id}" type="text" value="${val}" placeholder="값 입력..."
+      style="display:${needsVal ? 'block' : 'none'}" onkeydown="if(event.key==='Enter') applyFilters()">
+    <button class="filter-del-btn" onclick="removeFilterRow(${id})">✕</button>`;
+      document.getElementById('filterRows').appendChild(div);
+    }
+
+    function updateFilterRowOp(id) {
+      const op = document.getElementById(`fo-${id}`).value;
+      const valEl = document.getElementById(`fv-${id}`);
+      valEl.style.display = ['empty', 'not_empty'].includes(op) ? 'none' : 'block';
+    }
+
+    function removeFilterRow(id) {
+      const el = document.getElementById(`fr-${id}`);
+      if (el) el.remove();
+    }
+
+    function gatherFilterRows() {
+      const rows = document.getElementById('filterRows').children;
+      const result = [];
+      for (const row of rows) {
+        const id = row.id.replace('fr-', '');
+        const col = document.getElementById(`fc-${id}`)?.value;
+        const op = document.getElementById(`fo-${id}`)?.value;
+        const val = document.getElementById(`fv-${id}`)?.value ?? '';
+        if (col) result.push({ col, op, val });
+      }
+      return result;
+    }
+
+    function testRow(row, cond) {
+      const { col, op, val } = cond;
+      let cellVal = row[col];
+      // Date 객체면 문자열로
+      if (cellVal instanceof Date) cellVal = formatDateKR(cellVal);
+      const cell = String(cellVal ?? '').toLowerCase().trim();
+      const v = val.toLowerCase().trim();
+      const num = parseFloat(cell);
+      const vNum = parseFloat(v);
+
+      switch (op) {
+        case 'contains': return cell.includes(v);
+        case 'not_contains': return !cell.includes(v);
+        case 'eq': return cell === v || (!isNaN(num) && !isNaN(vNum) && num === vNum);
+        case 'neq': return cell !== v;
+        case 'gt': return !isNaN(num) && !isNaN(vNum) && num > vNum;
+        case 'gte': return !isNaN(num) && !isNaN(vNum) && num >= vNum;
+        case 'lt': return !isNaN(num) && !isNaN(vNum) && num < vNum;
+        case 'lte': return !isNaN(num) && !isNaN(vNum) && num <= vNum;
+        case 'starts': return cell.startsWith(v);
+        case 'ends': return cell.endsWith(v);
+        case 'empty': return cell === '';
+        case 'not_empty': return cell !== '';
+        default: return true;
+      }
+    }
+
+    function applyFilters() {
+      activeFilters = gatherFilterRows();
+      const badge = document.getElementById('filterSummaryBadge');
+      const hint = document.getElementById('filterResultCount');
+
+      if (activeFilters.length === 0) {
+        badge.style.display = 'none';
+        hint.textContent = '';
+        refreshPreview();
+        updateStats();
+        return;
+      }
+
+      // Count matching rows
+      const headers = document.getElementById('optOnlyCommon').checked ? getCommonHeaders() : getAllHeaders();
+      const addSource = document.getElementById('optAddSource').checked;
+      const removeEmpty = document.getElementById('optRemoveEmpty').checked;
+      const all = buildMergedRaw(headers, addSource, removeEmpty);
+      const filtered = all.filter(row => filterRow(row));
+
+      badge.style.display = 'inline';
+      badge.textContent = `필터 ${activeFilters.length}개 적용`;
+      hint.textContent = `${filtered.length.toLocaleString()} / ${all.length.toLocaleString()} 행`;
+
+      log(`필터 적용: ${filtered.length.toLocaleString()}행 선택됨 (전체 ${all.length.toLocaleString()}행)`, 'ok');
+      refreshPreview();
+      updateStats();
+    }
+
+    function filterRow(row) {
+      if (activeFilters.length === 0) return true;
+      if (filterLogic === 'AND') return activeFilters.every(c => testRow(row, c));
+      return activeFilters.some(c => testRow(row, c));
+    }
+
+    function clearFilters() {
+      activeFilters = [];
+      document.getElementById('filterRows').innerHTML = '';
+      document.getElementById('filterSummaryBadge').style.display = 'none';
+      document.getElementById('filterResultCount').textContent = '';
+      filterIdCounter = 0;
+      log('필터 초기화됨', 'warn');
+      refreshPreview();
+      updateStats();
+    }
+
+    // ── DATE ANALYSIS ──────────────────────────────────────────────────────────
+
+    let selectedDateCol = null;
+
+    const DATE_KEYWORDS = ['date', '날짜', '일자', '일시', '시간', 'time', 'dt', 'ymd', 'yyyymmdd', '년월일', '작업일', '가동일', '발생일', '등록일', '처리일'];
+
+    function isDateLike(header) {
+      const h = header.toLowerCase().replace(/[\s_\-]/g, '');
+      return DATE_KEYWORDS.some(k => h.includes(k));
+    }
+
+    function normalizeDate(val) {
+      if (val === null || val === undefined || val === '') return null;
+
+      // Excel numeric date serial
+      if (typeof val === 'number' && val > 1 && val < 100000) {
+        try {
+          const d = new Date(Math.round((val - 25569) * 86400 * 1000));
+          if (!isNaN(d)) return d;
+        } catch (e) { }
+      }
+
+      const s = String(val).trim();
+      if (!s) return null;
+
+      // Try direct parse first
+      const direct = new Date(s);
+      if (!isNaN(direct) && direct.getFullYear() > 1970 && direct.getFullYear() < 2100) return direct;
+
+      // YYYYMMDD pattern
+      const yyyymmdd = s.match(/^(\d{4})(\d{2})(\d{2})$/);
+      if (yyyymmdd) return new Date(`${yyyymmdd[1]}-${yyyymmdd[2]}-${yyyymmdd[3]}`);
+
+      // YY/MM/DD or YY-MM-DD
+      const ymd = s.match(/^(\d{2,4})[\/\-\.](\d{1,2})[\/\-\.](\d{1,2})/);
+      if (ymd) {
+        const y = ymd[1].length === 2 ? '20' + ymd[1] : ymd[1];
+        const d = new Date(`${y}-${ymd[2].padStart(2, '0')}-${ymd[3].padStart(2, '0')}`);
+        if (!isNaN(d)) return d;
+      }
+
+      return null;
+    }
+
+    function toDateKey(d) {
+      return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+    }
+
+    function renderDateColChips() {
+      const allHeaders = getAllHeaders();
+      const chipsEl = document.getElementById('dateColChips');
+
+      if (allHeaders.length === 0) {
+        chipsEl.innerHTML = '<span style="font-size:12px;color:var(--muted)">파일을 추가하면 열 목록이 표시됩니다</span>';
+        return;
+      }
+
+      // Auto-detect
+      const autoDetected = allHeaders.find(isDateLike);
+      if (autoDetected && selectedDateCol === null) {
+        selectedDateCol = autoDetected;
+        document.getElementById('dateDetectedBadge').style.display = 'inline';
+      }
+
+      chipsEl.innerHTML = allHeaders.map(h => {
+        const isDate = isDateLike(h);
+        const isSelected = h === selectedDateCol;
+        return `<span class="col-chip ${isSelected ? 'selected' : ''}" onclick="selectDateCol('${h.replace(/'/g, "\\'")}')">
+      <span class="chip-dot"></span>${h}${isDate ? ' 📅' : ''}
+    </span>`;
+      }).join('');
+
+      if (selectedDateCol) runDateAnalysis();
+    }
+
+    function selectDateCol(col) {
+      selectedDateCol = col;
+      document.getElementById('dateDetectedBadge').style.display = 'none';
+      renderDateColChips();
+      runDateAnalysis();
+    }
+
+    function runDateAnalysis() {
+      if (!selectedDateCol) return;
+
+      const resultArea = document.getElementById('dateResultArea');
+
+      const allDates = new Set();
+      // byYearMonth: { year: { month: Set of day strings } }
+      const byYearMonth = {};
+      let parseErrors = 0;
+      let totalValues = 0;
+
+      parsedData.forEach(p => {
+        if (!p || p.error) return;
+        p.rows.forEach(row => {
+          const val = row[selectedDateCol];
+          if (val === '' || val === null || val === undefined) return;
+          totalValues++;
+          const d = normalizeDate(val);
+          if (d) {
+            const dk = toDateKey(d);
+            allDates.add(dk);
+            const y = String(d.getFullYear());
+            const m = String(d.getMonth() + 1).padStart(2, '0');
+            const day = String(d.getDate()).padStart(2, '0');
+            if (!byYearMonth[y]) byYearMonth[y] = {};
+            if (!byYearMonth[y][m]) byYearMonth[y][m] = new Set();
+            byYearMonth[y][m].add(day);
+          } else {
+            parseErrors++;
+          }
+        });
+      });
+
+      if (totalValues === 0) {
+        resultArea.innerHTML = `<div class="date-empty">선택한 열 "<strong>${selectedDateCol}</strong>"에 데이터가 없습니다</div>`;
+        return;
+      }
+
+      const years = Object.keys(byYearMonth).sort();
+      const totalUnique = allDates.size;
+      const MONTHS_KR = ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'];
+
+      let html = `
+  <div class="date-summary-cards">
+    <div class="summary-card summary-card-main">
+      <div class="summary-card-val">${totalUnique}</div>
+      <div class="summary-card-lbl">전체 고유 가동일 수</div>
+    </div>
+    <div class="summary-card" style="border-color:rgba(100,116,139,0.3)">
+      <div class="summary-card-val" style="font-size:14px;color:var(--muted)">${years.length}개 연도</div>
+      <div class="summary-card-lbl">분석 연도 수</div>
+    </div>
+    <div class="summary-card" style="border-color:rgba(100,116,139,0.3)">
+      <div class="summary-card-val" style="font-size:14px;color:${parseErrors > 0 ? 'var(--warning)' : 'var(--muted)'}">${parseErrors > 0 ? parseErrors + '건' : '없음'}</div>
+      <div class="summary-card-lbl">날짜 파싱 실패</div>
+    </div>
+  </div>
+  <div class="date-results" id="yearBlocksContainer">`;
+
+      years.forEach(y => {
+        const monthsData = byYearMonth[y];
+        const yearTotal = [...Object.values(monthsData)].reduce((s, set) => s + set.size, 0);
+        const maxMonthDays = Math.max(...Object.values(monthsData).map(s => s.size), 1);
+
+        html += `
+    <div class="year-block" id="yblock-${y}">
+      <div class="year-header" onclick="toggleYear('y${y}')">
+        <div class="year-title">📆 ${y}년</div>
+        <div style="display:flex;align-items:center;gap:16px">
+          <div style="text-align:right">
+            <div class="year-days">${yearTotal}</div>
+            <div class="year-days-label">가동일</div>
+          </div>
+          <div style="display:flex;gap:8px;align-items:center">
+            <button class="btn btn-outline" style="font-size:10px;padding:4px 10px;border-radius:6px;color:var(--accent2);border-color:rgba(34,211,238,0.3)" onclick="event.stopPropagation();exportYearPDF('${y}')">📄 PDF</button>
+            <button class="btn btn-outline" style="font-size:10px;padding:4px 10px;border-radius:6px" onclick="event.stopPropagation();exportYearPNG('${y}')">🖼 PNG</button>
+            <span class="year-chevron open" id="chevron-y${y}">▼</span>
+          </div>
+        </div>
+      </div>
+      <div class="year-body" id="body-y${y}">
+        <div class="month-grid">`;
+
+        for (let m = 1; m <= 12; m++) {
+          const mk = String(m).padStart(2, '0');
+          const daySet = monthsData[mk] || new Set();
+          const count = daySet.size;
+          const sortedDays = [...daySet].sort((a, b) => Number(a) - Number(b));
+          const barPct = count > 0 ? Math.round((count / maxMonthDays) * 100) : 0;
+          // Build day tags
+          const dayTags = sortedDays.map(d => `<span class="day-tag">${Number(d)}일</span>`).join('');
+
+          html += `
+          <div class="month-cell ${count > 0 ? 'has-data' : ''}">
+            <div class="month-name">${MONTHS_KR[m - 1]}</div>
+            <div class="month-count ${count > 0 ? 'has-data' : 'no-data'}">${count > 0 ? count + '일' : '─'}</div>
+            <div class="month-bar"><div class="month-bar-fill" style="width:${barPct}%"></div></div>
+            ${count > 0 ? `<div class="day-tags">${dayTags}</div>` : ''}
+          </div>`;
+        }
+
+        html += `</div></div></div>`;
+      });
+
+      html += `</div>`;
+      if (parseErrors > 0) {
+        html += `<div style="font-size:11px;color:var(--warning);font-family:'DM Mono',monospace;padding:4px 0">⚠ ${parseErrors}개 값을 날짜로 인식하지 못했습니다.</div>`;
+      }
+
+      resultArea.innerHTML = html;
+    }
+
+    function toggleYear(id) {
+      const body = document.getElementById('body-' + id);
+      const chevron = document.getElementById('chevron-' + id);
+      if (body.style.display === 'none') {
+        body.style.display = 'block';
+        chevron.classList.add('open');
+      } else {
+        body.style.display = 'none';
+        chevron.classList.remove('open');
+      }
+    }
+
+    // ── EXPORT: build clean white-bg HTML for a given year ────────────────────
+
+    function buildExportHTML(year) {
+      // Collect data for this year
+      const byMonth = {};
+      parsedData.forEach(p => {
+        if (!p || p.error) return;
+        p.rows.forEach(row => {
+          const val = row[selectedDateCol];
+          if (!val && val !== 0) return;
+          const d = normalizeDate(val);
+          if (!d || String(d.getFullYear()) !== year) return;
+          const m = String(d.getMonth() + 1).padStart(2, '0');
+          const day = String(d.getDate()).padStart(2, '0');
+          if (!byMonth[m]) byMonth[m] = new Set();
+          byMonth[m].add(day);
+        });
+      });
+
+      const yearTotal = [...Object.values(byMonth)].reduce((s, set) => s + set.size, 0);
+      const MONTHS_KR = ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'];
+
+      let monthCards = '';
+      for (let m = 1; m <= 12; m++) {
+        const mk = String(m).padStart(2, '0');
+        const daySet = byMonth[mk] || new Set();
+        const count = daySet.size;
+        const sortedDays = [...daySet].sort((a, b) => Number(a) - Number(b));
+        const daySpans = sortedDays.map(d => `<span class="day-tag">${Number(d)}일</span>`).join('');
+        monthCards += `
+      <div class="month-card ${count > 0 ? 'active' : 'inactive'}">
+        <div class="month-name">${MONTHS_KR[m - 1]}</div>
+        <div class="month-count">${count > 0 ? count + '일' : '─'}</div>
+        <div class="month-divider ${count > 0 ? 'active' : ''}"></div>
+        ${count > 0 ? `<div class="day-wrap">${daySpans}</div>` : ''}
+      </div>`;
+      }
+
+      return `<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&family=DM+Mono:wght@400;500&display=swap');
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: #fff; color: #111; font-family: 'Noto Sans KR', sans-serif; padding: 32px; }
+  .report-header {
+    display: flex; justify-content: space-between; align-items: flex-end;
+    padding-bottom: 16px; border-bottom: 2px solid #111; margin-bottom: 24px;
+  }
+  .report-title { font-size: 22px; font-weight: 700; }
+  .report-subtitle { font-size: 13px; color: #555; margin-top: 4px; }
+  .report-stat { text-align: right; }
+  .report-stat-val { font-family: 'DM Mono', monospace; font-size: 36px; font-weight: 500; line-height:1; }
+  .report-stat-lbl { font-size: 12px; color: #555; margin-top:3px; }
+  .month-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+  .month-card {
+    border: 1px solid #ddd; border-radius: 8px; padding: 14px;
+  }
+  .month-card.active { border-color: #111; }
+  .month-card.inactive { opacity: 0.4; }
+  .month-name { font-size: 12px; color: #555; margin-bottom: 4px; }
+  .month-count { font-family: 'DM Mono', monospace; font-size: 22px; font-weight: 500; }
+  .month-divider { height: 2px; background: #ddd; margin: 8px 0; border-radius: 1px; }
+  .month-divider.active { background: #111; }
+  .day-wrap { display: flex; flex-wrap: wrap; gap: 3px; margin-top: 6px; }
+  .day-tag {
+    font-family: 'DM Mono', monospace; font-size: 10px;
+    background: #f3f3f3; border: 1px solid #ddd;
+    padding: 2px 5px; border-radius: 3px; color: #333;
+  }
+  .report-footer { margin-top: 24px; font-size: 11px; color: #aaa; border-top: 1px solid #eee; padding-top: 12px; }
+</style>
+</head>
+<body>
+  <div class="report-header">
+    <div>
+      <div class="report-title">📅 ${year}년 가동일 현황</div>
+      <div class="report-subtitle">날짜 열: ${selectedDateCol} &nbsp;·&nbsp; 출력일: ${new Date().toLocaleDateString('ko-KR')}</div>
+    </div>
+    <div class="report-stat">
+      <div class="report-stat-val">${yearTotal}</div>
+      <div class="report-stat-lbl">가동일</div>
+    </div>
+  </div>
+  <div class="month-grid">${monthCards}</div>
+  <div class="report-footer">Excel Merger · 자동 생성 보고서</div>
+</body>
+</html>`;
+    }
+
+    // ── PDF EXPORT ─────────────────────────────────────────────────────────────
+    function exportYearPDF(year) {
+      const html = buildExportHTML(year);
+      const win = window.open('', '_blank');
+      win.document.write(html);
+      win.document.close();
+      win.onload = () => {
+        setTimeout(() => {
+          win.print(); // browser print dialog → "PDF로 저장" 선택
+          log(`${year}년 PDF 인쇄 창 열림 (인쇄 대화상자에서 "PDF로 저장" 선택)`, 'ok');
+        }, 600);
+      };
+    }
+
+    // ── PNG EXPORT (high-res white bg) ─────────────────────────────────────────
+    async function exportYearPNG(year) {
+      const html = buildExportHTML(year);
+
+      // Render in hidden iframe to get proper layout
+      const iframe = document.createElement('iframe');
+      iframe.style.cssText = 'position:fixed;left:-9999px;top:0;width:1200px;height:2000px;border:none;';
+      document.body.appendChild(iframe);
+
+      await new Promise(resolve => {
+        iframe.onload = resolve;
+        iframe.srcdoc = html;
+      });
+
+      // Wait for fonts
+      await new Promise(r => setTimeout(r, 800));
+
+      const iframeDoc = iframe.contentDocument;
+      const bodyEl = iframeDoc.body;
+      const h = bodyEl.scrollHeight + 40;
+      iframe.style.height = h + 'px';
+      await new Promise(r => setTimeout(r, 100));
+
+      try {
+        const canvas = await html2canvas(bodyEl, {
+          backgroundColor: '#ffffff',
+          scale: 3,
+          useCORS: true,
+          logging: false,
+          width: 1200,
+          height: h,
+          windowWidth: 1200,
+        });
+        const link = document.createElement('a');
+        link.download = `가동일_${year}년.png`;
+        link.href = canvas.toDataURL('image/png');
+        link.click();
+        log(`${year}년 PNG 저장 완료 (3x 고해상도, 흰 배경)`, 'ok');
+      } catch (e) {
+        log('PNG 저장 실패: ' + e.message, 'err');
+      }
+
+      document.body.removeChild(iframe);
+    }
+
+
+
+    // Hook into parseAll completion
+    const _origParseAll = parseAll;
+    parseAll = async function () {
+      await _origParseAll.apply(this, arguments);
+      selectedHeaders = null;
+      headerRenames = {};
+      renderHeaderChips();
+      updateHeaderSelCount();
+      refreshFilterColOptions();
+      selectedDateCol = null;
+      renderDateColChips();
+      autoExpandDatePanel();
+    };
+
+    document.getElementById('optSheetIndex').addEventListener('change', () => {
+      selectedDateCol = null;
+    });
+
+
+
+    // Live preview updates
+    ['optAddSource', 'optRemoveEmpty', 'optOnlyCommon'].forEach(id => {
+      document.getElementById(id).addEventListener('change', () => { updateStats(); refreshPreview(); });
+    });
+  </script>
+</body>
+
+</html>

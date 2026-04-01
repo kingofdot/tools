@@ -22,6 +22,10 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Generate tool catalog
+        shell: pwsh
+        run: ./scripts/build-tool-catalog.ps1
+
       - name: Setup Pages
         uses: actions/configure-pages@v5
 

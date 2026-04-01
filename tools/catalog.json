@@ -1,0 +1,23 @@
+﻿[
+    {
+        "slug":  "document-builder",
+        "name":  "Document Builder v3",
+        "tag":  "Document",
+        "description":  "문서 작성과 구조 편집에 초점을 둔 독립형 HTML 툴",
+        "path":  "./tools/document-builder/"
+    },
+    {
+        "slug":  "item-builder",
+        "name":  "Item Builder",
+        "tag":  "Item",
+        "description":  "아이템 데이터와 정의를 편집하는 포지형 HTML 툴",
+        "path":  "./tools/item-builder/"
+    },
+    {
+        "slug":  "magic-builder",
+        "name":  "Magic Builder",
+        "tag":  "Magic",
+        "description":  "스킬과 마법 계열 정의를 다루는 포지형 HTML 툴",
+        "path":  "./tools/magic-builder/"
+    }
+]
