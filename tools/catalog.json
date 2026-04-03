@@ -21,6 +21,13 @@
         "path":  "./tools/item-builder/"
     },
     {
+        "slug":  "law-api-browser",
+        "name":  "Law Open API Browser",
+        "tag":  "Law API",
+        "description":  "국가법령정보 OPEN API 요청 URL을 만들고 JSON, XML, HTML 응답을 확인하는 독립형 HTML 도구",
+        "path":  "./tools/law-api-browser/"
+    },
+    {
         "slug":  "magic-builder",
         "name":  "Magic Builder",
         "tag":  "Magic",

@@ -1503,20 +1503,46 @@
     }
 
     /* ── 조문 ── */
+    /* ── ① ② ... → 제1항 제2항 ... ── */
+    function hangToLabel(symbol) {
+      const circled = '①②③④⑤⑥⑦⑧⑨⑩⑪⑫⑬⑭⑮⑯⑰⑱⑲⑳';
+      const idx = circled.indexOf(symbol);
+      return idx >= 0 ? `제${idx + 1}항` : symbol;
+    }
+
+    /* ── 항/호/목 재귀 평탄화 ── */
+    function flattenHang(항, depth) {
+      const rows = [];
+      const text = (항['항내용'] || 항['호내용'] || 항['목내용'] || '').trim();
+      if (text) rows.push({ text, depth, bold: false });
+      for (const 호 of (항['호'] || [])) {
+        rows.push(...flattenHang(호, depth + 1));
+      }
+      for (const 목 of (항['목'] || [])) {
+        rows.push(...flattenHang(목, depth + 1));
+      }
+      return rows;
+    }
+
+    /* ── 조문 → 조 단위 하나의 섹션 ── */
     function articleExport(a) {
       const num    = a['조문번호']     || '';
       const branch = a['조문가지번호'] || '';
       const title  = a['조문제목']     || '';
       const ref    = num ? `제${num}${branch ? `의${branch}` : ''}조` : '';
-      const line1  = `${lawTitle} [${ref}]`;
-      const rows   = (String(a['조문내용'] || '').trim())
-        .split('\n').map(l => l.trim()).filter(Boolean)
-        .map(text => ({ text, depth: 0, bold: false }));
-      return { line1, line2: title, dateStr: '', rows };
+      const dateStr = fmtDate(a['조문시행일자'] || '');
+      const line1  = `${lawTitle} ${ref}`;
+      const 항목록 = Array.isArray(a['항']) ? a['항'] : [];
+      const rows = 항목록.length
+        ? 항목록.flatMap(항 => flattenHang(항, 0))
+        : (String(a['조문내용'] || '').trim())
+            .split('\n').map(l => l.trim()).filter(Boolean)
+            .map(text => ({ text, depth: 0, bold: false }));
+      return [{ line1, line2: title, dateStr, rows }];
     }
 
     const allSelected = [
-      ...selArticles.map(articleExport),
+      ...selArticles.flatMap(articleExport),
       ...selAppendices.map(appendixExport)
     ].filter(s => s.rows.length > 0);
 
