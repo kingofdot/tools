@@ -45,6 +45,21 @@ var ITEM_DEFS = [
     stackable: false,
     maxStack: 1,
   },
+  {
+    id: 'git_hub',
+    name: '깃허브의 축복',
+    slot: 'weapon',
+    type: 'equip',
+    rarity: 'normal',
+    material: null,
+    safeEnchant: 0,
+    desc: '',
+    effects: [
+    ],
+    specialEffect: null,
+    stackable: false,
+    maxStack: 1,
+  }
 ];
 
 var ITEM_RARITY_COLOR = {
