@@ -13,26 +13,26 @@
     rel="stylesheet">
   <style>
     :root {
-      --bg: #0a0b0f;
-      --bg2: #10121a;
-      --bg3: #181c28;
-      --border: #2a2f45;
-      --border2: #3a4060;
-      --accent: #c8a45a;
-      --accent2: #e8c87a;
-      --accent-dim: #7a6235;
-      --text: #d4d8e8;
-      --text-dim: #6a7090;
-      --text-muted: #3a4060;
+      --bg: #f5f6fa;
+      --bg2: #ffffff;
+      --bg3: #eef0f6;
+      --border: #d0d4e4;
+      --border2: #b0b8d0;
+      --accent: #a07828;
+      --accent2: #7a5a10;
+      --accent-dim: #c8a45a;
+      --text: #1a1e2e;
+      --text-dim: #4a5070;
+      --text-muted: #9098b8;
       --danger: #c84a4a;
-      --success: #4ac88a;
-      --magic: #5a8ac8;
-      --rare: #4ac8c8;
-      --epic: #a04ac8;
-      --legend: #c87a2a;
-      --normal: #888;
-      --glow: 0 0 20px rgba(200, 164, 90, 0.15);
-      --glow2: 0 0 40px rgba(200, 164, 90, 0.25);
+      --success: #2a8a5a;
+      --magic: #3a6ab0;
+      --rare: #1a9898;
+      --epic: #8030b0;
+      --legend: #b06010;
+      --normal: #555;
+      --glow: 0 0 20px rgba(160, 120, 40, 0.10);
+      --glow2: 0 0 40px rgba(160, 120, 40, 0.18);
       --radius: 6px;
       --font-title: 'Cinzel', serif;
       --font-body: 'Noto Sans KR', sans-serif;
@@ -54,7 +54,8 @@
       background: var(--bg);
       color: var(--text);
       font-family: var(--font-body);
-      font-size: 13px;
+      font-size: 15px;
+      font-weight: 500;
       min-height: 100vh;
       overflow-x: hidden;
     }
@@ -65,8 +66,8 @@
       position: fixed;
       inset: 0;
       background:
-        radial-gradient(ellipse 60% 40% at 20% 20%, rgba(200, 164, 90, 0.04) 0%, transparent 70%),
-        radial-gradient(ellipse 50% 60% at 80% 80%, rgba(90, 138, 200, 0.04) 0%, transparent 70%);
+        radial-gradient(ellipse 60% 40% at 20% 20%, rgba(160, 120, 40, 0.05) 0%, transparent 70%),
+        radial-gradient(ellipse 50% 60% at 80% 80%, rgba(58, 106, 176, 0.04) 0%, transparent 70%);
       pointer-events: none;
       z-index: 0;
     }
@@ -82,7 +83,7 @@
 
     /* === HEADER === */
     header {
-      background: linear-gradient(180deg, #14172a 0%, var(--bg2) 100%);
+      background: linear-gradient(180deg, #e8eaf4 0%, var(--bg2) 100%);
       border-bottom: 1px solid var(--border);
       padding: 0 24px;
       display: flex;
@@ -90,7 +91,7 @@
       gap: 20px;
       height: 56px;
       flex-shrink: 0;
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
     }
 
     .logo {
@@ -99,7 +100,7 @@
       font-weight: 700;
       color: var(--accent2);
       letter-spacing: 3px;
-      text-shadow: 0 0 20px rgba(200, 164, 90, 0.5);
+      text-shadow: 0 1px 3px rgba(120, 90, 20, 0.2);
       white-space: nowrap;
     }
 
@@ -790,7 +791,8 @@
     pre.output-code {
       padding: 16px;
       font-family: var(--font-mono);
-      font-size: 11px;
+      font-size: 13px;
+      font-weight: 500;
       line-height: 1.7;
       color: var(--text);
       white-space: pre;
@@ -839,10 +841,11 @@
     /* === ITEM PREVIEW CARD === */
     .preview-card {
       margin: 16px;
-      background: linear-gradient(145deg, #14172a, #0e1020);
+      background: linear-gradient(145deg, #f0f2fa, #e8eaf4);
       border-radius: 8px;
+      border: 1px solid var(--border);
       overflow: hidden;
-      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5), var(--glow);
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08), var(--glow);
     }
 
     .preview-card-header {
@@ -855,7 +858,7 @@
       content: '';
       position: absolute;
       inset: 0;
-      background: linear-gradient(135deg, rgba(200, 164, 90, 0.08), transparent);
+      background: linear-gradient(135deg, rgba(160, 120, 40, 0.06), transparent);
       pointer-events: none;
     }
 
@@ -972,6 +975,129 @@
     .drag-over {
       border-top: 2px solid var(--accent) !important;
     }
+
+    /* === MOBILE TAB BAR === */
+    .mobile-tabbar {
+      display: none;
+    }
+
+    /* === MOBILE RESPONSIVE === */
+    @media (max-width: 768px) {
+
+      /* Header */
+      header {
+        height: 50px;
+        padding: 0 12px;
+        gap: 8px;
+      }
+      .logo span { display: none; }
+      .logo { font-size: 15px; }
+      #saveStatus,
+      #btnToggleOutput,
+      #btnResetData,
+      #btnExport,
+      #btnImport,
+      #btnGhSettings { display: none; }
+      .header-sep { display: none; }
+      /* 헤더에 GH 저장/불러오기 아이콘만 표시 */
+      #btnGhLoad, #btnGhSave {
+        padding: 6px 8px;
+        font-size: 0; /* 텍스트 숨기고 아이콘만 */
+        gap: 0;
+      }
+      #btnGhLoad svg, #btnGhSave svg { width: 18px; height: 18px; }
+
+      /* Main layout: 패널 겹쳐 쌓기 */
+      .main {
+        position: relative;
+        overflow: hidden;
+      }
+
+      .sidebar {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        z-index: 10;
+        display: none;
+      }
+      .sidebar.mob-active { display: flex; }
+
+      .editor-area {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        z-index: 10;
+        display: none;
+      }
+      .editor-area.mob-active { display: flex; }
+
+      .output-panel {
+        position: absolute !important;
+        inset: 0;
+        width: 100% !important;
+        z-index: 10;
+        display: none !important;
+      }
+      .output-panel.mob-active { display: flex !important; }
+      .output-panel.collapsed { display: none !important; }
+
+      /* 폼 — 모바일에서 1열 */
+      .editor-content { padding: 14px; }
+      .field-row, .field-row-3 { grid-template-columns: 1fr; }
+      .form-grid { grid-template-columns: 1fr; }
+
+      /* 입력 크기 — iOS 자동확대 방지 */
+      input[type="text"],
+      input[type="number"],
+      textarea,
+      select {
+        font-size: 16px;
+        padding: 10px 12px;
+      }
+
+      /* 터치 타겟 */
+      .btn { min-height: 42px; padding: 9px 14px; font-size: 13px; }
+      .item-entry { padding: 14px 16px; }
+      .item-entry-name { font-size: 15px; }
+      .item-entry-meta { font-size: 12px; margin-top: 3px; }
+      .item-entry-icon { width: 34px; height: 34px; font-size: 16px; }
+
+      /* 툴바 */
+      .editor-toolbar { padding: 8px 12px; gap: 8px; }
+      #editingId { display: none; }
+
+      /* 탭바 표시 */
+      .mobile-tabbar { display: flex; }
+    }
+
+    .mobile-tabbar {
+      height: 58px;
+      background: var(--bg2);
+      border-top: 2px solid var(--border);
+      flex-shrink: 0;
+      justify-content: stretch;
+      box-shadow: 0 -4px 16px rgba(0,0,0,0.06);
+    }
+
+    .mob-tab {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 3px;
+      cursor: pointer;
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--text-dim);
+      border: none;
+      background: none;
+      font-family: var(--font-body);
+      transition: color 0.15s, background 0.15s;
+      letter-spacing: 0.3px;
+    }
+    .mob-tab svg { width: 22px; height: 22px; }
+    .mob-tab.active { color: var(--accent); background: rgba(160,120,40,0.07); }
   </style>
 </head>
 
@@ -1011,6 +1137,26 @@
             <path d="M5 6l2 2-2 2M9 10h2" />
           </svg>
           코드 패널
+        </button>
+        <div class="header-sep"></div>
+        <button class="btn btn-ghost" id="btnGhSettings" title="GitHub 설정">
+          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5">
+            <circle cx="8" cy="8" r="2.5"/>
+            <path d="M8 1v2M8 13v2M1 8h2M13 8h2M3.05 3.05l1.41 1.41M11.54 11.54l1.41 1.41M3.05 12.95l1.41-1.41M11.54 4.46l1.41-1.41"/>
+          </svg>
+          GH 설정
+        </button>
+        <button class="btn btn-ghost" id="btnGhLoad" title="GitHub에서 불러오기">
+          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M8 2v8M5 7l3 3 3-3M2 12v2h12v-2"/>
+          </svg>
+          GH 불러오기
+        </button>
+        <button class="btn btn-ghost" id="btnGhSave" title="GitHub에 저장">
+          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M8 10V2M5 5l3-3 3 3M2 12v2h12v-2"/>
+          </svg>
+          GH 저장
         </button>
       </div>
     </header>
@@ -1090,6 +1236,30 @@
     </div>
   </div>
 
+  <!-- MOBILE TAB BAR -->
+  <div class="mobile-tabbar" id="mobileTabbar">
+    <button class="mob-tab" data-panel="sidebar" id="mobTabList">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/>
+        <rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/>
+      </svg>
+      목록
+    </button>
+    <button class="mob-tab active" data-panel="editor" id="mobTabEdit">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/>
+        <path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/>
+      </svg>
+      편집
+    </button>
+    <button class="mob-tab" data-panel="output" id="mobTabCode">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/>
+      </svg>
+      코드
+    </button>
+  </div>
+
   <div class="toast" id="toast"></div>
 
   <!-- IMPORT MODAL -->
@@ -1111,6 +1281,44 @@
       <div style="padding:12px 20px;border-top:1px solid var(--border);display:flex;gap:8px;justify-content:flex-end;">
         <button id="closeImport2" class="btn btn-ghost">취소</button>
         <button id="doImport" class="btn btn-primary">가져오기</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- GITHUB SETTINGS MODAL -->
+  <div id="ghModal"
+    style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:500;align-items:center;justify-content:center;">
+    <div
+      style="background:var(--bg2);border:1px solid var(--border);border-radius:10px;width:480px;max-width:92vw;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,0.3);">
+      <div style="padding:16px 20px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:10px;">
+        <span style="font-family:var(--font-title);font-size:12px;letter-spacing:2px;color:var(--accent);">GitHub 연동 설정</span>
+        <button id="closeGhModal" class="btn btn-ghost" style="margin-left:auto;padding:4px 10px;font-size:11px;">✕</button>
+      </div>
+      <div style="padding:16px 20px;display:flex;flex-direction:column;gap:12px;">
+        <p style="font-size:12px;color:var(--text-dim);line-height:1.6;">Personal Access Token은 브라우저 localStorage에만 저장되며 GitHub API 호출 외에는 사용되지 않습니다.</p>
+        <div class="field">
+          <label class="field-label">Personal Access Token (repo 권한)</label>
+          <input type="password" id="gh_token" placeholder="ghp_xxxxxxxxxxxxxxxxxxxx" autocomplete="off">
+        </div>
+        <div class="field-row">
+          <div class="field">
+            <label class="field-label">Owner (사용자명 또는 조직)</label>
+            <input type="text" id="gh_owner" placeholder="myusername">
+          </div>
+          <div class="field">
+            <label class="field-label">Repository</label>
+            <input type="text" id="gh_repo" placeholder="my-game-data">
+          </div>
+        </div>
+        <div class="field">
+          <label class="field-label">파일 경로 (예: data/item_defs.js)</label>
+          <input type="text" id="gh_path" placeholder="data/item_defs.js">
+        </div>
+        <p style="font-size:11px;color:var(--text-dim);">저장 URL 예시: github.com/<strong>owner</strong>/<strong>repo</strong>/blob/main/<strong>path</strong></p>
+      </div>
+      <div style="padding:12px 20px;border-top:1px solid var(--border);display:flex;gap:8px;justify-content:flex-end;">
+        <button id="closeGhModal2" class="btn btn-ghost">취소</button>
+        <button id="saveGhConfig" class="btn btn-primary">저장</button>
       </div>
     </div>
   </div>
@@ -1156,7 +1364,6 @@
         desc: '단단한 철로 만든 기본 검 (근거리공격력+8)',
         effects: [{ stat: 'meleeAtk', val: 8, type: 'equip' }],
         specialEffect: null, stackable: false, maxStack: 1,
-        dropRate: 0.3, dropWaveMin: 1,
       },
       {
         id: 'balanced_ring', name: '균형의 반지', slot: 'ring', type: 'equip', rarity: 'rare',
@@ -1171,7 +1378,6 @@
           { stat: 'meleeAtkSpeed', val: 0.05, type: 'equip' }, { stat: 'rangedAtkSpeed', val: 0.05, type: 'equip' }, { stat: 'magicAtkSpeed', val: 0.05, type: 'equip' },
         ],
         specialEffect: null, stackable: false, maxStack: 1,
-        dropRate: 0.05, dropWaveMin: 5,
       },
     ];
     items = JSON.parse(JSON.stringify(seedData));
@@ -1227,6 +1433,25 @@
     }
 
     // ========================
+    // MOBILE PANEL SWITCH
+    // ========================
+    function isMobile() { return window.innerWidth <= 768; }
+
+    function switchMobilePanel(panel) {
+      const panels = {
+        sidebar: document.querySelector('.sidebar'),
+        editor:  document.querySelector('.editor-area'),
+        output:  document.getElementById('outputPanel'),
+      };
+      Object.entries(panels).forEach(([key, el]) => {
+        if (el) el.classList.toggle('mob-active', key === panel);
+      });
+      document.querySelectorAll('.mob-tab').forEach(tab => {
+        tab.classList.toggle('active', tab.dataset.panel === panel);
+      });
+    }
+
+    // ========================
     // SELECT / EDIT
     // ========================
     function selectItem(id) {
@@ -1235,6 +1460,7 @@
       renderEditor();
       refreshOutput();
       document.getElementById('editingId').textContent = `editing: ${id}`;
+      if (isMobile()) switchMobilePanel('editor');
     }
 
     function renderEditor() {
@@ -1605,6 +1831,126 @@
       return s;
     }
 
+    function formatFullJS(arr) {
+      let s = formatJS(arr);
+      s += '\n\nvar ITEM_RARITY_COLOR = {\n';
+      s += `  normal:  { text: '일반', css: '#e8e8f0' },\n`;
+      s += `  magic:   { text: '마법', css: '#3080e0' },\n`;
+      s += `  rare:    { text: '희귀', css: '#f5c842' },\n`;
+      s += `  epic:    { text: '에픽', css: '#9050e0' },\n`;
+      s += `  legend:  { text: '전설', css: '#e03030' },\n`;
+      s += '};\n';
+      s += '\nvar MATERIAL_LABELS = {\n';
+      s += `  iron:    '철',\n`;
+      s += `  mithril: '미스릴',\n`;
+      s += `  bone:    '뼈',\n`;
+      s += `  leather: '가죽',\n`;
+      s += `  gold:    '금',\n`;
+      s += `  silver:  '은',\n`;
+      s += `  wood:    '나무',\n`;
+      s += '};';
+      return s;
+    }
+
+    // ========================
+    // GITHUB
+    // ========================
+    const GH_CFG_KEY = 'itemforge_github';
+
+    function getGhConfig() {
+      try { return JSON.parse(localStorage.getItem(GH_CFG_KEY)) || null; }
+      catch (e) { return null; }
+    }
+
+    function openGhModal() {
+      const cfg = getGhConfig() || {};
+      document.getElementById('gh_token').value = cfg.token || '';
+      document.getElementById('gh_owner').value = cfg.owner || '';
+      document.getElementById('gh_repo').value = cfg.repo || '';
+      document.getElementById('gh_path').value = cfg.path || '';
+      document.getElementById('ghModal').style.display = 'flex';
+    }
+
+    async function githubLoad() {
+      const cfg = getGhConfig();
+      if (!cfg?.token || !cfg?.owner || !cfg?.repo || !cfg?.path) {
+        toast('GitHub 설정을 먼저 완료하세요.');
+        openGhModal();
+        return;
+      }
+      toast('GitHub에서 불러오는 중…');
+      try {
+        const url = `https://api.github.com/repos/${cfg.owner}/${cfg.repo}/contents/${cfg.path}`;
+        const resp = await fetch(url, {
+          headers: { Authorization: `token ${cfg.token}`, Accept: 'application/vnd.github.v3+json' }
+        });
+        if (!resp.ok) {
+          const err = await resp.json();
+          throw new Error(err.message || `HTTP ${resp.status}`);
+        }
+        const data = await resp.json();
+        const content = decodeURIComponent(escape(atob(data.content.replace(/\n/g, ''))));
+        localStorage.setItem('gh_sha_' + cfg.path, data.sha);
+        // eslint-disable-next-line no-new-func
+        const fn = new Function(content + '; return typeof ITEM_DEFS !== "undefined" ? ITEM_DEFS : null;');
+        const loaded = fn();
+        if (!loaded || !Array.isArray(loaded)) throw new Error('ITEM_DEFS 배열을 찾을 수 없습니다.');
+        items = loaded;
+        currentId = items[0]?.id || null;
+        renderSidebar();
+        if (currentId) selectItem(currentId);
+        persistSave(); updateSaveStatus();
+        toast(`GitHub에서 ${loaded.length}개 불러왔습니다. ✓`);
+      } catch (e) {
+        toast('오류: ' + e.message);
+      }
+    }
+
+    async function githubSave() {
+      const cfg = getGhConfig();
+      if (!cfg?.token || !cfg?.owner || !cfg?.repo || !cfg?.path) {
+        toast('GitHub 설정을 먼저 완료하세요.');
+        openGhModal();
+        return;
+      }
+      readForm();
+      toast('GitHub에 저장 중…');
+      try {
+        const content = formatFullJS(items);
+        const encoded = btoa(unescape(encodeURIComponent(content)));
+        const url = `https://api.github.com/repos/${cfg.owner}/${cfg.repo}/contents/${cfg.path}`;
+        // SHA가 없으면 현재 파일에서 가져오기
+        let sha = localStorage.getItem('gh_sha_' + cfg.path);
+        if (!sha) {
+          const check = await fetch(url, { headers: { Authorization: `token ${cfg.token}`, Accept: 'application/vnd.github.v3+json' } });
+          if (check.ok) { const d = await check.json(); sha = d.sha; }
+        }
+        const body = {
+          message: `chore: update item_defs (${new Date().toLocaleString('ko-KR')})`,
+          content: encoded,
+        };
+        if (sha) body.sha = sha;
+        const resp = await fetch(url, {
+          method: 'PUT',
+          headers: {
+            Authorization: `token ${cfg.token}`,
+            Accept: 'application/vnd.github.v3+json',
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(body),
+        });
+        if (!resp.ok) {
+          const err = await resp.json();
+          throw new Error(err.message || `HTTP ${resp.status}`);
+        }
+        const result = await resp.json();
+        localStorage.setItem('gh_sha_' + cfg.path, result.content.sha);
+        toast('GitHub에 저장되었습니다. ✓');
+      } catch (e) {
+        toast('오류: ' + e.message);
+      }
+    }
+
     function syntaxHL(code) {
       return code
         .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
@@ -1741,7 +2087,7 @@
     // EXPORT / IMPORT
     // ========================
     function exportAll() {
-      const code = formatJS(items);
+      const code = formatFullJS(items);
       const blob = new Blob([code], { type: 'text/javascript' });
       const a = document.createElement('a');
       a.href = URL.createObjectURL(blob);
@@ -1827,6 +2173,36 @@
       }
     });
 
+    // GitHub buttons
+    document.getElementById('btnGhSettings').addEventListener('click', openGhModal);
+    document.getElementById('btnGhLoad').addEventListener('click', githubLoad);
+    document.getElementById('btnGhSave').addEventListener('click', githubSave);
+    ['closeGhModal', 'closeGhModal2'].forEach(id => {
+      document.getElementById(id).addEventListener('click', () => {
+        document.getElementById('ghModal').style.display = 'none';
+      });
+    });
+    document.getElementById('saveGhConfig').addEventListener('click', () => {
+      const cfg = {
+        token: document.getElementById('gh_token').value.trim(),
+        owner: document.getElementById('gh_owner').value.trim(),
+        repo:  document.getElementById('gh_repo').value.trim(),
+        path:  document.getElementById('gh_path').value.trim(),
+      };
+      if (!cfg.token || !cfg.owner || !cfg.repo || !cfg.path) {
+        alert('모든 항목을 입력해주세요.');
+        return;
+      }
+      localStorage.setItem(GH_CFG_KEY, JSON.stringify(cfg));
+      document.getElementById('ghModal').style.display = 'none';
+      toast('GitHub 설정이 저장되었습니다. ✓');
+    });
+
+    // Mobile tab bar
+    document.querySelectorAll('.mob-tab').forEach(tab => {
+      tab.addEventListener('click', () => switchMobilePanel(tab.dataset.panel));
+    });
+
     // Keyboard shortcuts
     document.addEventListener('keydown', e => {
       if ((e.ctrlKey || e.metaKey) && e.key === 's') { e.preventDefault(); saveItem(); }
@@ -1837,6 +2213,8 @@
     // ========================
     // INIT
     // ========================
+    if (isMobile()) switchMobilePanel('editor');
+
     const saved = persistLoad();
     if (saved) {
       items = saved.items;
