@@ -1,0 +1,66 @@
+var ITEM_DEFS = [
+  {
+    id: 'iron_sword',
+    name: '철제 검',
+    slot: 'weapon',
+    type: 'equip',
+    rarity: 'normal',
+    material: 'iron',
+    safeEnchant: 3,
+    desc: '단단한 철로 만든 기본 검 (근거리공격력+8)',
+    effects: [
+      { stat: 'meleeAtk', val: 8, type: 'equip' },
+    ],
+    specialEffect: null,
+    stackable: false,
+    maxStack: 1,
+  },
+  {
+    id: 'balanced_ring',
+    name: '균형의 반지',
+    slot: 'ring',
+    type: 'equip',
+    rarity: 'rare',
+    material: null,
+    safeEnchant: 0,
+    desc: '모든 스탯이 균등하게 올라가는 신비한 반지.',
+    effects: [
+      { stat: 'str', val: 1, type: 'equip' },
+      { stat: 'dex', val: 1, type: 'equip' },
+      { stat: 'int', val: 1, type: 'equip' },
+      { stat: 'wis', val: 1, type: 'equip' },
+      { stat: 'cha', val: 1, type: 'equip' },
+      { stat: 'meleeAtk', val: 1, type: 'equip' },
+      { stat: 'rangedAtk', val: 1, type: 'equip' },
+      { stat: 'magicAtk', val: 1, type: 'equip' },
+      { stat: 'def', val: 1, type: 'equip' },
+      { stat: 'magicDef', val: 1, type: 'equip' },
+      { stat: 'maxHp', val: 10, type: 'equip' },
+      { stat: 'hpRegen', val: 1, type: 'equip' },
+      { stat: 'meleeAtkSpeed', val: 0.05, type: 'equip' },
+      { stat: 'rangedAtkSpeed', val: 0.05, type: 'equip' },
+      { stat: 'magicAtkSpeed', val: 0.05, type: 'equip' },
+    ],
+    specialEffect: null,
+    stackable: false,
+    maxStack: 1,
+  },
+];
+
+var ITEM_RARITY_COLOR = {
+  normal:  { text: '일반', css: '#e8e8f0' },
+  magic:   { text: '마법', css: '#3080e0' },
+  rare:    { text: '희귀', css: '#f5c842' },
+  epic:    { text: '에픽', css: '#9050e0' },
+  legend:  { text: '전설', css: '#e03030' },
+};
+
+var MATERIAL_LABELS = {
+  iron:    '철',
+  mithril: '미스릴',
+  bone:    '뼈',
+  leather: '가죽',
+  gold:    '금',
+  silver:  '은',
+  wood:    '나무',
+};
