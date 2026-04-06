@@ -739,3 +739,41 @@ body {
   70% { box-shadow: 0 0 0 5px rgba(22, 163, 74, 0) }
   100% { box-shadow: 0 0 0 0 rgba(22, 163, 74, 0) }
 }
+
+/* === 다이어그램 메모 === */
+.anno-card {
+  position: absolute;
+  background: rgba(255, 236, 100, 0.92);
+  border: 1.5px solid #e6c430;
+  border-radius: 8px;
+  padding: 8px 26px 8px 10px;
+  min-width: 100px;
+  max-width: 260px;
+  cursor: grab;
+  box-shadow: 2px 3px 12px rgba(0,0,0,0.18);
+  z-index: 5;
+  user-select: none;
+}
+.anno-card.dragging { cursor: grabbing; opacity: 0.75; }
+.anno-text {
+  font-size: 13px;
+  color: #3a2e00;
+  white-space: pre-wrap;
+  word-break: break-word;
+  line-height: 1.5;
+  cursor: text;
+}
+.anno-del {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 11px;
+  color: #b8960a;
+  padding: 2px 4px;
+  border-radius: 3px;
+  line-height: 1;
+}
+.anno-del:hover { background: rgba(0,0,0,0.1); color: #c00; }

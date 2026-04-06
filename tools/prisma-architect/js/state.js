@@ -13,3 +13,5 @@ let changeLog = [], cardinalityMap = {}, modelPositions = {};
 let cardSizes = {};
 let historyStack = [], historyIndex = -1;
 let showEnumLines = true;
+let annotations = [];
+let draggingAnnotation = null;

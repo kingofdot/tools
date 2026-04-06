@@ -27,6 +27,18 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
+  wrapper.addEventListener('dblclick', e => {
+    if (e.target === wrapper || e.target.classList.contains('canvas-grid')) {
+      const r = wrapper.getBoundingClientRect();
+      const x = Math.round((e.clientX - r.left - panX) / zoom);
+      const y = Math.round((e.clientY - r.top - panY) / zoom);
+      const text = prompt('메모 내용:');
+      if (!text) return;
+      annotations.push({ id: 'anno_' + Date.now(), x, y, text });
+      renderAnnotations();
+    }
+  });
+
   document.addEventListener('mousemove', e => {
     if (isDraggingCanvas) {
       panX = e.clientX - dragStartX;
@@ -44,6 +56,15 @@ document.addEventListener('DOMContentLoaded', () => {
       cardSizes[n] = { w: draggingCard.offsetWidth, h: draggingCard.offsetHeight };
       drawRels();
     }
+    if (draggingAnnotation) {
+      const r = wrapper.getBoundingClientRect();
+      const x = Math.round((e.clientX - r.left - panX) / zoom - draggingAnnotation.offX);
+      const y = Math.round((e.clientY - r.top - panY) / zoom - draggingAnnotation.offY);
+      const anno = annotations.find(a => a.id === draggingAnnotation.id);
+      if (anno) { anno.x = x; anno.y = y; }
+      draggingAnnotation.el.style.left = x + 'px';
+      draggingAnnotation.el.style.top = y + 'px';
+    }
   });
 
   document.addEventListener('mouseup', () => {
@@ -55,6 +76,10 @@ document.addEventListener('DOMContentLoaded', () => {
       if (p) addLog('model', `위치 이동: ${n}`, `x:${p.x}, y:${p.y}`);
       draggingCard.classList.remove('dragging');
       draggingCard = null;
+    }
+    if (draggingAnnotation) {
+      draggingAnnotation.el.classList.remove('dragging');
+      draggingAnnotation = null;
     }
   });
 

@@ -102,6 +102,7 @@ async function githubLoad() {
     if (data.rowOrderStore) rowOrderStore = data.rowOrderStore;
     if (data.todoItems) todoItems = data.todoItems;
     if (data.suggestItems) suggestItems = data.suggestItems;
+    if (data.annotations) annotations = data.annotations;
 
     // 다이어그램 렌더
     const hasPositions = data.modelPositions && Object.keys(data.modelPositions).length > 0;
@@ -138,6 +139,7 @@ async function githubSave() {
       rowOrderStore,
       todoItems,
       suggestItems,
+      annotations,
       savedAt: new Date().toLocaleString('ko-KR'),
     };
 

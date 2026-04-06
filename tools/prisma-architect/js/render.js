@@ -60,7 +60,43 @@ function renderDiagram() {
     document.querySelectorAll('.model-card').forEach(c => { cardSizes[c.dataset.name] = { w: c.offsetWidth, h: c.offsetHeight }; });
     drawRels();
   });
+  renderAnnotations();
   updateStats(); updateTransform();
+}
+
+function renderAnnotations() {
+  document.querySelectorAll('.anno-card').forEach(el => el.remove());
+  const canvas = document.getElementById('canvas');
+  annotations.forEach(anno => {
+    const el = document.createElement('div');
+    el.className = 'anno-card';
+    el.dataset.id = anno.id;
+    el.style.left = anno.x + 'px';
+    el.style.top = anno.y + 'px';
+    el.innerHTML = `<div class="anno-text">${esc(anno.text || '메모')}</div><button class="anno-del" onclick="deleteAnnotation('${anno.id}')">✕</button>`;
+    el.querySelector('.anno-text').addEventListener('dblclick', e => { e.stopPropagation(); editAnnotation(anno.id); });
+    el.addEventListener('mousedown', e => {
+      if (e.button !== 0) return;
+      e.stopPropagation();
+      draggingAnnotation = { el, id: anno.id, offX: (e.clientX - el.getBoundingClientRect().left) / zoom, offY: (e.clientY - el.getBoundingClientRect().top) / zoom };
+      el.classList.add('dragging');
+    });
+    canvas.appendChild(el);
+  });
+}
+
+function editAnnotation(id) {
+  const anno = annotations.find(a => a.id === id);
+  if (!anno) return;
+  const text = prompt('메모 수정:', anno.text);
+  if (text === null) return;
+  anno.text = text;
+  renderAnnotations();
+}
+
+function deleteAnnotation(id) {
+  annotations = annotations.filter(a => a.id !== id);
+  renderAnnotations();
 }
 
 // === DRAW RELATIONS ===
