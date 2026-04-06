@@ -1,18 +1,5 @@
 // === RENDER ===
 
-const MODEL_LABELS = {
-  User: '#사용자', Session: '#인증', Account: '#인증', Verification: '#인증', VerifiedEmail: '#인증',
-  Post: '#콘텐츠', Tag: '#콘텐츠',
-  Business: '#사업장정보', BusinessDocumentProfile: '#사업장정보',
-  ExecutiveOfficer: '#사업장정보', Vehicle: '#사업장정보', Office: '#사업장정보',
-  RawMaterialUsage: '#사업장정보', LandInfo: '#사업장정보', BuildingInfo: '#사업장정보', TemporaryBuildingInfo: '#사업장정보',
-  ProcessFlow: '#공정도',
-  ProductionFacility: '#생산시설', ControlFacility: '#방지시설',
-  WasteDocumentation: '#폐기물서류', WasteTargetItem: '#폐기물서류', WasteFacility: '#폐기물서류', WasteStorageFacility: '#폐기물서류',
-  DocumentRequest: '#서류요청', DocumentPayload: '#서류요청',
-  AirDocumentation: '#대기서류',
-};
-
 function renderDiagram() {
   const canvas = document.getElementById('canvas'); canvas.innerHTML = '';
 
@@ -67,15 +54,6 @@ function renderDiagram() {
     hdr.addEventListener('mousedown', e => { if (e.button !== 0) return; e.preventDefault(); draggingCard = card; card.classList.add('dragging'); dragOffsetX = (e.clientX - card.getBoundingClientRect().left) / zoom; dragOffsetY = (e.clientY - card.getBoundingClientRect().top) / zoom; });
     card.addEventListener('contextmenu', e => { e.preventDefault(); ctxTarget = item.name; const m = document.getElementById('contextMenu'); m.style.left = e.clientX + 'px'; m.style.top = e.clientY + 'px'; m.classList.add('show'); });
     canvas.appendChild(card);
-    if (MODEL_LABELS[item.name]) {
-      const lbl = document.createElement('div');
-      lbl.className = 'model-label';
-      lbl.dataset.labelFor = item.name;
-      lbl.textContent = MODEL_LABELS[item.name];
-      lbl.style.left = p.x + 'px';
-      lbl.style.top = (p.y - 22) + 'px';
-      canvas.appendChild(lbl);
-    }
   });
 
   requestAnimationFrame(() => {
