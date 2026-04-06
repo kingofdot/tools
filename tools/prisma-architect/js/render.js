@@ -1,5 +1,18 @@
 // === RENDER ===
 
+const MODEL_LABELS = {
+  User: '#사용자', Session: '#인증', Account: '#인증', Verification: '#인증', VerifiedEmail: '#인증',
+  Post: '#콘텐츠', Tag: '#콘텐츠',
+  Business: '#사업장정보', BusinessDocumentProfile: '#사업장정보',
+  ExecutiveOfficer: '#사업장정보', Vehicle: '#사업장정보', Office: '#사업장정보',
+  RawMaterialUsage: '#사업장정보', LandInfo: '#사업장정보', BuildingInfo: '#사업장정보', TemporaryBuildingInfo: '#사업장정보',
+  ProcessFlow: '#공정도',
+  ProductionFacility: '#생산시설', ControlFacility: '#방지시설',
+  WasteDocumentation: '#폐기물서류', WasteTargetItem: '#폐기물서류', WasteFacility: '#폐기물서류', WasteStorageFacility: '#폐기물서류',
+  DocumentRequest: '#서류요청', DocumentPayload: '#서류요청',
+  AirDocumentation: '#대기서류',
+};
+
 function renderDiagram() {
   const canvas = document.getElementById('canvas'); canvas.innerHTML = '';
 
@@ -20,6 +33,7 @@ function renderDiagram() {
     const p = modelPositions[item.name]; card.style.left = p.x + 'px'; card.style.top = p.y + 'px';
     if (item.kind === 'enum' && !showEnumLines) { card.style.display = 'none'; }
 
+    if (MODEL_LABELS[item.name]) { const lbl = document.createElement('div'); lbl.className = 'model-label'; lbl.textContent = MODEL_LABELS[item.name]; card.appendChild(lbl); }
     const hdr = document.createElement('div'); hdr.className = `mc-header ${item.kind}`;
 
     let modelMarker = '';
