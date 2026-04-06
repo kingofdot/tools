@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Prisma Schema Architect</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Noto+Sans+KR:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <!-- 비밀번호 오버레이 -->
+  <div id="passwordOverlay"
+    style="position:fixed;top:0;left:0;width:100%;height:100%;background:var(--bg-primary);z-index:999999;display:flex;align-items:center;justify-content:center;flex-direction:column;">
+    <div
+      style="background:var(--bg-card);padding:40px;border-radius:12px;box-shadow:var(--shadow-lg);text-align:center;border:1px solid var(--border);width:320px;">
+      <h2 style="margin-bottom:20px;color:var(--text-primary);font-size:18px;">접근 권한 필요</h2>
+      <input type="password" id="pwdInput" placeholder="비밀번호 입력"
+        style="width:100%;padding:12px;margin-bottom:12px;border:1px solid var(--border);border-radius:8px;font-size:14px;outline:none;text-align:center;font-family:var(--font-mono);background:var(--bg-primary);color:var(--text-primary);">
+      <button onclick="checkPwd()"
+        style="width:100%;padding:12px;background:var(--accent);color:white;border:none;border-radius:8px;font-size:14px;font-weight:600;cursor:pointer;transition:all .2s;">✓
+        확인</button>
+    </div>
+  </div>
+
+  <!-- 네비게이션 -->
+  <nav class="top-nav">
+    <div class="logo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M12 2L2 7l10 5 10-5-10-5z" />
+        <path d="M2 17l10 5 10-5" />
+        <path d="M2 12l10 5 10-5" />
+      </svg>Prisma Architect</div>
+    <div class="nav-tabs">
+      <button class="nav-tab active" data-panel="diagram">다이어그램</button>
+      <button class="nav-tab" data-panel="editor">스키마 편집기</button>
+      <button class="nav-tab" data-panel="excel">DB 관리</button>
+      <button class="nav-tab" data-panel="ui">UI 관리</button>
+      <button class="nav-tab" data-panel="diff">변경 비교</button>
+      <button class="nav-tab" data-panel="todo">📋 Todo</button>
+      <button class="nav-tab" data-panel="suggest">💡 건의함</button>
+    </div>
+    <div class="nav-actions">
+      <button class="btn" onclick="showImportModal()">📥 임포트</button>
+      <button class="btn btn-accent" onclick="exportSchema()">📤 익스포트</button>
+      <button class="btn btn-success" onclick="snapshotSchema()">📸 스냅샷</button>
+      <button class="btn" onclick="exportLog()">📋 로그</button>
+      <div class="separator" style="width:1px;height:22px;background:var(--border);margin:0 4px"></div>
+      <!-- 구글 시트 -->
+      <button class="btn" id="sheetsStatusBtn" onclick="showSheetsModal()" title="구글 시트 연동">
+        <span id="sheetsStatusDot"
+          style="width:8px;height:8px;border-radius:50%;background:var(--text-muted);display:inline-block;margin-right:4px"></span>구글 시트
+      </button>
+      <button class="btn btn-success" onclick="sheetsSave()" id="sheetsSaveBtn" style="display:none">☁️ 저장</button>
+      <button class="btn" onclick="sheetsLoad()" id="sheetsLoadBtn" style="display:none">⬇️ 불러오기</button>
+      <div class="separator" style="width:1px;height:22px;background:var(--border);margin:0 4px"></div>
+      <!-- GitHub 연동 -->
+      <button class="btn" id="ghStatusBtn" onclick="openGhModal()" title="GitHub 연동">
+        <span id="ghStatusDot"
+          style="width:8px;height:8px;border-radius:50%;background:var(--text-muted);display:inline-block;margin-right:4px"></span>GitHub
+      </button>
+      <button class="btn btn-success" onclick="githubSave()" id="ghSaveBtn" style="display:none">⬆️ 저장</button>
+      <button class="btn" onclick="githubLoad()" id="ghLoadBtn" style="display:none">⬇️ 불러오기</button>
+    </div>
+  </nav>
+
+  <!-- 패널 컨테이너 -->
+  <div class="panel-container">
+    <!-- 다이어그램 패널 -->
+    <div id="diagramPanel" class="panel active">
+      <div class="diagram-toolbar">
+        <div class="zoom-control"><button onclick="zoomOut()">−</button><span id="zoomLevel">100%</span><button
+            onclick="zoomIn()">+</button><button onclick="zoomFit()">⊡</button></div>
+        <div class="separator"></div>
+        <button class="btn" onclick="autoLayout()">🔄 자동배치</button>
+        <button class="btn" onclick="addNewModel()">+ 모델</button>
+        <button class="btn" onclick="addNewEnum()">+ Enum</button>
+        <div class="separator"></div>
+        <button class="btn" id="enumToggleBtn" onclick="toggleEnumLines()" style="min-width:110px">🔗 Enum 연결 ON</button>
+        <div class="separator"></div>
+        <span style="color:var(--text-muted)">관계 박스 클릭 → 1:1 / 1:N / M:N 토글</span>
+      </div>
+
+      <div style="display:flex;flex:1;overflow:hidden">
+        <div class="canvas-wrapper" id="canvasWrapper">
+          <div class="canvas-grid"></div>
+          <div id="canvasRoot">
+            <svg id="svgOverlay" xmlns="http://www.w3.org/2000/svg"></svg>
+            <div id="canvas"></div>
+          </div>
+          <div class="stats-bar"><span id="statsModels">Models: 0</span><span id="statsEnums">Enums: 0</span><span
+              id="statsRelations">Relations: 0</span></div>
+        </div>
+        <div class="log-sidebar">
+          <div class="log-title">
+            <span>📜 변경 로그</span>
+            <button class="btn" style="padding:3px 10px;font-size:10px" onclick="clearLog()">지우기</button>
+          </div>
+          <div class="log-list" id="logList">
+            <div style="padding:24px;text-align:center;color:var(--text-muted);font-size:12px">변경사항이 기록됩니다</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 스키마 편집기 패널 -->
+    <div id="editorPanel" class="panel">
+      <div class="editor-area">
+        <div class="editor-header">schema.prisma<button class="btn btn-accent" style="margin-left:auto"
+            onclick="applyEditorChanges()">✓ 적용</button></div>
+        <textarea id="schemaEditor" spellcheck="false"></textarea>
+      </div>
+    </div>
+
+    <!-- DB 관리 패널 -->
+    <div id="excelPanel" class="panel">
+      <div class="excel-sidebar" id="excelSidebar"></div>
+      <div class="excel-main">
+        <div class="excel-toolbar"><span id="excelTitle" style="font-weight:700;color:var(--accent)">모델 선택</span>
+          <div style="margin-left:auto;display:flex;gap:8px"><button class="btn" id="excelAddFieldBtn"
+              onclick="excelAddField()" style="display:none">+ 필드</button><button class="btn btn-accent"
+              id="excelApplyBtn" onclick="excelApply()" style="display:none">✓ 적용</button></div>
+        </div>
+        <div class="excel-table-wrap" id="excelTableWrap">
+          <div style="padding:40px;text-align:center;color:var(--text-muted)">좌측에서 모델/Enum 선택</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- UI 관리 패널 -->
+    <div id="uiPanel" class="panel">
+      <div class="excel-sidebar" id="uiSidebar"></div>
+      <div class="excel-main">
+        <div class="excel-toolbar">
+          <span id="uiTitle" style="font-weight:700;color:var(--accent2)">모델 선택</span>
+          <div style="margin-left:auto;display:flex;gap:8px">
+            <button class="btn" id="uiAddRowBtn" onclick="uiAddRow()" style="display:none">+ 행 추가</button>
+            <button class="btn btn-accent" id="uiApplyBtn" onclick="uiApply()" style="display:none">✓ 적용</button>
+          </div>
+        </div>
+        <div class="excel-table-wrap" id="uiContent">
+          <div style="padding:40px;text-align:center;color:var(--text-muted)">좌측에서 모델 선택</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 변경 비교 패널 -->
+    <div id="diffPanel" class="panel">
+      <div
+        style="padding:10px 14px;background:var(--bg-secondary);border-bottom:1px solid var(--border);display:flex;align-items:center;gap:8px;flex-shrink:0">
+        <span style="font-size:14px;font-weight:700">변경 비교</span>
+        <button class="btn" onclick="snapshotSchema()">📸 Before</button>
+        <button class="btn btn-accent" onclick="runDiff()">🔍 비교</button>
+      </div>
+      <div class="diff-container">
+        <div class="diff-pane">
+          <div class="diff-hdr before">◀ Before</div>
+          <div class="diff-content" id="diffBefore"></div>
+        </div>
+        <div class="diff-pane">
+          <div class="diff-hdr after">After ▶</div>
+          <div class="diff-content" id="diffAfter"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TODO 패널 -->
+    <div id="todoPanel" class="panel" style="flex-direction:column">
+      <div
+        style="height:48px;background:var(--bg-secondary);border-bottom:1px solid var(--border);display:flex;align-items:center;padding:0 16px;gap:10px;flex-shrink:0">
+        <span style="font-size:14px;font-weight:700">📋 Todo List</span>
+        <div style="display:flex;gap:6px;margin-left:auto">
+          <select id="todoFilterSel" onchange="renderTodoList()"
+            style="padding:5px 10px;border:1px solid var(--border);border-radius:6px;background:var(--bg-primary);color:var(--text-primary);font-size:12px">
+            <option value="all">전체</option>
+            <option value="todo">할 일</option>
+            <option value="doing">진행중</option>
+            <option value="done">완료</option>
+          </select>
+          <button class="btn btn-accent" onclick="openTodoModal()">+ 항목 추가</button>
+        </div>
+      </div>
+      <div style="flex:1;overflow-y:auto;padding:16px" id="todoListWrap"></div>
+    </div>
+
+    <!-- 건의함 패널 -->
+    <div id="suggestPanel" class="panel" style="flex-direction:column">
+      <div
+        style="height:48px;background:var(--bg-secondary);border-bottom:1px solid var(--border);display:flex;align-items:center;padding:0 16px;gap:10px;flex-shrink:0">
+        <span style="font-size:14px;font-weight:700">💡 건의함</span>
+        <button class="btn btn-accent" onclick="openSuggestModal()" style="margin-left:auto">+ 건의 작성</button>
+      </div>
+      <div style="flex:1;overflow-y:auto;padding:16px" id="suggestListWrap"></div>
+    </div>
+  </div>
+
+  <!-- ===== 모달들 ===== -->
+
+  <!-- Todo 모달 -->
+  <div class="modal-overlay" id="todoModal">
+    <div class="modal" style="min-width:480px">
+      <div class="modal-title"><span id="todoModalTitle">할 일 추가</span><button class="btn"
+          onclick="closeTodoModal()">✕</button></div>
+      <div class="modal-body">
+        <div class="form-group"><label>제목</label><input id="todoTitleInput" placeholder="제목을 입력하세요"
+            style="width:100%;padding:9px 12px;background:var(--bg-primary);border:1px solid var(--border);border-radius:8px;color:var(--text-primary);font-size:13px;outline:none">
+        </div>
+        <div class="form-group"><label>내용</label><textarea id="todoBodyInput" placeholder="상세 내용..."
+            style="width:100%;height:100px;padding:9px 12px;background:var(--bg-primary);border:1px solid var(--border);border-radius:8px;color:var(--text-primary);font-size:13px;font-family:var(--font-sans);outline:none;resize:vertical"></textarea>
+        </div>
+        <div style="display:flex;gap:12px">
+          <div class="form-group" style="flex:1"><label>우선순위</label>
+            <select id="todoPriorityInput"
+              style="width:100%;padding:9px 12px;background:var(--bg-primary);border:1px solid var(--border);border-radius:8px;color:var(--text-primary);font-size:13px">
+              <option value="low">🟢 낮음</option>
+              <option value="mid" selected>🟡 보통</option>
+              <option value="high">🔴 높음</option>
+            </select>
+          </div>
+          <div class="form-group" style="flex:1"><label>상태</label>
+            <select id="todoStatusInput"
+              style="width:100%;padding:9px 12px;background:var(--bg-primary);border:1px solid var(--border);border-radius:8px;color:var(--text-primary);font-size:13px">
+              <option value="todo">할 일</option>
+              <option value="doing">진행중</option>
+              <option value="done">완료</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group"><label>관련 모델 (선택)</label>
+          <select id="todoModelInput"
+            style="width:100%;padding:9px 12px;background:var(--bg-primary);border:1px solid var(--border);border-radius:8px;color:var(--text-primary);font-size:13px">
+            <option value="">— 없음 —</option>
+          </select>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-danger" id="todoDeleteBtn" onclick="deleteTodoItem()" style="display:none">삭제</button>
+        <button class="btn" onclick="closeTodoModal()">취소</button>
+        <button class="btn btn-accent" onclick="saveTodoItem()">저장</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 건의함 모달 -->
+  <div class="modal-overlay" id="suggestModal">
+    <div class="modal" style="min-width:500px">
+      <div class="modal-title"><span id="suggestModalTitle">건의 작성</span><button class="btn"
+          onclick="closeSuggestModal()">✕</button></div>
+      <div class="modal-body">
+        <div class="form-group"><label>제목</label><input id="suggestTitleInput" placeholder="건의 제목"
+            style="width:100%;padding:9px 12px;background:var(--bg-primary);border:1px solid var(--border);border-radius:8px;color:var(--text-primary);font-size:13px;outline:none">
+        </div>
+        <div class="form-group"><label>카테고리</label>
+          <select id="suggestCatInput"
+            style="width:100%;padding:9px 12px;background:var(--bg-primary);border:1px solid var(--border);border-radius:8px;color:var(--text-primary);font-size:13px">
+            <option value="feature">✨ 기능 요청</option>
+            <option value="bug">🐛 버그 신고</option>
+            <option value="improve">🔧 개선 제안</option>
+            <option value="etc">💬 기타</option>
+          </select>
+        </div>
+        <div class="form-group"><label>내용</label><textarea id="suggestBodyInput" placeholder="상세 내용을 작성해주세요..."
+            style="width:100%;height:140px;padding:9px 12px;background:var(--bg-primary);border:1px solid var(--border);border-radius:8px;color:var(--text-primary);font-size:13px;font-family:var(--font-sans);outline:none;resize:vertical"></textarea>
+        </div>
+        <div class="form-group"><label>작성자</label><input id="suggestAuthorInput" placeholder="이름 또는 익명"
+            style="width:100%;padding:9px 12px;background:var(--bg-primary);border:1px solid var(--border);border-radius:8px;color:var(--text-primary);font-size:13px;outline:none">
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-danger" id="suggestDeleteBtn" onclick="deleteSuggestItem()" style="display:none">삭제</button>
+        <button class="btn" onclick="closeSuggestModal()">취소</button>
+        <button class="btn btn-accent" onclick="saveSuggestItem()">등록</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 구글 시트 모달 -->
+  <div class="modal-overlay" id="sheetsModal">
+    <div class="modal" style="min-width:520px">
+      <div class="modal-title">
+        <span>🔗 구글 시트 연동</span>
+        <button class="btn" onclick="document.getElementById('sheetsModal').classList.remove('show')">✕</button>
+      </div>
+      <div class="modal-body">
+        <div
+          style="background:var(--accent-dim);border:1px solid var(--accent);border-radius:10px;padding:14px 16px;margin-bottom:18px;font-size:12px;line-height:1.8;color:var(--text-primary)">
+          <b>📋 Apps Script 설정 방법</b><br>
+          1. 구글 스프레드시트 열기 → <b>확장 프로그램 → Apps Script</b><br>
+          2. <code style="background:var(--bg-tertiary);padding:1px 5px;border-radius:3px">prisma_sheets.gs</code>
+          내용을 붙여넣고 저장<br>
+          3. <b>배포 → 새 배포 → 웹앱</b> 선택<br>
+          &nbsp;&nbsp;&nbsp;• 실행 계정: <b>나</b> / 액세스: <b>모든 사용자</b><br>
+          4. 배포 후 생성된 <b>웹앱 URL</b>을 아래에 입력
+        </div>
+        <div class="form-group">
+          <label>Apps Script 웹앱 URL</label>
+          <input id="sheetsUrlInput" placeholder="https://script.google.com/macros/s/.../exec"
+            style="width:100%;padding:9px 12px;background:var(--bg-primary);border:1px solid var(--border);border-radius:8px;color:var(--text-primary);font-size:12px;font-family:var(--font-mono);outline:none">
+        </div>
+        <div style="display:flex;gap:8px;align-items:center;margin-top:4px">
+          <button class="btn" onclick="sheetsTest()" id="sheetsTestBtn">🔍 연결 테스트</button>
+          <span id="sheetsTestResult" style="font-size:12px;color:var(--text-muted)"></span>
+        </div>
+        <div
+          style="margin-top:16px;padding:12px;background:var(--bg-tertiary);border-radius:8px;font-size:12px;color:var(--text-secondary)">
+          <b>저장 범위:</b> Prisma 스키마, UI 헤더 설정, UI 메타 데이터, Todo 목록, 건의함
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-danger" onclick="sheetsDisconnect()" id="sheetsDisconnectBtn" style="display:none">연결 해제</button>
+        <button class="btn" onclick="document.getElementById('sheetsModal').classList.remove('show')">닫기</button>
+        <button class="btn btn-accent" onclick="sheetsSaveUrl()">저장</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- GitHub 연동 모달 -->
+  <div class="modal-overlay" id="ghModal">
+    <div class="modal" style="min-width:480px">
+      <div class="modal-title">
+        <span>🐙 GitHub 연동 설정</span>
+        <button class="btn" onclick="document.getElementById('ghModal').classList.remove('show')">✕</button>
+      </div>
+      <div class="modal-body">
+        <p style="font-size:12px;color:var(--text-secondary);line-height:1.6;margin-bottom:16px;">
+          Personal Access Token은 브라우저 localStorage에만 저장되며 GitHub API 호출 외에는 사용되지 않습니다.
+        </p>
+        <div class="form-group">
+          <label>Personal Access Token</label>
+          <input type="password" id="gh_token" placeholder="ghp_xxxxxxxxxxxxxxxxxxxx" autocomplete="off"
+            style="width:100%;padding:9px 12px;background:var(--bg-primary);border:1px solid var(--border);border-radius:8px;color:var(--text-primary);font-size:13px;font-family:var(--font-mono);outline:none">
+        </div>
+        <div class="form-group">
+          <label>Owner (GitHub 사용자명)</label>
+          <input id="gh_owner" placeholder="kingofdot"
+            style="width:100%;padding:9px 12px;background:var(--bg-primary);border:1px solid var(--border);border-radius:8px;color:var(--text-primary);font-size:13px;font-family:var(--font-mono);outline:none">
+        </div>
+        <div class="form-group">
+          <label>Repository</label>
+          <input id="gh_repo" placeholder="tools"
+            style="width:100%;padding:9px 12px;background:var(--bg-primary);border:1px solid var(--border);border-radius:8px;color:var(--text-primary);font-size:13px;font-family:var(--font-mono);outline:none">
+        </div>
+        <div class="form-group">
+          <label>저장 경로 (파일 경로)</label>
+          <input id="gh_path" placeholder="tools/prisma-architect/schema-data.json"
+            style="width:100%;padding:9px 12px;background:var(--bg-primary);border:1px solid var(--border);border-radius:8px;color:var(--text-primary);font-size:13px;font-family:var(--font-mono);outline:none">
+        </div>
+        <p style="font-size:11px;color:var(--text-muted)">
+          저장 예시: tools/prisma-architect/schema-data.json
+        </p>
+      </div>
+      <div class="modal-footer">
+        <button class="btn" onclick="document.getElementById('ghModal').classList.remove('show')">취소</button>
+        <button class="btn btn-accent" onclick="saveGhConfig()">저장</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 임포트 모달 -->
+  <div class="modal-overlay" id="importModal">
+    <div class="modal" style="min-width:600px">
+      <div class="modal-title">Prisma 스키마 임포트<button class="btn" onclick="closeImportModal()">✕</button></div>
+      <div class="modal-body"><textarea class="import-area" id="importText"
+          placeholder="Prisma 스키마를 붙여넣으세요..."></textarea></div>
+      <div class="modal-footer"><button class="btn" onclick="closeImportModal()">취소</button><button
+          class="btn btn-accent" onclick="doImport()">임포트</button></div>
+    </div>
+  </div>
+
+  <!-- 필드 편집 모달 -->
+  <div class="modal-overlay" id="fieldModal">
+    <div class="modal">
+      <div class="modal-title"><span id="fieldModalTitle">필드 편집</span><button class="btn"
+          onclick="closeFieldModal()">✕</button></div>
+      <div class="modal-body" id="fieldModalBody"></div>
+      <div class="modal-footer"><button class="btn btn-danger" id="fieldDeleteBtn"
+          onclick="deleteField()">삭제</button><button class="btn" onclick="closeFieldModal()">취소</button><button
+          class="btn btn-accent" onclick="saveField()">저장</button></div>
+    </div>
+  </div>
+
+  <!-- 관계 연결 모달 -->
+  <div class="modal-overlay" id="relationModal">
+    <div class="modal" style="min-width: 320px;">
+      <div class="modal-title">
+        <span>🔗 연결 대상 선택</span>
+        <button class="btn" onclick="closeRelationModal()">✕</button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label>대상 모델 / Enum</label>
+          <select id="relationTargetSelect"
+            style="width:100%;padding:9px 12px;background:var(--bg-primary);border:1px solid var(--border);border-radius:8px;color:var(--text-primary);font-size:13px"></select>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn" onclick="closeRelationModal()">취소</button>
+        <button class="btn btn-accent" onclick="confirmRelation()">연결하기</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 컨텍스트 메뉴 -->
+  <div class="context-menu" id="contextMenu">
+    <div class="context-menu-item" onclick="ctxAddRelation()">🔗 연결선 만들기</div>
+    <div class="context-menu-item" onclick="ctxAddField()">+ 필드 추가</div>
+    <div class="context-menu-item" onclick="ctxEditModel()">✏️ 이름 변경</div>
+    <div class="context-menu-divider"></div>
+    <div class="context-menu-item danger" onclick="ctxDeleteModel()">🗑 삭제</div>
+  </div>
+
+  <!-- 토스트 컨테이너 -->
+  <div class="toast-container" id="toastContainer"></div>
+
+  <!-- JS 파일 로드 순서가 중요 (의존성 순) -->
+  <script src="js/state.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/parser.js"></script>
+  <script src="js/history.js"></script>
+  <script src="js/relations.js"></script>
+  <script src="js/layout.js"></script>
+  <script src="js/render.js"></script>
+  <script src="js/canvas.js"></script>
+  <script src="js/excel.js"></script>
+  <script src="js/ui-panel.js"></script>
+  <script src="js/todo.js"></script>
+  <script src="js/suggest.js"></script>
+  <script src="js/sheets.js"></script>
+  <script src="js/github.js"></script>
+  <script src="js/init.js"></script>
+</body>
+
+</html>
