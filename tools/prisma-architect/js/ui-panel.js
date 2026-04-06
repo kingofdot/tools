@@ -369,7 +369,9 @@ function uiAddRowConfirm() {
   const rowKey = isCurrent ? _uiAddRowSelectedField : `${_uiAddRowSelectedModel}.${_uiAddRowSelectedField}`;
 
   if (!metaStore[selectedUiModel]) metaStore[selectedUiModel] = {};
-  metaStore[selectedUiModel][rowKey] = {};
+  const rowMeta = {};
+  if (!isCurrent) rowMeta['dataSource'] = _uiAddRowSelectedModel;
+  metaStore[selectedUiModel][rowKey] = rowMeta;
   if (!rowOrderStore[selectedUiModel]) rowOrderStore[selectedUiModel] = [];
   if (!rowOrderStore[selectedUiModel].includes(rowKey)) rowOrderStore[selectedUiModel].push(rowKey);
 
