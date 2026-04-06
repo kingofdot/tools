@@ -183,5 +183,4 @@ setTimeout(() => {
   addLog('schema', '초기 로드', `${schema.models.length}모델, ${schema.enums.length}Enum`);
 }, 100);
 
-initSheetsUI();
 initGithubUI();
