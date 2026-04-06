@@ -12,7 +12,7 @@ function parse(text) {
     const em = tr.match(/^enum\s+(\w+)\s*\{/); if (em) { cur = { type: 'enum', name: em[1], values: [] }; continue; }
     if (tr === '}' && cur) { if (cur.type === 'model') models.push(cur); if (cur.type === 'enum') enums.push(cur); cur = null; continue; }
     if (!cur) continue;
-    if (cur.type === 'enum') { if (tr && !tr.startsWith('//')) cur.values.push(tr); continue; }
+    if (cur.type === 'enum') { if (tr && !tr.startsWith('//')) { const val = tr.replace(/\/\/.*$/, '').trim(); if (val) cur.values.push(val); } continue; }
     if (cur.type === 'model') {
       if (tr.match(/@@map\("(.+?)"\)/)) { cur.mapName = RegExp.$1; continue; }
       if (tr.startsWith('@@')) { cur.indexes.push(tr); continue; }
