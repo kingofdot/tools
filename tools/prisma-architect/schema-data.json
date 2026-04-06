@@ -82,8 +82,8 @@
       "y": 5549
     },
     "Office": {
-      "x": 6200,
-      "y": 5969
+      "x": 6204,
+      "y": 5955
     },
     "AirDocumentation": {
       "x": 5891,
@@ -134,8 +134,8 @@
       "y": 5264
     },
     "BuildingInfo": {
-      "x": 2793,
-      "y": 5602
+      "x": 2861,
+      "y": 5584
     },
     "TemporaryBuildingInfo": {
       "x": 2478,
@@ -164,8 +164,8 @@
     "WasteDocumentation↔WasteTargetItem": "1:N",
     "WasteDocumentation↔WasteFacility": "1:N",
     "WasteDocumentation↔WasteStorageFacility": "1:N",
-    "Office↔WasteDocumentation": "1:1",
-    "Vehicle↔WasteDocumentation": "1:1",
+    "Office↔WasteDocumentation": "1:N",
+    "Vehicle↔WasteDocumentation": "1:N",
     "ExecutiveOfficer↔WasteDocumentation": "1:1",
     "WasteStorageFacility↔WasteTargetItem": "1:N",
     "Business↔ProductionFacility": "1:N",
@@ -446,5 +446,5 @@
   },
   "todoItems": [],
   "suggestItems": [],
-  "savedAt": "2026. 4. 6. 오후 3:27:56"
+  "savedAt": "2026. 4. 6. 오후 3:37:45"
 }
