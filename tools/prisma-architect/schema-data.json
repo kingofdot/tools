@@ -475,8 +475,121 @@
       "updatedAt"
     ]
   },
-  "todoItems": [],
-  "suggestItems": [],
+  "todoItems": [
+    {
+      "id": "t001",
+      "status": "doing",
+      "priority": "high",
+      "title": "대기서류 - AirEmissionFacility 고유 필드 확정",
+      "body": "배출시설 전용 필드 중 동력, 구분 등 세부 단위/타입 확정 필요\n현재: power, size, category, rawMaterial, rawMaterialUsage, fuel, fuelUsage, dailyOperatingHours, annualOperatingDays\n→ 각 필드 타입(String/Float/Int) 및 단위 확정 후 반영",
+      "model": "AirEmissionFacility",
+      "createdAt": "2026. 4. 6."
+    },
+    {
+      "id": "t002",
+      "status": "doing",
+      "priority": "high",
+      "title": "대기서류 - AirControlFacility 고유 필드 추가",
+      "body": "방지시설 대기 전용 추가 필드 미확정\nControlFacility 기본 필드 외 대기서류에서만 필요한 항목 확인 후 추가\n→ 처리 방식, 용량, 효율 등 검토 필요",
+      "model": "AirControlFacility",
+      "createdAt": "2026. 4. 6."
+    },
+    {
+      "id": "t003",
+      "status": "todo",
+      "priority": "high",
+      "title": "폐수서류 - WaterDocumentation 하위 구조 설계",
+      "body": "현재 WaterDocumentation은 기본 구조만 존재\n대기서류 패턴 참고하여 설계:\n- WaterEmissionFacility (배출시설 → ProductionFacility 참조)\n- WaterControlFacility (방지시설 → ControlFacility 참조)\n- 오염물질은 공통 Pollutant 모델 재사용 (FK 추가 필요)",
+      "model": "WaterDocumentation",
+      "createdAt": "2026. 4. 6."
+    },
+    {
+      "id": "t004",
+      "status": "todo",
+      "priority": "mid",
+      "title": "악취서류 - OdorDocumentation 하위 구조 설계",
+      "body": "현재 OdorDocumentation은 기본 구조만 존재\n악취 특유 항목(복합악취, 지정악취물질) 확인 필요\n대기서류 패턴 참고하여 구성",
+      "model": "OdorDocumentation",
+      "createdAt": "2026. 4. 6."
+    },
+    {
+      "id": "t005",
+      "status": "todo",
+      "priority": "mid",
+      "title": "소음진동서류 - NoiseDocumentation 하위 구조 설계",
+      "body": "현재 NoiseDocumentation은 기본 구조만 존재\n소음/진동 측정 단위 및 항목 특성 확인 후 설계",
+      "model": "NoiseDocumentation",
+      "createdAt": "2026. 4. 6."
+    },
+    {
+      "id": "t006",
+      "status": "todo",
+      "priority": "mid",
+      "title": "Pollutant - 폐수/악취 서류 FK 추가",
+      "body": "현재 Pollutant는 대기서류 FK만 있음\n- airEmissionFacilityId, hoodId, airControlFacilityId\n폐수/악취 서류 설계 완료 후 해당 FK 추가",
+      "model": "Pollutant",
+      "createdAt": "2026. 4. 6."
+    },
+    {
+      "id": "t007",
+      "status": "todo",
+      "priority": "low",
+      "title": "사업장 기본정보 - 나머지 하위 모델 필드 검토",
+      "body": "Vehicle: vehicleRegistrationNumber 필드 누락 확인\nExecutiveOfficer: 임원 정보 필드 완성도 검토\nOffice: 현재 officeAddress, officeArea, contactNumber - 추가 필드 없는지 확인",
+      "model": "Business",
+      "createdAt": "2026. 4. 6."
+    }
+  ],
+  "suggestItems": [
+    {
+      "id": "s001",
+      "category": "etc",
+      "author": "Moody",
+      "title": "[설계 원칙] 사업장(Business) 격리",
+      "body": "모든 데이터는 Business를 루트로 직접 또는 간접 연결\n- 직접 소유: ProcessFlow, ProductionFacility, ControlFacility, *Documentation 등\n- 간접 소유: 역순으로 타고 올라가면 Business에 도달 가능하면 OK\n- 직접 FK가 중복되면 제거 (WasteFacility.businessId 제거 사례)\n→ WasteFacility → WasteDocumentation → Business 로 충분",
+      "createdAt": "2026. 4. 6."
+    },
+    {
+      "id": "s002",
+      "category": "etc",
+      "author": "Moody",
+      "title": "[설계 원칙] 시설 마스터 데이터 패턴",
+      "body": "생산시설(ProductionFacility), 방지시설(ControlFacility)은 Business 직속 마스터 데이터\n→ 각 서류에서 참조(Reference)하는 방식으로 재사용\n\n대기서류 예시:\n  ProductionFacility (마스터) ← AirEmissionFacility 참조\n  ControlFacility (마스터)    ← AirControlFacility 참조\n\n동일 패턴: 폐수, 악취, 소음진동 서류도 같은 방식 적용",
+      "createdAt": "2026. 4. 6."
+    },
+    {
+      "id": "s003",
+      "category": "etc",
+      "author": "Moody",
+      "title": "[설계 원칙] 공정도(ProcessFlow)와 시설의 관계",
+      "body": "공정도는 유저와의 UI 창구 (다이어그램 캔버스)\n시설은 Business 소속 마스터 데이터\n\n관계: M:N (implicit)\n- 공정도 생성 시 기존 시설 참조 또는 신규 생성 가능\n- 같은 시설이 여러 공정도에 등장 가능\n- 시설 위치/노드/선은 ProcessFlow.layoutData(Json)에 저장",
+      "createdAt": "2026. 4. 6."
+    },
+    {
+      "id": "s004",
+      "category": "etc",
+      "author": "Moody",
+      "title": "[설계 결정] 대기서류 구조: 배출시설-후드-방지시설",
+      "body": "핵심 흐름: 배출시설 → 후드(최소단위) → 방지시설\n\nAirDocumentation\n ├── AirEmissionFacility[] (배출시설)\n │     ├── → ProductionFacility 참조\n │     ├── rawMaterialUsage 등 고유 필드 (하위 후드 전체 공유)\n │     ├── Hood[]\n │     └── Pollutant[] (FACILITY context)\n │\n ├── AirControlFacility[] (방지시설)\n │     ├── → ControlFacility 참조\n │     └── Pollutant[] (PRE/POST context)\n │\n └── Hood (배출시설↔방지시설 연결 최소단위)\n       ├── airEmissionFacilityId (어디서 왔는지)\n       ├── airControlFacilityId + emissionOutletNumber (어디로 나가는지)\n       └── Pollutant[] (HOOD context)",
+      "createdAt": "2026. 4. 6."
+    },
+    {
+      "id": "s005",
+      "category": "etc",
+      "author": "Moody",
+      "title": "[설계 결정] 오염물질(Pollutant) 공통 모델",
+      "body": "{오염물질명, 농도, 단위}는 대기/폐수/악취 공통 구조\n→ 하나의 Pollutant 모델로 통합, PollutantContext enum으로 단계 구분\n\nPollutantContext:\n  FACILITY  - 배출시설 단위 오염물질\n  HOOD      - 후드 단위 오염물질\n  PRE       - 방지시설 처리 전\n  POST      - 방지시설 처리 후\n\n원료사용량은 AirEmissionFacility 레벨에 위치\n→ 같은 배출시설 소속 후드는 모두 공유 (앱 레이어에서 참조)",
+      "createdAt": "2026. 4. 6."
+    },
+    {
+      "id": "s006",
+      "category": "etc",
+      "author": "Moody",
+      "title": "[설계 결정] 폐기물서류 구조",
+      "body": "WasteDocumentation (Business 직속)\n ├── WasteTargetItem[] - 폐기물 대상 품목\n ├── WasteFacility[]   - 생산시설을 폐기물 처리시설로 사용 시 추가 데이터\n │     └── → ProductionFacility 참조 (1:1)\n └── WasteStorageFacility[] - 폐기물 보관시설\n\n폐기물업종 중 수집운반업(TRANSPORT):\n→ 시설 정보 대신 Vehicle 정보만 사용\n→ WasteDocumentation이 Vehicle을 optional FK로 참조\n→ Business.wasteIndustryType으로 앱에서 분기",
+      "createdAt": "2026. 4. 6."
+    }
+  ],
   "annotations": [],
   "savedAt": "2026. 4. 6. 오후 4:22:17"
 }
