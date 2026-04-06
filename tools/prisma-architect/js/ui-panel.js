@@ -231,9 +231,8 @@ function uiApply() {
   if (selectedUiModel === null) { toast('헤더 변경은 자동 저장됩니다', 'info'); return; }
   if (!metaStore[selectedUiModel]) metaStore[selectedUiModel] = {};
   document.querySelectorAll('#uiMetaTable tbody tr').forEach(row => {
-    const fnCell = row.querySelector('td:nth-child(2)');
-    if (!fnCell) return;
-    const fieldName = fnCell.textContent.trim();
+    const fieldName = row.dataset.field;
+    if (!fieldName) return;
     if (!metaStore[selectedUiModel][fieldName]) metaStore[selectedUiModel][fieldName] = {};
     uiHeaders.forEach(h => {
       const cell = row.querySelector(`[data-col="${h.name}"]`);
