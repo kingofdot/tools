@@ -54,6 +54,8 @@ document.addEventListener('DOMContentLoaded', () => {
       draggingCard.style.left = Math.round(x) + 'px';
       draggingCard.style.top = Math.round(y) + 'px';
       cardSizes[n] = { w: draggingCard.offsetWidth, h: draggingCard.offsetHeight };
+      const lbl = document.querySelector(`.model-label[data-label-for="${n}"]`);
+      if (lbl) { lbl.style.left = Math.round(x) + 'px'; lbl.style.top = (Math.round(y) - 22) + 'px'; }
       drawRels();
     }
     if (draggingAnnotation) {

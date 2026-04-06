@@ -33,7 +33,6 @@ function renderDiagram() {
     const p = modelPositions[item.name]; card.style.left = p.x + 'px'; card.style.top = p.y + 'px';
     if (item.kind === 'enum' && !showEnumLines) { card.style.display = 'none'; }
 
-    if (MODEL_LABELS[item.name]) { const lbl = document.createElement('div'); lbl.className = 'model-label'; lbl.textContent = MODEL_LABELS[item.name]; card.appendChild(lbl); }
     const hdr = document.createElement('div'); hdr.className = `mc-header ${item.kind}`;
 
     let modelMarker = '';
@@ -68,6 +67,15 @@ function renderDiagram() {
     hdr.addEventListener('mousedown', e => { if (e.button !== 0) return; e.preventDefault(); draggingCard = card; card.classList.add('dragging'); dragOffsetX = (e.clientX - card.getBoundingClientRect().left) / zoom; dragOffsetY = (e.clientY - card.getBoundingClientRect().top) / zoom; });
     card.addEventListener('contextmenu', e => { e.preventDefault(); ctxTarget = item.name; const m = document.getElementById('contextMenu'); m.style.left = e.clientX + 'px'; m.style.top = e.clientY + 'px'; m.classList.add('show'); });
     canvas.appendChild(card);
+    if (MODEL_LABELS[item.name]) {
+      const lbl = document.createElement('div');
+      lbl.className = 'model-label';
+      lbl.dataset.labelFor = item.name;
+      lbl.textContent = MODEL_LABELS[item.name];
+      lbl.style.left = p.x + 'px';
+      lbl.style.top = (p.y - 22) + 'px';
+      canvas.appendChild(lbl);
+    }
   });
 
   requestAnimationFrame(() => {
