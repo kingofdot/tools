@@ -408,6 +408,30 @@
       "user": {},
       "createdAt": {},
       "updatedAt": {}
+    },
+    "LandInfo": {
+      "id": {},
+      "businessId": {},
+      "lotNumber": {},
+      "landCategory": {},
+      "area": {},
+      "business": {},
+      "createdAt": {},
+      "updatedAt": {}
+    },
+    "BuildingInfo": {
+      "id": {},
+      "businessId": {},
+      "dong": {},
+      "floors": {},
+      "purpose": {},
+      "area": {},
+      "business": {},
+      "createdAt": {},
+      "updatedAt": {},
+      "TemporaryBuildingInfo.dong": {
+        "dataSource": "TemporaryBuildingInfo"
+      }
     }
   },
   "rowOrderStore": {
@@ -486,6 +510,28 @@
       "user",
       "createdAt",
       "updatedAt"
+    ],
+    "LandInfo": [
+      "id",
+      "businessId",
+      "lotNumber",
+      "landCategory",
+      "area",
+      "business",
+      "createdAt",
+      "updatedAt"
+    ],
+    "BuildingInfo": [
+      "id",
+      "businessId",
+      "dong",
+      "floors",
+      "purpose",
+      "area",
+      "business",
+      "createdAt",
+      "updatedAt",
+      "TemporaryBuildingInfo.dong"
     ]
   },
   "todoItems": [
@@ -604,5 +650,5 @@
     }
   ],
   "annotations": [],
-  "savedAt": "2026. 4. 6. 오후 5:41:44"
+  "savedAt": "2026. 4. 6. 오후 5:50:00"
 }
