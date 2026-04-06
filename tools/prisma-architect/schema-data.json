@@ -29,14 +29,14 @@
       "x": 4855,
       "y": 3110
     },
-    "Business": [
-      9000,
-      2000
-    ],
-    "BusinessDocumentProfile": [
-      8500,
-      4500
-    ],
+    "Business": {
+      "x": 9000,
+      "y": 2000
+    },
+    "BusinessDocumentProfile": {
+      "x": 8500,
+      "y": 4500
+    },
     "DocumentRequest": {
       "x": 5255,
       "y": 4034
@@ -45,50 +45,50 @@
       "x": 5055,
       "y": 3572
     },
-    "ProcessFlow": [
-      7200,
-      3200
-    ],
-    "ControlFacility": [
-      7800,
-      4500
-    ],
-    "ProductionFacility": [
-      7200,
-      4500
-    ],
-    "WasteDocumentation": [
-      10300,
-      3200
-    ],
-    "WasteTargetItem": [
-      10300,
-      4500
-    ],
-    "WasteFacility": [
-      11000,
-      4500
-    ],
-    "WasteStorageFacility": [
-      11000,
-      3200
-    ],
-    "ExecutiveOfficer": [
-      9100,
-      5800
-    ],
-    "Vehicle": [
-      9800,
-      5800
-    ],
-    "Office": [
-      10500,
-      5800
-    ],
-    "AirDocumentation": [
-      7800,
-      3200
-    ],
+    "ProcessFlow": {
+      "x": 7200,
+      "y": 3200
+    },
+    "ControlFacility": {
+      "x": 7800,
+      "y": 4500
+    },
+    "ProductionFacility": {
+      "x": 7200,
+      "y": 4500
+    },
+    "WasteDocumentation": {
+      "x": 10300,
+      "y": 3200
+    },
+    "WasteTargetItem": {
+      "x": 10300,
+      "y": 4500
+    },
+    "WasteFacility": {
+      "x": 11000,
+      "y": 4500
+    },
+    "WasteStorageFacility": {
+      "x": 11000,
+      "y": 3200
+    },
+    "ExecutiveOfficer": {
+      "x": 9100,
+      "y": 5800
+    },
+    "Vehicle": {
+      "x": 9800,
+      "y": 5800
+    },
+    "Office": {
+      "x": 10500,
+      "y": 5800
+    },
+    "AirDocumentation": {
+      "x": 7800,
+      "y": 3200
+    },
     "UserRole": {
       "x": 6320,
       "y": 3365
@@ -125,38 +125,38 @@
       "x": 3680,
       "y": 6179
     },
-    "RawMaterialUsage": [
-      9200,
-      4500
-    ],
-    "LandInfo": [
-      7200,
-      5800
-    ],
-    "BuildingInfo": [
-      7800,
-      5800
-    ],
-    "TemporaryBuildingInfo": [
-      8400,
-      5800
-    ],
+    "RawMaterialUsage": {
+      "x": 9200,
+      "y": 4500
+    },
+    "LandInfo": {
+      "x": 7200,
+      "y": 5800
+    },
+    "BuildingInfo": {
+      "x": 7800,
+      "y": 5800
+    },
+    "TemporaryBuildingInfo": {
+      "x": 8400,
+      "y": 5800
+    },
     "MaterialType": {
       "x": 1860,
       "y": 2160
     },
-    "WaterDocumentation": [
-      8400,
-      3200
-    ],
-    "OdorDocumentation": [
-      9000,
-      3200
-    ],
-    "NoiseDocumentation": [
-      9600,
-      3200
-    ]
+    "WaterDocumentation": {
+      "x": 8400,
+      "y": 3200
+    },
+    "OdorDocumentation": {
+      "x": 9000,
+      "y": 3200
+    },
+    "NoiseDocumentation": {
+      "x": 9600,
+      "y": 3200
+    }
   },
   "cardinalityMap": {
     "Session↔User": "1:N",
