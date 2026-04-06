@@ -50,8 +50,8 @@
       "y": 3200
     },
     "ControlFacility": {
-      "x": 7737,
-      "y": 4303
+      "x": 7914,
+      "y": 4037
     },
     "ProductionFacility": {
       "x": 7251,
@@ -66,8 +66,8 @@
       "y": 3714
     },
     "WasteFacility": {
-      "x": 10283,
-      "y": 4228
+      "x": 10309,
+      "y": 4282
     },
     "WasteStorageFacility": {
       "x": 11000,
@@ -462,5 +462,5 @@
   "todoItems": [],
   "suggestItems": [],
   "annotations": [],
-  "savedAt": "2026. 4. 6. 오후 4:20:59"
+  "savedAt": "2026. 4. 6. 오후 4:21:20"
 }
