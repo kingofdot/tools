@@ -146,14 +146,12 @@ async function githubSave() {
     const encoded = btoa(unescape(encodeURIComponent(JSON.stringify(data, null, 2))));
     const url = `https://api.github.com/repos/${cfg.owner}/${cfg.repo}/contents/${cfg.path}`;
 
-    // SHA 가져오기 (파일 업데이트 시 필요)
-    let sha = localStorage.getItem('gh_sha_' + cfg.path);
-    if (!sha) {
-      const check = await fetch(url, {
-        headers: { Authorization: `token ${cfg.token}`, Accept: 'application/vnd.github.v3+json' }
-      });
-      if (check.ok) { const d = await check.json(); sha = d.sha; localStorage.setItem('gh_sha_' + cfg.path, sha); }
-    }
+    // SHA 항상 최신으로 가져오기 (git push 등으로 SHA가 바뀌어도 대응)
+    let sha = null;
+    const check = await fetch(url, {
+      headers: { Authorization: `token ${cfg.token}`, Accept: 'application/vnd.github.v3+json' }
+    });
+    if (check.ok) { const d = await check.json(); sha = d.sha; localStorage.setItem('gh_sha_' + cfg.path, sha); }
 
     const body = {
       message: `chore: update schema-data (${new Date().toLocaleString('ko-KR')})`,
