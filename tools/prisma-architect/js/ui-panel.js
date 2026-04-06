@@ -255,41 +255,47 @@ function uiAddRow() {
   _uiAddRowSelectedModel = null;
   _uiAddRowSelectedField = null;
 
+  const modal = document.getElementById('uiAddRowModal');
+  if (!modal) { toast('모달을 찾을 수 없습니다', 'error'); return; }
+
   const confirmBtn = document.getElementById('uiAddRowConfirmBtn');
-  confirmBtn.disabled = true;
-  confirmBtn.style.opacity = '0.4';
+  if (confirmBtn) { confirmBtn.disabled = true; confirmBtn.style.opacity = '0.4'; }
 
   // 모델 목록 렌더
   const list = document.getElementById('uiAddRowModelList');
-  list.innerHTML = schema.models.map(m => {
-    const isCurrent = m.name === selectedUiModel;
-    return `<div class="ui-add-row-item" data-model="${m.name}" onclick="uiAddRowSelectModel('${m.name}')"
-      style="display:flex;align-items:center;gap:10px;padding:8px 12px;border-radius:7px;cursor:pointer;transition:background .12s">
-      <span style="width:8px;height:8px;border-radius:50%;background:${isCurrent ? 'var(--accent)' : 'var(--accent2)'};flex-shrink:0"></span>
-      <span style="font-weight:600;font-family:var(--font-mono);font-size:13px;color:var(--text-primary)">${m.name}</span>
-      ${isCurrent ? '<span style="margin-left:auto;font-size:10px;background:var(--accent-dim);color:var(--accent);padding:2px 7px;border-radius:99px;font-weight:700">현재</span>' : ''}
-    </div>`;
-  }).join('');
+  if (list) {
+    list.innerHTML = schema.models.map(m => {
+      const isCurrent = m.name === selectedUiModel;
+      const dot = `<span style="width:8px;height:8px;border-radius:50%;flex-shrink:0;background:${isCurrent ? 'var(--accent)' : 'var(--accent2)'}"></span>`;
+      const badge = isCurrent ? `<span style="margin-left:auto;font-size:10px;background:var(--accent-dim);color:var(--accent);padding:2px 7px;border-radius:99px;font-weight:700">현재</span>` : '';
+      return `<div class="ui-add-row-item" data-model="${m.name}" onclick="uiAddRowSelectModel(this)"
+        style="display:flex;align-items:center;gap:10px;padding:8px 12px;border-radius:7px;cursor:pointer;transition:background .12s">
+        ${dot}
+        <span style="font-weight:600;font-family:var(--font-mono);font-size:13px;color:var(--text-primary)">${m.name}</span>
+        ${badge}
+      </div>`;
+    }).join('');
+  }
 
   // 필드 목록 초기화
-  document.getElementById('uiAddRowFieldList').innerHTML =
-    '<div style="text-align:center;padding:20px;color:var(--text-muted);font-size:12px">← 먼저 모델을 선택하세요</div>';
+  const fieldList = document.getElementById('uiAddRowFieldList');
+  if (fieldList) fieldList.innerHTML = '<div style="text-align:center;padding:20px;color:var(--text-muted);font-size:12px">← 먼저 모델을 선택하세요</div>';
 
-  document.getElementById('uiAddRowModal').classList.add('show');
+  modal.classList.add('show');
 }
 
-function uiAddRowSelectModel(modelName) {
+function uiAddRowSelectModel(el) {
+  const modelName = el.dataset.model;
   _uiAddRowSelectedModel = modelName;
   _uiAddRowSelectedField = null;
 
   const confirmBtn = document.getElementById('uiAddRowConfirmBtn');
-  confirmBtn.disabled = true;
-  confirmBtn.style.opacity = '0.4';
+  if (confirmBtn) { confirmBtn.disabled = true; confirmBtn.style.opacity = '0.4'; }
 
   // 모델 항목 하이라이트
-  document.querySelectorAll('.ui-add-row-item[data-model]').forEach(el => {
-    el.style.background = el.dataset.model === modelName ? 'var(--bg-hover)' : '';
-    el.style.outline = el.dataset.model === modelName ? '2px solid var(--accent)' : '';
+  document.querySelectorAll('.ui-add-row-item[data-model]').forEach(item => {
+    item.style.background = item.dataset.model === modelName ? 'var(--bg-hover)' : '';
+    item.style.outline = item.dataset.model === modelName ? '2px solid var(--accent)' : '';
   });
 
   const model = schema.models.find(m => m.name === modelName);
@@ -314,7 +320,7 @@ function uiAddRowSelectModel(modelName) {
 
   fieldList.innerHTML = fields.map(f => {
     const typeStr = f.type + (f.isArray ? '[]' : '') + (f.isOptional ? '?' : '');
-    return `<div class="ui-add-row-item" data-field="${f.name}" onclick="uiAddRowSelectField('${f.name}')"
+    return `<div class="ui-add-row-item" data-field="${f.name}" onclick="uiAddRowSelectField(this)"
       style="display:flex;align-items:center;gap:10px;padding:8px 12px;border-radius:7px;cursor:pointer;transition:background .12s">
       <span style="font-weight:600;font-family:var(--font-mono);font-size:13px;color:var(--text-primary)">${f.name}</span>
       <span style="margin-left:auto;font-size:11px;color:var(--accent3);font-family:var(--font-mono);font-weight:500">${typeStr}</span>
@@ -322,12 +328,13 @@ function uiAddRowSelectModel(modelName) {
   }).join('');
 }
 
-function uiAddRowSelectField(fieldName) {
+function uiAddRowSelectField(el) {
+  const fieldName = el.dataset.field;
   _uiAddRowSelectedField = fieldName;
 
-  document.querySelectorAll('.ui-add-row-item[data-field]').forEach(el => {
-    el.style.background = el.dataset.field === fieldName ? 'var(--bg-hover)' : '';
-    el.style.outline = el.dataset.field === fieldName ? '2px solid var(--accent)' : '';
+  document.querySelectorAll('.ui-add-row-item[data-field]').forEach(item => {
+    item.style.background = item.dataset.field === fieldName ? 'var(--bg-hover)' : '';
+    item.style.outline = item.dataset.field === fieldName ? '2px solid var(--accent)' : '';
   });
 
   const confirmBtn = document.getElementById('uiAddRowConfirmBtn');
