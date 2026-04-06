@@ -258,6 +258,11 @@ function uiAddRow() {
   const modal = document.getElementById('uiAddRowModal');
   if (!modal) { toast('모달을 찾을 수 없습니다', 'error'); return; }
 
+  const ms = document.getElementById('uiAddRowModelSearch');
+  const fs = document.getElementById('uiAddRowFieldSearch');
+  if (ms) ms.value = '';
+  if (fs) fs.value = '';
+
   const confirmBtn = document.getElementById('uiAddRowConfirmBtn');
   if (confirmBtn) { confirmBtn.disabled = true; confirmBtn.style.opacity = '0.4'; }
 
@@ -326,6 +331,20 @@ function uiAddRowSelectModel(el) {
       <span style="margin-left:auto;font-size:11px;color:var(--accent3);font-family:var(--font-mono);font-weight:500">${typeStr}</span>
     </div>`;
   }).join('');
+}
+
+function uiAddRowFilterModels() {
+  const q = document.getElementById('uiAddRowModelSearch').value.toLowerCase();
+  document.querySelectorAll('.ui-add-row-item[data-model]').forEach(el => {
+    el.style.display = el.dataset.model.toLowerCase().includes(q) ? '' : 'none';
+  });
+}
+
+function uiAddRowFilterFields() {
+  const q = document.getElementById('uiAddRowFieldSearch').value.toLowerCase();
+  document.querySelectorAll('.ui-add-row-item[data-field]').forEach(el => {
+    el.style.display = el.dataset.field.toLowerCase().includes(q) ? '' : 'none';
+  });
 }
 
 function uiAddRowSelectField(el) {
