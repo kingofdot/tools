@@ -161,6 +161,7 @@ function drawRels() {
     const delX = bmx + bw / 2 + 14, delY = bmy;
     const delBtn = document.createElementNS('http://www.w3.org/2000/svg', 'g');
     delBtn.style.cursor = 'pointer';
+    delBtn.style.pointerEvents = 'all';
     delBtn.addEventListener('mouseenter', () => delBtn.firstChild.setAttribute('fill', '#fecaca'));
     delBtn.addEventListener('mouseleave', () => delBtn.firstChild.setAttribute('fill', '#fee2e2'));
     delBtn.addEventListener('click', (e) => {
