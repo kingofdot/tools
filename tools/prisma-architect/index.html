@@ -354,6 +354,32 @@
     </div>
   </div>
 
+  <!-- UI 행 추가 모달 -->
+  <div class="modal-overlay" id="uiAddRowModal">
+    <div class="modal" style="min-width:360px">
+      <div class="modal-title">
+        <span>+ 행 추가</span>
+        <button class="btn" onclick="document.getElementById('uiAddRowModal').classList.remove('show')">✕</button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label>모델 선택</label>
+          <select id="uiAddRowModelSel" onchange="uiAddRowModelChange()"
+            style="width:100%;padding:9px 12px;background:var(--bg-primary);border:1px solid var(--border);border-radius:8px;color:var(--text-primary);font-size:13px"></select>
+        </div>
+        <div class="form-group">
+          <label>필드 선택</label>
+          <select id="uiAddRowFieldSel"
+            style="width:100%;padding:9px 12px;background:var(--bg-primary);border:1px solid var(--border);border-radius:8px;color:var(--text-primary);font-size:13px"></select>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn" onclick="document.getElementById('uiAddRowModal').classList.remove('show')">취소</button>
+        <button class="btn btn-accent" onclick="uiAddRowConfirm()">추가</button>
+      </div>
+    </div>
+  </div>
+
   <!-- 컨텍스트 메뉴 -->
   <div class="context-menu" id="contextMenu">
     <div class="context-menu-item" onclick="ctxAddRelation()">🔗 연결선 만들기</div>

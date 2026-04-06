@@ -143,9 +143,9 @@ function renderUiTable() {
   }).join('');
 
   let html = `<table class="excel-table" id="uiMetaTable">
-    <thead><tr><th style="width:32px;position:sticky;left:0;z-index:11;background:var(--bg-secondary)"></th><th style="min-width:140px;position:sticky;left:32px;z-index:11;background:var(--bg-secondary)">fieldName</th>${thHtml}<th></th></tr></thead><tbody>`;
+    <thead><tr><th style="width:32px;position:sticky;left:0;z-index:11;background:var(--bg-secondary)"></th><th style="min-width:140px;position:sticky;left:32px;z-index:11;background:var(--bg-secondary)">fieldName</th>${thHtml}<th></th></tr></thead><tbody id="uiMetaTableBody">`;
 
-  rows.forEach((row, rowIdx) => {
+  rows.forEach((row) => {
     const modelOpts = schema.models.map(m => m.name);
     const tds = uiHeaders.map(h => {
       const val = row.meta[h.name] !== undefined ? row.meta[h.name] : '';
@@ -161,12 +161,8 @@ function renderUiTable() {
     }).join('');
 
     const extraStyle = row.extraOnly ? 'color:var(--accent2)' : 'color:var(--text-muted)';
-    const canUp = rowIdx > 0, canDown = rowIdx < rows.length - 1;
-    html += `<tr>
-      <td style="text-align:center;white-space:nowrap;position:sticky;left:0;background:var(--bg-secondary);z-index:5;padding:2px 4px">
-        <button title="위로" onclick="uiMoveRow('${row.fieldName}',-1)" style="border:none;background:none;cursor:${canUp ? 'pointer' : 'default'};color:${canUp ? 'var(--accent)' : 'var(--border)'};font-size:13px;padding:1px 3px">▲</button>
-        <button title="아래로" onclick="uiMoveRow('${row.fieldName}',1)" style="border:none;background:none;cursor:${canDown ? 'pointer' : 'default'};color:${canDown ? 'var(--accent)' : 'var(--border)'};font-size:13px;padding:1px 3px">▼</button>
-      </td>
+    html += `<tr draggable="true" data-field="${row.fieldName}">
+      <td style="text-align:center;position:sticky;left:0;background:var(--bg-secondary);z-index:5;padding:2px 6px;cursor:grab;color:var(--text-muted);font-size:16px;user-select:none">⠿</td>
       <td style="font-weight:600;${extraStyle};white-space:nowrap;position:sticky;left:32px;background:var(--bg-secondary);z-index:5">${row.fieldName}</td>
       ${tds}
       <td><button class="btn btn-danger" style="padding:2px 8px;font-size:10px" onclick="uiDelRow('${row.fieldName}')">✕</button></td>
@@ -174,6 +170,7 @@ function renderUiTable() {
   });
   html += '</tbody></table>';
   wrap.innerHTML = html;
+  initRowDragDrop();
 }
 
 function uiHeaderNameChange(i, val) {
@@ -250,10 +247,58 @@ function uiApply() {
 
 function uiAddRow() {
   if (!selectedUiModel) return;
-  const fn = prompt('필드명 (메타 전용 행):');
-  if (!fn || !fn.trim()) return;
+  // 모델 셀렉터 초기화
+  const modelSel = document.getElementById('uiAddRowModelSel');
+  modelSel.innerHTML = schema.models.map(m =>
+    `<option value="${m.name}"${m.name === selectedUiModel ? ' selected' : ''}>${m.name}</option>`
+  ).join('');
+  uiAddRowModelChange();
+  document.getElementById('uiAddRowModal').classList.add('show');
+}
+
+function uiAddRowModelChange() {
+  const modelSel = document.getElementById('uiAddRowModelSel');
+  const fieldSel = document.getElementById('uiAddRowFieldSel');
+  const chosenModel = modelSel.value;
+  const model = schema.models.find(m => m.name === chosenModel);
+  if (!model) { fieldSel.innerHTML = ''; return; }
+
+  // 이미 현재 모델 메타에 있는 행 키 목록
+  const existing = new Set([
+    ...(rowOrderStore[selectedUiModel] || []),
+    ...Object.keys(metaStore[selectedUiModel] || {}),
+  ]);
+
+  const fields = model.fields.filter(f => {
+    // 같은 모델이면 이미 있는 필드 제외, 다른 모델이면 "Model.field" 키로 체크
+    const key = chosenModel === selectedUiModel ? f.name : `${chosenModel}.${f.name}`;
+    return !existing.has(key);
+  });
+
+  if (fields.length === 0) {
+    fieldSel.innerHTML = `<option value="">— 추가 가능한 필드 없음 —</option>`;
+  } else {
+    fieldSel.innerHTML = fields.map(f =>
+      `<option value="${f.name}">${f.name}  (${f.type}${f.isArray ? '[]' : ''}${f.isOptional ? '?' : ''})</option>`
+    ).join('');
+  }
+}
+
+function uiAddRowConfirm() {
+  if (!selectedUiModel) return;
+  const modelSel = document.getElementById('uiAddRowModelSel');
+  const fieldSel = document.getElementById('uiAddRowFieldSel');
+  const chosenModel = modelSel.value;
+  const chosenField = fieldSel.value;
+  if (!chosenField) { toast('필드를 선택하세요', 'error'); return; }
+
+  const rowKey = chosenModel === selectedUiModel ? chosenField : `${chosenModel}.${chosenField}`;
   if (!metaStore[selectedUiModel]) metaStore[selectedUiModel] = {};
-  metaStore[selectedUiModel][fn.trim()] = {};
+  metaStore[selectedUiModel][rowKey] = {};
+  if (!rowOrderStore[selectedUiModel]) rowOrderStore[selectedUiModel] = [];
+  if (!rowOrderStore[selectedUiModel].includes(rowKey)) rowOrderStore[selectedUiModel].push(rowKey);
+
+  document.getElementById('uiAddRowModal').classList.remove('show');
   renderUiTable();
 }
 
@@ -266,16 +311,34 @@ function uiDelRow(fieldName) {
   renderUiTable();
 }
 
-function uiMoveRow(fieldName, dir) {
-  if (!selectedUiModel) return;
-  uiApply();
-  const order = rowOrderStore[selectedUiModel];
-  if (!order) return;
-  const idx = order.indexOf(fieldName);
-  if (idx < 0) return;
-  const newIdx = idx + dir;
-  if (newIdx < 0 || newIdx >= order.length) return;
-  order.splice(idx, 1);
-  order.splice(newIdx, 0, fieldName);
-  renderUiTable();
+function initRowDragDrop() {
+  const tbody = document.getElementById('uiMetaTableBody');
+  if (!tbody) return;
+  let dragSrc = null;
+  tbody.querySelectorAll('tr').forEach(tr => {
+    tr.addEventListener('dragstart', e => {
+      dragSrc = tr;
+      tr.style.opacity = '0.4';
+      e.dataTransfer.effectAllowed = 'move';
+    });
+    tr.addEventListener('dragend', () => { tr.style.opacity = '1'; });
+    tr.addEventListener('dragover', e => { e.preventDefault(); tr.style.background = 'var(--bg-hover)'; });
+    tr.addEventListener('dragleave', () => { tr.style.background = ''; });
+    tr.addEventListener('drop', e => {
+      e.preventDefault();
+      tr.style.background = '';
+      if (!dragSrc || dragSrc === tr) return;
+      uiApply();
+      const order = rowOrderStore[selectedUiModel];
+      if (!order) return;
+      const fromField = dragSrc.dataset.field;
+      const toField = tr.dataset.field;
+      const fromIdx = order.indexOf(fromField);
+      const toIdx = order.indexOf(toField);
+      if (fromIdx < 0 || toIdx < 0) return;
+      order.splice(fromIdx, 1);
+      order.splice(toIdx, 0, fromField);
+      renderUiTable();
+    });
+  });
 }
