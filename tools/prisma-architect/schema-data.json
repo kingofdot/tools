@@ -50,12 +50,12 @@
       "y": 3200
     },
     "ControlFacility": {
-      "x": 7800,
-      "y": 4500
+      "x": 7737,
+      "y": 4303
     },
     "ProductionFacility": {
-      "x": 7200,
-      "y": 4500
+      "x": 7251,
+      "y": 4317
     },
     "WasteDocumentation": {
       "x": 10300,
@@ -66,8 +66,8 @@
       "y": 3714
     },
     "WasteFacility": {
-      "x": 11034,
-      "y": 4168
+      "x": 10283,
+      "y": 4228
     },
     "WasteStorageFacility": {
       "x": 11000,
@@ -462,5 +462,5 @@
   "todoItems": [],
   "suggestItems": [],
   "annotations": [],
-  "savedAt": "2026. 4. 6. 오후 4:20:43"
+  "savedAt": "2026. 4. 6. 오후 4:20:59"
 }
