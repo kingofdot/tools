@@ -1,0 +1,420 @@
+{
+  "schemaText": "datasource db {\n  provider = \"postgresql\"\n}\n\ngenerator client {\n  provider = \"prisma-client-js\"\n}\n\nenum UserRole {\n  USER\n  ADMIN\n}\n\nenum UserType {\n  INHOUSE\n  AGENCY\n}\n\nenum Provider {\n  credential\n  google\n  kakao\n  naver\n}\n\nenum WasteIndustryType {\n  INTERMEDIATE_RECYCLING\n  COMPREHENSIVE_RECYCLING\n  FINAL_RECYCLING\n  INTERMEDIATE_DISPOSAL\n  FINAL_DISPOSAL\n  TRANSPORT\n}\n\nenum ProfileScope {\n  BUSINESS // 사업장만 일치하면 불러옴\n  CATEGORY // 사업장 + 대분류 카테고리 일치\n  DOCUMENT // 사업장 + 서류코드 일치 (기존 동작, default값)\n}\n\nenum DocumentType {\n  EMISSION_AIR_DOC\n  EMISSION_WATER_DOC\n  EMISSION_NOISE_DOC\n  EMISSION_SMELL_DOC\n  WASTE_PERMIT_DOC\n  WASTE_REPORT_TRANSPORT_DOC\n  WASTE_REPORT_RECYCLE_DOC\n  WASTE_REPORT_DISPOSAL_DOC\n  WASTE_APPROVAL_DISPOSAL_DOC\n  WASTE_REPORT_EMITTER_DOC\n  WASTE_STARTUP_DOC\n  LOGS_AIR\n  LOGS_WATER\n  GAPZI\n}\n\nenum DocumentRequestStatus {\n  PENDING\n  IN_PROGRESS\n  COMPLETED\n  CANCELLED\n  FAILED\n}\n\nenum ChangeType {\n  NEW\n  UPDATE\n  EXPANSION\n  CLOSE\n}\n\nenum BottomShape {\n  CIRCLE\n  RECT\n  TRIANGLE\n  TRAPEZOID\n  MANUAL\n}\n\nmodel User {\n  id                      String @id @default(cuid())\n  username                String? // PostgreSQL Partial Index 수동 설정함 (값이 있을 땐 Unique하되 Null은 중복 가능하도록!)\n  displayUsername         String?\n  email                   String @unique\n  emailVerified           Boolean @default(false)\n  phoneNumber             String?\n  name                    String\n  role                    UserRole @default(USER)\n  userType                UserType? // 소셜 로그인 시 null로 기본 저장, credential에서는 필수\n  isProfileComplete       Boolean @default(false) // email, name, userType이 모두 존재할 때만 isProfileComplete를 true로 설정 (그 외의 경우에는 false)\n  sessions                Session[]\n  accounts                Account[]\n  posts                   Post[]\n  businesses              Business[]\n  documentRequests        DocumentRequest[]\n  createdAt               DateTime @default(now())\n  updatedAt               DateTime @updatedAt\n\n  @@map(\"users\")\n}\n\nmodel Session {\n  id                      String @id @default(cuid())\n  userId                  String\n  token                   String @unique\n  ipAddress               String?\n  userAgent               String?\n  user                    User @relation(fields: [userId], references: [id], onDelete: Cascade)\n  expiresAt               DateTime\n  createdAt               DateTime @default(now())\n  updatedAt               DateTime @updatedAt\n\n  @@index([userId, token])\n  @@map(\"sessions\")\n}\n\nmodel Account {\n  id                      String @id @default(cuid())\n  userId                  String\n  accountId               String\n  providerId              Provider\n  accessToken             String?\n  refreshToken            String?\n  accessTokenExpiresAt    DateTime?\n  refreshTokenExpiresAt   DateTime?\n  scope                   String?\n  idToken                 String?\n  password                String?\n  user                    User @relation(fields: [userId], references: [id], onDelete: Cascade)\n  createdAt               DateTime @default(now())\n  updatedAt               DateTime @updatedAt\n\n  @@index([userId])\n  @@map(\"accounts\")\n}\n\nmodel Verification {\n  id                      String @id @default(cuid())\n  identifier              String\n  value                   String\n  expiresAt               DateTime\n  createdAt               DateTime @default(now())\n  updatedAt               DateTime @updatedAt\n\n  @@index([identifier])\n  @@map(\"verifications\")\n}\n\nmodel VerifiedEmail {\n  id                      String @id @default(cuid())\n  email                   String @unique\n  expiresAt               DateTime\n  createdAt               DateTime @default(now())\n  updatedAt               DateTime @updatedAt\n\n  @@map(\"verified_emails\")\n}\n\nmodel Post {\n  id                      String @id @default(cuid())\n  authorId                String\n  slug                    String @unique\n  title                   String\n  content                 String @db\n  published               Boolean @default(false)\n  excerpt                 String? @db\n  isFeatured              Boolean @default(false)\n  author                  User @relation(fields: [authorId], references: [id], onDelete: Cascade)\n  tags                    Tag[]\n  createdAt               DateTime @default(now())\n  updatedAt               DateTime @updatedAt\n\n  @@map(\"posts\")\n}\n\nmodel Tag {\n  id                      String @id @default(cuid())\n  name                    String @unique\n  slug                    String @unique\n  posts                   Post[]\n  createdAt               DateTime @default(now())\n  updatedAt               DateTime @updatedAt\n\n  @@map(\"tags\")\n}\n\nmodel Business {\n  id                      String @id @default(cuid())\n  businessName            String\n  ownerName               String?\n  ownerBirthdate          DateTime?\n  businessRegNumber       String\n  corporationRegNumber    String?\n  businessAddress         String?\n  businessPhone           String?\n  mobilePhone             String?\n  mainProduct             String?\n  industryTypeCode        String?\n  industryTypeName        String?\n  wasteIndustryType       WasteIndustryType?\n  userId                  String\n  user                    User @relation(fields: [userId], references: [id], onDelete: Cascade)\n  documentProfiles        BusinessDocumentProfile[]\n  processFlows            ProcessFlow[]\n  wasteDocumentations     WasteDocumentation[]\n  createdAt               DateTime @default(now())\n  updatedAt               DateTime @updatedAt\n  testModelId             String?\n  airDocumentation        AirDocumentation? @relation(fields: [airDocumentationId], references: [id])\n  airDocumentationId      String?\n\n  @@map(\"businesses\")\n}\n\nmodel BusinessDocumentProfile {\n  id                      String @id @default(cuid())\n  businessId              String\n  profileScope            ProfileScope @default(DOCUMENT)\n  documentCategoryCode    String? // 서류 대분류 코드 (예: \"E01\", \"W01\")\n  documentSubCategoryCode String? // 서류 중분류 코드 (예: \"TR\", \"IR\" 등)\n  documentCode            String? // 서류 코드 (예: \"E01-IR\", \"W01-TR-CP\")\n  submissionOffice        String? // 제출청\n  mainProcess             String? // 공정\n  specificData            Json? // 특정 서류 코드에 대한 추가 데이터\n  business                Business @relation(fields: [businessId], references: [id], onDelete: Cascade)\n  createdAt               DateTime @default(now())\n  updatedAt               DateTime @updatedAt\n\n  @@unique([businessId, profileScope, documentCategoryCode, documentSubCategoryCode, documentCode]) // 한 사업장은 (profileScope + documentCategoryCode + documentSubCategoryCode + documentCode) 조합당 하나의 프로필만 가질 수 있음\n  @@map(\"business_document_profiles\")\n}\n\nmodel DocumentRequest {\n  id                      String @id @default(cuid())\n  documentType            DocumentType\n  status                  DocumentRequestStatus @default(PENDING)\n  memo                    String?\n  payload                 DocumentPayload?\n  completedAt             DateTime?\n  s3Key                   String?\n  userId                  String\n  user                    User @relation(fields: [userId], references: [id], onDelete: Cascade)\n  createdAt               DateTime @default(now())\n  updatedAt               DateTime @updatedAt\n\n  @@map(\"document_requests\")\n}\n\nmodel DocumentPayload {\n  id                      String @id @default(cuid())\n  requestId               String @unique\n  request                 DocumentRequest @relation(fields: [requestId], references: [id], onDelete: Cascade)\n  data                    Json\n  createdAt               DateTime @default(now())\n  updatedAt               DateTime @updatedAt\n\n  @@map(\"document_payloads\")\n}\n\nmodel ProcessFlow {\n  id                      String @id @default(cuid())\n  businessId              String\n  layoutData              Json?\n  productionFacilities    ProductionFacility[]\n  controlFacilities       ControlFacility[]\n  business                Business @relation(fields: [businessId], references: [id], onDelete: Cascade)\n  createdAt               DateTime @default(now())\n  updatedAt               DateTime @updatedAt\n\n  @@map(\"process_flows\")\n}\n\nmodel ControlFacility {\n  id                      String @id @default(cuid())\n  processFlowId           String\n  facilityNumber          String\n  facilityName            String\n  size                    String?\n  specification           String?\n  facilityPrice           String?\n  installedBuilding       String?\n  manufacturer            String?\n  phoneNumber             String?\n  changeType              ChangeType @default(NEW)\n  memo                    String?\n  processFlow             ProcessFlow @relation(fields: [processFlowId], references: [id], onDelete: Cascade)\n  createdAt               DateTime @default(now())\n  updatedAt               DateTime @updatedAt\n\n  @@map(\"control_facilities\")\n}\n\nmodel ProductionFacility {\n  id                      String @id @default(cuid())\n  processFlowId           String\n  facilityNumber          String\n  facilityName            String\n  process                 String?\n  size                    String?\n  specification           String?\n  quantity                Int?\n  facilityPrice           String?\n  installedBuilding       String?\n  manufacturer            String?\n  phoneNumber             String?\n  changeType              ChangeType @default(NEW)\n  memo                    String?\n  asWasteFacility         WasteFacility?\n  processFlow             ProcessFlow @relation(fields: [processFlowId], references: [id], onDelete: Cascade)\n  createdAt               DateTime @default(now())\n  updatedAt               DateTime @updatedAt\n\n  @@map(\"production_facilities\")\n}\n\nmodel WasteDocumentation {\n  id                      String @id @default(cuid())\n  businessId              String\n  wasteTargetItems        WasteTargetItem[]\n  wasteFacilities         WasteFacility[]\n  wasteStorageFacilities  WasteStorageFacility[]\n  business                Business @relation(fields: [businessId], references: [id], onDelete: Cascade)\n  createdAt               DateTime @default(now())\n  updatedAt               DateTime @updatedAt\n  office                  Office? @relation(fields: [officeId], references: [id])\n  officeId                String?\n  vehicle                 Vehicle? @relation(fields: [vehicleId], references: [id])\n  vehicleId               String?\n  executiveOfficer        ExecutiveOfficer? @relation(fields: [executiveOfficerId], references: [id])\n  executiveOfficerId      String?\n\n  @@map(\"waste_documentations\")\n}\n\nmodel WasteTargetItem {\n  id                      String @id @default(cuid())\n  wasteDocumentationId    String\n  wasteCode               String?\n  wasteName               String?\n  preAnalysisRequired     Boolean @default(false)\n  recyclingCode           String?\n  recycledProduct         String?\n  throughput              Float?\n  changeType              ChangeType @default(NEW)\n  wasteDocumentation      WasteDocumentation @relation(fields: [wasteDocumentationId], references: [id], onDelete: Cascade)\n  storedIn                WasteStorageFacility[]\n\n  @@map(\"waste_target_items\")\n}\n\nmodel WasteFacility {\n  id                      String @id @default(cuid())\n  wasteDocumentationId    String\n  productionFacilityId    String @unique\n  capacityPerHour         Float?\n  dailyOperatingHours     Float?\n  dailyThroughput         Float?\n  productionFacility      ProductionFacility? @relation(fields: [productionFacilityId], references: [id], onDelete: Cascade)\n  wasteDocumentation      WasteDocumentation @relation(fields: [wasteDocumentationId], references: [id], onDelete: Cascade)\n\n  @@map(\"waste_facilities\")\n}\n\nmodel WasteStorageFacility {\n  id                      String @id @default(cuid())\n  wasteDocumentationId    String\n  targetWasteId           String?\n  targetWaste             WasteTargetItem? @relation(fields: [targetWasteId], references: [id])\n  specificGravity         String?\n  bottomShape             BottomShape?\n  diameter                Float?\n  width                   Float?\n  length                  Float?\n  topSide                 Float?\n  bottomSide              Float?\n  verticalSide            Float?\n  height                  Float?\n  quantity                Int?\n  volume                  Float?\n  storageAmount           Float?\n  storageDays             Float?\n  changeType              ChangeType @default(NEW)\n  wasteDocumentation      WasteDocumentation @relation(fields: [wasteDocumentationId], references: [id], onDelete: Cascade)\n\n  @@map(\"waste_storage_facilities\")\n}\n\nmodel ExecutiveOfficer {\n  id                      String @id @default(cuid())\n  name                    String?\n  residentIdNumber        String?\n  registrationAddress     String?\n  phoneNumber             String?\n  position                String?\n  changeType              ChangeType @default(NEW)\n  createdAt               DateTime @default(now())\n  updatedAt               DateTime @updatedAt\n  wasteDocumentations     WasteDocumentation[]\n\n  @@map(\"executive_officers\")\n}\n\nmodel Vehicle {\n  id                      String @id @default(cuid())\n  vehicleName             String?\n  vehicleType             String?\n  maxPayload              String?\n  ownerRegistrationNumber String?\n  manufacturer            String?\n  modelApprovalNumber     String?\n  changeType              ChangeType @default(NEW)\n  createdAt               DateTime @default(now())\n  updatedAt               DateTime @updatedAt\n  wasteDocumentations     WasteDocumentation[]\n\n  @@map(\"vehicles\")\n}\n\nmodel Office {\n  id                      String @id @default(cuid())\n  officeAddress           String?\n  officeArea              String?\n  contactNumber           String?\n  changeType              ChangeType @default(NEW)\n  createdAt               DateTime @default(now())\n  updatedAt               DateTime @updatedAt\n  wasteDocumentations     WasteDocumentation[]\n\n  @@map(\"offices\")\n}\n\nmodel AirDocumentation {\n  id                      String @id @default(cuid())\n  createdAt               DateTime @default(now())\n  updatedAt               DateTime @updatedAt\n  businesss               Business[]\n\n}\n",
+  "modelPositions": {
+    "User": {
+      "x": 5000,
+      "y": 4496
+    },
+    "Session": {
+      "x": 4455,
+      "y": 4034
+    },
+    "Account": {
+      "x": 4855,
+      "y": 4034
+    },
+    "Verification": {
+      "x": 3800,
+      "y": 3911
+    },
+    "VerifiedEmail": {
+      "x": 3800,
+      "y": 4331
+    },
+    "Post": {
+      "x": 4655,
+      "y": 3572
+    },
+    "Tag": {
+      "x": 4855,
+      "y": 3110
+    },
+    "Business": {
+      "x": 5000,
+      "y": 5504
+    },
+    "BusinessDocumentProfile": {
+      "x": 4455,
+      "y": 5966
+    },
+    "DocumentRequest": {
+      "x": 5255,
+      "y": 4034
+    },
+    "DocumentPayload": {
+      "x": 5055,
+      "y": 3572
+    },
+    "ProcessFlow": {
+      "x": 4855,
+      "y": 5966
+    },
+    "ControlFacility": {
+      "x": 4255,
+      "y": 6428
+    },
+    "ProductionFacility": {
+      "x": 4655,
+      "y": 6428
+    },
+    "WasteDocumentation": {
+      "x": 5255,
+      "y": 5966
+    },
+    "WasteTargetItem": {
+      "x": 5055,
+      "y": 6428
+    },
+    "WasteFacility": {
+      "x": 4855,
+      "y": 6890
+    },
+    "WasteStorageFacility": {
+      "x": 5455,
+      "y": 6428
+    },
+    "ExecutiveOfficer": {
+      "x": 6065,
+      "y": 5129
+    },
+    "Vehicle": {
+      "x": 6200,
+      "y": 5549
+    },
+    "Office": {
+      "x": 6200,
+      "y": 5969
+    },
+    "AirDocumentation": {
+      "x": 5891,
+      "y": 6306
+    },
+    "UserRole": {
+      "x": 6320,
+      "y": 3365
+    },
+    "UserType": {
+      "x": 6320,
+      "y": 3785
+    },
+    "Provider": {
+      "x": 6320,
+      "y": 4205
+    },
+    "WasteIndustryType": {
+      "x": 3680,
+      "y": 4919
+    },
+    "ProfileScope": {
+      "x": 3680,
+      "y": 5339
+    },
+    "DocumentType": {
+      "x": 6320,
+      "y": 4625
+    },
+    "DocumentRequestStatus": {
+      "x": 6455,
+      "y": 5045
+    },
+    "ChangeType": {
+      "x": 3680,
+      "y": 5759
+    },
+    "BottomShape": {
+      "x": 3680,
+      "y": 6179
+    }
+  },
+  "cardinalityMap": {
+    "Session↔User": "1:N",
+    "Account↔User": "1:N",
+    "Post↔User": "1:N",
+    "Business↔User": "1:N",
+    "DocumentRequest↔User": "1:N",
+    "Post↔Tag": "M:N",
+    "Business↔BusinessDocumentProfile": "1:N",
+    "Business↔ProcessFlow": "1:N",
+    "Business↔WasteDocumentation": "1:N",
+    "AirDocumentation↔Business": "1:1",
+    "DocumentPayload↔DocumentRequest": "1:N",
+    "ProcessFlow↔ProductionFacility": "1:N",
+    "ControlFacility↔ProcessFlow": "1:N",
+    "ProductionFacility↔WasteFacility": "1:N",
+    "WasteDocumentation↔WasteTargetItem": "1:N",
+    "WasteDocumentation↔WasteFacility": "1:N",
+    "WasteDocumentation↔WasteStorageFacility": "1:N",
+    "Office↔WasteDocumentation": "1:1",
+    "Vehicle↔WasteDocumentation": "1:1",
+    "ExecutiveOfficer↔WasteDocumentation": "1:1",
+    "WasteStorageFacility↔WasteTargetItem": "1:N"
+  },
+  "uiHeaders": [
+    {
+      "name": "commentary",
+      "type": "text",
+      "options": []
+    },
+    {
+      "name": "id",
+      "type": "text",
+      "options": []
+    },
+    {
+      "name": "label",
+      "type": "text",
+      "options": []
+    },
+    {
+      "name": "variableType",
+      "type": "text",
+      "options": []
+    },
+    {
+      "name": "systemType",
+      "type": "text",
+      "options": []
+    },
+    {
+      "name": "isRequired",
+      "type": "combo",
+      "options": [
+        "true",
+        "false"
+      ]
+    },
+    {
+      "name": "defaultValue",
+      "type": "text",
+      "options": []
+    },
+    {
+      "name": "showNode",
+      "type": "combo",
+      "options": [
+        "true",
+        "false"
+      ]
+    },
+    {
+      "name": "showNodeDeatil",
+      "type": "combo",
+      "options": [
+        "true",
+        "false"
+      ]
+    },
+    {
+      "name": "initialCreation",
+      "type": "combo",
+      "options": [
+        "true",
+        "false"
+      ]
+    },
+    {
+      "name": "width",
+      "type": "text",
+      "options": []
+    },
+    {
+      "name": "comboboxName",
+      "type": "text",
+      "options": []
+    },
+    {
+      "name": "creationConditions",
+      "type": "text",
+      "options": []
+    },
+    {
+      "name": "fnTriggerEvent",
+      "type": "text",
+      "options": []
+    },
+    {
+      "name": "fnName",
+      "type": "text",
+      "options": []
+    },
+    {
+      "name": "fnInputParams",
+      "type": "text",
+      "options": []
+    },
+    {
+      "name": "fnOutputTarget",
+      "type": "text",
+      "options": []
+    },
+    {
+      "name": "fnSyncCondition",
+      "type": "text",
+      "options": []
+    },
+    {
+      "name": "dataSource",
+      "type": "model",
+      "options": []
+    }
+  ],
+  "metaStore": {
+    "Post": {
+      "id": {},
+      "authorId": {},
+      "slug": {},
+      "title": {},
+      "content": {},
+      "published": {},
+      "excerpt": {},
+      "isFeatured": {},
+      "author": {},
+      "tags": {},
+      "createdAt": {},
+      "updatedAt": {}
+    },
+    "Business": {
+      "id": {},
+      "businessName": {},
+      "ownerName": {},
+      "ownerBirthdate": {},
+      "businessRegNumber": {},
+      "corporationRegNumber": {},
+      "businessAddress": {},
+      "businessPhone": {},
+      "mobilePhone": {},
+      "mainProduct": {},
+      "industryTypeCode": {},
+      "industryTypeName": {},
+      "wasteIndustryType": {},
+      "userId": {},
+      "user": {},
+      "documentProfiles": {},
+      "processFlows": {},
+      "wasteDocumentations": {},
+      "createdAt": {},
+      "updatedAt": {},
+      "testModelId": {},
+      "airDocumentation": {},
+      "airDocumentationId": {}
+    },
+    "DocumentRequest": {
+      "id": {},
+      "documentType": {},
+      "status": {},
+      "memo": {},
+      "payload": {},
+      "completedAt": {},
+      "s3Key": {},
+      "userId": {},
+      "user": {},
+      "createdAt": {},
+      "updatedAt": {}
+    },
+    "Tag": {
+      "id": {},
+      "name": {},
+      "slug": {},
+      "posts": {},
+      "createdAt": {},
+      "updatedAt": {}
+    },
+    "Account": {
+      "id": {},
+      "userId": {},
+      "accountId": {},
+      "providerId": {},
+      "accessToken": {},
+      "refreshToken": {},
+      "accessTokenExpiresAt": {},
+      "refreshTokenExpiresAt": {},
+      "scope": {},
+      "idToken": {},
+      "password": {},
+      "user": {},
+      "createdAt": {},
+      "updatedAt": {}
+    }
+  },
+  "rowOrderStore": {
+    "Post": [
+      "id",
+      "authorId",
+      "slug",
+      "title",
+      "content",
+      "published",
+      "excerpt",
+      "isFeatured",
+      "author",
+      "tags",
+      "createdAt",
+      "updatedAt"
+    ],
+    "Business": [
+      "id",
+      "businessName",
+      "ownerName",
+      "ownerBirthdate",
+      "businessRegNumber",
+      "corporationRegNumber",
+      "businessAddress",
+      "businessPhone",
+      "mobilePhone",
+      "mainProduct",
+      "industryTypeCode",
+      "industryTypeName",
+      "wasteIndustryType",
+      "userId",
+      "user",
+      "documentProfiles",
+      "processFlows",
+      "wasteDocumentations",
+      "createdAt",
+      "updatedAt",
+      "testModelId",
+      "airDocumentation",
+      "airDocumentationId"
+    ],
+    "DocumentRequest": [
+      "id",
+      "documentType",
+      "status",
+      "memo",
+      "payload",
+      "completedAt",
+      "s3Key",
+      "userId",
+      "user",
+      "createdAt",
+      "updatedAt"
+    ],
+    "Tag": [
+      "id",
+      "name",
+      "slug",
+      "posts",
+      "createdAt",
+      "updatedAt"
+    ],
+    "Account": [
+      "id",
+      "userId",
+      "accountId",
+      "providerId",
+      "accessToken",
+      "refreshToken",
+      "accessTokenExpiresAt",
+      "refreshTokenExpiresAt",
+      "scope",
+      "idToken",
+      "password",
+      "user",
+      "createdAt",
+      "updatedAt"
+    ]
+  },
+  "todoItems": [],
+  "suggestItems": [],
+  "savedAt": "2026. 4. 6. 오후 2:51:22"
+}
