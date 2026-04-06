@@ -432,6 +432,44 @@
       "TemporaryBuildingInfo.dong": {
         "dataSource": "TemporaryBuildingInfo"
       }
+    },
+    "ControlFacility": {
+      "id": {},
+      "businessId": {},
+      "facilityNumber": {},
+      "facilityName": {},
+      "size": {},
+      "specification": {},
+      "isAirControlFacility": {},
+      "airEmissionOutletNumber": {},
+      "airEmissionOutletOrder": {},
+      "isWaterControlFacility": {},
+      "isSmellControlFacility": {},
+      "isNoiseControlFacility": {},
+      "facilityPrice": {},
+      "installedBuilding": {},
+      "manufacturer": {},
+      "phoneNumber": {},
+      "changeType": {},
+      "memo": {},
+      "business": {},
+      "processFlows": {},
+      "createdAt": {},
+      "updatedAt": {}
+    },
+    "Office": {
+      "id": {},
+      "businessId": {},
+      "officeAddress": {},
+      "officeArea": {},
+      "contactNumber": {},
+      "changeType": {},
+      "wasteDocumentations": {},
+      "createdAt": {},
+      "updatedAt": {},
+      "Vehicle.vehicleName": {
+        "dataSource": "Vehicle"
+      }
     }
   },
   "rowOrderStore": {
@@ -532,6 +570,42 @@
       "createdAt",
       "updatedAt",
       "TemporaryBuildingInfo.dong"
+    ],
+    "ControlFacility": [
+      "id",
+      "businessId",
+      "facilityNumber",
+      "facilityName",
+      "size",
+      "specification",
+      "isAirControlFacility",
+      "airEmissionOutletNumber",
+      "airEmissionOutletOrder",
+      "isWaterControlFacility",
+      "isSmellControlFacility",
+      "isNoiseControlFacility",
+      "facilityPrice",
+      "installedBuilding",
+      "manufacturer",
+      "phoneNumber",
+      "changeType",
+      "memo",
+      "business",
+      "processFlows",
+      "createdAt",
+      "updatedAt"
+    ],
+    "Office": [
+      "id",
+      "businessId",
+      "officeAddress",
+      "officeArea",
+      "contactNumber",
+      "changeType",
+      "wasteDocumentations",
+      "createdAt",
+      "updatedAt",
+      "Vehicle.vehicleName"
     ]
   },
   "todoItems": [
@@ -650,5 +724,5 @@
     }
   ],
   "annotations": [],
-  "savedAt": "2026. 4. 6. 오후 5:50:00"
+  "savedAt": "2026. 4. 6. 오후 5:59:22"
 }
