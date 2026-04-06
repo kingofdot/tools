@@ -365,6 +365,8 @@ body {
 .excel-model-item:hover { background: var(--bg-hover) }
 .excel-model-item.active { background: var(--accent-dim); border-left-color: var(--accent); color: var(--accent) }
 
+.ui-add-row-item:hover { background: var(--bg-hover) }
+
 .dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0 }
 .dot.md { background: var(--accent) }
 .dot.ed { background: var(--accent2) }

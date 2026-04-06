@@ -160,10 +160,12 @@ function renderUiTable() {
       return `<td contenteditable="true" data-field="${row.fieldName}" data-col="${h.name}" style="min-width:90px">${val}</td>`;
     }).join('');
 
-    const extraStyle = row.extraOnly ? 'color:var(--accent2)' : 'color:var(--text-muted)';
+    const isBorrowed = row.fieldName.includes('.');
+    const fieldColor = isBorrowed ? 'color:var(--accent)' : row.extraOnly ? 'color:var(--accent2)' : 'color:var(--text-muted)';
+    const borrowedBadge = isBorrowed ? `<span style="font-size:9px;background:var(--accent-dim);color:var(--accent);padding:1px 6px;border-radius:99px;font-weight:700;margin-left:6px">${row.fieldName.split('.')[0]}</span>` : '';
     html += `<tr draggable="true" data-field="${row.fieldName}">
       <td style="text-align:center;position:sticky;left:0;background:var(--bg-secondary);z-index:5;padding:2px 6px;cursor:grab;color:var(--text-muted);font-size:16px;user-select:none">⠿</td>
-      <td style="font-weight:600;${extraStyle};white-space:nowrap;position:sticky;left:32px;background:var(--bg-secondary);z-index:5">${row.fieldName}</td>
+      <td style="font-weight:600;${fieldColor};white-space:nowrap;position:sticky;left:32px;background:var(--bg-secondary);z-index:5">${row.fieldName.includes('.') ? row.fieldName.split('.')[1] : row.fieldName}${borrowedBadge}</td>
       ${tds}
       <td><button class="btn btn-danger" style="padding:2px 8px;font-size:10px" onclick="uiDelRow('${row.fieldName}')">✕</button></td>
     </tr>`;
@@ -245,54 +247,101 @@ function uiApply() {
   renderUiTable();
 }
 
+let _uiAddRowSelectedModel = null;
+let _uiAddRowSelectedField = null;
+
 function uiAddRow() {
   if (!selectedUiModel) return;
-  // 모델 셀렉터 초기화
-  const modelSel = document.getElementById('uiAddRowModelSel');
-  modelSel.innerHTML = schema.models.map(m =>
-    `<option value="${m.name}"${m.name === selectedUiModel ? ' selected' : ''}>${m.name}</option>`
-  ).join('');
-  uiAddRowModelChange();
+  _uiAddRowSelectedModel = null;
+  _uiAddRowSelectedField = null;
+
+  const confirmBtn = document.getElementById('uiAddRowConfirmBtn');
+  confirmBtn.disabled = true;
+  confirmBtn.style.opacity = '0.4';
+
+  // 모델 목록 렌더
+  const list = document.getElementById('uiAddRowModelList');
+  list.innerHTML = schema.models.map(m => {
+    const isCurrent = m.name === selectedUiModel;
+    return `<div class="ui-add-row-item" data-model="${m.name}" onclick="uiAddRowSelectModel('${m.name}')"
+      style="display:flex;align-items:center;gap:10px;padding:8px 12px;border-radius:7px;cursor:pointer;transition:background .12s">
+      <span style="width:8px;height:8px;border-radius:50%;background:${isCurrent ? 'var(--accent)' : 'var(--accent2)'};flex-shrink:0"></span>
+      <span style="font-weight:600;font-family:var(--font-mono);font-size:13px;color:var(--text-primary)">${m.name}</span>
+      ${isCurrent ? '<span style="margin-left:auto;font-size:10px;background:var(--accent-dim);color:var(--accent);padding:2px 7px;border-radius:99px;font-weight:700">현재</span>' : ''}
+    </div>`;
+  }).join('');
+
+  // 필드 목록 초기화
+  document.getElementById('uiAddRowFieldList').innerHTML =
+    '<div style="text-align:center;padding:20px;color:var(--text-muted);font-size:12px">← 먼저 모델을 선택하세요</div>';
+
   document.getElementById('uiAddRowModal').classList.add('show');
 }
 
-function uiAddRowModelChange() {
-  const modelSel = document.getElementById('uiAddRowModelSel');
-  const fieldSel = document.getElementById('uiAddRowFieldSel');
-  const chosenModel = modelSel.value;
-  const model = schema.models.find(m => m.name === chosenModel);
-  if (!model) { fieldSel.innerHTML = ''; return; }
+function uiAddRowSelectModel(modelName) {
+  _uiAddRowSelectedModel = modelName;
+  _uiAddRowSelectedField = null;
 
-  // 이미 현재 모델 메타에 있는 행 키 목록
+  const confirmBtn = document.getElementById('uiAddRowConfirmBtn');
+  confirmBtn.disabled = true;
+  confirmBtn.style.opacity = '0.4';
+
+  // 모델 항목 하이라이트
+  document.querySelectorAll('.ui-add-row-item[data-model]').forEach(el => {
+    el.style.background = el.dataset.model === modelName ? 'var(--bg-hover)' : '';
+    el.style.outline = el.dataset.model === modelName ? '2px solid var(--accent)' : '';
+  });
+
+  const model = schema.models.find(m => m.name === modelName);
+  if (!model) return;
+
+  const isCurrent = modelName === selectedUiModel;
   const existing = new Set([
     ...(rowOrderStore[selectedUiModel] || []),
     ...Object.keys(metaStore[selectedUiModel] || {}),
   ]);
 
   const fields = model.fields.filter(f => {
-    // 같은 모델이면 이미 있는 필드 제외, 다른 모델이면 "Model.field" 키로 체크
-    const key = chosenModel === selectedUiModel ? f.name : `${chosenModel}.${f.name}`;
+    const key = isCurrent ? f.name : `${modelName}.${f.name}`;
     return !existing.has(key);
   });
 
+  const fieldList = document.getElementById('uiAddRowFieldList');
   if (fields.length === 0) {
-    fieldSel.innerHTML = `<option value="">— 추가 가능한 필드 없음 —</option>`;
-  } else {
-    fieldSel.innerHTML = fields.map(f =>
-      `<option value="${f.name}">${f.name}  (${f.type}${f.isArray ? '[]' : ''}${f.isOptional ? '?' : ''})</option>`
-    ).join('');
+    fieldList.innerHTML = '<div style="text-align:center;padding:20px;color:var(--text-muted);font-size:12px">추가 가능한 필드가 없습니다</div>';
+    return;
   }
+
+  fieldList.innerHTML = fields.map(f => {
+    const typeStr = f.type + (f.isArray ? '[]' : '') + (f.isOptional ? '?' : '');
+    return `<div class="ui-add-row-item" data-field="${f.name}" onclick="uiAddRowSelectField('${f.name}')"
+      style="display:flex;align-items:center;gap:10px;padding:8px 12px;border-radius:7px;cursor:pointer;transition:background .12s">
+      <span style="font-weight:600;font-family:var(--font-mono);font-size:13px;color:var(--text-primary)">${f.name}</span>
+      <span style="margin-left:auto;font-size:11px;color:var(--accent3);font-family:var(--font-mono);font-weight:500">${typeStr}</span>
+    </div>`;
+  }).join('');
+}
+
+function uiAddRowSelectField(fieldName) {
+  _uiAddRowSelectedField = fieldName;
+
+  document.querySelectorAll('.ui-add-row-item[data-field]').forEach(el => {
+    el.style.background = el.dataset.field === fieldName ? 'var(--bg-hover)' : '';
+    el.style.outline = el.dataset.field === fieldName ? '2px solid var(--accent)' : '';
+  });
+
+  const confirmBtn = document.getElementById('uiAddRowConfirmBtn');
+  confirmBtn.disabled = false;
+  confirmBtn.style.opacity = '1';
 }
 
 function uiAddRowConfirm() {
-  if (!selectedUiModel) return;
-  const modelSel = document.getElementById('uiAddRowModelSel');
-  const fieldSel = document.getElementById('uiAddRowFieldSel');
-  const chosenModel = modelSel.value;
-  const chosenField = fieldSel.value;
-  if (!chosenField) { toast('필드를 선택하세요', 'error'); return; }
+  if (!selectedUiModel || !_uiAddRowSelectedModel || !_uiAddRowSelectedField) {
+    toast('모델과 필드를 선택하세요', 'error'); return;
+  }
+  const isCurrent = _uiAddRowSelectedModel === selectedUiModel;
+  const rowKey = isCurrent ? _uiAddRowSelectedField : `${_uiAddRowSelectedModel}.${_uiAddRowSelectedField}`;
 
-  const rowKey = chosenModel === selectedUiModel ? chosenField : `${chosenModel}.${chosenField}`;
   if (!metaStore[selectedUiModel]) metaStore[selectedUiModel] = {};
   metaStore[selectedUiModel][rowKey] = {};
   if (!rowOrderStore[selectedUiModel]) rowOrderStore[selectedUiModel] = [];

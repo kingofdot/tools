@@ -356,26 +356,31 @@
 
   <!-- UI 행 추가 모달 -->
   <div class="modal-overlay" id="uiAddRowModal">
-    <div class="modal" style="min-width:360px">
+    <div class="modal" style="min-width:420px;max-width:480px">
       <div class="modal-title">
-        <span>+ 행 추가</span>
+        <span>행 추가</span>
         <button class="btn" onclick="document.getElementById('uiAddRowModal').classList.remove('show')">✕</button>
       </div>
-      <div class="modal-body">
-        <div class="form-group">
-          <label>모델 선택</label>
-          <select id="uiAddRowModelSel" onchange="uiAddRowModelChange()"
-            style="width:100%;padding:9px 12px;background:var(--bg-primary);border:1px solid var(--border);border-radius:8px;color:var(--text-primary);font-size:13px"></select>
+      <div class="modal-body" style="padding:20px 24px;display:flex;flex-direction:column;gap:18px">
+
+        <!-- Step 1: DB(모델) 선택 -->
+        <div>
+          <div style="font-size:11px;font-weight:700;color:var(--text-muted);letter-spacing:.08em;margin-bottom:8px">① DB (모델)</div>
+          <div id="uiAddRowModelList" style="display:flex;flex-direction:column;gap:4px;max-height:180px;overflow-y:auto;border:1px solid var(--border);border-radius:10px;padding:6px"></div>
         </div>
-        <div class="form-group">
-          <label>필드 선택</label>
-          <select id="uiAddRowFieldSel"
-            style="width:100%;padding:9px 12px;background:var(--bg-primary);border:1px solid var(--border);border-radius:8px;color:var(--text-primary);font-size:13px"></select>
+
+        <!-- Step 2: 컬럼(필드) 선택 -->
+        <div id="uiAddRowFieldWrap">
+          <div style="font-size:11px;font-weight:700;color:var(--text-muted);letter-spacing:.08em;margin-bottom:8px">② 컬럼 (필드)</div>
+          <div id="uiAddRowFieldList" style="display:flex;flex-direction:column;gap:4px;max-height:200px;overflow-y:auto;border:1px solid var(--border);border-radius:10px;padding:6px">
+            <div style="text-align:center;padding:20px;color:var(--text-muted);font-size:12px">← 먼저 모델을 선택하세요</div>
+          </div>
         </div>
+
       </div>
       <div class="modal-footer">
         <button class="btn" onclick="document.getElementById('uiAddRowModal').classList.remove('show')">취소</button>
-        <button class="btn btn-accent" onclick="uiAddRowConfirm()">추가</button>
+        <button class="btn btn-accent" id="uiAddRowConfirmBtn" onclick="uiAddRowConfirm()" disabled style="opacity:0.4">추가</button>
       </div>
     </div>
   </div>
