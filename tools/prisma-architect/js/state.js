@@ -15,3 +15,4 @@ let historyStack = [], historyIndex = -1;
 let showEnumLines = true;
 let annotations = [];
 let draggingAnnotation = null;
+let uiModelConfig = {}; // { [modelName]: { viewMode: '1to1' | 'excel' | 'card' } }

@@ -97,9 +97,12 @@ async function githubLoad() {
     historyIndex = 0; changeLog = [];
 
     // UI 데이터 복원
-    if (data.uiHeaders && data.uiHeaders.length) uiHeaders = data.uiHeaders;
+    if (data.uiHeaders && data.uiHeaders.length) {
+      uiHeaders = data.uiHeaders.map(h => ({ uiRole: 'none', ...h })); // 구버전 호환
+    }
     if (data.metaStore) metaStore = data.metaStore;
     if (data.rowOrderStore) rowOrderStore = data.rowOrderStore;
+    if (data.uiModelConfig) uiModelConfig = data.uiModelConfig;
     if (data.todoItems) todoItems = data.todoItems;
     if (data.suggestItems) suggestItems = data.suggestItems;
     if (data.annotations) annotations = data.annotations;
@@ -139,6 +142,7 @@ async function githubSave() {
       uiHeaders,
       metaStore,
       rowOrderStore,
+      uiModelConfig,
       todoItems,
       suggestItems,
       annotations,

@@ -1,25 +1,43 @@
 // === UI 관리 (필드 메타 테이블) ===
 
+// UI역할 정의
+const UI_ROLES = [
+  { key: 'none',          label: '없음' },
+  { key: 'label',         label: '라벨' },
+  { key: 'placeholder',   label: '플레이스홀더' },
+  { key: 'required',      label: '필수여부' },
+  { key: 'showCreate',    label: '노출:생성' },
+  { key: 'showList',      label: '노출:목록' },
+  { key: 'showDetail',    label: '노출:상세' },
+  { key: 'componentType', label: '컴포넌트타입' },
+  { key: 'width',         label: '너비' },
+];
+
+// 뷰모드 정의
+const VIEW_MODES = [
+  { key: '1to1', label: '1:1폼' },
+  { key: 'excel', label: '엑셀' },
+  { key: 'card',  label: '카드' },
+];
+
 let uiHeaders = [
-  { name: 'commentary', type: 'text', options: [] },
-  { name: 'id', type: 'text', options: [] },
-  { name: 'label', type: 'text', options: [] },
-  { name: 'variableType', type: 'text', options: [] },
-  { name: 'systemType', type: 'text', options: [] },
-  { name: 'isRequired', type: 'combo', options: ['true', 'false'] },
-  { name: 'defaultValue', type: 'text', options: [] },
-  { name: 'showNode', type: 'combo', options: ['true', 'false'] },
-  { name: 'showNodeDeatil', type: 'combo', options: ['true', 'false'] },
-  { name: 'initialCreation', type: 'combo', options: ['true', 'false'] },
-  { name: 'width', type: 'text', options: [] },
-  { name: 'comboboxName', type: 'text', options: [] },
-  { name: 'creationConditions', type: 'text', options: [] },
-  { name: 'fnTriggerEvent', type: 'text', options: [] },
-  { name: 'fnName', type: 'text', options: [] },
-  { name: 'fnInputParams', type: 'text', options: [] },
-  { name: 'fnOutputTarget', type: 'text', options: [] },
-  { name: 'fnSyncCondition', type: 'text', options: [] },
-  { name: 'dataSource', type: 'model', options: [] },
+  { name: 'label',             type: 'text',  options: [],                    uiRole: 'label' },
+  { name: 'commentary',        type: 'text',  options: [],                    uiRole: 'placeholder' },
+  { name: 'isRequired',        type: 'combo', options: ['true', 'false'],     uiRole: 'required' },
+  { name: 'initialCreation',   type: 'combo', options: ['true', 'false'],     uiRole: 'showCreate' },
+  { name: 'showNode',          type: 'combo', options: ['true', 'false'],     uiRole: 'showList' },
+  { name: 'showNodeDetail',    type: 'combo', options: ['true', 'false'],     uiRole: 'showDetail' },
+  { name: 'variableType',      type: 'text',  options: [],                    uiRole: 'componentType' },
+  { name: 'width',             type: 'text',  options: [],                    uiRole: 'width' },
+  { name: 'defaultValue',      type: 'text',  options: [],                    uiRole: 'none' },
+  { name: 'comboboxName',      type: 'text',  options: [],                    uiRole: 'none' },
+  { name: 'dataSource',        type: 'model', options: [],                    uiRole: 'none' },
+  { name: 'creationConditions',type: 'text',  options: [],                    uiRole: 'none' },
+  { name: 'fnTriggerEvent',    type: 'text',  options: [],                    uiRole: 'none' },
+  { name: 'fnName',            type: 'text',  options: [],                    uiRole: 'none' },
+  { name: 'fnInputParams',     type: 'text',  options: [],                    uiRole: 'none' },
+  { name: 'fnOutputTarget',    type: 'text',  options: [],                    uiRole: 'none' },
+  { name: 'fnSyncCondition',   type: 'text',  options: [],                    uiRole: 'none' },
 ];
 
 // metaStore: { [modelName]: { [fieldName]: { [header]: value } } }
@@ -74,10 +92,14 @@ function renderUiTable() {
         <button class="btn btn-accent" style="margin-left:auto" onclick="openAddHeaderModal()">+ 헤더 추가</button>
       </div>
       <table class="excel-table" id="headerMgmtTable" style="width:100%">
-        <thead><tr><th style="width:32px"></th><th>헤더명</th><th>타입</th><th>콤보 옵션 (쉼표 구분)</th><th style="width:60px"></th></tr></thead>
+        <thead><tr><th style="width:32px"></th><th>헤더명</th><th>타입</th><th>콤보 옵션</th><th>UI역할</th><th style="width:48px"></th></tr></thead>
         <tbody id="headerMgmtBody">`;
 
+    const sel = p => UI_ROLES.map(r => `<option value="${r.key}"${p === r.key ? ' selected' : ''}>${r.label}</option>`).join('');
+
     uiHeaders.forEach((h, i) => {
+      const role = h.uiRole || 'none';
+      const roleColor = role !== 'none' ? 'color:var(--accent)' : 'color:var(--text-muted)';
       html += `<tr data-idx="${i}" draggable="true" style="cursor:grab">
         <td style="color:var(--text-muted);text-align:center;font-size:16px;cursor:grab">⠿</td>
         <td contenteditable="true" data-hidx="${i}"
@@ -89,15 +111,18 @@ function renderUiTable() {
           <select onchange="uiHeaderTypeChange(${i},this.value)" style="padding:4px 8px;border:1px solid var(--border);border-radius:6px;background:var(--bg-primary);color:var(--text-primary);font-size:12px">
             <option value="text"${h.type === 'text' ? ' selected' : ''}>텍스트</option>
             <option value="combo"${h.type === 'combo' ? ' selected' : ''}>콤보박스</option>
-            <option value="model"${h.type === 'model' ? ' selected' : ''}>모델 참조</option>
+            <option value="model"${h.type === 'model' ? ' selected' : ''}>모델참조</option>
           </select>
         </td>
         <td>
           <input value="${h.type === 'model' ? '' : h.options.join(',')}"
-            placeholder="${h.type === 'model' ? '스키마 모델에서 자동 생성' : '옵션1,옵션2,옵션3'}"
+            placeholder="${h.type === 'model' ? '자동 생성' : '옵션1,옵션2'}"
             onchange="uiHeaderOptionsChange(${i},this.value)"
             ${h.type !== 'combo' ? 'disabled style="opacity:0.4"' : ''}
             style="width:100%;padding:4px 8px;border:1px solid var(--border);border-radius:6px;background:var(--bg-primary);color:var(--text-primary);font-size:12px;font-family:var(--font-mono);outline:none">
+        </td>
+        <td>
+          <select onchange="uiHeaderRoleChange(${i},this.value)" style="padding:4px 8px;border:1px solid var(--border);border-radius:6px;background:var(--bg-primary);font-size:12px;${roleColor}">${sel(role)}</select>
         </td>
         <td><button class="btn btn-danger" style="padding:2px 8px;font-size:10px" onclick="uiHeaderDelete(${i})">✕</button></td>
       </tr>`;
@@ -112,8 +137,20 @@ function renderUiTable() {
   // 모델 메타 테이블 화면
   const titleEl2 = document.getElementById('uiTitle');
   const addBtn2 = document.getElementById('uiAddRowBtn');
-  if (titleEl2) titleEl2.textContent = selectedUiModel;
   if (addBtn2) addBtn2.style.display = '';
+
+  // 뷰모드 드롭다운을 타이틀 영역에 렌더
+  if (titleEl2) {
+    const curMode = (uiModelConfig[selectedUiModel] || {}).viewMode || '1to1';
+    const modeOpts = VIEW_MODES.map(m =>
+      `<option value="${m.key}"${curMode === m.key ? ' selected' : ''}>${m.label}</option>`
+    ).join('');
+    titleEl2.innerHTML = `<span style="font-weight:700;color:var(--accent2)">${selectedUiModel}</span>
+      <select onchange="uiSetViewMode(this.value)"
+        style="margin-left:12px;padding:4px 10px;border:1px solid var(--border);border-radius:8px;background:var(--bg-primary);color:var(--accent);font-size:12px;font-weight:700;cursor:pointer">
+        ${modeOpts}
+      </select>`;
+  }
 
   const model = schema.models.find(m => m.name === selectedUiModel);
   if (!model) { wrap.innerHTML = '<div style="padding:40px;text-align:center;color:var(--text-muted)">모델 없음</div>'; return; }
@@ -193,6 +230,16 @@ function uiHeaderOptionsChange(i, val) {
   uiHeaders[i].options = val.split(',').map(s => s.trim()).filter(Boolean);
 }
 
+function uiHeaderRoleChange(i, val) {
+  uiHeaders[i].uiRole = val;
+}
+
+function uiSetViewMode(val) {
+  if (!selectedUiModel) return;
+  if (!uiModelConfig[selectedUiModel]) uiModelConfig[selectedUiModel] = {};
+  uiModelConfig[selectedUiModel].viewMode = val;
+}
+
 function uiHeaderDelete(i) {
   if (!confirm(`헤더 "${uiHeaders[i].name}" 를 삭제할까요?`)) return;
   uiHeaders.splice(i, 1);
@@ -203,7 +250,7 @@ function openAddHeaderModal() {
   const name = prompt('새 헤더 이름:');
   if (!name || !name.trim()) return;
   if (uiHeaders.find(h => h.name === name.trim())) { toast('이미 존재하는 헤더입니다', 'error'); return; }
-  uiHeaders.push({ name: name.trim(), type: 'text', options: [] });
+  uiHeaders.push({ name: name.trim(), type: 'text', options: [], uiRole: 'none' });
   renderUiTable();
   toast(`헤더 "${name.trim()}" 추가됨`, 'success');
 }
