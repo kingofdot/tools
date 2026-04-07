@@ -233,6 +233,7 @@ function saveField() {
   if (editingField.isNew) { model.fields.push(fd); addLog('field', `필드 추가: ${editingField.modelName}.${name}`, type); }
   else { const i = model.fields.findIndex(f => f.name === editingField.fieldName); if (i >= 0) model.fields[i] = fd; addLog('field', `필드 수정: ${editingField.modelName}.${name}`, type); }
   closeFieldModal(); renderDiagram(); syncEditor();
+  if (typeof renderExcelTable === 'function') renderExcelTable();
 }
 
 function deleteField() {
@@ -241,4 +242,5 @@ function deleteField() {
   model.fields = model.fields.filter(f => f.name !== editingField.fieldName);
   addLog('field', `필드 삭제: ${editingField.modelName}.${editingField.fieldName}`);
   closeFieldModal(); renderDiagram(); syncEditor();
+  if (typeof renderExcelTable === 'function') renderExcelTable();
 }
