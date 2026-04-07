@@ -398,7 +398,7 @@ body {
   top: 0;
   background: var(--bg-secondary);
   padding: 10px 12px;
-  text-align: left;
+  text-align: center;
   font-weight: 700;
   color: var(--text-secondary);
   border-bottom: 2px solid var(--border);
