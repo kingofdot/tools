@@ -62,8 +62,10 @@ function renderUiTable() {
 
   // 헤더 관리 화면
   if (selectedUiModel === null) {
-    document.getElementById('uiTitle').textContent = '⚙️ 헤더 관리';
-    document.getElementById('uiAddRowBtn').style.display = 'none';
+    const titleEl = document.getElementById('uiTitle');
+    const addBtn = document.getElementById('uiAddRowBtn');
+    if (titleEl) titleEl.textContent = '⚙️ 헤더 관리';
+    if (addBtn) addBtn.style.display = 'none';
 
     let html = `
     <div style="padding:16px">
@@ -108,8 +110,10 @@ function renderUiTable() {
   }
 
   // 모델 메타 테이블 화면
-  document.getElementById('uiTitle').textContent = selectedUiModel;
-  document.getElementById('uiAddRowBtn').style.display = '';
+  const titleEl2 = document.getElementById('uiTitle');
+  const addBtn2 = document.getElementById('uiAddRowBtn');
+  if (titleEl2) titleEl2.textContent = selectedUiModel;
+  if (addBtn2) addBtn2.style.display = '';
 
   const model = schema.models.find(m => m.name === selectedUiModel);
   if (!model) { wrap.innerHTML = '<div style="padding:40px;text-align:center;color:var(--text-muted)">모델 없음</div>'; return; }

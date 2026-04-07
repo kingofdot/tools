@@ -110,7 +110,7 @@ async function githubLoad() {
 
     // 현재 패널 새로고침
     const active = document.querySelector('.nav-tab.active')?.dataset?.panel;
-    if (active === 'ui') { renderUiSidebar(); renderUiTable(); }
+    if (active === 'ui') { try { renderUiSidebar(); renderUiTable(); } catch(e) { console.error('UI 렌더 오류:', e); } }
     if (active === 'todo') renderTodoList();
     if (active === 'suggest') renderSuggestList();
 
