@@ -720,6 +720,30 @@ body {
 #uiPanel.active { display: flex; flex-direction: row }
 #uiPanel .excel-table-wrap { overflow-x: auto }
 #uiMetaTable th, #uiMetaTable td { white-space: nowrap }
+
+/* Fill-down 버튼 */
+.fill-down-btn {
+  display: none;
+  position: absolute;
+  right: 3px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 18px;
+  height: 18px;
+  font-size: 11px;
+  line-height: 1;
+  padding: 0;
+  border: 1px solid var(--border-active);
+  border-radius: 3px;
+  background: var(--bg-secondary);
+  color: var(--text-secondary);
+  cursor: pointer;
+  z-index: 2;
+  align-items: center;
+  justify-content: center;
+}
+.fill-down-btn:hover { background: var(--accent-dim); color: var(--accent); border-color: var(--accent); }
+#uiMetaTable td:hover .fill-down-btn { display: flex; }
 #diffPanel.active { display: flex; flex-direction: column }
 
 /* SCROLLBAR */

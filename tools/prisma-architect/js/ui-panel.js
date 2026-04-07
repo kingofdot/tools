@@ -241,15 +241,16 @@ function renderUiTable() {
     const modelOpts = schema.models.map(m => m.name);
     const tds = uiHeaders.map(h => {
       const val = row.meta[h.name] !== undefined ? row.meta[h.name] : '';
+      const fillBtn = `<button contenteditable="false" class="fill-down-btn" title="아래로 채우기" onclick="event.stopPropagation();fillDown('${row.fieldName}','${h.name}')">↓</button>`;
       if (h.type === 'combo' && h.options.length > 0) {
         const opts = ['', ...h.options].map(o => `<option value="${o}"${o === val ? ' selected' : ''}>${o || '—'}</option>`).join('');
-        return `<td style="min-width:100px;padding:4px 8px"><select data-field="${row.fieldName}" data-col="${h.name}" style="width:100%;padding:3px 6px;border:1px solid var(--border);border-radius:4px;background:var(--bg-primary);color:var(--text-primary);font-size:12px">${opts}</select></td>`;
+        return `<td style="min-width:100px;padding:4px 8px;position:relative"><select data-field="${row.fieldName}" data-col="${h.name}" style="width:100%;padding:3px 6px;border:1px solid var(--border);border-radius:4px;background:var(--bg-primary);color:var(--text-primary);font-size:12px">${opts}</select>${fillBtn}</td>`;
       }
       if (h.type === 'model') {
         const opts = ['', ...modelOpts].map(o => `<option value="${o}"${o === val ? ' selected' : ''}>${o || '—'}</option>`).join('');
-        return `<td style="min-width:120px;padding:4px 8px"><select data-field="${row.fieldName}" data-col="${h.name}" style="width:100%;padding:3px 6px;border:1px solid var(--border);border-radius:4px;background:var(--bg-primary);color:var(--text-primary);font-size:12px">${opts}</select></td>`;
+        return `<td style="min-width:120px;padding:4px 8px;position:relative"><select data-field="${row.fieldName}" data-col="${h.name}" style="width:100%;padding:3px 6px;border:1px solid var(--border);border-radius:4px;background:var(--bg-primary);color:var(--text-primary);font-size:12px">${opts}</select>${fillBtn}</td>`;
       }
-      return `<td contenteditable="true" data-field="${row.fieldName}" data-col="${h.name}" style="min-width:90px">${val}</td>`;
+      return `<td contenteditable="true" data-field="${row.fieldName}" data-col="${h.name}" style="min-width:90px;position:relative">${val}${fillBtn}</td>`;
     }).join('');
 
     const isBorrowed = row.fieldName.includes('.');
@@ -329,6 +330,24 @@ function initHeaderDragDrop() {
   });
 }
 
+function fillDown(fieldName, colName) {
+  if (!selectedUiModel) return;
+  const cell = document.querySelector(`#uiMetaTable [data-field="${fieldName}"][data-col="${colName}"]`);
+  if (!cell) return;
+  const val = cell.tagName === 'SELECT' ? cell.value : (() => { const c = cell.cloneNode(true); c.querySelectorAll('button').forEach(b => b.remove()); return c.textContent.trim(); })();
+  const order = rowOrderStore[selectedUiModel] || [];
+  const startIdx = order.indexOf(fieldName);
+  if (startIdx < 0) return;
+  for (let i = startIdx + 1; i < order.length; i++) {
+    const fn = order[i];
+    if (!metaStore[selectedUiModel][fn]) metaStore[selectedUiModel][fn] = {};
+    metaStore[selectedUiModel][fn][colName] = val;
+  }
+  const count = order.length - startIdx - 1;
+  renderUiTable();
+  if (count > 0) toast(`↓ ${count}개 행에 적용`, 'success');
+}
+
 function uiApply() {
   if (selectedUiModel === null) { toast('헤더 변경은 자동 저장됩니다', 'info'); return; }
   if (!metaStore[selectedUiModel]) metaStore[selectedUiModel] = {};
@@ -339,7 +358,7 @@ function uiApply() {
     uiHeaders.forEach(h => {
       const cell = row.querySelector(`[data-col="${h.name}"]`);
       if (cell) {
-        const val = cell.tagName === 'SELECT' ? cell.value : cell.textContent.trim();
+        const val = cell.tagName === 'SELECT' ? cell.value : (() => { const c = cell.cloneNode(true); c.querySelectorAll('button').forEach(b => b.remove()); return c.textContent.trim(); })();
         metaStore[selectedUiModel][fieldName][h.name] = val;
       }
     });
