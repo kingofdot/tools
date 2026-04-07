@@ -1,7 +1,7 @@
 // === UI생성테스트 ===
 // metaStore 기반 실제 UI 렌더링 플레이그라운드
 
-let selectedUiTestModel = null;
+let uitestChecked = new Set(); // 체크된 모델 이름들
 let uitestViewMode = 'create'; // 'create' | 'list' | 'detail'
 
 const UITEST_MODES = [
@@ -13,40 +13,46 @@ const UITEST_MODES = [
 function renderUiTestSidebar() {
   const sb = document.getElementById('uitestSidebar');
   if (!sb) return;
-  sb.innerHTML = '<div class="excel-sidebar-title">UI생성테스트</div>';
 
-  const label = document.createElement('div');
-  label.className = 'excel-sidebar-title';
-  label.style.cssText = 'padding:8px 16px 4px;font-size:10px';
-  label.textContent = 'MODELS';
-  sb.appendChild(label);
+  // metaStore에 등록된 모델만 표시 (DB 스키마 무관)
+  const models = Object.keys(metaStore).filter(name => Object.keys(metaStore[name]).length > 0);
 
-  const configured = schema.models.filter(m => metaStore[m.name] && Object.keys(metaStore[m.name]).length > 0);
-  const unconfigured = schema.models.filter(m => !metaStore[m.name] || Object.keys(metaStore[m.name]).length === 0);
+  let html = `<div class="excel-sidebar-title">UI생성테스트</div>`;
 
-  const render = (models, dimmed) => {
-    models.forEach(m => {
-      const d = document.createElement('div');
-      d.className = 'excel-model-item' + (selectedUiTestModel === m.name ? ' active' : '');
-      d.style.opacity = dimmed ? '0.4' : '1';
-      d.innerHTML = `<span class="dot md"></span>${m.name}`;
-      d.onclick = () => { selectedUiTestModel = m.name; renderUiTestSidebar(); renderUiTestPreview(); };
-      sb.appendChild(d);
+  // 뷰 모드 선택
+  html += `<div style="padding:8px 12px;display:flex;flex-direction:column;gap:4px;border-bottom:1px solid var(--border)">
+    <div style="font-size:10px;font-weight:700;color:var(--text-muted);margin-bottom:2px">뷰 모드</div>
+    ${UITEST_MODES.map(m => `
+      <label style="display:flex;align-items:center;gap:8px;cursor:pointer;padding:4px 6px;border-radius:6px;${uitestViewMode === m.key ? 'background:var(--accent-dim);color:var(--accent);font-weight:600' : 'color:var(--text-primary)'}">
+        <input type="radio" name="uitestMode" value="${m.key}" ${uitestViewMode === m.key ? 'checked' : ''}
+          onchange="uitestSetMode('${m.key}')" style="accent-color:var(--accent)">
+        ${m.label}
+      </label>`).join('')}
+  </div>`;
+
+  html += `<div style="padding:8px 16px 4px;font-size:10px;font-weight:700;color:var(--text-muted)">UI 모델 목록</div>`;
+
+  if (models.length === 0) {
+    html += `<div style="padding:16px;font-size:12px;color:var(--text-muted);text-align:center">UI관리에서 먼저<br>모델을 설정하세요</div>`;
+  } else {
+    models.forEach(name => {
+      const checked = uitestChecked.has(name);
+      html += `<label class="excel-model-item" style="cursor:pointer;display:flex;align-items:center;gap:8px;${checked ? 'background:var(--accent-dim);color:var(--accent)' : ''}">
+        <input type="checkbox" ${checked ? 'checked' : ''} onchange="uitestToggle('${name}')" style="accent-color:var(--accent);flex-shrink:0">
+        <span style="font-weight:600">${name}</span>
+        <span style="margin-left:auto;font-size:10px;color:var(--text-muted)">${Object.keys(metaStore[name]).length}필드</span>
+      </label>`;
     });
-  };
-
-  render(configured, false);
-
-  if (unconfigured.length) {
-    const sep = document.createElement('div');
-    sep.style.cssText = 'height:1px;background:var(--border);margin:6px 8px';
-    sb.appendChild(sep);
-    const lbl = document.createElement('div');
-    lbl.style.cssText = 'padding:4px 16px;font-size:10px;color:var(--text-muted)';
-    lbl.textContent = '미설정';
-    sb.appendChild(lbl);
-    render(unconfigured, true);
   }
+
+  sb.innerHTML = html;
+}
+
+function uitestToggle(name) {
+  if (uitestChecked.has(name)) uitestChecked.delete(name);
+  else uitestChecked.add(name);
+  renderUiTestSidebar();
+  renderUiTestPreview();
 }
 
 function renderUiTestPreview() {
@@ -55,40 +61,41 @@ function renderUiTestPreview() {
   const viewBtns = document.getElementById('uitestViewBtns');
   if (!title || !content || !viewBtns) return;
 
-  if (!selectedUiTestModel) {
+  viewBtns.innerHTML = '';
+
+  if (uitestChecked.size === 0) {
     title.textContent = '모델 선택';
-    viewBtns.innerHTML = '';
-    content.innerHTML = '<div style="text-align:center;padding:60px 20px;color:var(--text-muted)">← 왼쪽에서 모델을 선택하세요</div>';
+    content.innerHTML = '<div style="text-align:center;padding:60px 20px;color:var(--text-muted)">← 왼쪽에서 모델을 체크하세요</div>';
     return;
   }
 
-  title.textContent = selectedUiTestModel;
+  const checkedNames = [...uitestChecked];
+  title.textContent = checkedNames.join(', ');
 
-  // 뷰 모드 버튼
-  viewBtns.innerHTML = UITEST_MODES.map(m =>
-    `<button class="btn${uitestViewMode === m.key ? ' btn-accent' : ''}"
-      onclick="uitestSetMode('${m.key}')">${m.label}</button>`
-  ).join('');
-
-  const meta = metaStore[selectedUiTestModel] || {};
   const mode = UITEST_MODES.find(m => m.key === uitestViewMode);
-  const rows = Object.entries(meta).filter(([, v]) => v[mode.flag] === 'true');
 
-  if (rows.length === 0) {
-    content.innerHTML = `<div style="text-align:center;padding:60px 20px;color:var(--text-muted)">
-      "${mode.label}" 로 설정된 필드가 없어요.<br>
-      <span style="font-size:12px">UI관리 탭에서 <b>${mode.flag}</b> = true 로 설정하세요.</span>
-    </div>`;
-    return;
-  }
+  // 체크된 모델 각각 렌더 (순서대로 쌓기 — 추후 변경 가능)
+  content.innerHTML = checkedNames.map(name => {
+    const meta = metaStore[name] || {};
+    const rows = Object.entries(meta).filter(([, v]) => v[mode.flag] === 'true');
 
-  if (uitestViewMode === 'create') {
-    content.innerHTML = renderCreateForm(rows);
-  } else if (uitestViewMode === 'list') {
-    content.innerHTML = renderListView(rows);
-  } else {
-    content.innerHTML = renderDetailView(rows);
-  }
+    const sectionHeader = checkedNames.length > 1
+      ? `<div style="font-size:12px;font-weight:700;color:var(--accent2);margin-bottom:12px;padding-bottom:6px;border-bottom:2px solid var(--accent2)">${name}</div>`
+      : '';
+
+    if (rows.length === 0) {
+      return `<div style="margin-bottom:32px">${sectionHeader}
+        <div style="color:var(--text-muted);font-size:12px">"${mode.label}" 조건 필드 없음 — UI관리에서 <b>${mode.flag} = true</b> 설정 필요</div>
+      </div>`;
+    }
+
+    let body = '';
+    if (uitestViewMode === 'create') body = renderCreateForm(rows);
+    else if (uitestViewMode === 'list') body = renderListView(rows);
+    else body = renderDetailView(rows);
+
+    return `<div style="margin-bottom:40px">${sectionHeader}${body}</div>`;
+  }).join('');
 }
 
 function uitestSetMode(mode) {
