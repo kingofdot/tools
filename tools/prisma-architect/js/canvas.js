@@ -97,6 +97,7 @@ drawRels();
       if (p === 'excel') renderExcelSidebar();
       if (p === 'diagram') renderDiagram();
       if (p === 'ui') { renderUiSidebar(); renderUiTable(); }
+      if (p === 'uitest') { renderUiTestSidebar(); renderUiTestPreview(); }
       if (p === 'todo') renderTodoList();
       if (p === 'suggest') renderSuggestList();
     });
