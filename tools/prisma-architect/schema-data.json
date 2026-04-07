@@ -225,31 +225,59 @@
   },
   "uiHeaders": [
     {
+      "uiRole": "none",
       "name": "commentary",
       "type": "text",
       "options": []
     },
     {
+      "uiRole": "none",
       "name": "id",
       "type": "text",
       "options": []
     },
     {
+      "uiRole": "none",
       "name": "label",
       "type": "text",
       "options": []
     },
     {
+      "uiRole": "none",
       "name": "variableType",
-      "type": "text",
-      "options": []
+      "type": "combo",
+      "options": [
+        "input",
+        "number",
+        "date",
+        "datetime",
+        "select",
+        "combobox",
+        "checkbox",
+        "textarea",
+        "readonly",
+        "hidden"
+      ]
     },
     {
+      "uiRole": "none",
       "name": "systemType",
-      "type": "text",
-      "options": []
+      "type": "combo",
+      "options": [
+        "text",
+        "number",
+        "date",
+        "select",
+        "combobox",
+        "boolean",
+        "calculation",
+        "lookup_editable",
+        "lookup_readonly",
+        "hidden"
+      ]
     },
     {
+      "uiRole": "none",
       "name": "isRequired",
       "type": "combo",
       "options": [
@@ -258,11 +286,13 @@
       ]
     },
     {
+      "uiRole": "none",
       "name": "defaultValue",
       "type": "text",
       "options": []
     },
     {
+      "uiRole": "none",
       "name": "showNode",
       "type": "combo",
       "options": [
@@ -271,6 +301,7 @@
       ]
     },
     {
+      "uiRole": "none",
       "name": "showNodeDeatil",
       "type": "combo",
       "options": [
@@ -279,6 +310,7 @@
       ]
     },
     {
+      "uiRole": "none",
       "name": "CreationConditions",
       "type": "combo",
       "options": [
@@ -287,41 +319,49 @@
       ]
     },
     {
+      "uiRole": "none",
       "name": "width",
       "type": "text",
       "options": []
     },
     {
+      "uiRole": "none",
       "name": "comboboxName",
       "type": "text",
       "options": []
     },
     {
+      "uiRole": "none",
       "name": "fnTriggerEvent",
       "type": "text",
       "options": []
     },
     {
+      "uiRole": "none",
       "name": "fnName",
       "type": "text",
       "options": []
     },
     {
+      "uiRole": "none",
       "name": "fnInputParams",
       "type": "text",
       "options": []
     },
     {
+      "uiRole": "none",
       "name": "fnOutputTarget",
       "type": "text",
       "options": []
     },
     {
+      "uiRole": "none",
       "name": "fnSyncCondition",
       "type": "text",
       "options": []
     },
     {
+      "uiRole": "none",
       "name": "dataSource",
       "type": "model",
       "options": []
@@ -743,6 +783,25 @@
       "business": {},
       "createdAt": {},
       "updatedAt": {}
+    },
+    "Verification": {
+      "id": {},
+      "identifier": {},
+      "value": {},
+      "expiresAt": {},
+      "createdAt": {},
+      "updatedAt": {}
+    },
+    "Session": {
+      "id": {},
+      "userId": {},
+      "token": {},
+      "ipAddress": {},
+      "userAgent": {},
+      "user": {},
+      "expiresAt": {},
+      "createdAt": {},
+      "updatedAt": {}
     }
   },
   "rowOrderStore": {
@@ -970,8 +1029,28 @@
       "business",
       "createdAt",
       "updatedAt"
+    ],
+    "Verification": [
+      "id",
+      "identifier",
+      "value",
+      "expiresAt",
+      "createdAt",
+      "updatedAt"
+    ],
+    "Session": [
+      "id",
+      "userId",
+      "token",
+      "ipAddress",
+      "userAgent",
+      "user",
+      "expiresAt",
+      "createdAt",
+      "updatedAt"
     ]
   },
+  "uiModelConfig": {},
   "todoItems": [
     {
       "id": "t001",
@@ -1088,5 +1167,5 @@
     }
   ],
   "annotations": [],
-  "savedAt": "2026. 4. 7. 오전 10:45:13"
+  "savedAt": "2026. 4. 7. 오후 12:54:38"
 }
