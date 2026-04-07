@@ -158,16 +158,16 @@
       "y": 3800
     },
     "AirEmissionFacility": {
-      "x": 7825,
-      "y": 4544
+      "x": 7845,
+      "y": 4607
     },
     "Hood": {
       "x": 6807,
       "y": 4553
     },
     "AirControlFacility": {
-      "x": 7020,
-      "y": 3884
+      "x": 6997,
+      "y": 3876
     },
     "Pollutant": {
       "x": 7537,
@@ -218,7 +218,7 @@
     "AirEmissionFacility↔ProductionFacility": "1:1",
     "AirEmissionFacility↔Hood": "1:N",
     "AirEmissionFacility↔Pollutant": "1:N",
-    "AirControlFacility↔Hood": "1:1",
+    "AirControlFacility↔Hood": "1:N",
     "Hood↔Pollutant": "1:N",
     "AirControlFacility↔ControlFacility": "1:1",
     "AirControlFacility↔Pollutant": "1:N"
@@ -1065,5 +1065,5 @@
     }
   ],
   "annotations": [],
-  "savedAt": "2026. 4. 7. 오전 10:04:24"
+  "savedAt": "2026. 4. 7. 오전 10:22:21"
 }
