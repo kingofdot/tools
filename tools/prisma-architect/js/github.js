@@ -127,6 +127,8 @@ async function githubSave() {
     openGhModal();
     return;
   }
+  // UI관리 편집 중인 내용 먼저 반영
+  if (typeof uiApply === 'function') uiApply();
   toast('GitHub에 저장 중…', 'info');
   try {
     // 저장할 데이터 구성
