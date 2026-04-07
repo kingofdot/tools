@@ -279,11 +279,11 @@
       ]
     },
     {
-      "name": "initialCreation",
+      "name": "CreationConditions",
       "type": "combo",
       "options": [
-        "true",
-        "false"
+        "initial",
+        "conditional"
       ]
     },
     {
@@ -293,11 +293,6 @@
     },
     {
       "name": "comboboxName",
-      "type": "text",
-      "options": []
-    },
-    {
-      "name": "creationConditions",
       "type": "text",
       "options": []
     },
@@ -734,6 +729,20 @@
       "pollutants": {},
       "createdAt": {},
       "updatedAt": {}
+    },
+    "BusinessDocumentProfile": {
+      "id": {},
+      "businessId": {},
+      "profileScope": {},
+      "documentCategoryCode": {},
+      "documentSubCategoryCode": {},
+      "documentCode": {},
+      "submissionOffice": {},
+      "mainProcess": {},
+      "specificData": {},
+      "business": {},
+      "createdAt": {},
+      "updatedAt": {}
     }
   },
   "rowOrderStore": {
@@ -947,6 +956,20 @@
       "pollutants",
       "createdAt",
       "updatedAt"
+    ],
+    "BusinessDocumentProfile": [
+      "id",
+      "businessId",
+      "profileScope",
+      "documentCategoryCode",
+      "documentSubCategoryCode",
+      "documentCode",
+      "submissionOffice",
+      "mainProcess",
+      "specificData",
+      "business",
+      "createdAt",
+      "updatedAt"
     ]
   },
   "todoItems": [
@@ -1065,5 +1088,5 @@
     }
   ],
   "annotations": [],
-  "savedAt": "2026. 4. 7. 오전 10:22:21"
+  "savedAt": "2026. 4. 7. 오전 10:45:13"
 }
