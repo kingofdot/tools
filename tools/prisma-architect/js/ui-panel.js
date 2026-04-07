@@ -73,11 +73,11 @@ let uiHeaders = [
 // 동적 헤더 옵션 동기화 (systemType, variableType, comboboxName은 각 스토어에서 실시간 참조)
 function syncDynamicHeaderOptions() {
   const st = uiHeaders.find(h => h.name === 'systemType');
-  if (st) st.options = systemTypeStore.map(t => t.key);
+  if (st) { st.type = 'combo'; st.options = systemTypeStore.map(t => t.key); }
   const vt = uiHeaders.find(h => h.name === 'variableType');
-  if (vt) vt.options = variableTypeStore.map(t => t.key);
+  if (vt) { vt.type = 'combo'; vt.options = variableTypeStore.map(t => t.key); }
   const cb = uiHeaders.find(h => h.name === 'comboboxName');
-  if (cb) cb.options = Object.keys(comboboxStore);
+  if (cb) { cb.type = 'combo'; cb.options = Object.keys(comboboxStore); }
 }
 
 // metaStore: { [modelName]: { [fieldName]: { [header]: value } } }
