@@ -250,7 +250,7 @@ function renderUiTable() {
         const opts = ['', ...modelOpts].map(o => `<option value="${o}"${o === val ? ' selected' : ''}>${o || '—'}</option>`).join('');
         return `<td style="min-width:120px;padding:4px 8px;position:relative"><select data-field="${row.fieldName}" data-col="${h.name}" style="width:100%;padding:3px 6px;border:1px solid var(--border);border-radius:4px;background:var(--bg-primary);color:var(--text-primary);font-size:12px">${opts}</select>${fillBtn}</td>`;
       }
-      return `<td contenteditable="true" data-field="${row.fieldName}" data-col="${h.name}" style="min-width:90px;position:relative">${val}${fillBtn}</td>`;
+      return `<td style="min-width:90px;position:relative;padding:0"><span contenteditable="true" data-field="${row.fieldName}" data-col="${h.name}" style="display:block;padding:7px 24px 7px 12px;outline:none;min-height:100%">${val}</span>${fillBtn}</td>`;
     }).join('');
 
     const isBorrowed = row.fieldName.includes('.');
