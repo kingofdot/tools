@@ -49,6 +49,10 @@ let variableTypeStore = [
 let comboboxStore = {};
 let selectedComboboxGroup = null;
 
+// 함수 스토어: [{ name, desc, params: [{name, desc}], outputType, outputDesc }]
+let functionStore = [];
+let selectedFunctionIdx = null;
+
 let uiHeaders = [
   { name: 'label',             type: 'text',  options: [],               uiRole: 'label' },
   { name: 'commentary',        type: 'text',  options: [],               uiRole: 'placeholder' },
@@ -78,6 +82,8 @@ function syncDynamicHeaderOptions() {
   if (vt) { vt.type = 'combo'; vt.options = variableTypeStore.map(t => t.key); }
   const cb = uiHeaders.find(h => h.name === 'comboboxName');
   if (cb) { cb.type = 'combo'; cb.options = Object.keys(comboboxStore); }
+  const fn = uiHeaders.find(h => h.name === 'fnName');
+  if (fn) { fn.type = 'combo'; fn.options = functionStore.map(f => f.name); }
 }
 
 // metaStore: { [modelName]: { [fieldName]: { [header]: value } } }
@@ -95,6 +101,7 @@ function renderUiSidebar() {
     { key: '__systemType__', icon: '🔖', label: '시스템타입 관리' },
     { key: '__varType__',    icon: '🧩', label: '배리어블타입 관리' },
     { key: '__combobox__',   icon: '🔽', label: '콤보박스 관리' },
+    { key: '__functions__',  icon: '⚡', label: '함수 관리' },
   ];
   MGMT_ITEMS.forEach(item => {
     const d = document.createElement('div');
@@ -130,6 +137,7 @@ function renderUiTable() {
   if (selectedUiModel === '__systemType__') { renderTypeStorePanel(wrap, '🔖 시스템타입 관리', systemTypeStore, 'systemType'); return; }
   if (selectedUiModel === '__varType__')    { renderTypeStorePanel(wrap, '🧩 배리어블타입 관리', variableTypeStore, 'varType'); return; }
   if (selectedUiModel === '__combobox__')   { renderComboboxPanel(wrap); return; }
+  if (selectedUiModel === '__functions__')  { renderFunctionPanel(wrap); return; }
 
   // 헤더 관리 화면
   if (selectedUiModel === null) {
@@ -708,5 +716,144 @@ function comboboxEditOption(i, val) {
 function comboboxDeleteOption(i) {
   if (!selectedComboboxGroup) return;
   comboboxStore[selectedComboboxGroup].splice(i, 1);
+  renderUiTable();
+}
+
+// ── 함수 관리 패널 ──────────────────────────────────────────────────────
+function renderFunctionPanel(wrap) {
+  const titleEl = document.getElementById('uiTitle');
+  const addBtn  = document.getElementById('uiAddRowBtn');
+  if (titleEl) titleEl.textContent = '⚡ 함수 관리';
+  if (addBtn)  addBtn.style.display = 'none';
+
+  const fn = selectedFunctionIdx !== null ? functionStore[selectedFunctionIdx] : null;
+
+  wrap.innerHTML = `
+  <div style="display:flex;height:100%;gap:0">
+
+    <!-- 좌: 함수 목록 -->
+    <div style="width:220px;flex-shrink:0;border-right:1px solid var(--border);padding:12px;overflow-y:auto">
+      <div style="display:flex;align-items:center;margin-bottom:10px">
+        <span style="font-size:12px;font-weight:700;color:var(--text-secondary);text-transform:uppercase;letter-spacing:.5px">함수 목록</span>
+        <button class="btn btn-accent" style="margin-left:auto;padding:2px 10px;font-size:11px" onclick="fnStoreAdd()">+ 추가</button>
+      </div>
+      ${functionStore.map((f, i) => `
+        <div onclick="fnStoreSelect(${i})"
+          style="padding:7px 10px;border-radius:7px;cursor:pointer;margin-bottom:3px;
+          background:${selectedFunctionIdx === i ? 'var(--accent-dim)' : 'transparent'};
+          border:${selectedFunctionIdx === i ? '1px solid var(--accent)' : '1px solid transparent'};
+          display:flex;align-items:center;gap:6px">
+          <div style="flex:1;overflow:hidden">
+            <div style="font-weight:600;font-family:var(--font-mono);font-size:12px;color:${selectedFunctionIdx === i ? 'var(--accent)' : 'var(--text-primary)'};white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${f.name}</div>
+            <div style="font-size:10px;color:var(--text-muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${f.desc || '설명 없음'}</div>
+          </div>
+          <button class="btn btn-danger" style="padding:1px 6px;font-size:10px;flex-shrink:0" onclick="event.stopPropagation();fnStoreDelete(${i})">✕</button>
+        </div>`).join('') || '<div style="color:var(--text-muted);font-size:12px;text-align:center;padding:20px">함수 없음</div>'}
+    </div>
+
+    <!-- 우: 선택된 함수 상세 -->
+    <div style="flex:1;padding:16px;overflow-y:auto">
+      ${fn ? `
+        <div style="display:flex;flex-direction:column;gap:14px;max-width:600px">
+
+          <div>
+            <div style="font-size:11px;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px">함수명</div>
+            <input value="${fn.name}"
+              onblur="fnStoreEditField(${selectedFunctionIdx},'name',this.value)"
+              style="width:100%;padding:8px 12px;border:1px solid var(--border);border-radius:8px;background:var(--bg-primary);color:var(--accent);font-family:var(--font-mono);font-size:13px;font-weight:700;outline:none">
+          </div>
+
+          <div>
+            <div style="font-size:11px;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px">설명</div>
+            <input value="${fn.desc || ''}"
+              placeholder="이 함수가 하는 일을 설명하세요"
+              onblur="fnStoreEditField(${selectedFunctionIdx},'desc',this.value)"
+              style="width:100%;padding:8px 12px;border:1px solid var(--border);border-radius:8px;background:var(--bg-primary);color:var(--text-primary);font-size:13px;outline:none">
+          </div>
+
+          <div>
+            <div style="display:flex;align-items:center;margin-bottom:8px">
+              <span style="font-size:11px;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:.5px">입력 파라미터</span>
+              <button class="btn btn-accent" style="margin-left:auto;padding:2px 10px;font-size:11px" onclick="fnStoreAddParam(${selectedFunctionIdx})">+ 파라미터</button>
+            </div>
+            <table class="excel-table" style="width:100%">
+              <thead><tr><th style="min-width:140px">파라미터명</th><th>설명</th><th style="width:40px"></th></tr></thead>
+              <tbody>
+                ${(fn.params || []).map((p, pi) => `
+                  <tr>
+                    <td><input value="${p.name}" onblur="fnStoreEditParam(${selectedFunctionIdx},${pi},'name',this.value)"
+                      style="width:100%;border:none;background:transparent;font-family:var(--font-mono);font-size:12px;color:var(--accent);outline:none;padding:2px 4px"></td>
+                    <td><input value="${p.desc || ''}" placeholder="설명" onblur="fnStoreEditParam(${selectedFunctionIdx},${pi},'desc',this.value)"
+                      style="width:100%;border:none;background:transparent;font-size:12px;color:var(--text-secondary);outline:none;padding:2px 4px"></td>
+                    <td><button class="btn btn-danger" style="padding:2px 6px;font-size:10px" onclick="fnStoreDeleteParam(${selectedFunctionIdx},${pi})">✕</button></td>
+                  </tr>`).join('') || '<tr><td colspan="3" style="text-align:center;color:var(--text-muted);padding:12px;font-size:12px">파라미터 없음</td></tr>'}
+              </tbody>
+            </table>
+          </div>
+
+          <div style="display:flex;gap:12px">
+            <div style="flex:1">
+              <div style="font-size:11px;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px">출력 타입</div>
+              <select onchange="fnStoreEditField(${selectedFunctionIdx},'outputType',this.value)"
+                style="width:100%;padding:8px 12px;border:1px solid var(--border);border-radius:8px;background:var(--bg-primary);color:var(--text-primary);font-size:13px;outline:none">
+                ${['float','integer','text','boolean','date','json'].map(t =>
+                  `<option value="${t}"${fn.outputType === t ? ' selected' : ''}>${t}</option>`).join('')}
+              </select>
+            </div>
+            <div style="flex:2">
+              <div style="font-size:11px;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px">출력 설명</div>
+              <input value="${fn.outputDesc || ''}" placeholder="예: 바닥 면적 (㎡)"
+                onblur="fnStoreEditField(${selectedFunctionIdx},'outputDesc',this.value)"
+                style="width:100%;padding:8px 12px;border:1px solid var(--border);border-radius:8px;background:var(--bg-primary);color:var(--text-primary);font-size:13px;outline:none">
+            </div>
+          </div>
+
+        </div>
+      ` : '<div style="color:var(--text-muted);font-size:13px;text-align:center;padding:60px">← 왼쪽에서 함수를 선택하세요</div>'}
+    </div>
+  </div>`;
+}
+
+function fnStoreSelect(i) { selectedFunctionIdx = i; renderUiTable(); }
+
+function fnStoreAdd() {
+  const name = prompt('새 함수명 (camelCase):');
+  if (!name || !name.trim()) return;
+  if (functionStore.find(f => f.name === name.trim())) { toast('이미 존재하는 함수명입니다', 'error'); return; }
+  functionStore.push({ name: name.trim(), desc: '', params: [], outputType: 'float', outputDesc: '' });
+  selectedFunctionIdx = functionStore.length - 1;
+  syncDynamicHeaderOptions();
+  renderUiTable();
+}
+
+function fnStoreDelete(i) {
+  if (!confirm(`함수 "${functionStore[i].name}" 를 삭제할까요?`)) return;
+  functionStore.splice(i, 1);
+  if (selectedFunctionIdx >= functionStore.length) selectedFunctionIdx = functionStore.length - 1;
+  if (functionStore.length === 0) selectedFunctionIdx = null;
+  syncDynamicHeaderOptions();
+  renderUiTable();
+}
+
+function fnStoreEditField(i, field, val) {
+  if (!functionStore[i]) return;
+  functionStore[i][field] = val;
+  if (field === 'name') { syncDynamicHeaderOptions(); renderUiTable(); }
+}
+
+function fnStoreAddParam(i) {
+  if (!functionStore[i]) return;
+  functionStore[i].params.push({ name: 'param' + (functionStore[i].params.length + 1), desc: '' });
+  renderUiTable();
+}
+
+function fnStoreEditParam(i, pi, field, val) {
+  if (!functionStore[i] || !functionStore[i].params[pi]) return;
+  functionStore[i].params[pi][field] = val;
+}
+
+function fnStoreDeleteParam(i, pi) {
+  if (!functionStore[i]) return;
+  functionStore[i].params.splice(pi, 1);
   renderUiTable();
 }

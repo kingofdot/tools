@@ -103,6 +103,10 @@ async function githubLoad() {
     if (data.metaStore) metaStore = data.metaStore;
     if (data.rowOrderStore) rowOrderStore = data.rowOrderStore;
     if (data.uiModelConfig) uiModelConfig = data.uiModelConfig;
+    if (data.systemTypeStore && data.systemTypeStore.length) systemTypeStore = data.systemTypeStore;
+    if (data.variableTypeStore && data.variableTypeStore.length) variableTypeStore = data.variableTypeStore;
+    if (data.comboboxStore) comboboxStore = data.comboboxStore;
+    if (data.functionStore) functionStore = data.functionStore;
     if (data.todoItems) todoItems = data.todoItems;
     if (data.suggestItems) suggestItems = data.suggestItems;
     if (data.annotations) annotations = data.annotations;
@@ -143,6 +147,10 @@ async function githubSave() {
       metaStore,
       rowOrderStore,
       uiModelConfig,
+      systemTypeStore,
+      variableTypeStore,
+      comboboxStore,
+      functionStore,
       todoItems,
       suggestItems,
       annotations,
