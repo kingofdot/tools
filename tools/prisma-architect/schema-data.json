@@ -174,8 +174,8 @@
       "y": 4117
     },
     "PollutantContext": {
-      "x": 420,
-      "y": 2580
+      "x": 3429,
+      "y": 2983
     }
   },
   "cardinalityMap": {
@@ -1531,6 +1531,80 @@
       "viewMode": "excel"
     }
   },
+  "systemTypeStore": [
+    {
+      "key": "text",
+      "desc": "사용자 직접 입력, 제한 없음"
+    },
+    {
+      "key": "number",
+      "desc": "숫자"
+    },
+    {
+      "key": "date",
+      "desc": "날짜"
+    },
+    {
+      "key": "select",
+      "desc": "목록에서 선택 (수정 불가)"
+    },
+    {
+      "key": "combobox",
+      "desc": "목록에서 선택 (수정 가능)"
+    },
+    {
+      "key": "boolean",
+      "desc": "참 그리고 거짓"
+    },
+    {
+      "key": "calculation",
+      "desc": "계산되는 값, 수정 불가"
+    },
+    {
+      "key": "lookup_editable",
+      "desc": "일정 값에 따라 로딩되는 값, 수정 가능"
+    },
+    {
+      "key": "lookup_readonly",
+      "desc": "일정 값에 따라 로딩되는 값, 수정 불가"
+    },
+    {
+      "key": "hidden",
+      "desc": "UI에선 보이지 않음"
+    }
+  ],
+  "variableTypeStore": [
+    {
+      "key": "text",
+      "desc": "텍스트 (문자열)"
+    },
+    {
+      "key": "integer",
+      "desc": "정수"
+    },
+    {
+      "key": "float",
+      "desc": "소수 (부동소수점)"
+    },
+    {
+      "key": "date",
+      "desc": "날짜 (YYYY-MM-DD)"
+    },
+    {
+      "key": "datetime",
+      "desc": "날짜+시간"
+    },
+    {
+      "key": "boolean",
+      "desc": "참/거짓"
+    },
+    {
+      "key": "json",
+      "desc": "JSON 객체"
+    }
+  ],
+  "comboboxStore": {},
+  "functionStore": [],
   "todoItems": [
     {
       "id": "t001",
@@ -1647,5 +1721,5 @@
     }
   ],
   "annotations": [],
-  "savedAt": "2026. 4. 7. 오후 5:12:11"
+  "savedAt": "2026. 4. 7. 오후 5:55:35"
 }
