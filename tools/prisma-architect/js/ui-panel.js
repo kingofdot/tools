@@ -34,18 +34,15 @@ let systemTypeStore = [
   { key: 'hidden',          desc: 'UI에선 보이지 않음' },
 ];
 
-// 배리어블타입 스토어 (pageLoader.js가 소비하는 실제 렌더 컴포넌트 타입)
+// 배리어블타입 스토어 (필드의 데이터/변수 타입)
 let variableTypeStore = [
-  { key: 'input',    desc: '기본 텍스트 입력 (<input type="text">)' },
-  { key: 'number',   desc: '숫자 입력 (<input type="number">)' },
-  { key: 'date',     desc: '날짜 선택 (<input type="date">)' },
-  { key: 'datetime', desc: '날짜+시간 선택 (<input type="datetime-local">)' },
-  { key: 'select',   desc: '드롭다운 선택 — comboboxName 기반 고정 목록' },
-  { key: 'combobox', desc: '자동완성 선택 — comboboxName 기반, 직접 입력 가능' },
-  { key: 'checkbox', desc: '체크박스 (boolean)' },
-  { key: 'textarea', desc: '여러 줄 텍스트 입력' },
-  { key: 'readonly', desc: '수정 불가 표시 전용' },
-  { key: 'hidden',   desc: '숨김 필드 (값은 있으나 UI 미표시)' },
+  { key: 'text',     desc: '텍스트 (문자열)' },
+  { key: 'integer',  desc: '정수' },
+  { key: 'float',    desc: '소수 (부동소수점)' },
+  { key: 'date',     desc: '날짜 (YYYY-MM-DD)' },
+  { key: 'datetime', desc: '날짜+시간' },
+  { key: 'boolean',  desc: '참/거짓' },
+  { key: 'json',     desc: 'JSON 객체' },
 ];
 
 // 콤보박스 스토어: { groupName: ['option1', 'option2', ...] }
