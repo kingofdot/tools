@@ -402,21 +402,25 @@ body {
   font-weight: 700;
   color: var(--text-secondary);
   border-bottom: 2px solid var(--border);
+  border-right: 1px solid var(--border);
   white-space: nowrap;
   z-index: 10;
   font-size: 11px;
   text-transform: uppercase;
   letter-spacing: .5px
 }
+.excel-table th:last-child { border-right: none }
 
 .excel-table td {
   padding: 7px 12px;
   border-bottom: 1px solid var(--border);
+  border-right: 1px solid var(--border);
   white-space: nowrap;
   max-width: 200px;
   overflow: hidden;
   text-overflow: ellipsis
 }
+.excel-table td:last-child { border-right: none }
 
 .excel-table tr:hover td { background: var(--bg-hover) }
 .excel-table td[contenteditable="true"] { outline: none; cursor: text }
