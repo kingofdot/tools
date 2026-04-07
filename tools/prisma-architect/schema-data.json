@@ -330,11 +330,6 @@
       "name": "dataSource",
       "type": "model",
       "options": []
-    },
-    {
-      "name": "test",
-      "type": "text",
-      "options": []
     }
   ],
   "metaStore": {
@@ -375,7 +370,18 @@
       "updatedAt": {},
       "testModelId": {},
       "airDocumentation": {},
-      "airDocumentationId": {}
+      "airDocumentationId": {},
+      "productionFacilities": {},
+      "controlFacilities": {},
+      "executiveOfficers": {},
+      "rawMaterialUsages": {},
+      "landInfos": {},
+      "buildingInfos": {},
+      "temporaryBuildingInfos": {},
+      "waterDocumentations": {},
+      "odorDocumentations": {},
+      "noiseDocumentations": {},
+      "airDocumentations": {}
     },
     "DocumentRequest": {
       "id": {},
@@ -622,28 +628,6 @@
         "fnSyncCondition": "",
         "dataSource": "",
         "test": ""
-      },
-      "TemporaryBuildingInfo.dong": {
-        "dataSource": "TemporaryBuildingInfo",
-        "commentary": "",
-        "id": "1동",
-        "label": "",
-        "variableType": "",
-        "systemType": "",
-        "isRequired": "",
-        "defaultValue": "",
-        "showNode": "",
-        "showNodeDeatil": "",
-        "initialCreation": "",
-        "width": "",
-        "comboboxName": "",
-        "creationConditions": "",
-        "fnTriggerEvent": "",
-        "fnName": "",
-        "fnInputParams": "",
-        "fnOutputTarget": "",
-        "fnSyncCondition": "",
-        "test": "test"
       }
     },
     "ControlFacility": {
@@ -790,7 +774,18 @@
       "updatedAt",
       "testModelId",
       "airDocumentation",
-      "airDocumentationId"
+      "airDocumentationId",
+      "productionFacilities",
+      "controlFacilities",
+      "executiveOfficers",
+      "rawMaterialUsages",
+      "landInfos",
+      "buildingInfos",
+      "temporaryBuildingInfos",
+      "waterDocumentations",
+      "odorDocumentations",
+      "noiseDocumentations",
+      "airDocumentations"
     ],
     "DocumentRequest": [
       "id",
@@ -848,8 +843,7 @@
       "area",
       "business",
       "createdAt",
-      "updatedAt",
-      "TemporaryBuildingInfo.dong"
+      "updatedAt"
     ],
     "ControlFacility": [
       "id",
@@ -1071,5 +1065,5 @@
     }
   ],
   "annotations": [],
-  "savedAt": "2026. 4. 7. 오전 10:03:54"
+  "savedAt": "2026. 4. 7. 오전 10:04:24"
 }
