@@ -330,6 +330,11 @@
       "name": "dataSource",
       "type": "model",
       "options": []
+    },
+    {
+      "name": "test",
+      "type": "text",
+      "options": []
     }
   ],
   "metaStore": {
@@ -439,7 +444,8 @@
         "fnInputParams": "",
         "fnOutputTarget": "",
         "fnSyncCondition": "",
-        "dataSource": ""
+        "dataSource": "",
+        "test": ""
       },
       "businessId": {
         "commentary": "",
@@ -460,7 +466,8 @@
         "fnInputParams": "",
         "fnOutputTarget": "",
         "fnSyncCondition": "",
-        "dataSource": ""
+        "dataSource": "",
+        "test": ""
       },
       "dong": {
         "commentary": "",
@@ -481,7 +488,8 @@
         "fnInputParams": "",
         "fnOutputTarget": "",
         "fnSyncCondition": "",
-        "dataSource": ""
+        "dataSource": "",
+        "test": ""
       },
       "floors": {
         "commentary": "",
@@ -502,7 +510,8 @@
         "fnInputParams": "",
         "fnOutputTarget": "",
         "fnSyncCondition": "",
-        "dataSource": ""
+        "dataSource": "",
+        "test": ""
       },
       "purpose": {
         "commentary": "",
@@ -523,7 +532,8 @@
         "fnInputParams": "",
         "fnOutputTarget": "",
         "fnSyncCondition": "",
-        "dataSource": ""
+        "dataSource": "",
+        "test": ""
       },
       "area": {
         "commentary": "",
@@ -544,7 +554,8 @@
         "fnInputParams": "",
         "fnOutputTarget": "",
         "fnSyncCondition": "",
-        "dataSource": ""
+        "dataSource": "",
+        "test": ""
       },
       "business": {
         "commentary": "",
@@ -565,7 +576,8 @@
         "fnInputParams": "",
         "fnOutputTarget": "",
         "fnSyncCondition": "",
-        "dataSource": ""
+        "dataSource": "",
+        "test": ""
       },
       "createdAt": {
         "commentary": "",
@@ -586,7 +598,8 @@
         "fnInputParams": "",
         "fnOutputTarget": "",
         "fnSyncCondition": "",
-        "dataSource": ""
+        "dataSource": "",
+        "test": ""
       },
       "updatedAt": {
         "commentary": "",
@@ -607,7 +620,8 @@
         "fnInputParams": "",
         "fnOutputTarget": "",
         "fnSyncCondition": "",
-        "dataSource": ""
+        "dataSource": "",
+        "test": ""
       },
       "TemporaryBuildingInfo.dong": {
         "dataSource": "TemporaryBuildingInfo",
@@ -628,7 +642,8 @@
         "fnName": "",
         "fnInputParams": "",
         "fnOutputTarget": "",
-        "fnSyncCondition": ""
+        "fnSyncCondition": "",
+        "test": "test"
       }
     },
     "ControlFacility": {
@@ -680,6 +695,59 @@
       "annualOperatingDays": {},
       "annualUsage": {},
       "business": {},
+      "createdAt": {},
+      "updatedAt": {}
+    },
+    "VerifiedEmail": {
+      "id": {},
+      "email": {},
+      "expiresAt": {},
+      "createdAt": {},
+      "updatedAt": {}
+    },
+    "WasteDocumentation": {
+      "id": {},
+      "businessId": {},
+      "wasteTargetItems": {},
+      "wasteFacilities": {},
+      "wasteStorageFacilities": {},
+      "business": {},
+      "createdAt": {},
+      "updatedAt": {},
+      "office": {},
+      "officeId": {},
+      "vehicle": {},
+      "vehicleId": {},
+      "executiveOfficerId": {}
+    },
+    "WasteFacility": {
+      "id": {},
+      "wasteDocumentationId": {},
+      "productionFacilityId": {},
+      "capacityPerHour": {},
+      "dailyOperatingHours": {},
+      "dailyThroughput": {},
+      "productionFacility": {},
+      "wasteDocumentation": {}
+    },
+    "ProcessFlow": {
+      "id": {},
+      "businessId": {},
+      "layoutData": {},
+      "productionFacilities": {},
+      "controlFacilities": {},
+      "business": {},
+      "createdAt": {},
+      "updatedAt": {}
+    },
+    "Hood": {
+      "id": {},
+      "airEmissionFacilityId": {},
+      "airControlFacilityId": {},
+      "emissionOutletNumber": {},
+      "airEmissionFacility": {},
+      "airControlFacility": {},
+      "pollutants": {},
       "createdAt": {},
       "updatedAt": {}
     }
@@ -832,6 +900,59 @@
       "business",
       "createdAt",
       "updatedAt"
+    ],
+    "VerifiedEmail": [
+      "id",
+      "email",
+      "expiresAt",
+      "createdAt",
+      "updatedAt"
+    ],
+    "WasteDocumentation": [
+      "id",
+      "businessId",
+      "wasteTargetItems",
+      "wasteFacilities",
+      "wasteStorageFacilities",
+      "business",
+      "createdAt",
+      "updatedAt",
+      "office",
+      "officeId",
+      "vehicle",
+      "vehicleId",
+      "executiveOfficerId"
+    ],
+    "WasteFacility": [
+      "id",
+      "wasteDocumentationId",
+      "productionFacilityId",
+      "capacityPerHour",
+      "dailyOperatingHours",
+      "dailyThroughput",
+      "productionFacility",
+      "wasteDocumentation"
+    ],
+    "ProcessFlow": [
+      "id",
+      "businessId",
+      "layoutData",
+      "productionFacilities",
+      "controlFacilities",
+      "business",
+      "createdAt",
+      "updatedAt"
+    ],
+    "Hood": [
+      "id",
+      "airEmissionFacilityId",
+      "airControlFacilityId",
+      "emissionOutletNumber",
+      "airEmissionFacility",
+      "airControlFacility",
+      "pollutants",
+      "createdAt",
+      "updatedAt"
     ]
   },
   "todoItems": [
@@ -950,5 +1071,5 @@
     }
   ],
   "annotations": [],
-  "savedAt": "2026. 4. 7. 오전 9:41:49"
+  "savedAt": "2026. 4. 7. 오전 10:03:54"
 }
