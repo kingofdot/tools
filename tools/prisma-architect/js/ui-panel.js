@@ -20,25 +20,68 @@ const VIEW_MODES = [
   { key: 'card',  label: '카드' },
 ];
 
-let uiHeaders = [
-  { name: 'label',             type: 'text',  options: [],                    uiRole: 'label' },
-  { name: 'commentary',        type: 'text',  options: [],                    uiRole: 'placeholder' },
-  { name: 'isRequired',        type: 'combo', options: ['true', 'false'],     uiRole: 'required' },
-  { name: 'initialCreation',   type: 'combo', options: ['true', 'false'],     uiRole: 'showCreate' },
-  { name: 'showNode',          type: 'combo', options: ['true', 'false'],     uiRole: 'showList' },
-  { name: 'showNodeDetail',    type: 'combo', options: ['true', 'false'],     uiRole: 'showDetail' },
-  { name: 'variableType',      type: 'text',  options: [],                    uiRole: 'componentType' },
-  { name: 'width',             type: 'text',  options: [],                    uiRole: 'width' },
-  { name: 'defaultValue',      type: 'text',  options: [],                    uiRole: 'none' },
-  { name: 'comboboxName',      type: 'text',  options: [],                    uiRole: 'none' },
-  { name: 'dataSource',        type: 'model', options: [],                    uiRole: 'none' },
-  { name: 'creationConditions',type: 'text',  options: [],                    uiRole: 'none' },
-  { name: 'fnTriggerEvent',    type: 'text',  options: [],                    uiRole: 'none' },
-  { name: 'fnName',            type: 'text',  options: [],                    uiRole: 'none' },
-  { name: 'fnInputParams',     type: 'text',  options: [],                    uiRole: 'none' },
-  { name: 'fnOutputTarget',    type: 'text',  options: [],                    uiRole: 'none' },
-  { name: 'fnSyncCondition',   type: 'text',  options: [],                    uiRole: 'none' },
+// 시스템타입 스토어
+let systemTypeStore = [
+  { key: 'text',            desc: '사용자 직접 입력, 제한 없음' },
+  { key: 'number',          desc: '숫자' },
+  { key: 'date',            desc: '날짜' },
+  { key: 'select',          desc: '목록에서 선택 (수정 불가)' },
+  { key: 'combobox',        desc: '목록에서 선택 (수정 가능)' },
+  { key: 'boolean',         desc: '참 그리고 거짓' },
+  { key: 'calculation',     desc: '계산되는 값, 수정 불가' },
+  { key: 'lookup_editable', desc: '일정 값에 따라 로딩되는 값, 수정 가능' },
+  { key: 'lookup_readonly', desc: '일정 값에 따라 로딩되는 값, 수정 불가' },
+  { key: 'hidden',          desc: 'UI에선 보이지 않음' },
 ];
+
+// 배리어블타입 스토어 (pageLoader.js가 소비하는 실제 렌더 컴포넌트 타입)
+let variableTypeStore = [
+  { key: 'input',    desc: '기본 텍스트 입력 (<input type="text">)' },
+  { key: 'number',   desc: '숫자 입력 (<input type="number">)' },
+  { key: 'date',     desc: '날짜 선택 (<input type="date">)' },
+  { key: 'datetime', desc: '날짜+시간 선택 (<input type="datetime-local">)' },
+  { key: 'select',   desc: '드롭다운 선택 — comboboxName 기반 고정 목록' },
+  { key: 'combobox', desc: '자동완성 선택 — comboboxName 기반, 직접 입력 가능' },
+  { key: 'checkbox', desc: '체크박스 (boolean)' },
+  { key: 'textarea', desc: '여러 줄 텍스트 입력' },
+  { key: 'readonly', desc: '수정 불가 표시 전용' },
+  { key: 'hidden',   desc: '숨김 필드 (값은 있으나 UI 미표시)' },
+];
+
+// 콤보박스 스토어: { groupName: ['option1', 'option2', ...] }
+let comboboxStore = {};
+let selectedComboboxGroup = null;
+
+let uiHeaders = [
+  { name: 'label',             type: 'text',  options: [],               uiRole: 'label' },
+  { name: 'commentary',        type: 'text',  options: [],               uiRole: 'placeholder' },
+  { name: 'isRequired',        type: 'combo', options: ['true','false'], uiRole: 'required' },
+  { name: 'initialCreation',   type: 'combo', options: ['true','false'], uiRole: 'showCreate' },
+  { name: 'showNode',          type: 'combo', options: ['true','false'], uiRole: 'showList' },
+  { name: 'showNodeDetail',    type: 'combo', options: ['true','false'], uiRole: 'showDetail' },
+  { name: 'systemType',        type: 'combo', options: [],               uiRole: 'none' },
+  { name: 'variableType',      type: 'combo', options: [],               uiRole: 'componentType' },
+  { name: 'width',             type: 'text',  options: [],               uiRole: 'width' },
+  { name: 'defaultValue',      type: 'text',  options: [],               uiRole: 'none' },
+  { name: 'comboboxName',      type: 'combo', options: [],               uiRole: 'none' },
+  { name: 'dataSource',        type: 'model', options: [],               uiRole: 'none' },
+  { name: 'creationConditions',type: 'text',  options: [],               uiRole: 'none' },
+  { name: 'fnTriggerEvent',    type: 'text',  options: [],               uiRole: 'none' },
+  { name: 'fnName',            type: 'text',  options: [],               uiRole: 'none' },
+  { name: 'fnInputParams',     type: 'text',  options: [],               uiRole: 'none' },
+  { name: 'fnOutputTarget',    type: 'text',  options: [],               uiRole: 'none' },
+  { name: 'fnSyncCondition',   type: 'text',  options: [],               uiRole: 'none' },
+];
+
+// 동적 헤더 옵션 동기화 (systemType, variableType, comboboxName은 각 스토어에서 실시간 참조)
+function syncDynamicHeaderOptions() {
+  const st = uiHeaders.find(h => h.name === 'systemType');
+  if (st) st.options = systemTypeStore.map(t => t.key);
+  const vt = uiHeaders.find(h => h.name === 'variableType');
+  if (vt) vt.options = variableTypeStore.map(t => t.key);
+  const cb = uiHeaders.find(h => h.name === 'comboboxName');
+  if (cb) cb.options = Object.keys(comboboxStore);
+}
 
 // metaStore: { [modelName]: { [fieldName]: { [header]: value } } }
 let metaStore = {};
@@ -50,11 +93,19 @@ function renderUiSidebar() {
   const sb = document.getElementById('uiSidebar');
   sb.innerHTML = '<div class="excel-sidebar-title">UI 관리</div>';
 
-  const hd = document.createElement('div');
-  hd.className = 'excel-model-item' + (selectedUiModel === null ? ' active' : '');
-  hd.innerHTML = `<span style="font-size:14px">⚙️</span> 헤더 관리`;
-  hd.onclick = () => { selectedUiModel = null; renderUiSidebar(); renderUiTable(); };
-  sb.appendChild(hd);
+  const MGMT_ITEMS = [
+    { key: null,             icon: '⚙️', label: '헤더 관리' },
+    { key: '__systemType__', icon: '🔖', label: '시스템타입 관리' },
+    { key: '__varType__',    icon: '🧩', label: '배리어블타입 관리' },
+    { key: '__combobox__',   icon: '🔽', label: '콤보박스 관리' },
+  ];
+  MGMT_ITEMS.forEach(item => {
+    const d = document.createElement('div');
+    d.className = 'excel-model-item' + (selectedUiModel === item.key ? ' active' : '');
+    d.innerHTML = `<span style="font-size:14px">${item.icon}</span> ${item.label}`;
+    d.onclick = () => { selectedUiModel = item.key; renderUiSidebar(); renderUiTable(); };
+    sb.appendChild(d);
+  });
 
   const sep = document.createElement('div');
   sep.style.cssText = 'height:1px;background:var(--border);margin:4px 0';
@@ -76,7 +127,12 @@ function renderUiSidebar() {
 }
 
 function renderUiTable() {
+  syncDynamicHeaderOptions();
   const wrap = document.getElementById('uiContent');
+
+  if (selectedUiModel === '__systemType__') { renderTypeStorePanel(wrap, '🔖 시스템타입 관리', systemTypeStore, 'systemType'); return; }
+  if (selectedUiModel === '__varType__')    { renderTypeStorePanel(wrap, '🧩 배리어블타입 관리', variableTypeStore, 'varType'); return; }
+  if (selectedUiModel === '__combobox__')   { renderComboboxPanel(wrap); return; }
 
   // 헤더 관리 화면
   if (selectedUiModel === null) {
@@ -466,4 +522,164 @@ function initRowDragDrop() {
       renderUiTable();
     });
   });
+}
+
+// ── 시스템타입 / 배리어블타입 관리 패널 ──────────────────────────────────
+function renderTypeStorePanel(wrap, title, store, storeKey) {
+  const titleEl = document.getElementById('uiTitle');
+  const addBtn  = document.getElementById('uiAddRowBtn');
+  if (titleEl) titleEl.textContent = title;
+  if (addBtn)  addBtn.style.display = 'none';
+
+  wrap.innerHTML = `
+  <div style="padding:16px;max-width:700px">
+    <div style="display:flex;align-items:center;gap:8px;margin-bottom:14px">
+      <span style="font-size:13px;font-weight:600;color:var(--text-secondary)">타입 목록</span>
+      <button class="btn btn-accent" style="margin-left:auto" onclick="typeStoreAdd('${storeKey}')">+ 타입 추가</button>
+    </div>
+    <table class="excel-table" style="width:100%">
+      <thead><tr><th style="min-width:160px">타입 키</th><th>설명</th><th style="width:48px"></th></tr></thead>
+      <tbody>
+        ${store.map((t, i) => `
+          <tr>
+            <td contenteditable="true" data-store="${storeKey}" data-idx="${i}" data-field="key"
+              style="font-family:var(--font-mono);font-weight:600;color:var(--accent);outline:none"
+              onblur="typeStoreEdit('${storeKey}',${i},'key',this.textContent.trim())"
+              onkeydown="if(event.key==='Enter'){event.preventDefault();this.blur()}"
+            >${t.key}</td>
+            <td contenteditable="true" data-store="${storeKey}" data-idx="${i}" data-field="desc"
+              style="color:var(--text-secondary);outline:none"
+              onblur="typeStoreEdit('${storeKey}',${i},'desc',this.textContent.trim())"
+              onkeydown="if(event.key==='Enter'){event.preventDefault();this.blur()}"
+            >${t.desc}</td>
+            <td><button class="btn btn-danger" style="padding:2px 8px;font-size:10px" onclick="typeStoreDelete('${storeKey}',${i})">✕</button></td>
+          </tr>`).join('')}
+      </tbody>
+    </table>
+  </div>`;
+}
+
+function typeStoreGetRef(storeKey) {
+  return storeKey === 'systemType' ? systemTypeStore : variableTypeStore;
+}
+
+function typeStoreAdd(storeKey) {
+  const key = prompt('새 타입 키:');
+  if (!key || !key.trim()) return;
+  const store = typeStoreGetRef(storeKey);
+  if (store.find(t => t.key === key.trim())) { toast('이미 존재하는 키입니다', 'error'); return; }
+  store.push({ key: key.trim(), desc: '' });
+  syncDynamicHeaderOptions();
+  renderUiTable();
+}
+
+function typeStoreEdit(storeKey, i, field, val) {
+  const store = typeStoreGetRef(storeKey);
+  if (!store[i]) return;
+  store[i][field] = val;
+  syncDynamicHeaderOptions();
+}
+
+function typeStoreDelete(storeKey, i) {
+  const store = typeStoreGetRef(storeKey);
+  if (!confirm(`타입 "${store[i].key}" 를 삭제할까요?`)) return;
+  store.splice(i, 1);
+  syncDynamicHeaderOptions();
+  renderUiTable();
+}
+
+// ── 콤보박스 관리 패널 ──────────────────────────────────────────────────
+function renderComboboxPanel(wrap) {
+  const titleEl = document.getElementById('uiTitle');
+  const addBtn  = document.getElementById('uiAddRowBtn');
+  if (titleEl) titleEl.textContent = '🔽 콤보박스 관리';
+  if (addBtn)  addBtn.style.display = 'none';
+
+  const groups = Object.keys(comboboxStore);
+  const options = selectedComboboxGroup && comboboxStore[selectedComboboxGroup]
+    ? comboboxStore[selectedComboboxGroup] : [];
+
+  wrap.innerHTML = `
+  <div style="display:flex;height:100%;gap:0">
+    <div style="width:220px;flex-shrink:0;border-right:1px solid var(--border);padding:12px;overflow-y:auto">
+      <div style="display:flex;align-items:center;margin-bottom:10px">
+        <span style="font-size:12px;font-weight:700;color:var(--text-secondary);text-transform:uppercase;letter-spacing:.5px">그룹</span>
+        <button class="btn btn-accent" style="margin-left:auto;padding:2px 10px;font-size:11px" onclick="comboboxAddGroup()">+ 추가</button>
+      </div>
+      ${groups.map(g => `
+        <div onclick="comboboxSelectGroup('${g}')"
+          style="padding:7px 10px;border-radius:7px;cursor:pointer;font-weight:600;font-family:var(--font-mono);font-size:12px;
+          background:${selectedComboboxGroup === g ? 'var(--accent-dim)' : 'transparent'};
+          color:${selectedComboboxGroup === g ? 'var(--accent)' : 'var(--text-primary)'};
+          border:${selectedComboboxGroup === g ? '1px solid var(--accent)' : '1px solid transparent'};
+          margin-bottom:3px;display:flex;align-items:center;gap:6px">
+          <span style="flex:1">${g}</span>
+          <button class="btn btn-danger" style="padding:1px 6px;font-size:10px" onclick="event.stopPropagation();comboboxDeleteGroup('${g}')">✕</button>
+        </div>`).join('') || '<div style="color:var(--text-muted);font-size:12px;text-align:center;padding:20px">그룹 없음</div>'}
+    </div>
+    <div style="flex:1;padding:12px;overflow-y:auto">
+      ${selectedComboboxGroup ? `
+        <div style="display:flex;align-items:center;margin-bottom:10px">
+          <span style="font-size:13px;font-weight:700;color:var(--accent)">${selectedComboboxGroup}</span>
+          <span style="margin-left:8px;font-size:11px;color:var(--text-muted)">옵션 목록</span>
+          <button class="btn btn-accent" style="margin-left:auto;padding:2px 10px;font-size:11px" onclick="comboboxAddOption()">+ 옵션 추가</button>
+        </div>
+        <table class="excel-table" style="width:100%">
+          <thead><tr><th>#</th><th>옵션 값</th><th style="width:48px"></th></tr></thead>
+          <tbody>
+            ${options.map((opt, i) => `
+              <tr>
+                <td style="color:var(--text-muted);width:40px">${i + 1}</td>
+                <td contenteditable="true" style="font-family:var(--font-mono);outline:none"
+                  onblur="comboboxEditOption(${i},this.textContent.trim())"
+                  onkeydown="if(event.key==='Enter'){event.preventDefault();this.blur()}"
+                >${opt}</td>
+                <td><button class="btn btn-danger" style="padding:2px 8px;font-size:10px" onclick="comboboxDeleteOption(${i})">✕</button></td>
+              </tr>`).join('') || '<tr><td colspan="3" style="text-align:center;color:var(--text-muted);padding:20px">옵션 없음</td></tr>'}
+          </tbody>
+        </table>` : `<div style="color:var(--text-muted);font-size:13px;text-align:center;padding:60px">← 왼쪽에서 그룹을 선택하세요</div>`}
+    </div>
+  </div>`;
+}
+
+function comboboxSelectGroup(name) {
+  selectedComboboxGroup = name;
+  renderUiTable();
+}
+
+function comboboxAddGroup() {
+  const name = prompt('새 그룹 이름 (예: INDUSTRY_TYPE):');
+  if (!name || !name.trim()) return;
+  if (comboboxStore[name.trim()]) { toast('이미 존재하는 그룹입니다', 'error'); return; }
+  comboboxStore[name.trim()] = [];
+  selectedComboboxGroup = name.trim();
+  syncDynamicHeaderOptions();
+  renderUiTable();
+}
+
+function comboboxDeleteGroup(name) {
+  if (!confirm(`그룹 "${name}" 와 모든 옵션을 삭제할까요?`)) return;
+  delete comboboxStore[name];
+  if (selectedComboboxGroup === name) selectedComboboxGroup = null;
+  syncDynamicHeaderOptions();
+  renderUiTable();
+}
+
+function comboboxAddOption() {
+  if (!selectedComboboxGroup) return;
+  const val = prompt('새 옵션 값:');
+  if (!val || !val.trim()) return;
+  comboboxStore[selectedComboboxGroup].push(val.trim());
+  renderUiTable();
+}
+
+function comboboxEditOption(i, val) {
+  if (!selectedComboboxGroup || !val) return;
+  comboboxStore[selectedComboboxGroup][i] = val;
+}
+
+function comboboxDeleteOption(i) {
+  if (!selectedComboboxGroup) return;
+  comboboxStore[selectedComboboxGroup].splice(i, 1);
+  renderUiTable();
 }

@@ -76,6 +76,9 @@ async function sheetsSave() {
       uiHeaders,
       metaStore,
       rowOrderStore,
+      systemTypeStore,
+      variableTypeStore,
+      comboboxStore,
       todoItems,
       suggestItems,
       modelPositions,
@@ -128,6 +131,9 @@ async function sheetsLoad() {
     if (data.uiHeaders && data.uiHeaders.length) uiHeaders = data.uiHeaders;
     if (data.metaStore) metaStore = data.metaStore;
     if (data.rowOrderStore) rowOrderStore = data.rowOrderStore;
+    if (data.systemTypeStore && data.systemTypeStore.length) systemTypeStore = data.systemTypeStore;
+    if (data.variableTypeStore && data.variableTypeStore.length) variableTypeStore = data.variableTypeStore;
+    if (data.comboboxStore) comboboxStore = data.comboboxStore;
     if (data.todoItems) todoItems = data.todoItems;
     if (data.suggestItems) suggestItems = data.suggestItems;
 
