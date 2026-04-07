@@ -64,7 +64,7 @@ pageLoader.js(DynamicTable)가 읽어서 UI를 동적 렌더
 |---|---|---|
 | `label` | 필드 옆 표시 텍스트 | `사업자등록번호` |
 | `commentary` | input의 placeholder | `000-00-00000 형식으로 입력` |
-| `variableType` | 렌더할 컴포넌트 종류 결정 | `text`→`<input>`, `combo`→`<select>`, `date`→datepicker |
+| `variableType` | 필드의 데이터/변수 타입 | `text`, `integer`, `float`, `date`, `datetime`, `boolean`, `json` |
 | `width` | 컴포넌트 CSS 너비 | `200px`, `100%` |
 | `comboboxName` | combo일 때 옵션 데이터 그룹 키 | `INDUSTRY_TYPE` → 코드 테이블에서 options 조회 |
 | `dataSource` | 다른 모델을 참조하는 드롭다운 | `User` → User 모델 목록을 API로 가져와 `<select>` |
