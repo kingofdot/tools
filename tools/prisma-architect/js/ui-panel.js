@@ -332,9 +332,20 @@ function initHeaderDragDrop() {
 
 function fillDown(fieldName, colName) {
   if (!selectedUiModel) return;
-  const cell = document.querySelector(`#uiMetaTable [data-field="${fieldName}"][data-col="${colName}"]`);
-  if (!cell) return;
-  const val = cell.tagName === 'SELECT' ? cell.value : (() => { const c = cell.cloneNode(true); c.querySelectorAll('button').forEach(b => b.remove()); return c.textContent.trim(); })();
+  // 현재 DOM 상태를 metaStore에 먼저 동기화
+  if (!metaStore[selectedUiModel]) metaStore[selectedUiModel] = {};
+  document.querySelectorAll('#uiMetaTable tbody tr').forEach(row => {
+    const fn = row.dataset.field;
+    if (!fn) return;
+    if (!metaStore[selectedUiModel][fn]) metaStore[selectedUiModel][fn] = {};
+    uiHeaders.forEach(h => {
+      const cell = row.querySelector(`[data-col="${h.name}"]`);
+      if (!cell) return;
+      const v = cell.tagName === 'SELECT' ? cell.value : (() => { const c = cell.cloneNode(true); c.querySelectorAll('button').forEach(b => b.remove()); return c.textContent.trim(); })();
+      metaStore[selectedUiModel][fn][h.name] = v;
+    });
+  });
+  const val = metaStore[selectedUiModel][fieldName]?.[colName] ?? '';
   const order = rowOrderStore[selectedUiModel] || [];
   const startIdx = order.indexOf(fieldName);
   if (startIdx < 0) return;
