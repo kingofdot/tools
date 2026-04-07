@@ -470,6 +470,20 @@
       "Vehicle.vehicleName": {
         "dataSource": "Vehicle"
       }
+    },
+    "RawMaterialUsage": {
+      "id": {},
+      "businessId": {},
+      "materialType": {},
+      "materialName": {},
+      "dailyUsage": {},
+      "monthlyOperatingDays": {},
+      "monthlyUsage": {},
+      "annualOperatingDays": {},
+      "annualUsage": {},
+      "business": {},
+      "createdAt": {},
+      "updatedAt": {}
     }
   },
   "rowOrderStore": {
@@ -606,6 +620,20 @@
       "createdAt",
       "updatedAt",
       "Vehicle.vehicleName"
+    ],
+    "RawMaterialUsage": [
+      "id",
+      "businessId",
+      "materialType",
+      "materialName",
+      "dailyUsage",
+      "monthlyOperatingDays",
+      "monthlyUsage",
+      "annualOperatingDays",
+      "annualUsage",
+      "business",
+      "createdAt",
+      "updatedAt"
     ]
   },
   "todoItems": [
@@ -724,5 +752,5 @@
     }
   ],
   "annotations": [],
-  "savedAt": "2026. 4. 6. 오후 5:59:22"
+  "savedAt": "2026. 4. 7. 오전 9:40:35"
 }
