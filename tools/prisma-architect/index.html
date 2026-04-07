@@ -195,11 +195,31 @@
       <div style="flex:1;display:flex;flex-direction:column;overflow:hidden">
         <div class="excel-toolbar">
           <span id="uitestTitle" style="font-weight:700;color:var(--accent2)">모델 선택</span>
-          <div style="margin-left:auto;display:flex;gap:8px" id="uitestViewBtns"></div>
+          <div style="margin-left:auto;display:flex;gap:8px">
+            <button class="btn" onclick="mockStoreView()">👁 mockStore 보기</button>
+            <button class="btn btn-accent" onclick="mockStoreCreate()">📦 mockStore 생성</button>
+            <div id="uitestViewBtns" style="display:flex;gap:8px"></div>
+          </div>
         </div>
         <div style="flex:1;overflow-y:auto;padding:24px" id="uitestContent">
           <div style="text-align:center;padding:60px 20px;color:var(--text-muted)">← 왼쪽에서 모델을 선택하세요</div>
         </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- mockStore 뷰어 모달 -->
+  <div class="modal-overlay" id="mockStoreModal">
+    <div class="modal" style="min-width:600px;max-width:800px">
+      <div class="modal-title">
+        <span>📦 mockStore 현재 상태</span>
+        <button class="btn" onclick="document.getElementById('mockStoreModal').classList.remove('show')">✕</button>
+      </div>
+      <div class="modal-body" style="padding:0">
+        <pre id="mockStoreViewer" style="margin:0;padding:20px;font-family:var(--font-mono);font-size:12px;color:var(--text-primary);background:var(--bg-primary);overflow:auto;max-height:60vh;white-space:pre-wrap;word-break:break-all"></pre>
+      </div>
+      <div class="modal-footer">
+        <button class="btn" onclick="document.getElementById('mockStoreModal').classList.remove('show')">닫기</button>
       </div>
     </div>
   </div>
