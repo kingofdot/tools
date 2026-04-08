@@ -24,7 +24,6 @@ function runFunctions(modelName, changedField, rowIndex) {
 
     const fnName = (fieldMeta.fnName || '').trim();
     if (!fnName || !triggeredFnNames.includes(fnName)) return;
-
     _executeFunction(modelName, fieldName, fnName, rowIndex);
   });
 }
