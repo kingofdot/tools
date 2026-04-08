@@ -483,6 +483,30 @@ body {
 }
 .cell-input[type="number"] { text-align: right }
 
+/* select / combobox / boolean — 드롭다운 화살표 표시 */
+.excel-table td.cell[data-cell-type="select"]::after,
+.excel-table td.cell[data-cell-type="combobox"]::after,
+.excel-table td.cell[data-cell-type="boolean"]::after {
+  content: '▾';
+  position: absolute;
+  right: 5px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--text-muted);
+  font-size: 11px;
+  pointer-events: none;
+}
+.excel-table td.cell--editing[data-cell-type="select"]::after,
+.excel-table td.cell--editing[data-cell-type="combobox"]::after,
+.excel-table td.cell--editing[data-cell-type="boolean"]::after {
+  display: none;
+}
+.excel-table td.cell[data-cell-type="select"] .cell-display,
+.excel-table td.cell[data-cell-type="combobox"] .cell-display,
+.excel-table td.cell[data-cell-type="boolean"] .cell-display {
+  padding-right: 18px;
+}
+
 /* 읽기전용 셀 */
 .excel-table td.cell[data-readonly="true"] {
   cursor: not-allowed;
