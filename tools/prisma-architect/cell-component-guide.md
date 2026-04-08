@@ -247,8 +247,37 @@ function CellWrapper({ type, value, meta, ...gridCoords }) {
 
 ---
 
+## 함수 연동 계획 (다음 단계)
+
+UI관리 탭에서 정의한 `fn*` 메타 필드를 실제로 실행하는 레이어.
+
+### 설계 방향
+함수 구현은 **별도 JS 파일(`세부함수.js`)**에 있고,  
+`fnName`이 그 파일의 export명과 1:1로 연결된다.
+
+```
+사용자 입력 (onChange)
+  → fnTriggerEvent 확인
+  → fnSyncCondition 조건 체크
+  → mockStore에서 fnInputParams 경로로 값 읽기
+  → 세부함수.js[fnName](params) 호출
+  → 결과를 fnOutputTarget 경로에 mockStore 저장
+  → 해당 셀 display 갱신
+```
+
+### UI테스트에서 구현할 것
+1. **함수 등록** — `FunctionRegistry.register('fnName', fn)` 패턴으로 테스트용 함수 등록
+2. **이벤트 실행기** — CellGrid `onCommit` 콜백에서 `fnTriggerEvent === 'onChange'` 처리
+3. **파라미터 리졸버** — `fnInputParams` 경로 문자열을 mockStore에서 실제 값으로 변환
+
+### 미결 사항
+- **cross-row 연산**: 단일 fn* 컬럼으로 표현 불가 (N행 합산 등) → `storeAction` 개념 별도 설계 필요
+
+---
+
 ## 확장 로드맵 (미구현, 향후 검토)
 
+- [ ] 함수 실행기 (fnTriggerEvent → 세부함수 호출 → mockStore 갱신)
 - [ ] 범위 선택 (Shift+방향키) + 복사/붙여넣기
 - [ ] 열 너비 조절 (resize handle)
 - [ ] 셀 유효성 검사 (`validate(value, meta) → string | null`)
