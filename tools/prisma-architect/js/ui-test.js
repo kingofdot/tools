@@ -218,18 +218,16 @@ function renderUiTestPreview() {
 // ── 1:1 폼 ─────────────────────────────────────────────
 function renderForm1to1(rows, modelName) {
   const labelH = headerByRole('label');
-  const phH    = headerByRole('placeholder');
   const reqH   = headerByRole('required');
-  const compH  = headerByRole('componentType');
   const widthH = headerByRole('width');
 
   const fields = rows.map(([fieldName, meta]) => {
     const label    = (labelH && meta[labelH.name]) || fieldName;
-    const ph       = (phH    && meta[phH.name])    || '';
-    const required = (reqH   && meta[reqH.name])   === 'true';
-    const compType = (compH  && meta[compH.name])  || 'text';
+    const ph       = meta.commentary || '';
+    const required = (reqH && meta[reqH.name]) === 'true';
     const width    = (widthH && meta[widthH.name]) || '100%';
-    const input    = buildInput(fieldName, meta, compType, ph, modelName);
+    const input    = buildInput(fieldName, meta, modelName);
+    if (input === '') return ''; // hidden 필드 스킵
     return `
       <div style="display:flex;flex-direction:column;gap:5px;width:${width}">
         <label style="font-size:13px;font-weight:600;color:var(--text-primary)">
@@ -270,11 +268,9 @@ function renderExcelView(rows, modelName) {
   const bodyRows = Array.from({ length: rowCount }, (_, i) => {
     const initData = savedData[i] || storeData[i] || {};
     return `<tr>${rows.map(([fn, meta]) => {
-      const compH    = headerByRole('componentType');
-      const compType = (compH && meta[compH.name]) || 'text';
-      const phH      = headerByRole('placeholder');
-      const ph       = (phH && meta[phH.name]) || '';
-      return `<td style="padding:3px">${buildExcelCell(fn, meta, compType, ph, modelName, i, initData[fn])}</td>`;
+      const cell = buildExcelCell(fn, meta, modelName, i, initData[fn]);
+      if (cell === '') return ''; // hidden 스킵
+      return `<td style="padding:3px">${cell}</td>`;
     }).join('')}</tr>`;
   }).join('');
 
@@ -301,44 +297,91 @@ function renderExcelView(rows, modelName) {
     </div>`;
 }
 
-// ── 엑셀 셀 인풋 빌더 ───────────────────────────────────
-function buildExcelCell(fieldName, meta, compType, ph, modelName, rowIdx, initVal) {
-  const mockAttr = `data-mockfield="${modelName}.${fieldName}.${rowIdx}"`;
-  const base = `${mockAttr} style="width:100%;padding:4px 7px;border:1px solid var(--border);border-radius:4px;background:var(--bg-primary);color:var(--text-primary);font-size:12px;box-sizing:border-box;min-width:80px"`;
-  const val  = initVal !== undefined && initVal !== '' ? `value="${initVal}"` : '';
-  const t    = (compType || '').toLowerCase();
+// ── 컴포넌트 타입 결정 ───────────────────────────────────
+// systemType 우선, variableType 보조
+function _resolveCompType(meta) {
+  const sys = (meta.systemType || '').toLowerCase();
+  const var_ = (meta.variableType || '').toLowerCase();
+  if (sys) return sys;
+  // variableType → systemType 매핑
+  if (var_ === 'integer' || var_ === 'float') return 'number';
+  if (var_ === 'date')     return 'date';
+  if (var_ === 'datetime') return 'datetime';
+  if (var_ === 'boolean')  return 'boolean';
+  if (var_ === 'json')     return 'json';
+  return 'text';
+}
 
-  if (t === 'select' || t === 'combo') {
-    const opts = ((meta.comboboxName && comboboxStore[meta.comboboxName]) || [])
-      .map(o => `<option value="${o}" ${initVal === o ? 'selected' : ''}>${o}</option>`).join('');
+// ── 엑셀 셀 인풋 빌더 ───────────────────────────────────
+function buildExcelCell(fieldName, meta, modelName, rowIdx, initVal) {
+  const t        = _resolveCompType(meta);
+  const ph       = meta.commentary || '';
+  const mockAttr = `data-mockfield="${modelName}.${fieldName}.${rowIdx}"`;
+  const base     = `${mockAttr} style="width:100%;padding:4px 7px;border:1px solid var(--border);border-radius:4px;background:var(--bg-primary);color:var(--text-primary);font-size:12px;box-sizing:border-box;min-width:80px"`;
+  const val      = initVal !== undefined && initVal !== '' ? `value="${initVal}"` : '';
+
+  if (t === 'hidden') return '';
+
+  if (t === 'select' || t === 'combobox') {
+    const opts = _comboOpts(meta.comboboxName, initVal);
     return `<select ${base}><option value="">—</option>${opts}</select>`;
   }
-  if (meta.dataSource) {
-    return `<select ${base}><option value="">— ${meta.dataSource} —</option></select>`;
+  if (t === 'boolean') {
+    return `<select ${base}>
+      <option value="">—</option>
+      <option value="true"  ${initVal === 'true'  ? 'selected' : ''}>true</option>
+      <option value="false" ${initVal === 'false' ? 'selected' : ''}>false</option>
+    </select>`;
   }
   if (t === 'date' || t === 'datetime') return `<input type="date" ${val} ${base}>`;
-  if (t === 'number' || t === 'integer' || t === 'float') return `<input type="number" placeholder="${ph}" ${val} ${base}>`;
-  if (t === 'boolean') return `<select ${base}><option value="">—</option><option value="true" ${initVal === 'true' ? 'selected' : ''}>true</option><option value="false" ${initVal === 'false' ? 'selected' : ''}>false</option></select>`;
+  if (t === 'number') return `<input type="number" placeholder="${ph}" ${val} ${base}>`;
+  if (t === 'calculation' || t === 'lookup_readonly') {
+    return `<input type="text" placeholder="계산값" ${val} readonly style="${base.split('style="')[1]} opacity:0.6;cursor:default">`;
+  }
+  if (t === 'lookup_editable') {
+    if (meta.dataSource) {
+      return `<select ${base}><option value="">— ${meta.dataSource} —</option></select>`;
+    }
+  }
+  if (t === 'json') return `<textarea rows="2" placeholder="${ph}" ${mockAttr} style="width:100%;padding:4px 7px;border:1px solid var(--border);border-radius:4px;background:var(--bg-primary);color:var(--text-primary);font-size:11px;box-sizing:border-box;font-family:monospace">${initVal || ''}</textarea>`;
+
   return `<input type="text" placeholder="${ph}" ${val} ${base}>`;
 }
 
 // ── 폼용 인풋 빌더 (1:1 폼 전용, 행 인덱스 없음) ────────
-function buildInput(fieldName, meta, compType, ph, modelName) {
+function buildInput(fieldName, meta, modelName) {
+  const t        = _resolveCompType(meta);
+  const ph       = meta.commentary || '';
   const mockAttr = modelName ? `data-mockfield="${modelName}.${fieldName}"` : '';
-  const base = `${mockAttr} style="width:100%;padding:9px 12px;border:1px solid var(--border);border-radius:8px;background:var(--bg-primary);color:var(--text-primary);font-size:13px;box-sizing:border-box"`;
-  const t    = (compType || '').toLowerCase();
+  const base     = `${mockAttr} style="width:100%;padding:9px 12px;border:1px solid var(--border);border-radius:8px;background:var(--bg-primary);color:var(--text-primary);font-size:13px;box-sizing:border-box"`;
 
-  if (t === 'select' || t === 'combo') {
-    const opts = ((meta.comboboxName && comboboxStore[meta.comboboxName]) || [])
-      .map(o => `<option value="${o}">${o}</option>`).join('');
+  if (t === 'hidden') return '';
+
+  if (t === 'select' || t === 'combobox') {
+    const opts = _comboOpts(meta.comboboxName, undefined);
     return `<select ${base}><option value="">— 선택 —</option>${opts}</select>`;
   }
-  if (meta.dataSource) {
-    return `<select ${base}><option>— ${meta.dataSource} 선택 —</option></select>`;
+  if (t === 'boolean') {
+    return `<select ${base}><option value="">— 선택 —</option><option value="true">true</option><option value="false">false</option></select>`;
   }
   if (t === 'date' || t === 'datetime') return `<input type="date" ${base}>`;
-  if (t === 'number' || t === 'integer' || t === 'float') return `<input type="number" placeholder="${ph}" ${base}>`;
-  if (t === 'boolean') return `<select ${base}><option value="">— 선택 —</option><option value="true">true</option><option value="false">false</option></select>`;
-  if (t === 'textarea') return `<textarea rows="3" placeholder="${ph}" ${base}></textarea>`;
+  if (t === 'number') return `<input type="number" placeholder="${ph}" ${base}>`;
+  if (t === 'calculation' || t === 'lookup_readonly') {
+    return `<input type="text" placeholder="계산값" readonly ${base.replace('style="', 'style="opacity:0.6;cursor:default;')}>`;
+  }
+  if (t === 'lookup_editable') {
+    if (meta.dataSource) {
+      return `<select ${base}><option value="">— ${meta.dataSource} 선택 —</option></select>`;
+    }
+  }
+  if (t === 'json') return `<textarea rows="3" placeholder="${ph}" ${mockAttr} style="width:100%;padding:9px 12px;border:1px solid var(--border);border-radius:8px;background:var(--bg-primary);color:var(--text-primary);font-size:13px;box-sizing:border-box;font-family:monospace"></textarea>`;
+
   return `<input type="text" placeholder="${ph}" ${base}>`;
+}
+
+// ── 콤보박스 옵션 빌더 ──────────────────────────────────
+function _comboOpts(groupName, selectedVal) {
+  return ((groupName && comboboxStore[groupName]) || [])
+    .map(o => `<option value="${o}" ${selectedVal === o ? 'selected' : ''}>${o}</option>`)
+    .join('');
 }
