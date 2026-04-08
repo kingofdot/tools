@@ -1,34 +1,215 @@
-// cell.js — 셀 그리드 동작 모듈
-// 재사용 가능 (ui-test, 실제 서비스 공통)
+// cell.js
+// ─────────────────────────────────────────────────────────
+// 셀 컴포넌트 시스템 — 최소 정의 + 재조립 가능 설계
 //
-// 사용법:
-//   const grid = new CellGrid(containerEl, options);
-//   grid.select(0, 0);   // 프로그래매틱 선택
-//   grid.destroy();      // 이벤트 해제
+// 구조
+//   CellComponents  — 타입별 최소 컴포넌트 정의 (atomic spec)
+//   buildCell()     — 컴포넌트 → <td> 조립 (CellGrid 없이도 단독 사용 가능)
+//   CellGrid        — 키보드 네비게이션 / 상태 관리 (behavioral layer)
 //
-// 셀 마크업 (data-row, data-col 필수):
-//   <td data-row="0" data-col="1" tabindex="0">
-//     <span class="cell-display">값</span>
-//     <input class="cell-input" style="display:none" value="값">
-//   </td>
+// 컴포넌트 최소 인터페이스
+//   {
+//     renderInput(value, meta)   → HTML string  // 편집 상태 위젯
+//     renderDisplay(value, meta) → HTML string  // 표시 상태 텍스트
+//     editable: boolean
+//     readonly?: boolean   // editable=false + 시각적 잠금
+//     hidden?:  boolean    // 렌더 자체 스킵
+//   }
+// ─────────────────────────────────────────────────────────
+
+// ── 내부 헬퍼 ─────────────────────────────────────────────
+function _esc(v) {
+  return String(v ?? '').replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+
+const _iBase = `class="cell-input" style="display:none;width:100%;box-sizing:border-box;font-family:inherit;font-size:inherit"`;
+
+// ── CellComponents 레지스트리 ──────────────────────────────
+const CellComponents = {
+
+  // ── 외부 주입 ──────────────────────────────────────────
+  // 옵션 리졸버: select/combobox 의 선택지를 외부에서 공급
+  // 실제 서비스: CellComponents.configure({ optionsResolver: g => zustandStore.getCombo(g) })
+  _resolver: () => [],
+
+  configure({ optionsResolver } = {}) {
+    if (optionsResolver) this._resolver = optionsResolver;
+  },
+
+  // 타입 추가 / 교체
+  register(type, spec) {
+    this[type] = spec;
+  },
+
+  // ── Atomic Components ──────────────────────────────────
+
+  text: {
+    editable: true,
+    renderInput(val, meta) {
+      return `<input type="text" ${_iBase} placeholder="${_esc(meta.commentary)}" value="${_esc(val)}">`;
+    },
+    renderDisplay(val, meta) {
+      return _esc(val) || `<span class="cell-ph">${_esc(meta.commentary)}</span>`;
+    },
+  },
+
+  number: {
+    editable: true,
+    renderInput(val, meta) {
+      return `<input type="number" ${_iBase} placeholder="${_esc(meta.commentary)}" value="${_esc(val)}" style="display:none;width:100%;box-sizing:border-box;font-family:inherit;text-align:right">`;
+    },
+    renderDisplay(val) {
+      return _esc(val);
+    },
+  },
+
+  date: {
+    editable: true,
+    renderInput(val) {
+      return `<input type="date" ${_iBase} value="${_esc(val)}">`;
+    },
+    renderDisplay(val) { return _esc(val); },
+  },
+
+  datetime: {
+    editable: true,
+    renderInput(val) {
+      return `<input type="datetime-local" ${_iBase} value="${_esc(val)}">`;
+    },
+    renderDisplay(val) { return _esc(val); },
+  },
+
+  select: {
+    editable: true,
+    renderInput(val, meta) {
+      const opts = CellComponents._resolver(meta.comboboxName || '')
+        .map(o => `<option value="${_esc(o)}" ${val === o ? 'selected' : ''}>${_esc(o)}</option>`)
+        .join('');
+      return `<select ${_iBase}><option value="">—</option>${opts}</select>`;
+    },
+    renderDisplay(val) { return _esc(val); },
+  },
+
+  combobox: {
+    editable: true,
+    renderInput(val, meta) {
+      return CellComponents.select.renderInput(val, meta); // select와 동일 렌더
+    },
+    renderDisplay(val) { return _esc(val); },
+  },
+
+  boolean: {
+    editable: true,
+    renderInput(val) {
+      return `<select ${_iBase}>
+        <option value="">—</option>
+        <option value="true"  ${val === 'true'  ? 'selected' : ''}>true</option>
+        <option value="false" ${val === 'false' ? 'selected' : ''}>false</option>
+      </select>`;
+    },
+    renderDisplay(val) {
+      if (val === 'true')  return '<span style="color:var(--success,#38a169);font-weight:600">true</span>';
+      if (val === 'false') return '<span style="color:var(--error,#e53e3e);font-weight:600">false</span>';
+      return '';
+    },
+  },
+
+  calculation: {
+    editable: false,
+    readonly: true,
+    renderInput(val) {
+      return `<input type="text" ${_iBase} value="${_esc(val)}" readonly>`;
+    },
+    renderDisplay(val) { return _esc(val); },
+  },
+
+  lookup_readonly: {
+    editable: false,
+    readonly: true,
+    renderInput(val, meta) {
+      return `<input type="text" ${_iBase} value="${_esc(val)}" readonly placeholder="${_esc(meta.dataSource)}">`;
+    },
+    renderDisplay(val) { return _esc(val); },
+  },
+
+  lookup_editable: {
+    editable: true,
+    renderInput(val, meta) {
+      if (meta.dataSource) {
+        return `<select ${_iBase}><option value="">— ${_esc(meta.dataSource)} —</option></select>`;
+      }
+      return CellComponents.text.renderInput(val, meta);
+    },
+    renderDisplay(val) { return _esc(val); },
+  },
+
+  json: {
+    editable: true,
+    renderInput(val, meta) {
+      return `<textarea ${_iBase} placeholder="${_esc(meta.commentary)}" style="display:none;width:100%;box-sizing:border-box;font-family:monospace;font-size:11px;resize:vertical">${_esc(val)}</textarea>`;
+    },
+    renderDisplay(val) {
+      return val ? `<code style="font-size:10px;opacity:.8">${_esc(val)}</code>` : '';
+    },
+  },
+
+  hidden: {
+    editable: false,
+    hidden: true,
+    renderInput()   { return ''; },
+    renderDisplay() { return ''; },
+  },
+};
+
+// ── buildCell ─────────────────────────────────────────────
+// 컴포넌트 스펙으로 <td> 하나를 조립한다.
+// CellGrid 없이도 단독 사용 가능 — 조립 단위.
 //
-// 읽기전용 셀: data-readonly="true" 추가
+// params:
+//   type      — CellComponents 키 (예: 'text', 'select')
+//   value     — 현재 값 (string)
+//   meta      — 필드 메타 { commentary, comboboxName, dataSource, ... }
+//   row, col  — 그리드 좌표
+//   mockField — data-mockfield 속성값 (선택, 없으면 생략)
+function buildCell({ type, value = '', meta = {}, row, col, mockField = '' }) {
+  const comp = CellComponents[type] || CellComponents.text;
+  if (comp.hidden) return '';
+
+  const roAttr   = comp.readonly ? ' data-readonly="true"' : '';
+  const mockAttr = mockField ? ` data-mockfield="${mockField}"` : '';
+
+  // renderInput 결과에 mockField 주입
+  const rawInput  = comp.renderInput(value, meta);
+  const inputHtml = mockField
+    ? rawInput.replace('class="cell-input"', `class="cell-input"${mockAttr}`)
+    : rawInput;
+
+  const displayHtml = comp.renderDisplay(value, meta);
+
+  return `<td class="cell" data-row="${row}" data-col="${col}" data-cell-type="${type}" tabindex="0"${roAttr}>
+  <span class="cell-display">${displayHtml}</span>
+  ${inputHtml}
+</td>`;
+}
+
+// ── CellGrid ──────────────────────────────────────────────
+// 키보드 네비게이션 + Selected/Editing 두 단계 상태 관리.
+// HTML 구조에만 의존 (data-row, data-col, .cell-input, .cell-display).
 //
 // 두 단계 상태:
-//   Selected  — 셀 포커스만. 방향키로 네비게이션.
-//   Editing   — 인풋 안에 커서. 커서 끝/처음에서 셀 이동.
-
+//   Selected — 셀 포커스만. 방향키로 셀 이동.
+//   Editing  — 인풋 안에 커서. 텍스트 끝/처음에서만 셀 이동.
 class CellGrid {
   constructor(container, options = {}) {
     this.el  = container;
     this.opt = {
-      cellSel:    '[data-row][data-col]',   // 셀 쿼리
-      inputSel:   '.cell-input',             // 편집 인풋
-      displaySel: '.cell-display',           // 표시 span
+      cellSel:     '[data-row][data-col]',
+      inputSel:    '.cell-input',
+      displaySel:  '.cell-display',
       clsSelected: 'cell--selected',
       clsEditing:  'cell--editing',
-      onCommit:    null, // (row, col, value) => void
-      onSelect:    null, // (row, col) => void
+      onCommit: null,  // (row, col, value) => void
+      onSelect: null,  // (row, col) => void
       ...options,
     };
     this._active  = null;  // { row, col }
@@ -36,25 +217,20 @@ class CellGrid {
     this._bind();
   }
 
-  // ── Public API ────────────────────────────────────────────
+  // ── Public API ─────────────────────────────────────────
 
-  /** 셀 선택 (Selected 상태) */
   select(row, col) {
     const cell = this._cell(row, col);
     if (!cell) return;
-
-    if (this._editing) this.commit(); // 기존 편집 확정
+    if (this._editing) this.commit();
     this._clearActive();
-
     this._active = { row, col };
     cell.classList.add(this.opt.clsSelected);
     cell.focus();
     this.opt.onSelect?.(row, col);
   }
 
-  /** 편집 모드 진입 (Editing 상태)
-   * @param clear true → 기존값 지우고 시작 (타이핑 시작), false → 커서를 끝에 위치
-   */
+  // clear=true: 타이핑 시작 (기존값 지움), false: F2/클릭 (커서 끝)
   startEdit(row, col, clear = false) {
     const cell = this._cell(row, col);
     if (!cell || cell.dataset.readonly === 'true') return;
@@ -77,14 +253,9 @@ class CellGrid {
     cell.classList.add(this.opt.clsEditing);
     input.focus();
 
-    // 텍스트/숫자 계열: 커서를 끝에 배치
     if (input.type === 'text' || input.type === 'number' || input.type === '') {
-      try {
-        const len = input.value.length;
-        input.setSelectionRange(len, len);
-      } catch (_) {}
+      try { const n = input.value.length; input.setSelectionRange(n, n); } catch (_) {}
     }
-    // date input: showPicker 시도
     if (input.type === 'date') {
       try { input.showPicker?.(); } catch (_) {}
     }
@@ -92,7 +263,6 @@ class CellGrid {
     this._editing = { row, col, origValue };
   }
 
-  /** 편집 확정 (값 유지, Selected 상태로 복귀) */
   commit() {
     if (!this._editing) return;
     const { row, col } = this._editing;
@@ -100,9 +270,13 @@ class CellGrid {
     if (cell) {
       const input   = cell.querySelector(this.opt.inputSel);
       const display = cell.querySelector(this.opt.displaySel);
-      const val = input?.value ?? '';
+      const val     = input?.value ?? '';
+
+      // 컴포넌트의 renderDisplay로 표시 갱신 (boolean 등 rich display 지원)
       if (display) {
-        display.textContent = val;
+        const type = cell.dataset.cellType;
+        const comp = CellComponents[type];
+        display.innerHTML = comp?.renderDisplay ? comp.renderDisplay(val, {}) : _esc(val);
         display.style.display = '';
       }
       if (input) input.style.display = 'none';
@@ -112,7 +286,6 @@ class CellGrid {
     this._editing = null;
   }
 
-  /** 편집 취소 (원래값 복원, Selected 상태로 복귀) */
   revert() {
     if (!this._editing) return;
     const { row, col, origValue } = this._editing;
@@ -120,23 +293,27 @@ class CellGrid {
     if (cell) {
       const input   = cell.querySelector(this.opt.inputSel);
       const display = cell.querySelector(this.opt.displaySel);
-      if (input)   input.value = origValue;
-      if (display) { display.textContent = origValue; display.style.display = ''; }
-      if (input)   input.style.display = 'none';
+      if (input) input.value = origValue;
+      if (display) {
+        const type = cell.dataset.cellType;
+        const comp = CellComponents[type];
+        display.innerHTML = comp?.renderDisplay ? comp.renderDisplay(origValue, {}) : _esc(origValue);
+        display.style.display = '';
+      }
+      if (input) input.style.display = 'none';
       cell.classList.remove(this.opt.clsEditing);
     }
     this._editing = null;
     this._cell(row, col)?.focus();
   }
 
-  /** 이벤트 해제 (리렌더 전 반드시 호출) */
   destroy() {
     this.el.removeEventListener('keydown',   this._kh);
     this.el.removeEventListener('mousedown', this._mh);
     this.el.removeEventListener('dblclick',  this._dh);
   }
 
-  // ── Private ───────────────────────────────────────────────
+  // ── Private ────────────────────────────────────────────
 
   _bind() {
     this._kh = e => this._onKeydown(e);
@@ -153,13 +330,9 @@ class CellGrid {
     const row = +cell.dataset.row;
     const col = +cell.dataset.col;
     const isEditing = this._editing?.row === row && this._editing?.col === col;
-
-    isEditing
-      ? this._editKey(e, row, col)
-      : this._navKey(e, row, col);
+    isEditing ? this._editKey(e, row, col) : this._navKey(e, row, col);
   }
 
-  // Selected 상태 키 처리
   _navKey(e, row, col) {
     switch (e.key) {
       case 'ArrowRight': e.preventDefault(); this.select(row, col + 1); break;
@@ -167,34 +340,26 @@ class CellGrid {
       case 'ArrowDown':  e.preventDefault(); this.select(row + 1, col); break;
       case 'ArrowUp':    e.preventDefault(); this.select(row - 1, col); break;
       case 'Tab':
-        e.preventDefault();
-        this.select(row, col + (e.shiftKey ? -1 : 1));
-        break;
-      case 'Enter':
-      case 'F2':
-        e.preventDefault();
-        this.startEdit(row, col, false);
-        break;
-      case 'Delete':
-      case 'Backspace': {
+        e.preventDefault(); this.select(row, col + (e.shiftKey ? -1 : 1)); break;
+      case 'Enter': case 'F2':
+        e.preventDefault(); this.startEdit(row, col, false); break;
+      case 'Delete': case 'Backspace': {
         const cell = this._cell(row, col);
         if (cell?.dataset.readonly === 'true') break;
         const input   = cell?.querySelector(this.opt.inputSel);
         const display = cell?.querySelector(this.opt.displaySel);
         if (input)   input.value = '';
-        if (display) display.textContent = '';
+        if (display) display.innerHTML = '';
         this.opt.onCommit?.(row, col, '');
         break;
       }
       default:
-        // 출력 가능 문자 → 기존값 지우고 편집 시작
         if (e.key.length === 1 && !e.ctrlKey && !e.metaKey && !e.altKey) {
           this.startEdit(row, col, true);
         }
     }
   }
 
-  // Editing 상태 키 처리
   _editKey(e, row, col) {
     const el       = e.target;
     const isText   = el.tagName === 'INPUT' && (el.type === 'text' || el.type === '');
@@ -202,56 +367,26 @@ class CellGrid {
     const isSelect = el.tagName === 'SELECT';
 
     switch (e.key) {
-      case 'Escape':
-        e.preventDefault();
-        this.revert();
-        break;
-
+      case 'Escape': e.preventDefault(); this.revert(); break;
       case 'Enter':
-        if (!isSelect) {
-          e.preventDefault();
-          this.commit();
-          this.select(row + 1, col);
-        }
+        if (!isSelect) { e.preventDefault(); this.commit(); this.select(row + 1, col); }
         break;
-
       case 'Tab':
-        e.preventDefault();
-        this.commit();
-        this.select(row, col + (e.shiftKey ? -1 : 1));
-        break;
-
+        e.preventDefault(); this.commit(); this.select(row, col + (e.shiftKey ? -1 : 1)); break;
       case 'ArrowDown':
-        if (!isSelect) {
-          e.preventDefault();
-          this.commit();
-          this.select(row + 1, col);
-        }
+        if (!isSelect) { e.preventDefault(); this.commit(); this.select(row + 1, col); }
         break;
-
       case 'ArrowUp':
-        if (!isSelect) {
-          e.preventDefault();
-          this.commit();
-          this.select(row - 1, col);
-        }
+        if (!isSelect) { e.preventDefault(); this.commit(); this.select(row - 1, col); }
         break;
-
-      // 텍스트: 커서가 맨 앞일 때만 왼쪽 셀로
       case 'ArrowLeft':
         if ((isText || isNum) && el.selectionStart === 0 && el.selectionEnd === 0) {
-          e.preventDefault();
-          this.commit();
-          this.select(row, col - 1);
+          e.preventDefault(); this.commit(); this.select(row, col - 1);
         }
         break;
-
-      // 텍스트: 커서가 맨 끝일 때만 오른쪽 셀로
       case 'ArrowRight':
         if ((isText || isNum) && el.selectionStart === el.value.length && el.selectionEnd === el.value.length) {
-          e.preventDefault();
-          this.commit();
-          this.select(row, col + 1);
+          e.preventDefault(); this.commit(); this.select(row, col + 1);
         }
         break;
     }
@@ -263,30 +398,22 @@ class CellGrid {
     const row = +cell.dataset.row;
     const col = +cell.dataset.col;
 
-    // 편집 중인 인풋 자체 클릭 → 그냥 둠
-    if (e.target.closest(this.opt.inputSel)) return;
+    if (e.target.closest(this.opt.inputSel)) return; // 편집 중 인풋 클릭 → 무시
 
-    // 다른 셀 클릭 → 기존 편집 확정
     if (this._editing && (this._editing.row !== row || this._editing.col !== col)) {
       this.commit();
     }
-
     if (this._active?.row === row && this._active?.col === col && !this._editing) {
-      // 이미 선택된 셀 재클릭 → 편집 모드
-      e.preventDefault();
-      this.startEdit(row, col, false);
+      e.preventDefault(); this.startEdit(row, col, false); // 재클릭 → 편집
     } else if (!this._editing) {
-      e.preventDefault();
-      this.select(row, col);
+      e.preventDefault(); this.select(row, col);
     }
   }
 
   _onDblclick(e) {
     const cell = e.target.closest(this.opt.cellSel);
-    if (!cell) return;
-    if (!this._editing) {
-      this.startEdit(+cell.dataset.row, +cell.dataset.col, false);
-    }
+    if (!cell || this._editing) return;
+    this.startEdit(+cell.dataset.row, +cell.dataset.col, false);
   }
 
   _cell(row, col) {

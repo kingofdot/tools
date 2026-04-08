@@ -1,8 +1,15 @@
 // === UI생성테스트 ===
 // metaStore + uiModelConfig 기반 실제 UI 렌더링 플레이그라운드
+// 셀 컴포넌트: cell.js의 CellComponents / buildCell / CellGrid 사용
 
 let uitestChecked = new Set();
 let uitestViewContext = 'create'; // 'create' | 'list' | 'detail'
+
+// CellComponents에 prisma-architect 옵션 리졸버 주입
+// (comboboxStore는 ui-panel.js에 정의된 전역)
+CellComponents.configure({
+  optionsResolver: (groupName) => (comboboxStore[groupName] || []),
+});
 
 // mockStore: Zustand store 대체 (디버깅용 스냅샷)
 // { [modelName]: [ { _id, ...fields } ] }
@@ -262,15 +269,29 @@ function renderForm1to1(rows, modelName) {
     </div>`;
 }
 
+// ── 컴포넌트 타입 결정 (prisma-architect 도메인 전용) ────────
+// systemType 우선, variableType 보조
+// → cell.js의 CellComponents 키와 1:1 대응
+function _resolveCompType(meta) {
+  const sys  = (meta.systemType  || '').toLowerCase();
+  const var_ = (meta.variableType || '').toLowerCase();
+  if (sys) return sys;
+  if (var_ === 'integer' || var_ === 'float') return 'number';
+  if (var_ === 'date')     return 'date';
+  if (var_ === 'datetime') return 'datetime';
+  if (var_ === 'boolean')  return 'boolean';
+  if (var_ === 'json')     return 'json';
+  return 'text';
+}
+
 // ── 엑셀(테이블) 뷰 ─────────────────────────────────────
-// 기본형: 최소 1행 + CellGrid 두 단계 모드 (Selected / Editing)
+// buildCell (cell.js) 로 조립 — 타입 결정만 여기서, 렌더는 CellComponents
 function renderExcelView(rows, modelName) {
   const labelH = headerByRole('label');
 
-  // hidden 필드 제외한 표시 컬럼
+  // hidden 필드 제외
   const visibleRows = rows.filter(([, meta]) => _resolveCompType(meta) !== 'hidden');
 
-  // 행 수 초기화 (최소 1)
   if (!uitestExcelRowCount[modelName]) uitestExcelRowCount[modelName] = 1;
   const rowCount  = uitestExcelRowCount[modelName];
   const savedData = uitestExcelData[modelName] || [];
@@ -283,7 +304,14 @@ function renderExcelView(rows, modelName) {
   const bodyRows = Array.from({ length: rowCount }, (_, ri) => {
     const initData = savedData[ri] || storeData[ri] || {};
     const cells = visibleRows.map(([fn, meta], ci) =>
-      buildExcelCell(fn, meta, modelName, ri, ci, initData[fn])
+      buildCell({
+        type:      _resolveCompType(meta),
+        value:     initData[fn] ?? '',
+        meta,
+        row:       ri,
+        col:       ci,
+        mockField: `${modelName}.${fn}.${ri}`,
+      })
     ).join('');
     return `<tr>${cells}</tr>`;
   }).join('');
@@ -313,100 +341,19 @@ function renderExcelView(rows, modelName) {
     </div>`;
 }
 
-// ── 컴포넌트 타입 결정 ───────────────────────────────────
-// systemType 우선, variableType 보조
-function _resolveCompType(meta) {
-  const sys = (meta.systemType || '').toLowerCase();
-  const var_ = (meta.variableType || '').toLowerCase();
-  if (sys) return sys;
-  // variableType → systemType 매핑
-  if (var_ === 'integer' || var_ === 'float') return 'number';
-  if (var_ === 'date')     return 'date';
-  if (var_ === 'datetime') return 'datetime';
-  if (var_ === 'boolean')  return 'boolean';
-  if (var_ === 'json')     return 'json';
-  return 'text';
-}
-
-// ── 엑셀 셀 빌더 (CellGrid 구조: <td data-row data-col> 반환) ──
-// display span + hidden cell-input 이중 구조
-function buildExcelCell(fieldName, meta, modelName, rowIdx, colIdx, initVal) {
-  const t          = _resolveCompType(meta);
-  const ph         = meta.commentary || '';
-  const mockAttr   = `data-mockfield="${modelName}.${fieldName}.${rowIdx}"`;
-  const displayVal = initVal !== undefined && initVal !== '' ? initVal : '';
-  const readonly   = (t === 'calculation' || t === 'lookup_readonly');
-  const roAttr     = readonly ? ' data-readonly="true"' : '';
-
-  // display span (Selected 상태에서 보임)
-  const display = `<span class="cell-display">${
-    displayVal || `<span class="cell-ph">${ph}</span>`
-  }</span>`;
-
-  // input element (Editing 상태에서 보임)
-  let inputEl = '';
-  const iBase = `class="cell-input" ${mockAttr} style="display:none"`;
-  const v     = displayVal !== '' ? `value="${displayVal}"` : '';
-
-  if (t === 'select' || t === 'combobox') {
-    const opts = _comboOpts(meta.comboboxName, initVal);
-    inputEl = `<select ${iBase}><option value="">—</option>${opts}</select>`;
-  } else if (t === 'boolean') {
-    inputEl = `<select ${iBase}>
-      <option value="">—</option>
-      <option value="true"  ${initVal === 'true'  ? 'selected' : ''}>true</option>
-      <option value="false" ${initVal === 'false' ? 'selected' : ''}>false</option>
-    </select>`;
-  } else if (t === 'date' || t === 'datetime') {
-    inputEl = `<input type="date" ${v} ${iBase}>`;
-  } else if (t === 'number') {
-    inputEl = `<input type="number" placeholder="${ph}" ${v} ${iBase}>`;
-  } else if (t === 'lookup_editable' && meta.dataSource) {
-    inputEl = `<select ${iBase}><option value="">— ${meta.dataSource} —</option></select>`;
-  } else if (t === 'json') {
-    inputEl = `<textarea ${iBase} placeholder="${ph}" style="display:none;font-family:monospace;font-size:11px">${displayVal}</textarea>`;
-  } else {
-    // text, calculation(readonly), lookup_readonly
-    inputEl = `<input type="text" placeholder="${ph}" ${v} ${iBase}>`;
-  }
-
-  return `<td class="cell" data-row="${rowIdx}" data-col="${colIdx}" tabindex="0"${roAttr}>${display}${inputEl}</td>`;
-}
-
-// ── 폼용 인풋 빌더 (1:1 폼 전용, 행 인덱스 없음) ────────
+// ── 폼용 인풋 빌더 (1:1 폼 전용) ─────────────────────────
+// CellComponents의 renderInput을 재활용하되 폼 스타일 적용
 function buildInput(fieldName, meta, modelName) {
-  const t        = _resolveCompType(meta);
-  const ph       = meta.commentary || '';
+  const type = _resolveCompType(meta);
+  const comp = CellComponents[type] || CellComponents.text;
+  if (comp.hidden) return '';
+
   const mockAttr = modelName ? `data-mockfield="${modelName}.${fieldName}"` : '';
-  const base     = `${mockAttr} style="width:100%;padding:9px 12px;border:1px solid var(--border);border-radius:8px;background:var(--bg-primary);color:var(--text-primary);font-size:13px;box-sizing:border-box"`;
+  const formStyle = `width:100%;padding:9px 12px;border:1px solid var(--border);border-radius:8px;background:var(--bg-primary);color:var(--text-primary);font-size:13px;box-sizing:border-box${comp.readonly ? ';opacity:0.6;cursor:default' : ''}`;
 
-  if (t === 'hidden') return '';
-
-  if (t === 'select' || t === 'combobox') {
-    const opts = _comboOpts(meta.comboboxName, undefined);
-    return `<select ${base}><option value="">— 선택 —</option>${opts}</select>`;
-  }
-  if (t === 'boolean') {
-    return `<select ${base}><option value="">— 선택 —</option><option value="true">true</option><option value="false">false</option></select>`;
-  }
-  if (t === 'date' || t === 'datetime') return `<input type="date" ${base}>`;
-  if (t === 'number') return `<input type="number" placeholder="${ph}" ${base}>`;
-  if (t === 'calculation' || t === 'lookup_readonly') {
-    return `<input type="text" placeholder="계산값" readonly ${base.replace('style="', 'style="opacity:0.6;cursor:default;')}>`;
-  }
-  if (t === 'lookup_editable') {
-    if (meta.dataSource) {
-      return `<select ${base}><option value="">— ${meta.dataSource} 선택 —</option></select>`;
-    }
-  }
-  if (t === 'json') return `<textarea rows="3" placeholder="${ph}" ${mockAttr} style="width:100%;padding:9px 12px;border:1px solid var(--border);border-radius:8px;background:var(--bg-primary);color:var(--text-primary);font-size:13px;box-sizing:border-box;font-family:monospace"></textarea>`;
-
-  return `<input type="text" placeholder="${ph}" ${base}>`;
-}
-
-// ── 콤보박스 옵션 빌더 ──────────────────────────────────
-function _comboOpts(groupName, selectedVal) {
-  return ((groupName && comboboxStore[groupName]) || [])
-    .map(o => `<option value="${o}" ${selectedVal === o ? 'selected' : ''}>${o}</option>`)
-    .join('');
+  // renderInput 결과에서 cell-input 클래스/스타일을 폼 스타일로 교체
+  const raw = comp.renderInput('', meta);
+  return raw
+    .replace('class="cell-input"', mockAttr ? `${mockAttr}` : '')
+    .replace(/style="display:none;[^"]*"/, `style="${formStyle}"`);
 }
