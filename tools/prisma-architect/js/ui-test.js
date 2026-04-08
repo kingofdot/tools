@@ -230,7 +230,20 @@ function renderUiTestPreview() {
   _cellGrids.forEach(g => g.destroy());
   _cellGrids = [];
   content.querySelectorAll('.excel-cell-grid').forEach(el => {
-    _cellGrids.push(new CellGrid(el));
+    // data-model 속성으로 모델명 식별
+    const modelName = el.dataset.model;
+    _cellGrids.push(new CellGrid(el, {
+      onCommit: (row, col) => {
+        if (!modelName) return;
+        // 바뀐 필드명 추출 (data-mockfield = "ModelName.fieldName.rowIndex")
+        const cell = el.querySelector(`[data-row="${row}"][data-col="${col}"]`);
+        const mockfield = cell?.querySelector('[data-mockfield]')?.dataset?.mockfield || '';
+        const parts = mockfield.split('.');
+        if (parts.length < 2) return;
+        const changedField = parts[1];
+        runFunctions(modelName, changedField, row);
+      },
+    }));
   });
   // 첫 번째 그리드의 (0,0) 자동 선택
   if (_cellGrids.length) _cellGrids[0].select(0, 0);
@@ -332,7 +345,7 @@ function renderExcelView(rows, modelName) {
       </div>
     </div>
     <div style="overflow-x:auto">
-      <div class="excel-cell-grid">
+      <div class="excel-cell-grid" data-model="${modelName}">
         <table class="excel-table" style="width:100%">
           <thead><tr>${ths}</tr></thead>
           <tbody>${bodyRows}</tbody>

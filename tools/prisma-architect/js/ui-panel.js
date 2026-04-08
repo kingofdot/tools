@@ -67,11 +67,7 @@ let uiHeaders = [
   { name: 'comboboxName',      type: 'combo', options: [],               uiRole: 'none' },
   { name: 'dataSource',        type: 'model', options: [],               uiRole: 'none' },
   { name: 'creationConditions',type: 'text',  options: [],               uiRole: 'none' },
-  { name: 'fnTriggerEvent',    type: 'text',  options: [],               uiRole: 'none' },
   { name: 'fnName',            type: 'text',  options: [],               uiRole: 'none' },
-  { name: 'fnInputParams',     type: 'text',  options: [],               uiRole: 'none' },
-  { name: 'fnOutputTarget',    type: 'text',  options: [],               uiRole: 'none' },
-  { name: 'fnSyncCondition',   type: 'text',  options: [],               uiRole: 'none' },
 ];
 
 // ── 시스템타입별 컬럼 힌트 ────────────────────────────────
@@ -80,35 +76,35 @@ let uiHeaders = [
 const SYSTEM_TYPE_HINTS = {
   text: {
     highlight: [],
-    dim: ['comboboxName','dataSource','fnTriggerEvent','fnName','fnInputParams','fnOutputTarget','fnSyncCondition'],
+    dim: ['comboboxName','dataSource','fnName'],
   },
   number: {
     highlight: [],
-    dim: ['comboboxName','dataSource','fnTriggerEvent','fnName','fnInputParams','fnOutputTarget','fnSyncCondition'],
+    dim: ['comboboxName','dataSource','fnName'],
   },
   date: {
     highlight: [],
-    dim: ['comboboxName','dataSource','fnTriggerEvent','fnName','fnInputParams','fnOutputTarget','fnSyncCondition'],
+    dim: ['comboboxName','dataSource','fnName'],
   },
   select: {
     highlight: ['comboboxName'],
-    dim: ['dataSource','variableType','fnTriggerEvent','fnName','fnInputParams','fnOutputTarget','fnSyncCondition'],
+    dim: ['dataSource','variableType','fnName'],
   },
   combobox: {
     highlight: ['comboboxName'],
-    dim: ['dataSource','variableType','fnTriggerEvent','fnName','fnInputParams','fnOutputTarget','fnSyncCondition'],
+    dim: ['dataSource','variableType','fnName'],
   },
   boolean: {
     highlight: [],
-    dim: ['comboboxName','dataSource','fnTriggerEvent','fnName','fnInputParams','fnOutputTarget','fnSyncCondition'],
+    dim: ['comboboxName','dataSource','fnName'],
   },
   calculation: {
-    highlight: ['fnName','fnOutputTarget','fnTriggerEvent'],
+    highlight: ['fnName'],
     dim: ['comboboxName','dataSource','isRequired','defaultValue','variableType'],
   },
   lookup_readonly: {
     highlight: ['dataSource'],
-    dim: ['comboboxName','isRequired','defaultValue','fnTriggerEvent','fnName','fnInputParams','fnOutputTarget','fnSyncCondition'],
+    dim: ['comboboxName','isRequired','defaultValue','fnName'],
   },
   lookup_editable: {
     highlight: ['dataSource'],
@@ -117,8 +113,7 @@ const SYSTEM_TYPE_HINTS = {
   hidden: {
     highlight: [],
     dim: ['label','commentary','isRequired','variableType','width','defaultValue','comboboxName','dataSource',
-          'creationConditions','fnTriggerEvent','fnName','fnInputParams','fnOutputTarget','fnSyncCondition',
-          'initialCreation','showNode','showNodeDetail'],
+          'creationConditions','fnName','initialCreation','showNode','showNodeDetail'],
   },
 };
 
