@@ -915,7 +915,7 @@
         "showNodeDeatil": "true",
         "CreationConditions": "initial",
         "width": "100",
-        "comboboxName": "",
+        "comboboxName": "Shape",
         "fnTriggerEvent": "",
         "fnName": "",
         "fnInputParams": "",
@@ -1731,5 +1731,5 @@
     }
   ],
   "annotations": [],
-  "savedAt": "2026. 4. 8. 오전 9:30:23"
+  "savedAt": "2026. 4. 8. 오전 9:30:51"
 }
