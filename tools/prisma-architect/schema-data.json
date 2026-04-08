@@ -804,7 +804,7 @@
         "fnOutputTarget": "",
         "fnSyncCondition": "",
         "dataSource": "",
-        "initialCreation": "true",
+        "initialCreation": "false",
         "showNodeDetail": "",
         "creationConditions": ""
       },
@@ -827,7 +827,7 @@
         "fnOutputTarget": "",
         "fnSyncCondition": "",
         "dataSource": "",
-        "initialCreation": "true",
+        "initialCreation": "false",
         "showNodeDetail": "",
         "creationConditions": ""
       },
@@ -850,7 +850,7 @@
         "fnOutputTarget": "",
         "fnSyncCondition": "",
         "dataSource": "",
-        "initialCreation": "true",
+        "initialCreation": "false",
         "showNodeDetail": "",
         "creationConditions": ""
       },
@@ -1842,5 +1842,5 @@
     }
   ],
   "annotations": [],
-  "savedAt": "2026. 4. 8. 오후 3:13:06"
+  "savedAt": "2026. 4. 8. 오후 3:14:29"
 }
