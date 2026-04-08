@@ -1524,7 +1524,6 @@
       "wasteDocumentationId",
       "targetWasteId",
       "targetWaste",
-      "specificGravity",
       "bottomShape",
       "diameter",
       "width",
@@ -1536,6 +1535,7 @@
       "height",
       "volume",
       "quantity",
+      "specificGravity",
       "storageAmount",
       "storageDays",
       "changeType",
@@ -1842,5 +1842,5 @@
     }
   ],
   "annotations": [],
-  "savedAt": "2026. 4. 8. 오후 3:14:29"
+  "savedAt": "2026. 4. 8. 오후 3:18:50"
 }
