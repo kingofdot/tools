@@ -97,16 +97,21 @@ async function githubLoad() {
     historyIndex = 0; changeLog = [];
 
     // UI 데이터 복원
-    if (data.uiHeaders && data.uiHeaders.length) {
-      uiHeaders = data.uiHeaders.map(h => ({ uiRole: 'none', ...h })); // 구버전 호환
-    }
+    // uiHeaders는 코드에서 관리 — 저장된 값 무시 (구버전 컬럼 혼입 방지)
     if (data.metaStore) metaStore = data.metaStore;
     if (data.rowOrderStore) rowOrderStore = data.rowOrderStore;
     if (data.uiModelConfig) uiModelConfig = data.uiModelConfig;
     if (data.systemTypeStore && data.systemTypeStore.length) systemTypeStore = data.systemTypeStore;
     if (data.variableTypeStore && data.variableTypeStore.length) variableTypeStore = data.variableTypeStore;
     if (data.comboboxStore) comboboxStore = data.comboboxStore;
-    if (data.functionStore) functionStore = data.functionStore;
+    // functionStore: 저장된 것과 코드 정의 함수를 병합
+    // (fn-definitions.js 자동 등록 항목은 항상 최신 코드 기준 유지)
+    if (data.functionStore) {
+      const codeNames = functionStore.map(f => f.name);
+      data.functionStore
+        .filter(f => !codeNames.includes(f.name)) // 코드에 없는 것만 추가
+        .forEach(f => functionStore.push(f));
+    }
     if (data.todoItems) todoItems = data.todoItems;
     if (data.suggestItems) suggestItems = data.suggestItems;
     if (data.annotations) annotations = data.annotations;
