@@ -928,14 +928,14 @@
         "id": "",
         "label": "",
         "variableType": "text",
-        "systemType": "combobox",
+        "systemType": "text",
         "isRequired": "false",
         "defaultValue": "",
         "showNode": "true",
         "showNodeDeatil": "true",
         "CreationConditions": "initial",
         "width": "100",
-        "comboboxName": "Shape",
+        "comboboxName": "",
         "fnTriggerEvent": "",
         "fnName": "",
         "fnInputParams": "",
@@ -1842,5 +1842,5 @@
     }
   ],
   "annotations": [],
-  "savedAt": "2026. 4. 8. 오후 3:12:13"
+  "savedAt": "2026. 4. 8. 오후 3:12:34"
 }
