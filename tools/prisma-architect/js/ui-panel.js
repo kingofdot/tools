@@ -74,6 +74,119 @@ let uiHeaders = [
   { name: 'fnSyncCondition',   type: 'text',  options: [],               uiRole: 'none' },
 ];
 
+// ── 시스템타입별 컬럼 힌트 ────────────────────────────────
+// highlight: 이 타입에서 반드시 채워야 할 컬럼 (강조)
+// dim:       이 타입과 관계없는 컬럼 (흐리게)
+const SYSTEM_TYPE_HINTS = {
+  text: {
+    highlight: [],
+    dim: ['comboboxName','dataSource','fnTriggerEvent','fnName','fnInputParams','fnOutputTarget','fnSyncCondition'],
+  },
+  number: {
+    highlight: [],
+    dim: ['comboboxName','dataSource','fnTriggerEvent','fnName','fnInputParams','fnOutputTarget','fnSyncCondition'],
+  },
+  date: {
+    highlight: [],
+    dim: ['comboboxName','dataSource','fnTriggerEvent','fnName','fnInputParams','fnOutputTarget','fnSyncCondition'],
+  },
+  select: {
+    highlight: ['comboboxName'],
+    dim: ['dataSource','variableType','fnTriggerEvent','fnName','fnInputParams','fnOutputTarget','fnSyncCondition'],
+  },
+  combobox: {
+    highlight: ['comboboxName'],
+    dim: ['dataSource','variableType','fnTriggerEvent','fnName','fnInputParams','fnOutputTarget','fnSyncCondition'],
+  },
+  boolean: {
+    highlight: [],
+    dim: ['comboboxName','dataSource','fnTriggerEvent','fnName','fnInputParams','fnOutputTarget','fnSyncCondition'],
+  },
+  calculation: {
+    highlight: ['fnName','fnOutputTarget','fnTriggerEvent'],
+    dim: ['comboboxName','dataSource','isRequired','defaultValue','variableType'],
+  },
+  lookup_readonly: {
+    highlight: ['dataSource'],
+    dim: ['comboboxName','isRequired','defaultValue','fnTriggerEvent','fnName','fnInputParams','fnOutputTarget','fnSyncCondition'],
+  },
+  lookup_editable: {
+    highlight: ['dataSource'],
+    dim: ['comboboxName'],
+  },
+  hidden: {
+    highlight: [],
+    dim: ['label','commentary','isRequired','variableType','width','defaultValue','comboboxName','dataSource',
+          'creationConditions','fnTriggerEvent','fnName','fnInputParams','fnOutputTarget','fnSyncCondition',
+          'initialCreation','showNode','showNodeDetail'],
+  },
+};
+
+// systemType 변경 시 variableType 자동 세팅
+const SYSTEM_TYPE_AUTO_VAR = {
+  select:   'text',
+  combobox: 'text',
+  number:   'integer',
+  date:     'date',
+  datetime: 'datetime',
+  boolean:  'boolean',
+  hidden:   '',
+};
+
+// systemType 선택 → 해당 행 컬럼 강조/흐리기 적용
+function applySystemTypeStyles(fieldName, sysType) {
+  const hints = SYSTEM_TYPE_HINTS[sysType] || { highlight: [], dim: [] };
+  // data-field 속성으로 행 찾기 (dots 포함 이름 대응)
+  let row = null;
+  document.querySelectorAll('#uiMetaTable tr[data-field]').forEach(r => {
+    if (r.dataset.field === fieldName) row = r;
+  });
+  if (!row) return;
+
+  uiHeaders.forEach(h => {
+    const inner = row.querySelector(`[data-col="${h.name}"]`);
+    const td = inner?.closest('td');
+    if (!td) return;
+
+    if (hints.highlight.includes(h.name)) {
+      td.style.background   = 'var(--accent-dim)';
+      td.style.outline      = '2px solid var(--accent)';
+      td.style.outlineOffset = '-2px';
+      td.style.opacity      = '1';
+    } else if (hints.dim.includes(h.name)) {
+      td.style.background   = '';
+      td.style.outline      = '';
+      td.style.opacity      = '0.2';
+    } else {
+      td.style.background   = '';
+      td.style.outline      = '';
+      td.style.opacity      = '1';
+    }
+  });
+}
+
+// systemType select onchange 핸들러
+function onSystemTypeChange(fieldName, sysType) {
+  if (!selectedUiModel) return;
+  if (!metaStore[selectedUiModel])          metaStore[selectedUiModel] = {};
+  if (!metaStore[selectedUiModel][fieldName]) metaStore[selectedUiModel][fieldName] = {};
+  metaStore[selectedUiModel][fieldName].systemType = sysType;
+
+  // variableType 자동 세팅
+  if (sysType in SYSTEM_TYPE_AUTO_VAR) {
+    const autoVar = SYSTEM_TYPE_AUTO_VAR[sysType];
+    metaStore[selectedUiModel][fieldName].variableType = autoVar;
+    let row = null;
+    document.querySelectorAll('#uiMetaTable tr[data-field]').forEach(r => {
+      if (r.dataset.field === fieldName) row = r;
+    });
+    const vtSel = row?.querySelector('[data-col="variableType"]');
+    if (vtSel?.tagName === 'SELECT') vtSel.value = autoVar;
+  }
+
+  applySystemTypeStyles(fieldName, sysType);
+}
+
 // 동적 헤더 옵션 동기화 (systemType, variableType, comboboxName은 각 스토어에서 실시간 참조)
 function syncDynamicHeaderOptions() {
   const st = uiHeaders.find(h => h.name === 'systemType');
@@ -252,7 +365,8 @@ function renderUiTable() {
       const fillBtn = `<button contenteditable="false" class="fill-down-btn" title="아래로 채우기" onclick="event.stopPropagation();fillDown('${row.fieldName}','${h.name}')">↓</button>`;
       if (h.type === 'combo' && h.options.length > 0) {
         const opts = ['', ...h.options].map(o => `<option value="${o}"${o === val ? ' selected' : ''}>${o || '—'}</option>`).join('');
-        return `<td style="min-width:100px;padding:4px 8px;position:relative"><select data-field="${row.fieldName}" data-col="${h.name}" style="width:100%;padding:3px 6px;border:1px solid var(--border);border-radius:4px;background:var(--bg-primary);color:var(--text-primary);font-size:12px">${opts}</select>${fillBtn}</td>`;
+        const onch = h.name === 'systemType' ? ` onchange="onSystemTypeChange('${row.fieldName}',this.value)"` : '';
+        return `<td style="min-width:100px;padding:4px 8px;position:relative"><select data-field="${row.fieldName}" data-col="${h.name}"${onch} style="width:100%;padding:3px 6px;border:1px solid var(--border);border-radius:4px;background:var(--bg-primary);color:var(--text-primary);font-size:12px">${opts}</select>${fillBtn}</td>`;
       }
       if (h.type === 'model') {
         const opts = ['', ...modelOpts].map(o => `<option value="${o}"${o === val ? ' selected' : ''}>${o || '—'}</option>`).join('');
@@ -274,6 +388,11 @@ function renderUiTable() {
   html += '</tbody></table>';
   wrap.innerHTML = html;
   initRowDragDrop();
+
+  // 기존 systemType 값에 따라 컬럼 힌트 즉시 적용
+  rows.forEach(row => {
+    if (row.meta.systemType) applySystemTypeStyles(row.fieldName, row.meta.systemType);
+  });
 }
 
 function uiHeaderNameChange(i, val) {
