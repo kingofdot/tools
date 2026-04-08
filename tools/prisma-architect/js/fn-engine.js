@@ -4,35 +4,37 @@
 // CellGrid onCommit → runFunctions() 호출.
 //
 // 동작 순서:
-//   1. changedField를 감시하는 함수 목록 조회 (FunctionRegistry.findByWatch)
-//   2. 같은 행의 calculation 필드 중 해당 fnName 찾기
-//   3. fnName이 FunctionRegistry에 없으면 셀에 에러 표시
-//   4. 파라미터 수집 → 함수 실행 → 셀 값/display 갱신
-//   5. 결과가 바뀌었으면 체인 재실행 (Area→volume→storageAmount)
+//   1. 같은 모델의 calculation 필드 전체 스캔
+//   2. 각 필드의 fnInputParams에 changedField 포함 여부 확인
+//   3. 포함되면 → fnName으로 함수 조회
+//      - 미등록 함수면 셀에 ⚠ 에러 표시
+//   4. fnInputParams 필드들의 현재 값 수집 → params 객체 생성
+//   5. fn(params) 실행 → 셀 값/display 갱신
+//   6. 결과 필드가 바뀌었으니 체인 재실행 (Area→volume→storageAmount)
 // ─────────────────────────────────────────────────────────
 
 function runFunctions(modelName, changedField, rowIndex) {
   const meta = metaStore[modelName] || {};
 
-  // changedField를 watch하는 함수명 목록
-  const triggeredFnNames = FunctionRegistry.findByWatch(changedField);
-  if (!triggeredFnNames.length) return;
-
-  // 같은 모델의 calculation 필드 순회
   Object.entries(meta).forEach(([fieldName, fieldMeta]) => {
     if (fieldMeta.systemType !== 'calculation') return;
 
-    const fnNames = (fieldMeta.fnName || '').split(',').map(s => s.trim()).filter(Boolean);
+    // fnInputParams = watch 목록 + 파라미터 수집 경로
+    const inputParams = (fieldMeta.fnInputParams || '')
+      .split(',').map(s => s.trim()).filter(Boolean);
+    if (!inputParams.includes(changedField)) return;
+
+    const fnNames = (fieldMeta.fnName || '')
+      .split(',').map(s => s.trim()).filter(Boolean);
     if (!fnNames.length) return;
 
     fnNames.forEach(fnName => {
-      if (!triggeredFnNames.includes(fnName)) return;
-      _executeFunction(modelName, fieldName, fnName, rowIndex);
+      _executeFunction(modelName, fieldName, fnName, inputParams, rowIndex);
     });
   });
 }
 
-function _executeFunction(modelName, fieldName, fnName, rowIndex) {
+function _executeFunction(modelName, fieldName, fnName, inputParams, rowIndex) {
   const def = FunctionRegistry.get(fnName);
 
   // fnName이 등록되지 않은 경우 → 에러 표시
@@ -41,9 +43,9 @@ function _executeFunction(modelName, fieldName, fnName, rowIndex) {
     return;
   }
 
-  // 파라미터 수집 (watch 목록 기준)
+  // fnInputParams 필드들의 현재 값 수집
   const params = {};
-  def.watch.forEach(f => {
+  inputParams.forEach(f => {
     const el = document.querySelector(`[data-mockfield="${modelName}.${f}.${rowIndex}"]`);
     params[f] = el?.value ?? '';
   });
@@ -59,7 +61,7 @@ function _executeFunction(modelName, fieldName, fnName, rowIndex) {
   // 셀 값 + display 갱신
   _updateCell(modelName, fieldName, rowIndex, result);
 
-  // 체인 실행 — 이 필드가 바뀌었으니 이 필드를 watch하는 함수도 실행
+  // 체인 실행 — 이 필드가 바뀌었으니 이 필드를 watch하는 계산 필드도 실행
   runFunctions(modelName, fieldName, rowIndex);
 }
 
@@ -69,7 +71,6 @@ function _updateCell(modelName, fieldName, rowIndex, value) {
 
   input.value = value;
 
-  // cell-display도 갱신
   const td = input.closest('[data-cell-type]');
   if (!td) return;
   const display = td.querySelector('.cell-display');
