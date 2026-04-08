@@ -12,6 +12,9 @@ let mockStore = {};
 let uitestExcelRowCount = {}; // { modelName: number } — 현재 테이블 행 수
 let uitestExcelData   = {}; // { modelName: [rowObj] } — 행 추가 전 데이터 보존
 
+// CellGrid 인스턴스 (렌더마다 교체)
+let _cellGrids = [];
+
 // ── mockStore 뷰어 ───────────────────────────────────────
 function mockStoreView() {
   const viewer = document.getElementById('mockStoreViewer');
@@ -36,6 +39,7 @@ function mockStoreClear(modelName) {
 
 // ── mockStore 저장: 화면의 현재 데이터를 통째로 기록 ─────
 function mockStoreCreate() {
+  _cellGrids.forEach(g => g.commit()); // 편집 중인 셀 먼저 확정
   const models = [...uitestChecked];
   if (!models.length) { toast('먼저 모델을 선택하세요', 'error'); return; }
 
@@ -75,7 +79,8 @@ function mockStoreCreate() {
 
 // ── 엑셀 모드 행 추가 ───────────────────────────────────
 function uitestAddRow(modelName) {
-  _captureExcelRows(modelName); // 현재 셀 값 보존
+  _cellGrids.forEach(g => g.commit()); // 편집 중인 셀 확정
+  _captureExcelRows(modelName);        // 현재 셀 값 보존
   uitestExcelRowCount[modelName] = (uitestExcelRowCount[modelName] || 1) + 1;
   renderUiTestPreview();
 }
@@ -213,6 +218,15 @@ function renderUiTestPreview() {
 
     return `<div style="margin-bottom:40px">${sectionHeader}${recordBadge}${body}</div>`;
   }).join('');
+
+  // CellGrid 재초기화
+  _cellGrids.forEach(g => g.destroy());
+  _cellGrids = [];
+  content.querySelectorAll('.excel-cell-grid').forEach(el => {
+    _cellGrids.push(new CellGrid(el));
+  });
+  // 첫 번째 그리드의 (0,0) 자동 선택
+  if (_cellGrids.length) _cellGrids[0].select(0, 0);
 }
 
 // ── 1:1 폼 ─────────────────────────────────────────────
@@ -249,29 +263,29 @@ function renderForm1to1(rows, modelName) {
 }
 
 // ── 엑셀(테이블) 뷰 ─────────────────────────────────────
-// 기본형: 최소 1행 편집 가능 테이블 + 우측 상단 행 추가 버튼
+// 기본형: 최소 1행 + CellGrid 두 단계 모드 (Selected / Editing)
 function renderExcelView(rows, modelName) {
   const labelH = headerByRole('label');
 
+  // hidden 필드 제외한 표시 컬럼
+  const visibleRows = rows.filter(([, meta]) => _resolveCompType(meta) !== 'hidden');
+
   // 행 수 초기화 (최소 1)
   if (!uitestExcelRowCount[modelName]) uitestExcelRowCount[modelName] = 1;
-  const rowCount   = uitestExcelRowCount[modelName];
+  const rowCount  = uitestExcelRowCount[modelName];
+  const savedData = uitestExcelData[modelName] || [];
+  const storeData = mockStore[modelName] || [];
 
-  // 초기값 우선순위: 행 추가 시 보존 데이터 > mockStore 데이터 > 빈값
-  const savedData  = uitestExcelData[modelName] || [];
-  const storeData  = mockStore[modelName] || [];
-
-  const ths = rows.map(([fn, meta]) =>
+  const ths = visibleRows.map(([fn, meta]) =>
     `<th style="white-space:nowrap">${(labelH && meta[labelH.name]) || fn}</th>`
   ).join('');
 
-  const bodyRows = Array.from({ length: rowCount }, (_, i) => {
-    const initData = savedData[i] || storeData[i] || {};
-    return `<tr>${rows.map(([fn, meta]) => {
-      const cell = buildExcelCell(fn, meta, modelName, i, initData[fn]);
-      if (cell === '') return ''; // hidden 스킵
-      return `<td style="padding:3px">${cell}</td>`;
-    }).join('')}</tr>`;
+  const bodyRows = Array.from({ length: rowCount }, (_, ri) => {
+    const initData = savedData[ri] || storeData[ri] || {};
+    const cells = visibleRows.map(([fn, meta], ci) =>
+      buildExcelCell(fn, meta, modelName, ri, ci, initData[fn])
+    ).join('');
+    return `<tr>${cells}</tr>`;
   }).join('');
 
   const storeCount = storeData.length;
@@ -290,10 +304,12 @@ function renderExcelView(rows, modelName) {
       </div>
     </div>
     <div style="overflow-x:auto">
-      <table class="excel-table" style="width:100%">
-        <thead><tr>${ths}</tr></thead>
-        <tbody>${bodyRows}</tbody>
-      </table>
+      <div class="excel-cell-grid">
+        <table class="excel-table" style="width:100%">
+          <thead><tr>${ths}</tr></thead>
+          <tbody>${bodyRows}</tbody>
+        </table>
+      </div>
     </div>`;
 }
 
@@ -312,40 +328,49 @@ function _resolveCompType(meta) {
   return 'text';
 }
 
-// ── 엑셀 셀 인풋 빌더 ───────────────────────────────────
-function buildExcelCell(fieldName, meta, modelName, rowIdx, initVal) {
-  const t        = _resolveCompType(meta);
-  const ph       = meta.commentary || '';
-  const mockAttr = `data-mockfield="${modelName}.${fieldName}.${rowIdx}"`;
-  const base     = `${mockAttr} style="width:100%;padding:4px 7px;border:1px solid var(--border);border-radius:4px;background:var(--bg-primary);color:var(--text-primary);font-size:12px;box-sizing:border-box;min-width:80px"`;
-  const val      = initVal !== undefined && initVal !== '' ? `value="${initVal}"` : '';
+// ── 엑셀 셀 빌더 (CellGrid 구조: <td data-row data-col> 반환) ──
+// display span + hidden cell-input 이중 구조
+function buildExcelCell(fieldName, meta, modelName, rowIdx, colIdx, initVal) {
+  const t          = _resolveCompType(meta);
+  const ph         = meta.commentary || '';
+  const mockAttr   = `data-mockfield="${modelName}.${fieldName}.${rowIdx}"`;
+  const displayVal = initVal !== undefined && initVal !== '' ? initVal : '';
+  const readonly   = (t === 'calculation' || t === 'lookup_readonly');
+  const roAttr     = readonly ? ' data-readonly="true"' : '';
 
-  if (t === 'hidden') return '';
+  // display span (Selected 상태에서 보임)
+  const display = `<span class="cell-display">${
+    displayVal || `<span class="cell-ph">${ph}</span>`
+  }</span>`;
+
+  // input element (Editing 상태에서 보임)
+  let inputEl = '';
+  const iBase = `class="cell-input" ${mockAttr} style="display:none"`;
+  const v     = displayVal !== '' ? `value="${displayVal}"` : '';
 
   if (t === 'select' || t === 'combobox') {
     const opts = _comboOpts(meta.comboboxName, initVal);
-    return `<select ${base}><option value="">—</option>${opts}</select>`;
-  }
-  if (t === 'boolean') {
-    return `<select ${base}>
+    inputEl = `<select ${iBase}><option value="">—</option>${opts}</select>`;
+  } else if (t === 'boolean') {
+    inputEl = `<select ${iBase}>
       <option value="">—</option>
       <option value="true"  ${initVal === 'true'  ? 'selected' : ''}>true</option>
       <option value="false" ${initVal === 'false' ? 'selected' : ''}>false</option>
     </select>`;
+  } else if (t === 'date' || t === 'datetime') {
+    inputEl = `<input type="date" ${v} ${iBase}>`;
+  } else if (t === 'number') {
+    inputEl = `<input type="number" placeholder="${ph}" ${v} ${iBase}>`;
+  } else if (t === 'lookup_editable' && meta.dataSource) {
+    inputEl = `<select ${iBase}><option value="">— ${meta.dataSource} —</option></select>`;
+  } else if (t === 'json') {
+    inputEl = `<textarea ${iBase} placeholder="${ph}" style="display:none;font-family:monospace;font-size:11px">${displayVal}</textarea>`;
+  } else {
+    // text, calculation(readonly), lookup_readonly
+    inputEl = `<input type="text" placeholder="${ph}" ${v} ${iBase}>`;
   }
-  if (t === 'date' || t === 'datetime') return `<input type="date" ${val} ${base}>`;
-  if (t === 'number') return `<input type="number" placeholder="${ph}" ${val} ${base}>`;
-  if (t === 'calculation' || t === 'lookup_readonly') {
-    return `<input type="text" placeholder="계산값" ${val} readonly style="${base.split('style="')[1]} opacity:0.6;cursor:default">`;
-  }
-  if (t === 'lookup_editable') {
-    if (meta.dataSource) {
-      return `<select ${base}><option value="">— ${meta.dataSource} —</option></select>`;
-    }
-  }
-  if (t === 'json') return `<textarea rows="2" placeholder="${ph}" ${mockAttr} style="width:100%;padding:4px 7px;border:1px solid var(--border);border-radius:4px;background:var(--bg-primary);color:var(--text-primary);font-size:11px;box-sizing:border-box;font-family:monospace">${initVal || ''}</textarea>`;
 
-  return `<input type="text" placeholder="${ph}" ${val} ${base}>`;
+  return `<td class="cell" data-row="${rowIdx}" data-col="${colIdx}" tabindex="0"${roAttr}>${display}${inputEl}</td>`;
 }
 
 // ── 폼용 인풋 빌더 (1:1 폼 전용, 행 인덱스 없음) ────────
