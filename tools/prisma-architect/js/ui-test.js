@@ -342,18 +342,38 @@ function renderExcelView(rows, modelName) {
 }
 
 // ── 폼용 인풋 빌더 (1:1 폼 전용) ─────────────────────────
-// CellComponents의 renderInput을 재활용하되 폼 스타일 적용
+// CellComponents 타입 결정 + optionsResolver 활용,
+// 폼 전용 스타일로 직접 구성 (renderInput 결과 조작 없음)
 function buildInput(fieldName, meta, modelName) {
   const type = _resolveCompType(meta);
   const comp = CellComponents[type] || CellComponents.text;
   if (comp.hidden) return '';
 
-  const mockAttr = modelName ? `data-mockfield="${modelName}.${fieldName}"` : '';
-  const formStyle = `width:100%;padding:9px 12px;border:1px solid var(--border);border-radius:8px;background:var(--bg-primary);color:var(--text-primary);font-size:13px;box-sizing:border-box${comp.readonly ? ';opacity:0.6;cursor:default' : ''}`;
+  const mf  = modelName ? `data-mockfield="${modelName}.${fieldName}"` : '';
+  const ph  = meta.commentary || '';
+  const ro  = comp.readonly;
+  const s   = `width:100%;padding:9px 12px;border:1px solid var(--border);border-radius:8px;background:var(--bg-primary);color:var(--text-primary);font-size:13px;box-sizing:border-box${ro ? ';opacity:0.6;cursor:default' : ''}`;
 
-  // renderInput 결과에서 cell-input 클래스/스타일을 폼 스타일로 교체
-  const raw = comp.renderInput('', meta);
-  return raw
-    .replace('class="cell-input"', mockAttr ? `${mockAttr}` : '')
-    .replace(/style="display:none;[^"]*"/, `style="${formStyle}"`);
+  if (type === 'select' || type === 'combobox') {
+    const opts = CellComponents._resolver(meta.comboboxName || '')
+      .map(o => `<option value="${o}">${o}</option>`).join('');
+    return `<select ${mf} style="${s}"><option value="">— 선택 —</option>${opts}</select>`;
+  }
+  if (type === 'boolean') {
+    return `<select ${mf} style="${s}"><option value="">— 선택 —</option><option value="true">true</option><option value="false">false</option></select>`;
+  }
+  if (type === 'date' || type === 'datetime') {
+    return `<input type="date" ${mf} style="${s}">`;
+  }
+  if (type === 'number') {
+    return `<input type="number" placeholder="${ph}" ${mf} style="${s}">`;
+  }
+  if (type === 'lookup_editable' && meta.dataSource) {
+    return `<select ${mf} style="${s}"><option value="">— ${meta.dataSource} 선택 —</option></select>`;
+  }
+  if (type === 'json') {
+    return `<textarea rows="3" placeholder="${ph}" ${mf} style="${s};font-family:monospace"></textarea>`;
+  }
+  // text, calculation, lookup_readonly, 기타
+  return `<input type="text" placeholder="${ph}" ${mf} style="${s}" ${ro ? 'readonly' : ''}>`;
 }
