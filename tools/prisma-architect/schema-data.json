@@ -908,7 +908,7 @@
         "id": "",
         "label": "",
         "variableType": "text",
-        "systemType": "text",
+        "systemType": "combobox",
         "isRequired": "false",
         "defaultValue": "",
         "showNode": "true",
@@ -1731,5 +1731,5 @@
     }
   ],
   "annotations": [],
-  "savedAt": "2026. 4. 8. 오전 9:30:51"
+  "savedAt": "2026. 4. 8. 오전 9:31:04"
 }
