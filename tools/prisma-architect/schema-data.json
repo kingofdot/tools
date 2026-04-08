@@ -804,7 +804,7 @@
         "fnOutputTarget": "",
         "fnSyncCondition": "",
         "dataSource": "",
-        "initialCreation": "",
+        "initialCreation": "true",
         "showNodeDetail": "",
         "creationConditions": ""
       },
@@ -827,7 +827,7 @@
         "fnOutputTarget": "",
         "fnSyncCondition": "",
         "dataSource": "",
-        "initialCreation": "",
+        "initialCreation": "true",
         "showNodeDetail": "",
         "creationConditions": ""
       },
@@ -850,7 +850,7 @@
         "fnOutputTarget": "",
         "fnSyncCondition": "",
         "dataSource": "",
-        "initialCreation": "",
+        "initialCreation": "true",
         "showNodeDetail": "",
         "creationConditions": ""
       },
@@ -873,7 +873,7 @@
         "fnOutputTarget": "",
         "fnSyncCondition": "",
         "dataSource": "",
-        "initialCreation": "",
+        "initialCreation": "true",
         "showNodeDetail": "",
         "creationConditions": ""
       },
@@ -896,7 +896,7 @@
         "fnOutputTarget": "",
         "fnSyncCondition": "",
         "dataSource": "",
-        "initialCreation": "",
+        "initialCreation": "true",
         "showNodeDetail": "",
         "creationConditions": ""
       },
@@ -919,7 +919,7 @@
         "fnOutputTarget": "",
         "fnSyncCondition": "",
         "dataSource": "",
-        "initialCreation": "",
+        "initialCreation": "true",
         "showNodeDetail": "",
         "creationConditions": ""
       },
@@ -942,7 +942,7 @@
         "fnOutputTarget": "",
         "fnSyncCondition": "",
         "dataSource": "",
-        "initialCreation": "",
+        "initialCreation": "true",
         "showNodeDetail": "",
         "creationConditions": ""
       },
@@ -965,7 +965,7 @@
         "fnOutputTarget": "",
         "fnSyncCondition": "",
         "dataSource": "",
-        "initialCreation": "",
+        "initialCreation": "true",
         "showNodeDetail": "",
         "creationConditions": ""
       },
@@ -988,7 +988,7 @@
         "fnOutputTarget": "",
         "fnSyncCondition": "",
         "dataSource": "",
-        "initialCreation": "",
+        "initialCreation": "true",
         "showNodeDetail": "",
         "creationConditions": ""
       },
@@ -1011,7 +1011,7 @@
         "fnOutputTarget": "",
         "fnSyncCondition": "",
         "dataSource": "",
-        "initialCreation": "",
+        "initialCreation": "true",
         "showNodeDetail": "",
         "creationConditions": ""
       },
@@ -1034,7 +1034,7 @@
         "fnOutputTarget": "",
         "fnSyncCondition": "",
         "dataSource": "",
-        "initialCreation": "",
+        "initialCreation": "true",
         "showNodeDetail": "",
         "creationConditions": ""
       },
@@ -1057,7 +1057,7 @@
         "fnOutputTarget": "",
         "fnSyncCondition": "",
         "dataSource": "",
-        "initialCreation": "",
+        "initialCreation": "true",
         "showNodeDetail": "",
         "creationConditions": ""
       },
@@ -1080,7 +1080,7 @@
         "fnOutputTarget": "",
         "fnSyncCondition": "",
         "dataSource": "",
-        "initialCreation": "",
+        "initialCreation": "true",
         "showNodeDetail": "",
         "creationConditions": ""
       },
@@ -1103,7 +1103,7 @@
         "fnOutputTarget": "",
         "fnSyncCondition": "",
         "dataSource": "",
-        "initialCreation": "",
+        "initialCreation": "true",
         "showNodeDetail": "",
         "creationConditions": ""
       },
@@ -1126,7 +1126,7 @@
         "fnOutputTarget": "",
         "fnSyncCondition": "",
         "dataSource": "",
-        "initialCreation": "",
+        "initialCreation": "true",
         "showNodeDetail": "",
         "creationConditions": ""
       },
@@ -1149,7 +1149,7 @@
         "fnOutputTarget": "",
         "fnSyncCondition": "",
         "dataSource": "",
-        "initialCreation": "",
+        "initialCreation": "true",
         "showNodeDetail": "",
         "creationConditions": ""
       },
@@ -1172,7 +1172,7 @@
         "fnOutputTarget": "",
         "fnSyncCondition": "",
         "dataSource": "",
-        "initialCreation": "",
+        "initialCreation": "true",
         "showNodeDetail": "",
         "creationConditions": ""
       },
@@ -1195,7 +1195,7 @@
         "fnOutputTarget": "",
         "fnSyncCondition": "",
         "dataSource": "",
-        "initialCreation": "",
+        "initialCreation": "true",
         "showNodeDetail": "",
         "creationConditions": ""
       },
@@ -1218,7 +1218,7 @@
         "fnOutputTarget": "",
         "fnSyncCondition": "",
         "dataSource": "",
-        "initialCreation": "",
+        "initialCreation": "true",
         "showNodeDetail": "",
         "creationConditions": ""
       },
@@ -1241,7 +1241,7 @@
         "fnOutputTarget": "",
         "fnSyncCondition": "",
         "dataSource": "",
-        "initialCreation": "",
+        "initialCreation": "true",
         "showNodeDetail": "",
         "creationConditions": ""
       }
@@ -1842,5 +1842,5 @@
     }
   ],
   "annotations": [],
-  "savedAt": "2026. 4. 8. 오후 3:11:45"
+  "savedAt": "2026. 4. 8. 오후 3:12:13"
 }
