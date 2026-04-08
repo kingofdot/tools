@@ -13,8 +13,8 @@
 const FunctionRegistry = {
   _store: {},
 
-  register(name, { watch, fn }) {
-    this._store[name] = { watch, fn };
+  register(name, { watch, fn, desc = '', outputType = 'float' }) {
+    this._store[name] = { watch, fn, desc, outputType };
   },
 
   get(name) {
@@ -33,6 +33,8 @@ const FunctionRegistry = {
 
 // 바닥 면적 계산
 FunctionRegistry.register('calcArea', {
+  desc: '바닥 형태(bottomShape)와 치수로 면적을 계산합니다',
+  outputType: 'float',
   watch: ['bottomShape', 'diameter', 'width', 'length', 'topSide', 'bottomSide', 'verticalSide'],
   fn(params) {
     const shape = params.bottomShape || '';
@@ -56,6 +58,8 @@ FunctionRegistry.register('calcArea', {
 
 // 부피 계산 (면적 × 높이)
 FunctionRegistry.register('calcVolume', {
+  desc: '면적(Area)과 높이(height)로 부피를 계산합니다',
+  outputType: 'float',
   watch: ['Area', 'height'],
   fn(params) {
     const area   = parseFloat(params.Area)   || 0;
@@ -67,6 +71,8 @@ FunctionRegistry.register('calcVolume', {
 
 // 저장용량 계산 (부피 × 개수)
 FunctionRegistry.register('calcStorageAmount', {
+  desc: '부피(volume)와 개수(quantity)로 저장용량을 계산합니다',
+  outputType: 'float',
   watch: ['volume', 'quantity'],
   fn(params) {
     const volume   = parseFloat(params.volume)   || 0;
@@ -74,4 +80,18 @@ FunctionRegistry.register('calcStorageAmount', {
     if (!volume || !quantity) return '';
     return (volume * quantity).toFixed(4);
   },
+});
+
+// ── functionStore 동기화 ───────────────────────────────────
+// fn-definitions.js 로드 시 FunctionRegistry → functionStore 자동 반영
+// (functionStore는 ui-panel.js에서 먼저 정의됨)
+Object.entries(FunctionRegistry._store).forEach(([name, def]) => {
+  if (functionStore.find(f => f.name === name)) return; // 이미 있으면 스킵
+  functionStore.push({
+    name,
+    desc:       def.desc       || '',
+    params:     (def.watch || []).map(p => ({ name: p, desc: '' })),
+    outputType: def.outputType || 'float',
+    outputDesc: '',
+  });
 });

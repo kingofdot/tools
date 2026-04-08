@@ -22,11 +22,13 @@ function runFunctions(modelName, changedField, rowIndex) {
   Object.entries(meta).forEach(([fieldName, fieldMeta]) => {
     if (fieldMeta.systemType !== 'calculation') return;
 
-    const fnName = (fieldMeta.fnName || '').trim();
-    if (!fnName) return;
-    if (!triggeredFnNames.includes(fnName)) return;
+    const fnNames = (fieldMeta.fnName || '').split(',').map(s => s.trim()).filter(Boolean);
+    if (!fnNames.length) return;
 
-    _executeFunction(modelName, fieldName, fnName, rowIndex);
+    fnNames.forEach(fnName => {
+      if (!triggeredFnNames.includes(fnName)) return;
+      _executeFunction(modelName, fieldName, fnName, rowIndex);
+    });
   });
 }
 

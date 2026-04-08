@@ -67,7 +67,7 @@ let uiHeaders = [
   { name: 'comboboxName',      type: 'combo', options: [],               uiRole: 'none' },
   { name: 'dataSource',        type: 'model', options: [],               uiRole: 'none' },
   { name: 'creationConditions',type: 'text',  options: [],               uiRole: 'none' },
-  { name: 'fnName',            type: 'text',  options: [],               uiRole: 'none' },
+  { name: 'fnName',            type: 'multicombo', options: [],          uiRole: 'none' },
 ];
 
 // ── 시스템타입별 컬럼 힌트 ────────────────────────────────
@@ -160,6 +160,15 @@ function applySystemTypeStyles(fieldName, sysType) {
   });
 }
 
+// fnName multi-select onchange 핸들러
+function onFnNameChange(fieldName, selectEl) {
+  if (!selectedUiModel) return;
+  if (!metaStore[selectedUiModel])             metaStore[selectedUiModel] = {};
+  if (!metaStore[selectedUiModel][fieldName])  metaStore[selectedUiModel][fieldName] = {};
+  const val = [...selectEl.selectedOptions].map(o => o.value).join(',');
+  metaStore[selectedUiModel][fieldName].fnName = val;
+}
+
 // systemType select onchange 핸들러
 function onSystemTypeChange(fieldName, sysType) {
   if (!selectedUiModel) return;
@@ -191,7 +200,7 @@ function syncDynamicHeaderOptions() {
   const cb = uiHeaders.find(h => h.name === 'comboboxName');
   if (cb) { cb.type = 'combo'; cb.options = Object.keys(comboboxStore); }
   const fn = uiHeaders.find(h => h.name === 'fnName');
-  if (fn) { fn.type = 'combo'; fn.options = functionStore.map(f => f.name); }
+  if (fn) { fn.type = 'multicombo'; fn.options = functionStore.map(f => f.name); }
 }
 
 // metaStore: { [modelName]: { [fieldName]: { [header]: value } } }
@@ -363,6 +372,11 @@ function renderUiTable() {
         const onch = h.name === 'systemType' ? ` onchange="onSystemTypeChange('${row.fieldName}',this.value)"` : '';
         return `<td style="min-width:100px;padding:4px 8px;position:relative"><select data-field="${row.fieldName}" data-col="${h.name}"${onch} style="width:100%;padding:3px 6px;border:1px solid var(--border);border-radius:4px;background:var(--bg-primary);color:var(--text-primary);font-size:12px">${opts}</select>${fillBtn}</td>`;
       }
+      if (h.type === 'multicombo' && h.options.length > 0) {
+        const selected = (val || '').split(',').map(s => s.trim()).filter(Boolean);
+        const opts = h.options.map(o => `<option value="${o}"${selected.includes(o) ? ' selected' : ''}>${o}</option>`).join('');
+        return `<td style="min-width:140px;padding:4px 8px;position:relative"><select multiple data-field="${row.fieldName}" data-col="${h.name}" onchange="onFnNameChange('${row.fieldName}',this)" style="width:100%;padding:2px 4px;border:1px solid var(--border);border-radius:4px;background:var(--bg-primary);color:var(--accent);font-size:12px;font-family:var(--font-mono);min-height:26px;max-height:72px">${opts}</select>${fillBtn}</td>`;
+      }
       if (h.type === 'model') {
         const opts = ['', ...modelOpts].map(o => `<option value="${o}"${o === val ? ' selected' : ''}>${o || '—'}</option>`).join('');
         return `<td style="min-width:120px;padding:4px 8px;position:relative"><select data-field="${row.fieldName}" data-col="${h.name}" style="width:100%;padding:3px 6px;border:1px solid var(--border);border-radius:4px;background:var(--bg-primary);color:var(--text-primary);font-size:12px">${opts}</select>${fillBtn}</td>`;
@@ -491,7 +505,11 @@ function uiApply() {
     uiHeaders.forEach(h => {
       const cell = row.querySelector(`[data-col="${h.name}"]`);
       if (cell) {
-        const val = cell.tagName === 'SELECT' ? cell.value : (() => { const c = cell.cloneNode(true); c.querySelectorAll('button').forEach(b => b.remove()); return c.textContent.trim(); })();
+        const val = cell.tagName === 'SELECT'
+          ? (cell.multiple
+              ? [...cell.selectedOptions].map(o => o.value).join(',')
+              : cell.value)
+          : (() => { const c = cell.cloneNode(true); c.querySelectorAll('button').forEach(b => b.remove()); return c.textContent.trim(); })();
         metaStore[selectedUiModel][fieldName][h.name] = val;
       }
     });
