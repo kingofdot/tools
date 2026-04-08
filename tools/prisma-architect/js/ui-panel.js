@@ -68,7 +68,6 @@ let uiHeaders = [
   { name: 'dataSource',        type: 'model', options: [],               uiRole: 'none' },
   { name: 'creationConditions',type: 'text',  options: [],               uiRole: 'none' },
   { name: 'fnName',            type: 'multicombo', options: [],          uiRole: 'none' },
-  { name: 'fnInputParams',     type: 'text',       options: [],          uiRole: 'none' },
 ];
 
 // ── 시스템타입별 컬럼 힌트 ────────────────────────────────
@@ -77,35 +76,35 @@ let uiHeaders = [
 const SYSTEM_TYPE_HINTS = {
   text: {
     highlight: [],
-    dim: ['comboboxName','dataSource','fnName','fnInputParams'],
+    dim: ['comboboxName','dataSource','fnName'],
   },
   number: {
     highlight: [],
-    dim: ['comboboxName','dataSource','fnName','fnInputParams'],
+    dim: ['comboboxName','dataSource','fnName'],
   },
   date: {
     highlight: [],
-    dim: ['comboboxName','dataSource','fnName','fnInputParams'],
+    dim: ['comboboxName','dataSource','fnName'],
   },
   select: {
     highlight: ['comboboxName'],
-    dim: ['dataSource','variableType','fnName','fnInputParams'],
+    dim: ['dataSource','variableType','fnName'],
   },
   combobox: {
     highlight: ['comboboxName'],
-    dim: ['dataSource','variableType','fnName','fnInputParams'],
+    dim: ['dataSource','variableType','fnName'],
   },
   boolean: {
     highlight: [],
-    dim: ['comboboxName','dataSource','fnName','fnInputParams'],
+    dim: ['comboboxName','dataSource','fnName'],
   },
   calculation: {
-    highlight: ['fnName','fnInputParams'],
+    highlight: ['fnName'],
     dim: ['comboboxName','dataSource','isRequired','defaultValue','variableType'],
   },
   lookup_readonly: {
     highlight: ['dataSource'],
-    dim: ['comboboxName','isRequired','defaultValue','fnName','fnInputParams'],
+    dim: ['comboboxName','isRequired','defaultValue','fnName'],
   },
   lookup_editable: {
     highlight: ['dataSource'],
@@ -114,7 +113,7 @@ const SYSTEM_TYPE_HINTS = {
   hidden: {
     highlight: [],
     dim: ['label','commentary','isRequired','variableType','width','defaultValue','comboboxName','dataSource',
-          'creationConditions','fnName','fnInputParams','initialCreation','showNode','showNodeDetail'],
+          'creationConditions','fnName','initialCreation','showNode','showNodeDetail'],
   },
 };
 
