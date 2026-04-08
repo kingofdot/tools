@@ -337,7 +337,7 @@
     },
     {
       "name": "fnName",
-      "type": "multicombo",
+      "type": "combo",
       "options": [
         "calcArea",
         "calcVolume",
@@ -1098,7 +1098,7 @@
         "width": "100",
         "comboboxName": "",
         "fnTriggerEvent": "",
-        "fnName": "",
+        "fnName": "calcArea",
         "fnInputParams": "",
         "fnOutputTarget": "",
         "fnSyncCondition": "",
@@ -1135,7 +1135,7 @@
         "id": "",
         "label": "",
         "variableType": "text",
-        "systemType": "text",
+        "systemType": "calculation",
         "isRequired": "false",
         "defaultValue": "",
         "showNode": "true",
@@ -1144,7 +1144,7 @@
         "width": "100",
         "comboboxName": "",
         "fnTriggerEvent": "",
-        "fnName": "",
+        "fnName": "calcVolume",
         "fnInputParams": "",
         "fnOutputTarget": "",
         "fnSyncCondition": "",
@@ -1158,7 +1158,7 @@
         "id": "",
         "label": "",
         "variableType": "text",
-        "systemType": "text",
+        "systemType": "calculation",
         "isRequired": "false",
         "defaultValue": "",
         "showNode": "true",
@@ -1167,7 +1167,7 @@
         "width": "100",
         "comboboxName": "",
         "fnTriggerEvent": "",
-        "fnName": "",
+        "fnName": "calcStorageAmount",
         "fnInputParams": "",
         "fnOutputTarget": "",
         "fnSyncCondition": "",
@@ -1532,10 +1532,10 @@
       "topSide",
       "bottomSide",
       "verticalSide",
-      "height",
       "Area",
-      "quantity",
+      "height",
       "volume",
+      "quantity",
       "storageAmount",
       "storageDays",
       "changeType",
@@ -1842,5 +1842,5 @@
     }
   ],
   "annotations": [],
-  "savedAt": "2026. 4. 8. 오후 2:50:57"
+  "savedAt": "2026. 4. 8. 오후 3:11:45"
 }
