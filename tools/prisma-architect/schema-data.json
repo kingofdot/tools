@@ -325,7 +325,9 @@
       "uiRole": "none",
       "name": "comboboxName",
       "type": "combo",
-      "options": []
+      "options": [
+        "Shape"
+      ]
     },
     {
       "uiRole": "none",
@@ -336,7 +338,7 @@
     {
       "uiRole": "none",
       "name": "fnName",
-      "type": "text",
+      "type": "combo",
       "options": []
     },
     {
@@ -1227,7 +1229,8 @@
       "changeType": {},
       "wasteDocumentation": {},
       "storedIn": {}
-    }
+    },
+    "__combobox__": {}
   },
   "rowOrderStore": {
     "Post": [
@@ -1603,7 +1606,14 @@
       "desc": "JSON 객체"
     }
   ],
-  "comboboxStore": {},
+  "comboboxStore": {
+    "Shape": [
+      "사각",
+      "원",
+      "사다리꼴",
+      "삼각형"
+    ]
+  },
   "functionStore": [],
   "todoItems": [
     {
@@ -1721,5 +1731,5 @@
     }
   ],
   "annotations": [],
-  "savedAt": "2026. 4. 7. 오후 5:55:35"
+  "savedAt": "2026. 4. 8. 오전 9:30:23"
 }
