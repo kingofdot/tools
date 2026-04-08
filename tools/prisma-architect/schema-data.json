@@ -225,39 +225,54 @@
   },
   "uiHeaders": [
     {
-      "uiRole": "none",
-      "name": "commentary",
-      "type": "text",
-      "options": []
-    },
-    {
-      "uiRole": "none",
-      "name": "id",
-      "type": "text",
-      "options": []
-    },
-    {
-      "uiRole": "none",
       "name": "label",
       "type": "text",
-      "options": []
+      "options": [],
+      "uiRole": "label"
     },
     {
-      "uiRole": "none",
-      "name": "variableType",
+      "name": "commentary",
+      "type": "text",
+      "options": [],
+      "uiRole": "placeholder"
+    },
+    {
+      "name": "isRequired",
       "type": "combo",
       "options": [
-        "text",
-        "integer",
-        "float",
-        "date",
-        "datetime",
-        "boolean",
-        "json"
-      ]
+        "true",
+        "false"
+      ],
+      "uiRole": "required"
     },
     {
-      "uiRole": "none",
+      "name": "initialCreation",
+      "type": "combo",
+      "options": [
+        "true",
+        "false"
+      ],
+      "uiRole": "showCreate"
+    },
+    {
+      "name": "showNode",
+      "type": "combo",
+      "options": [
+        "true",
+        "false"
+      ],
+      "uiRole": "showList"
+    },
+    {
+      "name": "showNodeDetail",
+      "type": "combo",
+      "options": [
+        "true",
+        "false"
+      ],
+      "uiRole": "showDetail"
+    },
+    {
       "name": "systemType",
       "type": "combo",
       "options": [
@@ -271,99 +286,64 @@
         "lookup_editable",
         "lookup_readonly",
         "hidden"
-      ]
+      ],
+      "uiRole": "none"
     },
     {
-      "uiRole": "none",
-      "name": "isRequired",
+      "name": "variableType",
       "type": "combo",
       "options": [
-        "true",
-        "false"
-      ]
+        "text",
+        "integer",
+        "float",
+        "date",
+        "datetime",
+        "boolean",
+        "json"
+      ],
+      "uiRole": "componentType"
     },
     {
-      "uiRole": "none",
-      "name": "defaultValue",
-      "type": "text",
-      "options": []
-    },
-    {
-      "uiRole": "none",
-      "name": "showNode",
-      "type": "combo",
-      "options": [
-        "true",
-        "false"
-      ]
-    },
-    {
-      "uiRole": "none",
-      "name": "showNodeDeatil",
-      "type": "combo",
-      "options": [
-        "true",
-        "false"
-      ]
-    },
-    {
-      "uiRole": "none",
-      "name": "CreationConditions",
-      "type": "combo",
-      "options": [
-        "initial",
-        "conditional"
-      ]
-    },
-    {
-      "uiRole": "none",
       "name": "width",
       "type": "text",
-      "options": []
+      "options": [],
+      "uiRole": "width"
     },
     {
-      "uiRole": "none",
+      "name": "defaultValue",
+      "type": "text",
+      "options": [],
+      "uiRole": "none"
+    },
+    {
       "name": "comboboxName",
       "type": "combo",
       "options": [
         "Shape"
-      ]
+      ],
+      "uiRole": "none"
     },
     {
-      "uiRole": "none",
-      "name": "fnTriggerEvent",
-      "type": "text",
-      "options": []
-    },
-    {
-      "uiRole": "none",
-      "name": "fnName",
-      "type": "multicombo",
-      "options": []
-    },
-    {
-      "uiRole": "none",
-      "name": "fnInputParams",
-      "type": "text",
-      "options": []
-    },
-    {
-      "uiRole": "none",
-      "name": "fnOutputTarget",
-      "type": "text",
-      "options": []
-    },
-    {
-      "uiRole": "none",
-      "name": "fnSyncCondition",
-      "type": "text",
-      "options": []
-    },
-    {
-      "uiRole": "none",
       "name": "dataSource",
       "type": "model",
-      "options": []
+      "options": [],
+      "uiRole": "none"
+    },
+    {
+      "name": "creationConditions",
+      "type": "text",
+      "options": [],
+      "uiRole": "none"
+    },
+    {
+      "name": "fnName",
+      "type": "multicombo",
+      "options": [
+        "calcArea",
+        "calcVolume",
+        "calcStorageAmount"
+      ],
+      "uiRole": "none"
     }
   ],
   "metaStore": {
@@ -770,7 +750,9 @@
       "updatedAt": {}
     },
     "BusinessDocumentProfile": {
-      "id": {},
+      "id": {
+        "fnName": "calcStorageAmount"
+      },
       "businessId": {},
       "profileScope": {},
       "documentCategoryCode": {},
@@ -821,7 +803,10 @@
         "fnInputParams": "",
         "fnOutputTarget": "",
         "fnSyncCondition": "",
-        "dataSource": ""
+        "dataSource": "",
+        "initialCreation": "",
+        "showNodeDetail": "",
+        "creationConditions": ""
       },
       "wasteDocumentationId": {
         "commentary": "",
@@ -841,7 +826,10 @@
         "fnInputParams": "",
         "fnOutputTarget": "",
         "fnSyncCondition": "",
-        "dataSource": ""
+        "dataSource": "",
+        "initialCreation": "",
+        "showNodeDetail": "",
+        "creationConditions": ""
       },
       "targetWasteId": {
         "commentary": "",
@@ -861,7 +849,10 @@
         "fnInputParams": "",
         "fnOutputTarget": "",
         "fnSyncCondition": "",
-        "dataSource": ""
+        "dataSource": "",
+        "initialCreation": "",
+        "showNodeDetail": "",
+        "creationConditions": ""
       },
       "targetWaste": {
         "commentary": "",
@@ -881,7 +872,10 @@
         "fnInputParams": "",
         "fnOutputTarget": "",
         "fnSyncCondition": "",
-        "dataSource": ""
+        "dataSource": "",
+        "initialCreation": "",
+        "showNodeDetail": "",
+        "creationConditions": ""
       },
       "specificGravity": {
         "commentary": "",
@@ -901,7 +895,10 @@
         "fnInputParams": "",
         "fnOutputTarget": "",
         "fnSyncCondition": "",
-        "dataSource": ""
+        "dataSource": "",
+        "initialCreation": "",
+        "showNodeDetail": "",
+        "creationConditions": ""
       },
       "bottomShape": {
         "commentary": "",
@@ -921,7 +918,10 @@
         "fnInputParams": "",
         "fnOutputTarget": "",
         "fnSyncCondition": "",
-        "dataSource": ""
+        "dataSource": "",
+        "initialCreation": "",
+        "showNodeDetail": "",
+        "creationConditions": ""
       },
       "diameter": {
         "commentary": "",
@@ -941,7 +941,10 @@
         "fnInputParams": "",
         "fnOutputTarget": "",
         "fnSyncCondition": "",
-        "dataSource": ""
+        "dataSource": "",
+        "initialCreation": "",
+        "showNodeDetail": "",
+        "creationConditions": ""
       },
       "width": {
         "commentary": "",
@@ -961,7 +964,10 @@
         "fnInputParams": "",
         "fnOutputTarget": "",
         "fnSyncCondition": "",
-        "dataSource": ""
+        "dataSource": "",
+        "initialCreation": "",
+        "showNodeDetail": "",
+        "creationConditions": ""
       },
       "length": {
         "commentary": "",
@@ -981,7 +987,10 @@
         "fnInputParams": "",
         "fnOutputTarget": "",
         "fnSyncCondition": "",
-        "dataSource": ""
+        "dataSource": "",
+        "initialCreation": "",
+        "showNodeDetail": "",
+        "creationConditions": ""
       },
       "topSide": {
         "commentary": "",
@@ -1001,7 +1010,10 @@
         "fnInputParams": "",
         "fnOutputTarget": "",
         "fnSyncCondition": "",
-        "dataSource": ""
+        "dataSource": "",
+        "initialCreation": "",
+        "showNodeDetail": "",
+        "creationConditions": ""
       },
       "bottomSide": {
         "commentary": "",
@@ -1021,7 +1033,10 @@
         "fnInputParams": "",
         "fnOutputTarget": "",
         "fnSyncCondition": "",
-        "dataSource": ""
+        "dataSource": "",
+        "initialCreation": "",
+        "showNodeDetail": "",
+        "creationConditions": ""
       },
       "verticalSide": {
         "commentary": "",
@@ -1041,7 +1056,10 @@
         "fnInputParams": "",
         "fnOutputTarget": "",
         "fnSyncCondition": "",
-        "dataSource": ""
+        "dataSource": "",
+        "initialCreation": "",
+        "showNodeDetail": "",
+        "creationConditions": ""
       },
       "height": {
         "commentary": "",
@@ -1061,14 +1079,17 @@
         "fnInputParams": "",
         "fnOutputTarget": "",
         "fnSyncCondition": "",
-        "dataSource": ""
+        "dataSource": "",
+        "initialCreation": "",
+        "showNodeDetail": "",
+        "creationConditions": ""
       },
       "Area": {
         "commentary": "",
         "id": "",
         "label": "",
         "variableType": "text",
-        "systemType": "text",
+        "systemType": "calculation",
         "isRequired": "false",
         "defaultValue": "",
         "showNode": "true",
@@ -1081,7 +1102,10 @@
         "fnInputParams": "",
         "fnOutputTarget": "",
         "fnSyncCondition": "",
-        "dataSource": ""
+        "dataSource": "",
+        "initialCreation": "",
+        "showNodeDetail": "",
+        "creationConditions": ""
       },
       "quantity": {
         "commentary": "",
@@ -1101,7 +1125,10 @@
         "fnInputParams": "",
         "fnOutputTarget": "",
         "fnSyncCondition": "",
-        "dataSource": ""
+        "dataSource": "",
+        "initialCreation": "",
+        "showNodeDetail": "",
+        "creationConditions": ""
       },
       "volume": {
         "commentary": "",
@@ -1121,7 +1148,10 @@
         "fnInputParams": "",
         "fnOutputTarget": "",
         "fnSyncCondition": "",
-        "dataSource": ""
+        "dataSource": "",
+        "initialCreation": "",
+        "showNodeDetail": "",
+        "creationConditions": ""
       },
       "storageAmount": {
         "commentary": "",
@@ -1141,7 +1171,10 @@
         "fnInputParams": "",
         "fnOutputTarget": "",
         "fnSyncCondition": "",
-        "dataSource": ""
+        "dataSource": "",
+        "initialCreation": "",
+        "showNodeDetail": "",
+        "creationConditions": ""
       },
       "storageDays": {
         "commentary": "",
@@ -1161,7 +1194,10 @@
         "fnInputParams": "",
         "fnOutputTarget": "",
         "fnSyncCondition": "",
-        "dataSource": ""
+        "dataSource": "",
+        "initialCreation": "",
+        "showNodeDetail": "",
+        "creationConditions": ""
       },
       "changeType": {
         "commentary": "",
@@ -1181,7 +1217,10 @@
         "fnInputParams": "",
         "fnOutputTarget": "",
         "fnSyncCondition": "",
-        "dataSource": ""
+        "dataSource": "",
+        "initialCreation": "",
+        "showNodeDetail": "",
+        "creationConditions": ""
       },
       "wasteDocumentation": {
         "commentary": "",
@@ -1201,7 +1240,10 @@
         "fnInputParams": "",
         "fnOutputTarget": "",
         "fnSyncCondition": "",
-        "dataSource": ""
+        "dataSource": "",
+        "initialCreation": "",
+        "showNodeDetail": "",
+        "creationConditions": ""
       }
     },
     "ExecutiveOfficer": {
@@ -1614,7 +1656,76 @@
       "삼각형"
     ]
   },
-  "functionStore": [],
+  "functionStore": [
+    {
+      "name": "calcArea",
+      "desc": "바닥 형태(bottomShape)와 치수로 면적을 계산합니다",
+      "params": [
+        {
+          "name": "bottomShape",
+          "desc": ""
+        },
+        {
+          "name": "diameter",
+          "desc": ""
+        },
+        {
+          "name": "width",
+          "desc": ""
+        },
+        {
+          "name": "length",
+          "desc": ""
+        },
+        {
+          "name": "topSide",
+          "desc": ""
+        },
+        {
+          "name": "bottomSide",
+          "desc": ""
+        },
+        {
+          "name": "verticalSide",
+          "desc": ""
+        }
+      ],
+      "outputType": "float",
+      "outputDesc": ""
+    },
+    {
+      "name": "calcVolume",
+      "desc": "면적(Area)과 높이(height)로 부피를 계산합니다",
+      "params": [
+        {
+          "name": "Area",
+          "desc": ""
+        },
+        {
+          "name": "height",
+          "desc": ""
+        }
+      ],
+      "outputType": "float",
+      "outputDesc": ""
+    },
+    {
+      "name": "calcStorageAmount",
+      "desc": "부피(volume)와 개수(quantity)로 저장용량을 계산합니다",
+      "params": [
+        {
+          "name": "volume",
+          "desc": ""
+        },
+        {
+          "name": "quantity",
+          "desc": ""
+        }
+      ],
+      "outputType": "float",
+      "outputDesc": ""
+    }
+  ],
   "todoItems": [
     {
       "id": "t001",
@@ -1731,5 +1842,5 @@
     }
   ],
   "annotations": [],
-  "savedAt": "2026. 4. 8. 오후 2:08:48"
+  "savedAt": "2026. 4. 8. 오후 2:50:57"
 }
