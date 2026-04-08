@@ -1,7 +1,8 @@
 // fn-engine.js
 // ─────────────────────────────────────────────────────────
 // 함수 실행 엔진.
-// CellGrid onCommit → runFunctions() 호출.
+// CellGrid onCommit → runFunctions(modelName, changedField, rowIndex) 호출.
+// 1:1 폼에서는 rowIndex = null 로 호출.
 //
 // 동작 순서:
 //   1. changedField를 watch하는 함수 목록 조회 (FunctionRegistry.findByWatch)
@@ -9,7 +10,17 @@
 //   3. fnName이 FunctionRegistry에 없으면 셀에 ⚠ 에러 표시
 //   4. watch 필드들의 현재 값 수집 → fn(params) 실행
 //   5. 셀 값/display 갱신 → 체인 재실행 (Area→volume→storageAmount)
+//
+// data-mockfield 패턴:
+//   엑셀 뷰  → "ModelName.fieldName.{rowIndex}"
+//   1:1 폼  → "ModelName.fieldName"  (rowIndex = null)
 // ─────────────────────────────────────────────────────────
+
+function _mockfieldSelector(modelName, fieldName, rowIndex) {
+  return rowIndex === null || rowIndex === undefined
+    ? `[data-mockfield="${modelName}.${fieldName}"]`
+    : `[data-mockfield="${modelName}.${fieldName}.${rowIndex}"]`;
+}
 
 function runFunctions(modelName, changedField, rowIndex) {
   const meta = metaStore[modelName] || {};
@@ -39,7 +50,7 @@ function _executeFunction(modelName, fieldName, fnName, rowIndex) {
   // watch 목록 기준으로 파라미터 수집
   const params = {};
   def.watch.forEach(f => {
-    const el = document.querySelector(`[data-mockfield="${modelName}.${f}.${rowIndex}"]`);
+    const el = document.querySelector(_mockfieldSelector(modelName, f, rowIndex));
     params[f] = el?.value ?? '';
   });
 
@@ -58,11 +69,12 @@ function _executeFunction(modelName, fieldName, fnName, rowIndex) {
 }
 
 function _updateCell(modelName, fieldName, rowIndex, value) {
-  const input = document.querySelector(`[data-mockfield="${modelName}.${fieldName}.${rowIndex}"]`);
+  const input = document.querySelector(_mockfieldSelector(modelName, fieldName, rowIndex));
   if (!input) return;
 
   input.value = value;
 
+  // 엑셀 뷰: cell-display도 갱신
   const td = input.closest('[data-cell-type]');
   if (!td) return;
   const display = td.querySelector('.cell-display');
@@ -74,11 +86,12 @@ function _updateCell(modelName, fieldName, rowIndex, value) {
 }
 
 function _setCellError(modelName, fieldName, rowIndex, msg) {
-  const input = document.querySelector(`[data-mockfield="${modelName}.${fieldName}.${rowIndex}"]`);
+  const input = document.querySelector(_mockfieldSelector(modelName, fieldName, rowIndex));
   if (!input) return;
 
   input.value = '';
 
+  // 엑셀 뷰: cell-display에 에러 표시
   const td = input.closest('[data-cell-type]');
   if (!td) return;
   const display = td.querySelector('.cell-display');
