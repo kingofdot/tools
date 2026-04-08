@@ -516,6 +516,15 @@ body {
   font-style: italic;
 }
 
+/* 함수 인자 셀 (초록) / 결과 셀 (붉은) */
+.excel-table td.cell--fn-input  { background: rgba(72,187,120,.10) }
+.excel-table td.cell--fn-output { background: rgba(229,62,62,.10) }
+/* selected / editing 상태가 색상 우선 */
+.excel-table td.cell--fn-input.cell--selected,
+.excel-table td.cell--fn-output.cell--selected  { background: var(--accent-dim) }
+.excel-table td.cell--fn-input.cell--editing,
+.excel-table td.cell--fn-output.cell--editing   { background: var(--bg-primary) }
+
 /* DIFF */
 .diff-container { flex: 1; display: flex; overflow: hidden }
 .diff-pane { flex: 1; display: flex; flex-direction: column; overflow: hidden }

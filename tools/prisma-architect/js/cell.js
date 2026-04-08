@@ -166,17 +166,19 @@ const CellComponents = {
 // CellGrid 없이도 단독 사용 가능 — 조립 단위.
 //
 // params:
-//   type      — CellComponents 키 (예: 'text', 'select')
-//   value     — 현재 값 (string)
-//   meta      — 필드 메타 { commentary, comboboxName, dataSource, ... }
-//   row, col  — 그리드 좌표
-//   mockField — data-mockfield 속성값 (선택, 없으면 생략)
-function buildCell({ type, value = '', meta = {}, row, col, mockField = '' }) {
+//   type       — CellComponents 키 (예: 'text', 'select')
+//   value      — 현재 값 (string)
+//   meta       — 필드 메타 { commentary, comboboxName, dataSource, ... }
+//   row, col   — 그리드 좌표
+//   mockField  — data-mockfield 속성값 (선택, 없으면 생략)
+//   extraClass — td에 추가할 CSS 클래스 (선택, 예: 'cell--fn-input')
+function buildCell({ type, value = '', meta = {}, row, col, mockField = '', extraClass = '' }) {
   const comp = CellComponents[type] || CellComponents.text;
   if (comp.hidden) return '';
 
-  const roAttr   = comp.readonly ? ' data-readonly="true"' : '';
-  const mockAttr = mockField ? ` data-mockfield="${mockField}"` : '';
+  const roAttr    = comp.readonly ? ' data-readonly="true"' : '';
+  const mockAttr  = mockField ? ` data-mockfield="${mockField}"` : '';
+  const clsExtra  = extraClass ? ` ${extraClass}` : '';
 
   // renderInput 결과에 mockField 주입
   const rawInput  = comp.renderInput(value, meta);
@@ -186,7 +188,7 @@ function buildCell({ type, value = '', meta = {}, row, col, mockField = '' }) {
 
   const displayHtml = comp.renderDisplay(value, meta);
 
-  return `<td class="cell" data-row="${row}" data-col="${col}" data-cell-type="${type}" tabindex="0"${roAttr}>
+  return `<td class="cell${clsExtra}" data-row="${row}" data-col="${col}" data-cell-type="${type}" tabindex="0"${roAttr}>
   <span class="cell-display">${displayHtml}</span>
   ${inputHtml}
 </td>`;

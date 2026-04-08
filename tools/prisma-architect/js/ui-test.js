@@ -251,9 +251,10 @@ function renderUiTestPreview() {
 
 // ── 1:1 폼 ─────────────────────────────────────────────
 function renderForm1to1(rows, modelName) {
-  const labelH = headerByRole('label');
-  const reqH   = headerByRole('required');
-  const widthH = headerByRole('width');
+  const labelH  = headerByRole('label');
+  const reqH    = headerByRole('required');
+  const widthH  = headerByRole('width');
+  const fnRoles = _buildFnRoles(modelName);
 
   const fields = rows.map(([fieldName, meta]) => {
     const label    = (labelH && meta[labelH.name]) || fieldName;
@@ -262,8 +263,14 @@ function renderForm1to1(rows, modelName) {
     const width    = (widthH && meta[widthH.name]) || '100%';
     const input    = buildInput(fieldName, meta, modelName);
     if (input === '') return ''; // hidden 필드 스킵
+
+    const role = fnRoles[fieldName];
+    const bg = role === 'input'  ? 'background:rgba(72,187,120,.08);border-radius:8px;padding:8px;'
+             : role === 'output' ? 'background:rgba(229,62,62,.08);border-radius:8px;padding:8px;'
+             : '';
+
     return `
-      <div style="display:flex;flex-direction:column;gap:5px;width:${width}">
+      <div style="display:flex;flex-direction:column;gap:5px;width:${width};${bg}">
         <label style="font-size:13px;font-weight:600;color:var(--text-primary)">
           ${label}${required ? ' <span style="color:#e53e3e">*</span>' : ''}
         </label>
@@ -280,6 +287,24 @@ function renderForm1to1(rows, modelName) {
         <button class="btn">취소</button>
       </div>
     </div>`;
+}
+
+// ── 함수 역할 맵 ────────────────────────────────────────────
+// 모델의 각 필드가 함수와 어떤 관계인지 반환.
+//   'input'  — FunctionRegistry 어딘가의 watch 목록에 포함 (인자 필드)
+//   'output' — systemType === 'calculation' (결과 필드)
+//   undefined — 함수와 무관
+function _buildFnRoles(modelName) {
+  const meta = metaStore[modelName] || {};
+  const roles = {};
+  Object.entries(meta).forEach(([fieldName, fieldMeta]) => {
+    if (fieldMeta.systemType === 'calculation') roles[fieldName] = 'output';
+  });
+  Object.keys(meta).forEach(fieldName => {
+    if (roles[fieldName] === 'output') return;
+    if (FunctionRegistry.findByWatch(fieldName).length > 0) roles[fieldName] = 'input';
+  });
+  return roles;
 }
 
 // ── 컴포넌트 타입 결정 (prisma-architect 도메인 전용) ────────
@@ -300,7 +325,8 @@ function _resolveCompType(meta) {
 // ── 엑셀(테이블) 뷰 ─────────────────────────────────────
 // buildCell (cell.js) 로 조립 — 타입 결정만 여기서, 렌더는 CellComponents
 function renderExcelView(rows, modelName) {
-  const labelH = headerByRole('label');
+  const labelH  = headerByRole('label');
+  const fnRoles = _buildFnRoles(modelName);
 
   // hidden 필드 제외
   const visibleRows = rows.filter(([, meta]) => _resolveCompType(meta) !== 'hidden');
@@ -310,22 +336,30 @@ function renderExcelView(rows, modelName) {
   const savedData = uitestExcelData[modelName] || [];
   const storeData = mockStore[modelName] || [];
 
-  const ths = visibleRows.map(([fn, meta]) =>
-    `<th style="white-space:nowrap">${(labelH && meta[labelH.name]) || fn}</th>`
-  ).join('');
+  const ths = visibleRows.map(([fn, meta]) => {
+    const role  = fnRoles[fn];
+    const bg    = role === 'input'  ? 'background:rgba(72,187,120,.18);'
+                : role === 'output' ? 'background:rgba(229,62,62,.12);'
+                : '';
+    const w     = `width:${parseInt(meta.width) || 120}px;`;
+    return `<th style="${w}${bg}">${(labelH && meta[labelH.name]) || fn}</th>`;
+  }).join('');
 
   const bodyRows = Array.from({ length: rowCount }, (_, ri) => {
     const initData = savedData[ri] || storeData[ri] || {};
-    const cells = visibleRows.map(([fn, meta], ci) =>
-      buildCell({
-        type:      _resolveCompType(meta),
-        value:     initData[fn] ?? '',
+    const cells = visibleRows.map(([fn, meta], ci) => {
+      const role       = fnRoles[fn];
+      const extraClass = role === 'input' ? 'cell--fn-input' : role === 'output' ? 'cell--fn-output' : '';
+      return buildCell({
+        type:       _resolveCompType(meta),
+        value:      initData[fn] ?? '',
         meta,
-        row:       ri,
-        col:       ci,
-        mockField: `${modelName}.${fn}.${ri}`,
-      })
-    ).join('');
+        row:        ri,
+        col:        ci,
+        mockField:  `${modelName}.${fn}.${ri}`,
+        extraClass,
+      });
+    }).join('');
     return `<tr>${cells}</tr>`;
   }).join('');
 
@@ -346,7 +380,7 @@ function renderExcelView(rows, modelName) {
     </div>
     <div style="overflow-x:auto">
       <div class="excel-cell-grid" data-model="${modelName}">
-        <table class="excel-table" style="width:100%">
+        <table class="excel-table" style="width:max-content;table-layout:fixed">
           <thead><tr>${ths}</tr></thead>
           <tbody>${bodyRows}</tbody>
         </table>
