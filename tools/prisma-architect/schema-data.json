@@ -345,7 +345,9 @@
         "calcArea",
         "calcVolume",
         "calcStorageAmount",
-        "lookupWaste"
+        "lookupWaste",
+        "lookupWasteByName",
+        "optionsRecyclingCode"
       ],
       "uiRole": "none"
     }
@@ -1351,7 +1353,7 @@
         "initialCreation": "true",
         "showNode": "true",
         "showNodeDetail": "",
-        "systemType": "combobox",
+        "systemType": "select",
         "variableType": "text",
         "width": "",
         "defaultValue": "",
@@ -2777,8 +2779,36 @@
     },
     {
       "name": "lookupWaste",
-      "desc": "폐기물코드(wasteCode)로 마스터 데이터 조회 → wasteName 자동 세팅",
+      "desc": "폐기물코드(wasteCode) → wasteName 자동 세팅",
       "params": [
+        {
+          "name": "wasteCode",
+          "desc": ""
+        }
+      ],
+      "outputType": "float",
+      "outputDesc": ""
+    },
+    {
+      "name": "lookupWasteByName",
+      "desc": "폐기물명칭(wasteName) 선택 → wasteCode 자동 세팅",
+      "params": [
+        {
+          "name": "wasteName",
+          "desc": ""
+        }
+      ],
+      "outputType": "float",
+      "outputDesc": ""
+    },
+    {
+      "name": "optionsRecyclingCode",
+      "desc": "재활용분석 결과에 따라 recyclingCode 드롭다운 선택지 교체",
+      "params": [
+        {
+          "name": "preAnalysisRequired",
+          "desc": ""
+        },
         {
           "name": "wasteCode",
           "desc": ""
@@ -2904,5 +2934,5 @@
     }
   ],
   "annotations": [],
-  "savedAt": "2026. 4. 9. 오후 5:20:28"
+  "savedAt": "2026. 4. 9. 오후 5:51:47"
 }
