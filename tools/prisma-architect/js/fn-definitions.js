@@ -97,20 +97,19 @@ FunctionRegistry.register('calcStorageAmount', {
 
 // ── 조회 함수 (Lookup) ────────────────────────────────────
 
-// 폐기물코드 선택 → wasteName, recyclingCodeNone, recyclingCodeCorrespond 동시 세팅
+// 폐기물코드 선택 → wasteName 자동 세팅
+// recyclingCode 옵션은 preAnalysisRequired(해당/해당없음) 선택 후 별도 조회 함수가 처리
 FunctionRegistry.register('lookupWaste', {
-  desc: '폐기물코드(wasteCode)로 마스터 데이터 조회 → 관련 필드 자동 세팅',
+  desc: '폐기물코드(wasteCode)로 마스터 데이터 조회 → wasteName 자동 세팅',
   watch: ['wasteCode'],
-  outputFields: ['wasteName', 'recyclingCodeNone', 'recyclingCodeCorrespond'],
+  outputFields: ['wasteName'],
   fn(params) {
     const code = (params.wasteCode || '').trim();
     if (!code) return null;
     const record = WasteMasterDB.find(r => r.wasteCode === code);
     if (!record) return null;
     return {
-      wasteName:              record.wasteName,
-      recyclingCodeNone:      record.recyclingCodeNone,
-      recyclingCodeCorrespond: record.recyclingCodeCorrespond,
+      wasteName: record.wasteName,
     };
   },
 });
