@@ -1335,7 +1335,7 @@
         "initialCreation": "true",
         "showNode": "",
         "showNodeDetail": "",
-        "systemType": "combobox",
+        "systemType": "select",
         "variableType": "text",
         "width": "",
         "defaultValue": "",
@@ -1351,8 +1351,8 @@
         "initialCreation": "true",
         "showNode": "",
         "showNodeDetail": "",
-        "systemType": "",
-        "variableType": "",
+        "systemType": "select",
+        "variableType": "text",
         "width": "",
         "defaultValue": "",
         "comboboxName": "",
@@ -2777,7 +2777,7 @@
     },
     {
       "name": "lookupWaste",
-      "desc": "폐기물코드(wasteCode)로 마스터 데이터 조회 → 관련 필드 자동 세팅",
+      "desc": "폐기물코드(wasteCode)로 마스터 데이터 조회 → wasteName 자동 세팅",
       "params": [
         {
           "name": "wasteCode",
@@ -2904,5 +2904,5 @@
     }
   ],
   "annotations": [],
-  "savedAt": "2026. 4. 9. 오후 5:02:30"
+  "savedAt": "2026. 4. 9. 오후 5:20:28"
 }
