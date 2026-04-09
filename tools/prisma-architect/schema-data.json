@@ -102,12 +102,12 @@
       "y": 4205
     },
     "WasteIndustryType": {
-      "x": 3680,
-      "y": 4919
+      "x": 4793,
+      "y": 4115
     },
     "ProfileScope": {
-      "x": 3680,
-      "y": 5339
+      "x": 4911,
+      "y": 4527
     },
     "DocumentType": {
       "x": 6320,
@@ -118,12 +118,12 @@
       "y": 5045
     },
     "ChangeType": {
-      "x": 3680,
-      "y": 5759
+      "x": 4806,
+      "y": 4939
     },
     "BottomShape": {
-      "x": 3680,
-      "y": 6179
+      "x": 5291,
+      "y": 5216
     },
     "RawMaterialUsage": {
       "x": 6600,
@@ -142,8 +142,8 @@
       "y": 1937
     },
     "MaterialType": {
-      "x": 1860,
-      "y": 2160
+      "x": 5673,
+      "y": 1808
     },
     "WaterDocumentation": {
       "x": 8127,
@@ -174,8 +174,8 @@
       "y": 4117
     },
     "PollutantContext": {
-      "x": 3429,
-      "y": 2983
+      "x": 7539,
+      "y": 5415
     }
   },
   "cardinalityMap": {
@@ -275,32 +275,13 @@
     {
       "name": "systemType",
       "type": "combo",
-      "options": [
-        "text",
-        "number",
-        "date",
-        "select",
-        "combobox",
-        "boolean",
-        "calculation",
-        "lookup_editable",
-        "lookup_readonly",
-        "hidden"
-      ],
+      "options": [],
       "uiRole": "none"
     },
     {
       "name": "variableType",
       "type": "combo",
-      "options": [
-        "text",
-        "integer",
-        "float",
-        "date",
-        "datetime",
-        "boolean",
-        "json"
-      ],
+      "options": [],
       "uiRole": "componentType"
     },
     {
@@ -318,9 +299,7 @@
     {
       "name": "comboboxName",
       "type": "combo",
-      "options": [
-        "Shape"
-      ],
+      "options": [],
       "uiRole": "none"
     },
     {
@@ -338,11 +317,7 @@
     {
       "name": "fnName",
       "type": "combo",
-      "options": [
-        "calcArea",
-        "calcVolume",
-        "calcStorageAmount"
-      ],
+      "options": [],
       "uiRole": "none"
     }
   ],
@@ -1842,5 +1817,5 @@
     }
   ],
   "annotations": [],
-  "savedAt": "2026. 4. 8. 오후 3:18:50"
+  "savedAt": "2026. 4. 9. 오전 11:12:38"
 }
