@@ -11,16 +11,25 @@ CellComponents.configure({
   optionsResolver: (groupName) => (comboboxStore[groupName] || []),
 });
 
-// mockStore: Zustand store 대체 (디버깅용 스냅샷)
+// mockStore: Zustand store 대체 — 셀 확정(onCommit/onchange) 시 자동 업데이트
 // { [modelName]: [ { _id, ...fields } ] }
 let mockStore = {};
 
 // 엑셀 모드 상태
 let uitestExcelRowCount = {}; // { modelName: number } — 현재 테이블 행 수
-let uitestExcelData   = {}; // { modelName: [rowObj] } — 행 추가 전 데이터 보존
 
 // CellGrid 인스턴스 (렌더마다 교체)
 let _cellGrids = [];
+
+// ── 스토어 자동 업데이트 ─────────────────────────────────
+// 호출 시점: 엑셀 onCommit / 폼 onchange / 함수 결과(_updateCell)
+// rowIndex: null = 1:1 폼(index 0), number = 엑셀 행 번호
+function _autoStoreSet(modelName, fieldName, rowIndex, value) {
+  if (!mockStore[modelName]) mockStore[modelName] = [];
+  const idx = (rowIndex === null || rowIndex === undefined) ? 0 : rowIndex;
+  if (!mockStore[modelName][idx]) mockStore[modelName][idx] = { _id: String(idx + 1) };
+  mockStore[modelName][idx][fieldName] = value;
+}
 
 // ── mockStore 뷰어 ───────────────────────────────────────
 function mockStoreView() {
@@ -33,78 +42,21 @@ function mockStoreClear(modelName) {
   if (modelName) {
     delete mockStore[modelName];
     delete uitestExcelRowCount[modelName];
-    delete uitestExcelData[modelName];
-    toast(`${modelName} mockStore 초기화`, 'info');
+    toast(`${modelName} 스토어 초기화`, 'info');
   } else {
     mockStore = {};
     uitestExcelRowCount = {};
-    uitestExcelData = {};
-    toast('mockStore 전체 초기화', 'info');
+    toast('스토어 전체 초기화', 'info');
   }
   renderUiTestPreview();
-}
-
-// ── mockStore 저장: 화면의 현재 데이터를 통째로 기록 ─────
-function mockStoreCreate() {
-  _cellGrids.forEach(g => g.commit()); // 편집 중인 셀 먼저 확정
-  const models = [...uitestChecked];
-  if (!models.length) { toast('먼저 모델을 선택하세요', 'error'); return; }
-
-  models.forEach(name => {
-    const viewMode  = (uiModelConfig[name] || {}).viewMode || '1to1';
-    const isExcel   = uitestViewContext === 'list' || viewMode === 'excel';
-    const meta      = metaStore[name] || {};
-
-    if (isExcel) {
-      // 엑셀 모드: 테이블 행 전체 → mockStore 교체
-      const count   = uitestExcelRowCount[name] || 1;
-      const records = [];
-      for (let i = 0; i < count; i++) {
-        const rec = { _id: String(i + 1) };
-        Object.keys(meta).forEach(fn => {
-          const el = document.querySelector(`[data-mockfield="${name}.${fn}.${i}"]`);
-          rec[fn] = el ? (el.value ?? '') : '';
-        });
-        records.push(rec);
-      }
-      mockStore[name] = records;
-    } else {
-      // 폼 모드: 현재 폼 값 → mockStore append
-      if (!mockStore[name]) mockStore[name] = [];
-      const rec = { _id: String(Date.now()) };
-      Object.keys(meta).forEach(fn => {
-        const el = document.querySelector(`[data-mockfield="${name}.${fn}"]`);
-        rec[fn] = el ? (el.value ?? '') : '';
-      });
-      mockStore[name].push(rec);
-    }
-  });
-
-  const summary = models.map(n => `${n}: ${(mockStore[n] || []).length}건`).join(', ');
-  toast(`📦 mockStore 저장됨 (${summary})`, 'success');
 }
 
 // ── 엑셀 모드 행 추가 ───────────────────────────────────
+// 편집 중인 셀을 확정(→ onCommit → _autoStoreSet)한 뒤 행 수 증가
 function uitestAddRow(modelName) {
-  _cellGrids.forEach(g => g.commit()); // 편집 중인 셀 확정
-  _captureExcelRows(modelName);        // 현재 셀 값 보존
+  _cellGrids.forEach(g => g.commit());
   uitestExcelRowCount[modelName] = (uitestExcelRowCount[modelName] || 1) + 1;
   renderUiTestPreview();
-}
-
-function _captureExcelRows(modelName) {
-  const count = uitestExcelRowCount[modelName] || 1;
-  const meta  = metaStore[modelName] || {};
-  const rows  = [];
-  for (let i = 0; i < count; i++) {
-    const row = {};
-    Object.keys(meta).forEach(fn => {
-      const el = document.querySelector(`[data-mockfield="${modelName}.${fn}.${i}"]`);
-      row[fn] = el ? (el.value ?? '') : '';
-    });
-    rows.push(row);
-  }
-  uitestExcelData[modelName] = rows;
 }
 
 // ────────────────────────────────────────────────────────
@@ -209,21 +161,11 @@ function renderUiTestPreview() {
       </div>`;
     }
 
-    // 폼 모드일 때만 상단 mockStore 배지 표시
-    const records    = mockStore[name] || [];
-    const recordBadge = !isExcel && records.length > 0
-      ? `<div style="margin-bottom:12px;display:flex;align-items:center;gap:8px">
-          <span style="font-size:11px;background:var(--accent-dim);color:var(--accent);padding:3px 10px;border-radius:99px;font-weight:700">📦 저장된 레코드 ${records.length}건</span>
-          <button class="btn" style="padding:2px 10px;font-size:11px" onclick="mockStoreClear('${name}')">초기화</button>
-          <button class="btn" style="padding:2px 10px;font-size:11px" onclick="mockStoreView()">보기</button>
-        </div>`
-      : '';
-
     const body = isExcel
       ? renderExcelView(rows, name)
       : renderForm1to1(rows, name);
 
-    return `<div style="margin-bottom:40px">${sectionHeader}${recordBadge}${body}</div>`;
+    return `<div style="margin-bottom:40px">${sectionHeader}${body}</div>`;
   }).join('');
 
   // CellGrid 재초기화
@@ -233,7 +175,7 @@ function renderUiTestPreview() {
     // data-model 속성으로 모델명 식별
     const modelName = el.dataset.model;
     _cellGrids.push(new CellGrid(el, {
-      onCommit: (row, col) => {
+      onCommit: (row, col, val) => {
         if (!modelName) return;
         // 바뀐 필드명 추출 (data-mockfield = "ModelName.fieldName.rowIndex")
         const cell = el.querySelector(`[data-row="${row}"][data-col="${col}"]`);
@@ -241,6 +183,8 @@ function renderUiTestPreview() {
         const parts = mockfield.split('.');
         if (parts.length < 2) return;
         const changedField = parts[1];
+        // 스토어 자동 업데이트 → 함수 실행
+        _autoStoreSet(modelName, changedField, row, val);
         runFunctions(modelName, changedField, row);
       },
     }));
@@ -283,8 +227,8 @@ function renderForm1to1(rows, modelName) {
     <div style="max-width:640px;display:flex;flex-direction:column;gap:20px">
       ${fields}
       <div style="display:flex;gap:8px;margin-top:8px">
-        <button class="btn btn-accent" style="min-width:100px" onclick="mockStoreCreate()">📦 저장 → mockStore</button>
-        <button class="btn">취소</button>
+        <button class="btn" onclick="mockStoreView()">스토어 보기</button>
+        <button class="btn" onclick="mockStoreClear('${modelName}')">초기화</button>
       </div>
     </div>`;
 }
@@ -333,7 +277,6 @@ function renderExcelView(rows, modelName) {
 
   if (!uitestExcelRowCount[modelName]) uitestExcelRowCount[modelName] = 1;
   const rowCount  = uitestExcelRowCount[modelName];
-  const savedData = uitestExcelData[modelName] || [];
   const storeData = mockStore[modelName] || [];
 
   const ths = visibleRows.map(([fn, meta]) => {
@@ -346,7 +289,7 @@ function renderExcelView(rows, modelName) {
   }).join('');
 
   const bodyRows = Array.from({ length: rowCount }, (_, ri) => {
-    const initData = savedData[ri] || storeData[ri] || {};
+    const initData = storeData[ri] || {};
     const cells = visibleRows.map(([fn, meta], ci) => {
       const role       = fnRoles[fn];
       const extraClass = role === 'input' ? 'cell--fn-input' : role === 'output' ? 'cell--fn-output' : '';
@@ -363,19 +306,12 @@ function renderExcelView(rows, modelName) {
     return `<tr>${cells}</tr>`;
   }).join('');
 
-  const storeCount = storeData.length;
-  const storeBadge = storeCount > 0
-    ? `<span style="font-size:11px;background:var(--accent-dim);color:var(--accent);padding:2px 8px;border-radius:99px;font-weight:700">📦 저장됨 ${storeCount}건</span>`
-    : '';
-
   return `
     <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;flex-wrap:wrap">
-      ${storeBadge}
       <div style="margin-left:auto;display:flex;gap:6px">
         <button class="btn" style="padding:4px 14px;font-size:12px" onclick="uitestAddRow('${modelName}')">+ 행 추가</button>
-        <button class="btn btn-accent" style="padding:4px 14px;font-size:12px" onclick="mockStoreCreate()">📦 mockStore 저장</button>
-        <button class="btn" style="padding:4px 14px;font-size:12px" onclick="mockStoreView()">보기</button>
-        ${storeCount > 0 ? `<button class="btn" style="padding:4px 14px;font-size:12px" onclick="mockStoreClear('${modelName}')">초기화</button>` : ''}
+        <button class="btn" style="padding:4px 14px;font-size:12px" onclick="mockStoreView()">스토어 보기</button>
+        <button class="btn" style="padding:4px 14px;font-size:12px" onclick="mockStoreClear('${modelName}')">초기화</button>
       </div>
     </div>
     <div style="overflow-x:auto">
@@ -404,10 +340,9 @@ function buildInput(fieldName, meta, modelName) {
   const ro  = comp.readonly;
   const s   = `width:100%;padding:9px 12px;border:1px solid var(--border);border-radius:8px;background:var(--bg-primary);color:var(--text-primary);font-size:13px;box-sizing:border-box${ro ? ';opacity:0.6;cursor:default' : ''}`;
 
-  // readonly/calculation이 아닌 입력 필드에 fn 트리거 연결
-  // runFunctions가 내부에서 watch 매핑을 확인하므로, 모든 입력 필드에 붙여도 무방
+  // readonly/calculation이 아닌 입력 필드: 스토어 자동 업데이트 + fn 트리거
   const onChange = (!ro && modelName)
-    ? `onchange="runFunctions('${modelName}','${fieldName}',null)"`
+    ? `onchange="_autoStoreSet('${modelName}','${fieldName}',null,this.value);runFunctions('${modelName}','${fieldName}',null)"`
     : '';
 
   if (type === 'select' || type === 'combobox') {

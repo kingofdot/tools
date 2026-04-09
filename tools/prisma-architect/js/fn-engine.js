@@ -83,6 +83,9 @@ function _updateCell(modelName, fieldName, rowIndex, value) {
   const type = td.dataset.cellType;
   const comp = CellComponents[type];
   display.innerHTML = comp?.renderDisplay ? comp.renderDisplay(value, {}) : value;
+
+  // 함수 결과도 스토어 자동 반영
+  if (typeof _autoStoreSet === 'function') _autoStoreSet(modelName, fieldName, rowIndex, value);
 }
 
 function _setCellError(modelName, fieldName, rowIndex, msg) {
