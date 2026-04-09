@@ -313,6 +313,7 @@ class CellGrid {
     this.el.removeEventListener('keydown',   this._kh);
     this.el.removeEventListener('mousedown', this._mh);
     this.el.removeEventListener('dblclick',  this._dh);
+    this.el.removeEventListener('focusout',  this._fh);
   }
 
   // ── Private ────────────────────────────────────────────
@@ -321,9 +322,11 @@ class CellGrid {
     this._kh = e => this._onKeydown(e);
     this._mh = e => this._onMousedown(e);
     this._dh = e => this._onDblclick(e);
+    this._fh = e => this._onFocusout(e);
     this.el.addEventListener('keydown',   this._kh);
     this.el.addEventListener('mousedown', this._mh);
     this.el.addEventListener('dblclick',  this._dh);
+    this.el.addEventListener('focusout',  this._fh);
   }
 
   _onKeydown(e) {
@@ -416,6 +419,14 @@ class CellGrid {
     const cell = e.target.closest(this.opt.cellSel);
     if (!cell || this._editing) return;
     this.startEdit(+cell.dataset.row, +cell.dataset.col, false);
+  }
+
+  // 포커스가 그리드 바깥으로 나가면 선택/편집 상태 해제
+  _onFocusout(e) {
+    // relatedTarget이 그리드 내부이면 무시 (셀 → 셀 이동)
+    if (this.el.contains(e.relatedTarget)) return;
+    if (this._editing) this.commit();
+    this._clearActive();
   }
 
   _cell(row, col) {
