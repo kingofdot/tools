@@ -1454,38 +1454,6 @@
         "dataSource": "",
         "creationConditions": "",
         "fnName": ""
-      },
-      "recyclingCodeNone": {
-        "systemType": "text",
-        "label": "recyclingCodeNone",
-        "showNode": "true",
-        "initialCreation": "true",
-        "commentary": "",
-        "isRequired": "",
-        "showNodeDetail": "",
-        "variableType": "",
-        "width": "",
-        "defaultValue": "",
-        "comboboxName": "",
-        "dataSource": "",
-        "creationConditions": "",
-        "fnName": ""
-      },
-      "recyclingCodeCorrespond": {
-        "systemType": "text",
-        "label": "recyclingCodeCorrespond",
-        "showNode": "true",
-        "initialCreation": "true",
-        "commentary": "",
-        "isRequired": "",
-        "showNodeDetail": "",
-        "variableType": "",
-        "width": "",
-        "defaultValue": "",
-        "comboboxName": "",
-        "dataSource": "",
-        "creationConditions": "",
-        "fnName": ""
       }
     },
     "__combobox__": {},
@@ -2903,5 +2871,5 @@
     }
   ],
   "annotations": [],
-  "savedAt": "2026. 4. 9. 오후 4:56:50"
+  "savedAt": "2026. 4. 9. 오후 5:00:31"
 }
