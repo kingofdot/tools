@@ -1335,11 +1335,11 @@
         "initialCreation": "true",
         "showNode": "",
         "showNodeDetail": "",
-        "systemType": "",
-        "variableType": "",
+        "systemType": "combobox",
+        "variableType": "text",
         "width": "",
         "defaultValue": "",
-        "comboboxName": "",
+        "comboboxName": "Applicable",
         "dataSource": "",
         "creationConditions": "",
         "fnName": ""
@@ -1517,6 +1517,20 @@
       "requestId": {},
       "request": {},
       "data": {},
+      "createdAt": {},
+      "updatedAt": {}
+    },
+    "Vehicle": {
+      "id": {},
+      "businessId": {},
+      "vehicleName": {},
+      "vehicleType": {},
+      "maxPayload": {},
+      "ownerRegistrationNumber": {},
+      "manufacturer": {},
+      "modelApprovalNumber": {},
+      "changeType": {},
+      "wasteDocumentations": {},
       "createdAt": {},
       "updatedAt": {}
     }
@@ -1874,6 +1888,20 @@
       "requestId",
       "request",
       "data",
+      "createdAt",
+      "updatedAt"
+    ],
+    "Vehicle": [
+      "id",
+      "businessId",
+      "vehicleName",
+      "vehicleType",
+      "maxPayload",
+      "ownerRegistrationNumber",
+      "manufacturer",
+      "modelApprovalNumber",
+      "changeType",
+      "wasteDocumentations",
       "createdAt",
       "updatedAt"
     ]
@@ -2876,5 +2904,5 @@
     }
   ],
   "annotations": [],
-  "savedAt": "2026. 4. 9. 오후 5:02:05"
+  "savedAt": "2026. 4. 9. 오후 5:02:30"
 }
