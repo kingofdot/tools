@@ -49,9 +49,13 @@ FunctionRegistry.register('calcArea', {
     const vS = _p(params.verticalSide);
 
     switch (shape) {
+      case '원':
       case 'CIRCLE':    return ((d / 2) ** 2 * Math.PI).toFixed(4);
+      case '사각':
       case 'RECT':      return (w * l).toFixed(4);
+      case '삼각형':
       case 'TRIANGLE':  return (bS * vS / 2).toFixed(4);
+      case '사다리꼴':
       case 'TRAPEZOID': return ((tS + bS) / 2 * vS).toFixed(4);
       case 'MANUAL':    return ''; // 직접 입력
       default:          return '';
