@@ -135,6 +135,7 @@ async function sheetsLoad() {
     if (data.systemTypeStore && data.systemTypeStore.length) systemTypeStore = data.systemTypeStore;
     if (data.variableTypeStore && data.variableTypeStore.length) variableTypeStore = data.variableTypeStore;
     if (data.comboboxStore) comboboxStore = data.comboboxStore;
+    if (typeof initWasteMaster === 'function') initWasteMaster();
     if (data.functionStore) functionStore = data.functionStore;
     if (data.todoItems) todoItems = data.todoItems;
     if (data.suggestItems) suggestItems = data.suggestItems;

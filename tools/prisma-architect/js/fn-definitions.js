@@ -117,15 +117,17 @@ FunctionRegistry.register('lookupWaste', {
 
 // ── 마스터 DB 초기화 ──────────────────────────────────────
 // WasteMasterDB는 data/wasteInformation.js에서 전역 선언됨 (script 태그 로드)
-// comboboxStore에 WasteCode / WasteName 목록 등록
-(function initWasteMaster() {
+// comboboxStore에 WasteCode / WasteName 목록 등록.
+// GitHub 불러오기 후 comboboxStore가 덮어씌워지므로 전역 함수로 두고 재호출 가능하게 함.
+function initWasteMaster() {
   if (!Array.isArray(WasteMasterDB) || !WasteMasterDB.length) {
     console.warn('WasteMasterDB가 로드되지 않았습니다. data/wasteInformation.js 확인 필요');
     return;
   }
   comboboxStore['WasteCode'] = WasteMasterDB.map(r => r.wasteCode);
   comboboxStore['WasteName'] = WasteMasterDB.map(r => r.wasteName);
-})();
+}
+initWasteMaster();
 
 // ── functionStore 동기화 ───────────────────────────────────
 // 로드 시 FunctionRegistry → functionStore 자동 반영
