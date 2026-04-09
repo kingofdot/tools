@@ -93,7 +93,13 @@ const CellComponents = {
   combobox: {
     editable: true,
     renderInput(val, meta) {
-      return CellComponents.select.renderInput(val, meta); // select와 동일 렌더
+      // datalist: 드롭다운 선택 + 직접 타이핑 + 검색(필터링) 동시 지원
+      const listId = `cl_${meta.comboboxName || 'list'}`;
+      const opts = CellComponents._resolver(meta.comboboxName || '')
+        .map(o => `<option value="${_esc(o)}">`)
+        .join('');
+      return `<input type="text" ${_iBase} value="${_esc(val)}" list="${listId}" autocomplete="off">` +
+             `<datalist id="${listId}">${opts}</datalist>`;
     },
     renderDisplay(val) { return _esc(val); },
   },
@@ -424,7 +430,8 @@ class CellGrid {
     this.startEdit(+cell.dataset.row, +cell.dataset.col, false);
   }
 
-  // select/combobox/boolean — 드롭다운 값 선택 즉시 commit
+  // select/boolean — 드롭다운 값 선택 즉시 commit
+  // combobox(datalist+input) — 목록에서 선택 시 change 이벤트 발생 → 즉시 commit
   _onChange(e) {
     const input = e.target.closest(this.opt.inputSel);
     if (!input) return;

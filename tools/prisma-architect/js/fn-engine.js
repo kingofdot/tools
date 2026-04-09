@@ -93,11 +93,17 @@ function _executeOptions(modelName, fnName, rowIndex) {
 
 function _updateCellOptions(modelName, fieldName, rowIndex, options) {
   const input = document.querySelector(_mockfieldSelector(modelName, fieldName, rowIndex));
-  if (!input || input.tagName !== 'SELECT') return;
+  if (!input) return;
 
-  const currentVal = input.value;
-  input.innerHTML = `<option value="">— 선택 —</option>`
-    + options.map(o => `<option value="${o}"${o === currentVal ? ' selected' : ''}>${o}</option>`).join('');
+  if (input.tagName === 'SELECT') {
+    // select 타입
+    const currentVal = input.value;
+    input.innerHTML = `<option value="">— 선택 —</option>`
+      + options.map(o => `<option value="${o}"${o === currentVal ? ' selected' : ''}>${o}</option>`).join('');
+  } else if (input.tagName === 'INPUT' && input.list) {
+    // combobox(datalist) 타입 — datalist 옵션 교체
+    input.list.innerHTML = options.map(o => `<option value="${o}">`).join('');
+  }
 }
 
 function _executeFunction(modelName, fieldName, fnName, rowIndex) {
