@@ -22,10 +22,10 @@ function _mockfieldSelector(modelName, fieldName, rowIndex) {
     : `[data-mockfield="${modelName}.${fieldName}.${rowIndex}"]`;
 }
 
-function runFunctions(modelName, changedField, rowIndex) {
+// calcOnly=true: Lookup/Options 트리거 건너뜀 (무한루프 방지)
+function runFunctions(modelName, changedField, rowIndex, { calcOnly = false } = {}) {
   const meta = metaStore[modelName] || {};
 
-  // changedField를 watch하는 함수명 목록
   const triggeredFnNames = FunctionRegistry.findByWatch(changedField);
   if (!triggeredFnNames.length) return;
 
@@ -33,11 +33,14 @@ function runFunctions(modelName, changedField, rowIndex) {
     const def = FunctionRegistry.get(fnName);
     if (!def) return;
 
-    if (def.outputFields) {
-      // ── Lookup 타입: outputFields에 직접 씀 ──────────────
-      _executeLookup(modelName, fnName, rowIndex);
+    if (def.optionsOutput) {
+      // ── Options 타입: 드롭다운 선택지 교체 ──────────────
+      if (!calcOnly) _executeOptions(modelName, fnName, rowIndex);
+    } else if (def.outputFields) {
+      // ── Lookup 타입: 여러 필드에 값 세팅 ────────────────
+      if (!calcOnly) _executeLookup(modelName, fnName, rowIndex);
     } else {
-      // ── Calculation 타입: metaStore의 calculation 필드 탐색 ─
+      // ── Calculation 타입: metaStore calculation 필드에 세팅
       Object.entries(meta).forEach(([fieldName, fieldMeta]) => {
         if (fieldMeta.systemType !== 'calculation') return;
         const fn = (fieldMeta.fnName || '').trim();
@@ -51,7 +54,6 @@ function _executeLookup(modelName, fnName, rowIndex) {
   const def = FunctionRegistry.get(fnName);
   if (!def) return;
 
-  // watch 필드 값 수집
   const params = {};
   def.watch.forEach(f => {
     const el = document.querySelector(_mockfieldSelector(modelName, f, rowIndex));
@@ -62,13 +64,40 @@ function _executeLookup(modelName, fnName, rowIndex) {
   try { result = def.fn(params); } catch (e) { return; }
   if (!result) return;
 
-  // outputFields 각각에 결과 세팅
   Object.entries(result).forEach(([fieldName, value]) => {
     const v = String(value ?? '');
     _updateCell(modelName, fieldName, rowIndex, v);
     if (typeof _autoStoreSet === 'function') _autoStoreSet(modelName, fieldName, rowIndex, v);
-    runFunctions(modelName, fieldName, rowIndex); // 체인
+    // calcOnly=true: Lookup끼리 체인 금지 (wasteCode↔wasteName 무한루프 방지)
+    runFunctions(modelName, fieldName, rowIndex, { calcOnly: true });
   });
+}
+
+function _executeOptions(modelName, fnName, rowIndex) {
+  const def = FunctionRegistry.get(fnName);
+  if (!def || !def.optionsOutput) return;
+
+  const params = {};
+  def.watch.forEach(f => {
+    const el = document.querySelector(_mockfieldSelector(modelName, f, rowIndex));
+    params[f] = el?.value ?? '';
+  });
+
+  let options;
+  try { options = def.fn(params); } catch (e) { return; }
+  if (!Array.isArray(options)) return;
+
+  // 대상 셀의 select 옵션 교체
+  _updateCellOptions(modelName, def.optionsOutput, rowIndex, options);
+}
+
+function _updateCellOptions(modelName, fieldName, rowIndex, options) {
+  const input = document.querySelector(_mockfieldSelector(modelName, fieldName, rowIndex));
+  if (!input || input.tagName !== 'SELECT') return;
+
+  const currentVal = input.value;
+  input.innerHTML = `<option value="">— 선택 —</option>`
+    + options.map(o => `<option value="${o}"${o === currentVal ? ' selected' : ''}>${o}</option>`).join('');
 }
 
 function _executeFunction(modelName, fieldName, fnName, rowIndex) {

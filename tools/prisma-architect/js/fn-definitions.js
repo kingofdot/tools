@@ -1,26 +1,30 @@
 // fn-definitions.js
 // ─────────────────────────────────────────────────────────
-// 함수 정의 — 두 가지 타입:
+// 함수 정의 — 세 가지 타입:
 //
 //   [계산 함수 Calculation]
-//   FunctionRegistry.register(name, { watch, fn, desc, outputType })
-//     watch      — 감시 필드 목록 (바뀌면 fn 실행)
-//     fn(params) — 단일 값 반환 (string | '')
-//     출력 대상  — metaStore에서 systemType=calculation + fnName 으로 선언
+//   register(name, { watch, fn, desc, outputType })
+//     fn(params) → string | ''
+//     출력 대상 → metaStore systemType=calculation + fnName
 //
 //   [조회 함수 Lookup]
-//   FunctionRegistry.register(name, { watch, outputFields, fn, desc })
-//     watch        — 감시 필드 목록
-//     outputFields — 결과를 쓸 필드명 배열 (metaStore 선언 불필요)
-//     fn(params)   — { fieldName: value, ... } 객체 반환 | null
+//   register(name, { watch, outputFields, fn, desc })
+//     fn(params) → { fieldName: value, ... } | null
+//     outputFields 에 직접 값 세팅
+//     ※ Lookup 결과가 다시 Lookup을 트리거하지 않음 (무한루프 방지)
+//
+//   [옵션 함수 Options]
+//   register(name, { watch, optionsOutput, fn, desc })
+//     fn(params) → string[] | null
+//     optionsOutput 필드의 드롭다운 선택지를 동적으로 교체
 // ─────────────────────────────────────────────────────────
 
 // ── FunctionRegistry ──────────────────────────────────────
 const FunctionRegistry = {
   _store: {},
 
-  register(name, { watch, outputFields, fn, desc = '', outputType = 'float' }) {
-    this._store[name] = { watch, outputFields: outputFields || null, fn, desc, outputType };
+  register(name, { watch, outputFields, optionsOutput, fn, desc = '', outputType = 'float' }) {
+    this._store[name] = { watch, outputFields: outputFields || null, optionsOutput: optionsOutput || null, fn, desc, outputType };
   },
 
   get(name) {
@@ -97,10 +101,9 @@ FunctionRegistry.register('calcStorageAmount', {
 
 // ── 조회 함수 (Lookup) ────────────────────────────────────
 
-// 폐기물코드 선택 → wasteName 자동 세팅
-// recyclingCode 옵션은 preAnalysisRequired(해당/해당없음) 선택 후 별도 조회 함수가 처리
+// wasteCode 선택 → wasteName 자동 세팅
 FunctionRegistry.register('lookupWaste', {
-  desc: '폐기물코드(wasteCode)로 마스터 데이터 조회 → wasteName 자동 세팅',
+  desc: '폐기물코드(wasteCode) → wasteName 자동 세팅',
   watch: ['wasteCode'],
   outputFields: ['wasteName'],
   fn(params) {
@@ -108,9 +111,42 @@ FunctionRegistry.register('lookupWaste', {
     if (!code) return null;
     const record = WasteMasterDB.find(r => r.wasteCode === code);
     if (!record) return null;
-    return {
-      wasteName: record.wasteName,
-    };
+    return { wasteName: record.wasteName };
+  },
+});
+
+// wasteName 선택 → wasteCode 자동 세팅 (역방향)
+// 단, wasteCode 변경 후 wasteName을 수정해도 wasteCode는 바뀌지 않음
+// (드롭다운 선택 시에만 이 함수가 트리거됨 — 직접 입력은 change 이벤트 없음)
+FunctionRegistry.register('lookupWasteByName', {
+  desc: '폐기물명칭(wasteName) 선택 → wasteCode 자동 세팅',
+  watch: ['wasteName'],
+  outputFields: ['wasteCode'],
+  fn(params) {
+    const name = (params.wasteName || '').trim();
+    if (!name) return null;
+    const record = WasteMasterDB.find(r => r.wasteName === name);
+    if (!record) return null;
+    return { wasteCode: record.wasteCode };
+  },
+});
+
+// ── 옵션 함수 (Options) ───────────────────────────────────
+
+// preAnalysisRequired(해당/해당없음) + wasteCode → recyclingCode 선택지 동적 교체
+FunctionRegistry.register('optionsRecyclingCode', {
+  desc: '재활용분석 결과에 따라 recyclingCode 드롭다운 선택지 교체',
+  watch: ['preAnalysisRequired', 'wasteCode'],
+  optionsOutput: 'recyclingCode',
+  fn(params) {
+    const code       = (params.wasteCode || '').trim();
+    const applicable = params.preAnalysisRequired === '해당' || params.preAnalysisRequired === 'true';
+    if (!code) return null;
+    const record = WasteMasterDB.find(r => r.wasteCode === code);
+    if (!record) return null;
+    const raw = applicable ? record.recyclingCodeCorrespond : record.recyclingCodeNone;
+    if (!raw || raw.trim() === '-') return [];
+    return raw.split(',').map(s => s.trim()).filter(Boolean);
   },
 });
 
