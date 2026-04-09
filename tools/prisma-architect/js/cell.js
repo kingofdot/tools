@@ -314,6 +314,7 @@ class CellGrid {
     this.el.removeEventListener('mousedown', this._mh);
     this.el.removeEventListener('dblclick',  this._dh);
     this.el.removeEventListener('focusout',  this._fh);
+    this.el.removeEventListener('change',    this._ch);
   }
 
   // ── Private ────────────────────────────────────────────
@@ -323,10 +324,12 @@ class CellGrid {
     this._mh = e => this._onMousedown(e);
     this._dh = e => this._onDblclick(e);
     this._fh = e => this._onFocusout(e);
+    this._ch = e => this._onChange(e);
     this.el.addEventListener('keydown',   this._kh);
     this.el.addEventListener('mousedown', this._mh);
     this.el.addEventListener('dblclick',  this._dh);
     this.el.addEventListener('focusout',  this._fh);
+    this.el.addEventListener('change',    this._ch);
   }
 
   _onKeydown(e) {
@@ -419,6 +422,18 @@ class CellGrid {
     const cell = e.target.closest(this.opt.cellSel);
     if (!cell || this._editing) return;
     this.startEdit(+cell.dataset.row, +cell.dataset.col, false);
+  }
+
+  // select/combobox/boolean — 드롭다운 값 선택 즉시 commit
+  _onChange(e) {
+    const input = e.target.closest(this.opt.inputSel);
+    if (!input) return;
+    const cell = input.closest(this.opt.cellSel);
+    if (!cell) return;
+    const type = cell.dataset.cellType;
+    if (type === 'select' || type === 'combobox' || type === 'boolean') {
+      this.commit();
+    }
   }
 
   // 포커스가 그리드 바깥으로 나가면 선택/편집 상태 해제

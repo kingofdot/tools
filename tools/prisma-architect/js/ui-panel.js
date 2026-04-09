@@ -210,6 +210,7 @@ function renderUiSidebar() {
     { key: '__varType__',    icon: '🧩', label: '배리어블타입 관리' },
     { key: '__combobox__',   icon: '🔽', label: '콤보박스 관리' },
     { key: '__functions__',  icon: '⚡', label: '함수 관리' },
+    { key: '__masterdata__', icon: '🗄️', label: '데이터 관리' },
   ];
   MGMT_ITEMS.forEach(item => {
     const d = document.createElement('div');
@@ -246,6 +247,7 @@ function renderUiTable() {
   if (selectedUiModel === '__varType__')    { renderTypeStorePanel(wrap, '🧩 배리어블타입 관리', variableTypeStore, 'varType'); return; }
   if (selectedUiModel === '__combobox__')   { renderComboboxPanel(wrap); return; }
   if (selectedUiModel === '__functions__')  { renderFunctionPanel(wrap); return; }
+  if (selectedUiModel === '__masterdata__') { renderMasterDataPanel(wrap); return; }
 
   // 헤더 관리 화면
   if (selectedUiModel === null) {
@@ -970,4 +972,56 @@ function fnStoreDeleteParam(i, pi) {
   if (!functionStore[i]) return;
   functionStore[i].params.splice(pi, 1);
   renderUiTable();
+}
+
+// ── 데이터 관리 패널 ─────────────────────────────────────────────────────
+// WasteMasterDB (wasteInformation.js) 내용을 테이블로 표시
+// 읽기 전용 — 실제 수정은 wasteInformation.json 파일에서
+let _masterDataSearch = '';
+
+function renderMasterDataPanel(wrap) {
+  const titleEl = document.getElementById('uiTitle');
+  const addBtn  = document.getElementById('uiAddRowBtn');
+  if (titleEl) titleEl.textContent = '🗄️ 데이터 관리';
+  if (addBtn)  addBtn.style.display = 'none';
+
+  const db = (typeof WasteMasterDB !== 'undefined' && Array.isArray(WasteMasterDB)) ? WasteMasterDB : [];
+  const q  = _masterDataSearch.trim().toLowerCase();
+  const filtered = q
+    ? db.filter(r => r.wasteCode.toLowerCase().includes(q) || r.wasteName.toLowerCase().includes(q))
+    : db;
+
+  wrap.innerHTML = `
+    <div style="padding:20px;height:100%;display:flex;flex-direction:column;gap:12px;box-sizing:border-box">
+      <div style="display:flex;align-items:center;gap:10px;flex-shrink:0">
+        <span style="font-size:13px;font-weight:700;color:var(--text-secondary)">폐기물 마스터 데이터</span>
+        <span style="font-size:11px;background:var(--accent-dim);color:var(--accent);padding:2px 8px;border-radius:99px;font-weight:700">${db.length}개</span>
+        <input type="text" placeholder="코드 / 명칭 검색…" value="${_masterDataSearch}"
+          oninput="_masterDataSearch=this.value;renderUiTable()"
+          style="margin-left:auto;padding:5px 10px;border:1px solid var(--border);border-radius:7px;background:var(--bg-primary);color:var(--text-primary);font-size:12px;width:220px">
+      </div>
+      <div style="flex:1;overflow:auto">
+        <table class="excel-table" style="width:100%;table-layout:fixed">
+          <thead>
+            <tr>
+              <th style="width:100px">코드</th>
+              <th style="width:280px">명칭</th>
+              <th style="width:220px">재활용코드 (해당없음)</th>
+              <th style="width:220px">재활용코드 (해당)</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${filtered.length === 0
+              ? `<tr><td colspan="4" style="text-align:center;padding:20px;color:var(--text-muted)">검색 결과 없음</td></tr>`
+              : filtered.map(r => `
+                <tr>
+                  <td style="font-family:var(--font-mono);font-size:11px">${r.wasteCode}</td>
+                  <td>${r.wasteName}</td>
+                  <td style="font-size:11px;color:var(--text-muted)">${r.recyclingCodeNone || '-'}</td>
+                  <td style="font-size:11px;color:var(--text-muted)">${r.recyclingCodeCorrespond || '-'}</td>
+                </tr>`).join('')}
+          </tbody>
+        </table>
+      </div>
+    </div>`;
 }
