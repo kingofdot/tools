@@ -29,13 +29,45 @@ function runFunctions(modelName, changedField, rowIndex) {
   const triggeredFnNames = FunctionRegistry.findByWatch(changedField);
   if (!triggeredFnNames.length) return;
 
-  // 같은 모델의 calculation 필드 순회
-  Object.entries(meta).forEach(([fieldName, fieldMeta]) => {
-    if (fieldMeta.systemType !== 'calculation') return;
+  triggeredFnNames.forEach(fnName => {
+    const def = FunctionRegistry.get(fnName);
+    if (!def) return;
 
-    const fnName = (fieldMeta.fnName || '').trim();
-    if (!fnName || !triggeredFnNames.includes(fnName)) return;
-    _executeFunction(modelName, fieldName, fnName, rowIndex);
+    if (def.outputFields) {
+      // ── Lookup 타입: outputFields에 직접 씀 ──────────────
+      _executeLookup(modelName, fnName, rowIndex);
+    } else {
+      // ── Calculation 타입: metaStore의 calculation 필드 탐색 ─
+      Object.entries(meta).forEach(([fieldName, fieldMeta]) => {
+        if (fieldMeta.systemType !== 'calculation') return;
+        const fn = (fieldMeta.fnName || '').trim();
+        if (fn === fnName) _executeFunction(modelName, fieldName, fnName, rowIndex);
+      });
+    }
+  });
+}
+
+function _executeLookup(modelName, fnName, rowIndex) {
+  const def = FunctionRegistry.get(fnName);
+  if (!def) return;
+
+  // watch 필드 값 수집
+  const params = {};
+  def.watch.forEach(f => {
+    const el = document.querySelector(_mockfieldSelector(modelName, f, rowIndex));
+    params[f] = el?.value ?? '';
+  });
+
+  let result;
+  try { result = def.fn(params); } catch (e) { return; }
+  if (!result) return;
+
+  // outputFields 각각에 결과 세팅
+  Object.entries(result).forEach(([fieldName, value]) => {
+    const v = String(value ?? '');
+    _updateCell(modelName, fieldName, rowIndex, v);
+    if (typeof _autoStoreSet === 'function') _autoStoreSet(modelName, fieldName, rowIndex, v);
+    runFunctions(modelName, fieldName, rowIndex); // 체인
   });
 }
 

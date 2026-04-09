@@ -240,13 +240,24 @@ function renderForm1to1(rows, modelName) {
 function _buildFnRoles(modelName) {
   const meta = metaStore[modelName] || {};
   const roles = {};
+
+  // calculation 필드 → output
   Object.entries(meta).forEach(([fieldName, fieldMeta]) => {
     if (fieldMeta.systemType === 'calculation') roles[fieldName] = 'output';
   });
+
+  // lookup outputFields → output
+  Object.values(FunctionRegistry._store).forEach(def => {
+    if (!def.outputFields) return;
+    def.outputFields.forEach(f => { if (meta[f]) roles[f] = 'output'; });
+  });
+
+  // watch 필드 → input (output이 아닌 것만)
   Object.keys(meta).forEach(fieldName => {
     if (roles[fieldName] === 'output') return;
     if (FunctionRegistry.findByWatch(fieldName).length > 0) roles[fieldName] = 'input';
   });
+
   return roles;
 }
 

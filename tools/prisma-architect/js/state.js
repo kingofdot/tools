@@ -16,3 +16,6 @@ let showEnumLines = true;
 let annotations = [];
 let draggingAnnotation = null;
 let uiModelConfig = {}; // { [modelName]: { viewMode: '1to1' | 'excel' | 'card' } }
+
+// 마스터 DB — data/wasteInformation.json 로드 후 채워짐
+let WasteMasterDB = [];

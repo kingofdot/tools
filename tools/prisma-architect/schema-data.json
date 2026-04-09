@@ -1297,13 +1297,13 @@
         "commentary": "",
         "isRequired": "",
         "initialCreation": "true",
-        "showNode": "",
+        "showNode": "true",
         "showNodeDetail": "",
-        "systemType": "combobox",
+        "systemType": "select",
         "variableType": "text",
         "width": "",
         "defaultValue": "",
-        "comboboxName": "",
+        "comboboxName": "WasteCode",
         "dataSource": "",
         "creationConditions": "",
         "fnName": ""
@@ -1313,13 +1313,13 @@
         "commentary": "",
         "isRequired": "",
         "initialCreation": "true",
-        "showNode": "",
+        "showNode": "true",
         "showNodeDetail": "",
-        "systemType": "select",
+        "systemType": "combobox",
         "variableType": "text",
         "width": "",
         "defaultValue": "",
-        "comboboxName": "",
+        "comboboxName": "WasteName",
         "dataSource": "",
         "creationConditions": "",
         "fnName": ""
@@ -1451,6 +1451,18 @@
         "dataSource": "",
         "creationConditions": "",
         "fnName": ""
+      },
+      "recyclingCodeNone": {
+        "systemType": "text",
+        "label": "recyclingCodeNone",
+        "showNode": "true",
+        "initialCreation": "true"
+      },
+      "recyclingCodeCorrespond": {
+        "systemType": "text",
+        "label": "recyclingCodeCorrespond",
+        "showNode": "true",
+        "initialCreation": "true"
       }
     },
     "__combobox__": {},

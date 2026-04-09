@@ -1,20 +1,26 @@
 // fn-definitions.js
 // ─────────────────────────────────────────────────────────
-// 계산 함수 정의.
-// "어떤 필드를 감시할지(watch)"와 "계산 로직(fn)" 모두 여기서 관리.
-// UI관리 탭에서는 fnName 하나만 입력하면 된다.
+// 함수 정의 — 두 가지 타입:
 //
-// FunctionRegistry.register(name, { watch, fn, desc, outputType })
-//   watch   — 감시할 필드명 목록 (이 필드가 바뀌면 fn 실행)
-//   fn(params) — params 키 = watch 필드명들, 계산 불가 시 '' 반환
+//   [계산 함수 Calculation]
+//   FunctionRegistry.register(name, { watch, fn, desc, outputType })
+//     watch      — 감시 필드 목록 (바뀌면 fn 실행)
+//     fn(params) — 단일 값 반환 (string | '')
+//     출력 대상  — metaStore에서 systemType=calculation + fnName 으로 선언
+//
+//   [조회 함수 Lookup]
+//   FunctionRegistry.register(name, { watch, outputFields, fn, desc })
+//     watch        — 감시 필드 목록
+//     outputFields — 결과를 쓸 필드명 배열 (metaStore 선언 불필요)
+//     fn(params)   — { fieldName: value, ... } 객체 반환 | null
 // ─────────────────────────────────────────────────────────
 
 // ── FunctionRegistry ──────────────────────────────────────
 const FunctionRegistry = {
   _store: {},
 
-  register(name, { watch, fn, desc = '', outputType = 'float' }) {
-    this._store[name] = { watch, fn, desc, outputType };
+  register(name, { watch, outputFields, fn, desc = '', outputType = 'float' }) {
+    this._store[name] = { watch, outputFields: outputFields || null, fn, desc, outputType };
   },
 
   get(name) {
@@ -88,6 +94,39 @@ FunctionRegistry.register('calcStorageAmount', {
     return (volume * quantity).toFixed(4);
   },
 });
+
+// ── 조회 함수 (Lookup) ────────────────────────────────────
+
+// 폐기물코드 선택 → wasteName, recyclingCodeNone, recyclingCodeCorrespond 동시 세팅
+FunctionRegistry.register('lookupWaste', {
+  desc: '폐기물코드(wasteCode)로 마스터 데이터 조회 → 관련 필드 자동 세팅',
+  watch: ['wasteCode'],
+  outputFields: ['wasteName', 'recyclingCodeNone', 'recyclingCodeCorrespond'],
+  fn(params) {
+    const code = (params.wasteCode || '').trim();
+    if (!code) return null;
+    const record = WasteMasterDB.find(r => r.wasteCode === code);
+    if (!record) return null;
+    return {
+      wasteName:              record.wasteName,
+      recyclingCodeNone:      record.recyclingCodeNone,
+      recyclingCodeCorrespond: record.recyclingCodeCorrespond,
+    };
+  },
+});
+
+// ── 마스터 DB 로드 ─────────────────────────────────────────
+// data/wasteInformation.json → WasteMasterDB (전역)
+// 로드 완료 후 comboboxStore에 WasteCode / WasteName 목록 자동 등록
+fetch('data/wasteInformation.json')
+  .then(r => r.json())
+  .then(data => {
+    WasteMasterDB = data;
+    // select/combobox 선택지로 사용 가능하도록 comboboxStore에 등록
+    comboboxStore['WasteCode'] = data.map(r => r.wasteCode);
+    comboboxStore['WasteName'] = data.map(r => r.wasteName);
+  })
+  .catch(() => console.warn('wasteInformation.json 로드 실패'));
 
 // ── functionStore 동기화 ───────────────────────────────────
 // 로드 시 FunctionRegistry → functionStore 자동 반영
