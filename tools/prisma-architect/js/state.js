@@ -17,5 +17,4 @@ let annotations = [];
 let draggingAnnotation = null;
 let uiModelConfig = {}; // { [modelName]: { viewMode: '1to1' | 'excel' | 'card' } }
 
-// 마스터 DB — data/wasteInformation.json 로드 후 채워짐
-let WasteMasterDB = [];
+// WasteMasterDB — data/wasteInformation.js 에서 var 로 선언됨 (script 태그)

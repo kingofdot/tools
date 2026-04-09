@@ -115,18 +115,17 @@ FunctionRegistry.register('lookupWaste', {
   },
 });
 
-// ── 마스터 DB 로드 ─────────────────────────────────────────
-// data/wasteInformation.json → WasteMasterDB (전역)
-// 로드 완료 후 comboboxStore에 WasteCode / WasteName 목록 자동 등록
-fetch('data/wasteInformation.json')
-  .then(r => r.json())
-  .then(data => {
-    WasteMasterDB = data;
-    // select/combobox 선택지로 사용 가능하도록 comboboxStore에 등록
-    comboboxStore['WasteCode'] = data.map(r => r.wasteCode);
-    comboboxStore['WasteName'] = data.map(r => r.wasteName);
-  })
-  .catch(() => console.warn('wasteInformation.json 로드 실패'));
+// ── 마스터 DB 초기화 ──────────────────────────────────────
+// WasteMasterDB는 data/wasteInformation.js에서 전역 선언됨 (script 태그 로드)
+// comboboxStore에 WasteCode / WasteName 목록 등록
+(function initWasteMaster() {
+  if (!Array.isArray(WasteMasterDB) || !WasteMasterDB.length) {
+    console.warn('WasteMasterDB가 로드되지 않았습니다. data/wasteInformation.js 확인 필요');
+    return;
+  }
+  comboboxStore['WasteCode'] = WasteMasterDB.map(r => r.wasteCode);
+  comboboxStore['WasteName'] = WasteMasterDB.map(r => r.wasteName);
+})();
 
 // ── functionStore 동기화 ───────────────────────────────────
 // 로드 시 FunctionRegistry → functionStore 자동 반영
