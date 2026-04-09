@@ -227,7 +227,6 @@ function renderForm1to1(rows, modelName) {
     <div style="max-width:640px;display:flex;flex-direction:column;gap:20px">
       ${fields}
       <div style="display:flex;gap:8px;margin-top:8px">
-        <button class="btn" onclick="mockStoreView()">스토어 보기</button>
         <button class="btn" onclick="mockStoreClear('${modelName}')">초기화</button>
       </div>
     </div>`;
@@ -310,7 +309,6 @@ function renderExcelView(rows, modelName) {
     <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;flex-wrap:wrap">
       <div style="margin-left:auto;display:flex;gap:6px">
         <button class="btn" style="padding:4px 14px;font-size:12px" onclick="uitestAddRow('${modelName}')">+ 행 추가</button>
-        <button class="btn" style="padding:4px 14px;font-size:12px" onclick="mockStoreView()">스토어 보기</button>
         <button class="btn" style="padding:4px 14px;font-size:12px" onclick="mockStoreClear('${modelName}')">초기화</button>
       </div>
     </div>
