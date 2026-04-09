@@ -1299,8 +1299,8 @@
         "initialCreation": "true",
         "showNode": "",
         "showNodeDetail": "",
-        "systemType": "",
-        "variableType": "",
+        "systemType": "combobox",
+        "variableType": "text",
         "width": "",
         "defaultValue": "",
         "comboboxName": "",
@@ -1315,8 +1315,8 @@
         "initialCreation": "true",
         "showNode": "",
         "showNodeDetail": "",
-        "systemType": "",
-        "variableType": "",
+        "systemType": "select",
+        "variableType": "text",
         "width": "",
         "defaultValue": "",
         "comboboxName": "",
@@ -1435,6 +1435,22 @@
         "dataSource": "",
         "creationConditions": "",
         "fnName": ""
+      },
+      "wasteMergeName": {
+        "label": "",
+        "commentary": "",
+        "isRequired": "",
+        "initialCreation": "",
+        "showNode": "",
+        "showNodeDetail": "",
+        "systemType": "",
+        "variableType": "",
+        "width": "",
+        "defaultValue": "",
+        "comboboxName": "",
+        "dataSource": "",
+        "creationConditions": "",
+        "fnName": ""
       }
     },
     "__combobox__": {},
@@ -1489,6 +1505,14 @@
       "controlFacility": {},
       "hoods": {},
       "pollutants": {},
+      "createdAt": {},
+      "updatedAt": {}
+    },
+    "DocumentPayload": {
+      "id": {},
+      "requestId": {},
+      "request": {},
+      "data": {},
       "createdAt": {},
       "updatedAt": {}
     }
@@ -1784,7 +1808,8 @@
       "throughput",
       "changeType",
       "wasteDocumentation",
-      "storedIn"
+      "storedIn",
+      "wasteMergeName"
     ],
     "TemporaryBuildingInfo": [
       "id",
@@ -1837,6 +1862,14 @@
       "controlFacility",
       "hoods",
       "pollutants",
+      "createdAt",
+      "updatedAt"
+    ],
+    "DocumentPayload": [
+      "id",
+      "requestId",
+      "request",
+      "data",
       "createdAt",
       "updatedAt"
     ]
@@ -2115,5 +2148,5 @@
     }
   ],
   "annotations": [],
-  "savedAt": "2026. 4. 9. 오후 1:07:17"
+  "savedAt": "2026. 4. 9. 오후 3:58:06"
 }
