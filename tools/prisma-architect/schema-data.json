@@ -275,13 +275,32 @@
     {
       "name": "systemType",
       "type": "combo",
-      "options": [],
+      "options": [
+        "text",
+        "number",
+        "date",
+        "select",
+        "combobox",
+        "boolean",
+        "calculation",
+        "lookup_editable",
+        "lookup_readonly",
+        "hidden"
+      ],
       "uiRole": "none"
     },
     {
       "name": "variableType",
       "type": "combo",
-      "options": [],
+      "options": [
+        "text",
+        "integer",
+        "float",
+        "date",
+        "datetime",
+        "boolean",
+        "json"
+      ],
       "uiRole": "componentType"
     },
     {
@@ -299,7 +318,9 @@
     {
       "name": "comboboxName",
       "type": "combo",
-      "options": [],
+      "options": [
+        "Shape"
+      ],
       "uiRole": "none"
     },
     {
@@ -317,7 +338,11 @@
     {
       "name": "fnName",
       "type": "combo",
-      "options": [],
+      "options": [
+        "calcArea",
+        "calcVolume",
+        "calcStorageAmount"
+      ],
       "uiRole": "none"
     }
   ],
@@ -1235,19 +1260,238 @@
       "updatedAt": {}
     },
     "WasteTargetItem": {
-      "id": {},
-      "wasteDocumentationId": {},
-      "wasteCode": {},
-      "wasteName": {},
-      "preAnalysisRequired": {},
-      "recyclingCode": {},
-      "recycledProduct": {},
-      "throughput": {},
-      "changeType": {},
-      "wasteDocumentation": {},
-      "storedIn": {}
+      "id": {
+        "label": "",
+        "commentary": "",
+        "isRequired": "",
+        "initialCreation": "false",
+        "showNode": "",
+        "showNodeDetail": "",
+        "systemType": "",
+        "variableType": "",
+        "width": "",
+        "defaultValue": "",
+        "comboboxName": "",
+        "dataSource": "",
+        "creationConditions": "",
+        "fnName": ""
+      },
+      "wasteDocumentationId": {
+        "label": "",
+        "commentary": "",
+        "isRequired": "",
+        "initialCreation": "false",
+        "showNode": "",
+        "showNodeDetail": "",
+        "systemType": "",
+        "variableType": "",
+        "width": "",
+        "defaultValue": "",
+        "comboboxName": "",
+        "dataSource": "",
+        "creationConditions": "",
+        "fnName": ""
+      },
+      "wasteCode": {
+        "label": "폐기물코드",
+        "commentary": "",
+        "isRequired": "",
+        "initialCreation": "true",
+        "showNode": "",
+        "showNodeDetail": "",
+        "systemType": "",
+        "variableType": "",
+        "width": "",
+        "defaultValue": "",
+        "comboboxName": "",
+        "dataSource": "",
+        "creationConditions": "",
+        "fnName": ""
+      },
+      "wasteName": {
+        "label": "폐기물명칭",
+        "commentary": "",
+        "isRequired": "",
+        "initialCreation": "true",
+        "showNode": "",
+        "showNodeDetail": "",
+        "systemType": "",
+        "variableType": "",
+        "width": "",
+        "defaultValue": "",
+        "comboboxName": "",
+        "dataSource": "",
+        "creationConditions": "",
+        "fnName": ""
+      },
+      "preAnalysisRequired": {
+        "label": "재활용분석",
+        "commentary": "",
+        "isRequired": "",
+        "initialCreation": "true",
+        "showNode": "",
+        "showNodeDetail": "",
+        "systemType": "",
+        "variableType": "",
+        "width": "",
+        "defaultValue": "",
+        "comboboxName": "",
+        "dataSource": "",
+        "creationConditions": "",
+        "fnName": ""
+      },
+      "recyclingCode": {
+        "label": "재활용코드",
+        "commentary": "",
+        "isRequired": "",
+        "initialCreation": "true",
+        "showNode": "",
+        "showNodeDetail": "",
+        "systemType": "",
+        "variableType": "",
+        "width": "",
+        "defaultValue": "",
+        "comboboxName": "",
+        "dataSource": "",
+        "creationConditions": "",
+        "fnName": ""
+      },
+      "recycledProduct": {
+        "label": "재활용제품",
+        "commentary": "",
+        "isRequired": "",
+        "initialCreation": "true",
+        "showNode": "",
+        "showNodeDetail": "",
+        "systemType": "",
+        "variableType": "",
+        "width": "",
+        "defaultValue": "",
+        "comboboxName": "",
+        "dataSource": "",
+        "creationConditions": "",
+        "fnName": ""
+      },
+      "throughput": {
+        "label": "처리량",
+        "commentary": "",
+        "isRequired": "",
+        "initialCreation": "true",
+        "showNode": "",
+        "showNodeDetail": "",
+        "systemType": "",
+        "variableType": "",
+        "width": "",
+        "defaultValue": "",
+        "comboboxName": "",
+        "dataSource": "",
+        "creationConditions": "",
+        "fnName": ""
+      },
+      "changeType": {
+        "label": "비고",
+        "commentary": "",
+        "isRequired": "",
+        "initialCreation": "true",
+        "showNode": "",
+        "showNodeDetail": "",
+        "systemType": "",
+        "variableType": "",
+        "width": "",
+        "defaultValue": "",
+        "comboboxName": "",
+        "dataSource": "",
+        "creationConditions": "",
+        "fnName": ""
+      },
+      "wasteDocumentation": {
+        "label": "",
+        "commentary": "",
+        "isRequired": "",
+        "initialCreation": "false",
+        "showNode": "",
+        "showNodeDetail": "",
+        "systemType": "",
+        "variableType": "",
+        "width": "",
+        "defaultValue": "",
+        "comboboxName": "",
+        "dataSource": "",
+        "creationConditions": "",
+        "fnName": ""
+      },
+      "storedIn": {
+        "label": "",
+        "commentary": "",
+        "isRequired": "",
+        "initialCreation": "false",
+        "showNode": "",
+        "showNodeDetail": "",
+        "systemType": "",
+        "variableType": "",
+        "width": "",
+        "defaultValue": "",
+        "comboboxName": "",
+        "dataSource": "",
+        "creationConditions": "",
+        "fnName": ""
+      }
     },
-    "__combobox__": {}
+    "__combobox__": {},
+    "TemporaryBuildingInfo": {
+      "id": {},
+      "businessId": {},
+      "reportNumber": {},
+      "dong": {},
+      "floors": {},
+      "purpose": {},
+      "structure": {},
+      "area": {},
+      "business": {},
+      "createdAt": {},
+      "updatedAt": {}
+    },
+    "AirEmissionFacility": {
+      "id": {},
+      "airDocumentationId": {},
+      "productionFacilityId": {},
+      "facilityNumber": {},
+      "power": {},
+      "size": {},
+      "category": {},
+      "rawMaterial": {},
+      "rawMaterialUsage": {},
+      "fuel": {},
+      "fuelUsage": {},
+      "dailyOperatingHours": {},
+      "annualOperatingDays": {},
+      "airDocumentation": {},
+      "productionFacility": {},
+      "hoods": {},
+      "pollutants": {},
+      "createdAt": {},
+      "updatedAt": {}
+    },
+    "AirDocumentation": {
+      "id": {},
+      "businessId": {},
+      "business": {},
+      "airEmissionFacilities": {},
+      "airControlFacilities": {},
+      "createdAt": {},
+      "updatedAt": {}
+    },
+    "AirControlFacility": {
+      "id": {},
+      "airDocumentationId": {},
+      "controlFacilityId": {},
+      "airDocumentation": {},
+      "controlFacility": {},
+      "hoods": {},
+      "pollutants": {},
+      "createdAt": {},
+      "updatedAt": {}
+    }
   },
   "rowOrderStore": {
     "Post": [
@@ -1541,6 +1785,60 @@
       "changeType",
       "wasteDocumentation",
       "storedIn"
+    ],
+    "TemporaryBuildingInfo": [
+      "id",
+      "businessId",
+      "reportNumber",
+      "dong",
+      "floors",
+      "purpose",
+      "structure",
+      "area",
+      "business",
+      "createdAt",
+      "updatedAt"
+    ],
+    "AirEmissionFacility": [
+      "id",
+      "airDocumentationId",
+      "productionFacilityId",
+      "facilityNumber",
+      "power",
+      "size",
+      "category",
+      "rawMaterial",
+      "rawMaterialUsage",
+      "fuel",
+      "fuelUsage",
+      "dailyOperatingHours",
+      "annualOperatingDays",
+      "airDocumentation",
+      "productionFacility",
+      "hoods",
+      "pollutants",
+      "createdAt",
+      "updatedAt"
+    ],
+    "AirDocumentation": [
+      "id",
+      "businessId",
+      "business",
+      "airEmissionFacilities",
+      "airControlFacilities",
+      "createdAt",
+      "updatedAt"
+    ],
+    "AirControlFacility": [
+      "id",
+      "airDocumentationId",
+      "controlFacilityId",
+      "airDocumentation",
+      "controlFacility",
+      "hoods",
+      "pollutants",
+      "createdAt",
+      "updatedAt"
     ]
   },
   "uiModelConfig": {
@@ -1817,5 +2115,5 @@
     }
   ],
   "annotations": [],
-  "savedAt": "2026. 4. 9. 오전 11:12:38"
+  "savedAt": "2026. 4. 9. 오전 11:23:56"
 }
