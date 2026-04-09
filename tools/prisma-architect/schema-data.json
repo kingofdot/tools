@@ -321,7 +321,8 @@
       "options": [
         "Shape",
         "WasteCode",
-        "WasteName"
+        "WasteName",
+        "Applicable"
       ],
       "uiRole": "none"
     },
@@ -2671,6 +2672,10 @@
       "종이 컵",
       "합성수지 컵",
       "금속 컵"
+    ],
+    "Applicable": [
+      "해당",
+      "해당없음"
     ]
   },
   "functionStore": [
@@ -2871,5 +2876,5 @@
     }
   ],
   "annotations": [],
-  "savedAt": "2026. 4. 9. 오후 5:00:31"
+  "savedAt": "2026. 4. 9. 오후 5:02:05"
 }
