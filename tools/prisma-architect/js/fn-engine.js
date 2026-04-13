@@ -139,6 +139,7 @@ function _updateCell(modelName, fieldName, rowIndex, value) {
   const input = document.querySelector(_mockfieldSelector(modelName, fieldName, rowIndex));
   if (!input) return;
 
+  // input.value는 항상 raw 값 유지 (포매팅된 문자열이 store에 누적되는 버그 방지)
   input.value = value;
 
   // 엑셀 뷰: cell-display도 갱신
@@ -150,17 +151,11 @@ function _updateCell(modelName, fieldName, rowIndex, value) {
   const type = td.dataset.cellType;
   const comp = CellComponents[type];
 
-  // calculation 계열: 소수점 자릿수 포매팅 적용
+  // calculation 계열: display만 포매팅 (store/input은 raw 유지)
   let displayVal = value;
   if ((type === 'calculation' || type === 'calculation_editable') &&
-      typeof uitestDecimalPlaces !== 'undefined') {
-    const key    = `${modelName}.${fieldName}`;
-    const places = uitestDecimalPlaces[key] ?? 2;
-    const n      = parseFloat(value);
-    if (!isNaN(n)) {
-      displayVal = n.toFixed(places);
-      input.value = displayVal;
-    }
+      typeof _calcDisplayVal === 'function') {
+    displayVal = _calcDisplayVal(modelName, fieldName, value);
   }
 
   display.innerHTML = comp?.renderDisplay ? comp.renderDisplay(displayVal, {}) : displayVal;

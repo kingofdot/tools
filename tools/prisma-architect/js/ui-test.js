@@ -53,38 +53,69 @@ function mockStoreClear(modelName) {
   renderUiTestPreview();
 }
 
+// ── 소수점 표시 헬퍼 ────────────────────────────────────
+// 컬럼 내 실제 값들을 분석해 통일 자릿수 결정
+// - 기준: 설정 자릿수(maxSetting) 안에서 가장 많은 소수 자리가 필요한 값에 맞춤
+// - 모두 정수이면 소수점 없이 표시 (4.00 → 4)
+function _getColumnDisplayPlaces(modelName, fieldName) {
+  const maxSetting = uitestDecimalPlaces[`${modelName}.${fieldName}`] ?? 2;
+  const store = mockStore[modelName] || [];
+  let maxActual = 0;
+  store.forEach(row => {
+    const raw = row?.[fieldName];
+    if (raw === undefined || raw === null || raw === '') return;
+    const n = parseFloat(raw);
+    if (isNaN(n)) return;
+    const fixed = n.toFixed(maxSetting);
+    const dot = fixed.indexOf('.');
+    if (dot < 0) return;
+    const sigDecimals = fixed.slice(dot + 1).replace(/0+$/, '').length;
+    maxActual = Math.max(maxActual, sigDecimals);
+  });
+  return maxActual;
+}
+
+// 단일 값 → 표시 문자열 (store는 항상 raw 숫자 유지, 표시만 포매팅)
+function _calcDisplayVal(modelName, fieldName, rawVal) {
+  const n = parseFloat(rawVal);
+  if (isNaN(n)) return String(rawVal ?? '');
+  const places = _getColumnDisplayPlaces(modelName, fieldName);
+  return places === 0 ? String(Math.round(n * 1e10) / 1e10) : n.toFixed(places);
+}
+
+// 렌더 후 calculation 컬럼 전체에 포매팅 적용 (DOM 갱신만, store 불변)
+function _applyAllDecimalFormatting() {
+  const CALC_TYPES = new Set(['calculation', 'calculation_editable']);
+  [...uitestChecked].forEach(modelName => {
+    const meta = metaStore[modelName] || {};
+    Object.entries(meta).forEach(([fieldName, fieldMeta]) => {
+      if (!CALC_TYPES.has(_resolveCompType(fieldMeta))) return;
+      const store = mockStore[modelName] || [];
+      store.forEach((row, ri) => {
+        const raw = row?.[fieldName];
+        if (raw === undefined || raw === null || raw === '') return;
+        const input = document.querySelector(`[data-mockfield="${modelName}.${fieldName}.${ri}"]`);
+        if (!input) return;
+        const td   = input.closest('td.cell');
+        if (!td) return;
+        const disp = td.querySelector('.cell-display');
+        const formatted = _calcDisplayVal(modelName, fieldName, raw);
+        if (disp) disp.textContent = formatted;
+        // input.value는 raw 유지 (calculation_editable 편집 시 원래 숫자 보이게)
+      });
+    });
+  });
+}
+
 // ── 소수점 자릿수 변경 ───────────────────────────────────
 function uitestChangeDecimal(modelName, fieldName, delta) {
   const key = `${modelName}.${fieldName}`;
-  const cur  = uitestDecimalPlaces[key] ?? 2;
+  const cur = uitestDecimalPlaces[key] ?? 2;
   uitestDecimalPlaces[key] = Math.max(0, Math.min(8, cur + delta));
-  // 이미 저장된 값 재포매팅
-  _applyDecimalToColumn(modelName, fieldName);
-  renderUiTestPreview();
-}
-
-// calculation 컬럼의 display 값에 소수점 포매팅 적용
-function _formatDecimal(val, places) {
-  const n = parseFloat(val);
-  if (isNaN(n)) return val;
-  return n.toFixed(places);
-}
-
-function _applyDecimalToColumn(modelName, fieldName) {
-  const key    = `${modelName}.${fieldName}`;
-  const places = uitestDecimalPlaces[key] ?? 2;
-  const store  = mockStore[modelName] || [];
-  store.forEach((row, ri) => {
-    if (row[fieldName] === undefined) return;
-    const formatted = _formatDecimal(row[fieldName], places);
-    const input = document.querySelector(`[data-mockfield="${modelName}.${fieldName}.${ri}"]`);
-    if (!input) return;
-    const td = input.closest('td.cell');
-    if (!td) return;
-    const disp = td.querySelector('.cell-display');
-    if (disp) disp.textContent = formatted;
-    input.value = formatted;
-  });
+  // 헤더 숫자 즉시 갱신 + 컬럼 재포매팅 (전체 리렌더 없이)
+  const header = document.querySelector(`[data-decimal-key="${key}"]`);
+  if (header) header.textContent = uitestDecimalPlaces[key];
+  _applyAllDecimalFormatting();
 }
 
 // ── 엑셀 모드 행 추가 ───────────────────────────────────
@@ -227,6 +258,9 @@ function renderUiTestPreview() {
   });
   // 첫 번째 그리드의 (0,0) 자동 선택
   if (_cellGrids.length) _cellGrids[0].select(0, 0);
+
+  // calculation 컬럼 소수점 포매팅 적용 (store는 raw, display만 포매팅)
+  _applyAllDecimalFormatting();
 }
 
 // ── 1:1 폼 ─────────────────────────────────────────────
@@ -342,7 +376,7 @@ function renderExcelView(rows, modelName) {
           <span>${label}</span>
           <span style="display:inline-flex;align-items:center;gap:1px;font-size:10px;font-weight:400;opacity:.8">
             <button onclick="uitestChangeDecimal('${modelName}','${fn}',-1)" style="border:none;background:var(--bg-primary);border-radius:3px;cursor:pointer;padding:1px 4px;line-height:1;color:var(--text-primary)">.0-</button>
-            <span style="min-width:14px;text-align:center">${places}</span>
+            <span data-decimal-key="${key}" style="min-width:14px;text-align:center">${places}</span>
             <button onclick="uitestChangeDecimal('${modelName}','${fn}',+1)" style="border:none;background:var(--bg-primary);border-radius:3px;cursor:pointer;padding:1px 4px;line-height:1;color:var(--text-primary)">.0+</button>
           </span>
         </div>
