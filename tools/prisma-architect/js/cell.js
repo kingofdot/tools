@@ -129,6 +129,14 @@ const CellComponents = {
     renderDisplay(val) { return _esc(val); },
   },
 
+  calculation_editable: {
+    editable: true,
+    renderInput(val, meta) {
+      return `<input type="text" ${_iBase} value="${_esc(val)}" placeholder="${_esc(meta.commentary)}">`;
+    },
+    renderDisplay(val) { return _esc(val); },
+  },
+
   lookup_readonly: {
     editable: false,
     readonly: true,

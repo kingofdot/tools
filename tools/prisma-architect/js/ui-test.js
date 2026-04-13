@@ -17,6 +17,8 @@ let mockStore = {};
 
 // 엑셀 모드 상태
 let uitestExcelRowCount = {}; // { modelName: number } — 현재 테이블 행 수
+// 소수점 자릿수: { 'ModelName.fieldName': number } — calculation/calculation_editable 컬럼별
+let uitestDecimalPlaces = {};
 
 // CellGrid 인스턴스 (렌더마다 교체)
 let _cellGrids = [];
@@ -49,6 +51,40 @@ function mockStoreClear(modelName) {
     toast('스토어 전체 초기화', 'info');
   }
   renderUiTestPreview();
+}
+
+// ── 소수점 자릿수 변경 ───────────────────────────────────
+function uitestChangeDecimal(modelName, fieldName, delta) {
+  const key = `${modelName}.${fieldName}`;
+  const cur  = uitestDecimalPlaces[key] ?? 2;
+  uitestDecimalPlaces[key] = Math.max(0, Math.min(8, cur + delta));
+  // 이미 저장된 값 재포매팅
+  _applyDecimalToColumn(modelName, fieldName);
+  renderUiTestPreview();
+}
+
+// calculation 컬럼의 display 값에 소수점 포매팅 적용
+function _formatDecimal(val, places) {
+  const n = parseFloat(val);
+  if (isNaN(n)) return val;
+  return n.toFixed(places);
+}
+
+function _applyDecimalToColumn(modelName, fieldName) {
+  const key    = `${modelName}.${fieldName}`;
+  const places = uitestDecimalPlaces[key] ?? 2;
+  const store  = mockStore[modelName] || [];
+  store.forEach((row, ri) => {
+    if (row[fieldName] === undefined) return;
+    const formatted = _formatDecimal(row[fieldName], places);
+    const input = document.querySelector(`[data-mockfield="${modelName}.${fieldName}.${ri}"]`);
+    if (!input) return;
+    const td = input.closest('td.cell');
+    if (!td) return;
+    const disp = td.querySelector('.cell-display');
+    if (disp) disp.textContent = formatted;
+    input.value = formatted;
+  });
 }
 
 // ── 엑셀 모드 행 추가 ───────────────────────────────────
@@ -289,13 +325,30 @@ function renderExcelView(rows, modelName) {
   const rowCount  = uitestExcelRowCount[modelName];
   const storeData = mockStore[modelName] || [];
 
+  const CALC_TYPES = new Set(['calculation', 'calculation_editable']);
   const ths = visibleRows.map(([fn, meta]) => {
     const role  = fnRoles[fn];
     const bg    = role === 'input'  ? 'background:rgba(72,187,120,.18);'
                 : role === 'output' ? 'background:rgba(229,62,62,.12);'
                 : '';
     const w     = `width:${parseInt(meta.width) || 120}px;`;
-    return `<th style="${w}${bg}">${(labelH && meta[labelH.name]) || fn}</th>`;
+    const label = (labelH && meta[labelH.name]) || fn;
+    const compType = _resolveCompType(meta);
+    if (CALC_TYPES.has(compType)) {
+      const key     = `${modelName}.${fn}`;
+      const places  = uitestDecimalPlaces[key] ?? 2;
+      return `<th style="${w}${bg}padding:4px 6px;vertical-align:middle">
+        <div style="display:flex;align-items:center;justify-content:center;gap:4px">
+          <span>${label}</span>
+          <span style="display:inline-flex;align-items:center;gap:1px;font-size:10px;font-weight:400;opacity:.8">
+            <button onclick="uitestChangeDecimal('${modelName}','${fn}',-1)" style="border:none;background:var(--bg-primary);border-radius:3px;cursor:pointer;padding:1px 4px;line-height:1;color:var(--text-primary)">.0-</button>
+            <span style="min-width:14px;text-align:center">${places}</span>
+            <button onclick="uitestChangeDecimal('${modelName}','${fn}',+1)" style="border:none;background:var(--bg-primary);border-radius:3px;cursor:pointer;padding:1px 4px;line-height:1;color:var(--text-primary)">.0+</button>
+          </span>
+        </div>
+      </th>`;
+    }
+    return `<th style="${w}${bg}">${label}</th>`;
   }).join('');
 
   const bodyRows = Array.from({ length: rowCount }, (_, ri) => {

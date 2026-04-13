@@ -149,7 +149,21 @@ function _updateCell(modelName, fieldName, rowIndex, value) {
 
   const type = td.dataset.cellType;
   const comp = CellComponents[type];
-  display.innerHTML = comp?.renderDisplay ? comp.renderDisplay(value, {}) : value;
+
+  // calculation 계열: 소수점 자릿수 포매팅 적용
+  let displayVal = value;
+  if ((type === 'calculation' || type === 'calculation_editable') &&
+      typeof uitestDecimalPlaces !== 'undefined') {
+    const key    = `${modelName}.${fieldName}`;
+    const places = uitestDecimalPlaces[key] ?? 2;
+    const n      = parseFloat(value);
+    if (!isNaN(n)) {
+      displayVal = n.toFixed(places);
+      input.value = displayVal;
+    }
+  }
+
+  display.innerHTML = comp?.renderDisplay ? comp.renderDisplay(displayVal, {}) : displayVal;
 
   // 함수 결과도 스토어 자동 반영
   if (typeof _autoStoreSet === 'function') _autoStoreSet(modelName, fieldName, rowIndex, value);
