@@ -353,7 +353,7 @@ function renderUiTable() {
   }).join('');
 
   let html = `<table class="excel-table" id="uiMetaTable">
-    <thead><tr><th style="width:32px;position:sticky;left:0;z-index:11;background:var(--bg-secondary);border-right:1px solid var(--border)"></th><th style="min-width:140px;position:sticky;left:32px;z-index:11;background:var(--bg-secondary);border-right:1px solid var(--border)">fieldName</th>${thHtml}<th></th></tr></thead><tbody id="uiMetaTableBody">`;
+    <thead><tr><th style="width:32px;position:sticky;left:0;z-index:11;background:var(--bg-secondary);border-right:1px solid var(--border)"></th><th style="min-width:140px;position:sticky;left:32px;z-index:11;background:var(--bg-secondary);border-right:1px solid var(--border);box-shadow:2px 0 4px rgba(0,0,0,0.08)">fieldName</th>${thHtml}<th></th></tr></thead><tbody id="uiMetaTableBody">`;
 
   rows.forEach((row) => {
     const modelOpts = schema.models.map(m => m.name);
@@ -377,7 +377,7 @@ function renderUiTable() {
     const borrowedBadge = isBorrowed ? `<span style="font-size:9px;background:var(--accent-dim);color:var(--accent);padding:1px 6px;border-radius:99px;font-weight:700;margin-left:6px">${row.fieldName.split('.')[0]}</span>` : '';
     html += `<tr draggable="true" data-field="${row.fieldName}">
       <td style="text-align:center;position:sticky;left:0;background:var(--bg-secondary);z-index:5;padding:2px 6px;cursor:grab;color:var(--text-muted);font-size:16px;user-select:none;border-right:1px solid var(--border)">⠿</td>
-      <td style="font-weight:600;${fieldColor};white-space:nowrap;position:sticky;left:32px;background:var(--bg-secondary);z-index:5;border-right:1px solid var(--border)">${row.fieldName.includes('.') ? row.fieldName.split('.')[1] : row.fieldName}${borrowedBadge}</td>
+      <td style="font-weight:600;${fieldColor};white-space:nowrap;position:sticky;left:32px;background:var(--bg-secondary);z-index:5;border-right:1px solid var(--border);box-shadow:2px 0 4px rgba(0,0,0,0.08)">${row.fieldName.includes('.') ? row.fieldName.split('.')[1] : row.fieldName}${borrowedBadge}</td>
       ${tds}
       <td><button class="btn btn-danger" style="padding:2px 8px;font-size:10px" onclick="uiDelRow('${row.fieldName}')">✕</button></td>
     </tr>`;
