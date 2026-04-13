@@ -353,7 +353,7 @@ function renderUiTable() {
   }).join('');
 
   let html = `<table class="excel-table" id="uiMetaTable">
-    <thead><tr><th style="width:32px;position:sticky;left:0;z-index:11;background:var(--bg-secondary);border-right:1px solid var(--border)"></th><th style="min-width:140px;position:sticky;left:32px;z-index:11;background:var(--bg-secondary);box-shadow:2px 0 0 var(--border)">fieldName</th>${thHtml}<th></th></tr></thead><tbody id="uiMetaTableBody">`;
+    <thead><tr><th style="width:24px;background:var(--bg-secondary);border-right:1px solid var(--border)"></th><th style="min-width:120px;background:var(--bg-secondary);border-right:1px solid var(--border)">fieldName</th>${thHtml}<th></th></tr></thead><tbody id="uiMetaTableBody">`;
 
   rows.forEach((row) => {
     const modelOpts = schema.models.map(m => m.name);
@@ -363,21 +363,21 @@ function renderUiTable() {
       if (h.type === 'combo' && h.options.length > 0) {
         const opts = ['', ...h.options].map(o => `<option value="${o}"${o === val ? ' selected' : ''}>${o || '—'}</option>`).join('');
         const onch = h.name === 'systemType' ? ` onchange="onSystemTypeChange('${row.fieldName}',this.value)"` : '';
-        return `<td style="min-width:100px;padding:4px 8px;position:relative"><select data-field="${row.fieldName}" data-col="${h.name}"${onch} style="width:100%;padding:3px 6px;border:1px solid var(--border);border-radius:4px;background:var(--bg-primary);color:var(--text-primary);font-size:12px">${opts}</select>${fillBtn}</td>`;
+        return `<td style="min-width:90px;padding:2px 4px;position:relative"><select data-field="${row.fieldName}" data-col="${h.name}"${onch} style="width:100%;padding:2px 4px;border:1px solid var(--border);border-radius:3px;background:var(--bg-primary);color:var(--text-primary);font-size:11px">${opts}</select>${fillBtn}</td>`;
       }
       if (h.type === 'model') {
         const opts = ['', ...modelOpts].map(o => `<option value="${o}"${o === val ? ' selected' : ''}>${o || '—'}</option>`).join('');
-        return `<td style="min-width:120px;padding:4px 8px;position:relative"><select data-field="${row.fieldName}" data-col="${h.name}" style="width:100%;padding:3px 6px;border:1px solid var(--border);border-radius:4px;background:var(--bg-primary);color:var(--text-primary);font-size:12px">${opts}</select>${fillBtn}</td>`;
+        return `<td style="min-width:100px;padding:2px 4px;position:relative"><select data-field="${row.fieldName}" data-col="${h.name}" style="width:100%;padding:2px 4px;border:1px solid var(--border);border-radius:3px;background:var(--bg-primary);color:var(--text-primary);font-size:11px">${opts}</select>${fillBtn}</td>`;
       }
-      return `<td style="min-width:90px;position:relative;padding:0"><span contenteditable="true" data-field="${row.fieldName}" data-col="${h.name}" style="display:block;padding:7px 24px 7px 12px;outline:none;min-height:100%">${val}</span>${fillBtn}</td>`;
+      return `<td style="min-width:80px;position:relative;padding:0"><span contenteditable="true" data-field="${row.fieldName}" data-col="${h.name}" style="display:block;padding:4px 20px 4px 8px;outline:none;min-height:100%;font-size:11px">${val}</span>${fillBtn}</td>`;
     }).join('');
 
     const isBorrowed = row.fieldName.includes('.');
     const fieldColor = isBorrowed ? 'color:var(--accent)' : row.extraOnly ? 'color:var(--accent2)' : 'color:var(--text-muted)';
     const borrowedBadge = isBorrowed ? `<span style="font-size:9px;background:var(--accent-dim);color:var(--accent);padding:1px 6px;border-radius:99px;font-weight:700;margin-left:6px">${row.fieldName.split('.')[0]}</span>` : '';
     html += `<tr draggable="true" data-field="${row.fieldName}">
-      <td style="text-align:center;position:sticky;left:0;background:var(--bg-secondary);z-index:5;padding:2px 6px;cursor:grab;color:var(--text-muted);font-size:16px;user-select:none;border-right:1px solid var(--border)">⠿</td>
-      <td style="font-weight:600;${fieldColor};white-space:nowrap;position:sticky;left:32px;background:var(--bg-secondary);z-index:5;box-shadow:2px 0 0 var(--border)">${row.fieldName.includes('.') ? row.fieldName.split('.')[1] : row.fieldName}${borrowedBadge}</td>
+      <td style="text-align:center;background:var(--bg-secondary);padding:2px 4px;cursor:grab;color:var(--text-muted);font-size:14px;user-select:none;border-right:1px solid var(--border)">⠿</td>
+      <td style="font-weight:600;${fieldColor};white-space:nowrap;background:var(--bg-secondary);border-right:1px solid var(--border);padding:4px 8px;font-size:11px">${row.fieldName.includes('.') ? row.fieldName.split('.')[1] : row.fieldName}${borrowedBadge}</td>
       ${tds}
       <td><button class="btn btn-danger" style="padding:2px 8px;font-size:10px" onclick="uiDelRow('${row.fieldName}')">✕</button></td>
     </tr>`;
