@@ -23,8 +23,8 @@
 const FunctionRegistry = {
   _store: {},
 
-  register(name, { watch, outputFields, optionsOutput, fn, desc = '', outputType = 'float' }) {
-    this._store[name] = { watch, outputFields: outputFields || null, optionsOutput: optionsOutput || null, fn, desc, outputType };
+  register(name, { watch, outputField, outputFields, optionsOutput, fn, desc = '', outputType = 'float' }) {
+    this._store[name] = { watch, outputField: outputField || null, outputFields: outputFields || null, optionsOutput: optionsOutput || null, fn, desc, outputType };
   },
 
   get(name) {
@@ -47,6 +47,7 @@ const _p = v => parseFloat(v) || 0;
 // 바닥 면적 계산 (WasteStorageFacility.Area)
 FunctionRegistry.register('calcArea', {
   desc: '바닥 형태(bottomShape)와 치수로 면적을 계산합니다',
+  outputField: 'Area',
   outputType: 'float',
   watch: ['bottomShape', 'diameter', 'width', 'length', 'topSide', 'bottomSide', 'verticalSide'],
   fn(params) {
@@ -76,6 +77,7 @@ FunctionRegistry.register('calcArea', {
 // 부피 계산 (WasteStorageFacility.volume)
 FunctionRegistry.register('calcVolume', {
   desc: '면적(Area)과 높이(height)로 부피를 계산합니다',
+  outputField: 'volume',
   outputType: 'float',
   watch: ['Area', 'height'],
   fn(params) {
@@ -89,6 +91,7 @@ FunctionRegistry.register('calcVolume', {
 // 저장용량 계산 (WasteStorageFacility.storageAmount)
 FunctionRegistry.register('calcStorageAmount', {
   desc: '부피(volume)와 개수(quantity)로 저장용량을 계산합니다',
+  outputField: 'storageAmount',
   outputType: 'float',
   watch: ['volume', 'quantity'],
   fn(params) {

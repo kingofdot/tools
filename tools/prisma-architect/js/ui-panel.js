@@ -65,9 +65,15 @@ let uiHeaders = [
   { name: 'width',             type: 'text',  options: [],               uiRole: 'width' },
   { name: 'defaultValue',      type: 'text',  options: [],               uiRole: 'none' },
   { name: 'comboboxName',      type: 'combo', options: [],               uiRole: 'none' },
+  { name: 'dbTable',           type: 'text',  options: [],               uiRole: 'none' },
+  { name: 'dbColumn',          type: 'text',  options: [],               uiRole: 'none' },
+  { name: 'syncGroup',         type: 'text',  options: [],               uiRole: 'none' },
   { name: 'dataSource',        type: 'model', options: [],               uiRole: 'none' },
   { name: 'creationConditions',type: 'text',  options: [],               uiRole: 'none' },
-  { name: 'fnName',            type: 'combo',      options: [],          uiRole: 'none' },
+  { name: 'onClick',           type: 'combo', options: [],               uiRole: 'none' },
+  { name: 'onChange',          type: 'combo', options: [],               uiRole: 'none' },
+  { name: 'focusOut',          type: 'combo', options: [],               uiRole: 'none' },
+  { name: 'realtime',          type: 'combo', options: [],               uiRole: 'none' },
 ];
 
 // ── 시스템타입별 컬럼 힌트 ────────────────────────────────
@@ -76,44 +82,57 @@ let uiHeaders = [
 const SYSTEM_TYPE_HINTS = {
   text: {
     highlight: [],
-    dim: ['comboboxName','dataSource','fnName'],
+    dim: ['comboboxName','dbTable','dbColumn','syncGroup','dataSource'],
   },
   number: {
     highlight: [],
-    dim: ['comboboxName','dataSource','fnName'],
+    dim: ['comboboxName','dbTable','dbColumn','syncGroup','dataSource'],
   },
   date: {
     highlight: [],
-    dim: ['comboboxName','dataSource','fnName'],
+    dim: ['comboboxName','dbTable','dbColumn','syncGroup','dataSource'],
   },
   select: {
     highlight: ['comboboxName'],
-    dim: ['dataSource','variableType','fnName'],
+    dim: ['dbTable','dbColumn','syncGroup','dataSource','variableType'],
   },
   combobox: {
     highlight: ['comboboxName'],
-    dim: ['dataSource','variableType','fnName'],
+    dim: ['dbTable','dbColumn','syncGroup','dataSource','variableType'],
+  },
+  db_select: {
+    highlight: ['dbTable','dbColumn','syncGroup'],
+    dim: ['comboboxName','dataSource','variableType'],
+  },
+  db_combobox: {
+    highlight: ['dbTable','dbColumn','syncGroup'],
+    dim: ['comboboxName','dataSource','variableType'],
   },
   boolean: {
     highlight: [],
-    dim: ['comboboxName','dataSource','fnName'],
+    dim: ['comboboxName','dbTable','dbColumn','syncGroup','dataSource'],
   },
   calculation: {
-    highlight: ['fnName'],
-    dim: ['comboboxName','dataSource','isRequired','defaultValue','variableType'],
+    highlight: ['onChange'],
+    dim: ['comboboxName','dbTable','dbColumn','syncGroup','dataSource','isRequired','defaultValue','variableType','onClick','focusOut','realtime'],
+  },
+  calculation_editable: {
+    highlight: ['onChange'],
+    dim: ['comboboxName','dbTable','dbColumn','syncGroup','dataSource','isRequired','defaultValue','variableType','onClick','focusOut','realtime'],
   },
   lookup_readonly: {
     highlight: ['dataSource'],
-    dim: ['comboboxName','isRequired','defaultValue','fnName'],
+    dim: ['comboboxName','dbTable','dbColumn','syncGroup','isRequired','defaultValue'],
   },
   lookup_editable: {
     highlight: ['dataSource'],
-    dim: ['comboboxName'],
+    dim: ['comboboxName','dbTable','dbColumn','syncGroup'],
   },
   hidden: {
     highlight: [],
-    dim: ['label','commentary','isRequired','variableType','width','defaultValue','comboboxName','dataSource',
-          'creationConditions','fnName','initialCreation','showNode','showNodeDetail'],
+    dim: ['label','commentary','isRequired','variableType','width','defaultValue','comboboxName',
+          'dbTable','dbColumn','syncGroup','dataSource','creationConditions',
+          'onClick','onChange','focusOut','realtime','initialCreation','showNode','showNodeDetail'],
   },
 };
 
@@ -190,8 +209,12 @@ function syncDynamicHeaderOptions() {
   if (vt) { vt.type = 'combo'; vt.options = variableTypeStore.map(t => t.key); }
   const cb = uiHeaders.find(h => h.name === 'comboboxName');
   if (cb) { cb.type = 'combo'; cb.options = Object.keys(comboboxStore); }
-  const fn = uiHeaders.find(h => h.name === 'fnName');
-  if (fn) { fn.type = 'combo'; fn.options = functionStore.map(f => f.name); }
+  // 트리거 컬럼: 함수 목록 동기화
+  const fnOptions = ['', ...functionStore.map(f => f.name)];
+  ['onClick','onChange','focusOut','realtime'].forEach(triggerName => {
+    const h = uiHeaders.find(h => h.name === triggerName);
+    if (h) { h.type = 'combo'; h.options = fnOptions; }
+  });
 }
 
 // metaStore: { [modelName]: { [fieldName]: { [header]: value } } }

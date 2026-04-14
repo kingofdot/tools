@@ -244,15 +244,22 @@ function renderUiTestPreview() {
     _cellGrids.push(new CellGrid(el, {
       onCommit: (row, col, val) => {
         if (!modelName) return;
-        // 바뀐 필드명 추출 (data-mockfield = "ModelName.fieldName.rowIndex")
         const cell = el.querySelector(`[data-row="${row}"][data-col="${col}"]`);
         const mockfield = cell?.querySelector('[data-mockfield]')?.dataset?.mockfield || '';
         const parts = mockfield.split('.');
         if (parts.length < 2) return;
         const changedField = parts[1];
-        // 스토어 자동 업데이트 → 함수 실행
         _autoStoreSet(modelName, changedField, row, val);
-        runFunctions(modelName, changedField, row);
+        runOnChange(modelName, changedField, row);
+      },
+      onSelect: (row, col) => {
+        if (!modelName) return;
+        const cell = el.querySelector(`[data-row="${row}"][data-col="${col}"]`);
+        const mockfield = cell?.querySelector('[data-mockfield]')?.dataset?.mockfield || '';
+        const parts = mockfield.split('.');
+        if (parts.length < 2) return;
+        const fieldName = parts[1];
+        runOnClick(modelName, fieldName, row);
       },
     }));
   });
@@ -443,7 +450,7 @@ function buildInput(fieldName, meta, modelName) {
 
   // readonly/calculation이 아닌 입력 필드: 스토어 자동 업데이트 + fn 트리거
   const onChange = (!ro && modelName)
-    ? `onchange="_autoStoreSet('${modelName}','${fieldName}',null,this.value);runFunctions('${modelName}','${fieldName}',null)"`
+    ? `onchange="_autoStoreSet('${modelName}','${fieldName}',null,this.value);runOnChange('${modelName}','${fieldName}',null)"`
     : '';
 
   if (type === 'select' || type === 'combobox') {

@@ -354,101 +354,781 @@
   ],
   "metaStore": {
     "Post": {
-      "id": {},
-      "authorId": {},
-      "slug": {},
-      "title": {},
-      "content": {},
-      "published": {},
-      "excerpt": {},
-      "isFeatured": {},
-      "author": {},
-      "tags": {},
-      "createdAt": {},
-      "updatedAt": {}
+      "id": {
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
+      },
+      "authorId": {
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
+      },
+      "slug": {
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
+      },
+      "title": {
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
+      },
+      "content": {
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
+      },
+      "published": {
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
+      },
+      "excerpt": {
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
+      },
+      "isFeatured": {
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
+      },
+      "author": {
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
+      },
+      "tags": {
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
+      },
+      "createdAt": {
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
+      },
+      "updatedAt": {
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
+      }
     },
     "Business": {
-      "id": {},
-      "businessName": {},
-      "ownerName": {},
-      "ownerBirthdate": {},
-      "businessRegNumber": {},
-      "corporationRegNumber": {},
-      "businessAddress": {},
-      "businessPhone": {},
-      "mobilePhone": {},
-      "mainProduct": {},
-      "industryTypeCode": {},
-      "industryTypeName": {},
-      "wasteIndustryType": {},
-      "userId": {},
-      "user": {},
-      "documentProfiles": {},
-      "processFlows": {},
-      "wasteDocumentations": {},
-      "createdAt": {},
-      "updatedAt": {},
-      "testModelId": {},
-      "airDocumentation": {},
-      "airDocumentationId": {},
-      "productionFacilities": {},
-      "controlFacilities": {},
-      "executiveOfficers": {},
-      "rawMaterialUsages": {},
-      "landInfos": {},
-      "buildingInfos": {},
-      "temporaryBuildingInfos": {},
-      "waterDocumentations": {},
-      "odorDocumentations": {},
-      "noiseDocumentations": {},
-      "airDocumentations": {}
+      "id": {
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
+      },
+      "businessName": {
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
+      },
+      "ownerName": {
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
+      },
+      "ownerBirthdate": {
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
+      },
+      "businessRegNumber": {
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
+      },
+      "corporationRegNumber": {
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
+      },
+      "businessAddress": {
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
+      },
+      "businessPhone": {
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
+      },
+      "mobilePhone": {
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
+      },
+      "mainProduct": {
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
+      },
+      "industryTypeCode": {
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
+      },
+      "industryTypeName": {
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
+      },
+      "wasteIndustryType": {
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
+      },
+      "userId": {
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
+      },
+      "user": {
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
+      },
+      "documentProfiles": {
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
+      },
+      "processFlows": {
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
+      },
+      "wasteDocumentations": {
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
+      },
+      "createdAt": {
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
+      },
+      "updatedAt": {
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
+      },
+      "testModelId": {
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
+      },
+      "airDocumentation": {
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
+      },
+      "airDocumentationId": {
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
+      },
+      "productionFacilities": {
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
+      },
+      "controlFacilities": {
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
+      },
+      "executiveOfficers": {
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
+      },
+      "rawMaterialUsages": {
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
+      },
+      "landInfos": {
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
+      },
+      "buildingInfos": {
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
+      },
+      "temporaryBuildingInfos": {
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
+      },
+      "waterDocumentations": {
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
+      },
+      "odorDocumentations": {
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
+      },
+      "noiseDocumentations": {
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
+      },
+      "airDocumentations": {
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
+      }
     },
     "DocumentRequest": {
-      "id": {},
-      "documentType": {},
-      "status": {},
-      "memo": {},
-      "payload": {},
-      "completedAt": {},
-      "s3Key": {},
-      "userId": {},
-      "user": {},
-      "createdAt": {},
-      "updatedAt": {}
+      "id": {
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
+      },
+      "documentType": {
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
+      },
+      "status": {
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
+      },
+      "memo": {
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
+      },
+      "payload": {
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
+      },
+      "completedAt": {
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
+      },
+      "s3Key": {
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
+      },
+      "userId": {
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
+      },
+      "user": {
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
+      },
+      "createdAt": {
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
+      },
+      "updatedAt": {
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
+      }
     },
     "Tag": {
-      "id": {},
-      "name": {},
-      "slug": {},
-      "posts": {},
-      "createdAt": {},
-      "updatedAt": {}
+      "id": {
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
+      },
+      "name": {
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
+      },
+      "slug": {
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
+      },
+      "posts": {
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
+      },
+      "createdAt": {
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
+      },
+      "updatedAt": {
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
+      }
     },
     "Account": {
-      "id": {},
-      "userId": {},
-      "accountId": {},
-      "providerId": {},
-      "accessToken": {},
-      "refreshToken": {},
-      "accessTokenExpiresAt": {},
-      "refreshTokenExpiresAt": {},
-      "scope": {},
-      "idToken": {},
-      "password": {},
-      "user": {},
-      "createdAt": {},
-      "updatedAt": {}
+      "id": {
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
+      },
+      "userId": {
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
+      },
+      "accountId": {
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
+      },
+      "providerId": {
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
+      },
+      "accessToken": {
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
+      },
+      "refreshToken": {
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
+      },
+      "accessTokenExpiresAt": {
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
+      },
+      "refreshTokenExpiresAt": {
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
+      },
+      "scope": {
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
+      },
+      "idToken": {
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
+      },
+      "password": {
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
+      },
+      "user": {
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
+      },
+      "createdAt": {
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
+      },
+      "updatedAt": {
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
+      }
     },
     "LandInfo": {
-      "id": {},
-      "businessId": {},
-      "lotNumber": {},
-      "landCategory": {},
-      "area": {},
-      "business": {},
-      "createdAt": {},
-      "updatedAt": {}
+      "id": {
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
+      },
+      "businessId": {
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
+      },
+      "lotNumber": {
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
+      },
+      "landCategory": {
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
+      },
+      "area": {
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
+      },
+      "business": {
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
+      },
+      "createdAt": {
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
+      },
+      "updatedAt": {
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
+      }
     },
     "BuildingInfo": {
       "id": {
@@ -466,12 +1146,18 @@
         "comboboxName": "",
         "creationConditions": "",
         "fnTriggerEvent": "",
-        "fnName": "",
         "fnInputParams": "",
         "fnOutputTarget": "",
         "fnSyncCondition": "",
         "dataSource": "",
-        "test": ""
+        "test": "",
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
       },
       "businessId": {
         "commentary": "",
@@ -488,12 +1174,18 @@
         "comboboxName": "",
         "creationConditions": "",
         "fnTriggerEvent": "",
-        "fnName": "",
         "fnInputParams": "",
         "fnOutputTarget": "",
         "fnSyncCondition": "",
         "dataSource": "",
-        "test": ""
+        "test": "",
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
       },
       "dong": {
         "commentary": "",
@@ -510,12 +1202,18 @@
         "comboboxName": "",
         "creationConditions": "",
         "fnTriggerEvent": "",
-        "fnName": "",
         "fnInputParams": "",
         "fnOutputTarget": "",
         "fnSyncCondition": "",
         "dataSource": "",
-        "test": ""
+        "test": "",
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
       },
       "floors": {
         "commentary": "",
@@ -532,12 +1230,18 @@
         "comboboxName": "",
         "creationConditions": "",
         "fnTriggerEvent": "",
-        "fnName": "",
         "fnInputParams": "",
         "fnOutputTarget": "",
         "fnSyncCondition": "",
         "dataSource": "",
-        "test": ""
+        "test": "",
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
       },
       "purpose": {
         "commentary": "",
@@ -554,12 +1258,18 @@
         "comboboxName": "",
         "creationConditions": "",
         "fnTriggerEvent": "",
-        "fnName": "",
         "fnInputParams": "",
         "fnOutputTarget": "",
         "fnSyncCondition": "",
         "dataSource": "",
-        "test": ""
+        "test": "",
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
       },
       "area": {
         "commentary": "",
@@ -576,12 +1286,18 @@
         "comboboxName": "",
         "creationConditions": "",
         "fnTriggerEvent": "",
-        "fnName": "",
         "fnInputParams": "",
         "fnOutputTarget": "",
         "fnSyncCondition": "",
         "dataSource": "",
-        "test": ""
+        "test": "",
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
       },
       "business": {
         "commentary": "",
@@ -598,12 +1314,18 @@
         "comboboxName": "",
         "creationConditions": "",
         "fnTriggerEvent": "",
-        "fnName": "",
         "fnInputParams": "",
         "fnOutputTarget": "",
         "fnSyncCondition": "",
         "dataSource": "",
-        "test": ""
+        "test": "",
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
       },
       "createdAt": {
         "commentary": "",
@@ -620,12 +1342,18 @@
         "comboboxName": "",
         "creationConditions": "",
         "fnTriggerEvent": "",
-        "fnName": "",
         "fnInputParams": "",
         "fnOutputTarget": "",
         "fnSyncCondition": "",
         "dataSource": "",
-        "test": ""
+        "test": "",
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
       },
       "updatedAt": {
         "commentary": "",
@@ -642,153 +1370,1068 @@
         "comboboxName": "",
         "creationConditions": "",
         "fnTriggerEvent": "",
-        "fnName": "",
         "fnInputParams": "",
         "fnOutputTarget": "",
         "fnSyncCondition": "",
         "dataSource": "",
-        "test": ""
+        "test": "",
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
       }
     },
     "ControlFacility": {
-      "id": {},
-      "businessId": {},
-      "facilityNumber": {},
-      "facilityName": {},
-      "size": {},
-      "specification": {},
-      "isAirControlFacility": {},
-      "airEmissionOutletNumber": {},
-      "airEmissionOutletOrder": {},
-      "isWaterControlFacility": {},
-      "isSmellControlFacility": {},
-      "isNoiseControlFacility": {},
-      "facilityPrice": {},
-      "installedBuilding": {},
-      "manufacturer": {},
-      "phoneNumber": {},
-      "changeType": {},
-      "memo": {},
-      "business": {},
-      "processFlows": {},
-      "createdAt": {},
-      "updatedAt": {}
+      "id": {
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
+      },
+      "businessId": {
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
+      },
+      "facilityNumber": {
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
+      },
+      "facilityName": {
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
+      },
+      "size": {
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
+      },
+      "specification": {
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
+      },
+      "isAirControlFacility": {
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
+      },
+      "airEmissionOutletNumber": {
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
+      },
+      "airEmissionOutletOrder": {
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
+      },
+      "isWaterControlFacility": {
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
+      },
+      "isSmellControlFacility": {
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
+      },
+      "isNoiseControlFacility": {
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
+      },
+      "facilityPrice": {
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
+      },
+      "installedBuilding": {
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
+      },
+      "manufacturer": {
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
+      },
+      "phoneNumber": {
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
+      },
+      "changeType": {
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
+      },
+      "memo": {
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
+      },
+      "business": {
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
+      },
+      "processFlows": {
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
+      },
+      "createdAt": {
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
+      },
+      "updatedAt": {
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
+      }
     },
     "Office": {
-      "id": {},
-      "businessId": {},
-      "officeAddress": {},
-      "officeArea": {},
-      "contactNumber": {},
-      "changeType": {},
-      "wasteDocumentations": {},
-      "createdAt": {},
-      "updatedAt": {},
+      "id": {
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
+      },
+      "businessId": {
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
+      },
+      "officeAddress": {
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
+      },
+      "officeArea": {
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
+      },
+      "contactNumber": {
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
+      },
+      "changeType": {
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
+      },
+      "wasteDocumentations": {
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
+      },
+      "createdAt": {
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
+      },
+      "updatedAt": {
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
+      },
       "Vehicle.vehicleName": {
-        "dataSource": "Vehicle"
+        "dataSource": "Vehicle",
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
       }
     },
     "RawMaterialUsage": {
-      "id": {},
-      "businessId": {},
-      "materialType": {},
-      "materialName": {},
-      "dailyUsage": {},
-      "monthlyOperatingDays": {},
-      "monthlyUsage": {},
-      "annualOperatingDays": {},
-      "annualUsage": {},
-      "business": {},
-      "createdAt": {},
-      "updatedAt": {}
+      "id": {
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
+      },
+      "businessId": {
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
+      },
+      "materialType": {
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
+      },
+      "materialName": {
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
+      },
+      "dailyUsage": {
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
+      },
+      "monthlyOperatingDays": {
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
+      },
+      "monthlyUsage": {
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
+      },
+      "annualOperatingDays": {
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
+      },
+      "annualUsage": {
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
+      },
+      "business": {
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
+      },
+      "createdAt": {
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
+      },
+      "updatedAt": {
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
+      }
     },
     "VerifiedEmail": {
-      "id": {},
-      "email": {},
-      "expiresAt": {},
-      "createdAt": {},
-      "updatedAt": {}
+      "id": {
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
+      },
+      "email": {
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
+      },
+      "expiresAt": {
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
+      },
+      "createdAt": {
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
+      },
+      "updatedAt": {
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
+      }
     },
     "WasteDocumentation": {
-      "id": {},
-      "businessId": {},
-      "wasteTargetItems": {},
-      "wasteFacilities": {},
-      "wasteStorageFacilities": {},
-      "business": {},
-      "createdAt": {},
-      "updatedAt": {},
-      "office": {},
-      "officeId": {},
-      "vehicle": {},
-      "vehicleId": {},
-      "executiveOfficerId": {}
+      "id": {
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
+      },
+      "businessId": {
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
+      },
+      "wasteTargetItems": {
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
+      },
+      "wasteFacilities": {
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
+      },
+      "wasteStorageFacilities": {
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
+      },
+      "business": {
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
+      },
+      "createdAt": {
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
+      },
+      "updatedAt": {
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
+      },
+      "office": {
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
+      },
+      "officeId": {
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
+      },
+      "vehicle": {
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
+      },
+      "vehicleId": {
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
+      },
+      "executiveOfficerId": {
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
+      }
     },
     "WasteFacility": {
-      "id": {},
-      "wasteDocumentationId": {},
-      "productionFacilityId": {},
-      "capacityPerHour": {},
-      "dailyOperatingHours": {},
-      "dailyThroughput": {},
-      "productionFacility": {},
-      "wasteDocumentation": {}
+      "id": {
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
+      },
+      "wasteDocumentationId": {
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
+      },
+      "productionFacilityId": {
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
+      },
+      "capacityPerHour": {
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
+      },
+      "dailyOperatingHours": {
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
+      },
+      "dailyThroughput": {
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
+      },
+      "productionFacility": {
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
+      },
+      "wasteDocumentation": {
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
+      }
     },
     "ProcessFlow": {
-      "id": {},
-      "businessId": {},
-      "layoutData": {},
-      "productionFacilities": {},
-      "controlFacilities": {},
-      "business": {},
-      "createdAt": {},
-      "updatedAt": {}
+      "id": {
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
+      },
+      "businessId": {
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
+      },
+      "layoutData": {
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
+      },
+      "productionFacilities": {
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
+      },
+      "controlFacilities": {
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
+      },
+      "business": {
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
+      },
+      "createdAt": {
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
+      },
+      "updatedAt": {
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
+      }
     },
     "Hood": {
-      "id": {},
-      "airEmissionFacilityId": {},
-      "airControlFacilityId": {},
-      "emissionOutletNumber": {},
-      "airEmissionFacility": {},
-      "airControlFacility": {},
-      "pollutants": {},
-      "createdAt": {},
-      "updatedAt": {}
+      "id": {
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
+      },
+      "airEmissionFacilityId": {
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
+      },
+      "airControlFacilityId": {
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
+      },
+      "emissionOutletNumber": {
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
+      },
+      "airEmissionFacility": {
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
+      },
+      "airControlFacility": {
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
+      },
+      "pollutants": {
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
+      },
+      "createdAt": {
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
+      },
+      "updatedAt": {
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
+      }
     },
     "BusinessDocumentProfile": {
       "id": {
-        "fnName": "calcStorageAmount"
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
       },
-      "businessId": {},
-      "profileScope": {},
-      "documentCategoryCode": {},
-      "documentSubCategoryCode": {},
-      "documentCode": {},
-      "submissionOffice": {},
-      "mainProcess": {},
-      "specificData": {},
-      "business": {},
-      "createdAt": {},
-      "updatedAt": {}
+      "businessId": {
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
+      },
+      "profileScope": {
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
+      },
+      "documentCategoryCode": {
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
+      },
+      "documentSubCategoryCode": {
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
+      },
+      "documentCode": {
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
+      },
+      "submissionOffice": {
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
+      },
+      "mainProcess": {
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
+      },
+      "specificData": {
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
+      },
+      "business": {
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
+      },
+      "createdAt": {
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
+      },
+      "updatedAt": {
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
+      }
     },
     "Verification": {
-      "id": {},
-      "identifier": {},
-      "value": {},
-      "expiresAt": {},
-      "createdAt": {},
-      "updatedAt": {}
+      "id": {
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
+      },
+      "identifier": {
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
+      },
+      "value": {
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
+      },
+      "expiresAt": {
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
+      },
+      "createdAt": {
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
+      },
+      "updatedAt": {
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
+      }
     },
     "Session": {
-      "id": {},
-      "userId": {},
-      "token": {},
-      "ipAddress": {},
-      "userAgent": {},
-      "user": {},
-      "expiresAt": {},
-      "createdAt": {},
-      "updatedAt": {}
+      "id": {
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
+      },
+      "userId": {
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
+      },
+      "token": {
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
+      },
+      "ipAddress": {
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
+      },
+      "userAgent": {
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
+      },
+      "user": {
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
+      },
+      "expiresAt": {
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
+      },
+      "createdAt": {
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
+      },
+      "updatedAt": {
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
+      }
     },
     "WasteStorageFacility": {
       "id": {
@@ -805,14 +2448,20 @@
         "width": "100",
         "comboboxName": "",
         "fnTriggerEvent": "",
-        "fnName": "",
         "fnInputParams": "",
         "fnOutputTarget": "",
         "fnSyncCondition": "",
         "dataSource": "",
         "initialCreation": "false",
         "showNodeDetail": "",
-        "creationConditions": ""
+        "creationConditions": "",
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
       },
       "wasteDocumentationId": {
         "commentary": "",
@@ -828,14 +2477,20 @@
         "width": "100",
         "comboboxName": "",
         "fnTriggerEvent": "",
-        "fnName": "",
         "fnInputParams": "",
         "fnOutputTarget": "",
         "fnSyncCondition": "",
         "dataSource": "",
         "initialCreation": "false",
         "showNodeDetail": "",
-        "creationConditions": ""
+        "creationConditions": "",
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
       },
       "targetWasteId": {
         "commentary": "",
@@ -851,14 +2506,20 @@
         "width": "100",
         "comboboxName": "",
         "fnTriggerEvent": "",
-        "fnName": "",
         "fnInputParams": "",
         "fnOutputTarget": "",
         "fnSyncCondition": "",
         "dataSource": "",
         "initialCreation": "false",
         "showNodeDetail": "",
-        "creationConditions": ""
+        "creationConditions": "",
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
       },
       "targetWaste": {
         "commentary": "",
@@ -874,14 +2535,20 @@
         "width": "100",
         "comboboxName": "",
         "fnTriggerEvent": "",
-        "fnName": "",
         "fnInputParams": "",
         "fnOutputTarget": "",
         "fnSyncCondition": "",
         "dataSource": "",
         "initialCreation": "true",
         "showNodeDetail": "",
-        "creationConditions": ""
+        "creationConditions": "",
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
       },
       "specificGravity": {
         "commentary": "",
@@ -897,14 +2564,20 @@
         "width": "100",
         "comboboxName": "",
         "fnTriggerEvent": "",
-        "fnName": "",
         "fnInputParams": "",
         "fnOutputTarget": "",
         "fnSyncCondition": "",
         "dataSource": "",
         "initialCreation": "true",
         "showNodeDetail": "",
-        "creationConditions": ""
+        "creationConditions": "",
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
       },
       "bottomShape": {
         "commentary": "",
@@ -920,14 +2593,20 @@
         "width": "100",
         "comboboxName": "Shape",
         "fnTriggerEvent": "",
-        "fnName": "",
         "fnInputParams": "",
         "fnOutputTarget": "",
         "fnSyncCondition": "",
         "dataSource": "",
         "initialCreation": "true",
         "showNodeDetail": "",
-        "creationConditions": ""
+        "creationConditions": "",
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "calcArea",
+        "focusOut": "",
+        "realtime": ""
       },
       "diameter": {
         "commentary": "",
@@ -943,14 +2622,20 @@
         "width": "100",
         "comboboxName": "",
         "fnTriggerEvent": "",
-        "fnName": "",
         "fnInputParams": "",
         "fnOutputTarget": "",
         "fnSyncCondition": "",
         "dataSource": "",
         "initialCreation": "true",
         "showNodeDetail": "",
-        "creationConditions": ""
+        "creationConditions": "",
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "calcArea",
+        "focusOut": "",
+        "realtime": ""
       },
       "width": {
         "commentary": "",
@@ -966,14 +2651,20 @@
         "width": "100",
         "comboboxName": "",
         "fnTriggerEvent": "",
-        "fnName": "",
         "fnInputParams": "",
         "fnOutputTarget": "",
         "fnSyncCondition": "",
         "dataSource": "",
         "initialCreation": "true",
         "showNodeDetail": "",
-        "creationConditions": ""
+        "creationConditions": "",
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "calcArea",
+        "focusOut": "",
+        "realtime": ""
       },
       "length": {
         "commentary": "",
@@ -989,14 +2680,20 @@
         "width": "100",
         "comboboxName": "",
         "fnTriggerEvent": "",
-        "fnName": "",
         "fnInputParams": "",
         "fnOutputTarget": "",
         "fnSyncCondition": "",
         "dataSource": "",
         "initialCreation": "true",
         "showNodeDetail": "",
-        "creationConditions": ""
+        "creationConditions": "",
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "calcArea",
+        "focusOut": "",
+        "realtime": ""
       },
       "topSide": {
         "commentary": "",
@@ -1012,14 +2709,20 @@
         "width": "100",
         "comboboxName": "",
         "fnTriggerEvent": "",
-        "fnName": "",
         "fnInputParams": "",
         "fnOutputTarget": "",
         "fnSyncCondition": "",
         "dataSource": "",
         "initialCreation": "true",
         "showNodeDetail": "",
-        "creationConditions": ""
+        "creationConditions": "",
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "calcArea",
+        "focusOut": "",
+        "realtime": ""
       },
       "bottomSide": {
         "commentary": "",
@@ -1035,14 +2738,20 @@
         "width": "100",
         "comboboxName": "",
         "fnTriggerEvent": "",
-        "fnName": "",
         "fnInputParams": "",
         "fnOutputTarget": "",
         "fnSyncCondition": "",
         "dataSource": "",
         "initialCreation": "true",
         "showNodeDetail": "",
-        "creationConditions": ""
+        "creationConditions": "",
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "calcArea",
+        "focusOut": "",
+        "realtime": ""
       },
       "verticalSide": {
         "commentary": "",
@@ -1058,14 +2767,20 @@
         "width": "100",
         "comboboxName": "",
         "fnTriggerEvent": "",
-        "fnName": "",
         "fnInputParams": "",
         "fnOutputTarget": "",
         "fnSyncCondition": "",
         "dataSource": "",
         "initialCreation": "true",
         "showNodeDetail": "",
-        "creationConditions": ""
+        "creationConditions": "",
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "calcArea",
+        "focusOut": "",
+        "realtime": ""
       },
       "height": {
         "commentary": "",
@@ -1081,14 +2796,20 @@
         "width": "100",
         "comboboxName": "",
         "fnTriggerEvent": "",
-        "fnName": "",
         "fnInputParams": "",
         "fnOutputTarget": "",
         "fnSyncCondition": "",
         "dataSource": "",
         "initialCreation": "true",
         "showNodeDetail": "",
-        "creationConditions": ""
+        "creationConditions": "",
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "calcVolume",
+        "focusOut": "",
+        "realtime": ""
       },
       "Area": {
         "commentary": "",
@@ -1104,14 +2825,20 @@
         "width": "100",
         "comboboxName": "",
         "fnTriggerEvent": "",
-        "fnName": "calcArea",
         "fnInputParams": "",
         "fnOutputTarget": "",
         "fnSyncCondition": "",
         "dataSource": "",
         "initialCreation": "true",
         "showNodeDetail": "",
-        "creationConditions": ""
+        "creationConditions": "",
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "calcVolume",
+        "focusOut": "",
+        "realtime": ""
       },
       "quantity": {
         "commentary": "",
@@ -1127,14 +2854,20 @@
         "width": "100",
         "comboboxName": "",
         "fnTriggerEvent": "",
-        "fnName": "",
         "fnInputParams": "",
         "fnOutputTarget": "",
         "fnSyncCondition": "",
         "dataSource": "",
         "initialCreation": "true",
         "showNodeDetail": "",
-        "creationConditions": ""
+        "creationConditions": "",
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "calcStorageAmount",
+        "focusOut": "",
+        "realtime": ""
       },
       "volume": {
         "commentary": "",
@@ -1150,14 +2883,20 @@
         "width": "100",
         "comboboxName": "",
         "fnTriggerEvent": "",
-        "fnName": "calcVolume",
         "fnInputParams": "",
         "fnOutputTarget": "",
         "fnSyncCondition": "",
         "dataSource": "",
         "initialCreation": "true",
         "showNodeDetail": "",
-        "creationConditions": ""
+        "creationConditions": "",
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "calcStorageAmount",
+        "focusOut": "",
+        "realtime": ""
       },
       "storageAmount": {
         "commentary": "",
@@ -1173,14 +2912,20 @@
         "width": "100",
         "comboboxName": "",
         "fnTriggerEvent": "",
-        "fnName": "calcStorageAmount",
         "fnInputParams": "",
         "fnOutputTarget": "",
         "fnSyncCondition": "",
         "dataSource": "",
         "initialCreation": "true",
         "showNodeDetail": "",
-        "creationConditions": ""
+        "creationConditions": "",
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
       },
       "storageDays": {
         "commentary": "",
@@ -1196,14 +2941,20 @@
         "width": "100",
         "comboboxName": "",
         "fnTriggerEvent": "",
-        "fnName": "",
         "fnInputParams": "",
         "fnOutputTarget": "",
         "fnSyncCondition": "",
         "dataSource": "",
         "initialCreation": "true",
         "showNodeDetail": "",
-        "creationConditions": ""
+        "creationConditions": "",
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
       },
       "changeType": {
         "commentary": "",
@@ -1219,14 +2970,20 @@
         "width": "100",
         "comboboxName": "",
         "fnTriggerEvent": "",
-        "fnName": "",
         "fnInputParams": "",
         "fnOutputTarget": "",
         "fnSyncCondition": "",
         "dataSource": "",
         "initialCreation": "true",
         "showNodeDetail": "",
-        "creationConditions": ""
+        "creationConditions": "",
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
       },
       "wasteDocumentation": {
         "commentary": "",
@@ -1242,28 +2999,122 @@
         "width": "100",
         "comboboxName": "",
         "fnTriggerEvent": "",
-        "fnName": "",
         "fnInputParams": "",
         "fnOutputTarget": "",
         "fnSyncCondition": "",
         "dataSource": "",
         "initialCreation": "true",
         "showNodeDetail": "",
-        "creationConditions": ""
+        "creationConditions": "",
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
       }
     },
     "ExecutiveOfficer": {
-      "id": {},
-      "businessId": {},
-      "name": {},
-      "residentIdNumber": {},
-      "registrationAddress": {},
-      "phoneNumber": {},
-      "position": {},
-      "changeType": {},
-      "business": {},
-      "createdAt": {},
-      "updatedAt": {}
+      "id": {
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
+      },
+      "businessId": {
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
+      },
+      "name": {
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
+      },
+      "residentIdNumber": {
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
+      },
+      "registrationAddress": {
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
+      },
+      "phoneNumber": {
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
+      },
+      "position": {
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
+      },
+      "changeType": {
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
+      },
+      "business": {
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
+      },
+      "createdAt": {
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
+      },
+      "updatedAt": {
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
+      }
     },
     "WasteTargetItem": {
       "id": {
@@ -1280,7 +3131,13 @@
         "comboboxName": "",
         "dataSource": "",
         "creationConditions": "",
-        "fnName": ""
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
       },
       "wasteDocumentationId": {
         "label": "",
@@ -1296,7 +3153,13 @@
         "comboboxName": "",
         "dataSource": "",
         "creationConditions": "",
-        "fnName": ""
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
       },
       "wasteCode": {
         "label": "폐기물코드",
@@ -1312,7 +3175,13 @@
         "comboboxName": "WasteCode",
         "dataSource": "",
         "creationConditions": "",
-        "fnName": ""
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "lookupWaste",
+        "focusOut": "",
+        "realtime": ""
       },
       "wasteName": {
         "label": "폐기물명칭",
@@ -1328,7 +3197,13 @@
         "comboboxName": "WasteName",
         "dataSource": "",
         "creationConditions": "",
-        "fnName": ""
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "lookupWasteByName",
+        "focusOut": "",
+        "realtime": ""
       },
       "preAnalysisRequired": {
         "label": "재활용분석",
@@ -1344,7 +3219,13 @@
         "comboboxName": "Applicable",
         "dataSource": "",
         "creationConditions": "",
-        "fnName": ""
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
       },
       "recyclingCode": {
         "label": "재활용코드",
@@ -1360,7 +3241,13 @@
         "comboboxName": "",
         "dataSource": "",
         "creationConditions": "",
-        "fnName": ""
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "optionsRecyclingCode",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
       },
       "recycledProduct": {
         "label": "재활용제품",
@@ -1376,7 +3263,13 @@
         "comboboxName": "",
         "dataSource": "",
         "creationConditions": "",
-        "fnName": ""
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
       },
       "throughput": {
         "label": "처리량",
@@ -1392,7 +3285,13 @@
         "comboboxName": "",
         "dataSource": "",
         "creationConditions": "",
-        "fnName": ""
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
       },
       "changeType": {
         "label": "비고",
@@ -1408,7 +3307,13 @@
         "comboboxName": "",
         "dataSource": "",
         "creationConditions": "",
-        "fnName": ""
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
       },
       "wasteDocumentation": {
         "label": "",
@@ -1424,7 +3329,13 @@
         "comboboxName": "",
         "dataSource": "",
         "creationConditions": "",
-        "fnName": ""
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
       },
       "storedIn": {
         "label": "",
@@ -1440,7 +3351,13 @@
         "comboboxName": "",
         "dataSource": "",
         "creationConditions": "",
-        "fnName": ""
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
       },
       "wasteMergeName": {
         "label": "",
@@ -1456,85 +3373,603 @@
         "comboboxName": "",
         "dataSource": "",
         "creationConditions": "",
-        "fnName": ""
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
       }
     },
     "__combobox__": {},
     "TemporaryBuildingInfo": {
-      "id": {},
-      "businessId": {},
-      "reportNumber": {},
-      "dong": {},
-      "floors": {},
-      "purpose": {},
-      "structure": {},
-      "area": {},
-      "business": {},
-      "createdAt": {},
-      "updatedAt": {}
+      "id": {
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
+      },
+      "businessId": {
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
+      },
+      "reportNumber": {
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
+      },
+      "dong": {
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
+      },
+      "floors": {
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
+      },
+      "purpose": {
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
+      },
+      "structure": {
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
+      },
+      "area": {
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
+      },
+      "business": {
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
+      },
+      "createdAt": {
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
+      },
+      "updatedAt": {
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
+      }
     },
     "AirEmissionFacility": {
-      "id": {},
-      "airDocumentationId": {},
-      "productionFacilityId": {},
-      "facilityNumber": {},
-      "power": {},
-      "size": {},
-      "category": {},
-      "rawMaterial": {},
-      "rawMaterialUsage": {},
-      "fuel": {},
-      "fuelUsage": {},
-      "dailyOperatingHours": {},
-      "annualOperatingDays": {},
-      "airDocumentation": {},
-      "productionFacility": {},
-      "hoods": {},
-      "pollutants": {},
-      "createdAt": {},
-      "updatedAt": {}
+      "id": {
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
+      },
+      "airDocumentationId": {
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
+      },
+      "productionFacilityId": {
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
+      },
+      "facilityNumber": {
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
+      },
+      "power": {
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
+      },
+      "size": {
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
+      },
+      "category": {
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
+      },
+      "rawMaterial": {
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
+      },
+      "rawMaterialUsage": {
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
+      },
+      "fuel": {
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
+      },
+      "fuelUsage": {
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
+      },
+      "dailyOperatingHours": {
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
+      },
+      "annualOperatingDays": {
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
+      },
+      "airDocumentation": {
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
+      },
+      "productionFacility": {
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
+      },
+      "hoods": {
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
+      },
+      "pollutants": {
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
+      },
+      "createdAt": {
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
+      },
+      "updatedAt": {
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
+      }
     },
     "AirDocumentation": {
-      "id": {},
-      "businessId": {},
-      "business": {},
-      "airEmissionFacilities": {},
-      "airControlFacilities": {},
-      "createdAt": {},
-      "updatedAt": {}
+      "id": {
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
+      },
+      "businessId": {
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
+      },
+      "business": {
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
+      },
+      "airEmissionFacilities": {
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
+      },
+      "airControlFacilities": {
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
+      },
+      "createdAt": {
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
+      },
+      "updatedAt": {
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
+      }
     },
     "AirControlFacility": {
-      "id": {},
-      "airDocumentationId": {},
-      "controlFacilityId": {},
-      "airDocumentation": {},
-      "controlFacility": {},
-      "hoods": {},
-      "pollutants": {},
-      "createdAt": {},
-      "updatedAt": {}
+      "id": {
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
+      },
+      "airDocumentationId": {
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
+      },
+      "controlFacilityId": {
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
+      },
+      "airDocumentation": {
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
+      },
+      "controlFacility": {
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
+      },
+      "hoods": {
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
+      },
+      "pollutants": {
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
+      },
+      "createdAt": {
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
+      },
+      "updatedAt": {
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
+      }
     },
     "DocumentPayload": {
-      "id": {},
-      "requestId": {},
-      "request": {},
-      "data": {},
-      "createdAt": {},
-      "updatedAt": {}
+      "id": {
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
+      },
+      "requestId": {
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
+      },
+      "request": {
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
+      },
+      "data": {
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
+      },
+      "createdAt": {
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
+      },
+      "updatedAt": {
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
+      }
     },
     "Vehicle": {
-      "id": {},
-      "businessId": {},
-      "vehicleName": {},
-      "vehicleType": {},
-      "maxPayload": {},
-      "ownerRegistrationNumber": {},
-      "manufacturer": {},
-      "modelApprovalNumber": {},
-      "changeType": {},
-      "wasteDocumentations": {},
-      "createdAt": {},
-      "updatedAt": {}
+      "id": {
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
+      },
+      "businessId": {
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
+      },
+      "vehicleName": {
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
+      },
+      "vehicleType": {
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
+      },
+      "maxPayload": {
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
+      },
+      "ownerRegistrationNumber": {
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
+      },
+      "manufacturer": {
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
+      },
+      "modelApprovalNumber": {
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
+      },
+      "changeType": {
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
+      },
+      "wasteDocumentations": {
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
+      },
+      "createdAt": {
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
+      },
+      "updatedAt": {
+        "dbTable": "",
+        "dbColumn": "",
+        "syncGroup": "",
+        "onClick": "",
+        "onChange": "",
+        "focusOut": "",
+        "realtime": ""
+      }
     }
   },
   "rowOrderStore": {
