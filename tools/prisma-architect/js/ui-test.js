@@ -360,28 +360,33 @@ function renderExcelView(rows, modelName) {
   const storeData = mockStore[modelName] || [];
 
   const CALC_TYPES = new Set(['calculation', 'calculation_editable']);
-  const ths = visibleRows.map(([fn, meta]) => {
-    const role  = fnRoles[fn];
-    const bg    = role === 'input'  ? 'background:rgba(72,187,120,.18);'
-                : role === 'output' ? 'background:rgba(229,62,62,.12);'
-                : '';
-    const w     = `width:${parseInt(meta.width) || 120}px;`;
-    const label = (labelH && meta[labelH.name]) || fn;
+
+  // 버튼 행 (calculation 컬럼만 표시, 나머지는 빈 th)
+  const btnRow = visibleRows.map(([fn, meta]) => {
     const compType = _resolveCompType(meta);
+    const w = `width:${parseInt(meta.width) || 120}px;`;
     if (CALC_TYPES.has(compType)) {
-      const key     = `${modelName}.${fn}`;
-      const places  = uitestDecimalPlaces[key] ?? 2;
-      return `<th style="${w}${bg}padding:4px 6px;vertical-align:middle">
-        <div style="display:flex;align-items:center;justify-content:center;gap:4px">
-          <span>${label}</span>
-          <span style="display:inline-flex;align-items:center;gap:1px;font-size:10px;font-weight:400;opacity:.8">
-            <button onclick="uitestChangeDecimal('${modelName}','${fn}',-1)" style="border:none;background:var(--bg-primary);border-radius:3px;cursor:pointer;padding:1px 4px;line-height:1;color:var(--text-primary)">.0-</button>
-            <span data-decimal-key="${key}" style="min-width:14px;text-align:center">${places}</span>
-            <button onclick="uitestChangeDecimal('${modelName}','${fn}',+1)" style="border:none;background:var(--bg-primary);border-radius:3px;cursor:pointer;padding:1px 4px;line-height:1;color:var(--text-primary)">.0+</button>
-          </span>
+      const key    = `${modelName}.${fn}`;
+      const places = uitestDecimalPlaces[key] ?? 2;
+      return `<th style="${w}padding:2px 4px;border-bottom:none">
+        <div style="display:inline-flex;align-items:center;gap:2px;font-size:10px;font-weight:400;color:var(--text-muted)">
+          <button onclick="uitestChangeDecimal('${modelName}','${fn}',-1)" style="border:1px solid var(--border);background:var(--bg-primary);border-radius:3px;cursor:pointer;padding:0 5px;line-height:1.6;color:var(--text-primary)">−</button>
+          <span data-decimal-key="${key}" style="min-width:16px;text-align:center">${places}</span>
+          <button onclick="uitestChangeDecimal('${modelName}','${fn}',+1)" style="border:1px solid var(--border);background:var(--bg-primary);border-radius:3px;cursor:pointer;padding:0 5px;line-height:1.6;color:var(--text-primary)">+</button>
         </div>
       </th>`;
     }
+    return `<th style="${w}border-bottom:none;padding:2px"></th>`;
+  }).join('');
+
+  // 라벨 행
+  const ths = visibleRows.map(([fn, meta]) => {
+    const role = fnRoles[fn];
+    const bg   = role === 'input'  ? 'background:rgba(72,187,120,.18);'
+               : role === 'output' ? 'background:rgba(229,62,62,.12);'
+               : '';
+    const w    = `width:${parseInt(meta.width) || 120}px;`;
+    const label = (labelH && meta[labelH.name]) || fn;
     return `<th style="${w}${bg}">${label}</th>`;
   }).join('');
 
@@ -413,7 +418,7 @@ function renderExcelView(rows, modelName) {
     <div style="overflow-x:auto">
       <div class="excel-cell-grid" data-model="${modelName}">
         <table class="excel-table" style="width:max-content;table-layout:fixed">
-          <thead><tr>${ths}</tr></thead>
+          <thead><tr>${btnRow}</tr><tr>${ths}</tr></thead>
           <tbody>${bodyRows}</tbody>
         </table>
       </div>
