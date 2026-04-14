@@ -23,18 +23,22 @@ function _mockfieldSelector(modelName, fieldName, rowIndex) {
 // calcOnly=true: Lookup 체인 시 다른 Lookup 재실행 방지 (무한루프 방지)
 function runOnChange(modelName, changedField, rowIndex, { calcOnly = false } = {}) {
   const fieldMeta = (metaStore[modelName] || {})[changedField] || {};
-  const fnName = (fieldMeta.onChange || '').trim();
-  if (!fnName) return;
-  _executeByTrigger(modelName, fnName, rowIndex, calcOnly);
+  const fnNamesRaw = (fieldMeta.onChange || '').trim();
+  if (!fnNamesRaw) return;
+  fnNamesRaw.split(',').map(s => s.trim()).filter(Boolean).forEach(fnName => {
+    _executeByTrigger(modelName, fnName, rowIndex, calcOnly);
+  });
 }
 
 // ── onClick 트리거 ────────────────────────────────────────
 // UI모델의 fieldName.onClick 에 등록된 함수 실행
 function runOnClick(modelName, fieldName, rowIndex) {
   const fieldMeta = (metaStore[modelName] || {})[fieldName] || {};
-  const fnName = (fieldMeta.onClick || '').trim();
-  if (!fnName) return;
-  _executeByTrigger(modelName, fnName, rowIndex, false);
+  const fnNamesRaw = (fieldMeta.onClick || '').trim();
+  if (!fnNamesRaw) return;
+  fnNamesRaw.split(',').map(s => s.trim()).filter(Boolean).forEach(fnName => {
+    _executeByTrigger(modelName, fnName, rowIndex, false);
+  });
 }
 
 // ── 함수 타입별 실행 분기 ─────────────────────────────────

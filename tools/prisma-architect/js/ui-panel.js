@@ -70,10 +70,10 @@ let uiHeaders = [
   { name: 'syncGroup',         type: 'text',  options: [],               uiRole: 'none' },
   { name: 'dataSource',        type: 'model', options: [],               uiRole: 'none' },
   { name: 'creationConditions',type: 'text',  options: [],               uiRole: 'none' },
-  { name: 'onClick',           type: 'combo', options: [],               uiRole: 'none' },
-  { name: 'onChange',          type: 'combo', options: [],               uiRole: 'none' },
-  { name: 'focusOut',          type: 'combo', options: [],               uiRole: 'none' },
-  { name: 'realtime',          type: 'combo', options: [],               uiRole: 'none' },
+  { name: 'onClick',           type: 'trigger', options: [],             uiRole: 'none' },
+  { name: 'onChange',          type: 'trigger', options: [],             uiRole: 'none' },
+  { name: 'focusOut',          type: 'trigger', options: [],             uiRole: 'none' },
+  { name: 'realtime',          type: 'trigger', options: [],             uiRole: 'none' },
 ];
 
 // ── 시스템타입별 컬럼 힌트 ────────────────────────────────
@@ -209,11 +209,10 @@ function syncDynamicHeaderOptions() {
   if (vt) { vt.type = 'combo'; vt.options = variableTypeStore.map(t => t.key); }
   const cb = uiHeaders.find(h => h.name === 'comboboxName');
   if (cb) { cb.type = 'combo'; cb.options = Object.keys(comboboxStore); }
-  // 트리거 컬럼: 함수 목록 동기화
-  const fnOptions = ['', ...functionStore.map(f => f.name)];
+  // 트리거 컬럼: type 고정 (렌더 시 functionStore 직접 참조)
   ['onClick','onChange','focusOut','realtime'].forEach(triggerName => {
     const h = uiHeaders.find(h => h.name === triggerName);
-    if (h) { h.type = 'combo'; h.options = fnOptions; }
+    if (h) { h.type = 'trigger'; }
   });
 }
 
@@ -383,6 +382,17 @@ function renderUiTable() {
     const tds = uiHeaders.map(h => {
       const val = row.meta[h.name] !== undefined ? row.meta[h.name] : '';
       const fillBtn = `<button contenteditable="false" class="fill-down-btn" title="아래로 채우기" onclick="event.stopPropagation();fillDown('${row.fieldName}','${h.name}')">↓</button>`;
+      if (h.type === 'trigger') {
+        const fnList = val ? String(val).split(',').map(s => s.trim()).filter(Boolean) : [];
+        const displayVals = [...fnList, ''];
+        const fnOpts = ['', ...functionStore.map(f => f.name)];
+        const selStyle = 'width:100%;padding:2px 4px;border:1px solid var(--border);border-radius:3px;background:var(--bg-primary);color:var(--text-primary);font-size:11px;margin-bottom:2px';
+        const selHtml = displayVals.map(fv => {
+          const opts = fnOpts.map(o => `<option value="${o}"${o === fv ? ' selected' : ''}>${o || '— 선택 —'}</option>`).join('');
+          return `<select class="trigger-select" onchange="onTriggerSelectChange(this)" style="${selStyle}">${opts}</select>`;
+        }).join('');
+        return `<td style="min-width:130px;padding:2px 4px;position:relative"><div class="trigger-multi-cell" data-col="${h.name}" data-field="${row.fieldName}" style="display:flex;flex-direction:column">${selHtml}</div>${fillBtn}</td>`;
+      }
       if (h.type === 'combo' && h.options.length > 0) {
         const opts = ['', ...h.options].map(o => `<option value="${o}"${o === val ? ' selected' : ''}>${o || '—'}</option>`).join('');
         const onch = h.name === 'systemType' ? ` onchange="onSystemTypeChange('${row.fieldName}',this.value)"` : '';
@@ -441,6 +451,31 @@ function uiSetViewMode(val) {
   uiModelConfig[selectedUiModel].viewMode = val;
 }
 
+function onTriggerSelectChange(selectEl) {
+  const container = selectEl.closest('.trigger-multi-cell');
+  if (!container) return;
+
+  const allSelects = Array.from(container.querySelectorAll('.trigger-select'));
+  const lastSelect = allSelects[allSelects.length - 1];
+
+  // 마지막 select에 값이 생기면 새 빈 select 추가
+  if (lastSelect.value) {
+    const fnOpts = ['', ...functionStore.map(f => f.name)];
+    const newSel = document.createElement('select');
+    newSel.className = 'trigger-select';
+    newSel.onchange = function() { onTriggerSelectChange(this); };
+    newSel.style.cssText = 'width:100%;padding:2px 4px;border:1px solid var(--border);border-radius:3px;background:var(--bg-primary);color:var(--text-primary);font-size:11px;margin-bottom:2px';
+    newSel.innerHTML = fnOpts.map(o => `<option value="${o}">${o || '— 선택 —'}</option>`).join('');
+    container.appendChild(newSel);
+  }
+
+  // 빈 select가 마지막이 아니면 제거 (중간 빈칸 정리)
+  const updated = Array.from(container.querySelectorAll('.trigger-select'));
+  updated.forEach((s, i) => {
+    if (!s.value && i < updated.length - 1) s.remove();
+  });
+}
+
 function uiHeaderDelete(i) {
   if (!confirm(`헤더 "${uiHeaders[i].name}" 를 삭제할까요?`)) return;
   uiHeaders.splice(i, 1);
@@ -488,7 +523,14 @@ function fillDown(fieldName, colName) {
     uiHeaders.forEach(h => {
       const cell = row.querySelector(`[data-col="${h.name}"]`);
       if (!cell) return;
-      const v = cell.tagName === 'SELECT' ? cell.value : (() => { const c = cell.cloneNode(true); c.querySelectorAll('button').forEach(b => b.remove()); return c.textContent.trim(); })();
+      let v;
+      if (h.type === 'trigger') {
+        v = Array.from(cell.querySelectorAll('.trigger-select')).map(s => s.value).filter(Boolean).join(',');
+      } else if (cell.tagName === 'SELECT') {
+        v = cell.value;
+      } else {
+        const c = cell.cloneNode(true); c.querySelectorAll('button').forEach(b => b.remove()); v = c.textContent.trim();
+      }
       metaStore[selectedUiModel][fn][h.name] = v;
     });
   });
@@ -515,10 +557,16 @@ function uiApply() {
     if (!metaStore[selectedUiModel][fieldName]) metaStore[selectedUiModel][fieldName] = {};
     uiHeaders.forEach(h => {
       const cell = row.querySelector(`[data-col="${h.name}"]`);
-      if (cell) {
-        const val = cell.tagName === 'SELECT' ? cell.value : (() => { const c = cell.cloneNode(true); c.querySelectorAll('button').forEach(b => b.remove()); return c.textContent.trim(); })();
-        metaStore[selectedUiModel][fieldName][h.name] = val;
+      if (!cell) return;
+      let val;
+      if (h.type === 'trigger') {
+        val = Array.from(cell.querySelectorAll('.trigger-select')).map(s => s.value).filter(Boolean).join(',');
+      } else if (cell.tagName === 'SELECT') {
+        val = cell.value;
+      } else {
+        const c = cell.cloneNode(true); c.querySelectorAll('button').forEach(b => b.remove()); val = c.textContent.trim();
       }
+      metaStore[selectedUiModel][fieldName][h.name] = val;
     });
   });
   toast('UI 메타 저장 완료', 'success');
