@@ -3637,8 +3637,8 @@
         "comboboxName": "WasteCode",
         "dataSource": "",
         "creationConditions": "",
-        "dbTable": "",
-        "dbColumn": "",
+        "dbTable": "WasteMasterDB",
+        "dbColumn": "wasteCode",
         "syncGroup": "",
         "onClick": "",
         "onChange": "lookupWaste",
@@ -3659,8 +3659,8 @@
         "comboboxName": "WasteName",
         "dataSource": "",
         "creationConditions": "",
-        "dbTable": "",
-        "dbColumn": "",
+        "dbTable": "WasteMasterDB",
+        "dbColumn": "wasteName",
         "syncGroup": "",
         "onClick": "",
         "onChange": "lookupWasteByName",
@@ -5844,5 +5844,5 @@
     }
   ],
   "annotations": [],
-  "savedAt": "2026. 4. 15. 오후 3:45:06"
+  "savedAt": "2026. 4. 15. 오후 4:03:35"
 }
