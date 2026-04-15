@@ -1068,8 +1068,18 @@ function fnStoreDeleteParam(i, pi) {
 }
 
 // ── 데이터 관리 패널 ─────────────────────────────────────────────────────
-// WasteMasterDB (wasteInformation.js) 내용을 테이블로 표시
-// 읽기 전용 — 실제 수정은 wasteInformation.json 파일에서
+// 여러 마스터 데이터 소스를 등록하고, 선택 시 테이블로 조회
+// 읽기 전용 — 실제 데이터는 각 globalVar(전역 변수)에서 참조
+
+let masterDataRegistry = [
+  {
+    name:         'WasteMasterDB',
+    label:        '폐기물 마스터',
+    globalVar:    'WasteMasterDB',
+    searchFields: 'wasteCode,wasteName',
+  },
+];
+let selectedMasterDataIdx = 0;
 let _masterDataSearch = '';
 
 function renderMasterDataPanel(wrap) {
@@ -1078,43 +1088,132 @@ function renderMasterDataPanel(wrap) {
   if (titleEl) titleEl.textContent = '🗄️ 데이터 관리';
   if (addBtn)  addBtn.style.display = 'none';
 
-  const db = (typeof WasteMasterDB !== 'undefined' && Array.isArray(WasteMasterDB)) ? WasteMasterDB : [];
-  const q  = _masterDataSearch.trim().toLowerCase();
-  const filtered = q
-    ? db.filter(r => r.wasteCode.toLowerCase().includes(q) || r.wasteName.toLowerCase().includes(q))
-    : db;
+  const entry = selectedMasterDataIdx !== null ? masterDataRegistry[selectedMasterDataIdx] : null;
+
+  // 선택된 데이터 소스의 실제 데이터 읽기
+  let db = [], cols = [];
+  if (entry) {
+    const raw = (typeof window !== 'undefined' && window[entry.globalVar]);
+    db = Array.isArray(raw) ? raw : [];
+    cols = db.length > 0 ? Object.keys(db[0]) : [];
+    const searchFields = (entry.searchFields || '').split(',').map(s => s.trim()).filter(Boolean);
+    const q = _masterDataSearch.trim().toLowerCase();
+    if (q && searchFields.length > 0) {
+      db = db.filter(r => searchFields.some(f => String(r[f] || '').toLowerCase().includes(q)));
+    }
+  }
 
   wrap.innerHTML = `
-    <div style="padding:20px;height:100%;display:flex;flex-direction:column;gap:12px;box-sizing:border-box">
-      <div style="display:flex;align-items:center;gap:10px;flex-shrink:0">
-        <span style="font-size:13px;font-weight:700;color:var(--text-secondary)">폐기물 마스터 데이터</span>
-        <span style="font-size:11px;background:var(--accent-dim);color:var(--accent);padding:2px 8px;border-radius:99px;font-weight:700">${db.length}개</span>
-        <input type="text" placeholder="코드 / 명칭 검색…" value="${_masterDataSearch}"
-          oninput="_masterDataSearch=this.value;renderUiTable()"
-          style="margin-left:auto;padding:5px 10px;border:1px solid var(--border);border-radius:7px;background:var(--bg-primary);color:var(--text-primary);font-size:12px;width:220px">
+  <div style="display:flex;height:100%;gap:0">
+
+    <!-- 좌: 데이터 소스 목록 -->
+    <div style="width:220px;flex-shrink:0;border-right:1px solid var(--border);padding:12px;overflow-y:auto">
+      <div style="display:flex;align-items:center;margin-bottom:10px">
+        <span style="font-size:12px;font-weight:700;color:var(--text-secondary);text-transform:uppercase;letter-spacing:.5px">데이터 목록</span>
+        <button class="btn btn-accent" style="margin-left:auto;padding:2px 10px;font-size:11px" onclick="masterDataAdd()">+ 추가</button>
       </div>
-      <div style="flex:1;overflow:auto">
-        <table class="excel-table" style="width:100%;table-layout:fixed">
-          <thead>
-            <tr>
-              <th style="width:100px">코드</th>
-              <th style="width:280px">명칭</th>
-              <th style="width:220px">재활용코드 (해당없음)</th>
-              <th style="width:220px">재활용코드 (해당)</th>
-            </tr>
-          </thead>
-          <tbody>
-            ${filtered.length === 0
-              ? `<tr><td colspan="4" style="text-align:center;padding:20px;color:var(--text-muted)">검색 결과 없음</td></tr>`
-              : filtered.map(r => `
-                <tr>
-                  <td style="font-family:var(--font-mono);font-size:11px">${r.wasteCode}</td>
-                  <td>${r.wasteName}</td>
-                  <td style="font-size:11px;color:var(--text-muted)">${r.recyclingCodeNone || '-'}</td>
-                  <td style="font-size:11px;color:var(--text-muted)">${r.recyclingCodeCorrespond || '-'}</td>
-                </tr>`).join('')}
-          </tbody>
-        </table>
-      </div>
-    </div>`;
+      ${masterDataRegistry.map((m, i) => {
+        const raw = (typeof window !== 'undefined' && window[m.globalVar]);
+        const count = Array.isArray(raw) ? raw.length : 0;
+        const active = selectedMasterDataIdx === i;
+        return `<div onclick="masterDataSelect(${i})"
+          style="padding:7px 10px;border-radius:7px;cursor:pointer;margin-bottom:3px;
+          background:${active ? 'var(--accent-dim)' : 'transparent'};
+          border:${active ? '1px solid var(--accent)' : '1px solid transparent'};
+          display:flex;align-items:center;gap:6px">
+          <div style="flex:1;overflow:hidden">
+            <div style="font-weight:600;font-family:var(--font-mono);font-size:12px;color:${active ? 'var(--accent)' : 'var(--text-primary)'};white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${m.label || m.name}</div>
+            <div style="font-size:10px;color:var(--text-muted)">${count > 0 ? count + '개' : (m.globalVar || '변수 미설정')}</div>
+          </div>
+          <button class="btn btn-danger" style="padding:1px 6px;font-size:10px;flex-shrink:0" onclick="event.stopPropagation();masterDataDelete(${i})">✕</button>
+        </div>`;
+      }).join('') || '<div style="color:var(--text-muted);font-size:12px;text-align:center;padding:20px">데이터 없음</div>'}
+    </div>
+
+    <!-- 우: 선택된 데이터 상세 -->
+    <div style="flex:1;display:flex;flex-direction:column;overflow:hidden">
+      ${entry ? `
+
+        <!-- 상단 정보/설정 바 -->
+        <div style="padding:10px 16px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:10px;flex-shrink:0;flex-wrap:wrap">
+          <div style="display:flex;align-items:center;gap:6px">
+            <span style="font-size:11px;color:var(--text-muted)">표시명</span>
+            <input value="${(entry.label || '').replace(/"/g,'&quot;')}" placeholder="표시명"
+              onblur="masterDataEditField(${selectedMasterDataIdx},'label',this.value)"
+              style="padding:3px 8px;border:1px solid var(--border);border-radius:6px;background:var(--bg-primary);color:var(--text-primary);font-size:12px;font-weight:700;width:120px;outline:none">
+          </div>
+          <div style="display:flex;align-items:center;gap:6px">
+            <span style="font-size:11px;color:var(--text-muted)">전역변수</span>
+            <input value="${(entry.globalVar || '').replace(/"/g,'&quot;')}" placeholder="window.XXX"
+              onblur="masterDataEditField(${selectedMasterDataIdx},'globalVar',this.value)"
+              style="padding:3px 8px;border:1px solid var(--border);border-radius:6px;background:var(--bg-primary);color:var(--accent);font-family:var(--font-mono);font-size:12px;width:150px;outline:none">
+          </div>
+          <div style="display:flex;align-items:center;gap:6px">
+            <span style="font-size:11px;color:var(--text-muted)">검색 필드</span>
+            <input value="${(entry.searchFields || '').replace(/"/g,'&quot;')}" placeholder="field1,field2"
+              onblur="masterDataEditField(${selectedMasterDataIdx},'searchFields',this.value)"
+              style="padding:3px 8px;border:1px solid var(--border);border-radius:6px;background:var(--bg-primary);color:var(--text-primary);font-family:var(--font-mono);font-size:12px;width:160px;outline:none">
+          </div>
+          <span style="font-size:11px;background:var(--accent-dim);color:var(--accent);padding:2px 8px;border-radius:99px;font-weight:700">${db.length}건</span>
+          <input type="text" placeholder="검색…" value="${_masterDataSearch}"
+            oninput="_masterDataSearch=this.value;renderUiTable()"
+            style="margin-left:auto;padding:4px 10px;border:1px solid var(--border);border-radius:7px;background:var(--bg-primary);color:var(--text-primary);font-size:12px;width:180px">
+        </div>
+
+        <!-- 데이터 테이블 -->
+        <div style="flex:1;overflow:auto;padding:0">
+          ${cols.length === 0
+            ? `<div style="padding:60px;text-align:center;color:var(--text-muted);font-size:13px">전역변수 <code>${entry.globalVar}</code> 에서 데이터를 찾을 수 없습니다</div>`
+            : `<table class="excel-table" style="width:100%">
+                <thead><tr>${cols.map(c => `<th style="white-space:nowrap;font-size:11px">${c}</th>`).join('')}</tr></thead>
+                <tbody>
+                  ${db.length === 0
+                    ? `<tr><td colspan="${cols.length}" style="text-align:center;padding:20px;color:var(--text-muted)">검색 결과 없음</td></tr>`
+                    : db.map(r => `<tr>${cols.map(c => `<td style="font-size:11px;white-space:nowrap;max-width:200px;overflow:hidden;text-overflow:ellipsis" title="${String(r[c]||'').replace(/"/g,'&quot;')}">${r[c] ?? ''}</td>`).join('')}</tr>`).join('')}
+                </tbody>
+              </table>`}
+        </div>
+
+      ` : '<div style="color:var(--text-muted);font-size:13px;text-align:center;padding:60px">← 왼쪽에서 데이터 소스를 선택하세요</div>'}
+    </div>
+
+  </div>`;
+}
+
+function masterDataSelect(i) {
+  selectedMasterDataIdx = i;
+  _masterDataSearch = '';
+  renderUiTable();
+}
+
+function masterDataAdd() {
+  const label = prompt('데이터 소스 표시명:');
+  if (!label || !label.trim()) return;
+  const globalVar = prompt('전역 변수명 (window.XXX):');
+  if (!globalVar || !globalVar.trim()) return;
+  masterDataRegistry.push({
+    name:         globalVar.trim(),
+    label:        label.trim(),
+    globalVar:    globalVar.trim(),
+    searchFields: '',
+  });
+  selectedMasterDataIdx = masterDataRegistry.length - 1;
+  _masterDataSearch = '';
+  renderUiTable();
+  toast(`"${label.trim()}" 추가됨`, 'success');
+}
+
+function masterDataDelete(i) {
+  if (!confirm(`"${masterDataRegistry[i].label || masterDataRegistry[i].name}" 을 삭제할까요?`)) return;
+  masterDataRegistry.splice(i, 1);
+  if (selectedMasterDataIdx >= masterDataRegistry.length) selectedMasterDataIdx = masterDataRegistry.length - 1;
+  if (masterDataRegistry.length === 0) selectedMasterDataIdx = null;
+  _masterDataSearch = '';
+  renderUiTable();
+}
+
+function masterDataEditField(i, key, val) {
+  if (!masterDataRegistry[i]) return;
+  masterDataRegistry[i][key] = val.trim();
+  renderUiTable();
 }
