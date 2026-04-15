@@ -22,16 +22,17 @@ const VIEW_MODES = [
 
 // 시스템타입 스토어
 let systemTypeStore = [
-  { key: 'text',            desc: '사용자 직접 입력, 제한 없음' },
-  { key: 'number',          desc: '숫자' },
-  { key: 'date',            desc: '날짜' },
-  { key: 'select',          desc: '목록에서 선택 (수정 불가)' },
-  { key: 'combobox',        desc: '목록에서 선택 (수정 가능)' },
-  { key: 'boolean',         desc: '참 그리고 거짓' },
-  { key: 'calculation',     desc: '계산되는 값, 수정 불가' },
-  { key: 'lookup_editable', desc: '일정 값에 따라 로딩되는 값, 수정 가능' },
-  { key: 'lookup_readonly', desc: '일정 값에 따라 로딩되는 값, 수정 불가' },
-  { key: 'hidden',          desc: 'UI에선 보이지 않음' },
+  { key: 'text',                 desc: '사용자 직접 입력, 제한 없음' },
+  { key: 'number',               desc: '숫자' },
+  { key: 'date',                 desc: '날짜' },
+  { key: 'select',               desc: '목록에서 선택 (수정 불가)' },
+  { key: 'combobox',             desc: '목록에서 선택 (수정 가능)' },
+  { key: 'boolean',              desc: '참 그리고 거짓' },
+  { key: 'calculation_readonly', desc: '계산되는 값, 수정 불가' },
+  { key: 'calculation_editable', desc: '계산되는 값, 수정 가능' },
+  { key: 'lookup_editable',      desc: '일정 값에 따라 로딩되는 값, 수정 가능' },
+  { key: 'lookup_readonly',      desc: '일정 값에 따라 로딩되는 값, 수정 불가' },
+  { key: 'hidden',               desc: 'UI에선 보이지 않음' },
 ];
 
 // 배리어블타입 스토어 (필드의 데이터/변수 타입)
@@ -112,7 +113,7 @@ const SYSTEM_TYPE_HINTS = {
     highlight: [],
     dim: ['comboboxName','dbTable','dbColumn','syncGroup','dataSource'],
   },
-  calculation: {
+  calculation_readonly: {
     highlight: ['onChange'],
     dim: ['comboboxName','dbTable','dbColumn','syncGroup','dataSource','isRequired','defaultValue','variableType','onClick','focusOut','realtime'],
   },
@@ -782,10 +783,15 @@ function renderTypeStorePanel(wrap, title, store, storeKey) {
       <button class="btn btn-accent" style="margin-left:auto" onclick="typeStoreAdd('${storeKey}')">+ 타입 추가</button>
     </div>
     <table class="excel-table" style="width:100%">
-      <thead><tr><th style="min-width:160px">타입 키</th><th>설명</th><th style="width:48px"></th></tr></thead>
+      <thead><tr><th style="width:28px"></th><th style="min-width:160px">타입 키</th><th>설명</th><th style="width:48px"></th></tr></thead>
       <tbody>
         ${store.map((t, i) => `
-          <tr>
+          <tr draggable="true"
+            ondragstart="listDragStart('${storeKey}',${i})"
+            ondragover="listDragOver(event)"
+            ondrop="listDragDrop('${storeKey}',${i})"
+            style="cursor:grab">
+            <td style="color:var(--text-muted);text-align:center;font-size:14px;cursor:grab;user-select:none">⠿</td>
             <td contenteditable="true" data-store="${storeKey}" data-idx="${i}" data-field="key"
               style="font-family:var(--font-mono);font-weight:600;color:var(--accent);outline:none"
               onblur="typeStoreEdit('${storeKey}',${i},'key',this.textContent.trim())"
@@ -801,6 +807,55 @@ function renderTypeStorePanel(wrap, title, store, storeKey) {
       </tbody>
     </table>
   </div>`;
+}
+
+// ── 리스트 드래그 순서 변경 공통 헬퍼 ────────────────────────────────────
+let _listDragSrc = null;
+
+function listDragStart(storeType, idx) {
+  _listDragSrc = { storeType, idx };
+}
+
+function listDragOver(e) {
+  e.preventDefault();
+}
+
+function listDragDrop(storeType, idx) {
+  if (!_listDragSrc || _listDragSrc.storeType !== storeType) return;
+  const from = _listDragSrc.idx;
+  const to = idx;
+  _listDragSrc = null;
+  if (from === to) return;
+  const arr = _listStoreGetRef(storeType);
+  if (!arr) return;
+  const moved = arr.splice(from, 1)[0];
+  arr.splice(to, 0, moved);
+  renderUiTable();
+}
+
+function _listStoreGetRef(storeType) {
+  if (storeType === 'systemType') return systemTypeStore;
+  if (storeType === 'varType')    return variableTypeStore;
+  if (storeType === 'function')   return functionStore;
+  if (storeType === 'masterData') return masterDataRegistry;
+  return null;
+}
+
+// 콤보박스 그룹 순서 변경 (object → 키 순서 재구성)
+function comboboxGroupDragDrop(fromGroup, toGroup) {
+  if (fromGroup === toGroup) return;
+  const keys = Object.keys(comboboxStore);
+  const fromIdx = keys.indexOf(fromGroup);
+  const toIdx = keys.indexOf(toGroup);
+  if (fromIdx < 0 || toIdx < 0) return;
+  keys.splice(fromIdx, 1);
+  keys.splice(toIdx, 0, fromGroup);
+  const newStore = {};
+  keys.forEach(k => { newStore[k] = comboboxStore[k]; });
+  // 참조 유지를 위해 기존 객체 키를 재구성
+  Object.keys(comboboxStore).forEach(k => delete comboboxStore[k]);
+  Object.assign(comboboxStore, newStore);
+  renderUiTable();
 }
 
 function typeStoreGetRef(storeKey) {
@@ -851,12 +906,20 @@ function renderComboboxPanel(wrap) {
         <button class="btn btn-accent" style="margin-left:auto;padding:2px 10px;font-size:11px" onclick="comboboxAddGroup()">+ 추가</button>
       </div>
       ${groups.map(g => `
-        <div onclick="comboboxSelectGroup('${g}')"
-          style="padding:7px 10px;border-radius:7px;cursor:pointer;font-weight:600;font-family:var(--font-mono);font-size:12px;
+        <div draggable="true"
+          ondragstart="event.dataTransfer.setData('text/plain','${g}');event.currentTarget.style.opacity='.4'"
+          ondragend="event.currentTarget.style.opacity='1'"
+          ondragover="event.preventDefault()"
+          ondrop="event.preventDefault();event.currentTarget.style.background='';comboboxGroupDragDrop(event.dataTransfer.getData('text/plain'),'${g}')"
+          ondragenter="event.currentTarget.style.background='var(--bg-hover)'"
+          ondragleave="event.currentTarget.style.background=''"
+          onclick="comboboxSelectGroup('${g}')"
+          style="padding:7px 10px;border-radius:7px;cursor:grab;font-weight:600;font-family:var(--font-mono);font-size:12px;
           background:${selectedComboboxGroup === g ? 'var(--accent-dim)' : 'transparent'};
           color:${selectedComboboxGroup === g ? 'var(--accent)' : 'var(--text-primary)'};
           border:${selectedComboboxGroup === g ? '1px solid var(--accent)' : '1px solid transparent'};
           margin-bottom:3px;display:flex;align-items:center;gap:6px">
+          <span style="color:var(--text-muted);font-size:13px;flex-shrink:0">⠿</span>
           <span style="flex:1">${g}</span>
           <button class="btn btn-danger" style="padding:1px 6px;font-size:10px" onclick="event.stopPropagation();comboboxDeleteGroup('${g}')">✕</button>
         </div>`).join('') || '<div style="color:var(--text-muted);font-size:12px;text-align:center;padding:20px">그룹 없음</div>'}
@@ -947,11 +1010,18 @@ function renderFunctionPanel(wrap) {
         <button class="btn btn-accent" style="margin-left:auto;padding:2px 10px;font-size:11px" onclick="fnStoreAdd()">+ 추가</button>
       </div>
       ${functionStore.map((f, i) => `
-        <div onclick="fnStoreSelect(${i})"
-          style="padding:7px 10px;border-radius:7px;cursor:pointer;margin-bottom:3px;
+        <div draggable="true"
+          ondragstart="listDragStart('function',${i});event.currentTarget.style.opacity='.4'"
+          ondragend="event.currentTarget.style.opacity='1'"
+          ondragover="listDragOver(event);event.currentTarget.style.background='var(--bg-hover)'"
+          ondragleave="event.currentTarget.style.background=''"
+          ondrop="event.currentTarget.style.background='';listDragDrop('function',${i})"
+          onclick="fnStoreSelect(${i})"
+          style="padding:7px 10px;border-radius:7px;cursor:grab;margin-bottom:3px;
           background:${selectedFunctionIdx === i ? 'var(--accent-dim)' : 'transparent'};
           border:${selectedFunctionIdx === i ? '1px solid var(--accent)' : '1px solid transparent'};
           display:flex;align-items:center;gap:6px">
+          <span style="color:var(--text-muted);font-size:13px;flex-shrink:0">⠿</span>
           <div style="flex:1;overflow:hidden">
             <div style="font-weight:600;font-family:var(--font-mono);font-size:12px;color:${selectedFunctionIdx === i ? 'var(--accent)' : 'var(--text-primary)'};white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${f.name}</div>
             <div style="font-size:10px;color:var(--text-muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${f.desc || '설명 없음'}</div>
@@ -1116,11 +1186,18 @@ function renderMasterDataPanel(wrap) {
         const raw = (typeof window !== 'undefined' && window[m.globalVar]);
         const count = Array.isArray(raw) ? raw.length : 0;
         const active = selectedMasterDataIdx === i;
-        return `<div onclick="masterDataSelect(${i})"
-          style="padding:7px 10px;border-radius:7px;cursor:pointer;margin-bottom:3px;
+        return `<div draggable="true"
+          ondragstart="listDragStart('masterData',${i});event.currentTarget.style.opacity='.4'"
+          ondragend="event.currentTarget.style.opacity='1'"
+          ondragover="listDragOver(event);event.currentTarget.style.background='var(--bg-hover)'"
+          ondragleave="event.currentTarget.style.background=''"
+          ondrop="event.currentTarget.style.background='';listDragDrop('masterData',${i})"
+          onclick="masterDataSelect(${i})"
+          style="padding:7px 10px;border-radius:7px;cursor:grab;margin-bottom:3px;
           background:${active ? 'var(--accent-dim)' : 'transparent'};
           border:${active ? '1px solid var(--accent)' : '1px solid transparent'};
           display:flex;align-items:center;gap:6px">
+          <span style="color:var(--text-muted);font-size:13px;flex-shrink:0">⠿</span>
           <div style="flex:1;overflow:hidden">
             <div style="font-weight:600;font-family:var(--font-mono);font-size:12px;color:${active ? 'var(--accent)' : 'var(--text-primary)'};white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${m.label || m.name}</div>
             <div style="font-size:10px;color:var(--text-muted)">${count > 0 ? count + '개' : (m.globalVar || '변수 미설정')}</div>

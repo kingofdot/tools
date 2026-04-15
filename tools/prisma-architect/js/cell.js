@@ -120,7 +120,7 @@ const CellComponents = {
     },
   },
 
-  calculation: {
+  calculation_readonly: {
     editable: false,
     readonly: true,
     renderInput(val) {

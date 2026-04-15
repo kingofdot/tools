@@ -155,7 +155,7 @@ function _updateCell(modelName, fieldName, rowIndex, value) {
 
   // calculation 계열: display만 포매팅 (store/input은 raw 유지)
   let displayVal = value;
-  if ((type === 'calculation' || type === 'calculation_editable') &&
+  if ((type === 'calculation_readonly' || type === 'calculation_editable') &&
       typeof _calcDisplayVal === 'function') {
     displayVal = _calcDisplayVal(modelName, fieldName, value);
   }

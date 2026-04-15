@@ -85,7 +85,7 @@ function _calcDisplayVal(modelName, fieldName, rawVal) {
 
 // 렌더 후 calculation 컬럼 전체에 포매팅 적용 (DOM 갱신만, store 불변)
 function _applyAllDecimalFormatting() {
-  const CALC_TYPES = new Set(['calculation', 'calculation_editable']);
+  const CALC_TYPES = new Set(['calculation_readonly', 'calculation_editable']);
   [...uitestChecked].forEach(modelName => {
     const meta = metaStore[modelName] || {};
     Object.entries(meta).forEach(([fieldName, fieldMeta]) => {
@@ -318,9 +318,9 @@ function _buildFnRoles(modelName) {
   const meta = metaStore[modelName] || {};
   const roles = {};
 
-  // calculation 필드 → output
+  // calculation_readonly 필드 → output
   Object.entries(meta).forEach(([fieldName, fieldMeta]) => {
-    if (fieldMeta.systemType === 'calculation') roles[fieldName] = 'output';
+    if (fieldMeta.systemType === 'calculation_readonly') roles[fieldName] = 'output';
   });
 
   // lookup outputFields → output
@@ -366,7 +366,7 @@ function renderExcelView(rows, modelName) {
   const rowCount  = uitestExcelRowCount[modelName];
   const storeData = mockStore[modelName] || [];
 
-  const CALC_TYPES = new Set(['calculation', 'calculation_editable']);
+  const CALC_TYPES = new Set(['calculation_readonly', 'calculation_editable']);
 
   // 버튼 행 (calculation 컬럼만 표시, 나머지는 빈 th)
   const btnRow = visibleRows.map(([fn, meta]) => {
@@ -473,6 +473,6 @@ function buildInput(fieldName, meta, modelName) {
   if (type === 'json') {
     return `<textarea rows="3" placeholder="${ph}" ${mf} ${onChange} style="${s};font-family:monospace"></textarea>`;
   }
-  // text, calculation, lookup_readonly, 기타
+  // text, calculation_readonly, lookup_readonly, 기타
   return `<input type="text" placeholder="${ph}" ${mf} style="${s}" ${ro ? 'readonly' : ''} ${onChange}>`;
 }
