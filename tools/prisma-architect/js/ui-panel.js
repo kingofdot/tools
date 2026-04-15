@@ -396,9 +396,48 @@ function renderUiTable() {
 
   rows.forEach((row) => {
     const modelOpts = schema.models.map(m => m.name);
+    const isDbType = row.meta.systemType === 'db_select' || row.meta.systemType === 'db_combobox';
+    // syncGroup: 현재 모델에서 이미 쓰인 그룹명 수집 (제안용)
+    const existingSyncGroups = isDbType
+      ? [...new Set(Object.values(metaStore[selectedUiModel] || {}).map(m => m.syncGroup || '').filter(Boolean))]
+      : [];
+    const selStyle = 'width:100%;padding:2px 4px;border:1px solid var(--border);border-radius:3px;background:var(--bg-primary);color:var(--text-primary);font-size:11px';
+
     const tds = uiHeaders.map(h => {
       const val = row.meta[h.name] !== undefined ? row.meta[h.name] : '';
       const fillBtn = `<button contenteditable="false" class="fill-down-btn" title="아래로 채우기" onclick="event.stopPropagation();fillDown('${row.fieldName}','${h.name}')">↓</button>`;
+
+      // ── db_select / db_combobox 전용 셀 ─────────────────────
+      if (isDbType && h.name === 'dbTable') {
+        const opts = ['', ...masterDataRegistry.map(m => m.name)]
+          .map(o => `<option value="${o}"${o === val ? ' selected' : ''}>${o || '— 선택 —'}</option>`).join('');
+        return `<td style="min-width:120px;padding:2px 4px;position:relative">
+          <select data-field="${row.fieldName}" data-col="dbTable"
+            onchange="onDbTableChange('${row.fieldName}',this.value)"
+            style="${selStyle}">${opts}</select>${fillBtn}</td>`;
+      }
+      if (isDbType && h.name === 'dbColumn') {
+        const selectedTable = row.meta.dbTable || '';
+        const entry = masterDataRegistry.find(m => m.name === selectedTable);
+        const raw = entry ? window[entry.globalVar] : null;
+        const cols = (Array.isArray(raw) && raw.length > 0) ? Object.keys(raw[0]) : [];
+        const opts = ['', ...cols]
+          .map(o => `<option value="${o}"${o === val ? ' selected' : ''}>${o || '— 선택 —'}</option>`).join('');
+        return `<td style="min-width:120px;padding:2px 4px;position:relative">
+          <select data-field="${row.fieldName}" data-col="dbColumn"
+            style="${selStyle}">${opts}</select>${fillBtn}</td>`;
+      }
+      if (isDbType && h.name === 'syncGroup') {
+        const listId = `sg-list-${row.fieldName}`;
+        const datalist = existingSyncGroups.map(g => `<option value="${g}">`).join('');
+        return `<td style="min-width:100px;padding:2px 4px;position:relative">
+          <datalist id="${listId}">${datalist}</datalist>
+          <input list="${listId}" data-field="${row.fieldName}" data-col="syncGroup"
+            value="${val}" placeholder="그룹명"
+            style="${selStyle}">${fillBtn}</td>`;
+      }
+      // ────────────────────────────────────────────────────────
+
       if (h.type === 'trigger') {
         const fnList = val ? String(val).split(',').map(s => s.trim()).filter(Boolean) : [];
         const displayVals = [...fnList, ''];
@@ -440,6 +479,15 @@ function renderUiTable() {
   rows.forEach(row => {
     if (row.meta.systemType) applySystemTypeStyles(row.fieldName, row.meta.systemType);
   });
+}
+
+function onDbTableChange(fieldName, tableName) {
+  if (!selectedUiModel) return;
+  if (!metaStore[selectedUiModel]) metaStore[selectedUiModel] = {};
+  if (!metaStore[selectedUiModel][fieldName]) metaStore[selectedUiModel][fieldName] = {};
+  metaStore[selectedUiModel][fieldName].dbTable = tableName;
+  metaStore[selectedUiModel][fieldName].dbColumn = ''; // 테이블 바뀌면 컬럼 초기화
+  renderUiTable();
 }
 
 function uiHeaderNameChange(i, val) {
