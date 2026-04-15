@@ -3629,7 +3629,7 @@
         "isRequired": "",
         "initialCreation": "true",
         "showNode": "true",
-        "showNodeDetail": "",
+        "showNodeDetail": "true",
         "systemType": "db_select",
         "variableType": "text",
         "width": "100",
@@ -3651,7 +3651,7 @@
         "isRequired": "",
         "initialCreation": "true",
         "showNode": "true",
-        "showNodeDetail": "",
+        "showNodeDetail": "true",
         "systemType": "db_combobox",
         "variableType": "text",
         "width": "100",
@@ -5844,5 +5844,5 @@
     }
   ],
   "annotations": [],
-  "savedAt": "2026. 4. 15. 오후 4:03:42"
+  "savedAt": "2026. 4. 15. 오후 4:04:24"
 }
