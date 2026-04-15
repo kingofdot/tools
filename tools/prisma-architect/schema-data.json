@@ -264,8 +264,8 @@
     },
     {
       "name": "showNode",
-      "label": "노드",
-      "desc": "공정도 노드에 표시할지 여부",
+      "label": "목록",
+      "desc": "목록 뷰에서 컬럼 표시 여부",
       "type": "combo",
       "options": [
         "true",
@@ -275,8 +275,8 @@
     },
     {
       "name": "showNodeDetail",
-      "label": "노드상세",
-      "desc": "공정도 상세화면에 표시할지 여부",
+      "label": "상세",
+      "desc": "상세 화면에서 표시 여부",
       "type": "combo",
       "options": [
         "true",
@@ -297,10 +297,10 @@
         "combobox",
         "boolean",
         "calculation_editable",
+        "calculation_readonly",
         "lookup_editable",
         "lookup_readonly",
-        "hidden",
-        "calculation_readonly"
+        "hidden"
       ],
       "uiRole": "none"
     },
@@ -4556,6 +4556,10 @@
       "desc": "계산되는 값, 수정 불가"
     },
     {
+      "key": "calculation_readonly",
+      "desc": "계산되는 값, 수정 가능"
+    },
+    {
       "key": "lookup_editable",
       "desc": "일정 값에 따라 로딩되는 값, 수정 가능"
     },
@@ -4566,10 +4570,6 @@
     {
       "key": "hidden",
       "desc": "UI에선 보이지 않음"
-    },
-    {
-      "key": "calculation_readonly",
-      "desc": ""
     }
   ],
   "variableTypeStore": [
@@ -5548,5 +5548,5 @@
     }
   ],
   "annotations": [],
-  "savedAt": "2026. 4. 15. 오후 1:29:36"
+  "savedAt": "2026. 4. 15. 오후 2:43:15"
 }
