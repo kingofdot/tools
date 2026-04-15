@@ -265,7 +265,7 @@
     {
       "name": "showNode",
       "label": "노드",
-      "desc": "목록 뷰에서 컬럼 표시 여부",
+      "desc": "공정도 노드에 표시할지 여부",
       "type": "combo",
       "options": [
         "true",
@@ -276,7 +276,7 @@
     {
       "name": "showNodeDetail",
       "label": "노드상세",
-      "desc": "상세 화면에서 표시 여부",
+      "desc": "공정도 상세화면에 표시할지 여부",
       "type": "combo",
       "options": [
         "true",
@@ -5542,5 +5542,5 @@
     }
   ],
   "annotations": [],
-  "savedAt": "2026. 4. 15. 오후 12:54:46"
+  "savedAt": "2026. 4. 15. 오후 12:55:15"
 }
