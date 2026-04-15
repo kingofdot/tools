@@ -296,10 +296,11 @@
         "select",
         "combobox",
         "boolean",
-        "calculation",
+        "calculation_editable",
         "lookup_editable",
         "lookup_readonly",
-        "hidden"
+        "hidden",
+        "calculation_readonly"
       ],
       "uiRole": "none"
     },
@@ -4143,7 +4144,8 @@
         "focusOut": "",
         "realtime": ""
       }
-    }
+    },
+    "__systemType__": {}
   },
   "rowOrderStore": {
     "Post": [
@@ -4550,7 +4552,7 @@
       "desc": "참 그리고 거짓"
     },
     {
-      "key": "calculation",
+      "key": "calculation_editable",
       "desc": "계산되는 값, 수정 불가"
     },
     {
@@ -4564,6 +4566,10 @@
     {
       "key": "hidden",
       "desc": "UI에선 보이지 않음"
+    },
+    {
+      "key": "calculation_readonly",
+      "desc": ""
     }
   ],
   "variableTypeStore": [
@@ -5542,5 +5548,5 @@
     }
   ],
   "annotations": [],
-  "savedAt": "2026. 4. 15. 오후 1:28:30"
+  "savedAt": "2026. 4. 15. 오후 1:29:36"
 }
