@@ -28,6 +28,8 @@ let systemTypeStore = [
   { key: 'select',               desc: '목록에서 선택 (수정 불가)' },
   { key: 'combobox',             desc: '목록에서 선택 (수정 가능)' },
   { key: 'boolean',              desc: '참 그리고 거짓' },
+  { key: 'db_select',            desc: 'DB 테이블에서 옵션 목록을 불러와 선택 (수정 불가)' },
+  { key: 'db_combobox',          desc: 'DB 테이블에서 옵션 목록을 불러와 선택 (수정 가능)' },
   { key: 'calculation_readonly', desc: '계산되는 값, 수정 불가' },
   { key: 'calculation_editable', desc: '계산되는 값, 수정 가능' },
   { key: 'lookup_editable',      desc: '일정 값에 따라 로딩되는 값, 수정 가능' },
@@ -122,12 +124,12 @@ const SYSTEM_TYPE_HINTS = {
     dim: ['comboboxName','dbTable','dbColumn','syncGroup','dataSource','isRequired','defaultValue','variableType','onClick','focusOut','realtime'],
   },
   lookup_readonly: {
-    highlight: ['dataSource'],
-    dim: ['comboboxName','dbTable','dbColumn','syncGroup','isRequired','defaultValue'],
+    highlight: ['dbTable','dbColumn'],
+    dim: ['comboboxName','dataSource','syncGroup','isRequired','defaultValue'],
   },
   lookup_editable: {
-    highlight: ['dataSource'],
-    dim: ['comboboxName','dbTable','dbColumn','syncGroup'],
+    highlight: ['dbTable','dbColumn'],
+    dim: ['comboboxName','dataSource','syncGroup'],
   },
   hidden: {
     highlight: [],
