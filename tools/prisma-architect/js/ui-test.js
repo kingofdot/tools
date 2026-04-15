@@ -251,6 +251,11 @@ function renderUiTestPreview() {
         const changedField = parts[1];
         _autoStoreSet(modelName, changedField, row, val);
         runOnChange(modelName, changedField, row);
+        // db_select / db_combobox: 같은 dbTable 참조 필드 자동 동기
+        const fSysType = ((metaStore[modelName] || {})[changedField] || {}).systemType || '';
+        if (fSysType === 'db_select' || fSysType === 'db_combobox') {
+          runAutoDbSync(modelName, changedField, row);
+        }
       },
       onSelect: (row, col) => {
         if (!modelName) return;
@@ -449,8 +454,9 @@ function buildInput(fieldName, meta, modelName) {
   const s   = `width:100%;padding:9px 12px;border:1px solid var(--border);border-radius:8px;background:var(--bg-primary);color:var(--text-primary);font-size:13px;box-sizing:border-box${ro ? ';opacity:0.6;cursor:default' : ''}`;
 
   // readonly/calculation이 아닌 입력 필드: 스토어 자동 업데이트 + fn 트리거
+  const isDbType = type === 'db_select' || type === 'db_combobox';
   const onChange = (!ro && modelName)
-    ? `onchange="_autoStoreSet('${modelName}','${fieldName}',null,this.value);runOnChange('${modelName}','${fieldName}',null)"`
+    ? `onchange="_autoStoreSet('${modelName}','${fieldName}',null,this.value);runOnChange('${modelName}','${fieldName}',null)${isDbType ? `;runAutoDbSync('${modelName}','${fieldName}',null)` : ''}"`
     : '';
 
   if (type === 'select' || type === 'combobox') {
@@ -469,6 +475,15 @@ function buildInput(fieldName, meta, modelName) {
     const opts = vals.map(o => `<option value="${o}">`).join('');
     return `<input type="text" list="${listId}" ${mf} ${onChange} style="${s}" autocomplete="off" placeholder="${ph}">` +
            `<datalist id="${listId}">${opts}</datalist>`;
+  }
+  if (type === 'dynamic_select') {
+    // 옵션은 onClick 함수가 동적으로 채움 — 초기엔 빈 select
+    return `<select ${mf} ${onChange} style="${s}"><option value="">— 선택 —</option></select>`;
+  }
+  if (type === 'dynamic_combobox') {
+    const listId = `dynlist_${modelName}_${fieldName}`;
+    return `<input type="text" list="${listId}" ${mf} ${onChange} style="${s}" autocomplete="off" placeholder="${ph}">` +
+           `<datalist id="${listId}"></datalist>`;
   }
   if (type === 'boolean') {
     return `<select ${mf} ${onChange} style="${s}"><option value="">— 선택 —</option><option value="true">true</option><option value="false">false</option></select>`;

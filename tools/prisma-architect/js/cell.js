@@ -156,6 +156,29 @@ const CellComponents = {
     renderDisplay(val) { return _esc(val); },
   },
 
+  // 함수가 선택지를 동적으로 결정하는 타입 (onClick → Options 함수)
+  // 초기 옵션 없음 — _updateCellOptions 가 onClick 시 채워줌
+  dynamic_select: {
+    editable: true,
+    renderInput(val) {
+      const sel = val ? `<option value="${_esc(val)}" selected>${_esc(val)}</option>` : '';
+      return `<select ${_iBase}><option value="">—</option>${sel}</select>`;
+    },
+    renderDisplay(val) { return _esc(val); },
+  },
+
+  dynamic_combobox: {
+    editable: true,
+    renderInput(val, meta) {
+      // _mockField 기반으로 고유 datalist ID 생성 (행마다 다른 옵션 허용)
+      const safeId = (meta._mockField || 'dyn').replace(/[^a-zA-Z0-9]/g, '_');
+      const listId = `dynlist_${safeId}`;
+      return `<input type="text" ${_iBase} value="${_esc(val)}" list="${listId}" autocomplete="off">` +
+             `<datalist id="${listId}"></datalist>`;
+    },
+    renderDisplay(val) { return _esc(val); },
+  },
+
   calculation_readonly: {
     editable: false,
     readonly: true,
@@ -230,8 +253,8 @@ function buildCell({ type, value = '', meta = {}, row, col, mockField = '', extr
   const mockAttr  = mockField ? ` data-mockfield="${mockField}"` : '';
   const clsExtra  = extraClass ? ` ${extraClass}` : '';
 
-  // renderInput 결과에 mockField 주입
-  const rawInput  = comp.renderInput(value, meta);
+  // renderInput 결과에 mockField 주입 (_mockField: datalist ID 생성 등에 활용)
+  const rawInput  = comp.renderInput(value, { ...meta, _mockField: mockField });
   const inputHtml = mockField
     ? rawInput.replace('class="cell-input"', `class="cell-input"${mockAttr}`)
     : rawInput;

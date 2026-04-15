@@ -12,6 +12,40 @@
 //   1:1 폼  → "ModelName.fieldName"  (rowIndex = null)
 // ─────────────────────────────────────────────────────────
 
+// ── db_select / db_combobox 자동 동기 ────────────────────────────────────
+// 선택된 값으로 dbTable 레코드를 찾아,
+// 같은 모델에서 동일 dbTable을 참조하는 모든 필드에 해당 컬럼 값을 자동 세팅
+function runAutoDbSync(modelName, changedField, rowIndex) {
+  const fieldMeta = (metaStore[modelName] || {})[changedField] || {};
+  const dbTable  = fieldMeta.dbTable;
+  const dbColumn = fieldMeta.dbColumn;
+  if (!dbTable || !dbColumn) return;
+
+  const el = document.querySelector(_mockfieldSelector(modelName, changedField, rowIndex));
+  const selectedVal = el?.value ?? '';
+  if (!selectedVal) return;
+
+  const registry = (typeof masterDataRegistry !== 'undefined') ? masterDataRegistry : [];
+  const entry = registry.find(m => m.name === dbTable);
+  if (!entry) return;
+  const raw = (typeof window !== 'undefined') ? window[entry.globalVar] : null;
+  if (!Array.isArray(raw)) return;
+
+  const record = raw.find(r => String(r[dbColumn] ?? '') === selectedVal);
+  if (!record) return;
+
+  // 같은 dbTable을 참조하는 다른 필드에 값 세팅
+  Object.entries(metaStore[modelName] || {}).forEach(([fieldName, fMeta]) => {
+    if (fieldName === changedField) return;
+    if (fMeta.dbTable !== dbTable) return;
+    const col = fMeta.dbColumn;
+    if (!col || !(col in record)) return;
+    const value = String(record[col] ?? '');
+    _updateCell(modelName, fieldName, rowIndex, value);
+    if (typeof _autoStoreSet === 'function') _autoStoreSet(modelName, fieldName, rowIndex, value);
+  });
+}
+
 function _mockfieldSelector(modelName, fieldName, rowIndex) {
   return rowIndex === null || rowIndex === undefined
     ? `[data-mockfield="${modelName}.${fieldName}"]`

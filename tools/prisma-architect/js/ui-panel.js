@@ -30,6 +30,8 @@ let systemTypeStore = [
   { key: 'boolean',              desc: '참 그리고 거짓' },
   { key: 'db_select',            desc: 'DB 테이블에서 옵션 목록을 불러와 선택 (수정 불가)' },
   { key: 'db_combobox',          desc: 'DB 테이블에서 옵션 목록을 불러와 선택 (수정 가능)' },
+  { key: 'dynamic_select',       desc: '함수가 동적으로 결정하는 선택지에서 선택 (수정 불가)' },
+  { key: 'dynamic_combobox',     desc: '함수가 동적으로 결정하는 선택지에서 선택 (수정 가능)' },
   { key: 'calculation_readonly', desc: '계산되는 값, 수정 불가' },
   { key: 'calculation_editable', desc: '계산되는 값, 수정 가능' },
   { key: 'lookup_editable',      desc: '일정 값에 따라 로딩되는 값, 수정 가능' },
@@ -114,6 +116,14 @@ const SYSTEM_TYPE_HINTS = {
   boolean: {
     highlight: [],
     dim: ['comboboxName','dbTable','dbColumn','syncGroup','dataSource'],
+  },
+  dynamic_select: {
+    highlight: ['onClick'],
+    dim: ['comboboxName','dbTable','dbColumn','syncGroup','dataSource','variableType'],
+  },
+  dynamic_combobox: {
+    highlight: ['onClick'],
+    dim: ['comboboxName','dbTable','dbColumn','syncGroup','dataSource','variableType'],
   },
   calculation_readonly: {
     highlight: ['onChange'],

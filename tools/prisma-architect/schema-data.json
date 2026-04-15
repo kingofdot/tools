@@ -4848,6 +4848,14 @@
       "desc": "DB 테이블에서 옵션 목록을 불러와 선택 (수정 가능)"
     },
     {
+      "key": "dynamic_select",
+      "desc": "함수가 동적으로 결정하는 선택지에서 선택 (수정 불가)"
+    },
+    {
+      "key": "dynamic_combobox",
+      "desc": "함수가 동적으로 결정하는 선택지에서 선택 (수정 가능)"
+    },
+    {
       "key": "calculation_readonly",
       "desc": "계산되는 값, 수정 불가"
     },
