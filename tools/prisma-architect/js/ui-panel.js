@@ -54,26 +54,26 @@ let functionStore = [];
 let selectedFunctionIdx = null;
 
 let uiHeaders = [
-  { name: 'label',             type: 'text',  options: [],               uiRole: 'label' },
-  { name: 'commentary',        type: 'text',  options: [],               uiRole: 'placeholder' },
-  { name: 'isRequired',        type: 'combo', options: ['true','false'], uiRole: 'required' },
-  { name: 'initialCreation',   type: 'combo', options: ['true','false'], uiRole: 'showCreate' },
-  { name: 'showNode',          type: 'combo', options: ['true','false'], uiRole: 'showList' },
-  { name: 'showNodeDetail',    type: 'combo', options: ['true','false'], uiRole: 'showDetail' },
-  { name: 'systemType',        type: 'combo', options: [],               uiRole: 'none' },
-  { name: 'variableType',      type: 'combo', options: [],               uiRole: 'componentType' },
-  { name: 'width',             type: 'text',  options: [],               uiRole: 'width' },
-  { name: 'defaultValue',      type: 'text',  options: [],               uiRole: 'none' },
-  { name: 'comboboxName',      type: 'combo', options: [],               uiRole: 'none' },
-  { name: 'dbTable',           type: 'text',  options: [],               uiRole: 'none' },
-  { name: 'dbColumn',          type: 'text',  options: [],               uiRole: 'none' },
-  { name: 'syncGroup',         type: 'text',  options: [],               uiRole: 'none' },
-  { name: 'dataSource',        type: 'model', options: [],               uiRole: 'none' },
-  { name: 'creationConditions',type: 'text',  options: [],               uiRole: 'none' },
-  { name: 'onClick',           type: 'trigger', options: [],             uiRole: 'none' },
-  { name: 'onChange',          type: 'trigger', options: [],             uiRole: 'none' },
-  { name: 'focusOut',          type: 'trigger', options: [],             uiRole: 'none' },
-  { name: 'realtime',          type: 'trigger', options: [],             uiRole: 'none' },
+  { name: 'label',             label: '라벨',    desc: '화면에 표시되는 필드 라벨 텍스트',                      type: 'text',    options: [],               uiRole: 'label' },
+  { name: 'commentary',        label: '설명',    desc: '입력창 placeholder 텍스트',                           type: 'text',    options: [],               uiRole: 'placeholder' },
+  { name: 'isRequired',        label: '필수',    desc: '필수 입력 여부 (* 표시)',                               type: 'combo',   options: ['true','false'], uiRole: 'required' },
+  { name: 'initialCreation',   label: '최초생성', desc: '최초 생성 화면에 표시할 필드 여부',                     type: 'combo',   options: ['true','false'], uiRole: 'showCreate' },
+  { name: 'showNode',          label: '목록',    desc: '목록 뷰에서 컬럼 표시 여부',                            type: 'combo',   options: ['true','false'], uiRole: 'showList' },
+  { name: 'showNodeDetail',    label: '상세',    desc: '상세 화면에서 표시 여부',                               type: 'combo',   options: ['true','false'], uiRole: 'showDetail' },
+  { name: 'systemType',        label: '위젯',    desc: '셀 위젯 타입 (text / select / calculation ...)',       type: 'combo',   options: [],               uiRole: 'none' },
+  { name: 'variableType',      label: '변수',    desc: 'DB 저장 변수 타입 (text / integer / float ...)',       type: 'combo',   options: [],               uiRole: 'componentType' },
+  { name: 'width',             label: '너비',    desc: '컬럼 너비 (px)',                                      type: 'text',    options: [],               uiRole: 'width' },
+  { name: 'defaultValue',      label: '기본값',  desc: '초기 기본값',                                          type: 'text',    options: [],               uiRole: 'none' },
+  { name: 'comboboxName',      label: '콤보그룹', desc: 'select/combobox 옵션 그룹 키 → comboboxStore 조회',   type: 'combo',   options: [],               uiRole: 'none' },
+  { name: 'dbTable',           label: 'DB테이블', desc: 'db_ 타입에서 참조할 데이터 테이블명',                   type: 'text',    options: [],               uiRole: 'none' },
+  { name: 'dbColumn',          label: 'DB컬럼',  desc: 'dbTable에서 목록으로 쓸 컬럼명',                       type: 'text',    options: [],               uiRole: 'none' },
+  { name: 'syncGroup',         label: '동기그룹', desc: '같은 그룹명끼리 양방향 자동 연동 (wasteCode↔wasteName)', type: 'text',    options: [],               uiRole: 'none' },
+  { name: 'dataSource',        label: '출처모델', desc: '다른 모델에서 빌려온 필드 (UI 조립용, 데이터 중복 방지)', type: 'model',   options: [],               uiRole: 'none' },
+  { name: 'creationConditions',label: '표시조건', desc: '동적 show/hide 조건식',                               type: 'text',    options: [],               uiRole: 'none' },
+  { name: 'onClick',           label: 'onClick', desc: '셀 클릭(선택) 시 실행할 함수',                          type: 'trigger', options: [],               uiRole: 'none' },
+  { name: 'onChange',          label: 'onChange',desc: '값 확정(commit) 시 실행할 함수',                       type: 'trigger', options: [],               uiRole: 'none' },
+  { name: 'focusOut',          label: 'focusOut',desc: '포커스 이탈 시 실행할 함수',                            type: 'trigger', options: [],               uiRole: 'none' },
+  { name: 'realtime',          label: '실시간',  desc: '타이핑 중 실시간으로 실행할 함수',                       type: 'trigger', options: [],               uiRole: 'none' },
 ];
 
 // ── 시스템타입별 컬럼 힌트 ────────────────────────────────
@@ -285,7 +285,7 @@ function renderUiTable() {
         <button class="btn btn-accent" style="margin-left:auto" onclick="openAddHeaderModal()">+ 헤더 추가</button>
       </div>
       <table class="excel-table" id="headerMgmtTable" style="width:100%">
-        <thead><tr><th style="width:32px"></th><th>헤더명</th><th>타입</th><th>콤보 옵션</th><th>UI역할</th><th style="width:48px"></th></tr></thead>
+        <thead><tr><th style="width:32px"></th><th>헤더명</th><th>약어(표시명)</th><th>설명</th><th>타입</th><th>콤보 옵션</th><th>UI역할</th><th style="width:48px"></th></tr></thead>
         <tbody id="headerMgmtBody">`;
 
     const sel = p => UI_ROLES.map(r => `<option value="${r.key}"${p === r.key ? ' selected' : ''}>${r.label}</option>`).join('');
@@ -293,18 +293,30 @@ function renderUiTable() {
     uiHeaders.forEach((h, i) => {
       const role = h.uiRole || 'none';
       const roleColor = role !== 'none' ? 'color:var(--accent)' : 'color:var(--text-muted)';
+      const inputStyle = 'width:100%;padding:4px 8px;border:1px solid var(--border);border-radius:6px;background:var(--bg-primary);color:var(--text-primary);font-size:12px;outline:none';
       html += `<tr data-idx="${i}" draggable="true" style="cursor:grab">
         <td style="color:var(--text-muted);text-align:center;font-size:16px;cursor:grab">⠿</td>
         <td contenteditable="true" data-hidx="${i}"
-          style="font-weight:600;font-family:var(--font-mono);color:var(--accent);outline:none;min-width:120px"
+          style="font-weight:600;font-family:var(--font-mono);color:var(--accent);outline:none;min-width:110px"
           onblur="uiHeaderNameChange(${i},this.textContent.trim())"
           onkeydown="if(event.key==='Enter'){event.preventDefault();this.blur()}"
         >${h.name}</td>
+        <td>
+          <input value="${(h.label || '').replace(/"/g, '&quot;')}" placeholder="약어"
+            onchange="uiHeaderLabelChange(${i},this.value)"
+            style="${inputStyle};min-width:70px">
+        </td>
+        <td>
+          <input value="${(h.desc || '').replace(/"/g, '&quot;')}" placeholder="설명 (툴팁)"
+            onchange="uiHeaderDescChange(${i},this.value)"
+            style="${inputStyle};min-width:180px;color:var(--text-secondary)">
+        </td>
         <td>
           <select onchange="uiHeaderTypeChange(${i},this.value)" style="padding:4px 8px;border:1px solid var(--border);border-radius:6px;background:var(--bg-primary);color:var(--text-primary);font-size:12px">
             <option value="text"${h.type === 'text' ? ' selected' : ''}>텍스트</option>
             <option value="combo"${h.type === 'combo' ? ' selected' : ''}>콤보박스</option>
             <option value="model"${h.type === 'model' ? ' selected' : ''}>모델참조</option>
+            <option value="trigger"${h.type === 'trigger' ? ' selected' : ''}>트리거</option>
           </select>
         </td>
         <td>
@@ -312,7 +324,7 @@ function renderUiTable() {
             placeholder="${h.type === 'model' ? '자동 생성' : '옵션1,옵션2'}"
             onchange="uiHeaderOptionsChange(${i},this.value)"
             ${h.type !== 'combo' ? 'disabled style="opacity:0.4"' : ''}
-            style="width:100%;padding:4px 8px;border:1px solid var(--border);border-radius:6px;background:var(--bg-primary);color:var(--text-primary);font-size:12px;font-family:var(--font-mono);outline:none">
+            style="${inputStyle};font-family:var(--font-mono)">
         </td>
         <td>
           <select onchange="uiHeaderRoleChange(${i},this.value)" style="padding:4px 8px;border:1px solid var(--border);border-radius:6px;background:var(--bg-primary);font-size:12px;${roleColor}">${sel(role)}</select>
@@ -370,8 +382,10 @@ function renderUiTable() {
   });
 
   const thHtml = uiHeaders.map(h => {
-    const badge = (h.type === 'combo' || h.type === 'model') ? `<span style="font-size:9px;color:var(--accent2);margin-left:3px">▼</span>` : '';
-    return `<th style="white-space:nowrap">${h.name}${badge}</th>`;
+    const badge = (h.type === 'combo' || h.type === 'model' || h.type === 'trigger') ? `<span style="font-size:9px;color:var(--accent2);margin-left:2px">▼</span>` : '';
+    const displayLabel = h.label || h.name;
+    const tooltip = h.desc ? `${h.name}\n${h.desc}` : h.name;
+    return `<th style="white-space:nowrap;cursor:default" title="${tooltip}">${displayLabel}${badge}</th>`;
   }).join('');
 
   let html = `<table class="excel-table" id="uiMetaTable">
@@ -431,6 +445,14 @@ function uiHeaderNameChange(i, val) {
   uiHeaders[i].name = val;
 }
 
+function uiHeaderLabelChange(i, val) {
+  uiHeaders[i].label = val.trim();
+}
+
+function uiHeaderDescChange(i, val) {
+  uiHeaders[i].desc = val.trim();
+}
+
 function uiHeaderTypeChange(i, val) {
   uiHeaders[i].type = val;
   if (val === 'text' || val === 'model') uiHeaders[i].options = [];
@@ -486,7 +508,7 @@ function openAddHeaderModal() {
   const name = prompt('새 헤더 이름:');
   if (!name || !name.trim()) return;
   if (uiHeaders.find(h => h.name === name.trim())) { toast('이미 존재하는 헤더입니다', 'error'); return; }
-  uiHeaders.push({ name: name.trim(), type: 'text', options: [], uiRole: 'none' });
+  uiHeaders.push({ name: name.trim(), label: '', desc: '', type: 'text', options: [], uiRole: 'none' });
   renderUiTable();
   toast(`헤더 "${name.trim()}" 추가됨`, 'success');
 }
