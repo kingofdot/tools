@@ -458,6 +458,18 @@ function buildInput(fieldName, meta, modelName) {
       .map(o => `<option value="${o}">${o}</option>`).join('');
     return `<select ${mf} ${onChange} style="${s}"><option value="">— 선택 —</option>${opts}</select>`;
   }
+  if (type === 'db_select') {
+    const vals = CellComponents._dbResolver(meta.dbTable || '', meta.dbColumn || '');
+    const opts = vals.map(o => `<option value="${o}">${o}</option>`).join('');
+    return `<select ${mf} ${onChange} style="${s}"><option value="">— 선택 —</option>${opts}</select>`;
+  }
+  if (type === 'db_combobox') {
+    const vals = CellComponents._dbResolver(meta.dbTable || '', meta.dbColumn || '');
+    const listId = `dbl_${meta.dbTable || 'x'}_${meta.dbColumn || 'y'}`;
+    const opts = vals.map(o => `<option value="${o}">`).join('');
+    return `<input type="text" list="${listId}" ${mf} ${onChange} style="${s}" autocomplete="off" placeholder="${ph}">` +
+           `<datalist id="${listId}">${opts}</datalist>`;
+  }
   if (type === 'boolean') {
     return `<select ${mf} ${onChange} style="${s}"><option value="">— 선택 —</option><option value="true">true</option><option value="false">false</option></select>`;
   }

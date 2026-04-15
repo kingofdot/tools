@@ -32,6 +32,18 @@ const CellComponents = {
   // 실제 서비스: CellComponents.configure({ optionsResolver: g => zustandStore.getCombo(g) })
   _resolver: () => [],
 
+  // DB 리졸버: db_select/db_combobox — dbTable + dbColumn → 유니크 값 목록
+  // masterDataRegistry, window[globalVar] 참조 (같은 페이지에 로드된 전역 변수)
+  _dbResolver(dbTable, dbColumn) {
+    if (!dbTable || !dbColumn) return [];
+    const registry = (typeof masterDataRegistry !== 'undefined') ? masterDataRegistry : [];
+    const entry = registry.find(m => m.name === dbTable);
+    if (!entry) return [];
+    const raw = (typeof window !== 'undefined') ? window[entry.globalVar] : null;
+    if (!Array.isArray(raw)) return [];
+    return [...new Set(raw.map(r => r[dbColumn]).filter(v => v !== undefined && v !== null && v !== ''))];
+  },
+
   configure({ optionsResolver } = {}) {
     if (optionsResolver) this._resolver = optionsResolver;
   },
@@ -118,6 +130,30 @@ const CellComponents = {
       if (val === 'false') return '<span style="color:var(--error,#e53e3e);font-weight:600">false</span>';
       return '';
     },
+  },
+
+  db_select: {
+    editable: true,
+    renderInput(val, meta) {
+      const opts = CellComponents._dbResolver(meta.dbTable || '', meta.dbColumn || '')
+        .map(o => `<option value="${_esc(o)}"${val === o ? ' selected' : ''}>${_esc(o)}</option>`)
+        .join('');
+      return `<select ${_iBase}><option value="">—</option>${opts}</select>`;
+    },
+    renderDisplay(val) { return _esc(val); },
+  },
+
+  db_combobox: {
+    editable: true,
+    renderInput(val, meta) {
+      const listId = `dbl_${_esc(meta.dbTable || 'x')}_${_esc(meta.dbColumn || 'y')}`;
+      const opts = CellComponents._dbResolver(meta.dbTable || '', meta.dbColumn || '')
+        .map(o => `<option value="${_esc(o)}">`)
+        .join('');
+      return `<input type="text" ${_iBase} value="${_esc(val)}" list="${listId}" autocomplete="off">` +
+             `<datalist id="${listId}">${opts}</datalist>`;
+    },
+    renderDisplay(val) { return _esc(val); },
   },
 
   calculation_readonly: {
