@@ -1321,6 +1321,7 @@
           <div class="ep-sub" style="margin-bottom:0;">${esc(title)}</div>
         </div>
         <button class="btn btn-primary" id="doExportBtn" style="margin-left:auto;">Word 문서 생성</button>
+        <button class="btn btn-outline" id="doJsonExportBtn">JSON 내보내기</button>
         <div class="ep-sel-btns">
           <button class="btn btn-outline btn-sm" id="epSelectAll">전체 선택</button>
           <button class="btn btn-outline btn-sm" id="epDeselectAll">전체 해제</button>
@@ -1360,6 +1361,7 @@
     viewContent._epAppendices = appendices;
 
     $('doExportBtn').addEventListener('click', exportToWord);
+    $('doJsonExportBtn').addEventListener('click', exportToJson);
     $('epSelectAll').addEventListener('click', () =>
       viewContent.querySelectorAll('input[type=checkbox]').forEach(cb => cb.checked = true));
     $('epDeselectAll').addEventListener('click', () =>
@@ -1560,6 +1562,33 @@
     downloadBlob(`${lawTitle || 'law'}-준수계획.docx`, blob,
       'application/vnd.openxmlformats-officedocument.wordprocessingml.document');
     setStatus('Word 문서 다운로드 완료', 'ok');
+  }
+
+  /* ── JSON Export ──────────────────────────────────────────── */
+  function exportToJson() {
+    const articles   = viewContent._epArticles   || [];
+    const appendices = viewContent._epAppendices || [];
+    const selArticles = [], selAppendices = [];
+    viewContent.querySelectorAll('input[data-type=article]:checked')
+      .forEach(cb => selArticles.push(articles[Number(cb.dataset.index)]));
+    viewContent.querySelectorAll('input[data-type=appendix]:checked')
+      .forEach(cb => selAppendices.push(appendices[Number(cb.dataset.index)]));
+
+    if (!selArticles.length && !selAppendices.length) {
+      setStatus('내보낼 항목을 선택해 주세요.', 'error'); return;
+    }
+
+    const lawTitle = LawParser.extractLawTitle(state.lastCleanJson, state.selectedItem);
+    const output = { 법령명: lawTitle };
+    if (selArticles.length)   output['조문'] = selArticles;
+    if (selAppendices.length) output['별표'] = selAppendices;
+
+    downloadBlob(
+      `${lawTitle || 'law'}-정리.json`,
+      JSON.stringify(output, null, 2),
+      'application/json;charset=utf-8'
+    );
+    setStatus('JSON 내보내기 완료', 'ok');
   }
 
   /* ── Event bindings ───────────────────────────────────────── */
