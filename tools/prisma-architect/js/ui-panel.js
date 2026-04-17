@@ -1389,8 +1389,8 @@ function renderAssemblyPanel(wrap) {
   if (titleEl) titleEl.textContent = '🖥️ 조립모델 관리';
   if (addBtn)  addBtn.style.display = 'none';
 
-  // onclick 속성 안에 안전하게 넣을 수 있는 작은따옴표 문자열 생성
-  // JSON.stringify는 큰따옴표를 생성해 onclick="..." 속성을 깨트림
+  // 왼쪽 사이드바 클릭 (다른 화면 선택)에만 _q 사용
+  // 현재 화면 편집은 selectedAssemblyScreen 전역변수 직접 참조
   const _q = s => "'" + String(s).replace(/\\/g,'\\\\').replace(/'/g,"\\'") + "'";
 
   const screenNames = Object.keys(assemblyStore);
@@ -1463,32 +1463,31 @@ function renderAssemblyPanel(wrap) {
         <tr>
           <td style="padding:6px 8px;color:var(--text-muted);font-size:11px;text-align:center;width:28px">${i+1}</td>
           <td style="padding:4px 6px">
-            <select class="inline-input" style="width:120px" onchange="assemblyLayoutEdit(${_q(sn)},${i},'model',this.value)">${mSel}</select>
+            <select class="inline-input" style="width:120px" onchange="asmLayoutSet(${i},'model',this.value)">${mSel}</select>
           </td>
           <td style="padding:4px 6px">
-            <select class="inline-input" style="width:74px" onchange="assemblyLayoutEdit(${_q(sn)},${i},'view',this.value)">${vSel}</select>
+            <select class="inline-input" style="width:74px" onchange="asmLayoutSet(${i},'view',this.value)">${vSel}</select>
           </td>
           <td style="padding:4px 6px">
-            <select class="inline-input" style="width:74px" onchange="assemblyLayoutEdit(${_q(sn)},${i},'col',this.value)">${cSel}</select>
+            <select class="inline-input" style="width:74px" onchange="asmLayoutSet(${i},'col',this.value)">${cSel}</select>
           </td>
           <td style="padding:4px 6px">
             <input class="inline-input" style="width:110px" value="${(p.title||'').replace(/"/g,'&quot;')}"
                    placeholder="패널 제목"
-                   oninput="assemblyLayoutEdit(${_q(sn)},${i},'title',this.value)">
+                   oninput="asmLayoutSet(${i},'title',this.value)">
           </td>
           <td style="padding:4px 6px">
             <div style="display:flex;align-items:center;gap:4px;flex-wrap:wrap;min-height:26px">
               ${badgeLabel}
-              <button class="btn" style="padding:2px 8px;font-size:10px;margin-left:4px;white-space:nowrap"
-                      onclick="openAssemblyFieldModal(${_q(sn)},${i})"
-                      ${!p.model ? 'disabled style="opacity:0.4;padding:2px 8px;font-size:10px"' : ''}>
+              <button class="btn" style="padding:2px 8px;font-size:10px;margin-left:4px;white-space:nowrap${!p.model ? ';opacity:0.4' : ''}"
+                      onclick="openAssemblyFieldModal(${i})" ${!p.model ? 'disabled' : ''}>
                 필드 선택
               </button>
             </div>
           </td>
           <td style="padding:4px 6px;width:28px">
             <button class="btn" style="padding:2px 6px;color:var(--error);font-size:11px"
-                    onclick="assemblyLayoutDel(${_q(sn)},${i})">✕</button>
+                    onclick="asmLayoutDel(${i})">✕</button>
           </td>
         </tr>`;
     });
@@ -1511,12 +1510,12 @@ function renderAssemblyPanel(wrap) {
       flowRows += `
         <tr>
           <td style="padding:4px 6px">
-            <select class="inline-input" style="width:110px" onchange="assemblyFlowEdit(${_q(sn)},${i},'watchModel',this.value)">
+            <select class="inline-input" style="width:110px" onchange="asmFlowSet(${i},'watchModel',this.value)">
               <option value="">— 모델 —</option>${wModel}
             </select>
           </td>
           <td style="padding:4px 6px">
-            <select class="inline-input" style="width:110px" onchange="assemblyFlowEdit(${_q(sn)},${i},'watchField',this.value)">
+            <select class="inline-input" style="width:110px" onchange="asmFlowSet(${i},'watchField',this.value)">
               <option value="">— 필드 —</option>${wFields}
             </select>
           </td>
@@ -1524,29 +1523,29 @@ function renderAssemblyPanel(wrap) {
             <span style="font-size:12px;color:var(--accent2);font-weight:700">→</span>
           </td>
           <td style="padding:4px 6px">
-            <select class="inline-input" style="width:110px" onchange="assemblyFlowEdit(${_q(sn)},${i},'outputModel',this.value)">
+            <select class="inline-input" style="width:110px" onchange="asmFlowSet(${i},'outputModel',this.value)">
               <option value="">— 모델 —</option>${oModel}
             </select>
           </td>
           <td style="padding:4px 6px">
-            <select class="inline-input" style="width:110px" onchange="assemblyFlowEdit(${_q(sn)},${i},'outputField',this.value)">
+            <select class="inline-input" style="width:110px" onchange="asmFlowSet(${i},'outputField',this.value)">
               <option value="">— 필드 —</option>${oFields}
             </select>
           </td>
           <td style="padding:4px 6px">
-            <select class="inline-input" style="width:76px" onchange="assemblyFlowEdit(${_q(sn)},${i},'rowMap',this.value)">
+            <select class="inline-input" style="width:76px" onchange="asmFlowSet(${i},'rowMap',this.value)">
               ${rmSel}
             </select>
           </td>
           <td style="padding:4px 6px;width:28px">
             <button class="btn" style="padding:2px 6px;color:var(--error);font-size:11px"
-                    onclick="assemblyFlowDel(${_q(sn)},${i})">✕</button>
+                    onclick="asmFlowDel(${i})">✕</button>
           </td>
         </tr>`;
     });
 
     rightHtml = `
-    <div style="display:flex;flex-direction:column;gap:0;height:100%;overflow-y:auto">
+    <div style="display:flex;flex-direction:column;gap:0;overflow-y:auto;flex:1;min-height:0">
 
       <!-- 헤더 바 -->
       <div style="display:flex;align-items:center;gap:10px;padding:14px 16px 12px;border-bottom:1px solid var(--border);background:var(--bg-primary);flex-shrink:0">
@@ -1559,11 +1558,11 @@ function renderAssemblyPanel(wrap) {
           <input class="inline-input" style="width:160px;font-size:13px"
                  value="${(current.label||'').replace(/"/g,'&quot;')}"
                  placeholder="화면 표시 이름"
-                 oninput="assemblyEditLabel(${_q(sn)},this.value)">
+                 oninput="asmEditLabel(this.value)">
         </div>
         <button class="btn btn-accent"
                 style="margin-left:auto;padding:7px 20px;font-size:13px;font-weight:700;display:flex;align-items:center;gap:6px"
-                onclick="runAssemblyTest(${_q(sn)})">
+                onclick="runAssemblyTest()">
           <span>▶</span> 테스트
         </button>
       </div>
@@ -1576,7 +1575,7 @@ function renderAssemblyPanel(wrap) {
             <span style="font-size:13px;font-weight:700">📐 레이아웃</span>
             <span style="font-size:10px;color:var(--text-muted)">— 패널 구성 및 표시 필드 설정</span>
             <button class="btn btn-accent" style="margin-left:auto;font-size:11px;padding:4px 12px"
-                    onclick="assemblyLayoutAdd(${_q(sn)})">＋ 패널 추가</button>
+                    onclick="asmLayoutAdd()">＋ 패널 추가</button>
           </div>
           <div style="overflow-x:auto">
             <table class="excel-table" style="width:100%;min-width:620px">
@@ -1602,7 +1601,7 @@ function renderAssemblyPanel(wrap) {
             <span style="font-size:13px;font-weight:700">🔀 데이터 흐름 (Flow)</span>
             <span style="font-size:10px;color:var(--text-muted)">— 한 모델의 값 변경 시 다른 모델로 자동 복사</span>
             <button class="btn btn-accent" style="margin-left:auto;font-size:11px;padding:4px 12px"
-                    onclick="assemblyFlowAdd(${_q(sn)})">＋ Flow 추가</button>
+                    onclick="asmFlowAdd()">＋ Flow 추가</button>
           </div>
           <div style="overflow-x:auto">
             <table class="excel-table" style="width:100%;min-width:660px">
@@ -1624,11 +1623,11 @@ function renderAssemblyPanel(wrap) {
   }
 
   wrap.innerHTML = `
-  <div style="display:grid;grid-template-columns:196px 1fr;height:100%;overflow:hidden">
-    <div style="border-right:1px solid var(--border);padding:10px;overflow-y:auto;background:var(--bg-secondary)">
+  <div style="display:flex;flex-direction:row;min-height:100%">
+    <div style="width:196px;flex-shrink:0;border-right:1px solid var(--border);padding:10px;overflow-y:auto;background:var(--bg-secondary)">
       ${leftHtml}
     </div>
-    <div style="overflow:hidden;display:flex;flex-direction:column">
+    <div style="flex:1;min-width:0;display:flex;flex-direction:column">
       ${rightHtml}
     </div>
   </div>`;
@@ -1697,6 +1696,17 @@ function assemblyEditLabel(screenName, val) {
   _assemblyEnsure(screenName).label = val;
 }
 
+// ── 현재 화면 전용 래퍼 (onchange/oninput 에서 selectedAssemblyScreen 직접 참조) ──
+// 이 함수들은 onchange="asmLayoutSet(0,'model',this.value)" 형태로 호출됨.
+// screenName을 HTML attribute에 문자열로 박지 않아 파싱 버그가 없음.
+function asmLayoutAdd()           { if (!selectedAssemblyScreen) return; assemblyLayoutAdd(selectedAssemblyScreen); }
+function asmLayoutDel(i)          { if (!selectedAssemblyScreen) return; assemblyLayoutDel(selectedAssemblyScreen, i); }
+function asmLayoutSet(i, key, val){ if (!selectedAssemblyScreen) return; assemblyLayoutEdit(selectedAssemblyScreen, i, key, val); }
+function asmFlowAdd()             { if (!selectedAssemblyScreen) return; assemblyFlowAdd(selectedAssemblyScreen); }
+function asmFlowDel(i)            { if (!selectedAssemblyScreen) return; assemblyFlowDel(selectedAssemblyScreen, i); }
+function asmFlowSet(i, key, val)  { if (!selectedAssemblyScreen) return; assemblyFlowEdit(selectedAssemblyScreen, i, key, val); }
+function asmEditLabel(val)        { if (!selectedAssemblyScreen) return; assemblyEditLabel(selectedAssemblyScreen, val); }
+
 // ── Layout CRUD ────────────────────────────────────────────────
 function assemblyLayoutAdd(screenName) {
   const s = _assemblyEnsure(screenName);
@@ -1722,7 +1732,9 @@ function assemblyLayoutEdit(screenName, i, key, val) {
 // ── 필드 선택 모달 ─────────────────────────────────────────────
 let _assemblyFieldTarget = null; // { screenName, panelIdx }
 
-function openAssemblyFieldModal(screenName, panelIdx) {
+function openAssemblyFieldModal(panelIdx) {
+  const screenName = selectedAssemblyScreen;
+  if (!screenName) return;
   const s = assemblyStore[screenName];
   if (!s || !s.layout[panelIdx]) return;
   const p = s.layout[panelIdx];
@@ -1834,7 +1846,8 @@ function assemblyFlowEdit(screenName, i, key, val) {
 
 // ── 테스트 실행 ────────────────────────────────────────────────
 function runAssemblyTest(screenName) {
-  const s = assemblyStore[screenName];
+  const sn = screenName || selectedAssemblyScreen;
+  const s = assemblyStore[sn];
   if (!s) return;
 
   const models = (s.layout || []).map(p => p.model).filter(Boolean);
