@@ -3050,7 +3050,7 @@
         "variableType": "text",
         "systemType": "combobox",
         "isRequired": "false",
-        "defaultValue": "",
+        "defaultValue": "사각",
         "showNode": "true",
         "showNodeDeatil": "true",
         "CreationConditions": "initial",
@@ -4436,7 +4436,34 @@
       }
     },
     "__systemType__": {},
-    "__assembly__": {}
+    "__assembly__": {},
+    "ProductionFacility": {
+      "id": {},
+      "businessId": {},
+      "facilityNumber": {},
+      "facilityName": {},
+      "process": {},
+      "size": {},
+      "specification": {},
+      "quantity": {},
+      "isWasteFacility": {},
+      "isAirEmissionFacility": {},
+      "airEmissionOutletNumber": {},
+      "isWaterEmissionFacility": {},
+      "isSmellEmissionFacility": {},
+      "isNoiseEmissionFacility": {},
+      "facilityPrice": {},
+      "installedBuilding": {},
+      "manufacturer": {},
+      "phoneNumber": {},
+      "changeType": {},
+      "memo": {},
+      "asWasteFacility": {},
+      "business": {},
+      "processFlows": {},
+      "createdAt": {},
+      "updatedAt": {}
+    }
   },
   "rowOrderStore": {
     "Post": [
@@ -4805,6 +4832,33 @@
       "modelApprovalNumber",
       "changeType",
       "wasteDocumentations",
+      "createdAt",
+      "updatedAt"
+    ],
+    "ProductionFacility": [
+      "id",
+      "businessId",
+      "facilityNumber",
+      "facilityName",
+      "process",
+      "size",
+      "specification",
+      "quantity",
+      "isWasteFacility",
+      "isAirEmissionFacility",
+      "airEmissionOutletNumber",
+      "isWaterEmissionFacility",
+      "isSmellEmissionFacility",
+      "isNoiseEmissionFacility",
+      "facilityPrice",
+      "installedBuilding",
+      "manufacturer",
+      "phoneNumber",
+      "changeType",
+      "memo",
+      "asWasteFacility",
+      "business",
+      "processFlows",
       "createdAt",
       "updatedAt"
     ]
@@ -5742,8 +5796,29 @@
   "assemblyStore": {
     "Waste": {
       "label": "폐기물처리업",
-      "layout": [],
-      "flows": []
+      "layout": [
+        {
+          "panelId": "p1776400859426",
+          "model": "WasteTargetItem",
+          "view": "1to1",
+          "col": "full",
+          "title": "재활용대상폐기물",
+          "fields": [],
+          "styles": {}
+        },
+        {
+          "panelId": "p1776400874545",
+          "model": "WasteStorageFacility",
+          "view": "1to1",
+          "col": "full",
+          "title": "폐기물보관시설",
+          "fields": [],
+          "styles": {}
+        }
+      ],
+      "flows": [],
+      "styles": {},
+      "panelStyle": {}
     }
   },
   "masterDataRegistry": [
@@ -5870,5 +5945,5 @@
     }
   ],
   "annotations": [],
-  "savedAt": "2026. 4. 17. 오전 9:50:02"
+  "savedAt": "2026. 4. 17. 오후 2:18:19"
 }
