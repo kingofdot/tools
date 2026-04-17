@@ -118,11 +118,28 @@ function uitestChangeDecimal(modelName, fieldName, delta) {
   _applyAllDecimalFormatting();
 }
 
+// ── 기본값 적용 ──────────────────────────────────────────
+// metaStore[modelName][fieldName].defaultValue → mockStore 행 초기화
+// 이미 값이 있는 필드는 덮어쓰지 않음
+function _applyDefaultValues(modelName, rowIdx) {
+  const meta = metaStore[modelName] || {};
+  Object.entries(meta).forEach(([fieldName, fieldMeta]) => {
+    const dv = fieldMeta.defaultValue;
+    if (dv === undefined || dv === null || dv === '') return;
+    // 이미 값이 있으면 스킵 (행 수정 시 덮어쓰기 방지)
+    if (mockStore[modelName]?.[rowIdx]?.[fieldName] !== undefined &&
+        mockStore[modelName][rowIdx][fieldName] !== '') return;
+    _autoStoreSet(modelName, fieldName, rowIdx, String(dv));
+  });
+}
+
 // ── 엑셀 모드 행 추가 ───────────────────────────────────
 // 편집 중인 셀을 확정(→ onCommit → _autoStoreSet)한 뒤 행 수 증가
 function uitestAddRow(modelName) {
   _cellGrids.forEach(g => g.commit());
-  uitestExcelRowCount[modelName] = (uitestExcelRowCount[modelName] || 1) + 1;
+  const newIdx = uitestExcelRowCount[modelName] || 1; // 0-based: 현재 행 수 = 새 행 인덱스
+  uitestExcelRowCount[modelName] = newIdx + 1;
+  _applyDefaultValues(modelName, newIdx);
   renderUiTestPreview();
 }
 
@@ -372,7 +389,10 @@ function renderExcelView(rows, modelName) {
   // hidden 필드 제외
   const visibleRows = rows.filter(([, meta]) => _resolveCompType(meta) !== 'hidden');
 
-  if (!uitestExcelRowCount[modelName]) uitestExcelRowCount[modelName] = 1;
+  if (!uitestExcelRowCount[modelName]) {
+    uitestExcelRowCount[modelName] = 1;
+    _applyDefaultValues(modelName, 0); // 첫 번째 행 기본값 적용
+  }
   const rowCount  = uitestExcelRowCount[modelName];
   const storeData = mockStore[modelName] || [];
 

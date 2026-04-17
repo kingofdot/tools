@@ -459,6 +459,38 @@ function renderUiTable() {
             value="${val}" placeholder="그룹명"
             style="${selStyle}">${fillBtn}</td>`;
       }
+      // ── 기본값 셀: 필드 타입에 따라 스마트 렌더 ────────────
+      if (h.name === 'defaultValue') {
+        const sysType    = row.meta.systemType || '';
+        const comboGroup = row.meta.comboboxName || '';
+        const dbTable_   = row.meta.dbTable || '';
+        const dbCol_     = row.meta.dbColumn || '';
+
+        if (['select','combobox','dynamic_select'].includes(sysType) && comboGroup && comboboxStore[comboGroup]) {
+          const opts = ['', ...(comboboxStore[comboGroup] || [])]
+            .map(o => `<option value="${o}"${o===val?' selected':''}>${o||'—'}</option>`).join('');
+          return `<td style="min-width:120px;padding:2px 4px;position:relative">
+            <select data-field="${row.fieldName}" data-col="defaultValue" style="${selStyle}">${opts}</select>${fillBtn}</td>`;
+        }
+        if (['db_select','db_combobox'].includes(sysType) && dbTable_ && dbCol_) {
+          const entry = masterDataRegistry.find(m => m.name === dbTable_);
+          const raw   = entry ? window[entry.globalVar] : null;
+          const vals  = Array.isArray(raw)
+            ? [...new Set(raw.map(r => String(r[dbCol_] ?? '').trim()).filter(Boolean))]
+            : [];
+          const opts = ['', ...vals]
+            .map(o => `<option value="${o}"${o===val?' selected':''}>${o||'—'}</option>`).join('');
+          return `<td style="min-width:120px;padding:2px 4px;position:relative">
+            <select data-field="${row.fieldName}" data-col="defaultValue" style="${selStyle}">${opts}</select>${fillBtn}</td>`;
+        }
+        if (sysType === 'boolean') {
+          const opts = [['','—'],['true','예 (true)'],['false','아니오 (false)']]
+            .map(([v,l]) => `<option value="${v}"${v===val?' selected':''}>${l}</option>`).join('');
+          return `<td style="min-width:100px;padding:2px 4px;position:relative">
+            <select data-field="${row.fieldName}" data-col="defaultValue" style="${selStyle}">${opts}</select>${fillBtn}</td>`;
+        }
+        // 그 외: 기존 텍스트 입력 (fall-through)
+      }
       // ────────────────────────────────────────────────────────
 
       if (h.type === 'trigger') {
