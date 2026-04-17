@@ -1389,6 +1389,10 @@ function renderAssemblyPanel(wrap) {
   if (titleEl) titleEl.textContent = '🖥️ 조립모델 관리';
   if (addBtn)  addBtn.style.display = 'none';
 
+  // onclick 속성 안에 안전하게 넣을 수 있는 작은따옴표 문자열 생성
+  // JSON.stringify는 큰따옴표를 생성해 onclick="..." 속성을 깨트림
+  const _q = s => "'" + String(s).replace(/\\/g,'\\\\').replace(/'/g,"\\'") + "'";
+
   const screenNames = Object.keys(assemblyStore);
   const current = _assemblyScreen();
   const modelNames = (schema.models || []).map(m => m.name);
@@ -1408,14 +1412,14 @@ function renderAssemblyPanel(wrap) {
     const isActive = name === selectedAssemblyScreen;
     const panelCount = (s.layout || []).length;
     leftHtml += `
-      <div onclick="assemblySelect(${JSON.stringify(name)})"
+      <div onclick="assemblySelect(${_q(name)})"
            style="position:relative;border-radius:8px;padding:8px 10px;cursor:pointer;border:1px solid ${isActive ? 'var(--accent)' : 'var(--border)'};background:${isActive ? 'var(--accent-dim)' : 'transparent'};transition:all .15s">
         <div style="display:flex;align-items:center;gap:5px;padding-right:20px">
           <span style="font-size:12px">🖥️</span>
           <span style="font-size:12px;font-weight:700;color:${isActive ? 'var(--accent)' : 'var(--text-primary)'};overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${s.label || name}</span>
         </div>
         <div style="font-size:10px;color:var(--text-muted);margin-top:2px;padding-left:2px">${name}${panelCount > 0 ? ` · 패널 ${panelCount}개` : ''}</div>
-        <button onclick="event.stopPropagation();assemblyDelete(${JSON.stringify(name)})"
+        <button onclick="event.stopPropagation();assemblyDelete(${_q(name)})"
                 style="position:absolute;top:6px;right:6px;width:18px;height:18px;border-radius:4px;border:none;background:transparent;color:var(--text-muted);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:10px;padding:0"
                 onmouseover="this.style.color='var(--error)'" onmouseout="this.style.color='var(--text-muted)'">✕</button>
       </div>`;
@@ -1459,24 +1463,24 @@ function renderAssemblyPanel(wrap) {
         <tr>
           <td style="padding:6px 8px;color:var(--text-muted);font-size:11px;text-align:center;width:28px">${i+1}</td>
           <td style="padding:4px 6px">
-            <select class="inline-input" style="width:120px" onchange="assemblyLayoutEdit(${JSON.stringify(sn)},${i},'model',this.value)">${mSel}</select>
+            <select class="inline-input" style="width:120px" onchange="assemblyLayoutEdit(${_q(sn)},${i},'model',this.value)">${mSel}</select>
           </td>
           <td style="padding:4px 6px">
-            <select class="inline-input" style="width:74px" onchange="assemblyLayoutEdit(${JSON.stringify(sn)},${i},'view',this.value)">${vSel}</select>
+            <select class="inline-input" style="width:74px" onchange="assemblyLayoutEdit(${_q(sn)},${i},'view',this.value)">${vSel}</select>
           </td>
           <td style="padding:4px 6px">
-            <select class="inline-input" style="width:74px" onchange="assemblyLayoutEdit(${JSON.stringify(sn)},${i},'col',this.value)">${cSel}</select>
+            <select class="inline-input" style="width:74px" onchange="assemblyLayoutEdit(${_q(sn)},${i},'col',this.value)">${cSel}</select>
           </td>
           <td style="padding:4px 6px">
             <input class="inline-input" style="width:110px" value="${(p.title||'').replace(/"/g,'&quot;')}"
                    placeholder="패널 제목"
-                   oninput="assemblyLayoutEdit(${JSON.stringify(sn)},${i},'title',this.value)">
+                   oninput="assemblyLayoutEdit(${_q(sn)},${i},'title',this.value)">
           </td>
           <td style="padding:4px 6px">
             <div style="display:flex;align-items:center;gap:4px;flex-wrap:wrap;min-height:26px">
               ${badgeLabel}
               <button class="btn" style="padding:2px 8px;font-size:10px;margin-left:4px;white-space:nowrap"
-                      onclick="openAssemblyFieldModal(${JSON.stringify(sn)},${i})"
+                      onclick="openAssemblyFieldModal(${_q(sn)},${i})"
                       ${!p.model ? 'disabled style="opacity:0.4;padding:2px 8px;font-size:10px"' : ''}>
                 필드 선택
               </button>
@@ -1484,7 +1488,7 @@ function renderAssemblyPanel(wrap) {
           </td>
           <td style="padding:4px 6px;width:28px">
             <button class="btn" style="padding:2px 6px;color:var(--error);font-size:11px"
-                    onclick="assemblyLayoutDel(${JSON.stringify(sn)},${i})">✕</button>
+                    onclick="assemblyLayoutDel(${_q(sn)},${i})">✕</button>
           </td>
         </tr>`;
     });
@@ -1507,12 +1511,12 @@ function renderAssemblyPanel(wrap) {
       flowRows += `
         <tr>
           <td style="padding:4px 6px">
-            <select class="inline-input" style="width:110px" onchange="assemblyFlowEdit(${JSON.stringify(sn)},${i},'watchModel',this.value)">
+            <select class="inline-input" style="width:110px" onchange="assemblyFlowEdit(${_q(sn)},${i},'watchModel',this.value)">
               <option value="">— 모델 —</option>${wModel}
             </select>
           </td>
           <td style="padding:4px 6px">
-            <select class="inline-input" style="width:110px" onchange="assemblyFlowEdit(${JSON.stringify(sn)},${i},'watchField',this.value)">
+            <select class="inline-input" style="width:110px" onchange="assemblyFlowEdit(${_q(sn)},${i},'watchField',this.value)">
               <option value="">— 필드 —</option>${wFields}
             </select>
           </td>
@@ -1520,23 +1524,23 @@ function renderAssemblyPanel(wrap) {
             <span style="font-size:12px;color:var(--accent2);font-weight:700">→</span>
           </td>
           <td style="padding:4px 6px">
-            <select class="inline-input" style="width:110px" onchange="assemblyFlowEdit(${JSON.stringify(sn)},${i},'outputModel',this.value)">
+            <select class="inline-input" style="width:110px" onchange="assemblyFlowEdit(${_q(sn)},${i},'outputModel',this.value)">
               <option value="">— 모델 —</option>${oModel}
             </select>
           </td>
           <td style="padding:4px 6px">
-            <select class="inline-input" style="width:110px" onchange="assemblyFlowEdit(${JSON.stringify(sn)},${i},'outputField',this.value)">
+            <select class="inline-input" style="width:110px" onchange="assemblyFlowEdit(${_q(sn)},${i},'outputField',this.value)">
               <option value="">— 필드 —</option>${oFields}
             </select>
           </td>
           <td style="padding:4px 6px">
-            <select class="inline-input" style="width:76px" onchange="assemblyFlowEdit(${JSON.stringify(sn)},${i},'rowMap',this.value)">
+            <select class="inline-input" style="width:76px" onchange="assemblyFlowEdit(${_q(sn)},${i},'rowMap',this.value)">
               ${rmSel}
             </select>
           </td>
           <td style="padding:4px 6px;width:28px">
             <button class="btn" style="padding:2px 6px;color:var(--error);font-size:11px"
-                    onclick="assemblyFlowDel(${JSON.stringify(sn)},${i})">✕</button>
+                    onclick="assemblyFlowDel(${_q(sn)},${i})">✕</button>
           </td>
         </tr>`;
     });
@@ -1555,11 +1559,11 @@ function renderAssemblyPanel(wrap) {
           <input class="inline-input" style="width:160px;font-size:13px"
                  value="${(current.label||'').replace(/"/g,'&quot;')}"
                  placeholder="화면 표시 이름"
-                 oninput="assemblyEditLabel(${JSON.stringify(sn)},this.value)">
+                 oninput="assemblyEditLabel(${_q(sn)},this.value)">
         </div>
         <button class="btn btn-accent"
                 style="margin-left:auto;padding:7px 20px;font-size:13px;font-weight:700;display:flex;align-items:center;gap:6px"
-                onclick="runAssemblyTest(${JSON.stringify(sn)})">
+                onclick="runAssemblyTest(${_q(sn)})">
           <span>▶</span> 테스트
         </button>
       </div>
@@ -1572,7 +1576,7 @@ function renderAssemblyPanel(wrap) {
             <span style="font-size:13px;font-weight:700">📐 레이아웃</span>
             <span style="font-size:10px;color:var(--text-muted)">— 패널 구성 및 표시 필드 설정</span>
             <button class="btn btn-accent" style="margin-left:auto;font-size:11px;padding:4px 12px"
-                    onclick="assemblyLayoutAdd(${JSON.stringify(sn)})">＋ 패널 추가</button>
+                    onclick="assemblyLayoutAdd(${_q(sn)})">＋ 패널 추가</button>
           </div>
           <div style="overflow-x:auto">
             <table class="excel-table" style="width:100%;min-width:620px">
@@ -1598,7 +1602,7 @@ function renderAssemblyPanel(wrap) {
             <span style="font-size:13px;font-weight:700">🔀 데이터 흐름 (Flow)</span>
             <span style="font-size:10px;color:var(--text-muted)">— 한 모델의 값 변경 시 다른 모델로 자동 복사</span>
             <button class="btn btn-accent" style="margin-left:auto;font-size:11px;padding:4px 12px"
-                    onclick="assemblyFlowAdd(${JSON.stringify(sn)})">＋ Flow 추가</button>
+                    onclick="assemblyFlowAdd(${_q(sn)})">＋ Flow 추가</button>
           </div>
           <div style="overflow-x:auto">
             <table class="excel-table" style="width:100%;min-width:660px">
