@@ -298,6 +298,8 @@
         "boolean",
         "db_select",
         "db_combobox",
+        "dynamic_select",
+        "dynamic_combobox",
         "calculation_readonly",
         "calculation_editable",
         "lookup_editable",
@@ -4433,7 +4435,8 @@
         "realtime": ""
       }
     },
-    "__systemType__": {}
+    "__systemType__": {},
+    "__assembly__": {}
   },
   "rowOrderStore": {
     "Post": [
@@ -5736,6 +5739,21 @@
       "outputDesc": ""
     }
   ],
+  "assemblyStore": {
+    "Waste": {
+      "label": "폐기물처리업",
+      "layout": [],
+      "flows": []
+    }
+  },
+  "masterDataRegistry": [
+    {
+      "name": "WasteMasterDB",
+      "label": "폐기물 마스터",
+      "globalVar": "WasteMasterDB",
+      "searchFields": "wasteCode,wasteName"
+    }
+  ],
   "todoItems": [
     {
       "id": "t001",
@@ -5852,5 +5870,5 @@
     }
   ],
   "annotations": [],
-  "savedAt": "2026. 4. 15. 오후 4:30:44"
+  "savedAt": "2026. 4. 17. 오전 9:50:02"
 }
