@@ -236,9 +236,10 @@ let rowOrderStore = {};
 let selectedUiModel = null;
 
 // ── 조립모델 스토어 ───────────────────────────────────────────────────────
-// { screenName: { label, layout: [{ panelId, model, view, title, col }], flows: [...] } }
+// { screenName: { label, styles:{...}, layout: [{..., styles:{...}}], flows: [...] } }
 let assemblyStore = {};
 let selectedAssemblyScreen = null;
+let _asmStylePanelIdx = null; // 패널 스타일 확장 행이 열린 인덱스 (null=닫힘)
 
 function renderUiSidebar() {
   const sb = document.getElementById('uiSidebar');
@@ -1377,9 +1378,12 @@ function _assemblyScreen() {
 
 function _assemblyEnsure(screenName) {
   if (!assemblyStore[screenName]) {
-    assemblyStore[screenName] = { label: screenName, layout: [], flows: [] };
+    assemblyStore[screenName] = { label: screenName, styles: {}, layout: [], flows: [] };
   }
-  return assemblyStore[screenName];
+  const s = assemblyStore[screenName];
+  if (!s.styles) s.styles = {};
+  s.layout.forEach(p => { if (!p.styles) p.styles = {}; });
+  return s;
 }
 
 // ── 렌더 메인 ─────────────────────────────────────────────────
@@ -1439,28 +1443,108 @@ function renderAssemblyPanel(wrap) {
   } else {
     const sn = selectedAssemblyScreen;
 
-    // Layout 행들
+    // ── 스타일 기본값 헬퍼 ─────────────────────────────────
+    const SS = Object.assign({
+      theme:'default', direction:'vertical', maxWidth:'100%',
+      padding:'md', gap:'md', background:'', fontSize:'md',
+    }, current.styles || {});
+
+    const _pS = p => Object.assign({
+      background:'', border:'default', borderWidth:'1',
+      shadow:'none', padding:'md', radius:'md',
+      hideHeader:false, headerBg:'', titleColor:'', headerSize:'md',
+      minWidth:'', maxWidth:'', opacity:'1',
+    }, p.styles || {});
+
+    // ── 공통 선택지 ────────────────────────────────────────
+    const sizeOpts = (cur, map) => Object.entries(map).map(([k,l]) =>
+      `<option value="${k}"${cur===k?' selected':''}>${l}</option>`).join('');
+
+    const selStyle = 'padding:3px 6px;border:1px solid var(--border);border-radius:5px;background:var(--bg-primary);color:var(--text-primary);font-size:11px;width:100%';
+    const inputStyle = 'padding:3px 7px;border:1px solid var(--border);border-radius:5px;background:var(--bg-primary);color:var(--text-primary);font-size:11px;width:100%';
+
+    // ── 화면 스타일 섹션 HTML ──────────────────────────────
+    const screenStyleHtml = `
+      <div style="border:1px solid var(--border);border-radius:8px;overflow:hidden">
+        <div style="background:var(--bg-secondary);padding:9px 14px;display:flex;align-items:center;gap:8px;border-bottom:1px solid var(--border)">
+          <span style="font-size:13px;font-weight:700">🎨 화면 스타일</span>
+          <span style="font-size:10px;color:var(--text-muted)">— 전체 화면 레이아웃 및 시각 설정</span>
+        </div>
+        <div style="padding:12px 16px;display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px 14px">
+
+          <div><div style="font-size:10px;font-weight:700;color:var(--text-muted);margin-bottom:4px;text-transform:uppercase;letter-spacing:.06em">테마</div>
+            <select style="${selStyle}" onchange="asmSSSet('theme',this.value)">
+              ${sizeOpts(SS.theme,{default:'기본',card:'카드형',minimal:'미니멀',dense:'밀집'})}
+            </select></div>
+
+          <div><div style="font-size:10px;font-weight:700;color:var(--text-muted);margin-bottom:4px;text-transform:uppercase;letter-spacing:.06em">패널 배열</div>
+            <select style="${selStyle}" onchange="asmSSSet('direction',this.value)">
+              ${sizeOpts(SS.direction,{vertical:'세로 쌓기',grid2:'2열 그리드',grid3:'3열 그리드',split:'좌우 분할'})}
+            </select></div>
+
+          <div><div style="font-size:10px;font-weight:700;color:var(--text-muted);margin-bottom:4px;text-transform:uppercase;letter-spacing:.06em">최대 너비</div>
+            <select style="${selStyle}" onchange="asmSSSet('maxWidth',this.value)">
+              ${sizeOpts(SS.maxWidth,{'100%':'제한 없음','1440px':'1440px','1200px':'1200px','960px':'960px','800px':'800px','640px':'640px'})}
+            </select></div>
+
+          <div><div style="font-size:10px;font-weight:700;color:var(--text-muted);margin-bottom:4px;text-transform:uppercase;letter-spacing:.06em">화면 패딩</div>
+            <select style="${selStyle}" onchange="asmSSSet('padding',this.value)">
+              ${sizeOpts(SS.padding,{none:'없음',xs:'매우 좁음 (4px)',sm:'좁음 (8px)',md:'보통 (16px)',lg:'넓음 (24px)',xl:'매우 넓음 (40px)'})}
+            </select></div>
+
+          <div><div style="font-size:10px;font-weight:700;color:var(--text-muted);margin-bottom:4px;text-transform:uppercase;letter-spacing:.06em">패널 간격</div>
+            <select style="${selStyle}" onchange="asmSSSet('gap',this.value)">
+              ${sizeOpts(SS.gap,{none:'없음',xs:'4px',sm:'8px',md:'16px',lg:'24px',xl:'40px'})}
+            </select></div>
+
+          <div><div style="font-size:10px;font-weight:700;color:var(--text-muted);margin-bottom:4px;text-transform:uppercase;letter-spacing:.06em">글꼴 크기</div>
+            <select style="${selStyle}" onchange="asmSSSet('fontSize',this.value)">
+              ${sizeOpts(SS.fontSize,{xs:'매우 작게 (10px)',sm:'작게 (11px)',md:'기본 (13px)',lg:'크게 (15px)',xl:'매우 크게 (17px)'})}
+            </select></div>
+
+          <div><div style="font-size:10px;font-weight:700;color:var(--text-muted);margin-bottom:4px;text-transform:uppercase;letter-spacing:.06em">배경색</div>
+            <div style="display:flex;gap:4px;align-items:center">
+              <input type="color" value="${SS.background || '#1a1a2e'}"
+                     style="width:32px;height:28px;padding:0;border:1px solid var(--border);border-radius:4px;cursor:pointer;background:none"
+                     onchange="asmSSSet('background',this.value)">
+              <input type="text" value="${SS.background||''}" placeholder="비워두면 기본"
+                     style="${inputStyle};flex:1" oninput="asmSSSet('background',this.value)">
+            </div></div>
+
+        </div>
+      </div>`;
+
+    // ── 레이아웃 행들 ──────────────────────────────────────
     let layoutRows = '';
     (current.layout || []).forEach((p, i) => {
       const vSel = VIEW_MODES.map(v => `<option value="${v.key}"${p.view===v.key?' selected':''}>${v.label}</option>`).join('');
       const mSel = `<option value="">— 모델 선택 —</option>` + modelNames.map(n => `<option value="${n}"${p.model===n?' selected':''}>${n}</option>`).join('');
-      const cSel = [
-        {k:'full', l:'전체폭'},
-        {k:'left', l:'왼쪽'},
-        {k:'right',l:'오른쪽'},
-      ].map(c => `<option value="${c.k}"${p.col===c.k?' selected':''}>${c.l}</option>`).join('');
+      const cSel = [{k:'full',l:'전체폭'},{k:'left',l:'왼쪽'},{k:'right',l:'오른쪽'}]
+        .map(c => `<option value="${c.k}"${p.col===c.k?' selected':''}>${c.l}</option>`).join('');
 
       // 선택된 필드 뱃지
       const fields = p.fields || [];
       const allFields = p.model ? ((schema.models.find(m=>m.name===p.model)||{}).fields||[]).map(f=>f.name) : [];
-      const isAll = fields.length === 0;
-      const badgeLabel = isAll
+      const badgeLabel = fields.length === 0
         ? `<span style="font-size:10px;color:var(--text-muted);font-style:italic">전체 (${allFields.length}개)</span>`
         : fields.slice(0,3).map(f => `<span style="background:var(--accent-dim);color:var(--accent);border-radius:3px;padding:1px 5px;font-size:10px;font-weight:600">${f}</span>`).join('')
           + (fields.length > 3 ? `<span style="font-size:10px;color:var(--text-muted)">+${fields.length-3}</span>` : '');
 
+      const isStyleOpen = _asmStylePanelIdx === i;
+      const PS = _pS(p);
+
+      // 스타일 요약 뱃지
+      const styleHints = [];
+      if (PS.shadow !== 'none') styleHints.push(`그림자:${PS.shadow}`);
+      if (PS.background) styleHints.push('배경색');
+      if (PS.hideHeader) styleHints.push('헤더숨김');
+      if (PS.border === 'none') styleHints.push('테두리없음');
+      const styleBadge = styleHints.length
+        ? styleHints.map(h=>`<span style="background:rgba(126,87,194,.15);color:var(--accent2);border-radius:3px;padding:0 4px;font-size:9px">${h}</span>`).join('')
+        : `<span style="font-size:9px;color:var(--text-muted)">기본</span>`;
+
       layoutRows += `
-        <tr>
+        <tr style="${isStyleOpen ? 'background:var(--accent-dim)' : ''}">
           <td style="padding:6px 8px;color:var(--text-muted);font-size:11px;text-align:center;width:28px">${i+1}</td>
           <td style="padding:4px 6px">
             <select class="inline-input" style="width:120px" onchange="asmLayoutSet(${i},'model',this.value)">${mSel}</select>
@@ -1472,27 +1556,129 @@ function renderAssemblyPanel(wrap) {
             <select class="inline-input" style="width:74px" onchange="asmLayoutSet(${i},'col',this.value)">${cSel}</select>
           </td>
           <td style="padding:4px 6px">
-            <input class="inline-input" style="width:110px" value="${(p.title||'').replace(/"/g,'&quot;')}"
-                   placeholder="패널 제목"
-                   oninput="asmLayoutSet(${i},'title',this.value)">
+            <input class="inline-input" style="width:100px" value="${(p.title||'').replace(/"/g,'&quot;')}"
+                   placeholder="패널 제목" oninput="asmLayoutSet(${i},'title',this.value)">
           </td>
           <td style="padding:4px 6px">
             <div style="display:flex;align-items:center;gap:4px;flex-wrap:wrap;min-height:26px">
               ${badgeLabel}
-              <button class="btn" style="padding:2px 8px;font-size:10px;margin-left:4px;white-space:nowrap${!p.model ? ';opacity:0.4' : ''}"
-                      onclick="openAssemblyFieldModal(${i})" ${!p.model ? 'disabled' : ''}>
-                필드 선택
-              </button>
+              <button class="btn" style="padding:2px 6px;font-size:10px;white-space:nowrap${!p.model?';opacity:0.4':''}"
+                      onclick="openAssemblyFieldModal(${i})" ${!p.model?'disabled':''}>필드</button>
             </div>
           </td>
-          <td style="padding:4px 6px;width:28px">
-            <button class="btn" style="padding:2px 6px;color:var(--error);font-size:11px"
+          <td style="padding:4px 6px;min-width:80px">
+            <div style="display:flex;align-items:center;gap:3px;flex-wrap:wrap">
+              ${styleBadge}
+            </div>
+          </td>
+          <td style="padding:4px 6px;white-space:nowrap">
+            <button class="btn" style="padding:2px 8px;font-size:11px;${isStyleOpen?'background:var(--accent);color:#fff;border-color:var(--accent)':''}"
+                    onclick="asmStyleToggle(${i})">🎨</button>
+            <button class="btn" style="padding:2px 6px;color:var(--error);font-size:11px;margin-left:2px"
                     onclick="asmLayoutDel(${i})">✕</button>
           </td>
         </tr>`;
+
+      // ── 스타일 확장 행 ────────────────────────────────────
+      if (isStyleOpen) {
+        layoutRows += `
+        <tr>
+          <td colspan="8" style="padding:0;border-top:none">
+            <div style="background:var(--bg-secondary);border-top:1px dashed var(--accent);padding:12px 16px">
+              <div style="font-size:11px;font-weight:700;color:var(--accent);margin-bottom:10px">🎨 패널 #${i+1} 스타일</div>
+              <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:8px 12px">
+
+                <div><div style="font-size:9px;font-weight:700;color:var(--text-muted);margin-bottom:3px;text-transform:uppercase">배경색</div>
+                  <div style="display:flex;gap:4px">
+                    <input type="color" value="${PS.background||'#1a1a2e'}"
+                           style="width:28px;height:24px;padding:0;border:1px solid var(--border);border-radius:4px;cursor:pointer;background:none"
+                           onchange="asmPSSet(${i},'background',this.value)">
+                    <input type="text" value="${PS.background||''}" placeholder="비워두면 기본"
+                           style="${inputStyle};flex:1" oninput="asmPSSet(${i},'background',this.value)">
+                  </div></div>
+
+                <div><div style="font-size:9px;font-weight:700;color:var(--text-muted);margin-bottom:3px;text-transform:uppercase">테두리</div>
+                  <select style="${selStyle}" onchange="asmPSSet(${i},'border',this.value)">
+                    ${sizeOpts(PS.border,{none:'없음',default:'기본',accent:'포인트색',warning:'경고색',error:'에러색'})}
+                  </select></div>
+
+                <div><div style="font-size:9px;font-weight:700;color:var(--text-muted);margin-bottom:3px;text-transform:uppercase">테두리 두께</div>
+                  <select style="${selStyle}" onchange="asmPSSet(${i},'borderWidth',this.value)">
+                    ${sizeOpts(PS.borderWidth,{'0':'0px','1':'1px','2':'2px','3':'3px','4':'4px'})}
+                  </select></div>
+
+                <div><div style="font-size:9px;font-weight:700;color:var(--text-muted);margin-bottom:3px;text-transform:uppercase">그림자</div>
+                  <select style="${selStyle}" onchange="asmPSSet(${i},'shadow',this.value)">
+                    ${sizeOpts(PS.shadow,{none:'없음',sm:'작게',md:'보통',lg:'크게',xl:'매우 크게'})}
+                  </select></div>
+
+                <div><div style="font-size:9px;font-weight:700;color:var(--text-muted);margin-bottom:3px;text-transform:uppercase">내부 패딩</div>
+                  <select style="${selStyle}" onchange="asmPSSet(${i},'padding',this.value)">
+                    ${sizeOpts(PS.padding,{none:'없음',xs:'4px',sm:'8px',md:'16px',lg:'24px',xl:'40px'})}
+                  </select></div>
+
+                <div><div style="font-size:9px;font-weight:700;color:var(--text-muted);margin-bottom:3px;text-transform:uppercase">모서리 둥글기</div>
+                  <select style="${selStyle}" onchange="asmPSSet(${i},'radius',this.value)">
+                    ${sizeOpts(PS.radius,{none:'직각',sm:'작게 (4px)',md:'보통 (8px)',lg:'크게 (12px)',xl:'매우 크게 (20px)',full:'완전 둥글'})}
+                  </select></div>
+
+                <div><div style="font-size:9px;font-weight:700;color:var(--text-muted);margin-bottom:3px;text-transform:uppercase">투명도</div>
+                  <div style="display:flex;align-items:center;gap:6px">
+                    <input type="range" min="0.1" max="1" step="0.05" value="${PS.opacity}"
+                           style="flex:1;accent-color:var(--accent)"
+                           oninput="asmPSSet(${i},'opacity',this.value);this.nextElementSibling.textContent=Math.round(this.value*100)+'%'">
+                    <span style="font-size:10px;color:var(--text-muted);width:30px;text-align:right">${Math.round(parseFloat(PS.opacity)*100)}%</span>
+                  </div></div>
+
+                <div><div style="font-size:9px;font-weight:700;color:var(--text-muted);margin-bottom:3px;text-transform:uppercase">최소 너비</div>
+                  <input type="text" value="${PS.minWidth||''}" placeholder="예: 300px"
+                         style="${inputStyle}" oninput="asmPSSet(${i},'minWidth',this.value)"></div>
+
+                <div><div style="font-size:9px;font-weight:700;color:var(--text-muted);margin-bottom:3px;text-transform:uppercase">최대 너비</div>
+                  <input type="text" value="${PS.maxWidth||''}" placeholder="예: 600px"
+                         style="${inputStyle}" oninput="asmPSSet(${i},'maxWidth',this.value)"></div>
+
+                <div style="grid-column:span 2">
+                  <div style="font-size:9px;font-weight:700;color:var(--text-muted);margin-bottom:6px;text-transform:uppercase">헤더 설정</div>
+                  <div style="display:flex;flex-wrap:wrap;gap:8px;align-items:center">
+                    <label style="display:flex;align-items:center;gap:5px;font-size:11px;cursor:pointer">
+                      <input type="checkbox" ${PS.hideHeader?'checked':''} style="accent-color:var(--accent)"
+                             onchange="asmPSSet(${i},'hideHeader',this.checked)">
+                      헤더 숨김
+                    </label>
+                    <div style="display:flex;align-items:center;gap:4px">
+                      <span style="font-size:10px;color:var(--text-muted)">헤더 배경</span>
+                      <input type="color" value="${PS.headerBg||'#1a1a2e'}"
+                             style="width:24px;height:22px;padding:0;border:1px solid var(--border);border-radius:3px;cursor:pointer;background:none"
+                             onchange="asmPSSet(${i},'headerBg',this.value)">
+                      <input type="text" value="${PS.headerBg||''}" placeholder="기본"
+                             style="${inputStyle};width:70px" oninput="asmPSSet(${i},'headerBg',this.value)">
+                    </div>
+                    <div style="display:flex;align-items:center;gap:4px">
+                      <span style="font-size:10px;color:var(--text-muted)">제목색</span>
+                      <input type="color" value="${PS.titleColor||'#ffffff'}"
+                             style="width:24px;height:22px;padding:0;border:1px solid var(--border);border-radius:3px;cursor:pointer;background:none"
+                             onchange="asmPSSet(${i},'titleColor',this.value)">
+                      <input type="text" value="${PS.titleColor||''}" placeholder="기본"
+                             style="${inputStyle};width:70px" oninput="asmPSSet(${i},'titleColor',this.value)">
+                    </div>
+                    <div style="display:flex;align-items:center;gap:4px">
+                      <span style="font-size:10px;color:var(--text-muted)">헤더 크기</span>
+                      <select style="${selStyle};width:80px" onchange="asmPSSet(${i},'headerSize',this.value)">
+                        ${sizeOpts(PS.headerSize,{sm:'작게',md:'보통',lg:'크게'})}
+                      </select>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </td>
+        </tr>`;
+      }
     });
 
-    // Flow 행들
+    // ── Flow 행들 ──────────────────────────────────────────
     let flowRows = '';
     (current.flows || []).forEach((f, i) => {
       const wModel = modelNames.map(n => `<option value="${n}"${f.watchModel===n?' selected':''}>${n}</option>`).join('');
@@ -1501,46 +1687,18 @@ function renderAssemblyPanel(wrap) {
         `<option value="${fld.name}"${f.watchField===fld.name?' selected':''}>${fld.name}</option>`).join('') : '';
       const oFields = f.outputModel ? ((schema.models.find(m=>m.name===f.outputModel)||{}).fields||[]).map(fld =>
         `<option value="${fld.name}"${f.outputField===fld.name?' selected':''}>${fld.name}</option>`).join('') : '';
-      const rmSel = [
-        {k:'same',     l:'같은 행'},
-        {k:'broadcast',l:'전체 행'},
-        {k:'selected', l:'선택 행'},
-      ].map(r => `<option value="${r.k}"${f.rowMap===r.k?' selected':''}>${r.l}</option>`).join('');
+      const rmSel = [{k:'same',l:'같은 행'},{k:'broadcast',l:'전체 행'},{k:'selected',l:'선택 행'}]
+        .map(r => `<option value="${r.k}"${f.rowMap===r.k?' selected':''}>${r.l}</option>`).join('');
 
       flowRows += `
         <tr>
-          <td style="padding:4px 6px">
-            <select class="inline-input" style="width:110px" onchange="asmFlowSet(${i},'watchModel',this.value)">
-              <option value="">— 모델 —</option>${wModel}
-            </select>
-          </td>
-          <td style="padding:4px 6px">
-            <select class="inline-input" style="width:110px" onchange="asmFlowSet(${i},'watchField',this.value)">
-              <option value="">— 필드 —</option>${wFields}
-            </select>
-          </td>
-          <td style="padding:4px 6px;text-align:center">
-            <span style="font-size:12px;color:var(--accent2);font-weight:700">→</span>
-          </td>
-          <td style="padding:4px 6px">
-            <select class="inline-input" style="width:110px" onchange="asmFlowSet(${i},'outputModel',this.value)">
-              <option value="">— 모델 —</option>${oModel}
-            </select>
-          </td>
-          <td style="padding:4px 6px">
-            <select class="inline-input" style="width:110px" onchange="asmFlowSet(${i},'outputField',this.value)">
-              <option value="">— 필드 —</option>${oFields}
-            </select>
-          </td>
-          <td style="padding:4px 6px">
-            <select class="inline-input" style="width:76px" onchange="asmFlowSet(${i},'rowMap',this.value)">
-              ${rmSel}
-            </select>
-          </td>
-          <td style="padding:4px 6px;width:28px">
-            <button class="btn" style="padding:2px 6px;color:var(--error);font-size:11px"
-                    onclick="asmFlowDel(${i})">✕</button>
-          </td>
+          <td style="padding:4px 6px"><select class="inline-input" style="width:110px" onchange="asmFlowSet(${i},'watchModel',this.value)"><option value="">— 모델 —</option>${wModel}</select></td>
+          <td style="padding:4px 6px"><select class="inline-input" style="width:110px" onchange="asmFlowSet(${i},'watchField',this.value)"><option value="">— 필드 —</option>${wFields}</select></td>
+          <td style="padding:4px 6px;text-align:center"><span style="font-size:12px;color:var(--accent2);font-weight:700">→</span></td>
+          <td style="padding:4px 6px"><select class="inline-input" style="width:110px" onchange="asmFlowSet(${i},'outputModel',this.value)"><option value="">— 모델 —</option>${oModel}</select></td>
+          <td style="padding:4px 6px"><select class="inline-input" style="width:110px" onchange="asmFlowSet(${i},'outputField',this.value)"><option value="">— 필드 —</option>${oFields}</select></td>
+          <td style="padding:4px 6px"><select class="inline-input" style="width:76px" onchange="asmFlowSet(${i},'rowMap',this.value)">${rmSel}</select></td>
+          <td style="padding:4px 6px;width:28px"><button class="btn" style="padding:2px 6px;color:var(--error);font-size:11px" onclick="asmFlowDel(${i})">✕</button></td>
         </tr>`;
     });
 
@@ -1548,48 +1706,47 @@ function renderAssemblyPanel(wrap) {
     <div style="display:flex;flex-direction:column;gap:0;overflow-y:auto;flex:1;min-height:0">
 
       <!-- 헤더 바 -->
-      <div style="display:flex;align-items:center;gap:10px;padding:14px 16px 12px;border-bottom:1px solid var(--border);background:var(--bg-primary);flex-shrink:0">
+      <div style="display:flex;align-items:center;gap:10px;padding:12px 16px;border-bottom:1px solid var(--border);background:var(--bg-primary);flex-shrink:0">
         <div>
-          <div style="font-size:16px;font-weight:700;color:var(--text-primary)">${current.label || sn}</div>
-          <div style="font-size:11px;color:var(--text-muted);margin-top:1px;font-family:var(--font-mono)">${sn}</div>
+          <div style="font-size:15px;font-weight:700;color:var(--text-primary)">${current.label || sn}</div>
+          <div style="font-size:10px;color:var(--text-muted);font-family:var(--font-mono)">${sn}</div>
         </div>
-        <div style="margin-left:12px;display:flex;align-items:center;gap:8px">
+        <div style="margin-left:12px;display:flex;align-items:center;gap:6px">
           <span style="font-size:11px;color:var(--text-muted)">라벨</span>
-          <input class="inline-input" style="width:160px;font-size:13px"
+          <input class="inline-input" style="width:150px;font-size:12px"
                  value="${(current.label||'').replace(/"/g,'&quot;')}"
-                 placeholder="화면 표시 이름"
-                 oninput="asmEditLabel(this.value)">
+                 placeholder="화면 표시 이름" oninput="asmEditLabel(this.value)">
         </div>
         <button class="btn btn-accent"
-                style="margin-left:auto;padding:7px 20px;font-size:13px;font-weight:700;display:flex;align-items:center;gap:6px"
-                onclick="runAssemblyTest()">
-          <span>▶</span> 테스트
-        </button>
+                style="margin-left:auto;padding:6px 18px;font-size:13px;font-weight:700"
+                onclick="runAssemblyTest()">▶ 테스트</button>
       </div>
 
-      <div style="flex:1;padding:16px;display:flex;flex-direction:column;gap:16px">
+      <div style="padding:14px 16px;display:flex;flex-direction:column;gap:14px">
+
+        ${screenStyleHtml}
 
         <!-- Layout 섹션 -->
         <div style="border:1px solid var(--border);border-radius:8px;overflow:hidden">
           <div style="background:var(--bg-secondary);padding:9px 14px;display:flex;align-items:center;gap:8px;border-bottom:1px solid var(--border)">
             <span style="font-size:13px;font-weight:700">📐 레이아웃</span>
-            <span style="font-size:10px;color:var(--text-muted)">— 패널 구성 및 표시 필드 설정</span>
-            <button class="btn btn-accent" style="margin-left:auto;font-size:11px;padding:4px 12px"
-                    onclick="asmLayoutAdd()">＋ 패널 추가</button>
+            <span style="font-size:10px;color:var(--text-muted)">— 패널 구성 및 필드·스타일 설정</span>
+            <button class="btn btn-accent" style="margin-left:auto;font-size:11px;padding:4px 12px" onclick="asmLayoutAdd()">＋ 패널 추가</button>
           </div>
           <div style="overflow-x:auto">
-            <table class="excel-table" style="width:100%;min-width:620px">
+            <table class="excel-table" style="width:100%;min-width:700px">
               <thead><tr>
                 <th style="width:28px">#</th>
-                <th style="min-width:130px">모델</th>
-                <th style="min-width:80px">뷰모드</th>
-                <th style="min-width:80px">컬럼배치</th>
-                <th style="min-width:120px">패널 제목</th>
+                <th style="min-width:120px">모델</th>
+                <th style="min-width:74px">뷰모드</th>
+                <th style="min-width:74px">컬럼배치</th>
+                <th style="min-width:100px">패널 제목</th>
                 <th>표시 필드</th>
-                <th style="width:32px"></th>
+                <th>현재 스타일</th>
+                <th style="width:60px"></th>
               </tr></thead>
               <tbody>
-                ${layoutRows || `<tr><td colspan="7" style="text-align:center;padding:16px;color:var(--text-muted);font-size:12px">패널을 추가하세요</td></tr>`}
+                ${layoutRows || `<tr><td colspan="8" style="text-align:center;padding:16px;color:var(--text-muted);font-size:12px">패널을 추가하세요</td></tr>`}
               </tbody>
             </table>
           </div>
@@ -1600,16 +1757,13 @@ function renderAssemblyPanel(wrap) {
           <div style="background:var(--bg-secondary);padding:9px 14px;display:flex;align-items:center;gap:8px;border-bottom:1px solid var(--border)">
             <span style="font-size:13px;font-weight:700">🔀 데이터 흐름 (Flow)</span>
             <span style="font-size:10px;color:var(--text-muted)">— 한 모델의 값 변경 시 다른 모델로 자동 복사</span>
-            <button class="btn btn-accent" style="margin-left:auto;font-size:11px;padding:4px 12px"
-                    onclick="asmFlowAdd()">＋ Flow 추가</button>
+            <button class="btn btn-accent" style="margin-left:auto;font-size:11px;padding:4px 12px" onclick="asmFlowAdd()">＋ Flow 추가</button>
           </div>
           <div style="overflow-x:auto">
             <table class="excel-table" style="width:100%;min-width:660px">
               <thead><tr>
-                <th>감시 모델</th><th>감시 필드</th>
-                <th style="width:28px"></th>
-                <th>출력 모델</th><th>출력 필드</th><th>행 매핑</th>
-                <th style="width:32px"></th>
+                <th>감시 모델</th><th>감시 필드</th><th style="width:28px"></th>
+                <th>출력 모델</th><th>출력 필드</th><th>행 매핑</th><th style="width:32px"></th>
               </tr></thead>
               <tbody>
                 ${flowRows || `<tr><td colspan="7" style="text-align:center;padding:16px;color:var(--text-muted);font-size:12px">Flow를 추가하세요</td></tr>`}
@@ -1706,6 +1860,24 @@ function asmFlowAdd()             { if (!selectedAssemblyScreen) return; assembl
 function asmFlowDel(i)            { if (!selectedAssemblyScreen) return; assemblyFlowDel(selectedAssemblyScreen, i); }
 function asmFlowSet(i, key, val)  { if (!selectedAssemblyScreen) return; assemblyFlowEdit(selectedAssemblyScreen, i, key, val); }
 function asmEditLabel(val)        { if (!selectedAssemblyScreen) return; assemblyEditLabel(selectedAssemblyScreen, val); }
+
+function asmStyleToggle(i) {
+  _asmStylePanelIdx = (_asmStylePanelIdx === i) ? null : i;
+  renderUiTable();
+}
+function asmSSSet(key, val) {
+  if (!selectedAssemblyScreen) return;
+  const s = _assemblyEnsure(selectedAssemblyScreen);
+  if (!s.styles) s.styles = {};
+  s.styles[key] = val;
+}
+function asmPSSet(i, key, val) {
+  if (!selectedAssemblyScreen) return;
+  const s = _assemblyEnsure(selectedAssemblyScreen);
+  if (!s.layout[i]) return;
+  if (!s.layout[i].styles) s.layout[i].styles = {};
+  s.layout[i].styles[key] = val;
+}
 
 // ── Layout CRUD ────────────────────────────────────────────────
 function assemblyLayoutAdd(screenName) {
