@@ -114,6 +114,8 @@ async function githubLoad() {
         .filter(f => !codeNames.includes(f.name)) // 코드에 없는 것만 추가
         .forEach(f => functionStore.push(f));
     }
+    if (data.assemblyStore) assemblyStore = data.assemblyStore;
+    if (data.masterDataRegistry && data.masterDataRegistry.length) masterDataRegistry = data.masterDataRegistry;
     if (data.todoItems) todoItems = data.todoItems;
     if (data.suggestItems) suggestItems = data.suggestItems;
     if (data.annotations) annotations = data.annotations;
@@ -158,6 +160,8 @@ async function githubSave() {
       variableTypeStore,
       comboboxStore,
       functionStore,
+      assemblyStore,
+      masterDataRegistry,
       todoItems,
       suggestItems,
       annotations,

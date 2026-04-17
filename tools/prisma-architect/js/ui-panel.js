@@ -235,6 +235,11 @@ let metaStore = {};
 let rowOrderStore = {};
 let selectedUiModel = null;
 
+// ── 조립모델 스토어 ───────────────────────────────────────────────────────
+// { screenName: { label, layout: [{ panelId, model, view, title, col }], flows: [...] } }
+let assemblyStore = {};
+let selectedAssemblyScreen = null;
+
 function renderUiSidebar() {
   const sb = document.getElementById('uiSidebar');
   sb.innerHTML = '<div class="excel-sidebar-title">UI 관리</div>';
@@ -246,6 +251,7 @@ function renderUiSidebar() {
     { key: '__combobox__',   icon: '🔽', label: '콤보박스 관리' },
     { key: '__functions__',  icon: '⚡', label: '함수 관리' },
     { key: '__masterdata__', icon: '🗄️', label: '데이터 관리' },
+    { key: '__assembly__',   icon: '🖥️', label: '조립모델 관리' },
   ];
   MGMT_ITEMS.forEach(item => {
     const d = document.createElement('div');
@@ -283,6 +289,7 @@ function renderUiTable() {
   if (selectedUiModel === '__combobox__')   { renderComboboxPanel(wrap); return; }
   if (selectedUiModel === '__functions__')  { renderFunctionPanel(wrap); return; }
   if (selectedUiModel === '__masterdata__') { renderMasterDataPanel(wrap); return; }
+  if (selectedUiModel === '__assembly__')   { renderAssemblyPanel(wrap);   return; }
 
   // 헤더 관리 화면
   if (selectedUiModel === null) {
@@ -1353,4 +1360,290 @@ function masterDataEditField(i, key, val) {
   if (!masterDataRegistry[i]) return;
   masterDataRegistry[i][key] = val.trim();
   renderUiTable();
+}
+
+// ══════════════════════════════════════════════════════════════
+// 조립모델 관리
+// assemblyStore: { [screenName]: { label, layout: [...], flows: [...] } }
+//   layout[]: { panelId, model, view, col, title }
+//   flows[]:  { watchModel, watchField, type, outputModel, outputField, rowMap }
+// ══════════════════════════════════════════════════════════════
+
+function _assemblyScreen() {
+  if (!selectedAssemblyScreen) return null;
+  return assemblyStore[selectedAssemblyScreen] || null;
+}
+
+function _assemblyEnsure(screenName) {
+  if (!assemblyStore[screenName]) {
+    assemblyStore[screenName] = { label: screenName, layout: [], flows: [] };
+  }
+  return assemblyStore[screenName];
+}
+
+// ── 렌더 메인 ─────────────────────────────────────────────────
+function renderAssemblyPanel(wrap) {
+  const titleEl = document.getElementById('uiTitle');
+  const addBtn  = document.getElementById('uiAddRowBtn');
+  if (titleEl) titleEl.textContent = '🖥️ 조립모델 관리';
+  if (addBtn)  addBtn.style.display = 'none';
+
+  const screenNames = Object.keys(assemblyStore);
+  const current = _assemblyScreen();
+  const modelNames = (schema.models || []).map(m => m.name);
+
+  // ── 왼쪽 리스트 ──────────────────────────────────────────
+  let leftHtml = `
+  <div style="display:flex;flex-direction:column;gap:6px">
+    <button class="btn btn-accent" style="width:100%" onclick="assemblyAdd()">+ 화면 추가</button>
+    <div id="assemblyList" style="display:flex;flex-direction:column;gap:2px">`;
+
+  screenNames.forEach(name => {
+    const s = assemblyStore[name];
+    const active = name === selectedAssemblyScreen ? 'background:var(--accent-dim);color:var(--accent);' : '';
+    leftHtml += `
+      <div style="display:flex;align-items:center;gap:4px;border-radius:4px;padding:6px 8px;cursor:pointer;${active}border:1px solid var(--border)"
+           onclick="assemblySelect('${CSS.escape ? name.replace(/'/g,"\\'"): name}')">
+        <span style="font-size:13px">🖥️</span>
+        <span style="flex:1;font-size:12px;font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${s.label || name}</span>
+        <button class="btn" style="padding:0 4px;font-size:10px;color:var(--error)" onclick="event.stopPropagation();assemblyDelete('${name.replace(/'/g,"\\'")}')">✕</button>
+      </div>`;
+  });
+
+  leftHtml += `</div></div>`;
+
+  // ── 오른쪽 에디터 ─────────────────────────────────────────
+  let rightHtml = '';
+  if (!selectedAssemblyScreen || !current) {
+    rightHtml = `<div style="text-align:center;padding:60px 20px;color:var(--text-muted);font-size:13px">← 화면을 선택하거나 추가하세요</div>`;
+  } else {
+    const viewOpts = VIEW_MODES.map(v => `<option value="${v.key}">${v.label}</option>`).join('');
+    const colOpts  = ['full','left','right'].map(c => `<option value="${c}">${c === 'full' ? '전체' : c === 'left' ? '왼쪽' : '오른쪽'}</option>`).join('');
+    const modelOpts = modelNames.map(n => `<option value="${n}">${n}</option>`).join('');
+    const rowMapOpts = ['same','broadcast','selected'].map(k => {
+      const lbl = k === 'same' ? '같은 행' : k === 'broadcast' ? '전체 행' : '선택 행';
+      return `<option value="${k}">${lbl}</option>`;
+    }).join('');
+
+    // Layout 행들
+    let layoutRows = '';
+    (current.layout || []).forEach((p, i) => {
+      const vSel = VIEW_MODES.map(v => `<option value="${v.key}"${p.view===v.key?' selected':''}>${v.label}</option>`).join('');
+      const mSel = `<option value="">— 모델 —</option>` + modelNames.map(n => `<option value="${n}"${p.model===n?' selected':''}>${n}</option>`).join('');
+      const cSel = ['full','left','right'].map(c => {
+        const lbl = c==='full'?'전체':c==='left'?'왼쪽':'오른쪽';
+        return `<option value="${c}"${p.col===c?' selected':''}>${lbl}</option>`;
+      }).join('');
+      layoutRows += `
+        <tr>
+          <td style="padding:4px">${i+1}</td>
+          <td style="padding:4px"><select class="inline-input" style="width:110px" onchange="assemblyLayoutEdit('${selectedAssemblyScreen}',${i},'model',this.value)">${mSel}</select></td>
+          <td style="padding:4px"><select class="inline-input" style="width:72px" onchange="assemblyLayoutEdit('${selectedAssemblyScreen}',${i},'view',this.value)">${vSel}</select></td>
+          <td style="padding:4px"><select class="inline-input" style="width:68px" onchange="assemblyLayoutEdit('${selectedAssemblyScreen}',${i},'col',this.value)">${cSel}</select></td>
+          <td style="padding:4px"><input class="inline-input" style="width:100px" value="${p.title||''}" placeholder="패널 제목" oninput="assemblyLayoutEdit('${selectedAssemblyScreen}',${i},'title',this.value)"></td>
+          <td style="padding:4px"><button class="btn" style="padding:1px 6px;color:var(--error);font-size:11px" onclick="assemblyLayoutDel('${selectedAssemblyScreen}',${i})">✕</button></td>
+        </tr>`;
+    });
+
+    // Flow 행들
+    let flowRows = '';
+    (current.flows || []).forEach((f, i) => {
+      const wModel = modelNames.map(n => `<option value="${n}"${f.watchModel===n?' selected':''}>${n}</option>`).join('');
+      const oModel = modelNames.map(n => `<option value="${n}"${f.outputModel===n?' selected':''}>${n}</option>`).join('');
+      // watchField 옵션: watchModel에 따라
+      const wFields = f.watchModel ? ((schema.models.find(m=>m.name===f.watchModel)||{}).fields||[]).map(fld =>
+        `<option value="${fld.name}"${f.watchField===fld.name?' selected':''}>${fld.name}</option>`).join('') : '';
+      const oFields = f.outputModel ? ((schema.models.find(m=>m.name===f.outputModel)||{}).fields||[]).map(fld =>
+        `<option value="${fld.name}"${f.outputField===fld.name?' selected':''}>${fld.name}</option>`).join('') : '';
+      const rmSel = ['same','broadcast','selected'].map(k => {
+        const lbl = k==='same'?'같은 행':k==='broadcast'?'전체 행':'선택 행';
+        return `<option value="${k}"${f.rowMap===k?' selected':''}>${lbl}</option>`;
+      }).join('');
+
+      flowRows += `
+        <tr>
+          <td style="padding:4px">
+            <select class="inline-input" style="width:100px" onchange="assemblyFlowEdit('${selectedAssemblyScreen}',${i},'watchModel',this.value)">
+              <option value="">— 모델 —</option>${wModel}
+            </select>
+          </td>
+          <td style="padding:4px">
+            <select class="inline-input" style="width:100px" onchange="assemblyFlowEdit('${selectedAssemblyScreen}',${i},'watchField',this.value)">
+              <option value="">— 필드 —</option>${wFields}
+            </select>
+          </td>
+          <td style="padding:4px"><span style="font-size:11px;color:var(--accent2);font-weight:600">copy→</span></td>
+          <td style="padding:4px">
+            <select class="inline-input" style="width:100px" onchange="assemblyFlowEdit('${selectedAssemblyScreen}',${i},'outputModel',this.value)">
+              <option value="">— 모델 —</option>${oModel}
+            </select>
+          </td>
+          <td style="padding:4px">
+            <select class="inline-input" style="width:100px" onchange="assemblyFlowEdit('${selectedAssemblyScreen}',${i},'outputField',this.value)">
+              <option value="">— 필드 —</option>${oFields}
+            </select>
+          </td>
+          <td style="padding:4px">
+            <select class="inline-input" style="width:72px" onchange="assemblyFlowEdit('${selectedAssemblyScreen}',${i},'rowMap',this.value)">
+              ${rmSel}
+            </select>
+          </td>
+          <td style="padding:4px"><button class="btn" style="padding:1px 6px;color:var(--error);font-size:11px" onclick="assemblyFlowDel('${selectedAssemblyScreen}',${i})">✕</button></td>
+        </tr>`;
+    });
+
+    const sn = selectedAssemblyScreen;
+    rightHtml = `
+    <div style="display:flex;flex-direction:column;gap:16px;max-width:900px">
+
+      <!-- 화면 기본 정보 -->
+      <div style="display:flex;align-items:center;gap:12px">
+        <span style="font-size:12px;font-weight:700;color:var(--text-secondary);white-space:nowrap">화면명:</span>
+        <span style="font-size:13px;font-weight:700">${sn}</span>
+        <span style="font-size:12px;font-weight:700;color:var(--text-secondary);white-space:nowrap;margin-left:16px">라벨:</span>
+        <input class="inline-input" style="width:180px" value="${current.label||''}"
+               placeholder="화면 표시 이름"
+               oninput="assemblyEditLabel('${sn}',this.value)">
+        <button class="btn btn-accent" style="margin-left:auto;padding:6px 18px;font-size:13px;font-weight:700"
+                onclick="runAssemblyTest('${sn}')">▶ 테스트</button>
+      </div>
+
+      <!-- Layout 섹션 -->
+      <div style="border:1px solid var(--border);border-radius:6px;overflow:hidden">
+        <div style="background:var(--bg-secondary);padding:8px 12px;display:flex;align-items:center;gap:8px">
+          <span style="font-size:12px;font-weight:700">📐 레이아웃 (패널 구성)</span>
+          <button class="btn btn-accent" style="margin-left:auto" onclick="assemblyLayoutAdd('${sn}')">+ 패널 추가</button>
+        </div>
+        <div style="overflow-x:auto">
+          <table class="excel-table" style="width:100%;min-width:520px">
+            <thead><tr>
+              <th style="width:28px">#</th>
+              <th>모델</th><th>뷰모드</th><th>컬럼</th><th>패널 제목</th><th style="width:32px"></th>
+            </tr></thead>
+            <tbody>${layoutRows || `<tr><td colspan="6" style="text-align:center;padding:12px;color:var(--text-muted);font-size:12px">패널을 추가하세요</td></tr>`}</tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Flow 섹션 -->
+      <div style="border:1px solid var(--border);border-radius:6px;overflow:hidden">
+        <div style="background:var(--bg-secondary);padding:8px 12px;display:flex;align-items:center;gap:8px">
+          <span style="font-size:12px;font-weight:700">🔀 데이터 흐름 (Flow)</span>
+          <span style="font-size:10px;color:var(--text-muted)">— 한 모델의 값 변경 시 다른 모델로 자동 복사</span>
+          <button class="btn btn-accent" style="margin-left:auto" onclick="assemblyFlowAdd('${sn}')">+ Flow 추가</button>
+        </div>
+        <div style="overflow-x:auto">
+          <table class="excel-table" style="width:100%;min-width:620px">
+            <thead><tr>
+              <th>감시 모델</th><th>감시 필드</th><th style="width:48px"></th>
+              <th>출력 모델</th><th>출력 필드</th><th>행 매핑</th><th style="width:32px"></th>
+            </tr></thead>
+            <tbody>${flowRows || `<tr><td colspan="7" style="text-align:center;padding:12px;color:var(--text-muted);font-size:12px">Flow를 추가하세요</td></tr>`}</tbody>
+          </table>
+        </div>
+      </div>
+    </div>`;
+  }
+
+  wrap.innerHTML = `
+  <div style="display:grid;grid-template-columns:180px 1fr;gap:0;height:100%;overflow:hidden">
+    <div style="border-right:1px solid var(--border);padding:12px;overflow-y:auto;background:var(--bg-secondary)">
+      ${leftHtml}
+    </div>
+    <div style="padding:16px;overflow-y:auto">
+      ${rightHtml}
+    </div>
+  </div>`;
+}
+
+// ── 화면 CRUD ──────────────────────────────────────────────────
+function assemblyAdd() {
+  const name = prompt('화면 이름을 입력하세요 (영문/숫자 권장):');
+  if (!name || !name.trim()) return;
+  const key = name.trim();
+  if (assemblyStore[key]) { toast(`"${key}" 는 이미 존재합니다`, 'error'); return; }
+  _assemblyEnsure(key);
+  selectedAssemblyScreen = key;
+  renderUiTable();
+}
+
+function assemblyDelete(screenName) {
+  if (!confirm(`"${screenName}" 화면을 삭제할까요?`)) return;
+  delete assemblyStore[screenName];
+  if (selectedAssemblyScreen === screenName) selectedAssemblyScreen = Object.keys(assemblyStore)[0] || null;
+  renderUiTable();
+}
+
+function assemblySelect(screenName) {
+  selectedAssemblyScreen = screenName;
+  renderUiTable();
+}
+
+function assemblyEditLabel(screenName, val) {
+  _assemblyEnsure(screenName).label = val;
+}
+
+// ── Layout CRUD ────────────────────────────────────────────────
+function assemblyLayoutAdd(screenName) {
+  const s = _assemblyEnsure(screenName);
+  s.layout.push({ panelId: 'p' + Date.now(), model: '', view: '1to1', col: 'full', title: '' });
+  renderUiTable();
+}
+
+function assemblyLayoutDel(screenName, i) {
+  const s = _assemblyEnsure(screenName);
+  s.layout.splice(i, 1);
+  renderUiTable();
+}
+
+function assemblyLayoutEdit(screenName, i, key, val) {
+  const s = _assemblyEnsure(screenName);
+  if (!s.layout[i]) return;
+  s.layout[i][key] = val;
+  // model 변경 시 view/col 기본값 유지, 다시 렌더 (fieldOptions 갱신)
+  renderUiTable();
+}
+
+// ── Flow CRUD ──────────────────────────────────────────────────
+function assemblyFlowAdd(screenName) {
+  const s = _assemblyEnsure(screenName);
+  s.flows.push({ watchModel: '', watchField: '', type: 'copy', outputModel: '', outputField: '', rowMap: 'same' });
+  renderUiTable();
+}
+
+function assemblyFlowDel(screenName, i) {
+  const s = _assemblyEnsure(screenName);
+  s.flows.splice(i, 1);
+  renderUiTable();
+}
+
+function assemblyFlowEdit(screenName, i, key, val) {
+  const s = _assemblyEnsure(screenName);
+  if (!s.flows[i]) return;
+  s.flows[i][key] = val;
+  // watchModel/outputModel 변경 시 필드 목록 업데이트 필요
+  renderUiTable();
+}
+
+// ── 테스트 실행 ────────────────────────────────────────────────
+// 레이아웃에 등록된 모델들을 UI테스트 탭에서 실행
+function runAssemblyTest(screenName) {
+  const s = assemblyStore[screenName];
+  if (!s) return;
+
+  const models = (s.layout || []).map(p => p.model).filter(Boolean);
+  if (models.length === 0) { toast('레이아웃에 모델을 추가하세요', 'error'); return; }
+
+  // uitestChecked 업데이트
+  uitestChecked = new Set(models);
+
+  // UI테스트 탭으로 전환
+  const uitestTab = document.querySelector('[data-panel="uitest"]') || document.querySelector('.nav-tab[data-panel="uitest"]');
+  if (uitestTab) uitestTab.click();
+
+  // 탭 전환 후 렌더 (약간의 딜레이로 DOM 전환 대기)
+  setTimeout(() => {
+    if (typeof renderUiTestSidebar === 'function') renderUiTestSidebar();
+    if (typeof renderUiTestPreview === 'function') renderUiTestPreview();
+  }, 50);
 }
