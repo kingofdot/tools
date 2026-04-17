@@ -241,6 +241,11 @@ let assemblyStore = {};
 let selectedAssemblyScreen = null;
 let _asmStylePanelIdx = null; // 패널 스타일 확장 행이 열린 인덱스 (null=닫힘)
 
+// 헤더(컬럼) 동적 표시/숨김 상태
+// { [modelName]: { [fieldName]: true(숨김) | false(표시) } }
+// - 런타임 상태 (저장 불필요) — headerControl 함수 실행 시 갱신
+let headerVisibilityStore = {};
+
 function renderUiSidebar() {
   const sb = document.getElementById('uiSidebar');
   sb.innerHTML = '<div class="excel-sidebar-title">UI 관리</div>';

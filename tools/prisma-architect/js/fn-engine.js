@@ -80,7 +80,10 @@ function _executeByTrigger(modelName, fnName, rowIndex, calcOnly) {
   const def = FunctionRegistry.get(fnName);
   if (!def) return;
 
-  if (def.optionsOutput) {
+  if (def.headerControl) {
+    // HeaderControl: 컬럼 show/hide (re-render 없이 DOM 직접 조작)
+    if (!calcOnly) _executeHeaderControl(modelName, fnName, rowIndex);
+  } else if (def.optionsOutput) {
     // Options: 드롭다운 선택지 교체
     if (!calcOnly) _executeOptions(modelName, fnName, rowIndex);
   } else if (def.outputFields) {
@@ -197,6 +200,51 @@ function _updateCell(modelName, fieldName, rowIndex, value) {
   display.innerHTML = comp?.renderDisplay ? comp.renderDisplay(displayVal, {}) : displayVal;
 
   if (typeof _autoStoreSet === 'function') _autoStoreSet(modelName, fieldName, rowIndex, value);
+}
+
+// ── HeaderControl: 컬럼 동적 show/hide ───────────────────
+//
+// 함수 정의 형식:
+//   FunctionRegistry.register({
+//     name: 'shapeControl',
+//     watch: ['Shape'],
+//     headerControl: {
+//       targets: ['직경', '너비', '높이'],   // 이 함수가 제어하는 헤더 목록
+//       rules: {
+//         '원형':    ['직경'],              // 해당 값일 때 보여줄 헤더
+//         '사각형':  ['너비', '높이'],
+//         '원통형':  ['직경', '높이'],
+//       }
+//       // rules에 없는 값 → targets 전부 숨김
+//     }
+//   });
+//
+// Shape 필드 UI모델의 onChange: 'shapeControl' 로 연결
+function _executeHeaderControl(modelName, fnName, rowIndex) {
+  const def = FunctionRegistry.get(fnName);
+  if (!def?.headerControl) return;
+
+  const { targets = [], rules = {} } = def.headerControl;
+  const watchField = (def.watch || [])[0];
+  const el  = document.querySelector(_mockfieldSelector(modelName, watchField, rowIndex));
+  const val = el?.value ?? '';
+
+  const visible = new Set(rules[val] || []);
+
+  if (!headerVisibilityStore[modelName]) headerVisibilityStore[modelName] = {};
+  targets.forEach(h => { headerVisibilityStore[modelName][h] = !visible.has(h); });
+
+  _applyHeaderVisibility(modelName);
+}
+
+// 현재 headerVisibilityStore 기준으로 DOM에 즉시 적용 (re-render 없음)
+function _applyHeaderVisibility(modelName) {
+  const hidden = (headerVisibilityStore || {})[modelName] || {};
+  Object.entries(hidden).forEach(([fieldName, isHidden]) => {
+    document.querySelectorAll(`[data-col-key="${modelName}.${fieldName}"]`).forEach(el => {
+      el.style.display = isHidden ? 'none' : '';
+    });
+  });
 }
 
 function _setCellError(modelName, fieldName, rowIndex, msg) {

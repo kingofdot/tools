@@ -273,6 +273,11 @@ function renderUiTestPreview() {
 
   // calculation 컬럼 소수점 포매팅 적용 (store는 raw, display만 포매팅)
   _applyAllDecimalFormatting();
+
+  // headerControl 함수로 설정된 컬럼 visibility 복원 (re-render 후에도 유지)
+  checkedNames.forEach(name => {
+    if (typeof _applyHeaderVisibility === 'function') _applyHeaderVisibility(name);
+  });
 }
 
 // ── 1:1 폼 ─────────────────────────────────────────────
@@ -296,7 +301,7 @@ function renderForm1to1(rows, modelName) {
              : '';
 
     return `
-      <div style="display:flex;flex-direction:column;gap:5px;width:${width};${bg}">
+      <div data-col-key="${modelName}.${fieldName}" style="display:flex;flex-direction:column;gap:5px;width:${width};${bg}">
         <label style="font-size:13px;font-weight:600;color:var(--text-primary)">
           ${label}${required ? ' <span style="color:#e53e3e">*</span>' : ''}
         </label>
@@ -376,11 +381,12 @@ function renderExcelView(rows, modelName) {
   // 버튼 행 (calculation 컬럼만 표시, 나머지는 빈 th)
   const btnRow = visibleRows.map(([fn, meta]) => {
     const compType = _resolveCompType(meta);
-    const w = `width:${parseInt(meta.width) || 120}px;`;
+    const w  = `width:${parseInt(meta.width) || 120}px;`;
+    const ck = `data-col-key="${modelName}.${fn}"`;
     if (CALC_TYPES.has(compType)) {
       const key    = `${modelName}.${fn}`;
       const places = uitestDecimalPlaces[key] ?? 2;
-      return `<th style="${w}padding:2px 4px;border-bottom:none">
+      return `<th ${ck} style="${w}padding:2px 4px;border-bottom:none">
         <div style="display:inline-flex;align-items:center;gap:2px;font-size:10px;font-weight:400;color:var(--text-muted)">
           <button onclick="uitestChangeDecimal('${modelName}','${fn}',-1)" style="border:1px solid var(--border);background:var(--bg-primary);border-radius:3px;cursor:pointer;padding:0 5px;line-height:1.6;color:var(--text-primary)">−</button>
           <span data-decimal-key="${key}" style="min-width:16px;text-align:center">${places}</span>
@@ -388,7 +394,7 @@ function renderExcelView(rows, modelName) {
         </div>
       </th>`;
     }
-    return `<th style="${w}border-bottom:none;padding:2px"></th>`;
+    return `<th ${ck} style="${w}border-bottom:none;padding:2px"></th>`;
   }).join('');
 
   // 라벨 행
@@ -399,7 +405,7 @@ function renderExcelView(rows, modelName) {
                : '';
     const w    = `width:${parseInt(meta.width) || 120}px;`;
     const label = (labelH && meta[labelH.name]) || fn;
-    return `<th style="${w}${bg}">${label}</th>`;
+    return `<th data-col-key="${modelName}.${fn}" style="${w}${bg}">${label}</th>`;
   }).join('');
 
   const bodyRows = Array.from({ length: rowCount }, (_, ri) => {
@@ -407,7 +413,7 @@ function renderExcelView(rows, modelName) {
     const cells = visibleRows.map(([fn, meta], ci) => {
       const role       = fnRoles[fn];
       const extraClass = role === 'input' ? 'cell--fn-input' : role === 'output' ? 'cell--fn-output' : '';
-      return buildCell({
+      const cellHtml   = buildCell({
         type:       _resolveCompType(meta),
         value:      initData[fn] ?? '',
         meta,
@@ -416,6 +422,8 @@ function renderExcelView(rows, modelName) {
         mockField:  `${modelName}.${fn}.${ri}`,
         extraClass,
       });
+      // data-col-key를 <td>에 주입 (헤더 visibility 연동)
+      return cellHtml.replace(/^<td\b/, `<td data-col-key="${modelName}.${fn}"`);
     }).join('');
     return `<tr>${cells}</tr>`;
   }).join('');
