@@ -1907,10 +1907,12 @@ function assemblyLayoutDel(screenName, i) {
 function assemblyLayoutEdit(screenName, i, key, val) {
   const s = _assemblyEnsure(screenName);
   if (!s.layout[i]) return;
-  // model 변경 시 fields 초기화
   if (key === 'model') s.layout[i].fields = [];
   s.layout[i][key] = val;
-  renderUiTable();
+  // ⚠️ 규칙: 텍스트 oninput → 저장만, re-render 금지 (포커스 소실 방지)
+  // select/구조 변경 키(model/view/col/fields)만 re-render
+  const RERENDERS = ['model', 'view', 'col', 'fields', 'useCustomStyle'];
+  if (RERENDERS.includes(key)) renderUiTable();
 }
 
 // ── 필드 선택 모달 ─────────────────────────────────────────────
