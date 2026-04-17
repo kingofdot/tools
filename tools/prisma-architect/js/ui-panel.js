@@ -1378,10 +1378,11 @@ function _assemblyScreen() {
 
 function _assemblyEnsure(screenName) {
   if (!assemblyStore[screenName]) {
-    assemblyStore[screenName] = { label: screenName, styles: {}, layout: [], flows: [] };
+    assemblyStore[screenName] = { label: screenName, styles: {}, panelStyle: {}, layout: [], flows: [] };
   }
   const s = assemblyStore[screenName];
   if (!s.styles) s.styles = {};
+  if (!s.panelStyle) s.panelStyle = {};
   s.layout.forEach(p => { if (!p.styles) p.styles = {}; });
   return s;
 }
@@ -1453,26 +1454,28 @@ function renderAssemblyPanel(wrap) {
       fontColor:'', lineHeight:'normal', background:'', backgroundImage:'',
     }, current.styles || {});
 
-    const _pS = p => Object.assign({
-      // 크기·배치
+    // 패널 스타일 기본값 (하드코딩 → 전체 기본값 → 개별 오버라이드)
+    const _GPS_DEFAULTS = {
       width:'auto', minWidth:'', maxWidth:'', maxHeight:'',
       overflow:'visible', flexGrow:'0', opacity:'1',
-      // 배경·테두리
       background:'', borderPos:'all', borderStyle:'solid', borderWidth:'1',
       borderColor:'', radius:'md', shadow:'none',
-      // 헤더
       hideHeader:false, headerBg:'', headerHeight:'auto', headerPaddingX:'md',
       titleColor:'', titleSize:'md', titleWeight:'700', titleAlign:'left',
       headerDivider:true, headerDividerColor:'',
-      // 테이블·셀
       cellBorderPos:'horizontal', cellBorderStyle:'solid', cellBorderWidth:'1',
       cellBorderColor:'', cellPaddingX:'sm', cellPaddingY:'xs',
       rowHeight:'auto', rowStripe:false, rowStripeColor:'',
       rowHover:true, textOverflow:'ellipsis',
-      // 컬럼헤더
       colHeaderBg:'', colHeaderColor:'', colHeaderSize:'xs',
       colHeaderWeight:'700', colHeaderAlign:'left',
-    }, p.styles || {});
+    };
+    // GPS = 전체 패널 기본 스타일 (개별 적용 없는 패널에 일괄 적용)
+    const GPS = Object.assign({}, _GPS_DEFAULTS, current.panelStyle || {});
+    // _pS = 해당 패널의 실효 스타일 (GPS + 개별 오버라이드)
+    const _pS = p => p.useCustomStyle
+      ? Object.assign({}, GPS, p.styles || {})
+      : GPS;
 
     // ── 공통 헬퍼 ──────────────────────────────────────────────
     const sizeOpts = (cur, map) => Object.entries(map).map(([k,l]) =>
@@ -1488,7 +1491,74 @@ function renderAssemblyPanel(wrap) {
       return `<div style="display:flex;gap:4px;align-items:center"><input type="color" value="${safe}" style="width:26px;height:24px;padding:0;border:1px solid var(--border);border-radius:4px;cursor:pointer;flex-shrink:0" onchange="${handler}"><input type="text" value="${val||''}" placeholder="기본" style="${inpS};flex:1" oninput="${handler}"></div>`;
     };
     const chkRow = (checked, handler, label) => `<label style="display:flex;align-items:center;gap:5px;font-size:11px;cursor:pointer"><input type="checkbox" ${checked?'checked':''} style="accent-color:var(--accent)" onchange="${handler}">${label}</label>`;
-    const SS_H = k => `asmSSSet('${k}',this.value)`;
+    const SS_H  = k => `asmSSSet('${k}',this.value)`;
+    const GPS_H  = k => `asmGPSSet('${k}',this.value)`;
+    const GPS_HC = k => `asmGPSSet('${k}',this.checked)`;
+
+    // ── 패널 스타일 그리드 생성기 (전체/개별 공용) ─────────────
+    const _panelStyleGrid = (V, H, HC, extra='') => `
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(142px,1fr));gap:8px 12px${extra}">
+        ${sec('크기 · 배치')}
+        <div>${lbl('너비')}${selRow(V.width,H('width'),{auto:'자동 (기본)',full:'100%','50%':'50%','33%':'33%','25%':'25%'})}</div>
+        <div>${lbl('최소 너비')}${inpRow(V.minWidth,H('minWidth'),'예: 280px')}</div>
+        <div>${lbl('최대 너비')}${inpRow(V.maxWidth,H('maxWidth'),'예: 600px')}</div>
+        <div>${lbl('최대 높이')}${inpRow(V.maxHeight,H('maxHeight'),'예: 400px')}</div>
+        <div>${lbl('넘침 처리')}${selRow(V.overflow,H('overflow'),{visible:'기본',auto:'스크롤 (auto)',scroll:'항상 스크롤',hidden:'숨김'})}</div>
+        <div>${lbl('Flex 늘이기')}${selRow(V.flexGrow,H('flexGrow'),{'0':'고정','1':'늘이기 (1)','2':'늘이기 (2)','3':'늘이기 (3)'})}</div>
+        <div>${lbl('투명도')}<div style="display:flex;align-items:center;gap:6px;margin-top:3px"><input type="range" min="0.1" max="1" step="0.05" value="${V.opacity}" style="flex:1;accent-color:var(--accent)" oninput="${H('opacity')};this.nextElementSibling.textContent=Math.round(this.value*100)+'%'"><span style="font-size:10px;color:var(--text-muted);width:30px;text-align:right">${Math.round(parseFloat(V.opacity||1)*100)}%</span></div></div>
+        ${sec('배경 · 테두리')}
+        <div>${lbl('배경색')}${clrRow(V.background,H('background'))}</div>
+        <div>${lbl('테두리 위치')}${selRow(V.borderPos,H('borderPos'),{all:'전체',top:'위만',bottom:'아래만','top-bottom':'위+아래',left:'왼쪽만',right:'오른쪽만','left-right':'좌+우',none:'없음'})}</div>
+        <div>${lbl('테두리 스타일')}${selRow(V.borderStyle,H('borderStyle'),{solid:'실선',dashed:'점선 (dash)',dotted:'점 (dot)',double:'이중선',groove:'홈',ridge:'돌출'})}</div>
+        <div>${lbl('테두리 굵기')}${selRow(V.borderWidth,H('borderWidth'),{'0':'0px','1':'1px','2':'2px','3':'3px','4':'4px','6':'6px'})}</div>
+        <div>${lbl('테두리 색')}${clrRow(V.borderColor,H('borderColor'))}</div>
+        <div>${lbl('모서리 둥글기')}${selRow(V.radius,H('radius'),{none:'직각',xs:'2px',sm:'4px',md:'8px',lg:'12px',xl:'20px',full:'완전 둥글'})}</div>
+        <div>${lbl('그림자')}${selRow(V.shadow,H('shadow'),{none:'없음',xs:'극소',sm:'작게',md:'보통',lg:'크게',xl:'매우 크게','2xl':'최대',inner:'안쪽'})}</div>
+        ${sec('헤더')}
+        <div style="grid-column:span 2;display:flex;gap:16px;flex-wrap:wrap;padding:4px 0">
+          ${chkRow(V.hideHeader,HC('hideHeader'),'헤더 전체 숨김')}
+          ${chkRow(V.headerDivider!==false,HC('headerDivider'),'하단 구분선')}
+        </div>
+        <div>${lbl('헤더 배경색')}${clrRow(V.headerBg,H('headerBg'))}</div>
+        <div>${lbl('헤더 구분선 색')}${clrRow(V.headerDividerColor,H('headerDividerColor'))}</div>
+        <div>${lbl('헤더 높이')}${selRow(V.headerHeight,H('headerHeight'),{auto:'자동',xs:'24px',sm:'32px',md:'40px',lg:'48px',xl:'60px'})}</div>
+        <div>${lbl('헤더 가로 패딩')}${selRow(V.headerPaddingX,H('headerPaddingX'),{none:'없음',xs:'4px',sm:'8px',md:'14px',lg:'20px'})}</div>
+        <div>${lbl('제목 글꼴 크기')}${selRow(V.titleSize,H('titleSize'),{xs:'10px',sm:'11px',md:'13px',lg:'15px',xl:'18px','2xl':'22px'})}</div>
+        <div>${lbl('제목 굵기')}${selRow(V.titleWeight,H('titleWeight'),{'300':'가늘게','400':'보통','500':'중간','600':'세미볼드','700':'굵게','800':'더 굵게','900':'최대'})}</div>
+        <div>${lbl('제목 색')}${clrRow(V.titleColor,H('titleColor'))}</div>
+        <div>${lbl('제목 정렬')}${selRow(V.titleAlign,H('titleAlign'),{left:'왼쪽',center:'가운데',right:'오른쪽'})}</div>
+        ${sec('테이블 · 셀')}
+        <div>${lbl('셀 테두리 위치')}${selRow(V.cellBorderPos,H('cellBorderPos'),{all:'전체',horizontal:'가로만',vertical:'세로만',outer:'외곽만',none:'없음'})}</div>
+        <div>${lbl('셀 테두리 스타일')}${selRow(V.cellBorderStyle,H('cellBorderStyle'),{solid:'실선',dashed:'점선',dotted:'점',double:'이중선'})}</div>
+        <div>${lbl('셀 테두리 굵기')}${selRow(V.cellBorderWidth,H('cellBorderWidth'),{'1':'1px','2':'2px','3':'3px'})}</div>
+        <div>${lbl('셀 테두리 색')}${clrRow(V.cellBorderColor,H('cellBorderColor'))}</div>
+        <div>${lbl('셀 패딩 (좌우)')}${selRow(V.cellPaddingX,H('cellPaddingX'),{none:'없음',xs:'4px',sm:'8px',md:'12px',lg:'16px',xl:'24px'})}</div>
+        <div>${lbl('셀 패딩 (위아래)')}${selRow(V.cellPaddingY,H('cellPaddingY'),{none:'없음',xs:'3px',sm:'6px',md:'10px',lg:'14px',xl:'20px'})}</div>
+        <div>${lbl('행 높이')}${selRow(V.rowHeight,H('rowHeight'),{auto:'자동',xs:'24px',sm:'32px',md:'40px',lg:'48px',xl:'56px','2xl':'72px'})}</div>
+        <div>${lbl('줄무늬 (홀짝)')}${chkRow(V.rowStripe,HC('rowStripe'),'줄무늬 적용')}</div>
+        <div>${lbl('줄무늬 배경색')}${clrRow(V.rowStripeColor,H('rowStripeColor'))}</div>
+        <div>${lbl('행 hover 강조')}${chkRow(V.rowHover!==false,HC('rowHover'),'hover 하이라이트')}</div>
+        <div>${lbl('텍스트 넘침')}${selRow(V.textOverflow,H('textOverflow'),{ellipsis:'말줄임 (…)',clip:'잘라내기',nowrap:'줄바꿈 금지',wrap:'줄바꿈 허용'})}</div>
+        ${sec('컬럼 헤더 (thead)')}
+        <div>${lbl('컬럼명 배경색')}${clrRow(V.colHeaderBg,H('colHeaderBg'))}</div>
+        <div>${lbl('컬럼명 글꼴 색')}${clrRow(V.colHeaderColor,H('colHeaderColor'))}</div>
+        <div>${lbl('컬럼명 크기')}${selRow(V.colHeaderSize,H('colHeaderSize'),{xs:'10px',sm:'11px',md:'13px',lg:'15px'})}</div>
+        <div>${lbl('컬럼명 굵기')}${selRow(V.colHeaderWeight,H('colHeaderWeight'),{'400':'보통','500':'중간','600':'세미볼드','700':'굵게','800':'더 굵게'})}</div>
+        <div>${lbl('컬럼명 정렬')}${selRow(V.colHeaderAlign,H('colHeaderAlign'),{left:'왼쪽',center:'가운데',right:'오른쪽'})}</div>
+      </div>`;
+
+    // ── 전체 패널 기본 스타일 섹션 ────────────────────────────
+    const globalPanelStyleHtml = `
+      <details style="border:1px solid var(--border);border-radius:8px;overflow:hidden">
+        <summary style="background:var(--bg-secondary);padding:9px 14px;display:flex;align-items:center;gap:8px;border-bottom:1px solid var(--border);cursor:pointer;list-style:none;outline:none;user-select:none">
+          <span style="font-size:13px;font-weight:700">⚙️ 전체 패널 기본 스타일</span>
+          <span style="font-size:10px;color:var(--text-muted)">— 개별 적용 없는 패널에 일괄 적용됩니다</span>
+          <span style="margin-left:auto;font-size:10px;color:var(--accent);font-weight:600">▼ 클릭하여 펼치기</span>
+        </summary>
+        <div style="padding:12px 16px">
+          ${_panelStyleGrid(GPS, GPS_H, GPS_HC)}
+        </div>
+      </details>`;
 
     // ── 화면 스타일 섹션 ──────────────────────────────────────
     const screenStyleHtml = `
@@ -1585,66 +1655,27 @@ function renderAssemblyPanel(wrap) {
       if (isStyleOpen) {
         const ph  = k => `asmPSSet(${i},'${k}',this.value)`;
         const phc = k => `asmPSSet(${i},'${k}',this.checked)`;
+        const customOn = p.useCustomStyle === true;
+        // 개별 적용 OFF 시 컨트롤 표시는 하되 수정 불가 (전체값 미리보기)
+        const lockStyle = customOn ? '' : ';opacity:0.45;pointer-events:none;filter:grayscale(0.2)';
+        // 개별 적용 시 보여줄 값: GPS 위에 p.styles 오버라이드
+        const PSown = Object.assign({}, GPS, p.styles || {});
         layoutRows += `
         <tr>
           <td colspan="8" style="padding:0;border-top:none">
             <div style="background:var(--bg-secondary);border-top:1px dashed var(--accent);padding:12px 16px">
-              <div style="font-size:11px;font-weight:700;color:var(--accent);margin-bottom:10px">🎨 패널 #${i+1} 세부 스타일</div>
-              <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(142px,1fr));gap:8px 12px">
-
-                ${sec('크기 · 배치')}
-                <div>${lbl('너비')}${selRow(PS.width,ph('width'),{auto:'자동 (기본)',full:'100%','50%':'50%','33%':'33%','25%':'25%'})}</div>
-                <div>${lbl('최소 너비')}${inpRow(PS.minWidth,ph('minWidth'),'예: 280px')}</div>
-                <div>${lbl('최대 너비')}${inpRow(PS.maxWidth,ph('maxWidth'),'예: 600px')}</div>
-                <div>${lbl('최대 높이')}${inpRow(PS.maxHeight,ph('maxHeight'),'예: 400px')}</div>
-                <div>${lbl('넘침 처리')}${selRow(PS.overflow,ph('overflow'),{visible:'기본',auto:'스크롤 (auto)',scroll:'항상 스크롤',hidden:'숨김'})}</div>
-                <div>${lbl('Flex 늘이기')}${selRow(PS.flexGrow,ph('flexGrow'),{'0':'고정','1':'늘이기 (1)','2':'늘이기 (2)','3':'늘이기 (3)'})}</div>
-                <div>${lbl('투명도')}<div style="display:flex;align-items:center;gap:6px;margin-top:3px"><input type="range" min="0.1" max="1" step="0.05" value="${PS.opacity}" style="flex:1;accent-color:var(--accent)" oninput="${ph('opacity')};this.nextElementSibling.textContent=Math.round(this.value*100)+'%'"><span style="font-size:10px;color:var(--text-muted);width:30px;text-align:right">${Math.round(parseFloat(PS.opacity||1)*100)}%</span></div></div>
-
-                ${sec('배경 · 테두리')}
-                <div>${lbl('배경색')}${clrRow(PS.background,ph('background'))}</div>
-                <div>${lbl('테두리 위치')}${selRow(PS.borderPos,ph('borderPos'),{all:'전체',top:'위만',bottom:'아래만','top-bottom':'위+아래',left:'왼쪽만',right:'오른쪽만','left-right':'좌+우',none:'없음'})}</div>
-                <div>${lbl('테두리 스타일')}${selRow(PS.borderStyle,ph('borderStyle'),{solid:'실선',dashed:'점선 (dash)',dotted:'점 (dot)',double:'이중선',groove:'홈',ridge:'돌출'})}</div>
-                <div>${lbl('테두리 굵기')}${selRow(PS.borderWidth,ph('borderWidth'),{'0':'0px','1':'1px','2':'2px','3':'3px','4':'4px','6':'6px'})}</div>
-                <div>${lbl('테두리 색')}${clrRow(PS.borderColor,ph('borderColor'))}</div>
-                <div>${lbl('모서리 둥글기')}${selRow(PS.radius,ph('radius'),{none:'직각',xs:'2px',sm:'4px',md:'8px',lg:'12px',xl:'20px',full:'완전 둥글'})}</div>
-                <div>${lbl('그림자')}${selRow(PS.shadow,ph('shadow'),{none:'없음',xs:'극소',sm:'작게',md:'보통',lg:'크게',xl:'매우 크게','2xl':'최대',inner:'안쪽'})}</div>
-
-                ${sec('헤더')}
-                <div style="grid-column:span 2;display:flex;gap:16px;flex-wrap:wrap;padding:4px 0">
-                  ${chkRow(PS.hideHeader,phc('hideHeader'),'헤더 전체 숨김')}
-                  ${chkRow(PS.headerDivider!==false,phc('headerDivider'),'하단 구분선')}
-                </div>
-                <div>${lbl('헤더 배경색')}${clrRow(PS.headerBg,ph('headerBg'))}</div>
-                <div>${lbl('헤더 구분선 색')}${clrRow(PS.headerDividerColor,ph('headerDividerColor'))}</div>
-                <div>${lbl('헤더 높이')}${selRow(PS.headerHeight,ph('headerHeight'),{auto:'자동',xs:'24px',sm:'32px',md:'40px',lg:'48px',xl:'60px'})}</div>
-                <div>${lbl('헤더 가로 패딩')}${selRow(PS.headerPaddingX,ph('headerPaddingX'),{none:'없음',xs:'4px',sm:'8px',md:'14px',lg:'20px'})}</div>
-                <div>${lbl('제목 글꼴 크기')}${selRow(PS.titleSize,ph('titleSize'),{xs:'10px',sm:'11px',md:'13px',lg:'15px',xl:'18px','2xl':'22px'})}</div>
-                <div>${lbl('제목 굵기')}${selRow(PS.titleWeight,ph('titleWeight'),{'300':'가늘게','400':'보통','500':'중간','600':'세미볼드','700':'굵게','800':'더 굵게','900':'최대'})}</div>
-                <div>${lbl('제목 색')}${clrRow(PS.titleColor,ph('titleColor'))}</div>
-                <div>${lbl('제목 정렬')}${selRow(PS.titleAlign,ph('titleAlign'),{left:'왼쪽',center:'가운데',right:'오른쪽'})}</div>
-
-                ${sec('테이블 · 셀')}
-                <div>${lbl('셀 테두리 위치')}${selRow(PS.cellBorderPos,ph('cellBorderPos'),{all:'전체',horizontal:'가로만',vertical:'세로만',outer:'외곽만',none:'없음'})}</div>
-                <div>${lbl('셀 테두리 스타일')}${selRow(PS.cellBorderStyle,ph('cellBorderStyle'),{solid:'실선',dashed:'점선',dotted:'점',double:'이중선'})}</div>
-                <div>${lbl('셀 테두리 굵기')}${selRow(PS.cellBorderWidth,ph('cellBorderWidth'),{'1':'1px','2':'2px','3':'3px'})}</div>
-                <div>${lbl('셀 테두리 색')}${clrRow(PS.cellBorderColor,ph('cellBorderColor'))}</div>
-                <div>${lbl('셀 패딩 (좌우)')}${selRow(PS.cellPaddingX,ph('cellPaddingX'),{none:'없음',xs:'4px',sm:'8px',md:'12px',lg:'16px',xl:'24px'})}</div>
-                <div>${lbl('셀 패딩 (위아래)')}${selRow(PS.cellPaddingY,ph('cellPaddingY'),{none:'없음',xs:'3px',sm:'6px',md:'10px',lg:'14px',xl:'20px'})}</div>
-                <div>${lbl('행 높이')}${selRow(PS.rowHeight,ph('rowHeight'),{auto:'자동',xs:'24px',sm:'32px',md:'40px',lg:'48px',xl:'56px','2xl':'72px'})}</div>
-                <div>${lbl('줄무늬 (홀짝)')}${chkRow(PS.rowStripe,phc('rowStripe'),'줄무늬 적용')}</div>
-                <div>${lbl('줄무늬 배경색')}${clrRow(PS.rowStripeColor,ph('rowStripeColor'))}</div>
-                <div>${lbl('행 hover 강조')}${chkRow(PS.rowHover!==false,phc('rowHover'),'hover 하이라이트')}</div>
-                <div>${lbl('텍스트 넘침')}${selRow(PS.textOverflow,ph('textOverflow'),{ellipsis:'말줄임 (…)',clip:'잘라내기',nowrap:'줄바꿈 금지',wrap:'줄바꿈 허용'})}</div>
-
-                ${sec('컬럼 헤더 (thead)')}
-                <div>${lbl('컬럼명 배경색')}${clrRow(PS.colHeaderBg,ph('colHeaderBg'))}</div>
-                <div>${lbl('컬럼명 글꼴 색')}${clrRow(PS.colHeaderColor,ph('colHeaderColor'))}</div>
-                <div>${lbl('컬럼명 크기')}${selRow(PS.colHeaderSize,ph('colHeaderSize'),{xs:'10px',sm:'11px',md:'13px',lg:'15px'})}</div>
-                <div>${lbl('컬럼명 굵기')}${selRow(PS.colHeaderWeight,ph('colHeaderWeight'),{'400':'보통','500':'중간','600':'세미볼드','700':'굵게','800':'더 굵게'})}</div>
-                <div>${lbl('컬럼명 정렬')}${selRow(PS.colHeaderAlign,ph('colHeaderAlign'),{left:'왼쪽',center:'가운데',right:'오른쪽'})}</div>
-
+              <div style="display:flex;align-items:center;gap:12px;margin-bottom:10px;flex-wrap:wrap">
+                <span style="font-size:11px;font-weight:700;color:var(--accent)">🎨 패널 #${i+1} 스타일</span>
+                <label style="display:flex;align-items:center;gap:6px;cursor:pointer;font-size:12px;font-weight:600;padding:4px 10px;border-radius:6px;border:1px solid ${customOn?'var(--accent)':'var(--border)'};background:${customOn?'var(--accent-dim)':'transparent'};color:${customOn?'var(--accent)':'var(--text-muted)'}">
+                  <input type="checkbox" ${customOn?'checked':''} style="accent-color:var(--accent)"
+                         onchange="asmPSSet(${i},'useCustomStyle',this.checked)">
+                  개별 스타일 적용
+                </label>
+                ${customOn
+                  ? `<span style="font-size:10px;color:var(--accent2)">✓ 이 패널만 별도 설정 — 전체 기본값 위에 덮어씁니다</span>`
+                  : `<span style="font-size:10px;color:var(--text-muted)">⚙️ 전체 기본 스타일 적용 중 — 아래는 현재 전체값 미리보기입니다 (수정하려면 개별 적용 체크)</span>`}
               </div>
+              ${_panelStyleGrid(PSown, ph, phc, lockStyle)}
             </div>
           </td>
         </tr>`;
@@ -1698,6 +1729,8 @@ function renderAssemblyPanel(wrap) {
       <div style="padding:14px 16px;display:flex;flex-direction:column;gap:14px">
 
         ${screenStyleHtml}
+
+        ${globalPanelStyleHtml}
 
         <!-- Layout 섹션 -->
         <div style="border:1px solid var(--border);border-radius:8px;overflow:hidden">
@@ -1850,6 +1883,12 @@ function asmPSSet(i, key, val) {
   if (!s.layout[i]) return;
   if (!s.layout[i].styles) s.layout[i].styles = {};
   s.layout[i].styles[key] = val;
+  if (key === 'useCustomStyle') renderUiTable();
+}
+function asmGPSSet(key, val) {
+  if (!selectedAssemblyScreen) return;
+  const s = _assemblyEnsure(selectedAssemblyScreen);
+  s.panelStyle[key] = val;
 }
 
 // ── Layout CRUD ────────────────────────────────────────────────
