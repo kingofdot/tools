@@ -424,6 +424,59 @@
     </div>
   </div>
 
+  <!-- 조립모델 화면 추가 모달 -->
+  <div class="modal-overlay" id="assemblyAddModal">
+    <div class="modal" style="min-width:400px;max-width:480px">
+      <div class="modal-title">
+        <span>🖥️ 새 화면 추가</span>
+        <button class="btn" onclick="closeAssemblyAddModal()">✕</button>
+      </div>
+      <div class="modal-body" style="padding:24px;display:flex;flex-direction:column;gap:16px">
+        <div class="form-group">
+          <label style="font-size:11px;font-weight:700;color:var(--text-muted);letter-spacing:.08em;text-transform:uppercase">화면 ID <span style="color:var(--error)">*</span></label>
+          <input id="assemblyAddName" placeholder="영문/숫자 (예: OrderScreen)"
+            style="width:100%;padding:10px 14px;border:1px solid var(--border);border-radius:8px;background:var(--bg-primary);color:var(--text-primary);font-size:14px;font-family:var(--font-mono);box-sizing:border-box;outline:none"
+            oninput="assemblyAddValidate()" onkeydown="if(event.key==='Enter')assemblyAddConfirm()">
+          <div id="assemblyAddNameErr" style="font-size:11px;color:var(--error);margin-top:4px;min-height:16px"></div>
+        </div>
+        <div class="form-group">
+          <label style="font-size:11px;font-weight:700;color:var(--text-muted);letter-spacing:.08em;text-transform:uppercase">화면 라벨</label>
+          <input id="assemblyAddLabel" placeholder="한글 표시명 (예: 주문 화면)"
+            style="width:100%;padding:10px 14px;border:1px solid var(--border);border-radius:8px;background:var(--bg-primary);color:var(--text-primary);font-size:14px;box-sizing:border-box;outline:none"
+            onkeydown="if(event.key==='Enter')assemblyAddConfirm()">
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn" onclick="closeAssemblyAddModal()">취소</button>
+        <button class="btn btn-accent" id="assemblyAddConfirmBtn" onclick="assemblyAddConfirm()" disabled style="opacity:0.4">추가</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 조립모델 필드 선택 모달 -->
+  <div class="modal-overlay" id="assemblyFieldModal">
+    <div class="modal" style="min-width:420px;max-width:520px">
+      <div class="modal-title">
+        <span id="assemblyFieldModalTitle">📋 표시 필드 선택</span>
+        <button class="btn" onclick="closeAssemblyFieldModal()">✕</button>
+      </div>
+      <div class="modal-body" style="padding:16px 20px">
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px">
+          <input id="assemblyFieldSearch" placeholder="필드 검색…"
+            style="flex:1;padding:7px 12px;border:1px solid var(--border);border-radius:8px;background:var(--bg-primary);color:var(--text-primary);font-size:13px;outline:none"
+            oninput="assemblyFieldFilter()">
+          <button class="btn" style="font-size:11px;white-space:nowrap" onclick="assemblyFieldSelectAll()">전체 선택</button>
+          <button class="btn" style="font-size:11px;white-space:nowrap" onclick="assemblyFieldClearAll()">전체 해제</button>
+        </div>
+        <div id="assemblyFieldList" style="display:flex;flex-direction:column;gap:3px;max-height:320px;overflow-y:auto;border:1px solid var(--border);border-radius:8px;padding:8px"></div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn" onclick="closeAssemblyFieldModal()">취소</button>
+        <button class="btn btn-accent" onclick="assemblyFieldConfirm()">확인</button>
+      </div>
+    </div>
+  </div>
+
   <!-- 컨텍스트 메뉴 -->
   <div class="context-menu" id="contextMenu">
     <div class="context-menu-item" onclick="ctxAddRelation()">🔗 연결선 만들기</div>
