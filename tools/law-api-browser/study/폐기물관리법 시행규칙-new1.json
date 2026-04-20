@@ -1,0 +1,6403 @@
+{
+  "법령명": "폐기물관리법 시행규칙",
+  "별표": [
+    {
+      "별표번호": "0004",
+      "별표가지번호": "00",
+      "별표구분": "별표",
+      "별표제목": "폐기물의 종류별 세부분류(제4조의2제1항 관련)",
+      "별표제목문자열": "폐기물의 종류별 세부분류(제4조의2제1항 관련)",
+      "별표시행일자": "20260326",
+      "별표서식파일링크": "/LSW/flDownload.do?flSeq=162812773",
+      "별표HWP파일명": "law0085672026032600033KC_000400E_20260326.hwp",
+      "별표이미지파일명": [
+        "000400110201_P1_20260326.gif",
+        "000400110201_P2_20260326.gif",
+        "000400110201_P3_20260326.gif",
+        "000400110201_P4_20260326.gif",
+        "000400110201_P5_20260326.gif",
+        "000400110201_P6_20260326.gif",
+        "000400110201_P7_20260326.gif",
+        "000400110201_P8_20260326.gif",
+        "000400110201_P9_20260326.gif",
+        "000400110201_P10_20260326.gif",
+        "000400110201_P11_20260326.gif",
+        "000400110201_P12_20260326.gif",
+        "000400110201_P13_20260326.gif",
+        "000400110201_P14_20260326.gif"
+      ],
+      "별표서식PDF파일링크": "/LSW/flDownload.do?flSeq=162812775",
+      "별표PDF파일명": "law0085672026032600033KC_000400E_20260326.pdf",
+      "별표내용": [
+        {
+          "depth": 0,
+          "type": "title",
+          "marker": "■",
+          "text": "폐기물관리법 시행규칙 [별표 4] <개정 2025. 12. 30.>폐기물의 종류별 세부분류(제4조의2제1항 관련)"
+        },
+        {
+          "depth": 0,
+          "type": "number",
+          "marker": "1.",
+          "text": "지정폐기물의 세부분류 및 분류번호01 특정시설에서 발생하는 폐기물"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "01-01",
+          "text": "폐합성고분자화합물"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "01-01-01",
+          "text": "폐폴리에틸렌"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "01-01-02",
+          "text": "폐폴리프로필렌"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "01-01-03",
+          "text": "폐폴리염화비닐수지"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "01-01-04",
+          "text": "폐폴리에틸렌테레프탈레이트"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "01-01-05",
+          "text": "폐페놀수지"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "01-01-06",
+          "text": "폐폴리우레탄"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "01-01-07",
+          "text": "폐합성고무"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "01-01-08",
+          "text": "폐폴리스티렌"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "01-01-09",
+          "text": "폐아크리로니트릴브타디엔스티렌(ABS수지)"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "01-01-99",
+          "text": "그 밖의 폐합성고분자화합물"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "01-02",
+          "text": "오니류"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "01-02-01",
+          "text": "폐수처리오니"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "01-02-02",
+          "text": "유리식각공정오니"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "01-02-03",
+          "text": "제지공정오니"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "01-02-04",
+          "text": "실리콘제조공정오니"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "01-02-05",
+          "text": "보크사이트잔재물"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "01-02-99",
+          "text": "그 밖의 공정오니"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "01-03",
+          "text": "폐농약"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "01-03-01",
+          "text": "유기인계폐농약"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "01-03-02",
+          "text": "유기염소계폐농약"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "01-03-03",
+          "text": "카바메이트계(Carbamate)폐농약"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "01-03-99",
+          "text": "그 밖의 폐농약02 부식성폐기물"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "02-01",
+          "text": "폐산"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "02-01-01",
+          "text": "폐염산"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "02-01-02",
+          "text": "폐황산(폐황산이 포함된 2차폐축전지는 제외한다)"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "02-01-03",
+          "text": "폐질산"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "02-01-04",
+          "text": "폐불산"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "02-01-05",
+          "text": "LCD·반도체 공정의 폐산"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "02-01-99",
+          "text": "그 밖의 폐산"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "02-02",
+          "text": "폐알칼리"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "02-02-01",
+          "text": "폐가성소다수"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "02-02-02",
+          "text": "폐암모니아수"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "02-02-03",
+          "text": "폐수산화나트륨(고상)"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "02-02-04",
+          "text": "폐수산화칼륨(고상)"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "02-02-99",
+          "text": "그 밖의 폐알칼리03 유해물질 함유 폐기물"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "03-01",
+          "text": "광재(鑛滓)"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "03-01-01",
+          "text": "알루미늄제조공정광재"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "03-01-02",
+          "text": "납 열처리·야금(冶金)공정광재"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "03-01-03",
+          "text": "아연열처리공정광재"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "03-01-04",
+          "text": "철제조공정광재(철광원석의 사용으로 인한 고로슬래그는 제외한다)"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "03-01-99",
+          "text": "그 밖의 광재"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "03-02-00",
+          "text": "분진"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "03-03",
+          "text": "폐주물사 및 폐사"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "03-03-01",
+          "text": "점토점결폐주물사"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "03-03-02",
+          "text": "화학점결폐주물사"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "03-03-03",
+          "text": "샌드블라스트폐사"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "03-03-99",
+          "text": "그 밖의 폐주물사 및 폐사"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "03-04",
+          "text": "폐내화물 및 폐도자기조각"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "03-04-01",
+          "text": "폐내화물"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "03-04-02",
+          "text": "폐도자기조각"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "03-05",
+          "text": "소각재"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "03-05-01",
+          "text": "생활폐기물 소각시설 비산재"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "03-05-02",
+          "text": "사업장폐기물 소각시설 비산재"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "03-05-03",
+          "text": "생활폐기물 소각시설 바닥재"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "03-05-04",
+          "text": "사업장폐기물 소각시설 바닥재"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "03-05-05",
+          "text": "생활폐기물 소각시설 소각재(바닥재와 비산재가 혼합된 경우를 말한다)"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "03-05-06",
+          "text": "사업장폐기물 소각시설 소각재(바닥재와 비산재가 혼합된 경우를 말한다)"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "03-05-07",
+          "text": "천연방사성제품폐기물 소각재"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "03-06",
+          "text": "안정화 또는 고형화·고화 처리물"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "03-06-01",
+          "text": "안정화처리물"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "03-06-02",
+          "text": "시멘트고형화처리물"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "03-06-03",
+          "text": "고화처리물"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "03-06-04",
+          "text": "킬레이트(Chelate)처리물"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "03-06-05",
+          "text": "폐석면고형화처리물(석면을 1퍼센트 이상 함유한 경우로 한정한다)"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "03-06-99",
+          "text": "그 밖의 고형화·고화처리물"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "03-07",
+          "text": "폐촉매"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "03-07-01",
+          "text": "금속성폐촉매"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "03-07-02",
+          "text": "비금속성폐촉매"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "03-08",
+          "text": "폐흡착제 및 폐흡수제"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "03-08-01",
+          "text": "폐흡착제"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "03-08-02",
+          "text": "폐흡수제"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "03-10",
+          "text": "폐전지류"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "03-10-01",
+          "text": "황산이 포함된 폐이차전지"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "03-10-02",
+          "text": "알칼리가 포함된 폐이차전지"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "03-10-03",
+          "text": "리튬계 폐이차전지(침수ㆍ화재ㆍ변형ㆍ파손 등이 발생한 것과셀이 훼손되어 유해물질이 유출되거나 화재ㆍ폭발의 위험이 있는 것으로 한정한다)"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "03-10-04",
+          "text": "이차전지 스크랩"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "03-10-99",
+          "text": "그 밖의 폐이차전지(침수ㆍ화재ㆍ변형ㆍ파손 등이 발생한 것과 셀이 훼손되어 유해물질이 유출되거나 화재ㆍ폭발의 위험이있는 것으로 한정한다)04 폐유기용제"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "04-01-00",
+          "text": "할로겐족 폐유기용제"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "04-02-00",
+          "text": "그 밖의 폐유기용제05 폐페인트 및 폐락카"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "05-01-00",
+          "text": "폐유성페인트"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "05-02-00",
+          "text": "폐수성페인트"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "05-03-00",
+          "text": "폐락카06 폐유"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "06-01",
+          "text": "폐광물유"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "06-01-01",
+          "text": "폐윤활유(「자원의 절약과 재활용촉진에 관한 법률 시행령」제18조에 따른 재활용의무 대상 제품·포장재인 기어유 및 내연기관용 윤활유를 말한다)"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "06-01-02",
+          "text": "폐연마유·비수용성폐절삭유·폐열처리유(금속가공과정에서 발생된 것을 말한다)"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "06-01-03",
+          "text": "폐기계유·폐작동유(공업용 기계유·냉동기유·터어빈유·베어링윤활유·압축기유·유압작동유·열매체유 및 프로세스유 등을 말한"
+        },
+        {
+          "depth": 3,
+          "type": "korean-paren",
+          "marker": "다)",
+          "text": "06-01-04 폐연료유"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "06-01-05",
+          "text": "폐오일필터"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "06-01-06",
+          "text": "기름함유 폐전선·폐케이블"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "06-01-07",
+          "text": "폐절연유(폴리클로리네이티드비페닐 함유 폐기물을 제외한다)"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "06-01-99",
+          "text": "그 밖의 폐광물유[아스팔트유·그리스(grease)·방청유 및 수용성절삭유, 20퍼센트 이상의 이물질이 함유된 폐유, 고체상태의폐유 등을 말한다]"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "06-02-00",
+          "text": "폐동식물유"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "06-03-00",
+          "text": "그 밖의 폐유07 폐석면"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "07-01",
+          "text": "제품·설비(뿜칠로 사용된 것을 포함한다) 등의 해체·제거 시 발생되는 폐석면"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "07-01-01",
+          "text": "흩날릴 우려가 없는 폐석면"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "07-01-02",
+          "text": "흩날릴 우려가 있는 폐석면"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "07-02-00",
+          "text": "석면제품 등의 연마·절단·가공 공정에서 발생된 부스러기 및 연마·절단·가공 시설의 집진기에서 모아진 분진"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "07-03-00",
+          "text": "석면의 제거작업에 사용된 모든 비닐시트·방진마스크·작업복·집진필터 등08 폴리클로리네이티드비페닐 함유 폐기물"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "08-01-00",
+          "text": "폴리클로리네이티드비페닐 함유 폐유"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "08-02-00",
+          "text": "폴리클로리네이티드비페닐 함유 폐유기용제"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "08-03-00",
+          "text": "그 밖의 폴리클로리네이티드비페닐을 함유한 액상의 것"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "08-04-00",
+          "text": "그 밖의 폴리클로리네이티드비페닐을 함유한 액상이 아닌 것09 폐유독물질"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "09-01-00",
+          "text": "「화학물질관리법」 제2조제5호에 따른 금지물질"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "09-02-00",
+          "text": "연구·검사용 폐시약"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "09-03-00",
+          "text": "「화학물질관리법」 제2조제7호에 따른 유해화학물질"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "09-04-00",
+          "text": "「화학물질관리법」 제2조제3호 및 제4호에 따른 허가물질 및제한물질10 의료폐기물"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "10-11-00",
+          "text": "격리의료폐기물"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "10-12",
+          "text": "위해의료폐기물"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "10-12-01",
+          "text": "조직물류폐기물(태반을 재활용하는 경우는 제외한다)"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "10-12-02",
+          "text": "병리계폐기물"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "10-12-03",
+          "text": "손상성폐기물"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "10-12-04",
+          "text": "생물·화학폐기물"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "10-12-05",
+          "text": "혈액오염폐기물"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "10-12-06",
+          "text": "인체조직물 중 태반(재활용하는 경우에만 해당한다)"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "10-13-00",
+          "text": "일반의료폐기물11 수은폐기물"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "11-01",
+          "text": "수은함유폐기물"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "11-01-01",
+          "text": "수은함유 폐램프"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "11-01-02",
+          "text": "수은함유 폐계측기기"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "11-01-03",
+          "text": "수은함유 폐전지"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "11-01-99",
+          "text": "그 밖의 기후에너지환경부장관이 고시하는 폐제품"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "11-02-00",
+          "text": "수은구성폐기물"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "11-03-00",
+          "text": "수은함유폐기물 처리잔재물"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "12-00-00",
+          "text": "천연방사성제품폐기물"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "30-00-00",
+          "text": "그 밖에 기후에너지환경부장관이 정하여 고시하는 폐기물"
+        },
+        {
+          "depth": 0,
+          "type": "number",
+          "marker": "2.",
+          "text": "사업장일반폐기물의 세부분류 및 분류번호"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "51-01",
+          "text": "유기성오니류"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "51-01-01",
+          "text": "정수처리오니"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "51-01-02",
+          "text": "하수처리오니"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "51-01-03",
+          "text": "분뇨처리오니"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "51-01-04",
+          "text": "가축분뇨처리오니"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "51-01-05",
+          "text": "펄프·제지공정오니"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "51-01-06",
+          "text": "그 밖의 공정오니"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "51-01-07",
+          "text": "펄프·제지폐수처리오니"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "51-01-08",
+          "text": "그 밖의 폐수처리오니"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "51-01-99",
+          "text": "그 밖의 유기성오니"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "51-02",
+          "text": "무기성오니류"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "51-02-01",
+          "text": "폐수처리오니"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "51-02-02",
+          "text": "정수처리오니"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "51-02-03",
+          "text": "하수처리오니"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "51-02-04",
+          "text": "하수준설토"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "51-02-05",
+          "text": "건설오니"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "51-02-06",
+          "text": "석재·골재폐수처리오니(석재·골재 생산 시 발생한 폐수를 처리하는 과정에서 발생한 오니로 한정한다)"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "51-02-07",
+          "text": "유리식각공정오니"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "51-02-08",
+          "text": "실리콘공정오니"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "51-02-09",
+          "text": "보크사이트잔재물"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "51-02-10",
+          "text": "영농폐기물(농업활동 과정에서 배출된 농업용 폐플라스틱 필름ㆍ시트류에 한정한다) 폐수처리오니"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "51-02-11",
+          "text": "영농폐기물(농업활동 과정에서 배출된 농업용 폐플라스틱 필름ㆍ시트류에 한정한다) 공정오니"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "51-02-19",
+          "text": "그 밖의 공정오니"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "51-02-99",
+          "text": "그 밖의 무기성오니"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "51-03",
+          "text": "폐합성고분자화합물"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "51-03-01",
+          "text": "폐합성수지류(폐염화비닐수지류는 제외한다)"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "51-03-02",
+          "text": "폐합성고무류"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "51-03-03",
+          "text": "폐폴리염화비닐수지류"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "51-03-04",
+          "text": "폐폴리우레탄폼류"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "51-03-05",
+          "text": "양식용폐부자"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "51-03-06",
+          "text": "폐발포합성수지"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "51-03-07",
+          "text": "플라스틱폐포장재"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "51-03-08",
+          "text": "폐어망"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "51-03-99",
+          "text": "그 밖의 폐합성고분자화합물(합성수지류로 피복된 폐전선을 포함한다)"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "51-04",
+          "text": "광재류"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "51-04-01",
+          "text": "고로슬래그"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "51-04-02",
+          "text": "제강슬래그"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "51-04-03",
+          "text": "비철금속제련공정광재"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "51-04-04",
+          "text": "선광공정광재(기후에너지환경부장관이 정하는 방법에 따라 관리되는 것은 제외한다)"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "51-04-99",
+          "text": "그 밖의 광재류"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "51-05",
+          "text": "분진류(대기오염방지시설에서 포집된 것으로 한정하되, 소각시설에서발생하는 것은 제외한다)"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "51-05-01",
+          "text": "제철공정분진"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "51-05-02",
+          "text": "시멘트제조공정분진"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "51-05-03",
+          "text": "발전시설분진"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "51-05-04",
+          "text": "폐실리카 퓸(규소철 제조과정에서 발생된 분진을 말한다)"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "51-05-99",
+          "text": "그 밖의 분진"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "51-06",
+          "text": "폐주물사 및 폐사"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "51-06-01",
+          "text": "점토점결폐주물사"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "51-06-02",
+          "text": "화학점결폐주물사"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "51-06-03",
+          "text": "샌드블라스트폐사"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "51-06-04",
+          "text": "폐여과사"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "51-06-99",
+          "text": "그 밖의 폐사"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "51-07",
+          "text": "폐내화물 및 폐도자기조각"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "51-07-01",
+          "text": "폐내화물"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "51-07-02",
+          "text": "폐도자기조각"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "51-08",
+          "text": "소각재"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "51-08-01",
+          "text": "생활폐기물 소각시설 비산재"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "51-08-02",
+          "text": "사업장폐기물 소각시설 비산재"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "51-08-03",
+          "text": "생활폐기물 소각시설 바닥재"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "51-08-04",
+          "text": "사업장폐기물 소각시설 바닥재"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "51-08-05",
+          "text": "생활폐기물 소각시설 소각재(바닥재와 비산재가 혼합된 경우를말한다)"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "51-08-06",
+          "text": "사업장폐기물 소각시설 소각재(바닥재와 비산재가 혼합된 경우를 말한다)"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "51-09",
+          "text": "안정화 또는 고형화·고화 처리물"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "51-09-01",
+          "text": "안정화 처리물"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "51-09-02",
+          "text": "시멘트고형화 처리물"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "51-09-03",
+          "text": "고화 처리물"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "51-09-04",
+          "text": "킬레이트(Chelate) 처리물"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "51-09-99",
+          "text": "그 밖의 고형화·고화 처리물"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "51-10",
+          "text": "폐촉매"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "51-10-01",
+          "text": "금속성폐촉매"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "51-10-02",
+          "text": "폐이온교환수지"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "51-10-03",
+          "text": "폐멤브레인수지"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "51-10-99",
+          "text": "그 밖의 폐촉매"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "51-11",
+          "text": "폐흡착제 및 폐흡수제"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "51-11-01",
+          "text": "폐흡착제"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "51-11-02",
+          "text": "폐흡수제"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "51-11-03",
+          "text": "폐활성탄"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "51-12",
+          "text": "폐석고 및 폐석회"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "51-12-01",
+          "text": "폐석고"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "51-12-02",
+          "text": "폐석회"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "51-13",
+          "text": "연소잔재물"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "51-13-01",
+          "text": "연탄재"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "51-13-02",
+          "text": "액체연료연소재"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "51-13-03",
+          "text": "석탄재"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "51-13-99",
+          "text": "그 밖의 연소잔재물"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "51-14",
+          "text": "폐석재류"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "51-14-01",
+          "text": "폐석분토사(석재·골재생산 과정에서 발생한 응집 미립분을 포함한다)"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "51-14-02",
+          "text": "폐석재"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "51-15",
+          "text": "폐타이어(「자원의 절약과 재활용촉진에 관한 법률 시행령」 제18조제5호에 해당하는 것을 말한다)"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "51-15-01",
+          "text": "자동차 폐타이어"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "51-15-02",
+          "text": "그 밖의 폐타이어"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "51-16-00",
+          "text": "폐식용유(식용을 목적으로 식품 재료와 원료를 제조·조리·가공하거나 식용유를 유통·사용 또는 음식물류 폐기물을 처리하는 과정에서발생하는 기름을 말한다)"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "51-17",
+          "text": "동·식물성잔재물(식료품 및 음료제조업, 유통업 등에서 발생하는 잔재물을 포함하며, 음식물류 폐기물은 제외한다)"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "51-17-01",
+          "text": "동물사체"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "51-17-02",
+          "text": "축산물가공잔재물(동물성 유지류는 제외한다)"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "51-17-03",
+          "text": "수산물가공잔재물"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "51-17-04",
+          "text": "폐패각"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "51-17-05",
+          "text": "폐모피류"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "51-17-06",
+          "text": "피혁 및 피혁가공잔재물"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "51-17-07",
+          "text": "동물털"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "51-17-08",
+          "text": "동물성유지류"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "51-17-19",
+          "text": "그 밖의 동물성잔재물"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "51-17-21",
+          "text": "주정박"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "51-17-22",
+          "text": "맥주박"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "51-17-23",
+          "text": "유박유잔재물"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "51-17-24",
+          "text": "초본류"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "51-17-25",
+          "text": "커피찌꺼기"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "51-17-26",
+          "text": "버섯폐배지"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "51-17-27",
+          "text": "과채류(「사료관리법」 제2조제2호에 따른 단미사료에 해당하는 것으로 한정한다)"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "51-17-29",
+          "text": "그 밖의 식물성잔재물"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "51-17-30",
+          "text": "식재료 및 조리부산물(제18조제1항제1호에 따른 배출자 중 식품제조ㆍ가공업체 및 같은 항 제3호에 따른 배출자 중 집단급식소에서 발생한 것으로 한정한다)"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "51-17-99",
+          "text": "그 밖의 동·식물성잔재물"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "51-18",
+          "text": "폐전기전자제품류"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "51-18-01",
+          "text": "가정용폐전기전자제품"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "51-18-02",
+          "text": "산업용폐전기전자제품"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "51-18-03",
+          "text": "프린트토너 및 카트리지폐부속품"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "51-18-99",
+          "text": "그 밖의 폐전기전자제품류"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "51-19-00",
+          "text": "왕겨 및 쌀겨(「사료관리법」에 따른 사료로 사용하는 경우는 제외한다)"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "51-20",
+          "text": "폐목재류(원목의 용도 그대로 사용하는 나무뿌리·가지 등을 제거한 원줄기는 제외한다)"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "51-20-21",
+          "text": "임목폐목재(건설공사ㆍ산지개간 등의 과정에서 발생된 나무뿌리ㆍ가지ㆍ줄기 등을 말한다)"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "51-20-22",
+          "text": "제재부산물(원목 가공과정에서 발생되는 나무 껍질ㆍ톱밥ㆍ대패밥 등을 말한다), 목재가공공장 부산물(원목상태의 깨끗한 목재부산물 및 분진을 말한다)"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "51-20-23",
+          "text": "폐도장목ㆍ폐목재포장재ㆍ폐전선드럼ㆍ건설현장 폐목재(원목상태의 깨끗한 목재를 말한다)"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "51-20-24",
+          "text": "접착제ㆍ페인트ㆍ기름ㆍ콘크리트 등의 물질이 사용된 폐목재(목재부산물 및 분진을 포함한다)"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "51-20-25",
+          "text": "할로겐족 유기화합물 또는 방부제가 사용된 폐목재(목재부산물및 분진을 포함한다) 및 건설현장의 실외목재구조물에서 발생되는폐목재, 폐선박 및 차량에서 나오는 목재, 건축물 화재현장에서 발생한 폐목재, 냉각탑, 산업용 바닥재 등에 사용된 폐목재"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "51-20-26",
+          "text": "폐철도목재받침목"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "51-20-27",
+          "text": "폐가구류"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "51-20-99",
+          "text": "그 밖의 폐목재류"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "51-21",
+          "text": "폐토사류"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "51-21-01",
+          "text": "폐토사"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "51-21-02",
+          "text": "건설폐토석"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "51-21-03",
+          "text": "오염하천·오염해양 준설토"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "51-22",
+          "text": "폐콘크리트류"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "51-22-01",
+          "text": "폐콘크리트"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "51-22-02",
+          "text": "폐철도콘크리트받침목"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "51-23-00",
+          "text": "폐아스팔트콘크리트"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "51-24-00",
+          "text": "폐벽돌"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "51-25-00",
+          "text": "폐블록"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "51-26-00",
+          "text": "폐기와"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "51-27",
+          "text": "폐섬유류"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "51-27-01",
+          "text": "폐천연섬유"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "51-27-02",
+          "text": "폐합성섬유"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "51-27-03",
+          "text": "폐의류"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "51-27-04",
+          "text": "의료기관 일회용기저귀(별표 3에 따른 의료기관 및 시험ㆍ검사기관 등에서 발생한 것을 말하며, 같은 표 제14호에 따른 노인요양시설에서 발생한 것과 영 별표 2에 따른 의료폐기물에 해당하는 것은 제외한다)"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "51-27-99",
+          "text": "그 밖의 폐섬유"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "51-28",
+          "text": "폐지류"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "51-28-01",
+          "text": "폐종이팩(「자원의 절약과 재활용촉진에 관한 법률 시행령」 제18조제1호에 해당하는 것을 말한다)"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "51-28-02",
+          "text": "폐종이류"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "51-28-03",
+          "text": "폐벽지"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "51-29",
+          "text": "폐금속류"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "51-29-01",
+          "text": "고철"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "51-29-02",
+          "text": "비철금속"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "51-29-03",
+          "text": "폐금속캔류(「자원의 절약과 재활용촉진에 관한 법률 시행령」제18조제1호에 해당하는 것을 말한다)"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "51-29-04",
+          "text": "폐금속용기류(폐금속캔류는 제외한다)"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "51-29-99",
+          "text": "그 밖의 폐금속류"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "51-30",
+          "text": "폐유리류"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "51-30-01",
+          "text": "폐유리"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "51-30-02",
+          "text": "폐유리병류(「자원의 절약과 재활용촉진에 관한 법률 시행령」제18조제1호에 해당하는 것을 말한다)"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "51-30-03",
+          "text": "폐스마트유리"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "51-30-04",
+          "text": "폐유리섬유"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "51-30-05",
+          "text": "수은함유폐기물 처리잔재물[수은함유폐기물을 처리하는 과정에서 발생되는 것과 폐형광등을 재활용하는 과정에서 발생되는 것을 포함하되, 폐기물공정시험기준에 따른 용출시험 결과 용출액 1리터당 0.005밀리그램 미만의 수은 및 그 화합물이 함유된 것으로 한정한다(이하 \"수은폐기물이 아닌 수은함유폐기물 처리잔재물\"이라 한다)]"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "51-30-99",
+          "text": "그 밖의 폐유리"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "51-31-00",
+          "text": "폐타일"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "51-32-00",
+          "text": "폐보드류"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "51-33-00",
+          "text": "폐판넬"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "51-35-00",
+          "text": "폐전주(폐애자, 폐근가 및 폐합성수지제 덮개류 등을 포함한다)"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "51-36",
+          "text": "폐가스포집물"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "51-36-01",
+          "text": "이산화탄소스트림"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "51-36-02",
+          "text": "이산화탄소전환탄산화물"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "51-37",
+          "text": "폐냉매물질"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "51-37-01",
+          "text": "가전제품회수폐냉매물질"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "51-37-02",
+          "text": "자동차회수폐냉매물질"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "51-37-03",
+          "text": "공조기회수폐냉매물질"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "51-37-99",
+          "text": "그 밖의 폐냉매물질"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "51-38",
+          "text": "음식물류폐기물 및 처리물"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "51-38-01",
+          "text": "음식물류폐기물"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "51-38-02",
+          "text": "중간가공음식물류폐기물"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "51-38-03",
+          "text": "음식물류폐기물처리잔재물(액상의 경우만 해당한다)"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "51-38-99",
+          "text": "그 밖의 음식물류폐기물처리잔재물"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "51-39-00",
+          "text": "폐사료"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "51-40",
+          "text": "폐소화기류"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "51-40-01",
+          "text": "폐분말소화기"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "51-40-99",
+          "text": "그 밖의 폐소화기"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "51-41",
+          "text": "폐전지류"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "51-41-01",
+          "text": "폐일차전지"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "51-41-04",
+          "text": "폐태양전지ㆍ전자기기페이스트ㆍ태양광 폐패널"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "51-41-05",
+          "text": "전기자동차 폐이차전지(침수ㆍ화재ㆍ변형ㆍ파손 등이 발생한것과 셀이 훼손되어 유해물질이 유출되거나 화재ㆍ폭발의 위험이 있는 것은 제외한다)"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "51-41-06",
+          "text": "구동용 폐이차전지(침수ㆍ화재ㆍ변형ㆍ파손 등이 발생한 것과셀이 훼손되어 유해물질이 유출되거나 화재ㆍ폭발의 위험이 있는 것은 제외한다)"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "51-41-07",
+          "text": "폐양극활물질(양극재 또는 전구체 제조공정에서 발생하는 것을포함한다)"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "51-41-08",
+          "text": "폐연료전지"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "51-41-99",
+          "text": "그 밖의 폐이차전지(침수ㆍ화재ㆍ변형ㆍ파손 등이 발생한 것과셀이 훼손되어 유해물질이 유출되거나 화재ㆍ폭발의 위험이 있는 것은 제외한다)"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "51-42-00",
+          "text": "폐의약품류"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "51-43-00",
+          "text": "폐흑연가루"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "51-44-00",
+          "text": "나노폐기물(나노물질을 제조·가공하는 과정에서 발생된 분진을 말한다)"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "51-45",
+          "text": "폐차발생폐기물"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "51-45-01",
+          "text": "폐차파쇄잔재물"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "51-45-02",
+          "text": "폐차부품류"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "51-45-99",
+          "text": "그 밖의 폐차발생폐기물"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "51-46-00",
+          "text": "의료폐기물 멸균분쇄잔재물"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "51-47",
+          "text": "조명폐기물"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "51-47-01",
+          "text": "폐형광등"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "51-47-02",
+          "text": "폐발광다이오드조명"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "51-99-00",
+          "text": "그 밖의 폐기물"
+        },
+        {
+          "depth": 0,
+          "type": "number",
+          "marker": "3.",
+          "text": "생활폐기물의 세부분류 및 분류번호"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "91-01-00",
+          "text": "종량제봉투 배출 폐기물(합성수지 종량제 봉투에 배출되는 폐기물을 말한다)"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "91-02-00",
+          "text": "음식물류 폐기물(분리배출된 음식물류 폐기물을 말한다)"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "91-03-00",
+          "text": "폐식용유(가정 및 음식점에서 분리배출된 것을 말한다)"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "91-04-00",
+          "text": "폐지류(종이팩을 포함한다)"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "91-05-00",
+          "text": "고철 및 금속캔류"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "91-06-01",
+          "text": "폐합성수지(폴리염화비닐은 제외한다)"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "91-06-02",
+          "text": "폐합성수지(폴리염화비닐)"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "91-06-03",
+          "text": "폐합성고무류"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "91-07-01",
+          "text": "유리병"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "91-07-02",
+          "text": "폐유리"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "91-08-00",
+          "text": "폐의류 및 원단류(섬유재질의 커튼, 현수막 등을 포함한다)"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "91-09-00",
+          "text": "폐전기전자제품"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "91-10",
+          "text": "폐목재 및 폐가구류"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "91-10-01",
+          "text": "원목상태의 깨끗한 목재"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "91-10-02",
+          "text": "접착제, 페인트, 기름, 콘크리트 등의 물질이 사용된 목재(할로겐족 유기화합물 또는 방부제가 사용된 목재는 제외한다)"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "91-10-03",
+          "text": "할로겐족 유기화합물 또는 방부제가 사용된 목재"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "91-10-04",
+          "text": "폐가구류"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "91-11-00",
+          "text": "건설폐재류(콘크리트, 벽돌 등을 말한다)"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "91-12-00",
+          "text": "폐타일 및 도자기류"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "91-13",
+          "text": "조명폐기물"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "91-13-01",
+          "text": "폐형광등"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "91-13-02",
+          "text": "폐발광다이오드조명"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "91-14-00",
+          "text": "폐전지류"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "91-15-00",
+          "text": "연탄재"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "91-16-00",
+          "text": "동물성 잔재물(동물의 사체, 수산가공물, 유지 등을 포함한다)"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "91-17",
+          "text": "식물성 잔재물"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "91-17-01",
+          "text": "커피찌꺼기"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "91-17-02",
+          "text": "버섯폐배지"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "91-17-03",
+          "text": "그 밖의 식물성 잔재물"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "91-18-01",
+          "text": "영농폐기물(농약용기류)"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "91-18-02",
+          "text": "영농폐기물(농촌폐비닐)"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "91-19-00",
+          "text": "폐소화기류"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "91-20-00",
+          "text": "천연방사성제품생활폐기물"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "91-21",
+          "text": "1회용 컵"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "91-21-01",
+          "text": "종이 컵"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "91-21-02",
+          "text": "합성수지 컵"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "91-21-03",
+          "text": "금속 컵"
+        },
+        {
+          "depth": 3,
+          "type": "code",
+          "marker": "91-99-00",
+          "text": "그 밖의 생활폐기물"
+        }
+      ]
+    },
+    {
+      "별표번호": "0004",
+      "별표가지번호": "02",
+      "별표구분": "별표",
+      "별표제목": "폐기물의 재활용 유형별 세부분류(제4조의2제2항 관련)",
+      "별표제목문자열": "폐기물의 재활용 유형별 세부분류(제4조의2제2항 관련)",
+      "별표시행일자": "20260326",
+      "별표서식파일링크": "/LSW/flDownload.do?flSeq=162812845",
+      "별표HWP파일명": "law0085672026032600033KC_000402E_20260326.hwp",
+      "별표이미지파일명": [
+        "000402110201_P1_20260326.gif",
+        "000402110201_P2_20260326.gif",
+        "000402110201_P3_20260326.gif",
+        "000402110201_P4_20260326.gif"
+      ],
+      "별표서식PDF파일링크": "/LSW/flDownload.do?flSeq=162812847",
+      "별표PDF파일명": "law0085672026032600033KC_000402E_20260326.pdf",
+      "별표내용": [
+        {
+          "depth": 0,
+          "type": "title",
+          "marker": "■",
+          "text": "폐기물관리법 시행규칙 [별표 4의2] <개정 2025. 12. 30.>폐기물의 재활용 유형별 세부분류(제4조의2제2항 관련)"
+        },
+        {
+          "depth": 0,
+          "type": "number",
+          "marker": "1.",
+          "text": "원형 그대로 또는 단순 수리ㆍ수선하여 재사용하는 유형(R-1, R-2)"
+        },
+        {
+          "depth": 1,
+          "type": "korean-dot",
+          "marker": "가.",
+          "text": "R-1: 원형 그대로 재사용(일정한 규격의 용기나 상자에 넣거나 포장하여재사용하는 자에게 제공하는 경우를 포함한다)하는 유형"
+        },
+        {
+          "depth": 2,
+          "type": "number-paren",
+          "marker": "1)",
+          "text": "R-1-1: 원형 그대로 본래의 용도로 재사용하는 유형"
+        },
+        {
+          "depth": 2,
+          "type": "number-paren",
+          "marker": "2)",
+          "text": "R-1-2: 원형 그대로 본래의 용도와 다른 용도로 재사용하는 유형"
+        },
+        {
+          "depth": 1,
+          "type": "korean-dot",
+          "marker": "나.",
+          "text": "R-2: 단순 수리ㆍ수선, 건조 및 세척하여 재사용하는 유형"
+        },
+        {
+          "depth": 2,
+          "type": "number-paren",
+          "marker": "1)",
+          "text": "R-2-1: 단순 수리ㆍ수선, 건조 및 세척을 통해 본래의 용도로 재사용하는 유형"
+        },
+        {
+          "depth": 2,
+          "type": "number-paren",
+          "marker": "2)",
+          "text": "R-2-2: 단순 수리ㆍ수선, 건조 및 세척을 통해 본래와 다른 용도로 재사용하는 유형"
+        },
+        {
+          "depth": 0,
+          "type": "number",
+          "marker": "2.",
+          "text": "고상(固狀)의 자원을 회수하거나 제품의 원료를 제조하는 유형 또는 제품을제조하는 유형(R-3, R-4)"
+        },
+        {
+          "depth": 1,
+          "type": "korean-dot",
+          "marker": "가.",
+          "text": "R-3: 고상의 자원을 회수하거나 제품의 원료를 제조하는 유형"
+        },
+        {
+          "depth": 2,
+          "type": "number-paren",
+          "marker": "1)",
+          "text": "R-3-1: 단순 해체, 분리, 파쇄, 선별 등의 공정을 통해 폐기물에서 금속또는 비금속 자원을 회수하는 유형"
+        },
+        {
+          "depth": 2,
+          "type": "number-paren",
+          "marker": "2)",
+          "text": "R-3-2: 용융, 용해, 반응, 추출 등의 공정을 통해 폐기물에서 금속 또는비금속 자원을 회수하는 유형"
+        },
+        {
+          "depth": 2,
+          "type": "number-paren",
+          "marker": "3)",
+          "text": "R-3-3: 분리, 선별, 압축, 감용, 절단, 파쇄, 분쇄, 용융, 반응, 증발ㆍ농축, 증류, 추출 및 열분해 등의 공정을 통해 폐기물을 종이, 금속, 유리, 합성수지, 섬유, 고무, 석유, 석유화학제품 또는 석유대체연료의 원료물질로제조하는 유형"
+        },
+        {
+          "depth": 2,
+          "type": "number-paren",
+          "marker": "4)",
+          "text": "R-3-4: 분리, 선별, 압축, 감용, 절단, 파쇄, 분쇄, 용융, 반응, 증발ㆍ농축, 증류, 추출 및 열분해 등의 공정을 통해 폐기물을 종이, 금속, 유리,합성수지, 섬유, 고무, 석유, 석유화학제품 또는 석유대체연료 외의 원료물질로 제조하는 유형"
+        },
+        {
+          "depth": 2,
+          "type": "number-paren",
+          "marker": "5)",
+          "text": "R-3-5: 금속제품 제조를 위한 부원료 또는 첨가제로 제조하는 유형"
+        },
+        {
+          "depth": 1,
+          "type": "korean-dot",
+          "marker": "나.",
+          "text": "R-4: 제품을 제조하는 유형"
+        },
+        {
+          "depth": 2,
+          "type": "number-paren",
+          "marker": "1)",
+          "text": "R-4-1: 금속성 제품을 제조하는 유형"
+        },
+        {
+          "depth": 2,
+          "type": "number-paren",
+          "marker": "2)",
+          "text": "R-4-2: 골재, 유리, 시멘트, 콘크리트 및 레미콘, 내화물, 요업제품, 각종 석제품 등 비금속광물제품이나 아스콘, 아스팔트, 고화제(固化劑: 고체화를 위한 첨가물) 등 기타 비금속광물제품을 제조하는 유형"
+        },
+        {
+          "depth": 2,
+          "type": "number-paren",
+          "marker": "3)",
+          "text": "R-4-3: 펄프, 종이 및 종이제품을 제조하는 유형"
+        },
+        {
+          "depth": 2,
+          "type": "number-paren",
+          "marker": "4)",
+          "text": "R-4-4: 고무, 섬유 및 플라스틱 등 수지류를 고무, 섬유 또는 합성수지제품으로 제조하는 유형"
+        },
+        {
+          "depth": 2,
+          "type": "number-paren",
+          "marker": "5)",
+          "text": "R-4-5: 목재성형제품, 톱밥, 성형탄 등 나무제품이나 활성탄, 흡착ㆍ흡수제를 제조하는 유형"
+        },
+        {
+          "depth": 2,
+          "type": "number-paren",
+          "marker": "6)",
+          "text": "R-4-6: 재생유기용제, 재생윤활유 등 석유정제물을 제조하는 유형"
+        },
+        {
+          "depth": 2,
+          "type": "number-paren",
+          "marker": "7)",
+          "text": "R-4-7: 유ㆍ무기성 화합물, 산화물 등의 화학물질이나 안료나 도료, 페인트, 착색제 등 화학제품을 제조하는 유형"
+        },
+        {
+          "depth": 2,
+          "type": "number-paren",
+          "marker": "8)",
+          "text": "R-4-8: 동ㆍ식물성 유지나 비누 등 유지제품을 제조하는 유형"
+        },
+        {
+          "depth": 2,
+          "type": "number-paren",
+          "marker": "9)",
+          "text": "R-4-9: 수처리제나 유기탄소원, 응집제 등 수질개선을 목적으로 하는제품을 제조하는 유형"
+        },
+        {
+          "depth": 2,
+          "type": "number-paren",
+          "marker": "10)",
+          "text": "R-4-10: 의약품을 제조하는 유형"
+        },
+        {
+          "depth": 0,
+          "type": "number",
+          "marker": "3.",
+          "text": "농업이나 토질개선을 위하여 재활용하는 유형(R-5, R-6)"
+        },
+        {
+          "depth": 1,
+          "type": "korean-dot",
+          "marker": "가.",
+          "text": "R-5: 유ㆍ무기물질을 농업의 생산에 기여할 목적으로 재활용하는 유형"
+        },
+        {
+          "depth": 2,
+          "type": "number-paren",
+          "marker": "1)",
+          "text": "R-5-1: 「비료관리법」에 따른 비료(퇴비를 포함한다)를 생산하는 유형"
+        },
+        {
+          "depth": 2,
+          "type": "number-paren",
+          "marker": "2)",
+          "text": "R-5-2: 「사료관리법」에 따른 사료를 생산하는 유형"
+        },
+        {
+          "depth": 2,
+          "type": "number-paren",
+          "marker": "3)",
+          "text": "R-5-3: 버섯재배용 배지를 제조하거나 배지로 사용하는 유형"
+        },
+        {
+          "depth": 2,
+          "type": "number-paren",
+          "marker": "4)",
+          "text": "R-5-4: 자가 사육하는 가축(지렁이는 제외한다) 또는 양식 어류의 먹이나 자가 농경지 또는 초지의 퇴비로 사용하는 유형"
+        },
+        {
+          "depth": 1,
+          "type": "korean-dot",
+          "marker": "나.",
+          "text": "R-6: 유기물질을 토질개선의 목적으로 재활용하는 유형"
+        },
+        {
+          "depth": 2,
+          "type": "number-paren",
+          "marker": "1)",
+          "text": "R-6-1: 생물학적 처리과정을 거쳐 부숙토나 지렁이 분변토를 만들어 매립시설 복토재 또는 토양개량제를 생산하는 유형"
+        },
+        {
+          "depth": 2,
+          "type": "number-paren",
+          "marker": "2)",
+          "text": "R-6-2: 비탈면 녹화토[절토(땅깎기)ㆍ성토(흙쌓기) 공사 등으로 발생한비탈면의 낙석방지, 생태복원 또는 녹화에 사용하는 인공토양을 말한다]를 생산하는 유형"
+        },
+        {
+          "depth": 0,
+          "type": "number",
+          "marker": "4.",
+          "text": "토양이나 공유수면 등에 성토재ㆍ복토재ㆍ도로기층재ㆍ채움재 등으로 재활용하는 유형(R-7)"
+        },
+        {
+          "depth": 1,
+          "type": "korean-dot",
+          "marker": "가.",
+          "text": "R-7-1: 인ㆍ허가 받은 토목ㆍ건축공사의 성토재ㆍ보조기층재ㆍ복토재ㆍ도로기층재ㆍ채움재로 사용하는 유형"
+        },
+        {
+          "depth": 1,
+          "type": "korean-dot",
+          "marker": "나.",
+          "text": "R-7-2: 공유수면의 매립면허를 받은 지역의 성토재 또는 뒷채움재로 사용하는 유형"
+        },
+        {
+          "depth": 1,
+          "type": "korean-dot",
+          "marker": "다.",
+          "text": "R-7-3: 폐기물매립시설의 복토재 또는 바다와 인접한 폐기물매립시설의복토재, 차수재로 사용하는 유형"
+        },
+        {
+          "depth": 1,
+          "type": "korean-dot",
+          "marker": "라.",
+          "text": "R-7-4: 석산의 채석지역 내 하부복구지ㆍ저지대의 채움재로 사용하는 유형"
+        },
+        {
+          "depth": 1,
+          "type": "korean-dot",
+          "marker": "마.",
+          "text": "R-7-5: 석유저장 옥외탱크, 지하매설관로 주변의 방식사로 사용하는 유형"
+        },
+        {
+          "depth": 1,
+          "type": "korean-dot",
+          "marker": "바.",
+          "text": "R-7-6: 농경지의 성토재로 사용하는 유형"
+        },
+        {
+          "depth": 0,
+          "type": "number",
+          "marker": "5.",
+          "text": "에너지를 직접 회수하거나 회수할 수 있는 상태로 만드는 유형(R-8, R-9)"
+        },
+        {
+          "depth": 1,
+          "type": "korean-dot",
+          "marker": "가.",
+          "text": "R-8: 에너지를 직접 회수하는 유형"
+        },
+        {
+          "depth": 2,
+          "type": "number-paren",
+          "marker": "1)",
+          "text": "R-8-1: 시멘트소성로의 보조연료로 사용하는 유형"
+        },
+        {
+          "depth": 2,
+          "type": "number-paren",
+          "marker": "2)",
+          "text": "R-8-2: 소각열회수시설 등을 통해 제3조제1항제1호에 따른 에너지 회수기준에 적합하게 에너지를 회수하는 유형"
+        },
+        {
+          "depth": 1,
+          "type": "korean-dot",
+          "marker": "나.",
+          "text": "R-9: 에너지를 회수할 수 있는 상태로 만드는 유형"
+        },
+        {
+          "depth": 2,
+          "type": "number-paren",
+          "marker": "1)",
+          "text": "R-9-1: 「자원의 절약과 재활용촉진에 관한 법률 시행규칙」 별표 7에따른 고형연료제품의 품질기준에 적합하게 고형연료제품을 만들거나 폐기물을 무게기준으로 50퍼센트 미만 혼합하여 「가축분뇨의 관리 및 이용에관한 법률 시행규칙」 별표 4의2에 따른 가축분뇨 고체연료의 성분 등에관한 기준에 적합하게 가축분뇨 고체연료를 만드는 유형"
+        },
+        {
+          "depth": 2,
+          "type": "number-paren",
+          "marker": "2)",
+          "text": "R-9-2: 정제, 유화 등의 물리ㆍ화학적 처리방법으로 정제연료유나 재생연료유 등 유류를 만들거나 유화정제연료유로 사용하는 유형"
+        },
+        {
+          "depth": 2,
+          "type": "number-paren",
+          "marker": "3)",
+          "text": "R-9-3: 열분해, 탄화 등 열적 처리방법으로 수소 등의 기체, 액체 및 고체상의 연료를 만드는 유형"
+        },
+        {
+          "depth": 2,
+          "type": "number-paren",
+          "marker": "4)",
+          "text": "R-9-4: 혐기성소화ㆍ분해 등 생물학적 처리방법으로 기체ㆍ액체상의 연료를 만드는 유형"
+        },
+        {
+          "depth": 2,
+          "type": "number-paren",
+          "marker": "5)",
+          "text": "R-9-5: 화력발전소, 열병합발전소의 연료로 사용하는 유형"
+        },
+        {
+          "depth": 0,
+          "type": "number",
+          "marker": "6.",
+          "text": "제품 제조 등을 위한 중간가공폐기물을 만드는 유형(R-10)R-10-1: R-3부터 R-9까지의 재활용 유형에 따라 재활용하기 위한 중간가공폐기물을 만드는 유형"
+        },
+        {
+          "depth": 0,
+          "type": "number",
+          "marker": "7.",
+          "text": "재활용환경성평가 승인을 받은 유형(R-11)"
+        },
+        {
+          "depth": 1,
+          "type": "korean-dot",
+          "marker": "가.",
+          "text": "R-11-1: 법 제13조의3제1항제1호에 따라 재활용환경성평가 승인을 받은유형"
+        },
+        {
+          "depth": 1,
+          "type": "korean-dot",
+          "marker": "나.",
+          "text": "R-11-2: 법 제13조의3제1항제2호에 따라 재활용환경성평가 승인을 받은유형"
+        }
+      ]
+    },
+    {
+      "별표번호": "0004",
+      "별표가지번호": "03",
+      "별표구분": "별표",
+      "별표제목": "폐기물의 종류별 재활용 가능 유형(제4조의2제3항 관련)",
+      "별표제목문자열": "폐기물의 종류별 재활용 가능 유형(제4조의2제3항 관련)",
+      "별표시행일자": "20260326",
+      "별표서식파일링크": "/LSW/flDownload.do?flSeq=162812857",
+      "별표HWP파일명": "law0085672026032600033KC_000403E_20260326.hwp",
+      "별표이미지파일명": [
+        "000403110201_P1_20260326.gif",
+        "000403110201_P2_20260326.gif",
+        "000403110201_P3_20260326.gif",
+        "000403110201_P4_20260326.gif",
+        "000403110201_P5_20260326.gif",
+        "000403110201_P6_20260326.gif",
+        "000403110201_P7_20260326.gif",
+        "000403110201_P8_20260326.gif",
+        "000403110201_P9_20260326.gif",
+        "000403110201_P10_20260326.gif",
+        "000403110201_P11_20260326.gif",
+        "000403110201_P12_20260326.gif",
+        "000403110201_P13_20260326.gif",
+        "000403110201_P14_20260326.gif",
+        "000403110201_P15_20260326.gif",
+        "000403110201_P16_20260326.gif",
+        "000403110201_P17_20260326.gif",
+        "000403110201_P18_20260326.gif",
+        "000403110201_P19_20260326.gif",
+        "000403110201_P20_20260326.gif",
+        "000403110201_P21_20260326.gif",
+        "000403110201_P22_20260326.gif",
+        "000403110201_P23_20260326.gif",
+        "000403110201_P24_20260326.gif",
+        "000403110201_P25_20260326.gif",
+        "000403110201_P26_20260326.gif",
+        "000403110201_P27_20260326.gif"
+      ],
+      "별표서식PDF파일링크": "/LSW/flDownload.do?flSeq=162812859",
+      "별표PDF파일명": "law0085672026032600033KC_000403E_20260326.pdf",
+      "별표내용": [
+        {
+          "depth": 0,
+          "type": "title",
+          "marker": "■",
+          "text": "폐기물관리법 시행규칙 [별표 4의3] <개정 2025. 12. 30.>폐기물의 종류별 재활용 가능 유형(제4조의2제3항 관련)",
+          "table": [
+            {
+              "01": "01-01",
+              "특정시설에서 발생하는 폐기물": "폐합성고분자화합물"
+            },
+            {
+              "01": "01-01-01",
+              "특정시설에서 발생하는 폐기물": "폐폴리에틸렌"
+            },
+            {
+              "01": "01-01-02",
+              "특정시설에서 발생하는 폐기물": "폐폴리프로필렌"
+            },
+            {
+              "01": "01-01-03",
+              "특정시설에서 발생하는 폐기물": "폐폴리염화비닐수지"
+            },
+            {
+              "01": "01-01-04",
+              "특정시설에서 발생하는 폐기물": "폐폴리에틸렌테레프탈레이"
+            },
+            {
+              "01": "01-01-05",
+              "특정시설에서 발생하는 폐기물": "폐페놀수지"
+            },
+            {
+              "01": "01-01-06",
+              "특정시설에서 발생하는 폐기물": "폐폴리우레탄"
+            },
+            {
+              "01": "01-01-07",
+              "특정시설에서 발생하는 폐기물": "폐합성고무"
+            },
+            {
+              "01": "01-01-08",
+              "특정시설에서 발생하는 폐기물": "폐폴리스티렌"
+            },
+            {
+              "01": "01-01-09",
+              "특정시설에서 발생하는 폐기물": "폐아크리로니트릴브타디엔"
+            },
+            {
+              "01": "01-01-99",
+              "특정시설에서 발생하는 폐기물": "그 밖의 폐합성고분자화합"
+            },
+            {
+              "01": "01-02",
+              "특정시설에서 발생하는 폐기물": "오니류"
+            },
+            {
+              "01": "01-02-01",
+              "특정시설에서 발생하는 폐기물": "폐수처리오니"
+            },
+            {
+              "01": "01-02-02",
+              "특정시설에서 발생하는 폐기물": "유리식각공정오니"
+            },
+            {
+              "01": "01-02-03",
+              "특정시설에서 발생하는 폐기물": "제지공정오니"
+            },
+            {
+              "01": "01-02-04",
+              "특정시설에서 발생하는 폐기물": "실리콘제조공정오니"
+            },
+            {
+              "01": "01-02-05",
+              "특정시설에서 발생하는 폐기물": "보크사이트잔재물"
+            },
+            {
+              "01": "01-02-99",
+              "특정시설에서 발생하는 폐기물": "그 밖의 공정 오니"
+            },
+            {
+              "01": "01-03",
+              "특정시설에서 발생하는 폐기물": "폐농약"
+            },
+            {
+              "01": "01-03-01",
+              "특정시설에서 발생하는 폐기물": "유기인계폐농약"
+            },
+            {
+              "01": "01-03-02",
+              "특정시설에서 발생하는 폐기물": "유기염소계폐농약"
+            },
+            {
+              "01": "01-03-03",
+              "특정시설에서 발생하는 폐기물": "카바메이트계(Carbamate)"
+            },
+            {
+              "01": "01-03-99",
+              "특정시설에서 발생하는 폐기물": "그 밖의 폐농약"
+            },
+            {
+              "01": "02",
+              "특정시설에서 발생하는 폐기물": "부식성폐기물"
+            },
+            {
+              "01": "02-01",
+              "특정시설에서 발생하는 폐기물": "폐산"
+            },
+            {
+              "01": "02-01-01",
+              "특정시설에서 발생하는 폐기물": "폐염산"
+            },
+            {
+              "01": "R-4-9, R-10",
+              "특정시설에서 발생하는 폐기물": "해당"
+            },
+            {
+              "01": "02-01-02",
+              "특정시설에서 발생하는 폐기물": "폐황산(폐황산이 포함된 2"
+            },
+            {
+              "01": "R-4-9, R-5-1,R-10",
+              "특정시설에서 발생하는 폐기물": "해당"
+            },
+            {
+              "01": "02-01-03",
+              "특정시설에서 발생하는 폐기물": "폐질산"
+            },
+            {
+              "01": "R-4-9, R-10",
+              "특정시설에서 발생하는 폐기물": "해당"
+            },
+            {
+              "01": "02-01-05",
+              "특정시설에서 발생하는 폐기물": "LCD·반도체 공정의 폐산"
+            },
+            {
+              "01": "R-4-9, R-10",
+              "특정시설에서 발생하는 폐기물": "해당"
+            },
+            {
+              "01": "02-01-99",
+              "특정시설에서 발생하는 폐기물": "그 밖의 폐산"
+            },
+            {
+              "01": "R-4-9, R-10",
+              "특정시설에서 발생하는 폐기물": "해당"
+            },
+            {
+              "01": "02-02",
+              "특정시설에서 발생하는 폐기물": "폐알칼리"
+            },
+            {
+              "01": "02-02-01",
+              "특정시설에서 발생하는 폐기물": "폐가성소다수"
+            },
+            {
+              "01": "R-4-9, R-10",
+              "특정시설에서 발생하는 폐기물": "해당"
+            },
+            {
+              "01": "02-02-02",
+              "특정시설에서 발생하는 폐기물": "폐암모니아수"
+            },
+            {
+              "01": "R-4-9, R-10",
+              "특정시설에서 발생하는 폐기물": "해당"
+            },
+            {
+              "01": "02-02-03",
+              "특정시설에서 발생하는 폐기물": "폐수산화나트륨(고상)"
+            },
+            {
+              "01": "R-4-9, R-10",
+              "특정시설에서 발생하는 폐기물": "해당"
+            },
+            {
+              "01": "02-02-04",
+              "특정시설에서 발생하는 폐기물": "폐수산화칼륨(고상)"
+            },
+            {
+              "01": "R-4-9, R-10",
+              "특정시설에서 발생하는 폐기물": "해당"
+            },
+            {
+              "01": "02-02-99",
+              "특정시설에서 발생하는 폐기물": "그 밖의 폐알칼리"
+            },
+            {
+              "01": "R-4-9, R-10",
+              "특정시설에서 발생하는 폐기물": "해당"
+            },
+            {
+              "01": "03",
+              "특정시설에서 발생하는 폐기물": "유해물질 함유 폐기물"
+            },
+            {
+              "01": "03-01",
+              "특정시설에서 발생하는 폐기물": "광재"
+            },
+            {
+              "01": "03-01-01",
+              "특정시설에서 발생하는 폐기물": "알루미늄제조공정광재"
+            },
+            {
+              "01": "03-01-02",
+              "특정시설에서 발생하는 폐기물": "납 열처리·야금(冶金) 공정"
+            },
+            {
+              "01": "03-01-03",
+              "특정시설에서 발생하는 폐기물": "아연열처리공정광재"
+            },
+            {
+              "01": "03-01-04",
+              "특정시설에서 발생하는 폐기물": "철제조공정광재(철광 원석"
+            },
+            {
+              "01": "03-01-99",
+              "특정시설에서 발생하는 폐기물": "그 밖의 광재"
+            },
+            {
+              "01": "03-02-00",
+              "특정시설에서 발생하는 폐기물": "분진"
+            },
+            {
+              "01": "03-03",
+              "특정시설에서 발생하는 폐기물": "폐주물사 및 폐사"
+            },
+            {
+              "01": "03-03-01",
+              "특정시설에서 발생하는 폐기물": "점토점결폐주물사"
+            },
+            {
+              "01": "03-03-02",
+              "특정시설에서 발생하는 폐기물": "화학점결폐주물사"
+            },
+            {
+              "01": "03-03-03",
+              "특정시설에서 발생하는 폐기물": "샌드블라스트폐사"
+            },
+            {
+              "01": "03-03-99",
+              "특정시설에서 발생하는 폐기물": "그 밖의 폐주물사 및 폐사"
+            },
+            {
+              "01": "03-07",
+              "특정시설에서 발생하는 폐기물": "폐촉매"
+            },
+            {
+              "01": "03-07-01",
+              "특정시설에서 발생하는 폐기물": "금속성폐촉매"
+            },
+            {
+              "01": "03-07-02",
+              "특정시설에서 발생하는 폐기물": "비금속성폐촉매"
+            },
+            {
+              "01": "03-08",
+              "특정시설에서 발생하는 폐기물": "폐흡착제 및 폐흡수제"
+            },
+            {
+              "01": "03-08-01",
+              "특정시설에서 발생하는 폐기물": "폐흡착제"
+            },
+            {
+              "01": "03-08-02",
+              "특정시설에서 발생하는 폐기물": "폐흡수제"
+            },
+            {
+              "01": "03-10",
+              "특정시설에서 발생하는 폐기물": "폐전지류"
+            },
+            {
+              "01": "03-10-01",
+              "특정시설에서 발생하는 폐기물": "황산이 포함된 폐이차전지"
+            },
+            {
+              "01": "R-4-9, R-5-1, R-10",
+              "특정시설에서 발생하는 폐기물": "해당"
+            },
+            {
+              "01": "03-10-02",
+              "특정시설에서 발생하는 폐기물": "알칼리가 포함된 폐이차전"
+            },
+            {
+              "01": "R-4-9, R-5-1, R-10",
+              "특정시설에서 발생하는 폐기물": "해당"
+            },
+            {
+              "01": "03-10-03",
+              "특정시설에서 발생하는 폐기물": "리튬계 폐이차전지(침수ㆍ"
+            },
+            {
+              "01": "03-10-04",
+              "특정시설에서 발생하는 폐기물": "이차전지 스크랩"
+            },
+            {
+              "01": "03-10-99",
+              "특정시설에서 발생하는 폐기물": "그 밖의 폐이차전지(침수ㆍ"
+            },
+            {
+              "01": "04",
+              "특정시설에서 발생하는 폐기물": "폐유기용제"
+            },
+            {
+              "01": "04-01-00",
+              "특정시설에서 발생하는 폐기물": "할로겐족 폐유기용제"
+            },
+            {
+              "01": "04-02-00",
+              "특정시설에서 발생하는 폐기물": "그 밖의 폐유기용제"
+            },
+            {
+              "01": "05",
+              "특정시설에서 발생하는 폐기물": "폐페인트 및 폐락카"
+            },
+            {
+              "01": "05-01-00",
+              "특정시설에서 발생하는 폐기물": "폐유성페인트"
+            },
+            {
+              "01": "R-3-2, R-4-6, R-4-7,",
+              "특정시설에서 발생하는 폐기물": "해당"
+            },
+            {
+              "01": "05-02-00",
+              "특정시설에서 발생하는 폐기물": "폐수성페인트"
+            },
+            {
+              "01": "05-03-00",
+              "특정시설에서 발생하는 폐기물": "폐락카"
+            },
+            {
+              "01": "R-3-2, R-4-6, R-4-7,",
+              "특정시설에서 발생하는 폐기물": "해당"
+            },
+            {
+              "01": "06",
+              "특정시설에서 발생하는 폐기물": "폐유"
+            },
+            {
+              "01": "06-01",
+              "특정시설에서 발생하는 폐기물": "폐광물유"
+            },
+            {
+              "01": "06-01-01",
+              "특정시설에서 발생하는 폐기물": "폐윤활유(「자원의 절약과"
+            },
+            {
+              "01": "06-01-02",
+              "특정시설에서 발생하는 폐기물": "폐연마유·비수용성폐절삭"
+            },
+            {
+              "01": "06-01-03",
+              "특정시설에서 발생하는 폐기물": "폐기계유·폐작동유(공업용"
+            },
+            {
+              "01": "06-01-04",
+              "특정시설에서 발생하는 폐기물": "폐연료유"
+            },
+            {
+              "01": "06-01-05",
+              "특정시설에서 발생하는 폐기물": "폐오일필터"
+            },
+            {
+              "01": "06-01-06",
+              "특정시설에서 발생하는 폐기물": "기름 함유 폐전선·폐케이블"
+            },
+            {
+              "01": "06-01-07",
+              "특정시설에서 발생하는 폐기물": "폐절연유(폴리클로리네이티"
+            },
+            {
+              "01": "06-01-99",
+              "특정시설에서 발생하는 폐기물": "그 밖의 폐광물유[아스팔트"
+            },
+            {
+              "01": "06-02-00",
+              "특정시설에서 발생하는 폐기물": "폐동식물유"
+            },
+            {
+              "01": "06-03-00",
+              "특정시설에서 발생하는 폐기물": "그 밖의 폐유"
+            },
+            {
+              "01": "07",
+              "특정시설에서 발생하는 폐기물": "폐석면"
+            },
+            {
+              "01": "07-01",
+              "특정시설에서 발생하는 폐기물": "제품·설비(뿜칠로 사용된 것을 포함한다) 등의 해체·제거 시 발생"
+            },
+            {
+              "01": "07-01-01",
+              "특정시설에서 발생하는 폐기물": "흩날릴 우려가 없는 폐석면"
+            },
+            {
+              "01": "07-01-02",
+              "특정시설에서 발생하는 폐기물": "흩날릴 우려가 있는 폐석면"
+            },
+            {
+              "01": "07-02-00",
+              "특정시설에서 발생하는 폐기물": "석면제품 등의 연마·절단·"
+            },
+            {
+              "01": "07-03-00",
+              "특정시설에서 발생하는 폐기물": "석면의 제거작업에 사용된"
+            },
+            {
+              "01": "08",
+              "특정시설에서 발생하는 폐기물": "폴리클로리네이티드비페닐 함유 폐기물"
+            },
+            {
+              "01": "08-01-00",
+              "특정시설에서 발생하는 폐기물": "폴리클로리네이티드비페닐"
+            },
+            {
+              "01": "08-02-00",
+              "특정시설에서 발생하는 폐기물": "폴리클로리네이티드비페닐"
+            },
+            {
+              "01": "08-03-00",
+              "특정시설에서 발생하는 폐기물": "그 밖의 폴리클로리네이티"
+            },
+            {
+              "01": "08-04-00",
+              "특정시설에서 발생하는 폐기물": "그 밖의 폴리클로리네이티"
+            },
+            {
+              "01": "09",
+              "특정시설에서 발생하는 폐기물": "폐유독물질"
+            },
+            {
+              "01": "09-01-00",
+              "특정시설에서 발생하는 폐기물": "「화학물질관리법」 제2조"
+            },
+            {
+              "01": "09-02-00",
+              "특정시설에서 발생하는 폐기물": "연구·검사용 폐시약"
+            },
+            {
+              "01": "09-03-00",
+              "특정시설에서 발생하는 폐기물": "「화학물질관리법」 제2조"
+            },
+            {
+              "01": "09-04-00",
+              "특정시설에서 발생하는 폐기물": "「화학물질관리법」 제2조"
+            },
+            {
+              "01": "10",
+              "특정시설에서 발생하는 폐기물": "의료폐기물"
+            },
+            {
+              "01": "10-11-00",
+              "특정시설에서 발생하는 폐기물": "격리의료폐기물"
+            },
+            {
+              "01": "10-12",
+              "특정시설에서 발생하는 폐기물": "위해의료폐기물"
+            },
+            {
+              "01": "10-12-01",
+              "특정시설에서 발생하는 폐기물": "조직물류폐기물(태반을 재"
+            },
+            {
+              "01": "10-12-02",
+              "특정시설에서 발생하는 폐기물": "병리계폐기물"
+            },
+            {
+              "01": "10-12-03",
+              "특정시설에서 발생하는 폐기물": "손상성폐기물"
+            },
+            {
+              "01": "10-12-04",
+              "특정시설에서 발생하는 폐기물": "생물·화학폐기물"
+            },
+            {
+              "01": "10-12-05",
+              "특정시설에서 발생하는 폐기물": "혈액오염폐기물"
+            },
+            {
+              "01": "10-12-06",
+              "특정시설에서 발생하는 폐기물": "인체조직물 중 태반(재활용"
+            },
+            {
+              "01": "10-13-00",
+              "특정시설에서 발생하는 폐기물": "일반의료폐기물"
+            },
+            {
+              "01": "11",
+              "특정시설에서 발생하는 폐기물": "수은폐기물"
+            },
+            {
+              "01": "11-01",
+              "특정시설에서 발생하는 폐기물": "수은함유폐기물"
+            },
+            {
+              "01": "11-01-01",
+              "특정시설에서 발생하는 폐기물": "수은 첨가 폐램프"
+            },
+            {
+              "01": "11-01-02",
+              "특정시설에서 발생하는 폐기물": "수은 첨가 폐계측기기"
+            },
+            {
+              "01": "11-01-03",
+              "특정시설에서 발생하는 폐기물": "수은 첨가 폐전지"
+            },
+            {
+              "01": "11-01-99",
+              "특정시설에서 발생하는 폐기물": "그 밖의 기후에너지환경부"
+            },
+            {
+              "01": "11-02-00",
+              "특정시설에서 발생하는 폐기물": "수은구성폐기물"
+            },
+            {
+              "01": "11-03-00",
+              "특정시설에서 발생하는 폐기물": "수은함유폐기물 처리잔재물"
+            },
+            {
+              "01": "51-01",
+              "특정시설에서 발생하는 폐기물": "유기성오니류"
+            },
+            {
+              "01": "51-01-01",
+              "특정시설에서 발생하는 폐기물": "정수처리오니"
+            },
+            {
+              "01": "R-4-2, R-5-1, R-5-4,",
+              "특정시설에서 발생하는 폐기물": "해당"
+            },
+            {
+              "01": "51-01-02",
+              "특정시설에서 발생하는 폐기물": "하수처리오니"
+            },
+            {
+              "01": "R-4-2, R-5-1, R-5-4,",
+              "특정시설에서 발생하는 폐기물": "해당"
+            },
+            {
+              "01": "51-01-03",
+              "특정시설에서 발생하는 폐기물": "분뇨처리오니"
+            },
+            {
+              "01": "R-4-2, R-5-1, R-5-4,",
+              "특정시설에서 발생하는 폐기물": "해당"
+            },
+            {
+              "01": "51-01-04",
+              "특정시설에서 발생하는 폐기물": "가축분뇨처리오니"
+            },
+            {
+              "01": "R-4-2, R-5-1, R-5-4,",
+              "특정시설에서 발생하는 폐기물": "해당"
+            },
+            {
+              "01": "51-01-05",
+              "특정시설에서 발생하는 폐기물": "펄프·제지공정오니"
+            },
+            {
+              "01": "R-3-5, R-4-2, R-5-1,",
+              "특정시설에서 발생하는 폐기물": "해당"
+            },
+            {
+              "01": "51-01-06",
+              "특정시설에서 발생하는 폐기물": "그 밖의 공정오니"
+            },
+            {
+              "01": "R-4-2, R-5-1, R-5-2,",
+              "특정시설에서 발생하는 폐기물": "해당"
+            },
+            {
+              "01": "51-01-07",
+              "특정시설에서 발생하는 폐기물": "펄프·제지폐수처리오니"
+            },
+            {
+              "01": "R-3-5, R-4-2,",
+              "특정시설에서 발생하는 폐기물": "해당"
+            },
+            {
+              "01": "51-01-08",
+              "특정시설에서 발생하는 폐기물": "그 밖의 폐수처리오니"
+            },
+            {
+              "01": "R-4-2, R-5-1,",
+              "특정시설에서 발생하는 폐기물": "해당"
+            },
+            {
+              "01": "51-01-99",
+              "특정시설에서 발생하는 폐기물": "그 밖의 유기성오니"
+            },
+            {
+              "01": "R-4-2, R-5-1, R-5-4,",
+              "특정시설에서 발생하는 폐기물": "해당"
+            },
+            {
+              "01": "51-02",
+              "특정시설에서 발생하는 폐기물": "무기성오니류"
+            },
+            {
+              "01": "51-02-01",
+              "특정시설에서 발생하는 폐기물": "폐수처리오니"
+            },
+            {
+              "01": "R-4-2, R-10",
+              "특정시설에서 발생하는 폐기물": "해당"
+            },
+            {
+              "01": "51-02-02",
+              "특정시설에서 발생하는 폐기물": "정수처리오니"
+            },
+            {
+              "01": "51-02-03",
+              "특정시설에서 발생하는 폐기물": "하수처리오니"
+            },
+            {
+              "01": "R-4-2, R-10",
+              "특정시설에서 발생하는 폐기물": "해당"
+            },
+            {
+              "01": "51-02-04",
+              "특정시설에서 발생하는 폐기물": "하수준설토"
+            },
+            {
+              "01": "51-02-05",
+              "특정시설에서 발생하는 폐기물": "건설오니"
+            },
+            {
+              "01": "51-02-06",
+              "특정시설에서 발생하는 폐기물": "석재·골재폐수처리오니(석"
+            },
+            {
+              "01": "51-02-07",
+              "특정시설에서 발생하는 폐기물": "유리식각공정오니"
+            },
+            {
+              "01": "R-4-2, R-10",
+              "특정시설에서 발생하는 폐기물": "해당"
+            },
+            {
+              "01": "51-02-08",
+              "특정시설에서 발생하는 폐기물": "실리콘공정오니"
+            },
+            {
+              "01": "R-4-2, R-10",
+              "특정시설에서 발생하는 폐기물": "해당"
+            },
+            {
+              "01": "51-02-09",
+              "특정시설에서 발생하는 폐기물": "보크사이트 잔재물"
+            },
+            {
+              "01": "R-4-2, R-7-3, R-10",
+              "특정시설에서 발생하는 폐기물": "해당"
+            },
+            {
+              "01": "51-02-10",
+              "특정시설에서 발생하는 폐기물": "영농폐기물(농업활동 과정"
+            },
+            {
+              "01": "51-02-11",
+              "특정시설에서 발생하는 폐기물": "영농폐기물(농업활동 과정"
+            },
+            {
+              "01": "51-02-19",
+              "특정시설에서 발생하는 폐기물": "그 밖의 공정오니"
+            },
+            {
+              "01": "R-4-2, R-10",
+              "특정시설에서 발생하는 폐기물": "해당"
+            },
+            {
+              "01": "51-02-99",
+              "특정시설에서 발생하는 폐기물": "그 밖의 무기성오니"
+            },
+            {
+              "01": "R-4-2, R-7-1, R-7-2,",
+              "특정시설에서 발생하는 폐기물": "해당"
+            },
+            {
+              "01": "51-03",
+              "특정시설에서 발생하는 폐기물": "폐합성고분자화합물"
+            },
+            {
+              "01": "51-03-01",
+              "특정시설에서 발생하는 폐기물": "폐합성수지류(폐염화비닐수"
+            },
+            {
+              "01": "R-8-1, R-8-2, R-9-1,",
+              "특정시설에서 발생하는 폐기물": "해당"
+            },
+            {
+              "01": "51-03-02",
+              "특정시설에서 발생하는 폐기물": "폐합성고무류"
+            },
+            {
+              "01": "R-8-1, R-8-2, R-9-1,",
+              "특정시설에서 발생하는 폐기물": "해당"
+            },
+            {
+              "01": "51-03-03",
+              "특정시설에서 발생하는 폐기물": "폐폴리염화비닐수지류"
+            },
+            {
+              "01": "R-8-1, R-9-1, R-10",
+              "특정시설에서 발생하는 폐기물": "해당"
+            },
+            {
+              "01": "51-03-04",
+              "특정시설에서 발생하는 폐기물": "폐폴리우레탄폼류"
+            },
+            {
+              "01": "R-8-1, R-8-2, R-9-1,",
+              "특정시설에서 발생하는 폐기물": "해당"
+            },
+            {
+              "01": "51-03-05",
+              "특정시설에서 발생하는 폐기물": "양식용폐부자"
+            },
+            {
+              "01": "R-8-1, R-8-2, R-9-1,",
+              "특정시설에서 발생하는 폐기물": "해당"
+            },
+            {
+              "01": "51-03-06",
+              "특정시설에서 발생하는 폐기물": "폐발포합성수지"
+            },
+            {
+              "01": "R-8-1, R-8-2, R-9-1,",
+              "특정시설에서 발생하는 폐기물": "해당"
+            },
+            {
+              "01": "51-03-07",
+              "특정시설에서 발생하는 폐기물": "플라스틱폐포장재"
+            },
+            {
+              "01": "R-3-5, R-8-1,",
+              "특정시설에서 발생하는 폐기물": "해당"
+            },
+            {
+              "01": "51-03-08",
+              "특정시설에서 발생하는 폐기물": "폐어망"
+            },
+            {
+              "01": "R-8-1, R-8-2, R-10",
+              "특정시설에서 발생하는 폐기물": "해당"
+            },
+            {
+              "01": "51-03-99",
+              "특정시설에서 발생하는 폐기물": "그 밖의 폐합성고분자화합"
+            },
+            {
+              "01": "R-8-2, R-10",
+              "특정시설에서 발생하는 폐기물": "해당"
+            },
+            {
+              "01": "51-04",
+              "특정시설에서 발생하는 폐기물": "광재류"
+            },
+            {
+              "01": "51-04-01",
+              "특정시설에서 발생하는 폐기물": "고로슬래그"
+            },
+            {
+              "01": "R-3-5, R-4-2, R-5-1,",
+              "특정시설에서 발생하는 폐기물": "해당"
+            },
+            {
+              "01": "51-04-02",
+              "특정시설에서 발생하는 폐기물": "제강슬래그"
+            },
+            {
+              "01": "R-3-5, R-4-2, R-5-1,",
+              "특정시설에서 발생하는 폐기물": "해당"
+            },
+            {
+              "01": "51-04-03",
+              "특정시설에서 발생하는 폐기물": "비철금속제련공정광재"
+            },
+            {
+              "01": "R-3-5, R-4-2, R-7-1,",
+              "특정시설에서 발생하는 폐기물": "해당"
+            },
+            {
+              "01": "51-04-04",
+              "특정시설에서 발생하는 폐기물": "선광공정광재"
+            },
+            {
+              "01": "R-3-5, R-4-2, R-7-1,",
+              "특정시설에서 발생하는 폐기물": "해당"
+            },
+            {
+              "01": "51-04-99",
+              "특정시설에서 발생하는 폐기물": "그 밖의 광재류"
+            },
+            {
+              "01": "R-3-5, R-4-2, R-7-1,",
+              "특정시설에서 발생하는 폐기물": "해당"
+            },
+            {
+              "01": "51-05",
+              "특정시설에서 발생하는 폐기물": "분진류(대기오염방지시설에서 포집된 것으로 한정하되, 소각시설에"
+            },
+            {
+              "01": "51-05-01",
+              "특정시설에서 발생하는 폐기물": "제철공정분진"
+            },
+            {
+              "01": "R-4-2, R-7-3,",
+              "특정시설에서 발생하는 폐기물": "해당"
+            },
+            {
+              "01": "51-05-02",
+              "특정시설에서 발생하는 폐기물": "시멘트제조공정분진"
+            },
+            {
+              "01": "R-4-2, R-7-3, R-10",
+              "특정시설에서 발생하는 폐기물": "해당"
+            },
+            {
+              "01": "51-05-03",
+              "특정시설에서 발생하는 폐기물": "발전시설분진"
+            },
+            {
+              "01": "R-4-2, R-7-3, R-10",
+              "특정시설에서 발생하는 폐기물": "해당"
+            },
+            {
+              "01": "51-05-04",
+              "특정시설에서 발생하는 폐기물": "폐실리카 퓸(규소철 제조과"
+            },
+            {
+              "01": "다)",
+              "특정시설에서 발생하는 폐기물": "R-4-2, R-7-3, R-10"
+            },
+            {
+              "01": "51-05-99",
+              "특정시설에서 발생하는 폐기물": "그 밖의 분진"
+            },
+            {
+              "01": "R-4-2, R-7-1, R-7-2,",
+              "특정시설에서 발생하는 폐기물": "해당"
+            },
+            {
+              "01": "51-06",
+              "특정시설에서 발생하는 폐기물": "폐주물사 및 폐사"
+            },
+            {
+              "01": "51-06-01",
+              "특정시설에서 발생하는 폐기물": "점토점결폐주물사"
+            },
+            {
+              "01": "R-3-5, R-4-2, R-7-1,",
+              "특정시설에서 발생하는 폐기물": "해당"
+            },
+            {
+              "01": "51-06-02",
+              "특정시설에서 발생하는 폐기물": "화학점결폐주물사"
+            },
+            {
+              "01": "R-3-5, R-4-2,",
+              "특정시설에서 발생하는 폐기물": "해당"
+            },
+            {
+              "01": "51-06-03",
+              "특정시설에서 발생하는 폐기물": "샌드블라스트폐사"
+            },
+            {
+              "01": "R-3-5, R-4-2, R-10",
+              "특정시설에서 발생하는 폐기물": "해당"
+            },
+            {
+              "01": "51-06-04",
+              "특정시설에서 발생하는 폐기물": "폐여과사"
+            },
+            {
+              "01": "R-2-2, R-4-2, R-10",
+              "특정시설에서 발생하는 폐기물": "해당"
+            },
+            {
+              "01": "51-06-99",
+              "특정시설에서 발생하는 폐기물": "그 밖의 폐사"
+            },
+            {
+              "01": "R-4-2, R-10",
+              "특정시설에서 발생하는 폐기물": "해당"
+            },
+            {
+              "01": "51-07",
+              "특정시설에서 발생하는 폐기물": "폐내화물 및 도자기 조각"
+            },
+            {
+              "01": "51-07-01",
+              "특정시설에서 발생하는 폐기물": "폐내화물"
+            },
+            {
+              "01": "R-4-2, R-7-1, R-7-2,",
+              "특정시설에서 발생하는 폐기물": "해당"
+            },
+            {
+              "01": "51-07-02",
+              "특정시설에서 발생하는 폐기물": "폐도자기조각"
+            },
+            {
+              "01": "51-08",
+              "특정시설에서 발생하는 폐기물": "소각재"
+            },
+            {
+              "01": "51-08-01",
+              "특정시설에서 발생하는 폐기물": "생활폐기물 소각시설 비산"
+            },
+            {
+              "01": "R-4-2, R-10",
+              "특정시설에서 발생하는 폐기물": "해당"
+            },
+            {
+              "01": "51-08-02",
+              "특정시설에서 발생하는 폐기물": "사업장폐기물 소각시설 비"
+            },
+            {
+              "01": "R-4-2, R-10",
+              "특정시설에서 발생하는 폐기물": "해당"
+            },
+            {
+              "01": "51-08-03",
+              "특정시설에서 발생하는 폐기물": "생활폐기물 소각시설 바닥"
+            },
+            {
+              "01": "R-4-2, R-7-1, R-7-3,",
+              "특정시설에서 발생하는 폐기물": "해당"
+            },
+            {
+              "01": "51-08-04",
+              "특정시설에서 발생하는 폐기물": "사업장폐기물 소각시설 바"
+            },
+            {
+              "01": "R-4-2, R-10",
+              "특정시설에서 발생하는 폐기물": "해당"
+            },
+            {
+              "01": "51-08-05",
+              "특정시설에서 발생하는 폐기물": "생활폐기물 소각시설 소각"
+            },
+            {
+              "01": "된 경우를 말한다)",
+              "특정시설에서 발생하는 폐기물": "R-4-2, R-10"
+            },
+            {
+              "01": "51-08-06",
+              "특정시설에서 발생하는 폐기물": "사업장폐기물 소각시설 소"
+            },
+            {
+              "01": "R-4-2, R-10",
+              "특정시설에서 발생하는 폐기물": "해당"
+            },
+            {
+              "01": "51-09",
+              "특정시설에서 발생하는 폐기물": "안정화 또는 고형화·고화 처리물"
+            },
+            {
+              "01": "51-09-01",
+              "특정시설에서 발생하는 폐기물": "안정화 처리물"
+            },
+            {
+              "01": "R-4-2, R-10",
+              "특정시설에서 발생하는 폐기물": "해당"
+            },
+            {
+              "01": "51-09-02",
+              "특정시설에서 발생하는 폐기물": "시멘트고형화 처리물"
+            },
+            {
+              "01": "R-4-2, R-10",
+              "특정시설에서 발생하는 폐기물": "해당"
+            },
+            {
+              "01": "51-09-03",
+              "특정시설에서 발생하는 폐기물": "고화 처리물"
+            },
+            {
+              "01": "R-4-2, R-7-3, R-10",
+              "특정시설에서 발생하는 폐기물": "해당"
+            },
+            {
+              "01": "51-09-04",
+              "특정시설에서 발생하는 폐기물": "킬레이트(Chelate)처리물"
+            },
+            {
+              "01": "R-4-2, R-7-3, R-10",
+              "특정시설에서 발생하는 폐기물": "해당"
+            },
+            {
+              "01": "51-09-99",
+              "특정시설에서 발생하는 폐기물": "그 밖의 고형화·고화 처리"
+            },
+            {
+              "01": "R-4-2, R-10",
+              "특정시설에서 발생하는 폐기물": "해당"
+            },
+            {
+              "01": "51-10",
+              "특정시설에서 발생하는 폐기물": "폐촉매"
+            },
+            {
+              "01": "51-10-01",
+              "특정시설에서 발생하는 폐기물": "금속성폐촉매"
+            },
+            {
+              "01": "51-10-02",
+              "특정시설에서 발생하는 폐기물": "폐이온교환수지"
+            },
+            {
+              "01": "R-4-2, R-10",
+              "특정시설에서 발생하는 폐기물": "해당"
+            },
+            {
+              "01": "51-10-03",
+              "특정시설에서 발생하는 폐기물": "폐멤브레인수지"
+            },
+            {
+              "01": "R-4-2, R-10",
+              "특정시설에서 발생하는 폐기물": "해당"
+            },
+            {
+              "01": "51-10-99",
+              "특정시설에서 발생하는 폐기물": "그 밖의 폐촉매"
+            },
+            {
+              "01": "R-4-2, R-10",
+              "특정시설에서 발생하는 폐기물": "해당"
+            },
+            {
+              "01": "51-11",
+              "특정시설에서 발생하는 폐기물": "폐흡착제 및 폐흡수제"
+            },
+            {
+              "01": "51-11-01",
+              "특정시설에서 발생하는 폐기물": "폐흡착제"
+            },
+            {
+              "01": "R-4-2, R-10",
+              "특정시설에서 발생하는 폐기물": "해당"
+            },
+            {
+              "01": "51-11-02",
+              "특정시설에서 발생하는 폐기물": "폐흡수제"
+            },
+            {
+              "01": "R-4-2, R-10",
+              "특정시설에서 발생하는 폐기물": "해당"
+            },
+            {
+              "01": "51-11-03",
+              "특정시설에서 발생하는 폐기물": "폐활성탄"
+            },
+            {
+              "01": "R-3-5, R-4-2, R-8-2,",
+              "특정시설에서 발생하는 폐기물": "해당"
+            },
+            {
+              "01": "51-12",
+              "특정시설에서 발생하는 폐기물": "폐석고 및 폐석회"
+            },
+            {
+              "01": "51-12-01",
+              "특정시설에서 발생하는 폐기물": "폐석고"
+            },
+            {
+              "01": "R-4-2, R-5-1, R-7-2,",
+              "특정시설에서 발생하는 폐기물": "해당"
+            },
+            {
+              "01": "51-12-02",
+              "특정시설에서 발생하는 폐기물": "폐석회"
+            },
+            {
+              "01": "R-3-3, R-4-2, R-5-1,",
+              "특정시설에서 발생하는 폐기물": "해당"
+            },
+            {
+              "01": "51-13",
+              "특정시설에서 발생하는 폐기물": "연소잔재물"
+            },
+            {
+              "01": "51-13-01",
+              "특정시설에서 발생하는 폐기물": "연탄재"
+            },
+            {
+              "01": "51-13-02",
+              "특정시설에서 발생하는 폐기물": "액체연료연소재"
+            },
+            {
+              "01": "R-4-2, R-8-2, R-10",
+              "특정시설에서 발생하는 폐기물": "해당"
+            },
+            {
+              "01": "51-13-03",
+              "특정시설에서 발생하는 폐기물": "석탄재"
+            },
+            {
+              "01": "R-4-2, R-5-1, R-7-1,",
+              "특정시설에서 발생하는 폐기물": "해당"
+            },
+            {
+              "01": "51-13-99",
+              "특정시설에서 발생하는 폐기물": "그 밖의 연소잔재물"
+            },
+            {
+              "01": "R-4-2, R-7-1, R-7-2,",
+              "특정시설에서 발생하는 폐기물": "해당"
+            },
+            {
+              "01": "51-14",
+              "특정시설에서 발생하는 폐기물": "폐석재류"
+            },
+            {
+              "01": "51-14-01",
+              "특정시설에서 발생하는 폐기물": "폐석분토사(석재·골재생산"
+            },
+            {
+              "01": "51-14-02",
+              "특정시설에서 발생하는 폐기물": "폐석재"
+            },
+            {
+              "01": "R-4-2, R-7-1, R-7-2,",
+              "특정시설에서 발생하는 폐기물": "해당"
+            },
+            {
+              "01": "51-15",
+              "특정시설에서 발생하는 폐기물": "폐타이어(「자원의 절약과 재활용촉진에 관한 법률 시행령」 제18"
+            },
+            {
+              "01": "51-15-01",
+              "특정시설에서 발생하는 폐기물": "자동차 폐타이어"
+            },
+            {
+              "01": "R-4-2, R-8-1, R-8-2,",
+              "특정시설에서 발생하는 폐기물": "해당"
+            },
+            {
+              "01": "51-15-02",
+              "특정시설에서 발생하는 폐기물": "그 밖의 폐타이어"
+            },
+            {
+              "01": "R-4-2, R-8-1, R-8-2,",
+              "특정시설에서 발생하는 폐기물": "해당"
+            },
+            {
+              "01": "51-16-00",
+              "특정시설에서 발생하는 폐기물": "폐식용유(식용을 목적으로"
+            },
+            {
+              "01": "유통·사용 또는 음식물류",
+              "특정시설에서 발생하는 폐기물": "R-5-1, R-5-2, R-5-4,"
+            },
+            {
+              "01": "51-17",
+              "특정시설에서 발생하는 폐기물": "동·식물성잔재물(식료품 및 음료제조업, 유통업 등에서 발생하는 잔"
+            },
+            {
+              "01": "51-17-01",
+              "특정시설에서 발생하는 폐기물": "동물사체"
+            },
+            {
+              "01": "R-5-1, R-5-2, R-5-4,",
+              "특정시설에서 발생하는 폐기물": "해당"
+            },
+            {
+              "01": "51-17-02",
+              "특정시설에서 발생하는 폐기물": "축산물가공잔재물(동물성"
+            },
+            {
+              "01": "R-5-1, R-5-2, R-5-4,",
+              "특정시설에서 발생하는 폐기물": "해당"
+            },
+            {
+              "01": "51-17-03",
+              "특정시설에서 발생하는 폐기물": "수산물가공잔재물"
+            },
+            {
+              "01": "R-5-1, R-5-2, R-5-4,",
+              "특정시설에서 발생하는 폐기물": "해당"
+            },
+            {
+              "01": "51-17-04",
+              "특정시설에서 발생하는 폐기물": "폐패각"
+            },
+            {
+              "01": "R-4-2, R-5-1, R-5-2,",
+              "특정시설에서 발생하는 폐기물": "해당"
+            },
+            {
+              "01": "51-17-05",
+              "특정시설에서 발생하는 폐기물": "폐모피류"
+            },
+            {
+              "01": "R-5-1, R-5-2, R-5-4,",
+              "특정시설에서 발생하는 폐기물": "해당"
+            },
+            {
+              "01": "51-17-06",
+              "특정시설에서 발생하는 폐기물": "피혁 및 피혁가공잔재물"
+            },
+            {
+              "01": "R-5-1, R-5-2, R-5-4,",
+              "특정시설에서 발생하는 폐기물": "해당"
+            },
+            {
+              "01": "51-17-07",
+              "특정시설에서 발생하는 폐기물": "동물털"
+            },
+            {
+              "01": "R-5-1, R-5-2, R-10",
+              "특정시설에서 발생하는 폐기물": "해당"
+            },
+            {
+              "01": "51-17-08",
+              "특정시설에서 발생하는 폐기물": "동물성유지류"
+            },
+            {
+              "01": "R-5-1, R-5-2, R-5-4,",
+              "특정시설에서 발생하는 폐기물": "해당"
+            },
+            {
+              "01": "51-17-19",
+              "특정시설에서 발생하는 폐기물": "그 밖의 동물성잔재물"
+            },
+            {
+              "01": "R-5-1, R-5-2, R-5-4,",
+              "특정시설에서 발생하는 폐기물": "해당"
+            },
+            {
+              "01": "51-17-21",
+              "특정시설에서 발생하는 폐기물": "주정박"
+            },
+            {
+              "01": "R-5-1, R-5-2, R-5-4,",
+              "특정시설에서 발생하는 폐기물": "해당"
+            },
+            {
+              "01": "51-17-22",
+              "특정시설에서 발생하는 폐기물": "맥주박"
+            },
+            {
+              "01": "R-5-1, R-5-2, R-5-4,",
+              "특정시설에서 발생하는 폐기물": "해당"
+            },
+            {
+              "01": "51-17-23",
+              "특정시설에서 발생하는 폐기물": "유박유잔재물"
+            },
+            {
+              "01": "R-5-1, R-5-2, R-5-4,",
+              "특정시설에서 발생하는 폐기물": "해당"
+            },
+            {
+              "01": "51-17-24",
+              "특정시설에서 발생하는 폐기물": "초본류"
+            },
+            {
+              "01": "R-5-1, R-5-2,",
+              "특정시설에서 발생하는 폐기물": "해당"
+            },
+            {
+              "01": "51-17-25",
+              "특정시설에서 발생하는 폐기물": "커피찌꺼기"
+            },
+            {
+              "01": "R-2-2, R-4-2, R-4-7,",
+              "특정시설에서 발생하는 폐기물": "해당"
+            },
+            {
+              "01": "51-17-26",
+              "특정시설에서 발생하는 폐기물": "버섯폐배지"
+            },
+            {
+              "01": "R-5-4, R-6-1, R-8-2,",
+              "특정시설에서 발생하는 폐기물": "해당"
+            },
+            {
+              "01": "51-17-27",
+              "특정시설에서 발생하는 폐기물": "과채류(「사료관리법」 제2"
+            },
+            {
+              "01": "51-17-29",
+              "특정시설에서 발생하는 폐기물": "그 밖의 식물성잔재물"
+            },
+            {
+              "01": "R-4-5, R-5-1,",
+              "특정시설에서 발생하는 폐기물": "해당"
+            },
+            {
+              "01": "51-17-30",
+              "특정시설에서 발생하는 폐기물": "식재료 및 조리부산물(제18"
+            },
+            {
+              "01": "51-17-99",
+              "특정시설에서 발생하는 폐기물": "그 밖의 동·식물성잔재물"
+            },
+            {
+              "01": "R-4-2, R-5-1,",
+              "특정시설에서 발생하는 폐기물": "해당"
+            },
+            {
+              "01": "51-18",
+              "특정시설에서 발생하는 폐기물": "폐전기전자제품류"
+            },
+            {
+              "01": "51-18-01",
+              "특정시설에서 발생하는 폐기물": "가정용폐전기전자제품"
+            },
+            {
+              "01": "51-18-02",
+              "특정시설에서 발생하는 폐기물": "산업용폐전기전자제품"
+            },
+            {
+              "01": "51-18-03",
+              "특정시설에서 발생하는 폐기물": "프린트토너 및 폐카트리지"
+            },
+            {
+              "01": "51-18-99",
+              "특정시설에서 발생하는 폐기물": "그 밖의 폐전기전자제품류"
+            },
+            {
+              "01": "51-19-00",
+              "특정시설에서 발생하는 폐기물": "왕겨 및 쌀겨"
+            },
+            {
+              "01": "R-4-2, R-5-1,",
+              "특정시설에서 발생하는 폐기물": "해당"
+            },
+            {
+              "01": "51-20",
+              "특정시설에서 발생하는 폐기물": "폐목재류(원목의 용도 그대로 사용하는 나무뿌리·가지 등을 제거한"
+            },
+            {
+              "01": "51-20-21",
+              "특정시설에서 발생하는 폐기물": "임목폐목재(건설공사·산지"
+            },
+            {
+              "01": "51-20-22",
+              "특정시설에서 발생하는 폐기물": "제재부산물(원목 가공과정"
+            },
+            {
+              "01": "51-20-23",
+              "특정시설에서 발생하는 폐기물": "폐도장목·폐목재포장재·폐"
+            },
+            {
+              "01": "51-20-24",
+              "특정시설에서 발생하는 폐기물": "접착제, 페인트, 기름, 콘크"
+            },
+            {
+              "01": "51-20-25",
+              "특정시설에서 발생하는 폐기물": "할로겐족 유기화합물 또는"
+            },
+            {
+              "01": "51-20-26",
+              "특정시설에서 발생하는 폐기물": "폐철도목재받침목"
+            },
+            {
+              "01": "51-20-27",
+              "특정시설에서 발생하는 폐기물": "폐가구류"
+            },
+            {
+              "01": "51-20-99",
+              "특정시설에서 발생하는 폐기물": "그 밖의 폐목재류"
+            },
+            {
+              "01": "51-21",
+              "특정시설에서 발생하는 폐기물": "폐토사류"
+            },
+            {
+              "01": "51-21-01",
+              "특정시설에서 발생하는 폐기물": "폐토사"
+            },
+            {
+              "01": "R-4-2, R-7-1, R-7-2,",
+              "특정시설에서 발생하는 폐기물": "해당"
+            },
+            {
+              "01": "51-21-02",
+              "특정시설에서 발생하는 폐기물": "건설폐토석"
+            },
+            {
+              "01": "51-21-03",
+              "특정시설에서 발생하는 폐기물": "오염하천·오염해양 준설토"
+            },
+            {
+              "01": "51-22",
+              "특정시설에서 발생하는 폐기물": "폐콘크리트류"
+            },
+            {
+              "01": "51-22-01",
+              "특정시설에서 발생하는 폐기물": "폐콘크리트"
+            },
+            {
+              "01": "R-4-2, R-7-1, R-7-2,",
+              "특정시설에서 발생하는 폐기물": "해당"
+            },
+            {
+              "01": "51-22-02",
+              "특정시설에서 발생하는 폐기물": "폐철도콘크리트받침목"
+            },
+            {
+              "01": "R-2-2, R-4-2, R-10",
+              "특정시설에서 발생하는 폐기물": "해당"
+            },
+            {
+              "01": "51-23-00",
+              "특정시설에서 발생하는 폐기물": "폐아스팔트콘크리트"
+            },
+            {
+              "01": "51-24-00",
+              "특정시설에서 발생하는 폐기물": "폐벽돌"
+            },
+            {
+              "01": "R-4-2, R-7-1, R-7-2,",
+              "특정시설에서 발생하는 폐기물": "해당"
+            },
+            {
+              "01": "51-25-00",
+              "특정시설에서 발생하는 폐기물": "폐블록"
+            },
+            {
+              "01": "R-4-2, R-7-1, R-7-2,",
+              "특정시설에서 발생하는 폐기물": "해당"
+            },
+            {
+              "01": "51-26-00",
+              "특정시설에서 발생하는 폐기물": "폐기와"
+            },
+            {
+              "01": "R-4-2, R-7-1, R-7-2,",
+              "특정시설에서 발생하는 폐기물": "해당"
+            },
+            {
+              "01": "51-27",
+              "특정시설에서 발생하는 폐기물": "폐섬유류"
+            },
+            {
+              "01": "51-27-01",
+              "특정시설에서 발생하는 폐기물": "폐천연섬유"
+            },
+            {
+              "01": "R-8-1, R-8-2, R-10",
+              "특정시설에서 발생하는 폐기물": "해당"
+            },
+            {
+              "01": "51-27-02",
+              "특정시설에서 발생하는 폐기물": "폐합성섬유"
+            },
+            {
+              "01": "R-8-1, R-8-2, R-10",
+              "특정시설에서 발생하는 폐기물": "해당"
+            },
+            {
+              "01": "51-27-03",
+              "특정시설에서 발생하는 폐기물": "폐의류"
+            },
+            {
+              "01": "R-8-1, R-8-2, R-10",
+              "특정시설에서 발생하는 폐기물": "해당"
+            },
+            {
+              "01": "51-27-99",
+              "특정시설에서 발생하는 폐기물": "그 밖의 폐섬유"
+            },
+            {
+              "01": "R-8-1, R-8-2, R-10",
+              "특정시설에서 발생하는 폐기물": "해당"
+            },
+            {
+              "01": "51-28",
+              "특정시설에서 발생하는 폐기물": "폐지류"
+            },
+            {
+              "01": "51-28-01",
+              "특정시설에서 발생하는 폐기물": "폐종이팩(「자원의 절약과"
+            },
+            {
+              "01": "하는 것을 말한다)",
+              "특정시설에서 발생하는 폐기물": "R-8-2, R-10"
+            },
+            {
+              "01": "51-28-02",
+              "특정시설에서 발생하는 폐기물": "폐종이류"
+            },
+            {
+              "01": "R-8-2, R-10",
+              "특정시설에서 발생하는 폐기물": "해당"
+            },
+            {
+              "01": "51-28-03",
+              "특정시설에서 발생하는 폐기물": "폐벽지"
+            },
+            {
+              "01": "R-8-2, R-10",
+              "특정시설에서 발생하는 폐기물": "해당"
+            },
+            {
+              "01": "51-29",
+              "특정시설에서 발생하는 폐기물": "폐금속류"
+            },
+            {
+              "01": "51-29-01",
+              "특정시설에서 발생하는 폐기물": "고철"
+            },
+            {
+              "01": "51-29-02",
+              "특정시설에서 발생하는 폐기물": "비철금속"
+            },
+            {
+              "01": "51-29-03",
+              "특정시설에서 발생하는 폐기물": "폐금속캔류(「자원의 절약"
+            },
+            {
+              "01": "51-29-04",
+              "특정시설에서 발생하는 폐기물": "폐금속 용기류(폐금속캔류"
+            },
+            {
+              "01": "51-29-99",
+              "특정시설에서 발생하는 폐기물": "그 밖의 폐금속류"
+            },
+            {
+              "01": "51-30",
+              "특정시설에서 발생하는 폐기물": "폐유리류"
+            },
+            {
+              "01": "51-30-01",
+              "특정시설에서 발생하는 폐기물": "폐유리"
+            },
+            {
+              "01": "R-4-2, R-10",
+              "특정시설에서 발생하는 폐기물": "해당"
+            },
+            {
+              "01": "51-30-02",
+              "특정시설에서 발생하는 폐기물": "폐유리병류(「자원의 절약"
+            },
+            {
+              "01": "시행령」 제18조제1호에 해",
+              "특정시설에서 발생하는 폐기물": "R-4-2, R-10"
+            },
+            {
+              "01": "51-30-03",
+              "특정시설에서 발생하는 폐기물": "폐스마트유리"
+            },
+            {
+              "01": "R-4-2, R-10",
+              "특정시설에서 발생하는 폐기물": "해당"
+            },
+            {
+              "01": "51-30-04",
+              "특정시설에서 발생하는 폐기물": "폐유리섬유"
+            },
+            {
+              "01": "R-4-2, R-10",
+              "특정시설에서 발생하는 폐기물": "해당"
+            },
+            {
+              "01": "51-30-05",
+              "특정시설에서 발생하는 폐기물": "수은폐기물이 아닌 수은함"
+            },
+            {
+              "01": "R-4-1, R-4-2, R-10",
+              "특정시설에서 발생하는 폐기물": "해당"
+            },
+            {
+              "01": "51-30-99",
+              "특정시설에서 발생하는 폐기물": "그 밖의 폐유리"
+            },
+            {
+              "01": "R-4-2, R-10",
+              "특정시설에서 발생하는 폐기물": "해당"
+            },
+            {
+              "01": "51-31-00",
+              "특정시설에서 발생하는 폐기물": "폐타일"
+            },
+            {
+              "01": "R-4-2, R-10",
+              "특정시설에서 발생하는 폐기물": "해당"
+            },
+            {
+              "01": "51-32-00",
+              "특정시설에서 발생하는 폐기물": "폐보드류"
+            },
+            {
+              "01": "R-4-2, R-10",
+              "특정시설에서 발생하는 폐기물": "해당"
+            },
+            {
+              "01": "51-33-00",
+              "특정시설에서 발생하는 폐기물": "폐판넬"
+            },
+            {
+              "01": "R-4-2, R-10",
+              "특정시설에서 발생하는 폐기물": "해당"
+            },
+            {
+              "01": "51-35-00",
+              "특정시설에서 발생하는 폐기물": "폐전주(폐애자, 폐근가 및"
+            },
+            {
+              "01": "포함한다)",
+              "특정시설에서 발생하는 폐기물": "R-4-2, R-7-1, R-7-2,"
+            },
+            {
+              "01": "51-36",
+              "특정시설에서 발생하는 폐기물": "폐가스포집물"
+            },
+            {
+              "01": "51-36-01",
+              "특정시설에서 발생하는 폐기물": "이산화탄소스트림"
+            },
+            {
+              "01": "51-36-02",
+              "특정시설에서 발생하는 폐기물": "이산화탄소전환탄산화물"
+            },
+            {
+              "01": "51-37",
+              "특정시설에서 발생하는 폐기물": "폐냉매물질"
+            },
+            {
+              "01": "51-37-01",
+              "특정시설에서 발생하는 폐기물": "가전제품회수폐냉매물질"
+            },
+            {
+              "01": "51-37-02",
+              "특정시설에서 발생하는 폐기물": "자동차회수폐냉매물질"
+            },
+            {
+              "01": "51-37-03",
+              "특정시설에서 발생하는 폐기물": "공조기회수폐냉매물질"
+            },
+            {
+              "01": "51-37-99",
+              "특정시설에서 발생하는 폐기물": "그 밖의 폐냉매물질"
+            },
+            {
+              "01": "51-38",
+              "특정시설에서 발생하는 폐기물": "음식물류폐기물 및 처리물"
+            },
+            {
+              "01": "51-38-01",
+              "특정시설에서 발생하는 폐기물": "음식물류 폐기물"
+            },
+            {
+              "01": "R-5-1, R-5-2, R-5-4,",
+              "특정시설에서 발생하는 폐기물": "해당"
+            },
+            {
+              "01": "51-38-02",
+              "특정시설에서 발생하는 폐기물": "중간가공 음식물류 폐기물"
+            },
+            {
+              "01": "R-5-1, R-5-2, R-6-1,",
+              "특정시설에서 발생하는 폐기물": "해당"
+            },
+            {
+              "01": "51-38-03",
+              "특정시설에서 발생하는 폐기물": "음식물류 폐기물 처리 잔재"
+            },
+            {
+              "01": "다)",
+              "특정시설에서 발생하는 폐기물": "R-5-1, R-5-2, R-5-4,"
+            },
+            {
+              "01": "51-38-99",
+              "특정시설에서 발생하는 폐기물": "그 밖의 음식물류폐기물처"
+            },
+            {
+              "01": "R-8-2, R-9-2, R-10",
+              "특정시설에서 발생하는 폐기물": "해당"
+            },
+            {
+              "01": "51-39-00",
+              "특정시설에서 발생하는 폐기물": "폐사료"
+            },
+            {
+              "01": "R-5-1, R-9-4, R-10",
+              "특정시설에서 발생하는 폐기물": "해당"
+            },
+            {
+              "01": "51-40",
+              "특정시설에서 발생하는 폐기물": "폐소화기류"
+            },
+            {
+              "01": "51-40-01",
+              "특정시설에서 발생하는 폐기물": "폐분말 소화기"
+            },
+            {
+              "01": "R-5-1, R-10",
+              "특정시설에서 발생하는 폐기물": "해당"
+            },
+            {
+              "01": "51-40-99",
+              "특정시설에서 발생하는 폐기물": "그 밖의 폐소화기"
+            },
+            {
+              "01": "R-4-4, R-10",
+              "특정시설에서 발생하는 폐기물": "해당"
+            },
+            {
+              "01": "51-41",
+              "특정시설에서 발생하는 폐기물": "폐전지류"
+            },
+            {
+              "01": "51-41-01",
+              "특정시설에서 발생하는 폐기물": "폐일차전지"
+            },
+            {
+              "01": "51-41-04",
+              "특정시설에서 발생하는 폐기물": "폐태양전지ㆍ전자기기페이"
+            },
+            {
+              "01": "51-41-05",
+              "특정시설에서 발생하는 폐기물": "전기자동차 폐이차전지(침"
+            },
+            {
+              "01": "51-41-06",
+              "특정시설에서 발생하는 폐기물": "구동용 폐이차전지(침수ㆍ"
+            },
+            {
+              "01": "51-41-07",
+              "특정시설에서 발생하는 폐기물": "폐양극활물질(양극재 또는"
+            },
+            {
+              "01": "51-41-08",
+              "특정시설에서 발생하는 폐기물": "폐연료전지"
+            },
+            {
+              "01": "51-41-99",
+              "특정시설에서 발생하는 폐기물": "그 밖의 폐이차전지(침수ㆍ"
+            },
+            {
+              "01": "51-42-00",
+              "특정시설에서 발생하는 폐기물": "폐의약품류"
+            },
+            {
+              "01": "51-43-00",
+              "특정시설에서 발생하는 폐기물": "폐흑연가루"
+            },
+            {
+              "01": "R-4-2, R-10",
+              "특정시설에서 발생하는 폐기물": "해당"
+            },
+            {
+              "01": "51-44-00",
+              "특정시설에서 발생하는 폐기물": "나노폐기물(나노물질을 제"
+            },
+            {
+              "01": "된 분진을 말한다)",
+              "특정시설에서 발생하는 폐기물": "R-4-2, R-10"
+            },
+            {
+              "01": "51-45",
+              "특정시설에서 발생하는 폐기물": "폐차발생폐기물"
+            },
+            {
+              "01": "51-45-01",
+              "특정시설에서 발생하는 폐기물": "폐차파쇄잔재물"
+            },
+            {
+              "01": "R-8-2, R-10",
+              "특정시설에서 발생하는 폐기물": "해당"
+            },
+            {
+              "01": "51-45-02",
+              "특정시설에서 발생하는 폐기물": "폐차부품류"
+            },
+            {
+              "01": "51-45-99",
+              "특정시설에서 발생하는 폐기물": "그 밖의 폐차발생폐기물"
+            },
+            {
+              "01": "R-8-2, R-10",
+              "특정시설에서 발생하는 폐기물": "해당"
+            },
+            {
+              "01": "51-46-00",
+              "특정시설에서 발생하는 폐기물": "의료폐기물 멸균분쇄잔재물"
+            },
+            {
+              "01": "51-47",
+              "특정시설에서 발생하는 폐기물": "조명폐기물"
+            },
+            {
+              "01": "51-47-01",
+              "특정시설에서 발생하는 폐기물": "폐형광등"
+            },
+            {
+              "01": "51-47-02",
+              "특정시설에서 발생하는 폐기물": "폐발광다이오드조명"
+            },
+            {
+              "01": "51-99-00",
+              "특정시설에서 발생하는 폐기물": "그 밖의 폐기물"
+            }
+          ]
+        },
+        {
+          "depth": 0,
+          "type": "number",
+          "marker": "3.",
+          "text": "생활폐기물",
+          "table": [
+            {
+              "분류번호": "91-01-00",
+              "폐기물의 종류": "종량제봉투 배출 폐기물(합",
+              "재활용 유형": "R-3-3, R-9-1, R-10",
+              "사전": "해당 없음",
+              "분석·확인 필": "성수지 종량제 봉투에 배출",
+              "요 여부": "되는 폐기물을 말한다)"
+            },
+            {
+              "분류번호": "91-02-00",
+              "폐기물의 종류": "음식물류 폐기물(분리배출",
+              "재활용 유형": "R-5-1, R-5-2, R-5-4,",
+              "사전": "해당 없음",
+              "분석·확인 필": "된 음식물류 폐기물을 말한",
+              "요 여부": "R-6-1, R-9-3, R-9-4,"
+            },
+            {
+              "분류번호": "91-03-00",
+              "폐기물의 종류": "폐식용유(가정 및 음식점에",
+              "재활용 유형": "R-3-3, R-4-8, R-9-2,",
+              "사전": "해당 없음",
+              "분석·확인 필": "서 분리배출된 것을 말한",
+              "요 여부": "R-9-4, R-10"
+            },
+            {
+              "분류번호": "R-5-1, R-5-2, R-5-4",
+              "폐기물의 종류": "해당"
+            },
+            {
+              "분류번호": "91-04-00",
+              "폐기물의 종류": "폐지류(종이팩을 포함한다)",
+              "재활용 유형": "R-3-3, R-4-3, R-9-1,",
+              "사전": "해당 없음",
+              "분석·확인 필": "R-9-2, R-9-3, R-10"
+            },
+            {
+              "분류번호": "R-8-2, R-10",
+              "폐기물의 종류": "해당"
+            },
+            {
+              "분류번호": "91-05-00",
+              "폐기물의 종류": "고철 및 금속캔류",
+              "재활용 유형": "R-3-3, R-4-1, R-10",
+              "사전": "해당 없음"
+            },
+            {
+              "분류번호": "91-06-01",
+              "폐기물의 종류": "폐합성수지(폴리염화비닐은",
+              "재활용 유형": "R-3-3, R-3-4, R-4-4,",
+              "사전": "해당 없음",
+              "분석·확인 필": "제외한다)",
+              "요 여부": "R-9-1, R-9-2, R-9-3,"
+            },
+            {
+              "분류번호": "R-8-1, R-8-2, R-10",
+              "폐기물의 종류": "해당"
+            },
+            {
+              "분류번호": "91-06-02",
+              "폐기물의 종류": "폐합성수지(폴리염화비닐)",
+              "재활용 유형": "R-3-3, R-4-4, R-10",
+              "사전": "해당 없음"
+            },
+            {
+              "분류번호": "R-8-1, R-10",
+              "폐기물의 종류": "해당"
+            },
+            {
+              "분류번호": "91-06-03",
+              "폐기물의 종류": "폐합성고무류",
+              "재활용 유형": "R-3-3, R-3-4, R-4-4,",
+              "사전": "해당 없음",
+              "분석·확인 필": "R-9-1, R-9-2, R-9-3,",
+              "요 여부": "R-10"
+            },
+            {
+              "분류번호": "R-8-1, R-8-2, R-10",
+              "폐기물의 종류": "해당"
+            },
+            {
+              "분류번호": "91-07-01",
+              "폐기물의 종류": "유리병",
+              "재활용 유형": "R-2-1, R-3-3, R-4-2,",
+              "사전": "해당 없음",
+              "분석·확인 필": "R-10"
+            },
+            {
+              "분류번호": "91-07-02",
+              "폐기물의 종류": "폐유리",
+              "재활용 유형": "R-3-3, R-4-2, R-10",
+              "사전": "해당 없음"
+            },
+            {
+              "분류번호": "91-08-00",
+              "폐기물의 종류": "폐의류 및 원단류(섬유재질",
+              "재활용 유형": "R-1-1, R-2-1, R-2-2,",
+              "사전": "해당 없음",
+              "분석·확인 필": "의 커튼, 현수막 등을 포함",
+              "요 여부": "R-3-3, R-4-4, R-9-1,"
+            },
+            {
+              "분류번호": "R-8-1, R-8-2, R-10",
+              "폐기물의 종류": "해당"
+            },
+            {
+              "분류번호": "91-09-00",
+              "폐기물의 종류": "폐전기전자제품",
+              "재활용 유형": "R-1-1, R-2-1, R-3-1,",
+              "사전": "해당 없음",
+              "분석·확인 필": "R-3-2, R-3-3, R-3-4,",
+              "요 여부": "R-10"
+            },
+            {
+              "분류번호": "91-10",
+              "폐기물의 종류": "폐목재 및 폐가구류"
+            },
+            {
+              "분류번호": "91-10-01",
+              "폐기물의 종류": "원목상태의 깨끗한 목재",
+              "재활용 유형": "R-1-1, R-2-1, R-5-1,",
+              "사전": "해당 없음",
+              "분석·확인 필": "R-9-3, R-10"
+            },
+            {
+              "분류번호": "R-3-4, R-4-5, R-8-1,",
+              "폐기물의 종류": "해당",
+              "재활용 유형": "R-8-2, R-9-1, R-10"
+            },
+            {
+              "분류번호": "91-10-02",
+              "폐기물의 종류": "접착제, 페인트, 기름, 콘크",
+              "재활용 유형": "R-1-1, R-2-1,",
+              "사전": "해당 없음",
+              "분석·확인 필": "리트 등의 물질이 사용된",
+              "요 여부": "R-9-3, R-10"
+            },
+            {
+              "분류번호": "또는 방부제가 사용된 목재",
+              "폐기물의 종류": "R-3-4, R-4-2, R-4-5,",
+              "재활용 유형": "해당",
+              "사전": "는 제외한다)",
+              "분석·확인 필": "R-8-1, R-8-2, R-9-1,",
+              "요 여부": "R-10"
+            },
+            {
+              "분류번호": "91-10-03",
+              "폐기물의 종류": "할로겐족 유기화합물 또는",
+              "재활용 유형": "R-1-1, R-2-1,",
+              "사전": "해당 없음",
+              "분석·확인 필": "방부제가 사용된 목재",
+              "요 여부": "R-9-3, R-10"
+            },
+            {
+              "분류번호": "R-8-1, R-8-2,",
+              "폐기물의 종류": "해당",
+              "재활용 유형": "R-9-1, R-10"
+            },
+            {
+              "분류번호": "91-10-04",
+              "폐기물의 종류": "폐가구류",
+              "재활용 유형": "R-1-1, R-2-1, R-5-1,",
+              "사전": "해당 없음",
+              "분석·확인 필": "R-9-3, R-10"
+            },
+            {
+              "분류번호": "R-3-4, R-4-2, R-4-5,",
+              "폐기물의 종류": "해당",
+              "재활용 유형": "R-8-1, R-8-2, R-9-1,",
+              "사전": "R-10"
+            },
+            {
+              "분류번호": "91-11-00",
+              "폐기물의 종류": "건설폐재류(콘크리트, 벽돌",
+              "재활용 유형": "R-4-2, R-10",
+              "사전": "해당 없음",
+              "분석·확인 필": "등을 말한다)"
+            },
+            {
+              "분류번호": "R-7-1, R-7-2,",
+              "폐기물의 종류": "해당",
+              "재활용 유형": "R-7-3, R-10"
+            },
+            {
+              "분류번호": "91-12-00",
+              "폐기물의 종류": "폐타일 및 도자기류",
+              "재활용 유형": "R-4-2, R-10",
+              "사전": "해당 없음"
+            },
+            {
+              "분류번호": "R-7-1, R-10",
+              "폐기물의 종류": "해당"
+            },
+            {
+              "분류번호": "91-13",
+              "폐기물의 종류": "조명폐기물"
+            },
+            {
+              "분류번호": "91-13-01",
+              "폐기물의 종류": "폐형광등",
+              "재활용 유형": "R-3-1, R-3-2,",
+              "사전": "해당 없음",
+              "분석·확인 필": "R-3-3, R-10"
+            },
+            {
+              "분류번호": "91-13-02",
+              "폐기물의 종류": "폐발광다이오드조명",
+              "재활용 유형": "R-3-1, R-3-2,",
+              "사전": "해당 없음",
+              "분석·확인 필": "R-3-3, R-10"
+            },
+            {
+              "분류번호": "91-14-00",
+              "폐기물의 종류": "폐전지류",
+              "재활용 유형": "R-3-1, R-3-3, R-10",
+              "사전": "해당 없음"
+            },
+            {
+              "분류번호": "91-15-00",
+              "폐기물의 종류": "연탄재",
+              "재활용 유형": "R-4-2, R-7-1, R-7-2,",
+              "사전": "해당",
+              "분석·확인 필": "R-7-3, R-7-6, R-10"
+            },
+            {
+              "분류번호": "91-16-00",
+              "폐기물의 종류": "동물성 잔재물(동물의 사",
+              "재활용 유형": "R-3-3, R-4-8, R-5-1,",
+              "사전": "해당 없음",
+              "분석·확인 필": "체, 수산가공물, 유지 등을",
+              "요 여부": "R-5-2, R-5-4, R-9-4,"
+            },
+            {
+              "분류번호": "91-17",
+              "폐기물의 종류": "식물성 잔재물"
+            },
+            {
+              "분류번호": "91-17-01",
+              "폐기물의 종류": "커피찌꺼기",
+              "재활용 유형": "R-4-5, R-4-8, R-5-1,",
+              "사전": "해당 없음",
+              "분석·확인 필": "R-5-2, R-5-3, R-9-3,",
+              "요 여부": "R-9-4, R-10"
+            },
+            {
+              "분류번호": "R-2-2, R-4-2, R-4-7,",
+              "폐기물의 종류": "해당",
+              "재활용 유형": "R-5-4, R-6-1, R-8-2,",
+              "사전": "R-9-1, R-9-5, R-10"
+            },
+            {
+              "분류번호": "91-17-02",
+              "폐기물의 종류": "버섯폐배지",
+              "재활용 유형": "R-4-8, R-5-1, R-5-2,",
+              "사전": "해당 없음",
+              "분석·확인 필": "R-9-3, R-9-4, R-10"
+            },
+            {
+              "분류번호": "R-5-4, R-6-1, R-8-2,",
+              "폐기물의 종류": "해당",
+              "재활용 유형": "R-9-1, R-9-5, R-10"
+            },
+            {
+              "분류번호": "91-17-03",
+              "폐기물의 종류": "그 밖의 식물성 잔재물",
+              "재활용 유형": "R-4-8, R-5-1, R-5-2,",
+              "사전": "해당 없음",
+              "분석·확인 필": "R-5-4, R-9-4, R-10"
+            },
+            {
+              "분류번호": "R-4-5, R-8-2, R-9-1,",
+              "폐기물의 종류": "해당",
+              "재활용 유형": "R-10"
+            },
+            {
+              "분류번호": "91-18-01",
+              "폐기물의 종류": "영농폐기물(농약용기류)",
+              "재활용 유형": "R-3-3, R-10",
+              "사전": "해당 없음"
+            },
+            {
+              "분류번호": "91-18-02",
+              "폐기물의 종류": "영농폐기물(농촌폐비닐)",
+              "재활용 유형": "R-3-3, R-3-4, R-4-4,",
+              "사전": "해당 없음",
+              "분석·확인 필": "R-9-1, R-9-2, R-9-3,",
+              "요 여부": "R-10"
+            },
+            {
+              "분류번호": "R-8-1, R-8-2, R-10",
+              "폐기물의 종류": "해당"
+            },
+            {
+              "분류번호": "91-19-00",
+              "폐기물의 종류": "폐소화기류",
+              "재활용 유형": "R-1-1, R-3, R-4-7,",
+              "사전": "해당 없음",
+              "분석·확인 필": "R-10"
+            },
+            {
+              "분류번호": "R-4-1, R-4-4, R-5-1,",
+              "폐기물의 종류": "해당",
+              "재활용 유형": "R-10"
+            },
+            {
+              "분류번호": "91-21",
+              "폐기물의 종류": "1회용 컵"
+            },
+            {
+              "분류번호": "91-21-01",
+              "폐기물의 종류": "종이 컵",
+              "재활용 유형": "R-3-3, R-4-3, R-10",
+              "사전": "해당 없음"
+            },
+            {
+              "분류번호": "91-21-02",
+              "폐기물의 종류": "합성수지 컵",
+              "재활용 유형": "R-3-3, R-4-4, R-10",
+              "사전": "해당 없음"
+            },
+            {
+              "분류번호": "91-21-03",
+              "폐기물의 종류": "금속 컵",
+              "재활용 유형": "R-3-3, R-4-1, R-10",
+              "사전": "해당 없음"
+            }
+          ],
+          "note": "비고"
+        },
+        {
+          "depth": 0,
+          "type": "number",
+          "marker": "1.",
+          "text": "폐기물을 재활용하려는 자는 이 표에 따른 폐기물의 종류별 재활용 가능 유형에해당하는 유형으로 폐기물을 재활용해야 한다. 다만, 법 제13조의3제3항에 따라 재활용환경성평가에 따른 재활용의 승인을 받아 재활용하는 경우는 제외한다."
+        },
+        {
+          "depth": 0,
+          "type": "number",
+          "marker": "2.",
+          "text": "별표 4의 폐기물의 종류별 세부분류 중 이 표에서 재활용 가능 유형을 정하지 않은 폐기물은 법 제13조의3제3항에 따라 재활용환경성평가에 따른 재활용의 승인을받아 재활용할 수 있다."
+        },
+        {
+          "depth": 0,
+          "type": "number",
+          "marker": "3.",
+          "text": "사전 분석·확인 필요 여부가 \"해당\"인 경우에는 폐기물을 재활용하기 전에 폐기물분석전문기관의 분석 결과 등을 통하여 해당 폐기물이 별표 5의3에 따른 폐기물의구체적인 재활용 기준에 따라 재활용이 가능한 폐기물인지의 여부 등을 확인하여야 한다."
+        },
+        {
+          "depth": 0,
+          "type": "number",
+          "marker": "4.",
+          "text": "재활용 유형 중 R-10은 동일한 사전 분석·확인 필요 대상(\"해당\" 또는 \"해당 없음\")으로 분류된 각각의 재활용 유형으로 재활용하기 위한 중간가공 폐기물을 만드는 유형을 말한다."
+        }
+      ]
+    },
+    {
+      "별표번호": "0007",
+      "별표가지번호": "00",
+      "별표구분": "별표",
+      "별표제목": "폐기물처리업의 시설ㆍ장비ㆍ기술능력의 기준(제28조제6항 관련)",
+      "별표제목문자열": "폐기물처리업의 시설ㆍ장비ㆍ기술능력의 기준(제28조제6항 관련)",
+      "별표시행일자": "20260326",
+      "별표서식파일링크": "/LSW/flDownload.do?flSeq=162813127",
+      "별표HWP파일명": "law0085672026032600033KC_000700E_20260326.hwp",
+      "별표이미지파일명": [
+        "000700110201_P1_20260326.gif",
+        "000700110201_P2_20260326.gif",
+        "000700110201_P3_20260326.gif",
+        "000700110201_P4_20260326.gif",
+        "000700110201_P5_20260326.gif",
+        "000700110201_P6_20260326.gif",
+        "000700110201_P7_20260326.gif",
+        "000700110201_P8_20260326.gif",
+        "000700110201_P9_20260326.gif",
+        "000700110201_P10_20260326.gif",
+        "000700110201_P11_20260326.gif",
+        "000700110201_P12_20260326.gif",
+        "000700110201_P13_20260326.gif"
+      ],
+      "별표서식PDF파일링크": "/LSW/flDownload.do?flSeq=162813129",
+      "별표PDF파일명": "law0085672026032600033KC_000700E_20260326.pdf",
+      "별표내용": [
+        {
+          "depth": 0,
+          "type": "title",
+          "marker": "■",
+          "text": "폐기물관리법 시행규칙 [별표 7] <개정 2025. 12. 30.>폐기물처리업의 시설·장비·기술능력의 기준(제28조제6항 관련)"
+        },
+        {
+          "depth": 0,
+          "type": "number",
+          "marker": "1.",
+          "text": "폐기물수집·운반업의 기준"
+        },
+        {
+          "depth": 1,
+          "type": "korean-dot",
+          "marker": "가.",
+          "text": "생활폐기물 또는 사업장비(非)배출시설계 폐기물을 수집·운반하는 경우"
+        },
+        {
+          "depth": 2,
+          "type": "number-paren",
+          "marker": "1)",
+          "text": "장비"
+        },
+        {
+          "depth": 3,
+          "type": "korean-paren",
+          "marker": "가)",
+          "text": "밀폐형 압축·압착차량 1대(특별시·광역시는 2대) 이상"
+        },
+        {
+          "depth": 3,
+          "type": "korean-paren",
+          "marker": "나)",
+          "text": "밀폐형 차량 또는 밀폐형 덮개 설치차량 1대 이상(적재능력 합계"
+        },
+        {
+          "depth": 0,
+          "type": "number",
+          "marker": "4.",
+          "text": "5톤 이상). 다만, 생활폐기물을 수집ㆍ운반하는 경우에는 2018년 6월 30일까지 적재능력을 적용하지 아니한다."
+        },
+        {
+          "depth": 3,
+          "type": "korean-paren",
+          "marker": "다)",
+          "text": "섭씨 4도 이하의 냉장 적재함이 설치된 차량 1대 이상(의료기관 일회용기저귀를 수집ㆍ운반하는 경우에 한정한다)"
+        },
+        {
+          "depth": 2,
+          "type": "number-paren",
+          "marker": "2)",
+          "text": "연락장소 또는 사무실"
+        },
+        {
+          "depth": 1,
+          "type": "korean-dot",
+          "marker": "나.",
+          "text": "사업장배출시설계폐기물을 수집·운반하는 경우"
+        },
+        {
+          "depth": 2,
+          "type": "number-paren",
+          "marker": "1)",
+          "text": "장비"
+        },
+        {
+          "depth": 3,
+          "type": "korean-paren",
+          "marker": "가)",
+          "text": "액체상태 폐기물을 수집·운반하는 경우: 탱크로리 1대 이상, 밀폐형차량 1대 이상"
+        },
+        {
+          "depth": 3,
+          "type": "korean-paren",
+          "marker": "나)",
+          "text": "고체상태 폐기물을 수집·운반하는 경우: 밀폐형 차량 또는 밀폐형덮개 설치차량 2대 이상"
+        },
+        {
+          "depth": 2,
+          "type": "number-paren",
+          "marker": "2)",
+          "text": "연락장소 또는 사무실"
+        },
+        {
+          "depth": 1,
+          "type": "korean-dot",
+          "marker": "다.",
+          "text": "지정폐기물(의료폐기물은 제외한다)을 수집·운반하는 경우"
+        },
+        {
+          "depth": 2,
+          "type": "number-paren",
+          "marker": "1)",
+          "text": "장비"
+        },
+        {
+          "depth": 3,
+          "type": "korean-paren",
+          "marker": "가)",
+          "text": "액체상태 폐기물을 수집·운반하는 경우: 탱크로리 1대 이상, 밀폐형차량 1대 이상(적재능력 합계 9톤 이상)"
+        },
+        {
+          "depth": 3,
+          "type": "korean-paren",
+          "marker": "나)",
+          "text": "고체상태 폐기물을 수집·운반하는 경우: 밀폐형 차량 2대 이상, 밀폐형 덮개 설치차량 1대 이상(적재능력 합계 13.5톤 이상)"
+        },
+        {
+          "depth": 2,
+          "type": "number-paren",
+          "marker": "2)",
+          "text": "시설"
+        },
+        {
+          "depth": 3,
+          "type": "korean-paren",
+          "marker": "가)",
+          "text": "주차장: 모든 차량을 주차할 수 있는 규모"
+        },
+        {
+          "depth": 3,
+          "type": "korean-paren",
+          "marker": "나)",
+          "text": "세차시설: 20제곱미터 이상"
+        },
+        {
+          "depth": 2,
+          "type": "number-paren",
+          "marker": "3)",
+          "text": "기술능력: 폐기물처리산업기사·대기환경산업기사·수질환경산업기사 또는 공업화학산업기사 중 1명 이상"
+        },
+        {
+          "depth": 2,
+          "type": "number-paren",
+          "marker": "4)",
+          "text": "연락장소 또는 사무실"
+        },
+        {
+          "depth": 1,
+          "type": "korean-dot",
+          "marker": "라.",
+          "text": "지정폐기물 중 의료폐기물을 수집·운반하는 경우"
+        },
+        {
+          "depth": 2,
+          "type": "number-paren",
+          "marker": "1)",
+          "text": "장비"
+        },
+        {
+          "depth": 3,
+          "type": "korean-paren",
+          "marker": "가)",
+          "text": "적재능력 0.45톤 이상의 냉장차량(섭씨 4도 이하인 것을 말한다. 이하 같다) 3대 이상"
+        },
+        {
+          "depth": 3,
+          "type": "korean-paren",
+          "marker": "나)",
+          "text": "약물소독장비 1식 이상"
+        },
+        {
+          "depth": 2,
+          "type": "number-paren",
+          "marker": "2)",
+          "text": "주차장: 모든 차량을 주차할 수 있는 규모"
+        },
+        {
+          "depth": 2,
+          "type": "number-paren",
+          "marker": "3)",
+          "text": "연락장소 또는 사무실"
+        },
+        {
+          "depth": 0,
+          "type": "number",
+          "marker": "2.",
+          "text": "폐기물 중간처분업의 기준"
+        },
+        {
+          "depth": 1,
+          "type": "korean-dot",
+          "marker": "가.",
+          "text": "지정폐기물 외의 폐기물(건설폐기물은 제외한다)을 중간처분하는 경우"
+        },
+        {
+          "depth": 2,
+          "type": "number-paren",
+          "marker": "1)",
+          "text": "소각전문의 경우"
+        },
+        {
+          "depth": 3,
+          "type": "korean-paren",
+          "marker": "가)",
+          "text": "실험실"
+        },
+        {
+          "depth": 3,
+          "type": "korean-paren",
+          "marker": "나)",
+          "text": "시설 및 장비"
+        },
+        {
+          "depth": 4,
+          "type": "wrapped-number",
+          "marker": "(1)",
+          "text": "소각시설: 시간당 처분능력 2톤 이상"
+        },
+        {
+          "depth": 4,
+          "type": "wrapped-number",
+          "marker": "(2)",
+          "text": "보관시설: 1일 처분능력의 10일분 이상 30일분 이하의 폐기물을보관할 수 있는 규모의 시설"
+        },
+        {
+          "depth": 4,
+          "type": "wrapped-number",
+          "marker": "(3)",
+          "text": "계량시설 1식 이상"
+        },
+        {
+          "depth": 4,
+          "type": "wrapped-number",
+          "marker": "(4)",
+          "text": "배출가스의 오염물질 중 아황산가스·염화수소·질소산화물·일산화탄소 및 분진을 측정·분석할 수 있는 실험기기"
+        },
+        {
+          "depth": 4,
+          "type": "wrapped-number",
+          "marker": "(5)",
+          "text": "수집·운반차량(밀폐형 차량 또는 밀폐형 덮개 설치차량을 말한다.이하 이 표에서 같다) 1대 이상(처분대상 폐기물을 스스로 수집·운반하는 경우만 해당한다)"
+        },
+        {
+          "depth": 3,
+          "type": "korean-paren",
+          "marker": "다)",
+          "text": "기술능력: 폐기물처리산업기사 또는 대기환경산업기사 중 1명 이상"
+        },
+        {
+          "depth": 2,
+          "type": "number-paren",
+          "marker": "2)",
+          "text": "기계적 처분전문의 경우"
+        },
+        {
+          "depth": 3,
+          "type": "korean-paren",
+          "marker": "가)",
+          "text": "시설 및 장비"
+        },
+        {
+          "depth": 4,
+          "type": "wrapped-number",
+          "marker": "(1)",
+          "text": "처분시설: 시간당 처분능력 200킬로그램 이상"
+        },
+        {
+          "depth": 4,
+          "type": "wrapped-number",
+          "marker": "(2)",
+          "text": "보관시설: 1일 처분능력의 10일분 이상 30일분 이하의 폐기물을보관할 수 있는 규모의 시설"
+        },
+        {
+          "depth": 4,
+          "type": "wrapped-number",
+          "marker": "(3)",
+          "text": "계량시설 1식 이상"
+        },
+        {
+          "depth": 4,
+          "type": "wrapped-number",
+          "marker": "(4)",
+          "text": "수집·운반차량 1대 이상(처분대상 폐기물을 스스로 수집·운반하는 경우만 해당한다)"
+        },
+        {
+          "depth": 3,
+          "type": "korean-paren",
+          "marker": "나)",
+          "text": "기술능력: 폐기물처리산업기사·대기환경산업기사·수질환경산업기사·소음진동산업기사 또는 환경기능사 중 1명 이상"
+        },
+        {
+          "depth": 2,
+          "type": "number-paren",
+          "marker": "3)",
+          "text": "화학적 처분 또는 생물학적 처분전문의 경우"
+        },
+        {
+          "depth": 3,
+          "type": "korean-paren",
+          "marker": "가)",
+          "text": "시설 및 장비"
+        },
+        {
+          "depth": 4,
+          "type": "wrapped-number",
+          "marker": "(1)",
+          "text": "처분시설: 1일 처분능력 5톤 이상"
+        },
+        {
+          "depth": 4,
+          "type": "wrapped-number",
+          "marker": "(2)",
+          "text": "보관시설: 1일 처분능력의 10일분 이상 30일분 이하의 폐기물을보관할 수 있는 규모의 시설(부패와 악취발생의 방지를 위하여 수집·운반 즉시 처분하는 생물학적 처분시설을 갖춘 경우 보관시설을설치하지 아니할 수 있다)"
+        },
+        {
+          "depth": 4,
+          "type": "wrapped-number",
+          "marker": "(3)",
+          "text": "계량시설 1식 이상"
+        },
+        {
+          "depth": 4,
+          "type": "wrapped-number",
+          "marker": "(4)",
+          "text": "수집·운반차량 1대 이상(처분대상 폐기물을 스스로 수집·운반하는 경우만 해당한다)"
+        },
+        {
+          "depth": 3,
+          "type": "korean-paren",
+          "marker": "나)",
+          "text": "기술능력: 폐기물처리산업기사·대기환경산업기사·수질환경산업기사또는 공업화학산업기사 중 1명 이상"
+        },
+        {
+          "depth": 1,
+          "type": "korean-dot",
+          "marker": "나.",
+          "text": "지정폐기물(의료폐기물은 제외한다)을 중간처분하는 경우"
+        },
+        {
+          "depth": 2,
+          "type": "number-paren",
+          "marker": "1)",
+          "text": "시설 및 장비"
+        },
+        {
+          "depth": 3,
+          "type": "korean-paren",
+          "marker": "가)",
+          "text": "공통시설 및 장비"
+        },
+        {
+          "depth": 4,
+          "type": "wrapped-number",
+          "marker": "(1)",
+          "text": "실험실"
+        },
+        {
+          "depth": 4,
+          "type": "wrapped-number",
+          "marker": "(2)",
+          "text": "실험기기: 수소이온농도·생물화학적산소요구량·화학적산소요구량·부유물질량 및 폐기물공정시험기준(방법)의 용출시험에 따른 별표 1에 규정된 유해물질을 측정할 수 있는 실험기기"
+        },
+        {
+          "depth": 4,
+          "type": "wrapped-number",
+          "marker": "(3)",
+          "text": "보관시설: 1일 처분능력의 10일분 이상 30일분 이하의 폐기물을보관할 수 있는 보관창고"
+        },
+        {
+          "depth": 4,
+          "type": "wrapped-number",
+          "marker": "(4)",
+          "text": "주차장: 모든 차량을 주차할 수 있는 규모(처분대상 폐기물을 스스로 수집·운반하는 경우만 해당한다)"
+        },
+        {
+          "depth": 4,
+          "type": "wrapped-number",
+          "marker": "(5)",
+          "text": "세차시설: 20제곱미터 이상"
+        },
+        {
+          "depth": 4,
+          "type": "wrapped-number",
+          "marker": "(6)",
+          "text": "계량시설 1식 이상"
+        },
+        {
+          "depth": 4,
+          "type": "wrapped-number",
+          "marker": "(7)",
+          "text": "수집·운반차량 1대 이상(처분대상 폐기물을 스스로 수집·운반하는 경우만 해당한다)"
+        },
+        {
+          "depth": 3,
+          "type": "korean-paren",
+          "marker": "나)",
+          "text": "개별시설"
+        },
+        {
+          "depth": 4,
+          "type": "wrapped-number",
+          "marker": "(1)",
+          "text": "고온소각·고온용융 처분대상폐기물: 시간당 처분능력 200킬로그램 이상의 고온소각시설 또는 고온용융시설"
+        },
+        {
+          "depth": 4,
+          "type": "wrapped-number",
+          "marker": "(2)",
+          "text": "일반소각대상폐기물: 시간당 처분능력 2톤 이상의 소각시설"
+        },
+        {
+          "depth": 4,
+          "type": "wrapped-number",
+          "marker": "(3)",
+          "text": "기계적·화학적 또는 생물학적 처분대상폐기물: 1일 처분능력 5톤이상의 시설"
+        },
+        {
+          "depth": 2,
+          "type": "number-paren",
+          "marker": "2)",
+          "text": "기술능력: 폐기물처리기사·대기환경기사·수질환경기사 또는 화공기사중 1명 이상"
+        },
+        {
+          "depth": 1,
+          "type": "korean-dot",
+          "marker": "다.",
+          "text": "지정폐기물 중 의료폐기물을 중간처분하는 경우"
+        },
+        {
+          "depth": 2,
+          "type": "number-paren",
+          "marker": "1)",
+          "text": "시설 및 장비"
+        },
+        {
+          "depth": 3,
+          "type": "korean-paren",
+          "marker": "가)",
+          "text": "공통시설 및 장비"
+        },
+        {
+          "depth": 4,
+          "type": "wrapped-number",
+          "marker": "(1)",
+          "text": "보관창고 및 냉장시설: 1일 처분능력의 3일분 이상 5일분 이하의폐기물을 보관할 수 있는 보관창고 및 냉장시설"
+        },
+        {
+          "depth": 4,
+          "type": "wrapped-number",
+          "marker": "(2)",
+          "text": "주차장: 모든 차량을 주차할 수 있는 규모(처분대상 폐기물을 스스로 수집·운반하는 경우만 해당한다)"
+        },
+        {
+          "depth": 4,
+          "type": "wrapped-number",
+          "marker": "(3)",
+          "text": "소독시설"
+        },
+        {
+          "depth": 4,
+          "type": "wrapped-number",
+          "marker": "(4)",
+          "text": "수집·운반차량: 적재능력 0.45톤 이상의 냉장차량 1대 이상(처분대상 폐기물을 스스로 수집·운반하는 경우만 해당한다)"
+        },
+        {
+          "depth": 3,
+          "type": "korean-paren",
+          "marker": "나)",
+          "text": "개별시설: 시간당 처분능력 2톤 이상의 소각시설"
+        },
+        {
+          "depth": 2,
+          "type": "number-paren",
+          "marker": "2)",
+          "text": "기술능력: 폐기물처리산업기사·임상병리사 또는 위생사 중 1명 이상"
+        },
+        {
+          "depth": 0,
+          "type": "number",
+          "marker": "3.",
+          "text": "폐기물 최종처분업의 기준"
+        },
+        {
+          "depth": 1,
+          "type": "korean-dot",
+          "marker": "가.",
+          "text": "지정폐기물 외의 폐기물을 최종처분하는 경우"
+        },
+        {
+          "depth": 2,
+          "type": "number-paren",
+          "marker": "1)",
+          "text": "실험실"
+        },
+        {
+          "depth": 2,
+          "type": "number-paren",
+          "marker": "2)",
+          "text": "시설 및 장비"
+        },
+        {
+          "depth": 3,
+          "type": "korean-paren",
+          "marker": "가)",
+          "text": "면적 3천3백제곱미터 이상 또는 매립가능용적 1만세제곱미터 이상의매립시설"
+        },
+        {
+          "depth": 3,
+          "type": "korean-paren",
+          "marker": "나)",
+          "text": "별표 11에 따른 침출수배출허용기준의 항목을 측정·분석할 수 있는실험기기. 다만, 영 제7조제1항제9호 단서에 따라 시설의 전부를 갖추지 아니한 매립시설에서 제13조제1항 각 호의 폐기물만 처분하는 경우는 제외한다."
+        },
+        {
+          "depth": 3,
+          "type": "korean-paren",
+          "marker": "다)",
+          "text": "바켓용량 0.6세제곱미터 이상으로서 다짐작업이 가능한 굴착기 1대이상"
+        },
+        {
+          "depth": 3,
+          "type": "korean-paren",
+          "marker": "라)",
+          "text": "세차시설: 30제곱미터 이상"
+        },
+        {
+          "depth": 3,
+          "type": "korean-paren",
+          "marker": "마)",
+          "text": "수집·운반차량의 계량시설 1식 이상"
+        },
+        {
+          "depth": 3,
+          "type": "korean-paren",
+          "marker": "바)",
+          "text": "수집·운반차량 1대 이상(처분대상 폐기물을 스스로 수집·운반하는 경우만 해당한다)"
+        },
+        {
+          "depth": 2,
+          "type": "number-paren",
+          "marker": "3)",
+          "text": "기술능력"
+        },
+        {
+          "depth": 3,
+          "type": "korean-paren",
+          "marker": "가)",
+          "text": "폐기물처리산업기사 또는 수질환경산업기사 중 1명 이상"
+        },
+        {
+          "depth": 3,
+          "type": "korean-paren",
+          "marker": "나)",
+          "text": "토목산업기사 또는 폐기물처리산업기사 중 1명 이상"
+        },
+        {
+          "depth": 1,
+          "type": "korean-dot",
+          "marker": "나.",
+          "text": "지정폐기물을 최종처분하는 경우"
+        },
+        {
+          "depth": 2,
+          "type": "number-paren",
+          "marker": "1)",
+          "text": "실험실"
+        },
+        {
+          "depth": 2,
+          "type": "number-paren",
+          "marker": "2)",
+          "text": "실험기기·기구: 별표 11에 따른 침출수 배출허용기준의 항목을 측정·분석할 수 있는 실험기기"
+        },
+        {
+          "depth": 2,
+          "type": "number-paren",
+          "marker": "3)",
+          "text": "시설 및 장비"
+        },
+        {
+          "depth": 3,
+          "type": "korean-paren",
+          "marker": "가)",
+          "text": "면적 1만제곱미터 이상 또는 매립가능용적 3만세제곱미터 이상의 매립시설"
+        },
+        {
+          "depth": 3,
+          "type": "korean-paren",
+          "marker": "나)",
+          "text": "주차장: 모든 차량을 주차할 수 있는 규모(처분대상 폐기물을 스스로수집·운반하는 경우만 해당한다)"
+        },
+        {
+          "depth": 3,
+          "type": "korean-paren",
+          "marker": "다)",
+          "text": "세차시설: 30제곱미터 이상"
+        },
+        {
+          "depth": 3,
+          "type": "korean-paren",
+          "marker": "라)",
+          "text": "수집·운반차량의 계량시설 1식 이상"
+        },
+        {
+          "depth": 3,
+          "type": "korean-paren",
+          "marker": "마)",
+          "text": "수집·운반차량 1대 이상(처분대상 폐기물을 스스로 수집·운반하는 경우만 해당한다)"
+        },
+        {
+          "depth": 3,
+          "type": "korean-paren",
+          "marker": "바)",
+          "text": "바켓용량 0.6세제곱미터 이상으로서 다짐작업이 가능한 굴착기 1대이상"
+        },
+        {
+          "depth": 3,
+          "type": "korean-paren",
+          "marker": "사)",
+          "text": "레벨·표척 등 매립고 측정기기 1식 이상"
+        },
+        {
+          "depth": 2,
+          "type": "number-paren",
+          "marker": "4)",
+          "text": "기술능력"
+        },
+        {
+          "depth": 3,
+          "type": "korean-paren",
+          "marker": "가)",
+          "text": "폐기물처리산업기사·수질환경산업기사 또는 화공기사 중 1명 이상"
+        },
+        {
+          "depth": 3,
+          "type": "korean-paren",
+          "marker": "나)",
+          "text": "폐기물처리기사 1명 이상"
+        },
+        {
+          "depth": 0,
+          "type": "number",
+          "marker": "4.",
+          "text": "폐기물 종합처분업의 기준"
+        },
+        {
+          "depth": 1,
+          "type": "korean-dot",
+          "marker": "가.",
+          "text": "실험실"
+        },
+        {
+          "depth": 1,
+          "type": "korean-dot",
+          "marker": "나.",
+          "text": "실험기기·기구: 폐기물을 중간처분하는 경우와 최종처분하는 경우 갖추어야 할 실험기기 및 기구"
+        },
+        {
+          "depth": 1,
+          "type": "korean-dot",
+          "marker": "다.",
+          "text": "장비"
+        },
+        {
+          "depth": 2,
+          "type": "number-paren",
+          "marker": "1)",
+          "text": "바켓용량 0.6세제곱미터 이상으로서 다짐작업이 가능한 굴착기 1대 이상"
+        },
+        {
+          "depth": 2,
+          "type": "number-paren",
+          "marker": "2)",
+          "text": "레벨·표척 등 매립고 측정기기 1식 이상"
+        },
+        {
+          "depth": 2,
+          "type": "number-paren",
+          "marker": "3)",
+          "text": "수집·운반차량 1대 이상(처분대상 폐기물을 스스로 수집·운반하는 경우만 해당한다)"
+        },
+        {
+          "depth": 1,
+          "type": "korean-dot",
+          "marker": "라.",
+          "text": "시설"
+        },
+        {
+          "depth": 2,
+          "type": "number-paren",
+          "marker": "1)",
+          "text": "보관시설: 1일 처분능력 10일분 이상 30일분 이하의 폐기물을 보관할 수 있는 규모의 시설"
+        },
+        {
+          "depth": 2,
+          "type": "number-paren",
+          "marker": "2)",
+          "text": "주차장: 모든 차량을 주차할 수 있는 규모(처분대상 폐기물을 스스로 수집·운반하는 경우만 해당한다)"
+        },
+        {
+          "depth": 2,
+          "type": "number-paren",
+          "marker": "3)",
+          "text": "세차시설: 30제곱미터 이상"
+        },
+        {
+          "depth": 2,
+          "type": "number-paren",
+          "marker": "4)",
+          "text": "수집·운반차량의 계량시설 1식 이상"
+        },
+        {
+          "depth": 2,
+          "type": "number-paren",
+          "marker": "5)",
+          "text": "1일 처분능력 500톤 이상인 파쇄시설(건설폐기물 및 불연성 폐기물을처리하는 경우만 해당한다) 또는 압축시설"
+        },
+        {
+          "depth": 2,
+          "type": "number-paren",
+          "marker": "6)",
+          "text": "시간당 처분능력 2톤 이상인 소각시설"
+        },
+        {
+          "depth": 2,
+          "type": "number-paren",
+          "marker": "7)",
+          "text": "1일 처분능력 5톤 이상인 고형화·고화 또는 안정화 시설"
+        },
+        {
+          "depth": 2,
+          "type": "number-paren",
+          "marker": "8)",
+          "text": "1일 처분능력 5톤 이상인 반응·증발·농축·응집·침전시설 등의 화학적 처분시설"
+        },
+        {
+          "depth": 2,
+          "type": "number-paren",
+          "marker": "9)",
+          "text": "면적 1만제곱미터 이상 또는 매립가능용적 3만세제곱미터 이상의 매립시설"
+        },
+        {
+          "depth": 1,
+          "type": "korean-dot",
+          "marker": "마.",
+          "text": "기술능력"
+        },
+        {
+          "depth": 2,
+          "type": "number-paren",
+          "marker": "1)",
+          "text": "폐기물처리기사·대기환경기사·수질환경기사 또는 토목기사 중 1명 이상"
+        },
+        {
+          "depth": 2,
+          "type": "number-paren",
+          "marker": "2)",
+          "text": "폐기물처리산업기사·대기환경산업기사·수질환경산업기사 또는 공업화학산업기사 중 2명 이상"
+        },
+        {
+          "depth": 0,
+          "type": "number",
+          "marker": "5.",
+          "text": "폐기물 중간재활용업, 최종재활용업 및 종합재활용업의 기준"
+        },
+        {
+          "depth": 1,
+          "type": "korean-dot",
+          "marker": "가.",
+          "text": "지정폐기물 외의 폐기물(건설폐기물은 제외한다)을 재활용하는 경우"
+        },
+        {
+          "depth": 2,
+          "type": "number-paren",
+          "marker": "1)",
+          "text": "공통기준"
+        },
+        {
+          "depth": 3,
+          "type": "korean-paren",
+          "marker": "가)",
+          "text": "시설 및 장비"
+        },
+        {
+          "depth": 4,
+          "type": "wrapped-number",
+          "marker": "(1)",
+          "text": "보관시설: 1일 재활용능력을 기준으로 다음의 구분에 따른 양의 폐기물을 보관할 수 있는 규모의 시설(물이 스며들지 않는 바닥시설과강우 시 빗물이 흘러들지 못하도록 지붕 또는 덮개를 갖춘 시설을포함한다)을 갖추어야 한다."
+        },
+        {
+          "depth": 5,
+          "type": "wrapped-korean",
+          "marker": "(가)",
+          "text": "음식물류 폐기물 및 동물성 잔재물을 재활용하는 경우: 1일분이상 30일분 이하"
+        },
+        {
+          "depth": 5,
+          "type": "wrapped-korean",
+          "marker": "(나)",
+          "text": "제31조제1항제3호 각 목의 폐기물(폐목재, 폐촉매 또는 합성수지재질의 폐김발장은 제외한다)을 재활용하는 경우: 10일분 이상60일분 이하"
+        },
+        {
+          "depth": 5,
+          "type": "wrapped-korean",
+          "marker": "(다)",
+          "text": "폐목재, 폐촉매, 합성수지재질의 폐김발장, 석탄재, 리튬이차전지, 전기자동차 폐이차전지, 태양광 폐패널 또는 「폐기물의 국가간 이동 및 그 처리에 관한 법률」에 따라 수입하는 폐기물[별표4의2 제2호가목1)ㆍ2) 또는 같은 호 나목1)ㆍ2)에 따른 유형으로 재활용하기 위한 목적으로 수입되는 것으로 한정한다]을 재활용하는 경우: 10일분 이상 180일분 이하"
+        },
+        {
+          "depth": 5,
+          "type": "wrapped-korean",
+          "marker": "(라)",
+          "text": "(가)부터 (다)까지의 어느 하나에 해당하지 않는 경우: 10일분이상 30일분 이하"
+        },
+        {
+          "depth": 4,
+          "type": "wrapped-number",
+          "marker": "(2)",
+          "text": "재활용시설 1식 이상"
+        },
+        {
+          "depth": 4,
+          "type": "wrapped-number",
+          "marker": "(3)",
+          "text": "수집·운반차량 1대 이상(재활용대상 폐기물을 스스로 수집·운반하는 경우만 해당한다). 다만, 동일한 법인 또는 개인이 둘 이상의다른 사업장에서 동일한 폐기물을 재활용하기 위한 경우에는 사업장별 수집·운반차량 1대 외의 차량에 대해서는 공동으로 사용할 수 있다."
+        },
+        {
+          "depth": 3,
+          "type": "korean-paren",
+          "marker": "나)",
+          "text": "기술능력"
+        },
+        {
+          "depth": 4,
+          "type": "wrapped-number",
+          "marker": "(1)",
+          "text": "폐기물처리산업기사·대기환경산업기사·수질환경산업기사·공업화학산업기사 또는 환경기능사 중 1명 이상. 다만, 소각열회수시설에서 에너지를 회수하는 경우에는 폐기물처리산업기사 또는 대기환경산업기사 중 1명 이상으로 한다."
+        },
+        {
+          "depth": 4,
+          "type": "wrapped-number",
+          "marker": "(2)",
+          "text": "(1)에도 불구하고 다음의 어느 하나에 해당하는 경우에는 해당 사업장에서 재활용업무에 종사하는 자로서 기술요원으로 임명된 자 1명 이상"
+        },
+        {
+          "depth": 5,
+          "type": "wrapped-korean",
+          "marker": "(가)",
+          "text": "기계적 재활용시설 중 압축·압출·성형·주조·파쇄·분쇄·탈피·절단·탈수·건조 시설 또는 용융시설(폐합성수지를 재활용하는 경우에 한정한다)을 이용하는 경우로서 1일 재활용 용량이50톤 미만인 경우. 다만, 폐목재를 재활용하는 경우에는 1일 재활용 용량이 100톤 미만인 경우로 한다."
+        },
+        {
+          "depth": 5,
+          "type": "wrapped-korean",
+          "marker": "(나)",
+          "text": "생물학적 재활용시설 중 사료화·퇴비화·부숙 시설 또는 부숙토·분변토 생산시설을 이용하는 경우로서 1일 재활용 용량이10톤 미만인 경우"
+        },
+        {
+          "depth": 5,
+          "type": "wrapped-korean",
+          "marker": "(다)",
+          "text": "소성시설 또는 용해로를 이용하는 경우로서 1일 재활용 용량이10톤 미만인 경우"
+        },
+        {
+          "depth": 4,
+          "type": "wrapped-number",
+          "marker": "(3)",
+          "text": "(1)과 (2)에도 불구하고 전기자동차 폐이차전지를 재활용하는 경우에는 그린전동자동차기사, 전기기사, 전기공사기사 또는 전기 관련 분야 학사 이상의 학위를 취득한 후 해당 분야에서 1년 이상 종사한 사람 1명 이상"
+        },
+        {
+          "depth": 2,
+          "type": "number-paren",
+          "marker": "2)",
+          "text": "재활용 대상 폐기물 및 방법에 따른 구체적 기준"
+        },
+        {
+          "depth": 3,
+          "type": "korean-paren",
+          "marker": "가)",
+          "text": "동물성 잔재물을 사료원료 또는 유지로 재활용하는 경우"
+        },
+        {
+          "depth": 4,
+          "type": "wrapped-number",
+          "marker": "(1)",
+          "text": "공통시설 및 장비"
+        },
+        {
+          "depth": 5,
+          "type": "wrapped-korean",
+          "marker": "(가)",
+          "text": "보관시설 : 옥외에 설치하는 경우에는 폐기물전용 밀폐보관시설을 설치하여야 한다."
+        },
+        {
+          "depth": 5,
+          "type": "wrapped-korean",
+          "marker": "(나)",
+          "text": "세차시설 : 20제곱미터 이상"
+        },
+        {
+          "depth": 4,
+          "type": "wrapped-number",
+          "marker": "(2)",
+          "text": "개별시설 및 장비"
+        },
+        {
+          "depth": 5,
+          "type": "wrapped-korean",
+          "marker": "(가)",
+          "text": "사료원료로 재활용하는 경우: 사료화시설 1식 이상"
+        },
+        {
+          "depth": 5,
+          "type": "wrapped-korean",
+          "marker": "(나)",
+          "text": "유지로 재활용하는 경우",
+          "table": [
+            {
+              "시설": "용해시설",
+              "기준": "동물성 잔재물을 열원으로 가열하여 용해시키는 시설"
+            },
+            {
+              "시설": "분리시설",
+              "기준": "용해 후 배출되는 고형분 또는 기름성분을 분리하는"
+            },
+            {
+              "시설": "원심분리시설",
+              "기준": "유지 중 불순물을 원심력으로 제거하는 시설로서 동력"
+            }
+          ]
+        },
+        {
+          "depth": 3,
+          "type": "korean-paren",
+          "marker": "나)",
+          "text": "폐가전제품을 재활용하는 경우"
+        },
+        {
+          "depth": 4,
+          "type": "wrapped-number",
+          "marker": "(1)",
+          "text": "공통시설 및 장비"
+        },
+        {
+          "depth": 5,
+          "type": "wrapped-korean",
+          "marker": "(가)",
+          "text": "보관시설: 폐기물의 파쇄·분리 등 재활용 과정에서 발생되는폐기물을 법 제13조에서 정하는 보관기준에 적합하게 보관할 수 있는 시설"
+        },
+        {
+          "depth": 5,
+          "type": "wrapped-korean",
+          "marker": "(나)",
+          "text": "계량시설 1식 이상"
+        },
+        {
+          "depth": 4,
+          "type": "wrapped-number",
+          "marker": "(2)",
+          "text": "개별시설 및 장비"
+        },
+        {
+          "depth": 5,
+          "type": "wrapped-korean",
+          "marker": "(가)",
+          "text": "냉장고 및 에어컨디셔너를 재활용하는 경우"
+        },
+        {
+          "depth": 5,
+          "type": "circled-number",
+          "marker": "①",
+          "text": "분리시설: 냉매물질과 폐유를 분리할 수 있는 시설(냉매물질의회수량을 확인할 수 있는 장치를 갖추어야 한다)"
+        },
+        {
+          "depth": 5,
+          "type": "circled-number",
+          "marker": "②",
+          "text": "파쇄시설: 50밀리미터 이하로 파쇄 할 수 있는 시설"
+        },
+        {
+          "depth": 5,
+          "type": "circled-number",
+          "marker": "③",
+          "text": "선별시설: 철과 비철을 90퍼센트 이상 선별할 수 있는 시설"
+        },
+        {
+          "depth": 5,
+          "type": "circled-number",
+          "marker": "④",
+          "text": "냉매물질 보관시설: 보관량을 확인할 수 있는 장치를 갖춘 시설(냉장고와 에어컨디셔너를 함께 재활용하는 경우에는 냉장고와에어컨디셔너에서 회수되는 냉매물질을 각각 보관할 수 있는 시설을 갖추어야 한다)"
+        },
+        {
+          "depth": 5,
+          "type": "wrapped-korean",
+          "marker": "(나)",
+          "text": "세탁기를 재활용하는 경우"
+        },
+        {
+          "depth": 5,
+          "type": "circled-number",
+          "marker": "①",
+          "text": "파쇄시설: 50밀리미터 이하로 파쇄 할 수 있는 시설"
+        },
+        {
+          "depth": 5,
+          "type": "wrapped-korean",
+          "marker": "(다)",
+          "text": "텔레비전 및 컴퓨터 모니터를 재활용하는 경우"
+        },
+        {
+          "depth": 5,
+          "type": "circled-number",
+          "marker": "①",
+          "text": "분리시설: 앞면 유리와 뒷면 유리를 분리할 수 있는 시설로서형광물질을 회수할 수 있는 집진시설을 갖춘 밀폐시설"
+        },
+        {
+          "depth": 5,
+          "type": "circled-number",
+          "marker": "②",
+          "text": "형광물질 보관시설: 형광물질이 외부로 유출되지 아니하는 밀폐용기"
+        },
+        {
+          "depth": 5,
+          "type": "wrapped-korean",
+          "marker": "(라)",
+          "text": "휴대폰을 재활용하는 경우"
+        },
+        {
+          "depth": 5,
+          "type": "circled-number",
+          "marker": "①",
+          "text": "파쇄시설: 휴대폰과 휴대폰에서 분리한 인쇄회로기판 등을 재사용할 수 없도록 파쇄할 수 있는 시설"
+        },
+        {
+          "depth": 5,
+          "type": "wrapped-korean",
+          "marker": "(마)",
+          "text": "프린터 및 복사기, 팩시밀리를 재활용하는 경우"
+        },
+        {
+          "depth": 5,
+          "type": "circled-number",
+          "marker": "①",
+          "text": "분리시설 : 카트리지를 해체하는 과정에서 토너물질을 회수할 수 있는 집진설비를 갖춘 시설"
+        },
+        {
+          "depth": 3,
+          "type": "korean-paren",
+          "marker": "다)",
+          "text": "소각열회수시설을 이용하여 가연성 고형폐기물에서 제3조제1항제1호에 따른 에너지 회수기준에 맞게 에너지를 회수하는 경우"
+        },
+        {
+          "depth": 4,
+          "type": "wrapped-number",
+          "marker": "(1)",
+          "text": "실험실(시간당 재활용능력이 2톤 이상인 소각열회수시설의 경우만해당한다)"
+        },
+        {
+          "depth": 4,
+          "type": "wrapped-number",
+          "marker": "(2)",
+          "text": "시설 및 장비"
+        },
+        {
+          "depth": 5,
+          "type": "wrapped-korean",
+          "marker": "(가)",
+          "text": "시간당 재활용능력이 2톤 이상인 소각열회수시설(종이류, 섬유류 또는 접착제·폐페인트·기름 및 방부제 등이 묻어 있지 아니한 순수한목재류만을 소각하는 경우에는 시간당 재활용능력이 200킬로그램 이상인소각열회수시설을 말한다)"
+        },
+        {
+          "depth": 5,
+          "type": "wrapped-korean",
+          "marker": "(나)",
+          "text": "계량시설 1식 이상"
+        },
+        {
+          "depth": 5,
+          "type": "wrapped-korean",
+          "marker": "(다)",
+          "text": "배출가스의 오염물질 중 아황산가스·염화수소·질소산화물·일산화탄소 및 분진을 측정·분석할 수 있는 실험기기(시간당 재활용능력이2톤 이상인 소각열회수시설의 경우만 해당한다)"
+        },
+        {
+          "depth": 3,
+          "type": "korean-paren",
+          "marker": "라)",
+          "text": "전기자동차 폐이차전지를 재활용하는 경우"
+        },
+        {
+          "depth": 4,
+          "type": "wrapped-number",
+          "marker": "(1)",
+          "text": "전기자동차 폐이차전지의 팩(pack), 모듈(module) 또는 셀(cell)단위로 재구성하여 에너지저장장치 등 재사용 제품의 제조에 재활용하는 경우 : 전기자동차 폐이차전지의 잔존용량(SOC; Stateof Charge), 잔존수명(SOH; State of Health) 등을 측정할 수 있는 장비(정격출력 30kW 이상으로 한정한다) 1식 이상"
+        },
+        {
+          "depth": 4,
+          "type": "wrapped-number",
+          "marker": "(2)",
+          "text": "전기자동차 폐이차전지에 포함된 코발트, 리튬 등의 유가성(有價性) 자원을 재활용하는 경우 : 전기자동차 폐이차전지를 방전(放電)할 수 있는 장비 1식 이상. 다만, 방전이 완료된 전기자동차폐이차전지만 처리하는 경우는 제외한다."
+        },
+        {
+          "depth": 1,
+          "type": "korean-dot",
+          "marker": "나.",
+          "text": "지정폐기물(의료폐기물은 제외한다)을 재활용하는 경우"
+        },
+        {
+          "depth": 2,
+          "type": "number-paren",
+          "marker": "1)",
+          "text": "공통기준"
+        },
+        {
+          "depth": 3,
+          "type": "korean-paren",
+          "marker": "가)",
+          "text": "시설 및 장비"
+        },
+        {
+          "depth": 4,
+          "type": "wrapped-number",
+          "marker": "(1)",
+          "text": "보관시설"
+        },
+        {
+          "depth": 5,
+          "type": "wrapped-korean",
+          "marker": "(가)",
+          "text": "1일 재활용능력의 10일분 이상 30일분 이하의 폐기물을 보관할 수 있는 규모의 시설. 다만, 제31조제1항제3호 단서에 따라폐기물 재활용업자가 폐촉매, 리튬이차전지를 재활용하기 위하여보관하는 경우에는 10일분 이상 180일분 이하의 보관시설"
+        },
+        {
+          "depth": 5,
+          "type": "wrapped-korean",
+          "marker": "(나)",
+          "text": "폐오일필터를 재활용하는 경우에는 폐오일필터에서 새는 폐유를수거할 수 있는 구조의 시설이어야 한다."
+        },
+        {
+          "depth": 4,
+          "type": "wrapped-number",
+          "marker": "(2)",
+          "text": "재활용시설 1식 이상"
+        },
+        {
+          "depth": 4,
+          "type": "wrapped-number",
+          "marker": "(3)",
+          "text": "수집·운반차량 1대 이상(재활용대상 폐기물을 스스로 수집·운반하는 경우만 해당한다)"
+        },
+        {
+          "depth": 3,
+          "type": "korean-paren",
+          "marker": "나)",
+          "text": "기술능력 : 폐기물처리산업기사·대기환경산업기사·수질환경산업기사·공업화학산업기사 또는 환경기능사 중 1명 이상"
+        },
+        {
+          "depth": 2,
+          "type": "number-paren",
+          "marker": "2)",
+          "text": "재활용 대상 폐기물 및 방법에 따른 구체적 기준"
+        },
+        {
+          "depth": 3,
+          "type": "korean-paren",
+          "marker": "가)",
+          "text": "폐오일필터를 재활용하는 경우"
+        },
+        {
+          "depth": 4,
+          "type": "wrapped-number",
+          "marker": "(1)",
+          "text": "파쇄방법으로 재활용하는 경우"
+        },
+        {
+          "depth": 5,
+          "type": "wrapped-korean",
+          "marker": "(가)",
+          "text": "파쇄시설 : 시간당 재활용능력 200킬로그램 이상 재활용할 수 있는 능력을 가진 시설 1식 이상"
+        },
+        {
+          "depth": 5,
+          "type": "wrapped-korean",
+          "marker": "(나)",
+          "text": "압축시설 : 폐종이를 11.25kW 이상으로 압축하여 폐유를 분리할 수 있는 시설 1식 이상"
+        },
+        {
+          "depth": 4,
+          "type": "wrapped-number",
+          "marker": "(2)",
+          "text": "증류방법으로 재활용하는 경우"
+        },
+        {
+          "depth": 5,
+          "type": "wrapped-korean",
+          "marker": "(가)",
+          "text": "증류시설 : 내부용적 5.0세제곱미터 이상 시설 1식 이상"
+        },
+        {
+          "depth": 5,
+          "type": "wrapped-korean",
+          "marker": "(나)",
+          "text": "응축시설 : 내부용적의 합계 3.0제곱미터 이상"
+        },
+        {
+          "depth": 3,
+          "type": "korean-paren",
+          "marker": "나)",
+          "text": "폐유를 정제연료유로 재활용하는 경우"
+        },
+        {
+          "depth": 4,
+          "type": "wrapped-number",
+          "marker": "(1)",
+          "text": "열분해 또는 감압증류방법으로 재활용하는 경우"
+        },
+        {
+          "depth": 5,
+          "type": "wrapped-korean",
+          "marker": "(가)",
+          "text": "유량계측시설 : 보관시설별 각 1식 이상"
+        },
+        {
+          "depth": 5,
+          "type": "wrapped-korean",
+          "marker": "(나)",
+          "text": "폐유를 1일 20킬로리터 이상 재활용할 수 있는 시설"
+        },
+        {
+          "depth": 4,
+          "type": "wrapped-number",
+          "marker": "(2)",
+          "text": "약품정제 방법 그 밖의 방법으로 재활용하는 경우"
+        },
+        {
+          "depth": 5,
+          "type": "wrapped-korean",
+          "marker": "(가)",
+          "text": "유량계측시설 : 보관시설별 각 1식 이상"
+        },
+        {
+          "depth": 5,
+          "type": "wrapped-korean",
+          "marker": "(나)",
+          "text": "폐유를 1일 20킬로리터 이상 재활용할 수 있는 시설로서 다음의 기준에 적합한 시설",
+          "table": [
+            {
+              "시설": "보일러",
+              "기준": "시간당 증발량 2톤 이상 또는 발열량 800,000킬로칼로리"
+            },
+            {
+              "시설": "반응조",
+              "기준": "교반장치(휘저어 섞는 장치)가 설치된 내부용적 합계 5세제"
+            },
+            {
+              "시설": "약품저장조",
+              "기준": "내부용적의 합계 4세제곱미터 이상 1기 이상"
+            },
+            {
+              "시설": "유량조정조",
+              "기준": "내부용적의 합계 3세제곱미터 이상 2기 이상"
+            },
+            {
+              "시설": "전처리여과장치",
+              "기준": "시간당 재활용능력 7.5세제곱미터 이상 1기 이상"
+            },
+            {
+              "시설": "원심분리기",
+              "기준": "시간당 재활용능력 5세제곱미터 이상 1기 이상"
+            },
+            {
+              "시설": "증발장치",
+              "기준": "응축 또는 폐가스소각장치가 부착된 것으로 시간당 3세제곱"
+            },
+            {
+              "시설": "그 밖의 시설",
+              "기준": "폐유이송장치 및 부속시설"
+            }
+          ]
+        },
+        {
+          "depth": 4,
+          "type": "wrapped-number",
+          "marker": "(3)",
+          "text": "유화정제연료유로 재활용하는 경우"
+        },
+        {
+          "depth": 5,
+          "type": "wrapped-korean",
+          "marker": "(가)",
+          "text": "유량계측시설 : 보관시설별 각 1식 이상"
+        },
+        {
+          "depth": 5,
+          "type": "wrapped-korean",
+          "marker": "(나)",
+          "text": "폐유를 1일 20킬로리터 이상 재활용할 수 있는 시설로서 다음의 기준에 맞는 시설(약품정제·감압증류·열분해 그 밖의 방법에 따라 유화정제연료유로 재활용하는 시설인 경우에는 혼합장치·폐유이송장치 및 부속시설만 설치할 것)",
+          "table": [
+            {
+              "시설": "유량계측시설",
+              "기준": "보관시설별 각 1식 이상"
+            },
+            {
+              "시설": "보일러",
+              "기준": "시간당 증발량 2톤 이상 또는 발열량 800,000킬로칼로리"
+            },
+            {
+              "시설": "반응조",
+              "기준": "교반장치가 설치된 내부용적 합계 5세제곱미터 이상 1기"
+            },
+            {
+              "시설": "약품저장조",
+              "기준": "내부용적 합계 4세제곱미터 이상 1기 이상"
+            },
+            {
+              "시설": "유량조정조",
+              "기준": "내부용적 합계 3세제곱미터 이상 1기 이상"
+            },
+            {
+              "시설": "전처리여과장치",
+              "기준": "시간당 재활용능력 7.5세제곱미터 이상 1기 이상"
+            },
+            {
+              "시설": "원심분리기",
+              "기준": "시간당 재활용능력 5세제곱미터 이상 1기 이상"
+            },
+            {
+              "시설": "혼합장치",
+              "기준": "교반장치가 설치된 내부용적 합계 3세제곱미터 이상 1기"
+            },
+            {
+              "시설": "그 밖의 시설",
+              "기준": "폐유이송장치 및 부속시설"
+            }
+          ]
+        },
+        {
+          "depth": 3,
+          "type": "korean-paren",
+          "marker": "다)",
+          "text": "폐유기용제를 정제유기용제로 재활용하는 경우"
+        },
+        {
+          "depth": 4,
+          "type": "wrapped-number",
+          "marker": "(1)",
+          "text": "실험실: 다음 항목을 측정·분석할 수 있는 실험기기 및 기구"
+        },
+        {
+          "depth": 5,
+          "type": "wrapped-korean",
+          "marker": "(가)",
+          "text": "수소이온농도(pH)"
+        },
+        {
+          "depth": 5,
+          "type": "wrapped-korean",
+          "marker": "(나)",
+          "text": "화학적산소요구량(COD)"
+        },
+        {
+          "depth": 5,
+          "type": "wrapped-korean",
+          "marker": "(다)",
+          "text": "부유물질(SS)"
+        },
+        {
+          "depth": 5,
+          "type": "wrapped-korean",
+          "marker": "(라)",
+          "text": "폐유기용제에 함유된 특정수질유해물질"
+        },
+        {
+          "depth": 4,
+          "type": "wrapped-number",
+          "marker": "(2)",
+          "text": "보관시설별 유량계측설비 각 1식 이상"
+        },
+        {
+          "depth": 3,
+          "type": "korean-paren",
+          "marker": "라)",
+          "text": "폐유 등을 재생연료유로 재활용하는 경우"
+        },
+        {
+          "depth": 4,
+          "type": "wrapped-number",
+          "marker": "(1)",
+          "text": "공통시설 및 장비"
+        },
+        {
+          "depth": 5,
+          "type": "wrapped-korean",
+          "marker": "(가)",
+          "text": "유량 계측시설: 보관시설별 각 1식 이상"
+        },
+        {
+          "depth": 5,
+          "type": "wrapped-korean",
+          "marker": "(나)",
+          "text": "여과(정제)시설: 시간당 재활용능력 7.5세제곱미터 이상 1식 이상"
+        },
+        {
+          "depth": 4,
+          "type": "wrapped-number",
+          "marker": "(2)",
+          "text": "개별시설: 원료를 1일 20킬로리터 이상 처리할 수 있는 시설로서다음의 기준에 적합한 시설"
+        },
+        {
+          "depth": 5,
+          "type": "wrapped-korean",
+          "marker": "(가)",
+          "text": "혼합시설: 혼합장치가 설치된 내부용적 30세제곱미터 이상 1식이상(폐유와 다른 폐기물을 혼합하는 경우만 해당한다)"
+        },
+        {
+          "depth": 5,
+          "type": "wrapped-korean",
+          "marker": "(나)",
+          "text": "유수분리(油水分離)시설 : 폐수이동장치 및 부속시설을 포함한시설로 시간당 재활용능력 3세제곱미터 이상 1식 이상(증류를 통한 유수분리가 필요한 경우만 해당한다)"
+        },
+        {
+          "depth": 3,
+          "type": "korean-paren",
+          "marker": "마)",
+          "text": "수은회수시설을 이용하여 수은폐기물을 재활용하는 경우"
+        },
+        {
+          "depth": 4,
+          "type": "wrapped-number",
+          "marker": "(1)",
+          "text": "계량시설 1식 이상"
+        },
+        {
+          "depth": 4,
+          "type": "wrapped-number",
+          "marker": "(2)",
+          "text": "파쇄ㆍ분쇄ㆍ절단시설: 수은이 외부로 휘발ㆍ유출되지 않는 상태에서 파쇄ㆍ분쇄ㆍ절단을 통해 수은과 그 외의 유리 등을 분리할 수 있는 시설"
+        },
+        {
+          "depth": 4,
+          "type": "wrapped-number",
+          "marker": "(3)",
+          "text": "수은회수시설: 수은함유폐기물에서 수은 및 그 화합물을 회수할 수 있도록 가열장치, 응축장치, 온도와 압력을 측정하고 기록할 수 있는장치를 갖춘 시설"
+        },
+        {
+          "depth": 1,
+          "type": "korean-dot",
+          "marker": "다.",
+          "text": "지정폐기물 중 의료폐기물을 재활용하는 경우"
+        },
+        {
+          "depth": 2,
+          "type": "number-paren",
+          "marker": "1)",
+          "text": "시설 및 장비"
+        },
+        {
+          "depth": 3,
+          "type": "korean-paren",
+          "marker": "가)",
+          "text": "보관시설 : 1일 재활용능력의 3일분 이상 7일분 이하의 폐기물을 보관할 수 있는 냉동시설"
+        },
+        {
+          "depth": 3,
+          "type": "korean-paren",
+          "marker": "나)",
+          "text": "재활용시설 1식 이상"
+        },
+        {
+          "depth": 3,
+          "type": "korean-paren",
+          "marker": "다)",
+          "text": "수집운반차량 : 1대 이상(재활용대상 폐기물을 스스로 수집·운반하는 경우만 해당한다)"
+        },
+        {
+          "depth": 2,
+          "type": "number-paren",
+          "marker": "2)",
+          "text": "기술능력 : 폐기물처리산업기사·임상병리사 또는 위생사 중 1명 이상"
+        },
+        {
+          "depth": 1,
+          "type": "korean-dot",
+          "marker": "라.",
+          "text": "그 밖에 재활용대상 폐기물의 종류(의료폐기물은 제외한다) 및 방법에 따라 필요한 시설· 장비 및 기술능력을 기후에너지환경부장관이 정하여 고시하는 기준비고"
+        },
+        {
+          "depth": 0,
+          "type": "number",
+          "marker": "1.",
+          "text": "동일 법인 또는 개인이 둘 이상의 다른 종류의 폐기물처리업 허가를 받으려는 경우, 동일 폐기물처리업으로서 둘 이상의 다른 분야의 허가를 받고자하는 경우에는 사무실·실험실·시설 및 장비·기술능력을 중복하여 갖추지아니할 수 있다. 다만, 폐기물수집·운반업의 장비 및 기술능력과 의료폐기물을 대상으로 하는 폐기물처리업의 사무실·실험실·시설 및 장비·기술능력은 그러하지 아니하다"
+        },
+        {
+          "depth": 0,
+          "type": "number",
+          "marker": "2.",
+          "text": "기술능력 중 기사는 같은 종류의 산업기사 자격을 가지고 해당 분야에 2년이상 종사한 자로 대체할 수 있으며, 산업기사는 환경기능사 자격을 가지고해당 분야에서 2년 이상 종사한 자로 대체할 수 있다."
+        },
+        {
+          "depth": 0,
+          "type": "number",
+          "marker": "3.",
+          "text": "실험기기·기구에 관한 허가요건 중 시·도지사 또는 지방환경관서의 장이해당 업종 또는 영업대상폐기물을 고려하여 필요하지 아니하다고 인정하면그 실험기기 및 기구의 일부를 갖추지 아니하게 할 수 있다."
+        },
+        {
+          "depth": 0,
+          "type": "number",
+          "marker": "4.",
+          "text": "수집·운반차량 외의 장비, 세차시설 및 사업장 부지는 임차(임차계약서는임차기간을 3년 이상으로 하여 공증을 받아야 한다)하여 사용할 수 있으며,실험실·실험기구에 관한 허가요건 중 측정항목 각각에 대하여 「환경분야시험·검사 등에 관한 법률」 제16조에 따른 측정대행업자가 갖추어야 할시설·장비 등을 갖춘 측정대행자 또는 국가공인시험기관과 대행계약을 한 경우에는 해당 항목의 측정에 필요한 실험기기·실험기구·장비를 갖추지아니할 수 있으며, 전체 항목에 대하여 대행계약을 한 경우에는 실험실 및실험기기·기구·장비를 갖추지 아니할 수 있다."
+        },
+        {
+          "depth": 0,
+          "type": "number",
+          "marker": "5.",
+          "text": "허가요건 중 1일 처리능력은 연속식시설의 경우에는 24시간, 준연속식시설의 경우에는 16시간, 비연속식시설의 경우에는 8시간을 기준으로 산정한다.다만, 파쇄시설의 경우에는 8시간을 기준으로 산정한다."
+        },
+        {
+          "depth": 0,
+          "type": "number",
+          "marker": "6.",
+          "text": "허가요건 중 폐기물배출사업장으로부터 밀폐된 배관을 통하여 폐기물을 폐기물처리시설로 이송하는 경우와 시·도지사나 지방환경관서의 장의 인정을받아 위탁받은 폐기물을 보관하지 아니하고 곧바로 폐기물 재활용시설로 운반하는 경우에는 보관시설을 갖추지 아니할 수 있다."
+        },
+        {
+          "depth": 0,
+          "type": "number",
+          "marker": "7.",
+          "text": "고온소각 처분대상폐기물의 중간처분업을 하기 위하여 고온소각시설을 갖춘 자는 그 시설을 이용하여 일반소각 처분대상폐기물을 처분할 수 있다."
+        },
+        {
+          "depth": 0,
+          "type": "number",
+          "marker": "8.",
+          "text": "장비요건 중 운반차량에 대하여는 해당 허가권자가 다음 각 목의 기준에따라 다른 차량으로 대체하게 하거나 차량의 일부를 갖추게 하지 아니할 수 있다."
+        },
+        {
+          "depth": 1,
+          "type": "korean-dot",
+          "marker": "가.",
+          "text": "폐기물 수집·운반업의 수집·운반차량에 대해서는 영업대상 폐기물 및운반방법 등을 고려하여 전용차량 수량의 2분의 1 범위 내에서 수집·운반이 가능한 차량의 종류 중 다른 종류의 차량으로 대체할 수 있다."
+        },
+        {
+          "depth": 1,
+          "type": "korean-dot",
+          "marker": "나.",
+          "text": "생활폐기물을 수집·운반하는 경우에는 밀폐형 압축·압착차량을 제외한 차량을 갖추게 하지 아니할 수 있다."
+        },
+        {
+          "depth": 1,
+          "type": "korean-dot",
+          "marker": "다.",
+          "text": "생활폐기물 또는 사업장비배출시설계 폐기물 중 폐목재류(접착제, 페인트, 기름, 콘크리트 등으로 오염되지 않은 것만 해당한다), 대형폐기물(「자원의 절약과 재활용촉진에 관한 법률」 제2조제13호에 따른 대형폐기물을 말한다) 또는 음식물류 폐기물만 수집ㆍ운반하는 경우에는 밀폐형 압축ㆍ압착차량을 밀폐형 차량 또는 밀폐형 덮개 설치차량으로 대체할 수 있다."
+        },
+        {
+          "depth": 1,
+          "type": "korean-dot",
+          "marker": "라.",
+          "text": "사업장비배출시설계 폐기물을 수집ㆍ운반하는 경우로서 의료기관 일회용기저귀만을 수집ㆍ운반하는 경우에는 밀폐형 압축ㆍ압착차량 및 밀폐형 차량 또는 밀폐형 덮개 설치차량을 갖추게 하지 않을 수 있다."
+        },
+        {
+          "depth": 0,
+          "type": "number",
+          "marker": "9.",
+          "text": "「건설폐기물의 재활용촉진에 관한 법률 시행규칙」 별표 2에 따른 건설폐기물의 처리를 위한 시설·장비 등을 갖춘 자는 비고란 제1호 단서의 규정에도 불구하고 공사장생활폐기물의 처리를 위한 시설·장비 등을 갖춘 자로본다."
+        },
+        {
+          "depth": 0,
+          "type": "number",
+          "marker": "10.",
+          "text": "영 제2조 각 호에 따른 사업장에서 발생하는 사업장비배출시설계 폐기물로서 생활폐기물과 성질과 상태가 비슷하여 생활폐기물의 기준 및 방법으로수집·운반할 수 있는 경우에는 특별자치시, 특별자치도, 시·군·구의 조례가 정하는 바에 따라 생활폐기물수집·운반업자가 수집·운반할 수 있다."
+        },
+        {
+          "depth": 0,
+          "type": "number",
+          "marker": "11.",
+          "text": "별표 5 제2호가목5)에 해당하는 경우 장비 및 사무실(또는 연락장소)에관한 기준은 제1호가목에 따른 장비 및 사무실(또는 연락장소)에 관한 기준으로 한다."
+        },
+        {
+          "depth": 0,
+          "type": "number",
+          "marker": "12.",
+          "text": "폐기물을 재활용하는 자 중 제10조에 따라 재활용시설이 필요하지 아니하다고 시·도지사가 인정하는 경우에는 재활용시설 및 기술능력의 전부 또는 일부를 갖추지 아니할 수 있다."
+        }
+      ]
+    }
+  ]
+}

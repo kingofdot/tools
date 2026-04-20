@@ -1,0 +1,415 @@
+{
+  "별표번호": "0003",
+  "별표가지번호": "00",
+  "별표구분": "별표",
+  "별표제목": "폐기물 처리시설의 종류(제5조 관련)",
+  "별표제목문자열": "폐기물 처리시설의 종류(제5조 관련)",
+  "별표시행일자": "20260326",
+  "별표서식파일링크": "/LSW/flDownload.do?flSeq=162468997",
+  "별표HWP파일명": "law0053532026032436217KC_000300E_20260326.hwp",
+  "별표이미지파일명": [
+    "000300110201_P1_20260326.gif",
+    "000300110201_P2_20260326.gif",
+    "000300110201_P3_20260326.gif"
+  ],
+  "별표서식PDF파일링크": "/LSW/flDownload.do?flSeq=162468999",
+  "별표PDF파일명": "law0053532026032436217KC_000300E_20260326.pdf",
+  "별표내용": [
+    {
+      "depth": 0,
+      "type": "title",
+      "marker": "■",
+      "text": "폐기물관리법 시행령 [별표 3] <개정 2025. 10. 1.>폐기물 처리시설의 종류(제5조 관련)"
+    },
+    {
+      "depth": 0,
+      "type": "number",
+      "marker": "1.",
+      "text": "중간처분시설"
+    },
+    {
+      "depth": 1,
+      "type": "korean-dot",
+      "marker": "가.",
+      "text": "소각시설"
+    },
+    {
+      "depth": 2,
+      "type": "number-paren",
+      "marker": "1)",
+      "text": "일반 소각시설"
+    },
+    {
+      "depth": 2,
+      "type": "number-paren",
+      "marker": "2)",
+      "text": "고온 소각시설"
+    },
+    {
+      "depth": 2,
+      "type": "number-paren",
+      "marker": "3)",
+      "text": "열분해 소각시설"
+    },
+    {
+      "depth": 2,
+      "type": "number-paren",
+      "marker": "4)",
+      "text": "고온 용융시설"
+    },
+    {
+      "depth": 2,
+      "type": "number-paren",
+      "marker": "5)",
+      "text": "열처리 조합시설 [1)에서 4)까지의 시설 중 둘 이상의 시설이 조합된 시설]"
+    },
+    {
+      "depth": 1,
+      "type": "korean-dot",
+      "marker": "나.",
+      "text": "기계적 처분시설"
+    },
+    {
+      "depth": 2,
+      "type": "number-paren",
+      "marker": "1)",
+      "text": "압축시설(동력 7.5kW 이상인 시설로 한정한다)"
+    },
+    {
+      "depth": 2,
+      "type": "number-paren",
+      "marker": "2)",
+      "text": "파쇄ㆍ분쇄 시설(동력 15kW 이상인 시설로 한정한다)"
+    },
+    {
+      "depth": 2,
+      "type": "number-paren",
+      "marker": "3)",
+      "text": "절단시설(동력 7.5kW 이상인 시설로 한정한다)"
+    },
+    {
+      "depth": 2,
+      "type": "number-paren",
+      "marker": "4)",
+      "text": "용융시설(동력 7.5kW 이상인 시설로 한정한다)"
+    },
+    {
+      "depth": 2,
+      "type": "number-paren",
+      "marker": "5)",
+      "text": "증발ㆍ농축 시설"
+    },
+    {
+      "depth": 2,
+      "type": "number-paren",
+      "marker": "6)",
+      "text": "정제시설(분리ㆍ증류ㆍ추출ㆍ여과 등의 시설을 이용하여 폐기물을 처분하는 단위시설을 포함한다)"
+    },
+    {
+      "depth": 2,
+      "type": "number-paren",
+      "marker": "7)",
+      "text": "유수 분리시설"
+    },
+    {
+      "depth": 2,
+      "type": "number-paren",
+      "marker": "8)",
+      "text": "탈수ㆍ건조 시설"
+    },
+    {
+      "depth": 2,
+      "type": "number-paren",
+      "marker": "9)",
+      "text": "멸균분쇄 시설"
+    },
+    {
+      "depth": 1,
+      "type": "korean-dot",
+      "marker": "다.",
+      "text": "화학적 처분시설"
+    },
+    {
+      "depth": 2,
+      "type": "number-paren",
+      "marker": "1)",
+      "text": "고형화ㆍ고화ㆍ안정화 시설"
+    },
+    {
+      "depth": 2,
+      "type": "number-paren",
+      "marker": "2)",
+      "text": "반응시설(중화ㆍ산화ㆍ환원ㆍ중합ㆍ축합ㆍ치환 등의 화학반응을 이용하여폐기물을 처분하는 단위시설을 포함한다)"
+    },
+    {
+      "depth": 2,
+      "type": "number-paren",
+      "marker": "3)",
+      "text": "응집ㆍ침전 시설"
+    },
+    {
+      "depth": 1,
+      "type": "korean-dot",
+      "marker": "라.",
+      "text": "생물학적 처분시설"
+    },
+    {
+      "depth": 2,
+      "type": "number-paren",
+      "marker": "1)",
+      "text": "소멸화 시설(1일 처분능력 100킬로그램 이상인 시설로 한정한다)"
+    },
+    {
+      "depth": 2,
+      "type": "number-paren",
+      "marker": "2)",
+      "text": "호기성(好氣性: 산소가 있을 때 생육하는 성질)ㆍ혐기성(嫌氣性: 산소가없을 때 생육하는 성질) 분해시설"
+    },
+    {
+      "depth": 1,
+      "type": "korean-dot",
+      "marker": "마.",
+      "text": "그 밖에 기후에너지환경부장관이 폐기물을 안전하게 중간처분할 수 있다고인정하여 고시하는 시설"
+    },
+    {
+      "depth": 0,
+      "type": "number",
+      "marker": "2.",
+      "text": "최종 처분시설"
+    },
+    {
+      "depth": 1,
+      "type": "korean-dot",
+      "marker": "가.",
+      "text": "매립시설"
+    },
+    {
+      "depth": 2,
+      "type": "number-paren",
+      "marker": "1)",
+      "text": "차단형 매립시설"
+    },
+    {
+      "depth": 2,
+      "type": "number-paren",
+      "marker": "2)",
+      "text": "관리형 매립시설(침출수 처리시설, 가스 소각ㆍ발전ㆍ연료화 시설 등 부대시설을 포함한다)"
+    },
+    {
+      "depth": 1,
+      "type": "korean-dot",
+      "marker": "나.",
+      "text": "그 밖에 기후에너지환경부장관이 폐기물을 안전하게 최종처분할 수 있다고인정하여 고시하는 시설"
+    },
+    {
+      "depth": 0,
+      "type": "number",
+      "marker": "3.",
+      "text": "재활용시설"
+    },
+    {
+      "depth": 1,
+      "type": "korean-dot",
+      "marker": "가.",
+      "text": "기계적 재활용시설"
+    },
+    {
+      "depth": 2,
+      "type": "number-paren",
+      "marker": "1)",
+      "text": "압축ㆍ압출ㆍ성형ㆍ주조시설(동력 7.5kW 이상인 시설로 한정한다)"
+    },
+    {
+      "depth": 2,
+      "type": "number-paren",
+      "marker": "2)",
+      "text": "파쇄ㆍ분쇄ㆍ탈피 시설(동력 15kW 이상인 시설로 한정한다)"
+    },
+    {
+      "depth": 2,
+      "type": "number-paren",
+      "marker": "3)",
+      "text": "절단시설(동력 7.5kW 이상인 시설로 한정한다)"
+    },
+    {
+      "depth": 2,
+      "type": "number-paren",
+      "marker": "4)",
+      "text": "용융ㆍ용해시설(동력 7.5kW 이상인 시설로 한정한다)"
+    },
+    {
+      "depth": 2,
+      "type": "number-paren",
+      "marker": "5)",
+      "text": "연료화시설"
+    },
+    {
+      "depth": 2,
+      "type": "number-paren",
+      "marker": "6)",
+      "text": "증발ㆍ농축 시설"
+    },
+    {
+      "depth": 2,
+      "type": "number-paren",
+      "marker": "7)",
+      "text": "정제시설(분리ㆍ증류ㆍ추출ㆍ여과 등의 시설을 이용하여 폐기물을 재활용하는 단위시설을 포함한다)"
+    },
+    {
+      "depth": 2,
+      "type": "number-paren",
+      "marker": "8)",
+      "text": "유수 분리 시설"
+    },
+    {
+      "depth": 2,
+      "type": "number-paren",
+      "marker": "9)",
+      "text": "탈수ㆍ건조 시설"
+    },
+    {
+      "depth": 2,
+      "type": "number-paren",
+      "marker": "10)",
+      "text": "세척시설(철도용 폐목재 받침목을 재활용하는 경우로 한정한다)"
+    },
+    {
+      "depth": 1,
+      "type": "korean-dot",
+      "marker": "나.",
+      "text": "화학적 재활용시설"
+    },
+    {
+      "depth": 2,
+      "type": "number-paren",
+      "marker": "1)",
+      "text": "고형화ㆍ고화 시설"
+    },
+    {
+      "depth": 2,
+      "type": "number-paren",
+      "marker": "2)",
+      "text": "반응시설(중화ㆍ산화ㆍ환원ㆍ중합ㆍ축합ㆍ치환 등의 화학반응을 이용하여폐기물을 재활용하는 단위시설을 포함한다)"
+    },
+    {
+      "depth": 2,
+      "type": "number-paren",
+      "marker": "3)",
+      "text": "응집ㆍ침전 시설"
+    },
+    {
+      "depth": 2,
+      "type": "number-paren",
+      "marker": "4)",
+      "text": "열분해시설(가스화시설을 포함한다)"
+    },
+    {
+      "depth": 1,
+      "type": "korean-dot",
+      "marker": "다.",
+      "text": "생물학적 재활용시설"
+    },
+    {
+      "depth": 2,
+      "type": "number-paren",
+      "marker": "1)",
+      "text": "1일 재활용능력이 100킬로그램 이상인 다음의 시설"
+    },
+    {
+      "depth": 3,
+      "type": "korean-paren",
+      "marker": "가)",
+      "text": "부숙(썩혀서 익히는"
+    },
+    {
+      "depth": 3,
+      "type": "korean-paren",
+      "marker": "것)",
+      "text": "시설(미생물을 이용하여 유기물질을 발효하는등의 과정을 거쳐 제품의 원료 등을 만드는 시설을 말하며, 1일 재활용능력이 100킬로그램 이상 200킬로그램 미만인 음식물류 폐기물 부숙시설은제외한다)"
+    },
+    {
+      "depth": 3,
+      "type": "korean-paren",
+      "marker": "나)",
+      "text": "사료화 시설(건조에 의한 사료화 시설을 포함한다)"
+    },
+    {
+      "depth": 3,
+      "type": "korean-paren",
+      "marker": "다)",
+      "text": "퇴비화 시설(건조에 의한 퇴비화 시설, 지렁이분변토 생산시설 및 생석회 처리시설을 포함한다)"
+    },
+    {
+      "depth": 3,
+      "type": "korean-paren",
+      "marker": "라)",
+      "text": "동애등에분변토 생산시설"
+    },
+    {
+      "depth": 3,
+      "type": "korean-paren",
+      "marker": "마)",
+      "text": "부숙토(腐熟土: 썩혀서 익힌 흙) 생산시설"
+    },
+    {
+      "depth": 2,
+      "type": "number-paren",
+      "marker": "2)",
+      "text": "호기성ㆍ혐기성 분해시설"
+    },
+    {
+      "depth": 2,
+      "type": "number-paren",
+      "marker": "3)",
+      "text": "버섯재배시설"
+    },
+    {
+      "depth": 1,
+      "type": "korean-dot",
+      "marker": "라.",
+      "text": "시멘트 소성로"
+    },
+    {
+      "depth": 1,
+      "type": "korean-dot",
+      "marker": "마.",
+      "text": "용해로(폐기물에서 비철금속을 추출하는 경우로 한정한다)"
+    },
+    {
+      "depth": 1,
+      "type": "korean-dot",
+      "marker": "바.",
+      "text": "소성(시멘트 소성로는 제외한다)ㆍ탄화 시설"
+    },
+    {
+      "depth": 1,
+      "type": "korean-dot",
+      "marker": "사.",
+      "text": "골재가공시설"
+    },
+    {
+      "depth": 1,
+      "type": "korean-dot",
+      "marker": "아.",
+      "text": "의약품 제조시설"
+    },
+    {
+      "depth": 1,
+      "type": "korean-dot",
+      "marker": "자.",
+      "text": "소각열회수시설(시간당 재활용능력이 200킬로그램 이상인 시설로서 법 제13조의2제1항제5호에 따라 에너지를 회수하기 위하여 설치하는 시설만 해당한다)"
+    },
+    {
+      "depth": 1,
+      "type": "korean-dot",
+      "marker": "차.",
+      "text": "수은회수시설"
+    },
+    {
+      "depth": 1,
+      "type": "korean-dot",
+      "marker": "카.",
+      "text": "선별시설(재활용이 가능한 폐기물을 선별하는 시설을 말한다)"
+    }
+  ]
+}

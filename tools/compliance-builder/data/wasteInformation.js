@@ -1,0 +1,2114 @@
+var WasteMasterDB = [
+  {
+    "wasteCode": "01",
+    "wasteName": "특정시설에서 발생하는 폐기물",
+    "recyclingCodeNone": "-",
+    "recyclingCodeCorrespond": "-"
+  },
+  {
+    "wasteCode": "01-01",
+    "wasteName": "폐합성고분자화합물",
+    "recyclingCodeNone": "-",
+    "recyclingCodeCorrespond": "-"
+  },
+  {
+    "wasteCode": "01-01-01",
+    "wasteName": "폐폴리에틸렌",
+    "recyclingCodeNone": "R-3-3, R-4-4, R-10",
+    "recyclingCodeCorrespond": "-"
+  },
+  {
+    "wasteCode": "01-01-02",
+    "wasteName": "폐폴리프로필렌",
+    "recyclingCodeNone": "R-3-3, R-4-4, R-10",
+    "recyclingCodeCorrespond": "-"
+  },
+  {
+    "wasteCode": "01-01-03",
+    "wasteName": "폐폴리염화비닐수지",
+    "recyclingCodeNone": "R-3-3, R-4-4, R-10",
+    "recyclingCodeCorrespond": "-"
+  },
+  {
+    "wasteCode": "01-01-04",
+    "wasteName": "폐폴리에틸렌테레프탈레이트",
+    "recyclingCodeNone": "R-3-3, R-4-4, R-10",
+    "recyclingCodeCorrespond": "-"
+  },
+  {
+    "wasteCode": "01-01-05",
+    "wasteName": "폐페놀수지",
+    "recyclingCodeNone": "R-3-3, R-4-4, R-10",
+    "recyclingCodeCorrespond": "-"
+  },
+  {
+    "wasteCode": "01-01-06",
+    "wasteName": "폐폴리우레탄",
+    "recyclingCodeNone": "R-3-3, R-4-4, R-10",
+    "recyclingCodeCorrespond": "-"
+  },
+  {
+    "wasteCode": "01-01-07",
+    "wasteName": "폐합성고무",
+    "recyclingCodeNone": "R-3-3, R-4-4, R-10",
+    "recyclingCodeCorrespond": "-"
+  },
+  {
+    "wasteCode": "01-01-08",
+    "wasteName": "폐폴리스티렌",
+    "recyclingCodeNone": "R-3-3, R-4-4, R-10",
+    "recyclingCodeCorrespond": "-"
+  },
+  {
+    "wasteCode": "01-01-09",
+    "wasteName": "폐아크리로니트릴브타디엔스티렌(ABS수지)",
+    "recyclingCodeNone": "R-3-3, R-4-4, R-10",
+    "recyclingCodeCorrespond": "-"
+  },
+  {
+    "wasteCode": "01-01-99",
+    "wasteName": "그 밖의 폐합성고분자화합물",
+    "recyclingCodeNone": "R-3-3, R-4-4, R-10",
+    "recyclingCodeCorrespond": "-"
+  },
+  {
+    "wasteCode": "01-02",
+    "wasteName": "오니류",
+    "recyclingCodeNone": "-",
+    "recyclingCodeCorrespond": "-"
+  },
+  {
+    "wasteCode": "01-02-01",
+    "wasteName": "폐수처리오니",
+    "recyclingCodeNone": "R-3-1, R-3-2, R-3-3, R-4-1, R-10",
+    "recyclingCodeCorrespond": "-"
+  },
+  {
+    "wasteCode": "01-02-02",
+    "wasteName": "유리식각공정오니",
+    "recyclingCodeNone": "R-3-1, R-3-2, R-3-3, R-4-1, R-10",
+    "recyclingCodeCorrespond": "-"
+  },
+  {
+    "wasteCode": "01-02-03",
+    "wasteName": "제지공정오니",
+    "recyclingCodeNone": "R-3-1, R-3-2, R-3-3, R-10",
+    "recyclingCodeCorrespond": "-"
+  },
+  {
+    "wasteCode": "01-02-04",
+    "wasteName": "실리콘제조공정오니",
+    "recyclingCodeNone": "R-3-1, R-3-2, R-3-4, R-10",
+    "recyclingCodeCorrespond": "-"
+  },
+  {
+    "wasteCode": "01-02-05",
+    "wasteName": "보크사이트잔재물",
+    "recyclingCodeNone": "R-3-1, R-3-2, R-10",
+    "recyclingCodeCorrespond": "-"
+  },
+  {
+    "wasteCode": "01-02-99",
+    "wasteName": "그 밖의 공정 오니",
+    "recyclingCodeNone": "R-3-1, R-3-2, R-3-3,R-3-4, R-4-1, R-10",
+    "recyclingCodeCorrespond": "-"
+  },
+  {
+    "wasteCode": "01-03",
+    "wasteName": "폐농약",
+    "recyclingCodeNone": "-",
+    "recyclingCodeCorrespond": "-"
+  },
+  {
+    "wasteCode": "01-03-01",
+    "wasteName": "유기인계폐농약",
+    "recyclingCodeNone": "재활용 금지",
+    "recyclingCodeCorrespond": "재활용 금지"
+  },
+  {
+    "wasteCode": "01-03-02",
+    "wasteName": "유기염소계폐농약",
+    "recyclingCodeNone": "재활용 금지",
+    "recyclingCodeCorrespond": "재활용 금지"
+  },
+  {
+    "wasteCode": "01-03-03",
+    "wasteName": "카바메이트계(Carbamate)폐농약",
+    "recyclingCodeNone": "재활용 금지",
+    "recyclingCodeCorrespond": "재활용 금지"
+  },
+  {
+    "wasteCode": "01-03-99",
+    "wasteName": "그 밖의 폐농약",
+    "recyclingCodeNone": "재활용 금지",
+    "recyclingCodeCorrespond": "재활용 금지"
+  },
+  {
+    "wasteCode": "02",
+    "wasteName": "부식성폐기물",
+    "recyclingCodeNone": "-",
+    "recyclingCodeCorrespond": "-"
+  },
+  {
+    "wasteCode": "02-01",
+    "wasteName": "폐산",
+    "recyclingCodeNone": "-",
+    "recyclingCodeCorrespond": "-"
+  },
+  {
+    "wasteCode": "02-01-01",
+    "wasteName": "폐염산",
+    "recyclingCodeNone": "R-2-1, R-3-2, R-3-4, R-4-7, R-10",
+    "recyclingCodeCorrespond": "R-4-9, R-10"
+  },
+  {
+    "wasteCode": "02-01-02",
+    "wasteName": "폐황산(폐황산이 포함된 2차 폐축전지는 제외한다)",
+    "recyclingCodeNone": "R-2-1, R-3-2, R-3-4, R-4-7, R-10",
+    "recyclingCodeCorrespond": "R-4-9, R-5-1,R-10"
+  },
+  {
+    "wasteCode": "02-01-03",
+    "wasteName": "폐질산",
+    "recyclingCodeNone": "R-2-1, R-3-2, R-3-4, R-4-7, R-10",
+    "recyclingCodeCorrespond": "R-4-9, R-10"
+  },
+  {
+    "wasteCode": "02-01-05",
+    "wasteName": "LCD·반도체 공정의 폐산",
+    "recyclingCodeNone": "R-2-1, R-3-2, R-3-4, R-4-7, R-10",
+    "recyclingCodeCorrespond": "R-4-9, R-10"
+  },
+  {
+    "wasteCode": "02-01-99",
+    "wasteName": "그 밖의 폐산",
+    "recyclingCodeNone": "R-2-1, R-3-2, R-3-4, R-4-7, R-10",
+    "recyclingCodeCorrespond": "R-4-9, R-10"
+  },
+  {
+    "wasteCode": "02-02",
+    "wasteName": "폐알칼리",
+    "recyclingCodeNone": "-",
+    "recyclingCodeCorrespond": "-"
+  },
+  {
+    "wasteCode": "02-02-01",
+    "wasteName": "폐가성소다수",
+    "recyclingCodeNone": "R-2-1, R-3-2, R-3-4, R-10",
+    "recyclingCodeCorrespond": "R-4-9, R-10"
+  },
+  {
+    "wasteCode": "02-02-02",
+    "wasteName": "폐암모니아수",
+    "recyclingCodeNone": "R-2-1, R-3-2, R-3-4, R-10",
+    "recyclingCodeCorrespond": "R-4-9, R-10"
+  },
+  {
+    "wasteCode": "02-02-03",
+    "wasteName": "폐수산화나트륨(고상)",
+    "recyclingCodeNone": "R-2-1, R-3-2, R-3-4, R-10",
+    "recyclingCodeCorrespond": "R-4-9, R-10"
+  },
+  {
+    "wasteCode": "02-02-04",
+    "wasteName": "폐수산화칼륨(고상)",
+    "recyclingCodeNone": "R-2-1, R-3-2, R-3-4, R-10",
+    "recyclingCodeCorrespond": "R-4-9, R-10"
+  },
+  {
+    "wasteCode": "02-02-99",
+    "wasteName": "그 밖의 폐알칼리",
+    "recyclingCodeNone": "R-2-1, R-3-2, R-3-4, R-10",
+    "recyclingCodeCorrespond": "R-4-9, R-10"
+  },
+  {
+    "wasteCode": "03",
+    "wasteName": "유해물질 함유 폐기물",
+    "recyclingCodeNone": "-",
+    "recyclingCodeCorrespond": "-"
+  },
+  {
+    "wasteCode": "03-01",
+    "wasteName": "광재",
+    "recyclingCodeNone": "-",
+    "recyclingCodeCorrespond": "-"
+  },
+  {
+    "wasteCode": "03-01-01",
+    "wasteName": "알루미늄제조공정광재",
+    "recyclingCodeNone": "R-3-1, R-3-2, R-10",
+    "recyclingCodeCorrespond": "-"
+  },
+  {
+    "wasteCode": "03-01-02",
+    "wasteName": "납 열처리·야금(冶金) 공정광재",
+    "recyclingCodeNone": "R-3-1, R-3-2, R-10",
+    "recyclingCodeCorrespond": "-"
+  },
+  {
+    "wasteCode": "03-01-03",
+    "wasteName": "아연열처리공정광재",
+    "recyclingCodeNone": "R-3-1, R-3-2, R-10",
+    "recyclingCodeCorrespond": "-"
+  },
+  {
+    "wasteCode": "03-01-04",
+    "wasteName": "철제조공정광재(철광 원석의 사용으로 인한 고로슬래그는 제외한다)",
+    "recyclingCodeNone": "R-3-1, R-3-2, R-10",
+    "recyclingCodeCorrespond": "-"
+  },
+  {
+    "wasteCode": "03-01-99",
+    "wasteName": "그 밖의 광재",
+    "recyclingCodeNone": "R-3-1, R-3-2, R-10",
+    "recyclingCodeCorrespond": "-"
+  },
+  {
+    "wasteCode": "03-02-00",
+    "wasteName": "분진",
+    "recyclingCodeNone": "R-3-1, R-3-2, R-3-3,R-3-4, R-10",
+    "recyclingCodeCorrespond": "-"
+  },
+  {
+    "wasteCode": "03-03",
+    "wasteName": "폐주물사 및 폐사",
+    "recyclingCodeNone": "-",
+    "recyclingCodeCorrespond": "-"
+  },
+  {
+    "wasteCode": "03-03-01",
+    "wasteName": "점토점결폐주물사",
+    "recyclingCodeNone": "R-1-1, R-3-5, R-4-1, R-10",
+    "recyclingCodeCorrespond": "-"
+  },
+  {
+    "wasteCode": "03-03-02",
+    "wasteName": "화학점결폐주물사",
+    "recyclingCodeNone": "R-1-1, R-3-5, R-4-1, R-10",
+    "recyclingCodeCorrespond": "-"
+  },
+  {
+    "wasteCode": "03-03-03",
+    "wasteName": "샌드블라스트폐사",
+    "recyclingCodeNone": "R-1-1",
+    "recyclingCodeCorrespond": "-"
+  },
+  {
+    "wasteCode": "03-03-99",
+    "wasteName": "그 밖의 폐주물사 및 폐사",
+    "recyclingCodeNone": "R-1-1, R-3-5, R-4-1, R-10",
+    "recyclingCodeCorrespond": "-"
+  },
+  {
+    "wasteCode": "03-07",
+    "wasteName": "폐촉매",
+    "recyclingCodeNone": "-",
+    "recyclingCodeCorrespond": "-"
+  },
+  {
+    "wasteCode": "03-07-01",
+    "wasteName": "금속성폐촉매",
+    "recyclingCodeNone": "R-2-1, R-3-1, R-3-2, R-3-3, R-3-4, R-4-7, R-10",
+    "recyclingCodeCorrespond": "-"
+  },
+  {
+    "wasteCode": "03-07-02",
+    "wasteName": "비금속성폐촉매",
+    "recyclingCodeNone": "R-2-1, R-3-2, R-3-4, R-4-7, R-10",
+    "recyclingCodeCorrespond": "-"
+  },
+  {
+    "wasteCode": "03-08",
+    "wasteName": "폐흡착제 및 폐흡수제",
+    "recyclingCodeNone": "-",
+    "recyclingCodeCorrespond": "-"
+  },
+  {
+    "wasteCode": "03-08-01",
+    "wasteName": "폐흡착제",
+    "recyclingCodeNone": "R-2-1, R-3-1, R-3-2, R-3-4, R-4-5, R-10",
+    "recyclingCodeCorrespond": "-"
+  },
+  {
+    "wasteCode": "03-08-02",
+    "wasteName": "폐흡수제",
+    "recyclingCodeNone": "R-2-1, R-3-1, R-3-2, R-3-4, R-4-5, R-10",
+    "recyclingCodeCorrespond": "-"
+  },
+  {
+    "wasteCode": "03-10",
+    "wasteName": "폐전지류",
+    "recyclingCodeNone": "-",
+    "recyclingCodeCorrespond": "-"
+  },
+  {
+    "wasteCode": "03-10-01",
+    "wasteName": "황산이 포함된 폐이차전지",
+    "recyclingCodeNone": "R-2-1, R-3-2, R-3-4, R-4-7, R-10",
+    "recyclingCodeCorrespond": "R-4-9, R-5-1, R-10"
+  },
+  {
+    "wasteCode": "03-10-02",
+    "wasteName": "알칼리가 포함된 폐이차전지",
+    "recyclingCodeNone": "R-2-1, R-3-2, R-3-4, R-4-7, R-10",
+    "recyclingCodeCorrespond": "R-4-9, R-5-1, R-10"
+  },
+  {
+    "wasteCode": "03-10-03",
+    "wasteName": "리튬계 폐이차전지(침수ㆍ화재ㆍ변형ㆍ파손 등이 발생한 것과 셀이 훼손되어 유해물질이 유출되거나 화재ㆍ폭발의 위험이 있는 것으로 한정한다)",
+    "recyclingCodeNone": "R-3-1, R-3-2, R-3-3, R-10",
+    "recyclingCodeCorrespond": "-"
+  },
+  {
+    "wasteCode": "03-10-04",
+    "wasteName": "이차전지 스크랩",
+    "recyclingCodeNone": "R-3-1, R-3-2, R-3-3, R-10",
+    "recyclingCodeCorrespond": "-"
+  },
+  {
+    "wasteCode": "03-10-99",
+    "wasteName": "그 밖의 폐이차전지(침수ㆍ화재ㆍ변형ㆍ파손 등이 발생한 것과 셀이 훼손되어 유해물질이 유출되거나 화재ㆍ폭발의 위험이 있는 것으로 한정한다)",
+    "recyclingCodeNone": "R-3-1, R-3-2, R-3-3, R-10",
+    "recyclingCodeCorrespond": "-"
+  },
+  {
+    "wasteCode": "04",
+    "wasteName": "폐유기용제",
+    "recyclingCodeNone": "-",
+    "recyclingCodeCorrespond": "-"
+  },
+  {
+    "wasteCode": "04-01-00",
+    "wasteName": "할로겐족 폐유기용제",
+    "recyclingCodeNone": "R-2-1, R-3-2, R-4-6, R-10",
+    "recyclingCodeCorrespond": "-"
+  },
+  {
+    "wasteCode": "04-02-00",
+    "wasteName": "그 밖의 폐유기용제",
+    "recyclingCodeNone": "R-2-1, R-3-2, R-4-6, R-9-2, R-10",
+    "recyclingCodeCorrespond": "-"
+  },
+  {
+    "wasteCode": "05",
+    "wasteName": "폐페인트 및 폐락카",
+    "recyclingCodeNone": "-",
+    "recyclingCodeCorrespond": "-"
+  },
+  {
+    "wasteCode": "05-01-00",
+    "wasteName": "폐유성페인트",
+    "recyclingCodeNone": "R-2-1, R-9-2, R-10",
+    "recyclingCodeCorrespond": "R-3-2, R-4-6, R-4-7, R-10"
+  },
+  {
+    "wasteCode": "05-02-00",
+    "wasteName": "폐수성페인트",
+    "recyclingCodeNone": "R-2-1, R-3-2, R-4-7, R-10",
+    "recyclingCodeCorrespond": "-"
+  },
+  {
+    "wasteCode": "05-03-00",
+    "wasteName": "폐락카",
+    "recyclingCodeNone": "R-2-1, R-9-2, R-10",
+    "recyclingCodeCorrespond": "R-3-2, R-4-6, R-4-7, R-10"
+  },
+  {
+    "wasteCode": "06",
+    "wasteName": "폐유",
+    "recyclingCodeNone": "-",
+    "recyclingCodeCorrespond": "-"
+  },
+  {
+    "wasteCode": "06-01",
+    "wasteName": "폐광물유",
+    "recyclingCodeNone": "-",
+    "recyclingCodeCorrespond": "-"
+  },
+  {
+    "wasteCode": "06-01-01",
+    "wasteName": "폐윤활유(「자원의 절약과 재활용촉진에 관한 법률 시행령」 제18조에 따른 재활용의무 대상 제품·포장재인 기어유 및 내연기관용 윤활유를 말한다)",
+    "recyclingCodeNone": "R-3-3, R-4-6, R-9-2, R-10",
+    "recyclingCodeCorrespond": "-"
+  },
+  {
+    "wasteCode": "06-01-02",
+    "wasteName": "폐연마유·비수용성폐절삭유·폐열처리유(금속가공과정에서 발생된 것을 말한다)",
+    "recyclingCodeNone": "R-3-1, R-3-2, R-4-6, R-9-2, R-10",
+    "recyclingCodeCorrespond": "-"
+  },
+  {
+    "wasteCode": "06-01-03",
+    "wasteName": "폐기계유·폐작동유(공업용 기예유·냉동기유·터어빈유·베어링윤활유·압축기유·유압작동유·열매체유 및 프로세스유 등을 말한다)",
+    "recyclingCodeNone": "R-3-1, R-3-2, R-4-6, R-9-2, R-10",
+    "recyclingCodeCorrespond": "-"
+  },
+  {
+    "wasteCode": "06-01-04",
+    "wasteName": "폐연료유",
+    "recyclingCodeNone": "R-4-6, R-9-2, R-10",
+    "recyclingCodeCorrespond": "-"
+  },
+  {
+    "wasteCode": "06-01-05",
+    "wasteName": "폐오일필터",
+    "recyclingCodeNone": "R-3-1, R-3-2, R-9-2, R-10",
+    "recyclingCodeCorrespond": "-"
+  },
+  {
+    "wasteCode": "06-01-06",
+    "wasteName": "기름 함유 폐전선·폐케이블",
+    "recyclingCodeNone": "R-3-1, R-3-2, R-4-6, R-9-2, R-10",
+    "recyclingCodeCorrespond": "-"
+  },
+  {
+    "wasteCode": "06-01-07",
+    "wasteName": "폐절연유(폴리클로리네이티드비페닐 함유 폐기물을 제외한다)",
+    "recyclingCodeNone": "R-3-1, R-3-2, R-4-6, R-9-2, R-10",
+    "recyclingCodeCorrespond": "-"
+  },
+  {
+    "wasteCode": "06-01-99",
+    "wasteName": "그 밖의 폐광물유[아스팔트유·그리스(grease)·방청유 및 수용성절삭유, 20퍼센트 이상의 이물질이 함유된 폐유, 고체상태의 폐유 등을 말한다]",
+    "recyclingCodeNone": "R-3-1, R-3-2, R-4-6, R-9-2, R-10",
+    "recyclingCodeCorrespond": "-"
+  },
+  {
+    "wasteCode": "06-02-00",
+    "wasteName": "폐동식물유",
+    "recyclingCodeNone": "R-3-3, R-9-2, R-10",
+    "recyclingCodeCorrespond": "-"
+  },
+  {
+    "wasteCode": "06-03-00",
+    "wasteName": "그 밖의 폐유",
+    "recyclingCodeNone": "R-2-1, R-4-6, R-9-2, R-10",
+    "recyclingCodeCorrespond": "-"
+  },
+  {
+    "wasteCode": "07",
+    "wasteName": "폐석면",
+    "recyclingCodeNone": "-",
+    "recyclingCodeCorrespond": "-"
+  },
+  {
+    "wasteCode": "07-01",
+    "wasteName": "제품·설비(뿜칠로 사용된 것을 포함한다) 등의 해체·제거 시 발생되는 폐석면",
+    "recyclingCodeNone": "-",
+    "recyclingCodeCorrespond": "-"
+  },
+  {
+    "wasteCode": "07-01-01",
+    "wasteName": "흩날릴 우려가 없는 폐석면",
+    "recyclingCodeNone": "재활용 금지",
+    "recyclingCodeCorrespond": "재활용 금지"
+  },
+  {
+    "wasteCode": "07-01-02",
+    "wasteName": "흩날릴 우려가 있는 폐석면",
+    "recyclingCodeNone": "재활용 금지",
+    "recyclingCodeCorrespond": "재활용 금지"
+  },
+  {
+    "wasteCode": "07-02-00",
+    "wasteName": "석면제품 등의 연마·절단·가공 공정에서 발생된 부스러기 및 연마·절단·가공 시설의 집진기에서 모아진 분진",
+    "recyclingCodeNone": "재활용 금지",
+    "recyclingCodeCorrespond": "재활용 금지"
+  },
+  {
+    "wasteCode": "07-03-00",
+    "wasteName": "석면의 제거작업에 사용된 모든 바닥비닐시트·방진마스크·작업복, 집진필터 등",
+    "recyclingCodeNone": "재활용 금지",
+    "recyclingCodeCorrespond": "재활용 금지"
+  },
+  {
+    "wasteCode": "08",
+    "wasteName": "폴리클로리네이티드비페닐 함유 폐기물",
+    "recyclingCodeNone": "-",
+    "recyclingCodeCorrespond": "-"
+  },
+  {
+    "wasteCode": "08-01-00",
+    "wasteName": "폴리클로리네이티드비페닐 함유 폐유",
+    "recyclingCodeNone": "재활용 금지",
+    "recyclingCodeCorrespond": "재활용 금지"
+  },
+  {
+    "wasteCode": "08-02-00",
+    "wasteName": "폴리클로리네이티드비페닐 함유 폐유기용제",
+    "recyclingCodeNone": "재활용 금지",
+    "recyclingCodeCorrespond": "재활용 금지"
+  },
+  {
+    "wasteCode": "08-03-00",
+    "wasteName": "그 밖의 폴리클로리네이티드비페닐을 함유한 액상의 것",
+    "recyclingCodeNone": "재활용 금지",
+    "recyclingCodeCorrespond": "재활용 금지"
+  },
+  {
+    "wasteCode": "08-04-00",
+    "wasteName": "그 밖의 폴리클로리네이티드비페닐을 함유한 액상이 아닌 것",
+    "recyclingCodeNone": "재활용 금지",
+    "recyclingCodeCorrespond": "재활용 금지"
+  },
+  {
+    "wasteCode": "09",
+    "wasteName": "폐유독물질",
+    "recyclingCodeNone": "-",
+    "recyclingCodeCorrespond": "-"
+  },
+  {
+    "wasteCode": "09-01-00",
+    "wasteName": "「화학물질관리법」 제2조제5호에 따른 금지물질",
+    "recyclingCodeNone": "재활용 금지",
+    "recyclingCodeCorrespond": "재활용 금지"
+  },
+  {
+    "wasteCode": "09-02-00",
+    "wasteName": "연구·검사용 폐시약",
+    "recyclingCodeNone": "재활용 금지",
+    "recyclingCodeCorrespond": "재활용 금지"
+  },
+  {
+    "wasteCode": "09-03-00",
+    "wasteName": "「화학물질관리법」 제2조제7호에 따른 유해화학물질",
+    "recyclingCodeNone": "R-2-1, R-3-2, R-3-3, R-10",
+    "recyclingCodeCorrespond": "-"
+  },
+  {
+    "wasteCode": "09-04-00",
+    "wasteName": "「화학물질관리법」 제2조제3호 및 제4호에 따른 허가물질 및 제한물질",
+    "recyclingCodeNone": "R-2-1",
+    "recyclingCodeCorrespond": "-"
+  },
+  {
+    "wasteCode": "10",
+    "wasteName": "의료폐기물",
+    "recyclingCodeNone": "-",
+    "recyclingCodeCorrespond": "-"
+  },
+  {
+    "wasteCode": "10-11-00",
+    "wasteName": "격리의료폐기물",
+    "recyclingCodeNone": "재활용 금지",
+    "recyclingCodeCorrespond": "재활용 금지"
+  },
+  {
+    "wasteCode": "10-12",
+    "wasteName": "위해의료폐기물",
+    "recyclingCodeNone": "재활용 금지",
+    "recyclingCodeCorrespond": "재활용 금지"
+  },
+  {
+    "wasteCode": "10-12-01",
+    "wasteName": "조직물류폐기물(태반을 재활용하는 경우는 제외한다)",
+    "recyclingCodeNone": "재활용 금지",
+    "recyclingCodeCorrespond": "재활용 금지"
+  },
+  {
+    "wasteCode": "10-12-02",
+    "wasteName": "병리계폐기물",
+    "recyclingCodeNone": "재활용 금지",
+    "recyclingCodeCorrespond": "재활용 금지"
+  },
+  {
+    "wasteCode": "10-12-03",
+    "wasteName": "손상성폐기물",
+    "recyclingCodeNone": "재활용 금지",
+    "recyclingCodeCorrespond": "재활용 금지"
+  },
+  {
+    "wasteCode": "10-12-04",
+    "wasteName": "생물·화학폐기물",
+    "recyclingCodeNone": "재활용 금지",
+    "recyclingCodeCorrespond": "재활용 금지"
+  },
+  {
+    "wasteCode": "10-12-05",
+    "wasteName": "혈액오염폐기물",
+    "recyclingCodeNone": "재활용 금지",
+    "recyclingCodeCorrespond": "재활용 금지"
+  },
+  {
+    "wasteCode": "10-12-06",
+    "wasteName": "인체조직물 중 태반(재활용하는 경우에만 해당한다)",
+    "recyclingCodeNone": "R-4-10",
+    "recyclingCodeCorrespond": "-"
+  },
+  {
+    "wasteCode": "10-13-00",
+    "wasteName": "일반의료폐기물",
+    "recyclingCodeNone": "재활용 금지",
+    "recyclingCodeCorrespond": "재활용 금지"
+  },
+  {
+    "wasteCode": "11",
+    "wasteName": "수은폐기물",
+    "recyclingCodeNone": "-",
+    "recyclingCodeCorrespond": "-"
+  },
+  {
+    "wasteCode": "11-01",
+    "wasteName": "수은함유폐기물",
+    "recyclingCodeNone": "-",
+    "recyclingCodeCorrespond": "-"
+  },
+  {
+    "wasteCode": "11-01-01",
+    "wasteName": "수은 첨가 폐램프",
+    "recyclingCodeNone": "R-3-3, R-4-1, R-10",
+    "recyclingCodeCorrespond": "-"
+  },
+  {
+    "wasteCode": "11-01-02",
+    "wasteName": "수은 첨가 폐계측기기",
+    "recyclingCodeNone": "R-3-3, R-4-1, R-10",
+    "recyclingCodeCorrespond": "-"
+  },
+  {
+    "wasteCode": "11-01-03",
+    "wasteName": "수은 첨가 폐전지",
+    "recyclingCodeNone": "R-3-3, R-4-1, R-10",
+    "recyclingCodeCorrespond": "-"
+  },
+  {
+    "wasteCode": "11-01-99",
+    "wasteName": "그 밖의 기후에너지환경부장관이 고시하는 폐제품",
+    "recyclingCodeNone": "R-3-3, R-4-1, R-10",
+    "recyclingCodeCorrespond": "-"
+  },
+  {
+    "wasteCode": "11-02-00",
+    "wasteName": "수은구성폐기물",
+    "recyclingCodeNone": "R-4-7",
+    "recyclingCodeCorrespond": "-"
+  },
+  {
+    "wasteCode": "11-03-00",
+    "wasteName": "수은함유폐기물 처리잔재물",
+    "recyclingCodeNone": "R-3-1, R-3-2, R-3-3, R-10",
+    "recyclingCodeCorrespond": "-"
+  },
+  {
+    "wasteCode": "51-01",
+    "wasteName": "유기성오니류",
+    "recyclingCodeNone": "-",
+    "recyclingCodeCorrespond": "-"
+  },
+  {
+    "wasteCode": "51-01-01",
+    "wasteName": "정수처리오니",
+    "recyclingCodeNone": "R-9-3, R-9-4, R-10",
+    "recyclingCodeCorrespond": "R-4-2, R-5-1, R-5-4, R-7-3, R-8-2, R-10"
+  },
+  {
+    "wasteCode": "51-01-02",
+    "wasteName": "하수처리오니",
+    "recyclingCodeNone": "R-4-9, R-9-3, R-9-4, R-10",
+    "recyclingCodeCorrespond": "R-4-2, R-5-1, R-5-4, R-6-1, R-6-2, R-7-3, R-8-2, R-9-5, R-10"
+  },
+  {
+    "wasteCode": "51-01-03",
+    "wasteName": "분뇨처리오니",
+    "recyclingCodeNone": "R-9-3, R-9-4, R-10",
+    "recyclingCodeCorrespond": "R-4-2, R-5-1, R-5-4, R-6-1, R-6-2, R-7-3, R-8-2, R-9-5, R-10"
+  },
+  {
+    "wasteCode": "51-01-04",
+    "wasteName": "가축분뇨처리오니",
+    "recyclingCodeNone": "R-9-3, R-9-4, R-10",
+    "recyclingCodeCorrespond": "R-4-2, R-5-1, R-5-4, R-6-1, R-6-2, R-7-3, R-8-2, R-9-5, R-10"
+  },
+  {
+    "wasteCode": "51-01-05",
+    "wasteName": "펄프·제지공정오니",
+    "recyclingCodeNone": "R-3-1, R-3-2, R-3-3, R-3-4, R-4-3, R-9-3, R-9-4, R-10",
+    "recyclingCodeCorrespond": "R-3-5, R-4-2, R-5-1, R-5-4, R-6-1, R-6-2, R-7-3, R-8-2, R-10"
+  },
+  {
+    "wasteCode": "51-01-06",
+    "wasteName": "그 밖의 공정오니",
+    "recyclingCodeNone": "R-3-1, R-3-2, R-3-4, R-9-3, R-9-4, R-10",
+    "recyclingCodeCorrespond": "R-4-2, R-5-1, R-5-2, R-5-4, R-6-1, R-7-3, R-8-2, R-10"
+  },
+  {
+    "wasteCode": "51-01-07",
+    "wasteName": "펄프·제지폐수처리오니",
+    "recyclingCodeNone": "R-3-1, R-3-2, R-3-3,R-3-4, R-4-3, R-9-3, R-9-4, R-10",
+    "recyclingCodeCorrespond": "R-3-5, R-4-2, R-5-1,R-5-4, R-6-1, R-6-2, R-7-3, R-8-2, R-9-5, R-10"
+  },
+  {
+    "wasteCode": "51-01-08",
+    "wasteName": "그 밖의 폐수처리오니",
+    "recyclingCodeNone": "R-3-1, R-3-2, R-3-4, R-9-3, R-9-4, R-10",
+    "recyclingCodeCorrespond": "R-4-2, R-5-1, R-5-4, R-6-1, R-7-3, R-8-2, R-9-5, R-10"
+  },
+  {
+    "wasteCode": "51-01-99",
+    "wasteName": "그 밖의 유기성오니",
+    "recyclingCodeNone": "R-9-3, R-9-4, R-10",
+    "recyclingCodeCorrespond": "R-4-2, R-5-1, R-5-4, R-6-1, R-7-3, R-8-2, R-10"
+  },
+  {
+    "wasteCode": "51-02",
+    "wasteName": "무기성오니류",
+    "recyclingCodeNone": "-",
+    "recyclingCodeCorrespond": "-"
+  },
+  {
+    "wasteCode": "51-02-01",
+    "wasteName": "폐수처리오니",
+    "recyclingCodeNone": "R-3-1, R-3-2, R-3-3, R-3-4, R-4-1, R-10",
+    "recyclingCodeCorrespond": "R-4-2, R-10"
+  },
+  {
+    "wasteCode": "51-02-02",
+    "wasteName": "정수처리오니",
+    "recyclingCodeNone": "-",
+    "recyclingCodeCorrespond": "R-4-2, R-7-1, R-7-2, R-7-3, R-7-6, R-10"
+  },
+  {
+    "wasteCode": "51-02-03",
+    "wasteName": "하수처리오니",
+    "recyclingCodeNone": "R-4-9, R-10",
+    "recyclingCodeCorrespond": "R-4-2, R-10"
+  },
+  {
+    "wasteCode": "51-02-04",
+    "wasteName": "하수준설토",
+    "recyclingCodeNone": "-",
+    "recyclingCodeCorrespond": "R-4-2, R-7-1, R-7-2, R-7-3, R-7-6, R-10"
+  },
+  {
+    "wasteCode": "51-02-05",
+    "wasteName": "건설오니",
+    "recyclingCodeNone": "-",
+    "recyclingCodeCorrespond": "R-4-2, R-7-1, R-7-2, R-7-3, R-7-6, R-10"
+  },
+  {
+    "wasteCode": "51-02-06",
+    "wasteName": "석재·골재폐수처리오니(석재·골재 생산시 발생한 폐수를 처리하는 과정에서 발생한 오니로 한정한다)",
+    "recyclingCodeNone": "-",
+    "recyclingCodeCorrespond": "R-4-2, R-7-1, R-7-2, R-7-3, R-7-4, R-7-6, R-10"
+  },
+  {
+    "wasteCode": "51-02-07",
+    "wasteName": "유리식각공정오니",
+    "recyclingCodeNone": "R-3-1, R-3-2, R-3-3,R-3-4, R-10",
+    "recyclingCodeCorrespond": "R-4-2, R-10"
+  },
+  {
+    "wasteCode": "51-02-08",
+    "wasteName": "실리콘공정오니",
+    "recyclingCodeNone": "R-3-1, R-3-2, R-3-4, R-10",
+    "recyclingCodeCorrespond": "R-4-2, R-10"
+  },
+  {
+    "wasteCode": "51-02-09",
+    "wasteName": "보크사이트 잔재물",
+    "recyclingCodeNone": "R-3-1, R-3-2, R-4-7, R-10",
+    "recyclingCodeCorrespond": "R-4-2, R-7-3, R-10"
+  },
+  {
+    "wasteCode": "51-02-10",
+    "wasteName": "영농폐기물(농업활동 과정에서 배출된 농업용 폐플라스틱 필름·시트류에 한정한다) 폐수처리오니",
+    "recyclingCodeNone": "-",
+    "recyclingCodeCorrespond": "R-4-2, R-7-1, R-7-2, R-7-3, R-7-6, R-10"
+  },
+  {
+    "wasteCode": "51-02-11",
+    "wasteName": "영농폐기물(농업활동 과정에서 배출된 농업용 폐플라스틱 필름·시트류에 한정한다) 공정오니",
+    "recyclingCodeNone": "-",
+    "recyclingCodeCorrespond": "R-4-2, R-7-1, R-7-2, R-7-3, R-7-6, R-10"
+  },
+  {
+    "wasteCode": "51-02-19",
+    "wasteName": "그 밖의 공정오니",
+    "recyclingCodeNone": "R-3-1, R-3-2, R-3-3, R-3-4, R-10",
+    "recyclingCodeCorrespond": "R-4-2, R-10"
+  },
+  {
+    "wasteCode": "51-02-99",
+    "wasteName": "그 밖의 무기성오니",
+    "recyclingCodeNone": "R-3-1, R-3-2, R-3-3, R-3-4, R-10",
+    "recyclingCodeCorrespond": "R-4-2, R-7-1, R-7-2, R-7-3, R-7-6, R-10"
+  },
+  {
+    "wasteCode": "51-03",
+    "wasteName": "폐합성고분자화합물",
+    "recyclingCodeNone": "-",
+    "recyclingCodeCorrespond": "-"
+  },
+  {
+    "wasteCode": "51-03-01",
+    "wasteName": "폐합성수지류(폐염화비닐수지류는 제외한다)",
+    "recyclingCodeNone": "R-1, R-2, R-3-2, R-3-3, R-3-4, R-4-4, R-9-3, R-10",
+    "recyclingCodeCorrespond": "R-8-1, R-8-2, R-9-1, R-10"
+  },
+  {
+    "wasteCode": "51-03-02",
+    "wasteName": "폐합성고무류",
+    "recyclingCodeNone": "R-1-1, R-2-1, R-3-3, R-3-4,R-4-4, R-9-3, R-10",
+    "recyclingCodeCorrespond": "R-8-1, R-8-2, R-9-1, R-10"
+  },
+  {
+    "wasteCode": "51-03-03",
+    "wasteName": "폐폴리염화비닐수지류",
+    "recyclingCodeNone": "R-4-4, R-10",
+    "recyclingCodeCorrespond": "R-8-1, R-9-1, R-10"
+  },
+  {
+    "wasteCode": "51-03-04",
+    "wasteName": "폐폴리우레탄폼류",
+    "recyclingCodeNone": "R-4-4, R-9-3, R-10",
+    "recyclingCodeCorrespond": "R-8-1, R-8-2, R-9-1, R-10"
+  },
+  {
+    "wasteCode": "51-03-05",
+    "wasteName": "양식용폐부자",
+    "recyclingCodeNone": "R-4-4, R-9-3, R-10",
+    "recyclingCodeCorrespond": "R-8-1, R-8-2, R-9-1, R-10"
+  },
+  {
+    "wasteCode": "51-03-06",
+    "wasteName": "폐발포합성수지",
+    "recyclingCodeNone": "R-1-1, R-2-1, R-3-3, R-3-4,R-4-4, R-9-3, R-10",
+    "recyclingCodeCorrespond": "R-8-1, R-8-2, R-9-1, R-10"
+  },
+  {
+    "wasteCode": "51-03-07",
+    "wasteName": "플라스틱폐포장재",
+    "recyclingCodeNone": "R-1, R-2, R-3-3, R-3-4,R-4-4, R-9-3, R-10",
+    "recyclingCodeCorrespond": "R-8-2, R-9-1, R-10"
+  },
+  {
+    "wasteCode": "51-03-08",
+    "wasteName": "폐어망",
+    "recyclingCodeNone": "R-9-1, R-10",
+    "recyclingCodeCorrespond": "R-8-1, R-8-2, R-10"
+  },
+  {
+    "wasteCode": "51-03-99",
+    "wasteName": "그 밖의 폐합성고분자화합물(합성수지류로 피복된 폐전선을 포함한다)",
+    "recyclingCodeNone": "R-1, R-2, R-3-1, R-3-3, R-3-4, R-4-4, R-9-3, R-10",
+    "recyclingCodeCorrespond": "R-8-2, R-10"
+  },
+  {
+    "wasteCode": "51-04",
+    "wasteName": "광재류",
+    "recyclingCodeNone": "-",
+    "recyclingCodeCorrespond": "-"
+  },
+  {
+    "wasteCode": "51-04-01",
+    "wasteName": "고로슬래그",
+    "recyclingCodeNone": "R-3-1, R-3-2, R-3-3, R-3-4, R-4-7, R-10",
+    "recyclingCodeCorrespond": "R-3-5, R-4-2, R-5-1, R-7-1, R-7-2, R-7-3, R-7-6, R-10"
+  },
+  {
+    "wasteCode": "51-04-02",
+    "wasteName": "제강슬래그",
+    "recyclingCodeNone": "R-3-1, R-3-2, R-3-3, R-3-4, R-4-7, R-10",
+    "recyclingCodeCorrespond": "R-3-5, R-4-2, R-5-1, R-7-1, R-7-2, R-7-3, R-7-6, R-10"
+  },
+  {
+    "wasteCode": "51-04-03",
+    "wasteName": "비철금속제련공정광재",
+    "recyclingCodeNone": "R-3-1, R-3-2, R-3-3,R-3-4, R-4-7, R-10",
+    "recyclingCodeCorrespond": "R-3-5, R-4-2, R-7-1, R-7-2, R-7-3, R-7-6, R-10"
+  },
+  {
+    "wasteCode": "51-04-04",
+    "wasteName": "선광공정광재",
+    "recyclingCodeNone": "R-3-1, R-3-2, R-3-3,R-3-4, R-4-7, R-10",
+    "recyclingCodeCorrespond": "R-3-5, R-4-2, R-7-1, R-7-2, R-7-3, R-7-6, R-10"
+  },
+  {
+    "wasteCode": "51-04-99",
+    "wasteName": "그 밖의 광재류",
+    "recyclingCodeNone": "R-3-1, R-3-2, R-3-3, R-3-4, R-4-7, R-10",
+    "recyclingCodeCorrespond": "R-3-5, R-4-2, R-7-1, R-7-2, R-7-3, R-7-6, R-10"
+  },
+  {
+    "wasteCode": "51-05",
+    "wasteName": "분진류(대기오염방지시설에서 포집된 것으로 한정하되, 소각시설에서 발생하는 것은 제외한다)",
+    "recyclingCodeNone": "-",
+    "recyclingCodeCorrespond": "-"
+  },
+  {
+    "wasteCode": "51-05-01",
+    "wasteName": "제철공정분진",
+    "recyclingCodeNone": "R-3-1, R-3-2, R-3-3, R-3-4, R-4-1, R-10",
+    "recyclingCodeCorrespond": "R-4-2, R-7-3, R-8-1,R-10"
+  },
+  {
+    "wasteCode": "51-05-02",
+    "wasteName": "시멘트제조공정분진",
+    "recyclingCodeNone": "R-3-4, R-10",
+    "recyclingCodeCorrespond": "R-4-2, R-7-3, R-10"
+  },
+  {
+    "wasteCode": "51-05-03",
+    "wasteName": "발전시설분진",
+    "recyclingCodeNone": "R-3-4, R-10",
+    "recyclingCodeCorrespond": "R-4-2, R-7-3, R-10"
+  },
+  {
+    "wasteCode": "51-05-04",
+    "wasteName": "폐실리카 퓸(규소철 제조과정에서 발생된 분진을 말한다)",
+    "recyclingCodeNone": "R-3-4, R-10",
+    "recyclingCodeCorrespond": "R-4-2, R-7-3, R-10"
+  },
+  {
+    "wasteCode": "51-05-99",
+    "wasteName": "그 밖의 분진",
+    "recyclingCodeNone": "R-3-1, R-3-2, R-3-3, R-3-4, R-10",
+    "recyclingCodeCorrespond": "R-4-2, R-7-1, R-7-2, R-7-3, R-7-6, R-8-1, R-10"
+  },
+  {
+    "wasteCode": "51-06",
+    "wasteName": "폐주물사 및 폐사",
+    "recyclingCodeNone": "-",
+    "recyclingCodeCorrespond": "-"
+  },
+  {
+    "wasteCode": "51-06-01",
+    "wasteName": "점토점결폐주물사",
+    "recyclingCodeNone": "R-1-1, R-4-1",
+    "recyclingCodeCorrespond": "R-3-5, R-4-2, R-7-1, R-7-2, R-7-3, R-7-5, R-7-6, R-10"
+  },
+  {
+    "wasteCode": "51-06-02",
+    "wasteName": "화학점결폐주물사",
+    "recyclingCodeNone": "R-1-1, R-4-1",
+    "recyclingCodeCorrespond": "R-3-5, R-4-2, R-7-5,R-10"
+  },
+  {
+    "wasteCode": "51-06-03",
+    "wasteName": "샌드블라스트폐사",
+    "recyclingCodeNone": "R-1-1, R-3-1, R-3-2, R-10",
+    "recyclingCodeCorrespond": "R-3-5, R-4-2, R-10"
+  },
+  {
+    "wasteCode": "51-06-04",
+    "wasteName": "폐여과사",
+    "recyclingCodeNone": "R-1-2",
+    "recyclingCodeCorrespond": "R-2-2, R-4-2, R-10"
+  },
+  {
+    "wasteCode": "51-06-99",
+    "wasteName": "그 밖의 폐사",
+    "recyclingCodeNone": "R-1-1, R-3-1, R-3-2, R-7-5, R-10",
+    "recyclingCodeCorrespond": "R-4-2, R-10"
+  },
+  {
+    "wasteCode": "51-07",
+    "wasteName": "폐내화물 및 도자기 조각",
+    "recyclingCodeNone": "-",
+    "recyclingCodeCorrespond": "-"
+  },
+  {
+    "wasteCode": "51-07-01",
+    "wasteName": "폐내화물",
+    "recyclingCodeNone": "R-3-1, R-3-2, R-10",
+    "recyclingCodeCorrespond": "R-4-2, R-7-1, R-7-2, R-7-3, R-7-6, R-10"
+  },
+  {
+    "wasteCode": "51-07-02",
+    "wasteName": "폐도자기조각",
+    "recyclingCodeNone": "-",
+    "recyclingCodeCorrespond": "R-4-2, R-7-1, R-7-2, R-7-3, R-7-6, R-10"
+  },
+  {
+    "wasteCode": "51-08",
+    "wasteName": "소각재",
+    "recyclingCodeNone": "-",
+    "recyclingCodeCorrespond": "-"
+  },
+  {
+    "wasteCode": "51-08-01",
+    "wasteName": "생활폐기물 소각시설 비산재",
+    "recyclingCodeNone": "R-3-3, R-3-4, R-10",
+    "recyclingCodeCorrespond": "R-4-2, R-10"
+  },
+  {
+    "wasteCode": "51-08-02",
+    "wasteName": "사업장폐기물 소각시설 비산재",
+    "recyclingCodeNone": "R-3-3, R-3-4, R-4-9, R-10",
+    "recyclingCodeCorrespond": "R-4-2, R-10"
+  },
+  {
+    "wasteCode": "51-08-03",
+    "wasteName": "생활폐기물 소각시설 바닥재",
+    "recyclingCodeNone": "R-3-3, R-3-4, R-10",
+    "recyclingCodeCorrespond": "R-4-2, R-7-1, R-7-3, R-10"
+  },
+  {
+    "wasteCode": "51-08-04",
+    "wasteName": "사업장폐기물 소각시설 바닥재",
+    "recyclingCodeNone": "R-3-3, R-3-4, R-4-9, R-10",
+    "recyclingCodeCorrespond": "R-4-2, R-10"
+  },
+  {
+    "wasteCode": "51-08-05",
+    "wasteName": "생활폐기물 소각시설 소각재(바닥재와 비산재가 혼합된 경우를 말한다)",
+    "recyclingCodeNone": "R-3-3, R-3-4, R-10",
+    "recyclingCodeCorrespond": "R-4-2, R-10"
+  },
+  {
+    "wasteCode": "51-08-06",
+    "wasteName": "사업장폐기물 소각시설 소각재(바닥재와 비산재가 혼합된 경우를 말한다)",
+    "recyclingCodeNone": "R-3-3, R-3-4, R-4-9, R-10",
+    "recyclingCodeCorrespond": "R-4-2, R-10"
+  },
+  {
+    "wasteCode": "51-09",
+    "wasteName": "안정화 또는 고형화·고화 처리물",
+    "recyclingCodeNone": "-",
+    "recyclingCodeCorrespond": "-"
+  },
+  {
+    "wasteCode": "51-09-01",
+    "wasteName": "안정화 처리물",
+    "recyclingCodeNone": "R-3-4, R-10",
+    "recyclingCodeCorrespond": "R-4-2, R-10"
+  },
+  {
+    "wasteCode": "51-09-02",
+    "wasteName": "시멘트고형화 처리물",
+    "recyclingCodeNone": "R-3-4, R-10",
+    "recyclingCodeCorrespond": "R-4-2, R-10"
+  },
+  {
+    "wasteCode": "51-09-03",
+    "wasteName": "고화 처리물",
+    "recyclingCodeNone": "R-3-4, R-10",
+    "recyclingCodeCorrespond": "R-4-2, R-7-3, R-10"
+  },
+  {
+    "wasteCode": "51-09-04",
+    "wasteName": "킬레이트(Chelate)처리물",
+    "recyclingCodeNone": "R-3-4, R-10",
+    "recyclingCodeCorrespond": "R-4-2, R-7-3, R-10"
+  },
+  {
+    "wasteCode": "51-09-99",
+    "wasteName": "그 밖의 고형화·고화 처리물",
+    "recyclingCodeNone": "R-3-4, R-10",
+    "recyclingCodeCorrespond": "R-4-2, R-10"
+  },
+  {
+    "wasteCode": "51-10",
+    "wasteName": "폐촉매",
+    "recyclingCodeNone": "-",
+    "recyclingCodeCorrespond": "-"
+  },
+  {
+    "wasteCode": "51-10-01",
+    "wasteName": "금속성폐촉매",
+    "recyclingCodeNone": "R-4-1, R-10",
+    "recyclingCodeCorrespond": "-"
+  },
+  {
+    "wasteCode": "51-10-02",
+    "wasteName": "폐이온교환수지",
+    "recyclingCodeNone": "R-1-1, R-2-1, R-3-1, R-3-2, R-3-3, R-3-4, R-4-4, R-10",
+    "recyclingCodeCorrespond": "R-4-2, R-10"
+  },
+  {
+    "wasteCode": "51-10-03",
+    "wasteName": "폐멤브레인수지",
+    "recyclingCodeNone": "R-1-1, R-2-1, R-3-1, R-3-2, R-3-3, R-3-4, R-4-4, R-10",
+    "recyclingCodeCorrespond": "R-4-2, R-10"
+  },
+  {
+    "wasteCode": "51-10-99",
+    "wasteName": "그 밖의 폐촉매",
+    "recyclingCodeNone": "R-1-1, R-3-1, R-3-2, R-3-4, R-4-1, R-4-7, R-10",
+    "recyclingCodeCorrespond": "R-4-2, R-10"
+  },
+  {
+    "wasteCode": "51-11",
+    "wasteName": "폐흡착제 및 폐흡수제",
+    "recyclingCodeNone": "-",
+    "recyclingCodeCorrespond": "-"
+  },
+  {
+    "wasteCode": "51-11-01",
+    "wasteName": "폐흡착제",
+    "recyclingCodeNone": "R-1-1, R-3-1, R-3-2, R-3-4, R-4-5, R-10",
+    "recyclingCodeCorrespond": "R-4-2, R-10"
+  },
+  {
+    "wasteCode": "51-11-02",
+    "wasteName": "폐흡수제",
+    "recyclingCodeNone": "R-1-1, R-3-1, R-3-2, R-3-4, R-4-5, R-10",
+    "recyclingCodeCorrespond": "R-4-2, R-10"
+  },
+  {
+    "wasteCode": "51-11-03",
+    "wasteName": "폐활성탄",
+    "recyclingCodeNone": "R-1-1, R-3-4, R-4-5, R-10",
+    "recyclingCodeCorrespond": "R-3-5, R-4-2, R-8-2, R-10"
+  },
+  {
+    "wasteCode": "51-12",
+    "wasteName": "폐석고 및 폐석회",
+    "recyclingCodeNone": "-",
+    "recyclingCodeCorrespond": "-"
+  },
+  {
+    "wasteCode": "51-12-01",
+    "wasteName": "폐석고",
+    "recyclingCodeNone": "R-1-1, R-3-2, R-3-3, R-3-4",
+    "recyclingCodeCorrespond": "R-4-2, R-5-1, R-7-2, R-7-3, R-10"
+  },
+  {
+    "wasteCode": "51-12-02",
+    "wasteName": "폐석회",
+    "recyclingCodeNone": "R-1-1",
+    "recyclingCodeCorrespond": "R-3-3, R-4-2, R-5-1, R-7-2, R-7-3, R-10"
+  },
+  {
+    "wasteCode": "51-13",
+    "wasteName": "연소잔재물",
+    "recyclingCodeNone": "-",
+    "recyclingCodeCorrespond": "-"
+  },
+  {
+    "wasteCode": "51-13-01",
+    "wasteName": "연탄재",
+    "recyclingCodeNone": "-",
+    "recyclingCodeCorrespond": "R-4-2, R-7-1, R-7-2, R-7-3, R-7-6, R-10"
+  },
+  {
+    "wasteCode": "51-13-02",
+    "wasteName": "액체연료연소재",
+    "recyclingCodeNone": "R-4-5, R-10",
+    "recyclingCodeCorrespond": "R-4-2, R-8-2, R-10"
+  },
+  {
+    "wasteCode": "51-13-03",
+    "wasteName": "석탄재",
+    "recyclingCodeNone": "R-3-2, R-3-3, R-3-4, R-4-7, R-10",
+    "recyclingCodeCorrespond": "R-4-2, R-5-1, R-7-1, R-7-2, R-7-3, R-7-6, R-10"
+  },
+  {
+    "wasteCode": "51-13-99",
+    "wasteName": "그 밖의 연소잔재물",
+    "recyclingCodeNone": "R-3-1, R-3-2, R-4-7, R-10",
+    "recyclingCodeCorrespond": "R-4-2, R-7-1, R-7-2, R-10"
+  },
+  {
+    "wasteCode": "51-14",
+    "wasteName": "폐석재류",
+    "recyclingCodeNone": "-",
+    "recyclingCodeCorrespond": "-"
+  },
+  {
+    "wasteCode": "51-14-01",
+    "wasteName": "폐석분토사(석재·골재생산 과정에서 발생한 응집 미립분을 포함한다)",
+    "recyclingCodeNone": "-",
+    "recyclingCodeCorrespond": "R-4-2, R-7-1, R-7-2, R-7-3, R-7-4, R-7-6, R-10"
+  },
+  {
+    "wasteCode": "51-14-02",
+    "wasteName": "폐석재",
+    "recyclingCodeNone": "R-1-1, R-2-1",
+    "recyclingCodeCorrespond": "R-4-2, R-7-1, R-7-2, R-7-3, R-7-4, R-7-6, R-10"
+  },
+  {
+    "wasteCode": "51-15",
+    "wasteName": "폐타이어(「자원의 절약과 재활용촉진에 관한 법률 시행령」 제18조제5호에 해당하는 것을 말한다)",
+    "recyclingCodeNone": "-",
+    "recyclingCodeCorrespond": "-"
+  },
+  {
+    "wasteCode": "51-15-01",
+    "wasteName": "자동차 폐타이어",
+    "recyclingCodeNone": "R-1-2, R-2-1, R-2-2, R-3-3, R-3-4, R-4-4, R-4-5, R-9-1, R-9-3, R-10",
+    "recyclingCodeCorrespond": "R-4-2, R-8-1, R-8-2, R-10"
+  },
+  {
+    "wasteCode": "51-15-02",
+    "wasteName": "그 밖의 폐타이어",
+    "recyclingCodeNone": "R-1-2, R-2-1, R-2-2, R-3-3, R-3-4, R-4-4, R-4-5, R-9-1, R-9-3, R-10",
+    "recyclingCodeCorrespond": "R-4-2, R-8-1, R-8-2, R-10"
+  },
+  {
+    "wasteCode": "51-16-00",
+    "wasteName": "폐식용유(식용을 목적으로 식품 재료와 원료를 제조·조리·가공하거나 식용유를 유통·사용 또는 음식물류 폐기물을 처리하는 과정에서 발생하는 기름을 말한다)",
+    "recyclingCodeNone": "R-3-3, R-4-8, R-9-2, R-9-4, R-10",
+    "recyclingCodeCorrespond": "R-5-1, R-5-2, R-5-4, R-10"
+  },
+  {
+    "wasteCode": "51-17",
+    "wasteName": "동·식물성잔재물(식료품 및 음료제조업, 유통업 등에서 발생하는 잔재물을 포함하며, 음식물류 폐기물은 제외한다)",
+    "recyclingCodeNone": "-",
+    "recyclingCodeCorrespond": "-"
+  },
+  {
+    "wasteCode": "51-17-01",
+    "wasteName": "동물사체",
+    "recyclingCodeNone": "R-4-8, R-9-4, R-10",
+    "recyclingCodeCorrespond": "R-5-1, R-5-2, R-5-4, R-10"
+  },
+  {
+    "wasteCode": "51-17-02",
+    "wasteName": "축산물가공잔재물(동물성 유지류는 제외한다)",
+    "recyclingCodeNone": "R-3-4, R-4-8, R-9-4, R-4-2, R-10",
+    "recyclingCodeCorrespond": "R-5-1, R-5-2, R-5-4, R-10"
+  },
+  {
+    "wasteCode": "51-17-03",
+    "wasteName": "수산물가공잔재물",
+    "recyclingCodeNone": "R-3-4, R-4-8, R-9-4, R-10",
+    "recyclingCodeCorrespond": "R-5-1, R-5-2, R-5-4, R-10"
+  },
+  {
+    "wasteCode": "51-17-04",
+    "wasteName": "폐패각",
+    "recyclingCodeNone": "R-1-2, R-2-2, R-3-4, R-4-7, R-10",
+    "recyclingCodeCorrespond": "R-4-2, R-5-1, R-5-2, R-5-4, R-7-2, R-10"
+  },
+  {
+    "wasteCode": "51-17-05",
+    "wasteName": "폐모피류",
+    "recyclingCodeNone": "R-1-1, R-2-1, R-4-8,R-10",
+    "recyclingCodeCorrespond": "R-5-1, R-5-2, R-5-4, R-10"
+  },
+  {
+    "wasteCode": "51-17-06",
+    "wasteName": "피혁 및 피혁가공잔재물",
+    "recyclingCodeNone": "R-1-1, R-2-1, R-2-2, R-3-4, R-4-8, R-9-4, R-10",
+    "recyclingCodeCorrespond": "R-5-1, R-5-2, R-5-4, R-10"
+  },
+  {
+    "wasteCode": "51-17-07",
+    "wasteName": "동물털",
+    "recyclingCodeNone": "R-2-1, R-4-8, R-10",
+    "recyclingCodeCorrespond": "R-5-1, R-5-2, R-10"
+  },
+  {
+    "wasteCode": "51-17-08",
+    "wasteName": "동물성유지류",
+    "recyclingCodeNone": "R-3-3, R-4-8, R-9-4, R-10",
+    "recyclingCodeCorrespond": "R-5-1, R-5-2, R-5-4, R-10"
+  },
+  {
+    "wasteCode": "51-17-19",
+    "wasteName": "그 밖의 동물성잔재물",
+    "recyclingCodeNone": "R-4-8, R-9-4, R-10",
+    "recyclingCodeCorrespond": "R-5-1, R-5-2, R-5-4, R-10"
+  },
+  {
+    "wasteCode": "51-17-21",
+    "wasteName": "주정박",
+    "recyclingCodeNone": "R-5-3, R-9-1, R-9-3,R-10",
+    "recyclingCodeCorrespond": "R-5-1, R-5-2, R-5-4, R-10"
+  },
+  {
+    "wasteCode": "51-17-22",
+    "wasteName": "맥주박",
+    "recyclingCodeNone": "R-5-3, R-9-1, R-9-3, R-10",
+    "recyclingCodeCorrespond": "R-5-1, R-5-2, R-5-4, R-10"
+  },
+  {
+    "wasteCode": "51-17-23",
+    "wasteName": "유박유잔재물",
+    "recyclingCodeNone": "R-3-3, R-5-3, R-9-1, R-9-3,R-10",
+    "recyclingCodeCorrespond": "R-5-1, R-5-2, R-5-4, R-10"
+  },
+  {
+    "wasteCode": "51-17-24",
+    "wasteName": "초본류",
+    "recyclingCodeNone": "R-1-2, R-5-3, R-6-1, R-9-1, R-9-3, R-10",
+    "recyclingCodeCorrespond": "R-5-1, R-5-2, R-5-4, R-8-2, R-10"
+  },
+  {
+    "wasteCode": "51-17-25",
+    "wasteName": "커피찌꺼기",
+    "recyclingCodeNone": "R-4-5, R-4-8, R-5-1, R-5-2, R-5-3, R-9-3, R-9-4, R-10",
+    "recyclingCodeCorrespond": "R-2-2, R-4-2, R-4-7, R-5-4, R-6-1, R-8-2, R-9-1, R-9-5, R-10"
+  },
+  {
+    "wasteCode": "51-17-26",
+    "wasteName": "버섯폐배지",
+    "recyclingCodeNone": "R-4-8, R-5-1, R-5-2, R-9-3, R-9-4, R-10",
+    "recyclingCodeCorrespond": "R-5-4, R-6-1, R-8-2, R-9-1, R-9-5, R-10"
+  },
+  {
+    "wasteCode": "51-17-27",
+    "wasteName": "과채류(「사료관리법」 제2조제2호에 따른 단미사료에 해당하는 것으로 한정한다)",
+    "recyclingCodeNone": "R-5-1, R-5-2, R-5-4, R-6-1, R-9-4, R-10",
+    "recyclingCodeCorrespond": "-"
+  },
+  {
+    "wasteCode": "51-17-29",
+    "wasteName": "그 밖의 식물성잔재물",
+    "recyclingCodeNone": "R-5-3, R-9-1, R-9-3, R-9-4, R-10",
+    "recyclingCodeCorrespond": "R-4-5, R-5-1, R-5-2, R-5-4, R-6-1, R-8-2, R-10"
+  },
+  {
+    "wasteCode": "51-17-30",
+    "wasteName": "식재료 및 조리부산물(제18조제1항제1호에 따른 배출자 중 식품 제조ㆍ가공업체 및 같은 항 제3호에 따른 배출자 중 집단급식소에서 발생한 것으로 한정한다)",
+    "recyclingCodeNone": "R-5-1, R-5-2, R-5-4, R-6-1, R-9-4, R-10",
+    "recyclingCodeCorrespond": "-"
+  },
+  {
+    "wasteCode": "51-17-99",
+    "wasteName": "그 밖의 동·식물성잔재물",
+    "recyclingCodeNone": "R-4-8, R-5-3, R-9-1, R-9-3, R-9-4, R-10",
+    "recyclingCodeCorrespond": "R-4-2, R-5-1, R-5-2, R-5-4, R-8-2, R-10"
+  },
+  {
+    "wasteCode": "51-18",
+    "wasteName": "폐전기전자제품류",
+    "recyclingCodeNone": "-",
+    "recyclingCodeCorrespond": "-"
+  },
+  {
+    "wasteCode": "51-18-01",
+    "wasteName": "가정용폐전기전자제품",
+    "recyclingCodeNone": "R-1-1, R-2-1, R-3-1, R-3-2, R-3-3, R-10",
+    "recyclingCodeCorrespond": "-"
+  },
+  {
+    "wasteCode": "51-18-02",
+    "wasteName": "산업용폐전기전자제품",
+    "recyclingCodeNone": "R-1-1, R-2-1, R-3-1, R-3-2, R-3-3, R-10",
+    "recyclingCodeCorrespond": "-"
+  },
+  {
+    "wasteCode": "51-18-03",
+    "wasteName": "프린트토너 및 폐카트리지 폐부속품",
+    "recyclingCodeNone": "R-1-1, R-2-1, R-3-1, R-3-2, R-3-3, R-10",
+    "recyclingCodeCorrespond": "-"
+  },
+  {
+    "wasteCode": "51-18-99",
+    "wasteName": "그 밖의 폐전기전자제품류",
+    "recyclingCodeNone": "R-1-1, R-2-1, R-3-1, R-3-2, R-3-3, R-10",
+    "recyclingCodeCorrespond": "-"
+  },
+  {
+    "wasteCode": "51-19-00",
+    "wasteName": "왕겨 및 쌀겨",
+    "recyclingCodeNone": "R-1-2, R-4-5, R-5-3, R-6-1, R-8-2, R-9-1, R-9-3, R-10",
+    "recyclingCodeCorrespond": "R-4-2, R-5-1, R-5-2, R-5-4, R-10"
+  },
+  {
+    "wasteCode": "51-20",
+    "wasteName": "폐목재류(원목의 용도 그대로 사용하는 나무뿌리·가지 등을 제거한 원줄기는 제외한다)",
+    "recyclingCodeNone": "-",
+    "recyclingCodeCorrespond": "-"
+  },
+  {
+    "wasteCode": "51-20-21",
+    "wasteName": "임목폐목재(건설공사·산지개간 등의 과정에서 발생된 나무뿌리·가지·줄기 등을 말한다)",
+    "recyclingCodeNone": "-",
+    "recyclingCodeCorrespond": "R-1-1, R-3-4, R-4-2, R-4-3, R-4-5, R-5-1, R-5-2, R-5-3, R-8-1, R-8-2, R-9-1, R-9-3, R-9-5, R-10"
+  },
+  {
+    "wasteCode": "51-20-22",
+    "wasteName": "제재부산물(원목 가공과정에서 발생되는 나무 껍질·톱밥·대패밥 등을 말한다), 목재가공공장 부산물(원목상태의 깨끗한 목재부산물 및 분진을 말한다)",
+    "recyclingCodeNone": "-",
+    "recyclingCodeCorrespond": "R-1-1, R-1-2, R-3-4, R-4-2, R-4-3, R-4-5, R-5-1, R-5-2, R-5-3, R-6-1, R-8-1, R-8-2, R-9-1, R-9-3, R-9-5, R-10"
+  },
+  {
+    "wasteCode": "51-20-23",
+    "wasteName": "폐도장목·폐목재포장재·폐전선드럼·건설현장 폐목재(원목상태의 깨끗한 목재를 말한다)",
+    "recyclingCodeNone": "-",
+    "recyclingCodeCorrespond": "R-1-1, R-2-1, R-3-4, R-4-2, R-4-3, R-4-5, R-5-1, R-5-2, R-5-3, R-8-1, R-8-2, R-9-1, R-9-3, R-10"
+  },
+  {
+    "wasteCode": "51-20-24",
+    "wasteName": "접착제, 페인트, 기름, 콘크리트 등의 물질이 사용된 폐목재(목재부산물 및 분진을 포함한다)",
+    "recyclingCodeNone": "-",
+    "recyclingCodeCorrespond": "R-1-1, R-2-1, R-3-4, R-4-2, R-4-3, R-4-5, R-8-1, R-8-2, R-9-1, R-9-3, R-10"
+  },
+  {
+    "wasteCode": "51-20-25",
+    "wasteName": "할로겐족 유기화합물 또는 방부제가 사용된 폐목재(목재부산물 및 분진을 포함한다) 및 건설현장의 실외목재구조물에서 발생되는 폐목재, 폐선박 및 차량에서 나오는 목재, 건축물 화재현장에서 발생한 폐목재, 냉각탑, 산업용 바닥재 등에 사용된 폐목재",
+    "recyclingCodeNone": "-",
+    "recyclingCodeCorrespond": "R-1-1, R-2-1, R-4-2, R-8-1, R-8-2, R-9-1, R-9-3, R-10"
+  },
+  {
+    "wasteCode": "51-20-26",
+    "wasteName": "폐철도목재받침목",
+    "recyclingCodeNone": "-",
+    "recyclingCodeCorrespond": "R-1-2, R-2-2, R-3-4, R-4-2, R-4-5, R-8-1, R-8-2, R-9-1, R-9-3, R-10"
+  },
+  {
+    "wasteCode": "51-20-27",
+    "wasteName": "폐가구류",
+    "recyclingCodeNone": "-",
+    "recyclingCodeCorrespond": "R-1-1, R-2-1, R-3-4, R-4-2, R-4-3, R-4-5, R-5-1, R-5-2, R-5-3, R-8-1, R-8-2, R-9-1, R-9-3, R-10"
+  },
+  {
+    "wasteCode": "51-20-99",
+    "wasteName": "그 밖의 폐목재류",
+    "recyclingCodeNone": "-",
+    "recyclingCodeCorrespond": "R-3-4, R-4-2, R-4-5, R-5-1, R-8-1, R-8-2, R-9-1, R-9-3, R-10"
+  },
+  {
+    "wasteCode": "51-21",
+    "wasteName": "폐토사류",
+    "recyclingCodeNone": "-",
+    "recyclingCodeCorrespond": "-"
+  },
+  {
+    "wasteCode": "51-21-01",
+    "wasteName": "폐토사",
+    "recyclingCodeNone": "R-3-1, R-3-2, R-10",
+    "recyclingCodeCorrespond": "R-4-2, R-7-1, R-7-2, R-7-3, R-7-6, R-10"
+  },
+  {
+    "wasteCode": "51-21-02",
+    "wasteName": "건설폐토석",
+    "recyclingCodeNone": "-",
+    "recyclingCodeCorrespond": "R-4-2, R-7-1, R-7-2, R-7-3, R-10"
+  },
+  {
+    "wasteCode": "51-21-03",
+    "wasteName": "오염하천·오염해양 준설토",
+    "recyclingCodeNone": "-",
+    "recyclingCodeCorrespond": "R-4-2, R-10"
+  },
+  {
+    "wasteCode": "51-22",
+    "wasteName": "폐콘크리트류",
+    "recyclingCodeNone": "-",
+    "recyclingCodeCorrespond": "-"
+  },
+  {
+    "wasteCode": "51-22-01",
+    "wasteName": "폐콘크리트",
+    "recyclingCodeNone": "R-1-2",
+    "recyclingCodeCorrespond": "R-4-2, R-7-1, R-7-2, R-7-3, R-7-6, R-10"
+  },
+  {
+    "wasteCode": "51-22-02",
+    "wasteName": "폐철도콘크리트받침목",
+    "recyclingCodeNone": "R-1-2",
+    "recyclingCodeCorrespond": "R-2-2, R-4-2, R-10"
+  },
+  {
+    "wasteCode": "51-23-00",
+    "wasteName": "폐아스팔트콘크리트",
+    "recyclingCodeNone": "-",
+    "recyclingCodeCorrespond": "R-4-2, R-10"
+  },
+  {
+    "wasteCode": "51-24-00",
+    "wasteName": "폐벽돌",
+    "recyclingCodeNone": "R-1, R-2",
+    "recyclingCodeCorrespond": "R-4-2, R-7-1, R-7-2, R-7-3, R-10"
+  },
+  {
+    "wasteCode": "51-25-00",
+    "wasteName": "폐블록",
+    "recyclingCodeNone": "R-1, R-2",
+    "recyclingCodeCorrespond": "R-4-2, R-7-1, R-7-2, R-7-3, R-10"
+  },
+  {
+    "wasteCode": "51-26-00",
+    "wasteName": "폐기와",
+    "recyclingCodeNone": "R-1, R-2, R-3-4, R-10",
+    "recyclingCodeCorrespond": "R-4-2, R-7-1, R-7-2, R-7-3, R-10"
+  },
+  {
+    "wasteCode": "51-27",
+    "wasteName": "폐섬유류",
+    "recyclingCodeNone": "-",
+    "recyclingCodeCorrespond": "-"
+  },
+  {
+    "wasteCode": "51-27-01",
+    "wasteName": "폐천연섬유",
+    "recyclingCodeNone": "R-1-1, R-2-2, R-3-3, R-4-4, R-9-1, R-9-2, R-9-3, R-10",
+    "recyclingCodeCorrespond": "R-8-1, R-8-2, R-10"
+  },
+  {
+    "wasteCode": "51-27-02",
+    "wasteName": "폐합성섬유",
+    "recyclingCodeNone": "R-1-1, R-2-2, R-3-2, R-3-3, R-4-4, R-9-1, R-9-2, R-9-3, R-10",
+    "recyclingCodeCorrespond": "R-8-1, R-8-2, R-10"
+  },
+  {
+    "wasteCode": "51-27-03",
+    "wasteName": "폐의류",
+    "recyclingCodeNone": "R-1-1, R-2-1, R-2-2, R-3-3, R-4-4, R-9-1, R-9-2, R-9-3, R-10",
+    "recyclingCodeCorrespond": "R-8-1, R-8-2, R-10"
+  },
+  {
+    "wasteCode": "51-27-99",
+    "wasteName": "그 밖의 폐섬유",
+    "recyclingCodeNone": "R-1-1, R-2-2, R-3-3, R-4-4, R-9-1, R-9-2, R-9-3, R-10",
+    "recyclingCodeCorrespond": "R-8-1, R-8-2, R-10"
+  },
+  {
+    "wasteCode": "51-28",
+    "wasteName": "폐지류",
+    "recyclingCodeNone": "-",
+    "recyclingCodeCorrespond": "-"
+  },
+  {
+    "wasteCode": "51-28-01",
+    "wasteName": "폐종이팩(「자원의 절약과 재활용촉진에 관한 법률 시행령」 제18조제1호에 해당하는 것을 말한다)",
+    "recyclingCodeNone": "R-3-3, R-4-3, R-9-1, R-10",
+    "recyclingCodeCorrespond": "R-8-2, R-10"
+  },
+  {
+    "wasteCode": "51-28-02",
+    "wasteName": "폐종이류",
+    "recyclingCodeNone": "R-3-3, R-4-3, R-9-1, R-10",
+    "recyclingCodeCorrespond": "R-8-2, R-10"
+  },
+  {
+    "wasteCode": "51-28-03",
+    "wasteName": "폐벽지",
+    "recyclingCodeNone": "R-3-3, R-4-3, R-9-1, R-9-3, R-10",
+    "recyclingCodeCorrespond": "R-8-2, R-10"
+  },
+  {
+    "wasteCode": "51-29",
+    "wasteName": "폐금속류",
+    "recyclingCodeNone": "-",
+    "recyclingCodeCorrespond": "-"
+  },
+  {
+    "wasteCode": "51-29-01",
+    "wasteName": "고철",
+    "recyclingCodeNone": "R-3-3, R-4-1, R-10",
+    "recyclingCodeCorrespond": "-"
+  },
+  {
+    "wasteCode": "51-29-02",
+    "wasteName": "비철금속",
+    "recyclingCodeNone": "R-3-1, R-3-2, R-3-3, R-4-1, R-10",
+    "recyclingCodeCorrespond": "-"
+  },
+  {
+    "wasteCode": "51-29-03",
+    "wasteName": "폐금속캔류(「자원의 절약과 재활용촉진에 관한 법률 시행령」 제18조제1호에 해당하는 것을 말한다)",
+    "recyclingCodeNone": "R-3-3, R-4-1, R-10",
+    "recyclingCodeCorrespond": "-"
+  },
+  {
+    "wasteCode": "51-29-04",
+    "wasteName": "폐금속 용기류(폐금속캔류는 제외한다)",
+    "recyclingCodeNone": "R-2-1, R-3-3, R-4-1, R-10",
+    "recyclingCodeCorrespond": "-"
+  },
+  {
+    "wasteCode": "51-29-99",
+    "wasteName": "그 밖의 폐금속류",
+    "recyclingCodeNone": "R-3-1, R-3-2, R-3-3, R-4-1, R-10",
+    "recyclingCodeCorrespond": "-"
+  },
+  {
+    "wasteCode": "51-30",
+    "wasteName": "폐유리류",
+    "recyclingCodeNone": "-",
+    "recyclingCodeCorrespond": "-"
+  },
+  {
+    "wasteCode": "51-30-01",
+    "wasteName": "폐유리",
+    "recyclingCodeNone": "R-3-3, R-10",
+    "recyclingCodeCorrespond": "R-4-2, R-10"
+  },
+  {
+    "wasteCode": "51-30-02",
+    "wasteName": "폐유리병류(「자원의 절약과 재활용촉진에 관한 법률 시행령」 제18조제1호에 해당하는 것을 말한다)",
+    "recyclingCodeNone": "R-2-1, R-3-3, R-10",
+    "recyclingCodeCorrespond": "R-4-2, R-10"
+  },
+  {
+    "wasteCode": "51-30-03",
+    "wasteName": "폐스마트유리",
+    "recyclingCodeNone": "R-3-1, R-3-2, R-3-3, R-10",
+    "recyclingCodeCorrespond": "R-4-2, R-10"
+  },
+  {
+    "wasteCode": "51-30-04",
+    "wasteName": "폐유리섬유",
+    "recyclingCodeNone": "R-3-1, R-3-2, R-3-3, R-10",
+    "recyclingCodeCorrespond": "R-4-2, R-10"
+  },
+  {
+    "wasteCode": "51-30-05",
+    "wasteName": "수은폐기물이 아닌 수은함유폐기물 처리잔재물",
+    "recyclingCodeNone": "R-3-1, R-3-2, R-3-3, R-10",
+    "recyclingCodeCorrespond": "R-4-1, R-4-2, R-10"
+  },
+  {
+    "wasteCode": "51-30-99",
+    "wasteName": "그 밖의 폐유리",
+    "recyclingCodeNone": "R-3-1, R-3-2, R-3-3, R-10",
+    "recyclingCodeCorrespond": "R-4-2, R-10"
+  },
+  {
+    "wasteCode": "51-31-00",
+    "wasteName": "폐타일",
+    "recyclingCodeNone": "R-3-1, R-10",
+    "recyclingCodeCorrespond": "R-4-2, R-10"
+  },
+  {
+    "wasteCode": "51-32-00",
+    "wasteName": "폐보드류",
+    "recyclingCodeNone": "R-3-1, R-10",
+    "recyclingCodeCorrespond": "R-4-2, R-10"
+  },
+  {
+    "wasteCode": "51-33-00",
+    "wasteName": "폐판넬",
+    "recyclingCodeNone": "R-3-1, R-10",
+    "recyclingCodeCorrespond": "R-4-2, R-10"
+  },
+  {
+    "wasteCode": "51-35-00",
+    "wasteName": "폐전주(폐애자, 폐근가 및 폐합성수지제 덮개류 등을 포함한다)",
+    "recyclingCodeNone": "R-3-1, R-10",
+    "recyclingCodeCorrespond": "R-4-2, R-7-1, R-7-2, R-7-3, R-7-6, R-10"
+  },
+  {
+    "wasteCode": "51-36",
+    "wasteName": "폐가스포집물",
+    "recyclingCodeNone": "-",
+    "recyclingCodeCorrespond": "-"
+  },
+  {
+    "wasteCode": "51-36-01",
+    "wasteName": "이산화탄소스트림",
+    "recyclingCodeNone": "-",
+    "recyclingCodeCorrespond": "R-4-2, R-4-3, R-4-4, R-4-7, R-10"
+  },
+  {
+    "wasteCode": "51-36-02",
+    "wasteName": "이산화탄소전환탄산화물",
+    "recyclingCodeNone": "-",
+    "recyclingCodeCorrespond": "R-4-2, R-4-3, R-4-4, R-4-7, R-10"
+  },
+  {
+    "wasteCode": "51-37",
+    "wasteName": "폐냉매물질",
+    "recyclingCodeNone": "-",
+    "recyclingCodeCorrespond": "-"
+  },
+  {
+    "wasteCode": "51-37-01",
+    "wasteName": "가전제품회수폐냉매물질",
+    "recyclingCodeNone": "R-1-1, R-3-4, R-10",
+    "recyclingCodeCorrespond": "-"
+  },
+  {
+    "wasteCode": "51-37-02",
+    "wasteName": "자동차회수폐냉매물질",
+    "recyclingCodeNone": "R-1-1, R-3-4, R-10",
+    "recyclingCodeCorrespond": "-"
+  },
+  {
+    "wasteCode": "51-37-03",
+    "wasteName": "공조기회수폐냉매물질",
+    "recyclingCodeNone": "R-1-1, R-3-4, R-10",
+    "recyclingCodeCorrespond": "-"
+  },
+  {
+    "wasteCode": "51-37-99",
+    "wasteName": "그 밖의 폐냉매물질",
+    "recyclingCodeNone": "R-1-1, R-3-4, R-10",
+    "recyclingCodeCorrespond": "-"
+  },
+  {
+    "wasteCode": "51-38",
+    "wasteName": "음식물류폐기물 및 처리물",
+    "recyclingCodeNone": "-",
+    "recyclingCodeCorrespond": "-"
+  },
+  {
+    "wasteCode": "51-38-01",
+    "wasteName": "음식물류 폐기물",
+    "recyclingCodeNone": "R-4-9, R-5-3, R-9-3, R-9-4, R-10",
+    "recyclingCodeCorrespond": "R-5-1, R-5-2, R-5-4, R-6-1, R-10"
+  },
+  {
+    "wasteCode": "51-38-02",
+    "wasteName": "중간가공 음식물류 폐기물",
+    "recyclingCodeNone": "R-5-3, R-9-3, R-9-4, R-10",
+    "recyclingCodeCorrespond": "R-5-1, R-5-2, R-6-1, R-10"
+  },
+  {
+    "wasteCode": "51-38-03",
+    "wasteName": "음식물류 폐기물 처리 잔재물(액상의 경우만 해당한다)",
+    "recyclingCodeNone": "R-4-9, R-9-4, R-10",
+    "recyclingCodeCorrespond": "R-5-1, R-5-2, R-5-4, R-10"
+  },
+  {
+    "wasteCode": "51-38-99",
+    "wasteName": "그 밖의 음식물류폐기물처리잔재물",
+    "recyclingCodeNone": "R-3-1, R-3-2, R-10",
+    "recyclingCodeCorrespond": "R-8-2, R-9-2, R-10"
+  },
+  {
+    "wasteCode": "51-39-00",
+    "wasteName": "폐사료",
+    "recyclingCodeNone": "R-3-3, R-3-4, R-5-3, R-10",
+    "recyclingCodeCorrespond": "R-5-1, R-9-4, R-10"
+  },
+  {
+    "wasteCode": "51-40",
+    "wasteName": "폐소화기류",
+    "recyclingCodeNone": "-",
+    "recyclingCodeCorrespond": "-"
+  },
+  {
+    "wasteCode": "51-40-01",
+    "wasteName": "폐분말 소화기",
+    "recyclingCodeNone": "R-10",
+    "recyclingCodeCorrespond": "R-5-1, R-10"
+  },
+  {
+    "wasteCode": "51-40-99",
+    "wasteName": "그 밖의 폐소화기",
+    "recyclingCodeNone": "R-4-1, R-10",
+    "recyclingCodeCorrespond": "R-4-4, R-10"
+  },
+  {
+    "wasteCode": "51-41",
+    "wasteName": "폐전지류",
+    "recyclingCodeNone": "-",
+    "recyclingCodeCorrespond": "-"
+  },
+  {
+    "wasteCode": "51-41-01",
+    "wasteName": "폐일차전지",
+    "recyclingCodeNone": "R-3-1, R-3-2, R-3-3, R-4-1, R-10",
+    "recyclingCodeCorrespond": "-"
+  },
+  {
+    "wasteCode": "51-41-04",
+    "wasteName": "폐태양전지ㆍ전자기기페이스트ㆍ태양광 폐패널",
+    "recyclingCodeNone": "R-2-1, R-3-1, R-3-2, R-3-3, R-4-1, R-10",
+    "recyclingCodeCorrespond": "-"
+  },
+  {
+    "wasteCode": "51-41-05",
+    "wasteName": "전기자동차 폐이차전지(침수ㆍ화재ㆍ변형ㆍ파손 등이 발생한 것과 셀이 훼손되어 유해물질이 유출되거나 화재ㆍ폭발의 위험이 있는 것은 제외한다)",
+    "recyclingCodeNone": "R-2-1, R-2-2, R-3-1, R-3-2, R-3-3, R-4-1, R-10",
+    "recyclingCodeCorrespond": "-"
+  },
+  {
+    "wasteCode": "51-41-06",
+    "wasteName": "구동용 폐이차전지(침수ㆍ화재ㆍ변형ㆍ파손 등이 발생한 것과 셀이 훼손되어 유해물질이 유출되거나 화재ㆍ폭발의 위험이 있는 것은 제외한다)",
+    "recyclingCodeNone": "R-2-1, R-2-2, R-3-1, R-3-2, R-3-3, R-4-1, R-10",
+    "recyclingCodeCorrespond": "-"
+  },
+  {
+    "wasteCode": "51-41-07",
+    "wasteName": "폐양극활물질(양극재 또는 전구체 제조공정에서 발생하는 것을 포함한다)",
+    "recyclingCodeNone": "R-3-1, R-3-2, R-3-3, R-4-1, R-10",
+    "recyclingCodeCorrespond": "-"
+  },
+  {
+    "wasteCode": "51-41-08",
+    "wasteName": "폐연료전지",
+    "recyclingCodeNone": "R-2-1, R-2-2, R-3-1, R-3-2, R-3-3, R-4-1, R-10",
+    "recyclingCodeCorrespond": "-"
+  },
+  {
+    "wasteCode": "51-41-99",
+    "wasteName": "그 밖의 폐이차전지(침수ㆍ화재ㆍ변형ㆍ파손 등이 발생한 것과 셀이 훼손되어 유해물질이 유출되거나 화재ㆍ폭발의 위험이 있는 것은 제외한다)",
+    "recyclingCodeNone": "R-3-1, R-3-2, R-3-3, R-4-1, R-10",
+    "recyclingCodeCorrespond": "-"
+  },
+  {
+    "wasteCode": "51-42-00",
+    "wasteName": "폐의약품류 재활용금지",
+    "recyclingCodeNone": "-",
+    "recyclingCodeCorrespond": "-"
+  },
+  {
+    "wasteCode": "51-43-00",
+    "wasteName": "폐흑연가루",
+    "recyclingCodeNone": "R-1-1, R-2-1, R-4-5, R-10",
+    "recyclingCodeCorrespond": "R-4-2, R-10"
+  },
+  {
+    "wasteCode": "51-44-00",
+    "wasteName": "나노폐기물(나노물질을 제조·가공하는 과정에서 발생된 분진을 말한다)",
+    "recyclingCodeNone": "R-3-4, R-4-4, R-10",
+    "recyclingCodeCorrespond": "R-4-2, R-10"
+  },
+  {
+    "wasteCode": "51-45",
+    "wasteName": "폐차발생폐기물",
+    "recyclingCodeNone": "-",
+    "recyclingCodeCorrespond": "-"
+  },
+  {
+    "wasteCode": "51-45-01",
+    "wasteName": "폐차파쇄잔재물",
+    "recyclingCodeNone": "R-3-1, R-3-2, R-3-3, R-9-2, R-10",
+    "recyclingCodeCorrespond": "R-8-2, R-10"
+  },
+  {
+    "wasteCode": "51-45-02",
+    "wasteName": "폐차부품류",
+    "recyclingCodeNone": "R-1-1, R-2-1",
+    "recyclingCodeCorrespond": "-"
+  },
+  {
+    "wasteCode": "51-45-99",
+    "wasteName": "그 밖의 폐차발생폐기물",
+    "recyclingCodeNone": "R-3-1, R-3-2, R-3-3, R-10",
+    "recyclingCodeCorrespond": "R-8-2, R-10"
+  },
+  {
+    "wasteCode": "51-46-00",
+    "wasteName": "의료폐기물 멸균분쇄잔재물",
+    "recyclingCodeNone": "재활용 금지",
+    "recyclingCodeCorrespond": "-"
+  },
+  {
+    "wasteCode": "51-47",
+    "wasteName": "조명폐기물",
+    "recyclingCodeNone": "-",
+    "recyclingCodeCorrespond": "-"
+  },
+  {
+    "wasteCode": "51-47-01",
+    "wasteName": "폐형광등",
+    "recyclingCodeNone": "R-3-3, R-10",
+    "recyclingCodeCorrespond": "-"
+  },
+  {
+    "wasteCode": "51-47-02",
+    "wasteName": "폐발광다이오드조명",
+    "recyclingCodeNone": "R-3-3, R-10",
+    "recyclingCodeCorrespond": "-"
+  },
+  {
+    "wasteCode": "51-99-00",
+    "wasteName": "그 밖의 폐기물",
+    "recyclingCodeNone": "-",
+    "recyclingCodeCorrespond": "-"
+  },
+  {
+    "wasteCode": "91-01-00",
+    "wasteName": "종량제봉투 배출 폐기물(합성수지 종량제 봉투에 배출되는 폐기물을 말한다)",
+    "recyclingCodeNone": "R-3-3, R-9-1, R-10",
+    "recyclingCodeCorrespond": "-"
+  },
+  {
+    "wasteCode": "91-02-00",
+    "wasteName": "음식물류 폐기물(분리배출된 음식물류 폐기물을 말한다)",
+    "recyclingCodeNone": "R-5-1, R-5-2, R-5-4, R-6-1, R-9-3, R-9-4, R-10",
+    "recyclingCodeCorrespond": "-"
+  },
+  {
+    "wasteCode": "91-03-00",
+    "wasteName": "폐식용유(가정 및 음식점에서 분리배출된 것을 말한다)",
+    "recyclingCodeNone": "R-3-3, R-4-8, R-9-2, R-9-4, R-10",
+    "recyclingCodeCorrespond": "R-5-1, R-5-2, R-5-4"
+  },
+  {
+    "wasteCode": "91-04-00",
+    "wasteName": "폐지류(종이팩을 포함한다)",
+    "recyclingCodeNone": "R-3-3, R-4-3, R-9-1, R-9-2, R-9-3, R-10",
+    "recyclingCodeCorrespond": "R-8-2, R-10"
+  },
+  {
+    "wasteCode": "91-05-00",
+    "wasteName": "고철 및 금속캔류",
+    "recyclingCodeNone": "R-3-3, R-4-1, R-10",
+    "recyclingCodeCorrespond": "-"
+  },
+  {
+    "wasteCode": "91-06-01",
+    "wasteName": "폐합성수지(폴리염화비닐은 제외한다)",
+    "recyclingCodeNone": "R-3-3, R-3-4, R-4-4, R-9-1, R-9-2, R-9-3, R-10",
+    "recyclingCodeCorrespond": "R-8-1, R-8-2, R-10"
+  },
+  {
+    "wasteCode": "91-06-02",
+    "wasteName": "폐합성수지(폴리염화비닐)",
+    "recyclingCodeNone": "R-3-3, R-4-4, R-10",
+    "recyclingCodeCorrespond": "R-8-1, R-10"
+  },
+  {
+    "wasteCode": "91-06-03",
+    "wasteName": "폐합성고무류",
+    "recyclingCodeNone": "R-3-3, R-3-4, R-4-4, R-9-1, R-9-2, R-9-3, R-10",
+    "recyclingCodeCorrespond": "R-8-1, R-8-2, R-10"
+  },
+  {
+    "wasteCode": "91-07-01",
+    "wasteName": "유리병",
+    "recyclingCodeNone": "R-2-1, R-3-3, R-4-2, R-10",
+    "recyclingCodeCorrespond": "-"
+  },
+  {
+    "wasteCode": "91-07-02",
+    "wasteName": "폐유리",
+    "recyclingCodeNone": "R-3-3, R-4-2, R-10",
+    "recyclingCodeCorrespond": "-"
+  },
+  {
+    "wasteCode": "91-08-00",
+    "wasteName": "폐의류 및 원단류(섬유재질의 커튼, 현수막 등을 포함한다)",
+    "recyclingCodeNone": "R-1-1, R-2-1, R-2-2, R-3-3, R-4-4, R-9-1, R-9-2, R-9-3, R-10",
+    "recyclingCodeCorrespond": "R-8-1, R-8-2, R-10"
+  },
+  {
+    "wasteCode": "91-09-00",
+    "wasteName": "폐전기전자제품",
+    "recyclingCodeNone": "R-1-1, R-2-1, R-3-1, R-3-2, R-3-3, R-3-4, R-10",
+    "recyclingCodeCorrespond": "-"
+  },
+  {
+    "wasteCode": "91-10",
+    "wasteName": "폐목재 및 폐가구류",
+    "recyclingCodeNone": "-",
+    "recyclingCodeCorrespond": "-"
+  },
+  {
+    "wasteCode": "91-10-01",
+    "wasteName": "원목상태의 깨끗한 목재",
+    "recyclingCodeNone": "R-1-1, R-2-1, R-5-1, R-9-3, R-10",
+    "recyclingCodeCorrespond": "R-3-4, R-4-5, R-8-1, R-8-2, R-9-1, R-10"
+  },
+  {
+    "wasteCode": "91-10-02",
+    "wasteName": "접착제, 페인트, 기름, 콘크리트 등의 물질이 사용된 목재(할로겐족 유기화합물 또는 방부제가 사용된 목재는 제외한다)",
+    "recyclingCodeNone": "R-9-3, R-10",
+    "recyclingCodeCorrespond": "R-3-4, R-4-2, R-4-5, R-8-1, R-8-2, R-9-1, R-10"
+  },
+  {
+    "wasteCode": "91-10-03",
+    "wasteName": "할로겐족 유기화합물 또는 방부제가 사용된 목재",
+    "recyclingCodeNone": "R-9-3, R-10",
+    "recyclingCodeCorrespond": "R-9-1, R-10"
+  },
+  {
+    "wasteCode": "91-10-04",
+    "wasteName": "폐가구류",
+    "recyclingCodeNone": "R-1-1, R-2-1, R-5-1, R-9-3, R-10",
+    "recyclingCodeCorrespond": "R-3-4, R-4-2, R-4-5, R-8-1, R-8-2, R-9-1, R-10"
+  },
+  {
+    "wasteCode": "91-11-00",
+    "wasteName": "건설폐재류(콘크리트, 벽돌 등을 말한다)",
+    "recyclingCodeNone": "R-4-2, R-10",
+    "recyclingCodeCorrespond": "R-7-3, R-10"
+  },
+  {
+    "wasteCode": "91-12-00",
+    "wasteName": "폐타일 및 도자기류",
+    "recyclingCodeNone": "R-4-2, R-10",
+    "recyclingCodeCorrespond": "R-7-1, R-10"
+  },
+  {
+    "wasteCode": "91-13",
+    "wasteName": "조명폐기물",
+    "recyclingCodeNone": "-",
+    "recyclingCodeCorrespond": "-"
+  },
+  {
+    "wasteCode": "91-13-01",
+    "wasteName": "폐형광등",
+    "recyclingCodeNone": "R-3-3, R-10",
+    "recyclingCodeCorrespond": "-"
+  },
+  {
+    "wasteCode": "91-13-02",
+    "wasteName": "폐발광다이오드조명",
+    "recyclingCodeNone": "R-3-3, R-10",
+    "recyclingCodeCorrespond": "-"
+  },
+  {
+    "wasteCode": "91-14-00",
+    "wasteName": "폐전지류",
+    "recyclingCodeNone": "R-3-1, R-3-3, R-10",
+    "recyclingCodeCorrespond": "-"
+  },
+  {
+    "wasteCode": "91-15-00",
+    "wasteName": "연탄재",
+    "recyclingCodeNone": "-",
+    "recyclingCodeCorrespond": "R-4-2, R-7-1, R-7-2, R-7-3, R-7-6, R-10"
+  },
+  {
+    "wasteCode": "91-16-00",
+    "wasteName": "동물성 잔재물(동물의 사체, 수산가공물, 유지 등을 포함한다)",
+    "recyclingCodeNone": "R-3-3, R-4-8, R-5-1, R-5-2, R-5-4, R-9-4, R-10",
+    "recyclingCodeCorrespond": "-"
+  },
+  {
+    "wasteCode": "91-17",
+    "wasteName": "식물성 잔재물",
+    "recyclingCodeNone": "-",
+    "recyclingCodeCorrespond": "-"
+  },
+  {
+    "wasteCode": "91-17-01",
+    "wasteName": "커피찌꺼기",
+    "recyclingCodeNone": "R-4-5, R-4-8, R-5-1, R-5-2, R-5-3, R-9-3, R-9-4, R-10",
+    "recyclingCodeCorrespond": "R-2-2, R-4-2, R-4-7, R-5-4, R-6-1, R-8-2, R-9-1, R-9-5, R-10"
+  },
+  {
+    "wasteCode": "91-17-02",
+    "wasteName": "버섯폐배지",
+    "recyclingCodeNone": "R-4-8, R-5-1, R-5-2, R-9-3, R-9-4, R-10",
+    "recyclingCodeCorrespond": "R-5-4, R-6-1, R-8-2, R-9-1, R-9-5, R-10"
+  },
+  {
+    "wasteCode": "91-17-03",
+    "wasteName": "그 밖의 식물성 잔재물",
+    "recyclingCodeNone": "R-4-8, R-5-1, R-5-2, R-5-4, R-9-4, R-10",
+    "recyclingCodeCorrespond": "R-4-5, R-8-2, R-9-1, R-10"
+  },
+  {
+    "wasteCode": "91-18-01",
+    "wasteName": "영농폐기물(농약용기류)",
+    "recyclingCodeNone": "R-3-3, R-10",
+    "recyclingCodeCorrespond": "-"
+  },
+  {
+    "wasteCode": "91-18-02",
+    "wasteName": "영농폐기물(농촌폐비닐)",
+    "recyclingCodeNone": "R-3-3, R-3-4, R-4-4, R-9-1, R-9-2, R-9-3, R-10",
+    "recyclingCodeCorrespond": "R-8-1, R-8-2, R-10"
+  },
+  {
+    "wasteCode": "91-19-00",
+    "wasteName": "폐소화기류",
+    "recyclingCodeNone": "R-10",
+    "recyclingCodeCorrespond": "R-4-1, R-4-4, R-5-1, R-10"
+  },
+  {
+    "wasteCode": "91-21",
+    "wasteName": "1회용 컵",
+    "recyclingCodeNone": "-",
+    "recyclingCodeCorrespond": "-"
+  },
+  {
+    "wasteCode": "91-21-01",
+    "wasteName": "종이 컵",
+    "recyclingCodeNone": "R-3-3, R-4-3, R-10",
+    "recyclingCodeCorrespond": "-"
+  },
+  {
+    "wasteCode": "91-21-02",
+    "wasteName": "합성수지 컵",
+    "recyclingCodeNone": "R-3-3, R-4-4, R-10",
+    "recyclingCodeCorrespond": "-"
+  },
+  {
+    "wasteCode": "91-21-03",
+    "wasteName": "금속 컵",
+    "recyclingCodeNone": "R-3-3, R-4-1, R-10",
+    "recyclingCodeCorrespond": "-"
+  }
+];
