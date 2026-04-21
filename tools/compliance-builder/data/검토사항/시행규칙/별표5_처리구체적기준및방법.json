@@ -78,7 +78,19 @@
       "marker": "1.",
       "text": "생활폐기물의 기준 및 방법",
       "answer": "",
-      "tags": null
+      "tags": {
+        "category": null,
+        "bizType": null,
+        "docType": null,
+        "wasteClass": [
+          "L"
+        ],
+        "wasteCode": null,
+        "action": null,
+        "rCode": null,
+        "facilityType": null
+      },
+      "isHeader": true
     },
     {
       "depth": 1,
@@ -172,7 +184,18 @@
       "marker": "나.",
       "text": "수집·운반의 경우",
       "answer": "",
-      "tags": null
+      "tags": {
+        "category": null,
+        "bizType": null,
+        "wasteClass": null,
+        "wasteCode": null,
+        "action": [
+          "CT"
+        ],
+        "rCode": null,
+        "facilityType": null
+      },
+      "isHeader": true
     },
     {
       "depth": 2,
@@ -372,7 +395,16 @@
       "marker": "다.",
       "text": "보관의 경우",
       "answer": "",
-      "tags": null
+      "tags": {
+        "category": null,
+        "bizType": null,
+        "wasteClass": null,
+        "wasteCode": null,
+        "action": null,
+        "rCode": null,
+        "facilityType": null
+      },
+      "isHeader": true
     },
     {
       "depth": 2,
@@ -473,7 +505,16 @@
       "marker": "라.",
       "text": "처리의 경우",
       "answer": "",
-      "tags": null
+      "tags": {
+        "category": null,
+        "bizType": null,
+        "wasteClass": null,
+        "wasteCode": null,
+        "action": null,
+        "rCode": null,
+        "facilityType": null
+      },
+      "isHeader": true
     },
     {
       "depth": 2,
@@ -689,7 +730,19 @@
       "marker": "2.",
       "text": "음식물류 폐기물의 기준 및 방법",
       "answer": "",
-      "tags": null
+      "tags": {
+        "category": null,
+        "bizType": null,
+        "docType": null,
+        "wasteClass": null,
+        "wasteCode": [
+          "51-19"
+        ],
+        "action": null,
+        "rCode": null,
+        "facilityType": null
+      },
+      "isHeader": true
     },
     {
       "depth": 1,
@@ -697,7 +750,18 @@
       "marker": "가.",
       "text": "수집·운반의 경우",
       "answer": "",
-      "tags": null
+      "tags": {
+        "category": null,
+        "bizType": null,
+        "wasteClass": null,
+        "wasteCode": null,
+        "action": [
+          "CT"
+        ],
+        "rCode": null,
+        "facilityType": null
+      },
+      "isHeader": true
     },
     {
       "depth": 2,
@@ -833,7 +897,16 @@
       "marker": "나.",
       "text": "보관의 경우",
       "answer": "",
-      "tags": null
+      "tags": {
+        "category": null,
+        "bizType": null,
+        "wasteClass": null,
+        "wasteCode": null,
+        "action": null,
+        "rCode": null,
+        "facilityType": null
+      },
+      "isHeader": true
     },
     {
       "depth": 2,
@@ -885,7 +958,16 @@
       "marker": "다.",
       "text": "처리의 경우",
       "answer": "",
-      "tags": null
+      "tags": {
+        "category": null,
+        "bizType": null,
+        "wasteClass": null,
+        "wasteCode": null,
+        "action": null,
+        "rCode": null,
+        "facilityType": null
+      },
+      "isHeader": true
     },
     {
       "depth": 2,
@@ -1085,7 +1167,20 @@
       "marker": "3.",
       "text": "사업장일반폐기물의 기준 및 방법",
       "answer": "",
-      "tags": null
+      "tags": {
+        "category": null,
+        "bizType": null,
+        "docType": null,
+        "wasteClass": [
+          "GO",
+          "GN"
+        ],
+        "wasteCode": null,
+        "action": null,
+        "rCode": null,
+        "facilityType": null
+      },
+      "isHeader": true
     },
     {
       "depth": 1,
@@ -1171,7 +1266,18 @@
       "marker": "나.",
       "text": "수집·운반의 경우",
       "answer": "",
-      "tags": null
+      "tags": {
+        "category": null,
+        "bizType": null,
+        "wasteClass": null,
+        "wasteCode": null,
+        "action": [
+          "CT"
+        ],
+        "rCode": null,
+        "facilityType": null
+      },
+      "isHeader": true
     },
     {
       "depth": 2,
@@ -1361,7 +1467,7 @@
       "type": "wrapped-number",
       "marker": "(2)",
       "text": "(1)에도 불구하고 다음의 어느 하나에 해당하는 경우에는 밀폐형 덮개 설치차량으로 수집·운반할 수 있다.",
-      "answer": "밀폐형 차량 원칙에도 불구하고, 아래 (가)~(다) 중 해당하는 경우에는 밀폐형 덮개 설치차량으로 수집·운반할 수 있음을 숙지하겠음.",
+      "answer": "다음 중 어느 하나에 해당하는 경우에는 밀폐형 덮개 설치차량으로 수집·운반하겠음.",
       "tags": {
         "category": null,
         "bizType": [
@@ -1398,7 +1504,7 @@
       "type": "wrapped-korean",
       "marker": "(가)",
       "text": "전기·전자제품, 가구, 사무용 기자재 및 냉·난방기 등 일정한 형태를 갖춘 폐기물(기름성분이나 내부에 포함된 물질이 유출또는 누출되지 않는 것에 한정한다)을 원형 그대로 수집·운반하는 경우",
-      "answer": "전기·전자제품, 가구, 사무용 기자재, 냉·난방기 등 일정한 형태를 갖추고 기름성분 등 내부 물질이 유출되지 않는 폐기물을 원형 그대로 수집·운반하는 경우",
+      "answer": "",
       "tags": {
         "category": null,
         "bizType": [
@@ -1414,10 +1520,21 @@
         ],
         "rCode": null,
         "facilityType": null,
-        "wasteCode": null,
+        "wasteCode": [
+          "51-18",
+          "51-20"
+        ],
         "physicalState": [
           "S"
-        ]
+        ],
+        "wasteVars": {
+          "폐전기전자제품류": [
+            "51-18"
+          ],
+          "폐가구류": [
+            "51-20"
+          ]
+        }
       }
     },
     {
@@ -1425,7 +1542,7 @@
       "type": "wrapped-korean",
       "marker": "(나)",
       "text": "폐지·고철·폐목재류(페인트나 기름 또는 방부제 등으로 오염되지 아니한 순수한 목재류만 해당한다)나 폐내화물, 폐타이어,광재류 등 침출수 발생이나 부패의 우려가 없고, 덩어리 형태로되어 있어 흩날릴 우려가 없는 폐기물을 수집·운반하는 경우",
-      "answer": "폐지·고철·폐목재류(순수 목재류)·폐내화물·폐타이어·광재류 등 침출수 발생이나 부패 우려가 없고 덩어리 형태로 흩날릴 우려가 없는 폐기물을 수집·운반하는 경우",
+      "answer": "",
       "tags": {
         "category": null,
         "bizType": [
@@ -1471,7 +1588,7 @@
       "type": "wrapped-korean",
       "marker": "(다)",
       "text": "수집·운반 등의 과정에서 흩날릴 우려가 없고, 침출수가 발생되지 않는 폐목재류, 폐합성수지, 폐합성고무 등 덩어리 형태의폐기물을 집게 등 기계식으로 폐기물을 적재함에 실을 수 있는 장치가 부착된 차량으로 수집·운반하는 경우",
-      "answer": "폐목재류·폐합성수지·폐합성고무 등 흩날릴 우려가 없고 침출수가 없는 덩어리 형태 폐기물을 집게 등 기계식 적재장치 부착 차량으로 수집·운반하는 경우",
+      "answer": "",
       "tags": {
         "category": null,
         "bizType": [
@@ -1708,7 +1825,16 @@
       "marker": "다.",
       "text": "보관의 경우",
       "answer": "",
-      "tags": null
+      "tags": {
+        "category": null,
+        "bizType": null,
+        "wasteClass": null,
+        "wasteCode": null,
+        "action": null,
+        "rCode": null,
+        "facilityType": null
+      },
+      "isHeader": true
     },
     {
       "depth": 2,
@@ -2122,7 +2248,16 @@
       "marker": "라.",
       "text": "처리의 경우",
       "answer": "",
-      "tags": null
+      "tags": {
+        "category": null,
+        "bizType": null,
+        "wasteClass": null,
+        "wasteCode": null,
+        "action": null,
+        "rCode": null,
+        "facilityType": null
+      },
+      "isHeader": true
     },
     {
       "depth": 2,
@@ -3606,7 +3741,7 @@
       "type": "wrapped-korean",
       "marker": "(가)",
       "text": "폐기물 매립시설의 침출수 처리시설",
-      "answer": "음식물류 폐기물 처리 잔재물(액체) 처리시설: 폐기물 매립시설의 침출수 처리시설",
+      "answer": "",
       "tags": {
         "category": null,
         "bizType": null,
@@ -3631,7 +3766,7 @@
       "type": "wrapped-korean",
       "marker": "(나)",
       "text": "「물환경보전법」 제2조제12호에 따른 수질오염방지시설(자가 수질오염방지시설만 해당한다)",
-      "answer": "음식물류 폐기물 처리 잔재물(액체) 처리시설: 물환경보전법 제2조제12호에 따른 수질오염방지시설(자가 시설만 해당)",
+      "answer": "",
       "tags": {
         "category": null,
         "bizType": null,
@@ -3656,7 +3791,7 @@
       "type": "wrapped-korean",
       "marker": "(다)",
       "text": "「물환경보전법」 제48조에 따른 공공폐수처리시설",
-      "answer": "음식물류 폐기물 처리 잔재물(액체) 처리시설: 물환경보전법 제48조에 따른 공공폐수처리시설",
+      "answer": "",
       "tags": {
         "category": null,
         "bizType": null,
@@ -3681,7 +3816,7 @@
       "type": "wrapped-korean",
       "marker": "(라)",
       "text": "「하수도법」 제2조제9호에 따른 공공하수처리시설",
-      "answer": "음식물류 폐기물 처리 잔재물(액체) 처리시설: 하수도법 제2조제9호에 따른 공공하수처리시설",
+      "answer": "",
       "tags": {
         "category": null,
         "bizType": null,
@@ -3706,7 +3841,7 @@
       "type": "wrapped-korean",
       "marker": "(마)",
       "text": "「하수도법」 제2조제11호에 따른 분뇨처리시설",
-      "answer": "음식물류 폐기물 처리 잔재물(액체) 처리시설: 하수도법 제2조제11호에 따른 분뇨처리시설",
+      "answer": "",
       "tags": {
         "category": null,
         "bizType": null,
@@ -3731,7 +3866,7 @@
       "type": "wrapped-korean",
       "marker": "(바)",
       "text": "「가축분뇨의 관리 및 이용에 관한 법률」 제2조제9호가목에 따른 공공처리시설",
-      "answer": "음식물류 폐기물 처리 잔재물(액체) 처리시설: 가축분뇨관리법 제2조제9호가목에 따른 공공처리시설",
+      "answer": "",
       "tags": {
         "category": null,
         "bizType": null,
@@ -3812,7 +3947,22 @@
       "marker": "4.",
       "text": "지정폐기물(의료폐기물은 제외한다)의 기준 및 방법",
       "answer": "",
-      "tags": null
+      "tags": {
+        "category": null,
+        "bizType": null,
+        "docType": null,
+        "wasteClass": [
+          "D"
+        ],
+        "wasteCode": null,
+        "action": null,
+        "rCode": null,
+        "facilityType": null,
+        "wasteCodeExclude": [
+          "10"
+        ]
+      },
+      "isHeader": true
     },
     {
       "depth": 1,
@@ -3820,7 +3970,18 @@
       "marker": "가.",
       "text": "수집·운반의 경우",
       "answer": "",
-      "tags": null
+      "tags": {
+        "category": null,
+        "bizType": null,
+        "wasteClass": null,
+        "wasteCode": null,
+        "action": [
+          "CT"
+        ],
+        "rCode": null,
+        "facilityType": null
+      },
+      "isHeader": true
     },
     {
       "depth": 2,
@@ -4662,7 +4823,16 @@
       "marker": "나.",
       "text": "보관의 경우",
       "answer": "",
-      "tags": null
+      "tags": {
+        "category": null,
+        "bizType": null,
+        "wasteClass": null,
+        "wasteCode": null,
+        "action": null,
+        "rCode": null,
+        "facilityType": null
+      },
+      "isHeader": true
     },
     {
       "depth": 2,
@@ -5503,7 +5673,16 @@
       "marker": "다.",
       "text": "처리의 경우",
       "answer": "",
-      "tags": null
+      "tags": {
+        "category": null,
+        "bizType": null,
+        "wasteClass": null,
+        "wasteCode": null,
+        "action": null,
+        "rCode": null,
+        "facilityType": null
+      },
+      "isHeader": true
     },
     {
       "depth": 2,
@@ -8170,7 +8349,19 @@
       "marker": "5.",
       "text": "지정폐기물 중 의료폐기물의 기준 및 방법",
       "answer": "",
-      "tags": null
+      "tags": {
+        "category": null,
+        "bizType": null,
+        "docType": null,
+        "wasteClass": null,
+        "wasteCode": [
+          "10"
+        ],
+        "action": null,
+        "rCode": null,
+        "facilityType": null
+      },
+      "isHeader": true
     },
     {
       "depth": 1,
@@ -8267,7 +8458,18 @@
       "marker": "나.",
       "text": "의료폐기물 전용용기 사용의 경우",
       "answer": "",
-      "tags": null
+      "tags": {
+        "category": null,
+        "bizType": null,
+        "wasteClass": null,
+        "wasteCode": [
+          "10"
+        ],
+        "action": null,
+        "rCode": null,
+        "facilityType": null
+      },
+      "isHeader": true
     },
     {
       "depth": 2,
@@ -8696,7 +8898,16 @@
       "marker": "다.",
       "text": "보관의 경우",
       "answer": "",
-      "tags": null
+      "tags": {
+        "category": null,
+        "bizType": null,
+        "wasteClass": null,
+        "wasteCode": null,
+        "action": null,
+        "rCode": null,
+        "facilityType": null
+      },
+      "isHeader": true
     },
     {
       "depth": 2,
@@ -9151,7 +9362,18 @@
       "marker": "라.",
       "text": "수집·운반의 경우",
       "answer": "",
-      "tags": null
+      "tags": {
+        "category": null,
+        "bizType": null,
+        "wasteClass": null,
+        "wasteCode": null,
+        "action": [
+          "CT"
+        ],
+        "rCode": null,
+        "facilityType": null
+      },
+      "isHeader": true
     },
     {
       "depth": 2,
@@ -9364,7 +9586,16 @@
       "marker": "마.",
       "text": "처리의 경우",
       "answer": "",
-      "tags": null
+      "tags": {
+        "category": null,
+        "bizType": null,
+        "wasteClass": null,
+        "wasteCode": null,
+        "action": null,
+        "rCode": null,
+        "facilityType": null
+      },
+      "isHeader": true
     },
     {
       "depth": 2,
@@ -9788,7 +10019,19 @@
       "marker": "6.",
       "text": "폐기물수집·운반증",
       "answer": "",
-      "tags": null
+      "tags": {
+        "category": null,
+        "bizType": null,
+        "docType": null,
+        "wasteClass": null,
+        "wasteCode": null,
+        "action": [
+          "CT"
+        ],
+        "rCode": null,
+        "facilityType": null
+      },
+      "isHeader": true
     },
     {
       "depth": 1,
@@ -9818,7 +10061,7 @@
       "type": "number-paren",
       "marker": "1)",
       "text": "법 제5조에 따른 광역 폐기물 처분시설 또는 재활용시설의 설치·운영자가 폐기물을 수집·운반하는 경우(생활폐기물을 수집·운반하는 경우는 제외한다)",
-      "answer": "법 제5조에 따른 광역 폐기물 처분시설 또는 재활용시설의 설치·운영자가 폐기물을 수집·운반하는 경우(생활폐기물을 수집·운반하는 경우는 제외한다)를 준수하겠음",
+      "answer": "",
       "tags": {
         "category": null,
         "bizType": [
@@ -9841,7 +10084,7 @@
       "type": "number-paren",
       "marker": "2)",
       "text": "법 제15조의2제3항에 따른 음식물류 폐기물 배출자가 그 사업장에서발생한 음식물류 폐기물을 사업장 밖으로 운반하는 경우",
-      "answer": "법 제15조의2제3항에 따른 음식물류 폐기물 배출자가 그 사업장에서발생한 음식물류 폐기물을 사업장 밖으로 운반하는 경우, 다만, 제17조 및 별표 5의7에 따라 폐기물의 처리 위탁을 중단해야 하는 경우로서 시ㆍ도지사나 지방환경관서의 장이 기간을 정하여 인정하는 경우 또는 천재지변이나 그 밖의 부득이한 사유로 장기보관할 필요성이 있다고 관할 시·도지사나 지방환경관서의 장이 인정하는 경우와, 1년간 배출하는 지정폐기물의 총량이 3톤(2013년12월 31일까지는 4톤) 미만인 사업장의 경우에는 1년의 기간 내에서 보관할 수 있겠음",
+      "answer": "",
       "tags": {
         "category": null,
         "bizType": [
@@ -9867,7 +10110,7 @@
       "type": "number-paren",
       "marker": "3)",
       "text": "법 제15조의2제4항에 따라 음식물류 폐기물을 공동으로 수집·운반또는 재활용하는 자가 음식물류 폐기물을 수집·운반하는 경우",
-      "answer": "법 제15조의2제4항에 따라 음식물류 폐기물을 공동으로 수집·운반또는 재활용하는 자가 음식물류 폐기물을 수집·운반하는 경우, 다만, 제17조 및 별표 5의7에 따라 폐기물의 처리 위탁을 중단해야 하는 경우로서 시ㆍ도지사나 지방환경관서의 장이 기간을 정하여 인정하는 경우 또는 천재지변이나 그 밖의 부득이한 사유로 장기보관할 필요성이 있다고 관할 시·도지사나 지방환경관서의 장이 인정하는 경우와, 1년간 배출하는 지정폐기물의 총량이 3톤(2013년12월 31일까지는 4톤) 미만인 사업장의 경우에는 1년의 기간 내에서 보관할 수 있겠음",
+      "answer": "",
       "tags": {
         "category": null,
         "bizType": [
@@ -9893,7 +10136,7 @@
       "type": "number-paren",
       "marker": "4)",
       "text": "사업장폐기물배출자가 그 사업장에서 발생한 폐기물을 사업장 밖으로운반하는 경우",
-      "answer": "사업장폐기물배출자가 그 사업장에서 발생한 폐기물을 사업장 밖으로운반하는 경우, 다만, 제17조 및 별표 5의7에 따라 폐기물의 처리 위탁을 중단해야 하는 경우로서 시ㆍ도지사나 지방환경관서의 장이 기간을 정하여 인정하는 경우 또는 천재지변이나 그 밖의 부득이한 사유로 장기보관할 필요성이 있다고 관할 시·도지사나 지방환경관서의 장이 인정하는 경우와, 1년간 배출하는 지정폐기물의 총량이 3톤(2013년12월 31일까지는 4톤) 미만인 사업장의 경우에는 1년의 기간 내에서 보관할 수 있겠음",
+      "answer": "",
       "tags": {
         "category": null,
         "bizType": [
@@ -9916,7 +10159,7 @@
       "type": "number-paren",
       "marker": "5)",
       "text": "법 제18조제5항에 따라 사업장폐기물을 공동으로 수집·운반, 처분또는 재활용하는 자가 수집·운반하는 경우",
-      "answer": "법 제18조제5항에 따라 사업장폐기물을 공동으로 수집·운반, 처분또는 재활용하는 자가 수집·운반하는 경우, 다만, 제17조 및 별표 5의7에 따라 폐기물의 처리 위탁을 중단해야 하는 경우로서 시ㆍ도지사나 지방환경관서의 장이 기간을 정하여 인정하는 경우 또는 천재지변이나 그 밖의 부득이한 사유로 장기보관할 필요성이 있다고 관할 시·도지사나 지방환경관서의 장이 인정하는 경우와, 1년간 배출하는 지정폐기물의 총량이 3톤(2013년12월 31일까지는 4톤) 미만인 사업장의 경우에는 1년의 기간 내에서 보관할 수 있겠음",
+      "answer": "",
       "tags": {
         "category": null,
         "bizType": [
@@ -9939,7 +10182,7 @@
       "type": "number-paren",
       "marker": "6)",
       "text": "폐기물처리업자가 폐기물을 수집·운반하는 경우",
-      "answer": "폐기물처리업자가 폐기물을 수집·운반하는 경우, 다만, 제17조 및 별표 5의7에 따라 폐기물의 처리 위탁을 중단해야 하는 경우로서 시ㆍ도지사나 지방환경관서의 장이 기간을 정하여 인정하는 경우 또는 천재지변이나 그 밖의 부득이한 사유로 장기보관할 필요성이 있다고 관할 시·도지사나 지방환경관서의 장이 인정하는 경우와, 1년간 배출하는 지정폐기물의 총량이 3톤(2013년12월 31일까지는 4톤) 미만인 사업장의 경우에는 1년의 기간 내에서 보관할 수 있겠음",
+      "answer": "",
       "tags": {
         "category": null,
         "bizType": [
@@ -9962,7 +10205,7 @@
       "type": "number-paren",
       "marker": "7)",
       "text": "폐기물처리 신고자가 재활용 대상폐기물을 수집·운반하는 경우",
-      "answer": "폐기물처리 신고자가 재활용 대상폐기물을 수집·운반하는 경우, 다만, 제17조 및 별표 5의7에 따라 폐기물의 처리 위탁을 중단해야 하는 경우로서 시ㆍ도지사나 지방환경관서의 장이 기간을 정하여 인정하는 경우 또는 천재지변이나 그 밖의 부득이한 사유로 장기보관할 필요성이 있다고 관할 시·도지사나 지방환경관서의 장이 인정하는 경우와, 1년간 배출하는 지정폐기물의 총량이 3톤(2013년12월 31일까지는 4톤) 미만인 사업장의 경우에는 1년의 기간 내에서 보관할 수 있겠음",
+      "answer": "",
       "tags": {
         "category": null,
         "bizType": [
@@ -9985,7 +10228,7 @@
       "type": "number-paren",
       "marker": "8)",
       "text": "폐기물을 수출하거나 수입하는 자가 그 폐기물을 운반하는 경우(컨테이너를 이용하여 운반하는 경우를 포함한다)○폐기물 수집·운반증의 규격 및 적어 넣는 방법비고",
-      "answer": "폐기물을 수출하거나 수입하는 자가 그 폐기물을 운반하는 경우(컨테이너를 이용하여 운반하는 경우를 포함한다)○폐기물 수집·운반증의 규격 및 적어 넣는 방법비고를 준수하겠음",
+      "answer": "",
       "tags": {
         "category": null,
         "bizType": [
@@ -10077,7 +10320,7 @@
       "type": "number-paren",
       "marker": "1)",
       "text": "「자원의 절약과 재활용촉진에 관한 법률」 제15조의2제1항 각 호외의 부분 본문에 따른 자원순환보증금이 제품 가격에 포함된 용기ㆍ1회용 컵을 회수하여 재활용하는 경우",
-      "answer": "「자원의 절약과 재활용촉진에 관한 법률」 제15조의2제1항 각 호외의 부분 본문에 따른 자원순환보증금이 제품 가격에 포함된 용기ㆍ1회용 컵을 회수하여 재활용하는 경우, 가목 본문에도 불구하고 다음의 어느 하나에 해당하는 경우에는 폐기물수집ㆍ운반증을 발급받지 않고 폐기물을 수집ㆍ운반할 수 있겠음",
+      "answer": "",
       "tags": {
         "category": null,
         "bizType": [
@@ -10100,7 +10343,7 @@
       "type": "number-paren",
       "marker": "2)",
       "text": "전주철거공사용 차량으로 철거된 폐전주를 폐기물재활용업자의 사업장까지 운반하는 경우",
-      "answer": "전주철거공사용 차량으로 철거된 폐전주를 폐기물재활용업자의 사업장까지 운반하는 경우, 가목 본문에도 불구하고 다음의 어느 하나에 해당하는 경우에는 폐기물수집ㆍ운반증을 발급받지 않고 폐기물을 수집ㆍ운반할 수 있겠음",
+      "answer": "",
       "tags": {
         "category": null,
         "bizType": [
@@ -10123,7 +10366,7 @@
       "type": "number-paren",
       "marker": "3)",
       "text": "다음의 어느 하나에 해당하는 자가 폐전기전자제품을 회수하거나 재활용하는 경우",
-      "answer": "다음의 어느 하나에 해당하는 자가 폐전기전자제품을 회수하거나 재활용하는 경우, 가목 본문에도 불구하고 다음의 어느 하나에 해당하는 경우에는 폐기물수집ㆍ운반증을 발급받지 않고 폐기물을 수집ㆍ운반할 수 있겠음",
+      "answer": "",
       "tags": {
         "category": null,
         "bizType": [
@@ -10148,7 +10391,7 @@
       "type": "korean-paren",
       "marker": "가)",
       "text": "「전기ㆍ전자제품 및 자동차의 자원순환에 관한 법률」 제15조에따른 전기ㆍ전자제품 재활용의무생산자 또는 그로부터 전기ㆍ전자제품의 회수 및 재활용을 위탁받은 자",
-      "answer": "「전기ㆍ전자제품 및 자동차의 자원순환에 관한 법률」 제15조에따른 전기ㆍ전자제품 재활용의무생산자 또는 그로부터 전기ㆍ전자제품의 회수 및 재활용을 위탁받은 자를 준수하겠음",
+      "answer": "",
       "tags": {
         "category": null,
         "bizType": [
@@ -10171,7 +10414,7 @@
       "type": "korean-paren",
       "marker": "나)",
       "text": "「전기ㆍ전자제품 및 자동차의 자원순환에 관한 법률」 제16조의4제1항에 따른 전기ㆍ전자제품의 판매업자(같은 항에 따라 자신이판매한 제품이 속한 제품군 내의 폐전기ㆍ폐전자제품을 스스로 회수하는 경우만 해당한다)",
-      "answer": "「전기ㆍ전자제품 및 자동차의 자원순환에 관한 법률」 제16조의4제1항에 따른 전기ㆍ전자제품의 판매업자(같은 항에 따라 자신이판매한 제품이 속한 제품군 내의 폐전기ㆍ폐전자제품을 스스로 회수하는 경우만 해당한다)를 준수하겠음",
+      "answer": "",
       "tags": {
         "category": null,
         "bizType": [
@@ -10194,7 +10437,7 @@
       "type": "korean-paren",
       "marker": "다)",
       "text": "「전기ㆍ전자제품 및 자동차의 자원순환에 관한 법률」 제21조에따른 전기ㆍ전자제품 재활용사업공제조합 또는 그로부터 전기ㆍ전자제품의 회수 및 재활용을 위탁받은 자",
-      "answer": "「전기ㆍ전자제품 및 자동차의 자원순환에 관한 법률」 제21조에따른 전기ㆍ전자제품 재활용사업공제조합 또는 그로부터 전기ㆍ전자제품의 회수 및 재활용을 위탁받은 자를 준수하겠음",
+      "answer": "",
       "tags": {
         "category": null,
         "bizType": [
@@ -10217,7 +10460,7 @@
       "type": "number-paren",
       "marker": "4)",
       "text": "폐기물을 수출 또는 수입하는 경우로서 폐기물을 컨테이너에 넣은 후밀폐하여 운반하는 경우(해당 폐기물이 수출 또는 수입되는 폐기물임을 증명하는 「폐기물의 국가 간 이동 및 그 처리에 관한 법률」 제7조제1항에 따른 수출이동서류, 같은 법 제11조에 따른 수입이동서류또는 같은 법 시행령 제17조의2제3항에 따른 수출입관리폐기물 수출ㆍ수입 신고증명서를 가지고 있는 경우만 해당한다)",
-      "answer": "폐기물을 수출 또는 수입하는 경우로서 폐기물을 컨테이너에 넣은 후밀폐하여 운반하는 경우(해당 폐기물이 수출 또는 수입되는 폐기물임을 증명하는 「폐기물의 국가 간 이동 및 그 처리에 관한 법률」 제7조제1항에 따른 수출이동서류, 같은 법 제11조에 따른 수입이동서류또는 같은 법 시행령 제17조의2제3항에 따른 수출입관리폐기물 수출ㆍ수입 신고증명서를 가지고 있는 경우만 해당한다)를 준수하겠음",
+      "answer": "",
       "tags": {
         "category": null,
         "bizType": [
@@ -10240,7 +10483,7 @@
       "type": "number-paren",
       "marker": "5)",
       "text": "제66조제3항제3호의 폐기물로 만든 중간가공 폐기물을 수집ㆍ운반하는 경우",
-      "answer": "제66조제3항제3호의 폐기물로 만든 중간가공 폐기물을 수집ㆍ운반하는 경우, 가목 본문에도 불구하고 다음의 어느 하나에 해당하는 경우에는 폐기물수집ㆍ운반증을 발급받지 않고 폐기물을 수집ㆍ운반할 수 있겠음",
+      "answer": "",
       "tags": {
         "category": null,
         "bizType": [
@@ -10286,7 +10529,7 @@
       "type": "number-paren",
       "marker": "1)",
       "text": "「자원의 절약과 재활용촉진에 관한 법률」 제16조제1항에 따른 재활용의무생산자, 같은 법 제27조제1항에 따른 제품별 및 포장재 재활용사업공제조합 또는 그로부터 회수 및 재활용을 위탁받은 자가 같은법 제16조제1항에 따라 폐기물을 회수하여 재활용하는 경우",
-      "answer": "「자원의 절약과 재활용촉진에 관한 법률」 제16조제1항에 따른 재활용의무생산자, 같은 법 제27조제1항에 따른 제품별 및 포장재 재활용사업공제조합 또는 그로부터 회수 및 재활용을 위탁받은 자가 같은법 제16조제1항에 따라 폐기물을 회수하여 재활용하는 경우, 가목 본문에도 불구하고 다음의 어느 하나에 해당하는 경우에는 폐기물수집ㆍ운반증을 발급받지 않고 폐기물을 수집ㆍ운반할 수 있겠음",
+      "answer": "",
       "tags": {
         "category": null,
         "bizType": [
@@ -10309,7 +10552,7 @@
       "type": "number-paren",
       "marker": "2)",
       "text": "제66조제5항에 해당하는 자가 폐기물을 수집ㆍ운반하는 경우",
-      "answer": "제66조제5항에 해당하는 자가 폐기물을 수집ㆍ운반하는 경우, 가목 본문에도 불구하고 다음의 어느 하나에 해당하는 경우에는 폐기물수집ㆍ운반증을 발급받지 않고 폐기물을 수집ㆍ운반할 수 있겠음",
+      "answer": "",
       "tags": {
         "category": null,
         "bizType": [
@@ -10332,7 +10575,7 @@
       "type": "number-paren",
       "marker": "3)",
       "text": "중간가공 폐기물을 수집ㆍ운반하는 경우(제66조제3항제3호의 폐기물로 만든 중간가공 폐기물은 제외한다)",
-      "answer": "중간가공 폐기물을 수집ㆍ운반하는 경우(제66조제3항제3호의 폐기물로 만든 중간가공 폐기물은 제외한다)를 준수하겠음",
+      "answer": "",
       "tags": {
         "category": null,
         "bizType": [
@@ -10355,7 +10598,7 @@
       "type": "number-paren",
       "marker": "4)",
       "text": "다음의 폐기물을 재활용하기 위해 해당 폐기물을 배출하는 자 또는폐기물 재활용업자가 폐기물을 수집ㆍ운반하는 경우",
-      "answer": "다음의 폐기물을 재활용하기 위해 해당 폐기물을 배출하는 자 또는폐기물 재활용업자가 폐기물을 수집ㆍ운반하는 경우, 가목 본문에도 불구하고 다음의 어느 하나에 해당하는 경우에는 폐기물수집ㆍ운반증을 발급받지 않고 폐기물을 수집ㆍ운반할 수 있겠음",
+      "answer": "",
       "tags": {
         "category": null,
         "bizType": [
@@ -10524,7 +10767,7 @@
       "type": "number-paren",
       "marker": "1)",
       "text": "가목2) 또는 4)에 따른 경우(도서지역에서 발생한 사업장폐기물을육상에서 처리하기 위하여 수집·운반하는 경우는 제외한다) 외의 임시차량(영업용만 해당한다)",
-      "answer": "가목2) 또는 4)에 따른 경우(도서지역에서 발생한 사업장폐기물을육상에서 처리하기 위하여 수집·운반하는 경우는 제외한다) 외의 임시차량(영업용만 해당한다)를 준수하겠음",
+      "answer": "",
       "tags": {
         "category": null,
         "bizType": [
@@ -10547,7 +10790,7 @@
       "type": "number-paren",
       "marker": "2)",
       "text": "철도차량이나 선박",
-      "answer": "철도차량이나 선박를 준수하겠음",
+      "answer": "",
       "tags": {
         "category": null,
         "bizType": [
@@ -10570,7 +10813,7 @@
       "type": "number-paren",
       "marker": "3)",
       "text": "건설폐기물을 대상으로 하는 폐기물 수집·운반업의 공동대표자 각각의 명의로 등록된 차량",
-      "answer": "건설폐기물을 대상으로 하는 폐기물 수집·운반업의 공동대표자 각각의 명의로 등록된 차량를 준수하겠음",
+      "answer": "",
       "tags": {
         "category": null,
         "bizType": [
@@ -10593,7 +10836,7 @@
       "type": "number-paren",
       "marker": "4)",
       "text": "법 제14조제2항에 따라 생활폐기물의 수집ㆍ운반을 대행하는 자가임차하여 사용하는 해당 지방자치단체 명의로 등록된 차량",
-      "answer": "법 제14조제2항에 따라 생활폐기물의 수집ㆍ운반을 대행하는 자가임차하여 사용하는 해당 지방자치단체 명의로 등록된 차량를 준수하겠음",
+      "answer": "",
       "tags": {
         "category": null,
         "bizType": [
@@ -10616,7 +10859,7 @@
       "type": "number-paren",
       "marker": "5)",
       "text": "사업장폐기물배출자가 그 사업장에서 발생한 사업장일반폐기물인중간가공 폐기물을 사업장 밖으로 운반하기 위해 사용하는 차량(영업용만 해당한다)",
-      "answer": "사업장폐기물배출자가 그 사업장에서 발생한 사업장일반폐기물인중간가공 폐기물을 사업장 밖으로 운반하기 위해 사용하는 차량(영업용만 해당한다)를 준수하겠음",
+      "answer": "",
       "tags": {
         "category": null,
         "bizType": [
@@ -10639,7 +10882,7 @@
       "type": "number-paren",
       "marker": "6)",
       "text": "폐기물 수집ㆍ운반업자 또는 제66조제3항ㆍ제6항의 폐기물을 수집ㆍ운반하는 자가 사업장일반폐기물인 중간가공 폐기물을 수집ㆍ운반하기 위해 사용하는 차량",
-      "answer": "폐기물 수집ㆍ운반업자 또는 제66조제3항ㆍ제6항의 폐기물을 수집ㆍ운반하는 자가 사업장일반폐기물인 중간가공 폐기물을 수집ㆍ운반하기 위해 사용하는 차량를 준수하겠음",
+      "answer": "",
       "tags": {
         "category": null,
         "bizType": [
@@ -10685,7 +10928,7 @@
       "type": "number-paren",
       "marker": "1)",
       "text": "가목1)·2)·4)·8) 또는 제21조제1항제9호에 해당하는 경우",
-      "answer": "가목1)·2)·4)·8) 또는 제21조제1항제9호에 해당하는 경우, 다목에 따라 신청을 받은 시·도지사나 지방환경관서의 장은 「전자정부법」 제36조제1항에 따른 행정정보의 공동이용을 통하여 차량등록증을확인한 후 신청 내용이 폐기물의 수집ㆍ운반 기준에 맞을 경우 폐기물수집ㆍ운반증을 발급하겠음",
+      "answer": "",
       "tags": {
         "category": null,
         "bizType": [
@@ -10708,7 +10951,7 @@
       "type": "number-paren",
       "marker": "2)",
       "text": "건설폐기물 또는 사업장비배출시설계 폐기물 중 하수준설토(이하 이목에서 \"하수준설토\"라 한다)를 대상으로 하는 폐기물처리업자가 건설폐기물 또는 하수준설토를 수집·운반하는 경우로서 건설폐기물 또는 하수준설토가 일시적으로 다량 발생하여 임시차량의 사용이 불가피하다고 해당 폐기물처리업자의 허가권자가 인정하는 경우",
-      "answer": "건설폐기물 또는 사업장비배출시설계 폐기물 중 하수준설토(이하 이목에서 \"하수준설토\"라 한다)를 대상으로 하는 폐기물처리업자가 건설폐기물 또는 하수준설토를 수집·운반하는 경우로서 건설폐기물 또는 하수준설토가 일시적으로 다량 발생하여 임시차량의 사용이 불가피하다고 해당 폐기물처리업자의 허가권자가 인정하는 경우, 다목에 따라 신청을 받은 시·도지사나 지방환경관서의 장은 「전자정부법」 제36조제1항에 따른 행정정보의 공동이용을 통하여 차량등록증을확인한 후 신청 내용이 폐기물의 수집ㆍ운반 기준에 맞을 경우 폐기물수집ㆍ운반증을 발급하겠음",
+      "answer": "",
       "tags": {
         "category": null,
         "bizType": [
@@ -10731,7 +10974,7 @@
       "type": "number-paren",
       "marker": "3)",
       "text": "폐기물을 철도차량이나 선박으로 운반하는 경우",
-      "answer": "폐기물을 철도차량이나 선박으로 운반하는 경우, 다목에 따라 신청을 받은 시·도지사나 지방환경관서의 장은 「전자정부법」 제36조제1항에 따른 행정정보의 공동이용을 통하여 차량등록증을확인한 후 신청 내용이 폐기물의 수집ㆍ운반 기준에 맞을 경우 폐기물수집ㆍ운반증을 발급하겠음",
+      "answer": "",
       "tags": {
         "category": null,
         "bizType": [
@@ -10754,7 +10997,7 @@
       "type": "number-paren",
       "marker": "4)",
       "text": "폐기물 수집ㆍ운반업자 또는 제66조제3항ㆍ제6항의 폐기물을 수집ㆍ운반하는 자가 사업장일반폐기물인 중간가공 폐기물을 수집ㆍ운반하는 경우",
-      "answer": "폐기물 수집ㆍ운반업자 또는 제66조제3항ㆍ제6항의 폐기물을 수집ㆍ운반하는 자가 사업장일반폐기물인 중간가공 폐기물을 수집ㆍ운반하는 경우, 다목에 따라 신청을 받은 시·도지사나 지방환경관서의 장은 「전자정부법」 제36조제1항에 따른 행정정보의 공동이용을 통하여 차량등록증을확인한 후 신청 내용이 폐기물의 수집ㆍ운반 기준에 맞을 경우 폐기물수집ㆍ운반증을 발급하겠음",
+      "answer": "",
       "tags": {
         "category": null,
         "bizType": [

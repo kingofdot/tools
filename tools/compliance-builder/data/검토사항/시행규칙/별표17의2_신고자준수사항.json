@@ -18,145 +18,480 @@
       "depth": 0,
       "type": "title",
       "marker": "■",
-      "text": "폐기물관리법 시행규칙 [별표 17의2] <개정 2022. 1. 7.>폐기물처리 신고자의 준수사항(제67조의2 관련)"
+      "text": "■ 폐기물관리법 시행규칙 [별표 17의2] <개정 2022. 1. 7.>폐기물처리 신고자의 준수사항(제67조의2 관련)",
+      "answer": "",
+      "tags": null,
+      "noWord": true
     },
     {
       "depth": 0,
       "type": "number",
       "marker": "1.",
-      "text": "폐기물처리 신고자는 신고한 재활용 용도 또는 방법에 따라 재활용하여야 한다."
+      "text": "폐기물처리 신고자는 신고한 재활용 용도 또는 방법에 따라 재활용하여야 한다.",
+      "answer": "신고한 재활용 용도 또는 방법에 따라 재활용하겠음.",
+      "tags": {
+        "category": [
+          "W02"
+        ],
+        "bizType": [
+          "RREC"
+        ],
+        "wasteClass": null,
+        "wasteCode": null,
+        "action": [
+          "RCY"
+        ],
+        "rCode": null,
+        "facilityType": null
+      }
     },
     {
       "depth": 0,
       "type": "number",
       "marker": "2.",
-      "text": "폐기물처리 신고자는 폐기물의 재활용을 위탁한 자와 다음 각 목의 내용이포함된 폐기물 위탁재활용(운반)계약서를 작성하고, 그 계약서를 3년간 보관하여야 한다. 다만, 폐기물처리 신고자가 폐기물수집ㆍ운반업자와 함께 폐기물의재활용을 위탁한 자와 하나의 계약서로 동시에 폐기물 위탁재활용(운반)계약을체결하는 경우에는 운반단가와 재활용처리단가를 구분하여 기재하여야 한다."
+      "text": "폐기물처리 신고자는 폐기물의 재활용을 위탁한 자와 다음 각 목의 내용이 포함된 폐기물 위탁재활용(운반)계약서를 작성하고, 그 계약서를 3년간 보관하여야 한다. 다만, 폐기물처리 신고자가 폐기물수집ㆍ운반업자와 함께 폐기물의 재활용을 위탁한 자와 하나의 계약서로 동시에 폐기물 위탁재활용(운반)계약을 체결하는 경우에는 운반단가와 재활용처리단가를 구분하여 기재하여야 한다.",
+      "answer": "폐기물의 재활용을 위탁한 자와 다음 각 목의 내용이 포함된 폐기물 위탁재활용(운반)계약서를 작성하고, 그 계약서를 3년간 보관하겠음.",
+      "tags": {
+        "category": [
+          "W02"
+        ],
+        "bizType": [
+          "RTR",
+          "RREC"
+        ],
+        "wasteClass": null,
+        "wasteCode": null,
+        "action": null,
+        "rCode": null,
+        "facilityType": null
+      }
     },
     {
       "depth": 1,
-      "type": "korean-dot",
+      "type": "korean",
       "marker": "가.",
-      "text": "상호, 소재지 및 대표자"
+      "text": "상호, 소재지 및 대표자",
+      "answer": "상호, 소재지 및 대표자를 기재하겠음.",
+      "tags": {
+        "category": [
+          "W02"
+        ],
+        "bizType": [
+          "RTR",
+          "RREC"
+        ],
+        "wasteClass": null,
+        "wasteCode": null,
+        "action": null,
+        "rCode": null,
+        "facilityType": null
+      }
     },
     {
       "depth": 1,
-      "type": "korean-dot",
+      "type": "korean",
       "marker": "나.",
-      "text": "위탁계약기간"
+      "text": "위탁계약기간",
+      "answer": "위탁계약기간을 기재하겠음.",
+      "tags": {
+        "category": [
+          "W02"
+        ],
+        "bizType": [
+          "RTR",
+          "RREC"
+        ],
+        "wasteClass": null,
+        "wasteCode": null,
+        "action": null,
+        "rCode": null,
+        "facilityType": null
+      }
     },
     {
       "depth": 1,
-      "type": "korean-dot",
+      "type": "korean",
       "marker": "다.",
-      "text": "폐기물의 종류별 수량, 성질과 상태 및 취급시 주의사항"
+      "text": "폐기물의 종류별 수량, 성질과 상태 및 취급시 주의사항",
+      "answer": "폐기물의 종류별 수량, 성질과 상태 및 취급 시 주의사항을 기재하겠음.",
+      "tags": {
+        "category": [
+          "W02"
+        ],
+        "bizType": [
+          "RTR",
+          "RREC"
+        ],
+        "wasteClass": null,
+        "wasteCode": null,
+        "action": null,
+        "rCode": null,
+        "facilityType": null
+      }
     },
     {
       "depth": 1,
-      "type": "korean-dot",
+      "type": "korean",
       "marker": "라.",
-      "text": "폐기물의 종류별 재활용장소 및 재활용방법"
+      "text": "폐기물의 종류별 재활용장소 및 재활용방법",
+      "answer": "폐기물의 종류별 재활용장소 및 재활용방법을 기재하겠음.",
+      "tags": {
+        "category": [
+          "W02"
+        ],
+        "bizType": [
+          "RREC"
+        ],
+        "wasteClass": null,
+        "wasteCode": null,
+        "action": [
+          "RCY"
+        ],
+        "rCode": null,
+        "facilityType": null
+      }
     },
     {
       "depth": 1,
-      "type": "korean-dot",
+      "type": "korean",
       "marker": "마.",
-      "text": "운반단가 또는 운반비(폐기물수집ㆍ운반업자가 포함된 경우에만 해당한다)"
+      "text": "운반단가 또는 운반비(폐기물수집ㆍ운반업자가 포함된 경우에만 해당한다)",
+      "answer": "운반단가 또는 운반비를 기재하겠음(폐기물수집·운반업자가 포함된 경우).",
+      "tags": {
+        "category": [
+          "W02"
+        ],
+        "bizType": [
+          "RTR",
+          "RREC"
+        ],
+        "wasteClass": null,
+        "wasteCode": null,
+        "action": null,
+        "rCode": null,
+        "facilityType": null
+      }
     },
     {
       "depth": 1,
-      "type": "korean-dot",
+      "type": "korean",
       "marker": "바.",
-      "text": "재활용처리단가 또는 재활용처리비"
+      "text": "재활용처리단가 또는 재활용처리비",
+      "answer": "재활용처리단가 또는 재활용처리비를 기재하겠음.",
+      "tags": {
+        "category": [
+          "W02"
+        ],
+        "bizType": [
+          "RREC"
+        ],
+        "wasteClass": null,
+        "wasteCode": null,
+        "action": [
+          "RCY"
+        ],
+        "rCode": null,
+        "facilityType": null
+      }
     },
     {
       "depth": 1,
-      "type": "korean-dot",
+      "type": "korean",
       "marker": "사.",
-      "text": "삭제 <2011.9.27>"
+      "text": "삭제 <2011.9.27>",
+      "answer": "",
+      "tags": null,
+      "noWord": true
     },
     {
       "depth": 0,
       "type": "number",
       "marker": "3.",
-      "text": "위탁받은 폐기물을 재위탁하거나 재위탁받아서는 아니 된다. 다만, 다음 각목의 경우는 제외한다."
+      "text": "위탁받은 폐기물을 재위탁하거나 재위탁받아서는 아니 된다. 다만, 다음 각 목의 경우는 제외한다.",
+      "answer": "위탁받은 폐기물을 재위탁하거나 재위탁받지 않겠음(법령이 허용하는 예외에 해당하는 경우에 한함).",
+      "tags": {
+        "category": [
+          "W02"
+        ],
+        "bizType": [
+          "RTR",
+          "RREC"
+        ],
+        "wasteClass": null,
+        "wasteCode": null,
+        "action": null,
+        "rCode": null,
+        "facilityType": null
+      }
     },
     {
       "depth": 1,
-      "type": "korean-dot",
+      "type": "korean",
       "marker": "가.",
-      "text": "제66조제5항에 해당하는 자 중 같은 조 제3항 각 호의 폐기물을 수집ㆍ운반하는 자가 수집ㆍ운반한 폐기물을 제66조제5항에 해당하는 자 중 같은조 제3항 각 호의 폐기물을 수집ㆍ운반하는 자에게 재위탁하거나 재위탁받는 경우"
+      "text": "제66조제5항에 해당하는 자 중 같은 조 제3항 각 호의 폐기물을 수집ㆍ운반하는 자가 수집ㆍ운반한 폐기물을 제66조제5항에 해당하는 자 중 같은 조 제3항 각 호의 폐기물을 수집ㆍ운반하는 자에게 재위탁하거나 재위탁받는 경우",
+      "answer": "제66조제5항에 해당하는 자 중 같은 조 제3항 각 호의 폐기물을 수집·운반하는 자가 수집·운반한 폐기물을 같은 규정 대상자 간 재위탁하는 경우에만 해당 규정에 따라 처리하겠음.",
+      "tags": {
+        "category": [
+          "W02"
+        ],
+        "bizType": [
+          "RTR"
+        ],
+        "wasteClass": null,
+        "wasteCode": null,
+        "action": [
+          "CT"
+        ],
+        "rCode": null,
+        "facilityType": null
+      }
     },
     {
       "depth": 1,
-      "type": "korean-dot",
+      "type": "korean",
       "marker": "나.",
-      "text": "법 제46조제1항제3호에 해당하는 자 중 제66조제6항제8호에 해당하는 폐기물을 수집ㆍ운반하는 자가 수집ㆍ운반한 폐기물을 법 제46조제1항제3호에 해당하는 자 중 제66조제6항제8호에 해당하는 폐기물을 수집ㆍ운반하는자에게 재위탁하거나 재위탁받는 경우"
+      "text": "법 제46조제1항제3호에 해당하는 자 중 제66조제6항제8호에 해당하는 폐기물을 수집ㆍ운반하는 자가 수집ㆍ운반한 폐기물을 법 제46조제1항제3호에 해당하는 자 중 제66조제6항제8호에 해당하는 폐기물을 수집ㆍ운반하는 자에게 재위탁하거나 재위탁받는 경우",
+      "answer": "법 제46조제1항제3호에 해당하는 자 중 제66조제6항제8호에 해당하는 폐기물을 수집·운반하는 자가 수집·운반한 폐기물을 같은 규정 대상자 간 재위탁하는 경우에만 해당 규정에 따라 처리하겠음.",
+      "tags": {
+        "category": [
+          "W02"
+        ],
+        "bizType": [
+          "RTR"
+        ],
+        "wasteClass": null,
+        "wasteCode": null,
+        "action": [
+          "CT"
+        ],
+        "rCode": null,
+        "facilityType": null
+      }
     },
     {
       "depth": 1,
-      "type": "korean-dot",
+      "type": "korean",
       "marker": "다.",
-      "text": "천재지변, 처리금지, 휴업, 폐업 등 정당한 사유가 있는 경우로서 시ㆍ도지사의 승인을 받은 경우"
+      "text": "천재지변, 처리금지, 휴업, 폐업 등 정당한 사유가 있는 경우로서 시ㆍ도지사의 승인을 받은 경우",
+      "answer": "천재지변, 처리금지, 휴업, 폐업 등 정당한 사유가 있는 경우에 한하여 시·도지사의 승인을 받은 후 재위탁하겠음.",
+      "tags": {
+        "category": [
+          "W02"
+        ],
+        "bizType": [
+          "RTR",
+          "RREC"
+        ],
+        "wasteClass": null,
+        "wasteCode": null,
+        "action": null,
+        "rCode": null,
+        "facilityType": null
+      }
     },
     {
       "depth": 0,
       "type": "number",
       "marker": "4.",
-      "text": "자신의 재활용시설에서 재활용할 수 없는 폐기물을 위탁받거나 재활용능력을초과하여 폐기물을 위탁받아서는 아니 된다."
+      "text": "자신의 재활용시설에서 재활용할 수 없는 폐기물을 위탁받거나 재활용능력을 초과하여 폐기물을 위탁받아서는 아니 된다.",
+      "answer": "자신의 재활용시설에서 재활용할 수 없는 폐기물을 위탁받거나 재활용능력을 초과하여 폐기물을 위탁받지 않겠음.",
+      "tags": {
+        "category": [
+          "W02"
+        ],
+        "bizType": [
+          "RREC"
+        ],
+        "wasteClass": null,
+        "wasteCode": null,
+        "action": [
+          "RCY"
+        ],
+        "rCode": null,
+        "facilityType": null
+      }
     },
     {
       "depth": 0,
       "type": "number",
       "marker": "5.",
-      "text": "허용보관량을 초과하여 폐기물을 보관하거나 보관시설 외의 장소에 폐기물을보관하여서는 아니 된다."
+      "text": "허용보관량을 초과하여 폐기물을 보관하거나 보관시설 외의 장소에 폐기물을 보관하여서는 아니 된다.",
+      "answer": "허용보관량을 초과하여 폐기물을 보관하거나 보관시설 외의 장소에 폐기물을 보관하지 않겠음.",
+      "tags": {
+        "category": [
+          "W02"
+        ],
+        "bizType": [
+          "RTR",
+          "RREC"
+        ],
+        "wasteClass": null,
+        "wasteCode": null,
+        "action": null,
+        "rCode": null,
+        "facilityType": null
+      }
     },
     {
       "depth": 0,
       "type": "number",
       "marker": "6.",
-      "text": "수집ㆍ운반 및 재활용할 수 있는 능력의 초과, 휴업이나 폐업 등 정당한 사유없이 배출자가 요청한 폐기물의 수탁을 거부하여서는 아니 된다."
+      "text": "수집ㆍ운반 및 재활용할 수 있는 능력의 초과, 휴업이나 폐업 등 정당한 사유 없이 배출자가 요청한 폐기물의 수탁을 거부하여서는 아니 된다.",
+      "answer": "수집·운반 및 재활용할 수 있는 능력의 초과, 휴업·폐업 등 정당한 사유 없이 배출자가 요청한 폐기물의 수탁을 거부하지 않겠음.",
+      "tags": {
+        "category": [
+          "W02"
+        ],
+        "bizType": [
+          "RTR",
+          "RREC"
+        ],
+        "wasteClass": null,
+        "wasteCode": null,
+        "action": null,
+        "rCode": null,
+        "facilityType": null
+      }
     },
     {
       "depth": 0,
       "type": "number",
       "marker": "7.",
-      "text": "정당한 사유 없이 계속하여 1년 이상 휴업하여서는 아니 된다."
+      "text": "정당한 사유 없이 계속하여 1년 이상 휴업하여서는 아니 된다.",
+      "answer": "정당한 사유 없이 계속하여 1년 이상 휴업하지 않겠음.",
+      "tags": {
+        "category": [
+          "W02"
+        ],
+        "bizType": [
+          "RTR",
+          "RREC"
+        ],
+        "wasteClass": null,
+        "wasteCode": null,
+        "action": null,
+        "rCode": null,
+        "facilityType": null
+      }
     },
     {
       "depth": 0,
       "type": "number",
       "marker": "8.",
-      "text": "다른 사람에게 자기의 성명 또는 상호를 사용하여 폐기물을 위탁받게 하거나신고증명서를 다른 사람에게 빌려주어서는 아니 된다."
+      "text": "다른 사람에게 자기의 성명 또는 상호를 사용하여 폐기물을 위탁받게 하거나 신고증명서를 다른 사람에게 빌려주어서는 아니 된다.",
+      "answer": "다른 사람에게 자기의 성명·상호를 사용하여 폐기물을 위탁받게 하거나 신고증명서를 다른 사람에게 빌려주지 않겠음.",
+      "tags": {
+        "category": [
+          "W02"
+        ],
+        "bizType": [
+          "RTR",
+          "RREC"
+        ],
+        "wasteClass": null,
+        "wasteCode": null,
+        "action": null,
+        "rCode": null,
+        "facilityType": null
+      }
     },
     {
       "depth": 0,
       "type": "number",
       "marker": "9.",
-      "text": "제66조제5항에 해당하는 자가 같은 조 제3항 각 호의 폐기물을 보관하는 경우에는 차폐가 될 수 있도록 가림막 설치 등 필요한 조치를 하여야 하며, 수집ㆍ운반ㆍ보관 과정에서 소음ㆍ먼지ㆍ침출수 등 환경오염의 발생이 최소화 될 수 있도록 필요한 조치를 하여야 한다."
+      "text": "제66조제5항에 해당하는 자가 같은 조 제3항 각 호의 폐기물을 보관하는 경우에는 차폐가 될 수 있도록 가림막 설치 등 필요한 조치를 하여야 하며, 수집ㆍ운반ㆍ보관 과정에서 소음ㆍ먼지ㆍ침출수 등 환경오염의 발생이 최소화 될 수 있도록 필요한 조치를 하여야 한다.",
+      "answer": "제66조제5항에 해당하는 자가 같은 조 제3항 각 호의 폐기물을 보관하는 경우 차폐 가림막 설치 등 필요한 조치를 하고, 수집·운반·보관 과정에서 발생하는 소음·진동·악취·분진 등을 방지하겠음.",
+      "tags": {
+        "category": [
+          "W02"
+        ],
+        "bizType": [
+          "RTR"
+        ],
+        "wasteClass": null,
+        "wasteCode": null,
+        "action": [
+          "CT"
+        ],
+        "rCode": null,
+        "facilityType": null
+      }
     },
     {
       "depth": 0,
       "type": "number",
       "marker": "10.",
-      "text": "처리금지, 휴업신고 또는 폐업신고 등으로 폐기물을 수집ㆍ운반하지 아니할 때에는 발급받은 폐기물수집ㆍ운반증을 시ㆍ도지사에게 반납하여야 한다."
+      "text": "처리금지, 휴업신고 또는 폐업신고 등으로 폐기물을 수집ㆍ운반하지 아니할 때에는 발급받은 폐기물수집ㆍ운반증을 시ㆍ도지사에게 반납하여야 한다.",
+      "answer": "처리금지, 휴업신고 또는 폐업신고 등으로 폐기물을 수집·운반하지 아니할 때에는 발급받은 폐기물수집·운반증을 시·도지사에게 반납하겠음.",
+      "tags": {
+        "category": [
+          "W02"
+        ],
+        "bizType": [
+          "RTR"
+        ],
+        "wasteClass": null,
+        "wasteCode": null,
+        "action": [
+          "CT"
+        ],
+        "rCode": null,
+        "facilityType": null
+      }
     },
     {
       "depth": 0,
       "type": "number",
       "marker": "11.",
-      "text": "폐기물 배출자에게 수탁처리능력 확인서, 폐기물처리 신고증명서 사본 및방치폐기물처리이행보증을 확인할 수 있는 서류 사본을 거짓으로 제출하거나제출을 거부하여서는 아니 된다."
+      "text": "폐기물 배출자에게 수탁처리능력 확인서, 폐기물처리 신고증명서 사본 및 방치폐기물처리이행보증을 확인할 수 있는 서류 사본을 거짓으로 제출하거나 제출을 거부하여서는 아니 된다.",
+      "answer": "폐기물 배출자에게 수탁처리능력 확인서, 폐기물처리 신고증명서 사본 및 방치폐기물처리이행보증 확인 서류 사본을 거짓으로 제출하거나 제출을 거부하지 않겠음.",
+      "tags": {
+        "category": [
+          "W02"
+        ],
+        "bizType": [
+          "RTR",
+          "RREC"
+        ],
+        "wasteClass": null,
+        "wasteCode": null,
+        "action": null,
+        "rCode": null,
+        "facilityType": null
+      }
     },
     {
       "depth": 0,
       "type": "number",
       "marker": "12.",
-      "text": "폐기물처리신고자가 법 제14조제3항에 따라 생활폐기물을 수집ㆍ운반하려는 경우 일정한 장소에 보관되지 아니하고 버려진 생활폐기물이나 직접 배출자로부터 수거한 생활폐기물만을 수집ㆍ운반하여야 한다."
+      "text": "폐기물처리신고자가 법 제14조제3항에 따라 생활폐기물을 수집ㆍ운반하려는 경우 일정한 장소에 보관되지 아니하고 버려진 생활폐기물이나 직접 배출자로부터 수거한 생활폐기물만을 수집ㆍ운반하여야 한다.",
+      "answer": "법 제14조제3항에 따라 생활폐기물을 수집·운반하려는 경우 일정한 장소에 보관되지 아니하고 버려진 생활폐기물이나 직접 배출자로부터 수거한 생활폐기물만을 수집·운반하겠음.",
+      "tags": {
+        "category": [
+          "W02"
+        ],
+        "bizType": [
+          "RTR"
+        ],
+        "wasteClass": [
+          "L"
+        ],
+        "wasteCode": null,
+        "action": [
+          "CT"
+        ],
+        "rCode": null,
+        "facilityType": null
+      }
     },
     {
       "depth": 0,
       "type": "number",
       "marker": "13.",
-      "text": "삭제 <2011.9.27>"
+      "text": "삭제 <2011.9.27>",
+      "answer": "",
+      "tags": null,
+      "noWord": true
     }
   ]
 }

@@ -1,0 +1,1705 @@
+{
+  "별표번호": "0007",
+  "별표가지번호": "00",
+  "별표구분": "별표",
+  "별표제목": "폐기물처리업의 시설ㆍ장비ㆍ기술능력의 기준(제28조제6항 관련)",
+  "별표제목문자열": "폐기물처리업의 시설ㆍ장비ㆍ기술능력의 기준(제28조제6항 관련)",
+  "별표시행일자": "20260326",
+  "별표서식파일링크": "/LSW/flDownload.do?flSeq=162813127",
+  "별표HWP파일명": "law0085672026032600033KC_000700E_20260326.hwp",
+  "별표이미지파일명": [
+    "000700110201_P1_20260326.gif",
+    "000700110201_P2_20260326.gif",
+    "000700110201_P3_20260326.gif",
+    "000700110201_P4_20260326.gif",
+    "000700110201_P5_20260326.gif",
+    "000700110201_P6_20260326.gif",
+    "000700110201_P7_20260326.gif",
+    "000700110201_P8_20260326.gif",
+    "000700110201_P9_20260326.gif",
+    "000700110201_P10_20260326.gif",
+    "000700110201_P11_20260326.gif",
+    "000700110201_P12_20260326.gif",
+    "000700110201_P13_20260326.gif"
+  ],
+  "별표서식PDF파일링크": "/LSW/flDownload.do?flSeq=162813129",
+  "별표PDF파일명": "law0085672026032600033KC_000700E_20260326.pdf",
+  "별표내용": [
+    {
+      "depth": 0,
+      "type": "title",
+      "marker": "■",
+      "text": "폐기물관리법 시행규칙 [별표 7] <개정 2025. 12. 30.>폐기물처리업의 시설·장비·기술능력의 기준(제28조제6항 관련)"
+    },
+    {
+      "depth": 0,
+      "type": "number",
+      "marker": "1.",
+      "text": "폐기물수집·운반업의 기준"
+    },
+    {
+      "depth": 1,
+      "type": "korean-dot",
+      "marker": "가.",
+      "text": "생활폐기물 또는 사업장비(非)배출시설계 폐기물을 수집·운반하는 경우"
+    },
+    {
+      "depth": 2,
+      "type": "number-paren",
+      "marker": "1)",
+      "text": "장비"
+    },
+    {
+      "depth": 3,
+      "type": "korean-paren",
+      "marker": "가)",
+      "text": "밀폐형 압축·압착차량 1대(특별시·광역시는 2대) 이상",
+      "slots": [
+        {
+          "key": "vehicles",
+          "label": "밀폐형 압축·압착차량",
+          "type": "filter_join",
+          "from": "document.formData.vehicles",
+          "display": "vehicleType",
+          "join": ", "
+        }
+      ]
+    },
+    {
+      "depth": 3,
+      "type": "korean-paren",
+      "marker": "나)",
+      "text": "밀폐형 차량 또는 밀폐형 덮개 설치차량 1대 이상(적재능력 합계 4.5톤 이상). 다만, 생활폐기물을 수집ㆍ운반하는 경우에는 2018년 6월 30일까지 적재능력을 적용하지 아니한다.",
+      "slots": [
+        {
+          "key": "vehicles",
+          "label": "밀폐형 차량 또는 밀폐형 덮개 설치차량",
+          "type": "filter_join",
+          "from": "document.formData.vehicles",
+          "display": "vehicleType",
+          "join": ", "
+        }
+      ]
+    },
+    {
+      "depth": 3,
+      "type": "korean-paren",
+      "marker": "다)",
+      "text": "섭씨 4도 이하의 냉장 적재함이 설치된 차량 1대 이상(의료기관 일회용기저귀를 수집ㆍ운반하는 경우에 한정한다)",
+      "slots": [
+        {
+          "key": "vehicles",
+          "label": "냉장 적재함 차량",
+          "type": "filter_join",
+          "from": "document.formData.vehicles",
+          "display": "vehicleType",
+          "join": ", "
+        }
+      ]
+    },
+    {
+      "depth": 2,
+      "type": "number-paren",
+      "marker": "2)",
+      "text": "연락장소 또는 사무실"
+    },
+    {
+      "depth": 1,
+      "type": "korean-dot",
+      "marker": "나.",
+      "text": "사업장배출시설계폐기물을 수집·운반하는 경우"
+    },
+    {
+      "depth": 2,
+      "type": "number-paren",
+      "marker": "1)",
+      "text": "장비"
+    },
+    {
+      "depth": 3,
+      "type": "korean-paren",
+      "marker": "가)",
+      "text": "액체상태 폐기물을 수집·운반하는 경우: 탱크로리 1대 이상, 밀폐형차량 1대 이상",
+      "slots": [
+        {
+          "key": "vehicles",
+          "label": "탱크로리, 밀폐형 차량",
+          "type": "filter_join",
+          "from": "document.formData.vehicles",
+          "display": "vehicleType",
+          "join": ", "
+        }
+      ]
+    },
+    {
+      "depth": 3,
+      "type": "korean-paren",
+      "marker": "나)",
+      "text": "고체상태 폐기물을 수집·운반하는 경우: 밀폐형 차량 또는 밀폐형덮개 설치차량 2대 이상",
+      "slots": [
+        {
+          "key": "vehicles",
+          "label": "밀폐형 차량 또는 밀폐형 덮개 설치차량",
+          "type": "filter_join",
+          "from": "document.formData.vehicles",
+          "display": "vehicleType",
+          "join": ", "
+        }
+      ]
+    },
+    {
+      "depth": 2,
+      "type": "number-paren",
+      "marker": "2)",
+      "text": "연락장소 또는 사무실"
+    },
+    {
+      "depth": 1,
+      "type": "korean-dot",
+      "marker": "다.",
+      "text": "지정폐기물(의료폐기물은 제외한다)을 수집·운반하는 경우"
+    },
+    {
+      "depth": 2,
+      "type": "number-paren",
+      "marker": "1)",
+      "text": "장비"
+    },
+    {
+      "depth": 3,
+      "type": "korean-paren",
+      "marker": "가)",
+      "text": "액체상태 폐기물을 수집·운반하는 경우: 탱크로리 1대 이상, 밀폐형차량 1대 이상(적재능력 합계 9톤 이상)",
+      "slots": [
+        {
+          "key": "vehicles",
+          "label": "탱크로리, 밀폐형 차량",
+          "type": "filter_join",
+          "from": "document.formData.vehicles",
+          "display": "vehicleType",
+          "join": ", "
+        }
+      ]
+    },
+    {
+      "depth": 3,
+      "type": "korean-paren",
+      "marker": "나)",
+      "text": "고체상태 폐기물을 수집·운반하는 경우: 밀폐형 차량 2대 이상, 밀폐형 덮개 설치차량 1대 이상(적재능력 합계 13.5톤 이상)",
+      "slots": [
+        {
+          "key": "vehicles",
+          "label": "밀폐형 차량, 밀폐형 덮개 설치차량",
+          "type": "filter_join",
+          "from": "document.formData.vehicles",
+          "display": "vehicleType",
+          "join": ", "
+        }
+      ]
+    },
+    {
+      "depth": 2,
+      "type": "number-paren",
+      "marker": "2)",
+      "text": "시설"
+    },
+    {
+      "depth": 3,
+      "type": "korean-paren",
+      "marker": "가)",
+      "text": "주차장: 모든 차량을 주차할 수 있는 규모",
+      "slots": [
+        {
+          "key": "parking_lot",
+          "label": "주차장",
+          "type": "filter_join",
+          "from": "document.formData.parkingLot",
+          "display": "facilityType",
+          "join": ", "
+        }
+      ]
+    },
+    {
+      "depth": 3,
+      "type": "korean-paren",
+      "marker": "나)",
+      "text": "세차시설: 20제곱미터 이상",
+      "slots": [
+        {
+          "key": "car_wash",
+          "label": "세차시설",
+          "type": "filter_join",
+          "from": "document.formData.carWashFacility",
+          "display": "facilityType",
+          "join": ", "
+        }
+      ]
+    },
+    {
+      "depth": 2,
+      "type": "number-paren",
+      "marker": "3)",
+      "text": "기술능력: 폐기물처리산업기사·대기환경산업기사·수질환경산업기사 또는 공업화학산업기사 중 1명 이상",
+      "slots": [
+        {
+          "key": "technical_staff",
+          "label": "기술인력",
+          "type": "person_set",
+          "from": "document.formData.technicalPersonnel",
+          "fields": [
+            "name",
+            "birthdate",
+            "license"
+          ],
+          "join": "\n"
+        }
+      ]
+    },
+    {
+      "depth": 2,
+      "type": "number-paren",
+      "marker": "4)",
+      "text": "연락장소 또는 사무실"
+    },
+    {
+      "depth": 1,
+      "type": "korean-dot",
+      "marker": "라.",
+      "text": "지정폐기물 중 의료폐기물을 수집·운반하는 경우"
+    },
+    {
+      "depth": 2,
+      "type": "number-paren",
+      "marker": "1)",
+      "text": "장비"
+    },
+    {
+      "depth": 3,
+      "type": "korean-paren",
+      "marker": "가)",
+      "text": "적재능력 0.45톤 이상의 냉장차량(섭씨 4도 이하인 것을 말한다. 이하 같다) 3대 이상",
+      "slots": [
+        {
+          "key": "vehicles",
+          "label": "의료폐기물 냉장차량",
+          "type": "filter_join",
+          "from": "document.formData.vehicles",
+          "display": "vehicleType",
+          "join": ", "
+        }
+      ]
+    },
+    {
+      "depth": 3,
+      "type": "korean-paren",
+      "marker": "나)",
+      "text": "약물소독장비 1식 이상"
+    },
+    {
+      "depth": 2,
+      "type": "number-paren",
+      "marker": "2)",
+      "text": "주차장: 모든 차량을 주차할 수 있는 규모"
+    },
+    {
+      "depth": 2,
+      "type": "number-paren",
+      "marker": "3)",
+      "text": "연락장소 또는 사무실"
+    },
+    {
+      "depth": 0,
+      "type": "number",
+      "marker": "2.",
+      "text": "폐기물 중간처분업의 기준"
+    },
+    {
+      "depth": 1,
+      "type": "korean-dot",
+      "marker": "가.",
+      "text": "지정폐기물 외의 폐기물(건설폐기물은 제외한다)을 중간처분하는 경우"
+    },
+    {
+      "depth": 2,
+      "type": "number-paren",
+      "marker": "1)",
+      "text": "소각전문의 경우"
+    },
+    {
+      "depth": 3,
+      "type": "korean-paren",
+      "marker": "가)",
+      "text": "실험실"
+    },
+    {
+      "depth": 3,
+      "type": "korean-paren",
+      "marker": "나)",
+      "text": "시설 및 장비"
+    },
+    {
+      "depth": 4,
+      "type": "wrapped-number",
+      "marker": "(1)",
+      "text": "소각시설: 시간당 처분능력 2톤 이상"
+    },
+    {
+      "depth": 4,
+      "type": "wrapped-number",
+      "marker": "(2)",
+      "text": "보관시설: 1일 처분능력의 10일분 이상 30일분 이하의 폐기물을보관할 수 있는 규모의 시설"
+    },
+    {
+      "depth": 4,
+      "type": "wrapped-number",
+      "marker": "(3)",
+      "text": "계량시설 1식 이상"
+    },
+    {
+      "depth": 4,
+      "type": "wrapped-number",
+      "marker": "(4)",
+      "text": "배출가스의 오염물질 중 아황산가스·염화수소·질소산화물·일산화탄소 및 분진을 측정·분석할 수 있는 실험기기"
+    },
+    {
+      "depth": 4,
+      "type": "wrapped-number",
+      "marker": "(5)",
+      "text": "수집·운반차량(밀폐형 차량 또는 밀폐형 덮개 설치차량을 말한다.이하 이 표에서 같다) 1대 이상(처분대상 폐기물을 스스로 수집·운반하는 경우만 해당한다)"
+    },
+    {
+      "depth": 3,
+      "type": "korean-paren",
+      "marker": "다)",
+      "text": "기술능력: 폐기물처리산업기사 또는 대기환경산업기사 중 1명 이상"
+    },
+    {
+      "depth": 2,
+      "type": "number-paren",
+      "marker": "2)",
+      "text": "기계적 처분전문의 경우"
+    },
+    {
+      "depth": 3,
+      "type": "korean-paren",
+      "marker": "가)",
+      "text": "시설 및 장비"
+    },
+    {
+      "depth": 4,
+      "type": "wrapped-number",
+      "marker": "(1)",
+      "text": "처분시설: 시간당 처분능력 200킬로그램 이상"
+    },
+    {
+      "depth": 4,
+      "type": "wrapped-number",
+      "marker": "(2)",
+      "text": "보관시설: 1일 처분능력의 10일분 이상 30일분 이하의 폐기물을보관할 수 있는 규모의 시설"
+    },
+    {
+      "depth": 4,
+      "type": "wrapped-number",
+      "marker": "(3)",
+      "text": "계량시설 1식 이상"
+    },
+    {
+      "depth": 4,
+      "type": "wrapped-number",
+      "marker": "(4)",
+      "text": "수집·운반차량 1대 이상(처분대상 폐기물을 스스로 수집·운반하는 경우만 해당한다)"
+    },
+    {
+      "depth": 3,
+      "type": "korean-paren",
+      "marker": "나)",
+      "text": "기술능력: 폐기물처리산업기사·대기환경산업기사·수질환경산업기사·소음진동산업기사 또는 환경기능사 중 1명 이상"
+    },
+    {
+      "depth": 2,
+      "type": "number-paren",
+      "marker": "3)",
+      "text": "화학적 처분 또는 생물학적 처분전문의 경우"
+    },
+    {
+      "depth": 3,
+      "type": "korean-paren",
+      "marker": "가)",
+      "text": "시설 및 장비"
+    },
+    {
+      "depth": 4,
+      "type": "wrapped-number",
+      "marker": "(1)",
+      "text": "처분시설: 1일 처분능력 5톤 이상"
+    },
+    {
+      "depth": 4,
+      "type": "wrapped-number",
+      "marker": "(2)",
+      "text": "보관시설: 1일 처분능력의 10일분 이상 30일분 이하의 폐기물을보관할 수 있는 규모의 시설(부패와 악취발생의 방지를 위하여 수집·운반 즉시 처분하는 생물학적 처분시설을 갖춘 경우 보관시설을설치하지 아니할 수 있다)"
+    },
+    {
+      "depth": 4,
+      "type": "wrapped-number",
+      "marker": "(3)",
+      "text": "계량시설 1식 이상"
+    },
+    {
+      "depth": 4,
+      "type": "wrapped-number",
+      "marker": "(4)",
+      "text": "수집·운반차량 1대 이상(처분대상 폐기물을 스스로 수집·운반하는 경우만 해당한다)"
+    },
+    {
+      "depth": 3,
+      "type": "korean-paren",
+      "marker": "나)",
+      "text": "기술능력: 폐기물처리산업기사·대기환경산업기사·수질환경산업기사또는 공업화학산업기사 중 1명 이상"
+    },
+    {
+      "depth": 1,
+      "type": "korean-dot",
+      "marker": "나.",
+      "text": "지정폐기물(의료폐기물은 제외한다)을 중간처분하는 경우"
+    },
+    {
+      "depth": 2,
+      "type": "number-paren",
+      "marker": "1)",
+      "text": "시설 및 장비"
+    },
+    {
+      "depth": 3,
+      "type": "korean-paren",
+      "marker": "가)",
+      "text": "공통시설 및 장비"
+    },
+    {
+      "depth": 4,
+      "type": "wrapped-number",
+      "marker": "(1)",
+      "text": "실험실"
+    },
+    {
+      "depth": 4,
+      "type": "wrapped-number",
+      "marker": "(2)",
+      "text": "실험기기: 수소이온농도·생물화학적산소요구량·화학적산소요구량·부유물질량 및 폐기물공정시험기준(방법)의 용출시험에 따른 별표 1에 규정된 유해물질을 측정할 수 있는 실험기기"
+    },
+    {
+      "depth": 4,
+      "type": "wrapped-number",
+      "marker": "(3)",
+      "text": "보관시설: 1일 처분능력의 10일분 이상 30일분 이하의 폐기물을보관할 수 있는 보관창고"
+    },
+    {
+      "depth": 4,
+      "type": "wrapped-number",
+      "marker": "(4)",
+      "text": "주차장: 모든 차량을 주차할 수 있는 규모(처분대상 폐기물을 스스로 수집·운반하는 경우만 해당한다)"
+    },
+    {
+      "depth": 4,
+      "type": "wrapped-number",
+      "marker": "(5)",
+      "text": "세차시설: 20제곱미터 이상"
+    },
+    {
+      "depth": 4,
+      "type": "wrapped-number",
+      "marker": "(6)",
+      "text": "계량시설 1식 이상"
+    },
+    {
+      "depth": 4,
+      "type": "wrapped-number",
+      "marker": "(7)",
+      "text": "수집·운반차량 1대 이상(처분대상 폐기물을 스스로 수집·운반하는 경우만 해당한다)"
+    },
+    {
+      "depth": 3,
+      "type": "korean-paren",
+      "marker": "나)",
+      "text": "개별시설"
+    },
+    {
+      "depth": 4,
+      "type": "wrapped-number",
+      "marker": "(1)",
+      "text": "고온소각·고온용융 처분대상폐기물: 시간당 처분능력 200킬로그램 이상의 고온소각시설 또는 고온용융시설"
+    },
+    {
+      "depth": 4,
+      "type": "wrapped-number",
+      "marker": "(2)",
+      "text": "일반소각대상폐기물: 시간당 처분능력 2톤 이상의 소각시설"
+    },
+    {
+      "depth": 4,
+      "type": "wrapped-number",
+      "marker": "(3)",
+      "text": "기계적·화학적 또는 생물학적 처분대상폐기물: 1일 처분능력 5톤이상의 시설"
+    },
+    {
+      "depth": 2,
+      "type": "number-paren",
+      "marker": "2)",
+      "text": "기술능력: 폐기물처리기사·대기환경기사·수질환경기사 또는 화공기사중 1명 이상"
+    },
+    {
+      "depth": 1,
+      "type": "korean-dot",
+      "marker": "다.",
+      "text": "지정폐기물 중 의료폐기물을 중간처분하는 경우"
+    },
+    {
+      "depth": 2,
+      "type": "number-paren",
+      "marker": "1)",
+      "text": "시설 및 장비"
+    },
+    {
+      "depth": 3,
+      "type": "korean-paren",
+      "marker": "가)",
+      "text": "공통시설 및 장비"
+    },
+    {
+      "depth": 4,
+      "type": "wrapped-number",
+      "marker": "(1)",
+      "text": "보관창고 및 냉장시설: 1일 처분능력의 3일분 이상 5일분 이하의폐기물을 보관할 수 있는 보관창고 및 냉장시설"
+    },
+    {
+      "depth": 4,
+      "type": "wrapped-number",
+      "marker": "(2)",
+      "text": "주차장: 모든 차량을 주차할 수 있는 규모(처분대상 폐기물을 스스로 수집·운반하는 경우만 해당한다)"
+    },
+    {
+      "depth": 4,
+      "type": "wrapped-number",
+      "marker": "(3)",
+      "text": "소독시설"
+    },
+    {
+      "depth": 4,
+      "type": "wrapped-number",
+      "marker": "(4)",
+      "text": "수집·운반차량: 적재능력 0.45톤 이상의 냉장차량 1대 이상(처분대상 폐기물을 스스로 수집·운반하는 경우만 해당한다)"
+    },
+    {
+      "depth": 3,
+      "type": "korean-paren",
+      "marker": "나)",
+      "text": "개별시설: 시간당 처분능력 2톤 이상의 소각시설"
+    },
+    {
+      "depth": 2,
+      "type": "number-paren",
+      "marker": "2)",
+      "text": "기술능력: 폐기물처리산업기사·임상병리사 또는 위생사 중 1명 이상"
+    },
+    {
+      "depth": 0,
+      "type": "number",
+      "marker": "3.",
+      "text": "폐기물 최종처분업의 기준"
+    },
+    {
+      "depth": 1,
+      "type": "korean-dot",
+      "marker": "가.",
+      "text": "지정폐기물 외의 폐기물을 최종처분하는 경우"
+    },
+    {
+      "depth": 2,
+      "type": "number-paren",
+      "marker": "1)",
+      "text": "실험실"
+    },
+    {
+      "depth": 2,
+      "type": "number-paren",
+      "marker": "2)",
+      "text": "시설 및 장비"
+    },
+    {
+      "depth": 3,
+      "type": "korean-paren",
+      "marker": "가)",
+      "text": "면적 3천3백제곱미터 이상 또는 매립가능용적 1만세제곱미터 이상의매립시설"
+    },
+    {
+      "depth": 3,
+      "type": "korean-paren",
+      "marker": "나)",
+      "text": "별표 11에 따른 침출수배출허용기준의 항목을 측정·분석할 수 있는실험기기. 다만, 영 제7조제1항제9호 단서에 따라 시설의 전부를 갖추지 아니한 매립시설에서 제13조제1항 각 호의 폐기물만 처분하는 경우는 제외한다."
+    },
+    {
+      "depth": 3,
+      "type": "korean-paren",
+      "marker": "다)",
+      "text": "바켓용량 0.6세제곱미터 이상으로서 다짐작업이 가능한 굴착기 1대이상"
+    },
+    {
+      "depth": 3,
+      "type": "korean-paren",
+      "marker": "라)",
+      "text": "세차시설: 30제곱미터 이상"
+    },
+    {
+      "depth": 3,
+      "type": "korean-paren",
+      "marker": "마)",
+      "text": "수집·운반차량의 계량시설 1식 이상"
+    },
+    {
+      "depth": 3,
+      "type": "korean-paren",
+      "marker": "바)",
+      "text": "수집·운반차량 1대 이상(처분대상 폐기물을 스스로 수집·운반하는 경우만 해당한다)"
+    },
+    {
+      "depth": 2,
+      "type": "number-paren",
+      "marker": "3)",
+      "text": "기술능력"
+    },
+    {
+      "depth": 3,
+      "type": "korean-paren",
+      "marker": "가)",
+      "text": "폐기물처리산업기사 또는 수질환경산업기사 중 1명 이상"
+    },
+    {
+      "depth": 3,
+      "type": "korean-paren",
+      "marker": "나)",
+      "text": "토목산업기사 또는 폐기물처리산업기사 중 1명 이상"
+    },
+    {
+      "depth": 1,
+      "type": "korean-dot",
+      "marker": "나.",
+      "text": "지정폐기물을 최종처분하는 경우"
+    },
+    {
+      "depth": 2,
+      "type": "number-paren",
+      "marker": "1)",
+      "text": "실험실"
+    },
+    {
+      "depth": 2,
+      "type": "number-paren",
+      "marker": "2)",
+      "text": "실험기기·기구: 별표 11에 따른 침출수 배출허용기준의 항목을 측정·분석할 수 있는 실험기기"
+    },
+    {
+      "depth": 2,
+      "type": "number-paren",
+      "marker": "3)",
+      "text": "시설 및 장비"
+    },
+    {
+      "depth": 3,
+      "type": "korean-paren",
+      "marker": "가)",
+      "text": "면적 1만제곱미터 이상 또는 매립가능용적 3만세제곱미터 이상의 매립시설"
+    },
+    {
+      "depth": 3,
+      "type": "korean-paren",
+      "marker": "나)",
+      "text": "주차장: 모든 차량을 주차할 수 있는 규모(처분대상 폐기물을 스스로수집·운반하는 경우만 해당한다)"
+    },
+    {
+      "depth": 3,
+      "type": "korean-paren",
+      "marker": "다)",
+      "text": "세차시설: 30제곱미터 이상"
+    },
+    {
+      "depth": 3,
+      "type": "korean-paren",
+      "marker": "라)",
+      "text": "수집·운반차량의 계량시설 1식 이상"
+    },
+    {
+      "depth": 3,
+      "type": "korean-paren",
+      "marker": "마)",
+      "text": "수집·운반차량 1대 이상(처분대상 폐기물을 스스로 수집·운반하는 경우만 해당한다)"
+    },
+    {
+      "depth": 3,
+      "type": "korean-paren",
+      "marker": "바)",
+      "text": "바켓용량 0.6세제곱미터 이상으로서 다짐작업이 가능한 굴착기 1대이상"
+    },
+    {
+      "depth": 3,
+      "type": "korean-paren",
+      "marker": "사)",
+      "text": "레벨·표척 등 매립고 측정기기 1식 이상"
+    },
+    {
+      "depth": 2,
+      "type": "number-paren",
+      "marker": "4)",
+      "text": "기술능력"
+    },
+    {
+      "depth": 3,
+      "type": "korean-paren",
+      "marker": "가)",
+      "text": "폐기물처리산업기사·수질환경산업기사 또는 화공기사 중 1명 이상"
+    },
+    {
+      "depth": 3,
+      "type": "korean-paren",
+      "marker": "나)",
+      "text": "폐기물처리기사 1명 이상"
+    },
+    {
+      "depth": 0,
+      "type": "number",
+      "marker": "4.",
+      "text": "폐기물 종합처분업의 기준"
+    },
+    {
+      "depth": 1,
+      "type": "korean-dot",
+      "marker": "가.",
+      "text": "실험실"
+    },
+    {
+      "depth": 1,
+      "type": "korean-dot",
+      "marker": "나.",
+      "text": "실험기기·기구: 폐기물을 중간처분하는 경우와 최종처분하는 경우 갖추어야 할 실험기기 및 기구"
+    },
+    {
+      "depth": 1,
+      "type": "korean-dot",
+      "marker": "다.",
+      "text": "장비"
+    },
+    {
+      "depth": 2,
+      "type": "number-paren",
+      "marker": "1)",
+      "text": "바켓용량 0.6세제곱미터 이상으로서 다짐작업이 가능한 굴착기 1대 이상"
+    },
+    {
+      "depth": 2,
+      "type": "number-paren",
+      "marker": "2)",
+      "text": "레벨·표척 등 매립고 측정기기 1식 이상"
+    },
+    {
+      "depth": 2,
+      "type": "number-paren",
+      "marker": "3)",
+      "text": "수집·운반차량 1대 이상(처분대상 폐기물을 스스로 수집·운반하는 경우만 해당한다)"
+    },
+    {
+      "depth": 1,
+      "type": "korean-dot",
+      "marker": "라.",
+      "text": "시설"
+    },
+    {
+      "depth": 2,
+      "type": "number-paren",
+      "marker": "1)",
+      "text": "보관시설: 1일 처분능력 10일분 이상 30일분 이하의 폐기물을 보관할 수 있는 규모의 시설"
+    },
+    {
+      "depth": 2,
+      "type": "number-paren",
+      "marker": "2)",
+      "text": "주차장: 모든 차량을 주차할 수 있는 규모(처분대상 폐기물을 스스로 수집·운반하는 경우만 해당한다)"
+    },
+    {
+      "depth": 2,
+      "type": "number-paren",
+      "marker": "3)",
+      "text": "세차시설: 30제곱미터 이상"
+    },
+    {
+      "depth": 2,
+      "type": "number-paren",
+      "marker": "4)",
+      "text": "수집·운반차량의 계량시설 1식 이상"
+    },
+    {
+      "depth": 2,
+      "type": "number-paren",
+      "marker": "5)",
+      "text": "1일 처분능력 500톤 이상인 파쇄시설(건설폐기물 및 불연성 폐기물을처리하는 경우만 해당한다) 또는 압축시설"
+    },
+    {
+      "depth": 2,
+      "type": "number-paren",
+      "marker": "6)",
+      "text": "시간당 처분능력 2톤 이상인 소각시설"
+    },
+    {
+      "depth": 2,
+      "type": "number-paren",
+      "marker": "7)",
+      "text": "1일 처분능력 5톤 이상인 고형화·고화 또는 안정화 시설"
+    },
+    {
+      "depth": 2,
+      "type": "number-paren",
+      "marker": "8)",
+      "text": "1일 처분능력 5톤 이상인 반응·증발·농축·응집·침전시설 등의 화학적 처분시설"
+    },
+    {
+      "depth": 2,
+      "type": "number-paren",
+      "marker": "9)",
+      "text": "면적 1만제곱미터 이상 또는 매립가능용적 3만세제곱미터 이상의 매립시설"
+    },
+    {
+      "depth": 1,
+      "type": "korean-dot",
+      "marker": "마.",
+      "text": "기술능력"
+    },
+    {
+      "depth": 2,
+      "type": "number-paren",
+      "marker": "1)",
+      "text": "폐기물처리기사·대기환경기사·수질환경기사 또는 토목기사 중 1명 이상"
+    },
+    {
+      "depth": 2,
+      "type": "number-paren",
+      "marker": "2)",
+      "text": "폐기물처리산업기사·대기환경산업기사·수질환경산업기사 또는 공업화학산업기사 중 2명 이상"
+    },
+    {
+      "depth": 0,
+      "type": "number",
+      "marker": "5.",
+      "text": "폐기물 중간재활용업, 최종재활용업 및 종합재활용업의 기준"
+    },
+    {
+      "depth": 1,
+      "type": "korean-dot",
+      "marker": "가.",
+      "text": "지정폐기물 외의 폐기물(건설폐기물은 제외한다)을 재활용하는 경우"
+    },
+    {
+      "depth": 2,
+      "type": "number-paren",
+      "marker": "1)",
+      "text": "공통기준"
+    },
+    {
+      "depth": 3,
+      "type": "korean-paren",
+      "marker": "가)",
+      "text": "시설 및 장비"
+    },
+    {
+      "depth": 4,
+      "type": "wrapped-number",
+      "marker": "(1)",
+      "text": "보관시설: 1일 재활용능력을 기준으로 다음의 구분에 따른 양의 폐기물을 보관할 수 있는 규모의 시설(물이 스며들지 않는 바닥시설과강우 시 빗물이 흘러들지 못하도록 지붕 또는 덮개를 갖춘 시설을포함한다)을 갖추어야 한다."
+    },
+    {
+      "depth": 5,
+      "type": "wrapped-korean",
+      "marker": "(가)",
+      "text": "음식물류 폐기물 및 동물성 잔재물을 재활용하는 경우: 1일분이상 30일분 이하"
+    },
+    {
+      "depth": 5,
+      "type": "wrapped-korean",
+      "marker": "(나)",
+      "text": "제31조제1항제3호 각 목의 폐기물(폐목재, 폐촉매 또는 합성수지재질의 폐김발장은 제외한다)을 재활용하는 경우: 10일분 이상60일분 이하"
+    },
+    {
+      "depth": 5,
+      "type": "wrapped-korean",
+      "marker": "(다)",
+      "text": "폐목재, 폐촉매, 합성수지재질의 폐김발장, 석탄재, 리튬이차전지, 전기자동차 폐이차전지, 태양광 폐패널 또는 「폐기물의 국가간 이동 및 그 처리에 관한 법률」에 따라 수입하는 폐기물[별표4의2 제2호가목1)ㆍ2) 또는 같은 호 나목1)ㆍ2)에 따른 유형으로 재활용하기 위한 목적으로 수입되는 것으로 한정한다]을 재활용하는 경우: 10일분 이상 180일분 이하"
+    },
+    {
+      "depth": 5,
+      "type": "wrapped-korean",
+      "marker": "(라)",
+      "text": "(가)부터 (다)까지의 어느 하나에 해당하지 않는 경우: 10일분이상 30일분 이하"
+    },
+    {
+      "depth": 4,
+      "type": "wrapped-number",
+      "marker": "(2)",
+      "text": "재활용시설 1식 이상"
+    },
+    {
+      "depth": 4,
+      "type": "wrapped-number",
+      "marker": "(3)",
+      "text": "수집·운반차량 1대 이상(재활용대상 폐기물을 스스로 수집·운반하는 경우만 해당한다). 다만, 동일한 법인 또는 개인이 둘 이상의다른 사업장에서 동일한 폐기물을 재활용하기 위한 경우에는 사업장별 수집·운반차량 1대 외의 차량에 대해서는 공동으로 사용할 수 있다."
+    },
+    {
+      "depth": 3,
+      "type": "korean-paren",
+      "marker": "나)",
+      "text": "기술능력"
+    },
+    {
+      "depth": 4,
+      "type": "wrapped-number",
+      "marker": "(1)",
+      "text": "폐기물처리산업기사·대기환경산업기사·수질환경산업기사·공업화학산업기사 또는 환경기능사 중 1명 이상. 다만, 소각열회수시설에서 에너지를 회수하는 경우에는 폐기물처리산업기사 또는 대기환경산업기사 중 1명 이상으로 한다."
+    },
+    {
+      "depth": 4,
+      "type": "wrapped-number",
+      "marker": "(2)",
+      "text": "(1)에도 불구하고 다음의 어느 하나에 해당하는 경우에는 해당 사업장에서 재활용업무에 종사하는 자로서 기술요원으로 임명된 자 1명 이상"
+    },
+    {
+      "depth": 5,
+      "type": "wrapped-korean",
+      "marker": "(가)",
+      "text": "기계적 재활용시설 중 압축·압출·성형·주조·파쇄·분쇄·탈피·절단·탈수·건조 시설 또는 용융시설(폐합성수지를 재활용하는 경우에 한정한다)을 이용하는 경우로서 1일 재활용 용량이50톤 미만인 경우. 다만, 폐목재를 재활용하는 경우에는 1일 재활용 용량이 100톤 미만인 경우로 한다."
+    },
+    {
+      "depth": 5,
+      "type": "wrapped-korean",
+      "marker": "(나)",
+      "text": "생물학적 재활용시설 중 사료화·퇴비화·부숙 시설 또는 부숙토·분변토 생산시설을 이용하는 경우로서 1일 재활용 용량이10톤 미만인 경우"
+    },
+    {
+      "depth": 5,
+      "type": "wrapped-korean",
+      "marker": "(다)",
+      "text": "소성시설 또는 용해로를 이용하는 경우로서 1일 재활용 용량이10톤 미만인 경우"
+    },
+    {
+      "depth": 4,
+      "type": "wrapped-number",
+      "marker": "(3)",
+      "text": "(1)과 (2)에도 불구하고 전기자동차 폐이차전지를 재활용하는 경우에는 그린전동자동차기사, 전기기사, 전기공사기사 또는 전기 관련 분야 학사 이상의 학위를 취득한 후 해당 분야에서 1년 이상 종사한 사람 1명 이상"
+    },
+    {
+      "depth": 2,
+      "type": "number-paren",
+      "marker": "2)",
+      "text": "재활용 대상 폐기물 및 방법에 따른 구체적 기준"
+    },
+    {
+      "depth": 3,
+      "type": "korean-paren",
+      "marker": "가)",
+      "text": "동물성 잔재물을 사료원료 또는 유지로 재활용하는 경우"
+    },
+    {
+      "depth": 4,
+      "type": "wrapped-number",
+      "marker": "(1)",
+      "text": "공통시설 및 장비"
+    },
+    {
+      "depth": 5,
+      "type": "wrapped-korean",
+      "marker": "(가)",
+      "text": "보관시설 : 옥외에 설치하는 경우에는 폐기물전용 밀폐보관시설을 설치하여야 한다."
+    },
+    {
+      "depth": 5,
+      "type": "wrapped-korean",
+      "marker": "(나)",
+      "text": "세차시설 : 20제곱미터 이상"
+    },
+    {
+      "depth": 4,
+      "type": "wrapped-number",
+      "marker": "(2)",
+      "text": "개별시설 및 장비"
+    },
+    {
+      "depth": 5,
+      "type": "wrapped-korean",
+      "marker": "(가)",
+      "text": "사료원료로 재활용하는 경우: 사료화시설 1식 이상"
+    },
+    {
+      "depth": 5,
+      "type": "wrapped-korean",
+      "marker": "(나)",
+      "text": "유지로 재활용하는 경우",
+      "table": [
+        {
+          "시설": "용해시설",
+          "기준": "동물성 잔재물을 열원으로 가열하여 용해시키는 시설"
+        },
+        {
+          "시설": "분리시설",
+          "기준": "용해 후 배출되는 고형분 또는 기름성분을 분리하는 시설로서 내부용적의 합계가 20세제곱미터 이상인 시설"
+        },
+        {
+          "시설": "원심분리시설",
+          "기준": "유지 중 불순물을 원심력으로 제거하는 시설로서 동력합계 15kW 이상인 것 1식 이상"
+        }
+      ]
+    },
+    {
+      "depth": 3,
+      "type": "korean-paren",
+      "marker": "나)",
+      "text": "폐가전제품을 재활용하는 경우"
+    },
+    {
+      "depth": 4,
+      "type": "wrapped-number",
+      "marker": "(1)",
+      "text": "공통시설 및 장비"
+    },
+    {
+      "depth": 5,
+      "type": "wrapped-korean",
+      "marker": "(가)",
+      "text": "보관시설: 폐기물의 파쇄·분리 등 재활용 과정에서 발생되는폐기물을 법 제13조에서 정하는 보관기준에 적합하게 보관할 수 있는 시설"
+    },
+    {
+      "depth": 5,
+      "type": "wrapped-korean",
+      "marker": "(나)",
+      "text": "계량시설 1식 이상"
+    },
+    {
+      "depth": 4,
+      "type": "wrapped-number",
+      "marker": "(2)",
+      "text": "개별시설 및 장비"
+    },
+    {
+      "depth": 5,
+      "type": "wrapped-korean",
+      "marker": "(가)",
+      "text": "냉장고 및 에어컨디셔너를 재활용하는 경우"
+    },
+    {
+      "depth": 5,
+      "type": "circled-number",
+      "marker": "①",
+      "text": "분리시설: 냉매물질과 폐유를 분리할 수 있는 시설(냉매물질의회수량을 확인할 수 있는 장치를 갖추어야 한다)"
+    },
+    {
+      "depth": 5,
+      "type": "circled-number",
+      "marker": "②",
+      "text": "파쇄시설: 50밀리미터 이하로 파쇄 할 수 있는 시설"
+    },
+    {
+      "depth": 5,
+      "type": "circled-number",
+      "marker": "③",
+      "text": "선별시설: 철과 비철을 90퍼센트 이상 선별할 수 있는 시설"
+    },
+    {
+      "depth": 5,
+      "type": "circled-number",
+      "marker": "④",
+      "text": "냉매물질 보관시설: 보관량을 확인할 수 있는 장치를 갖춘 시설(냉장고와 에어컨디셔너를 함께 재활용하는 경우에는 냉장고와에어컨디셔너에서 회수되는 냉매물질을 각각 보관할 수 있는 시설을 갖추어야 한다)"
+    },
+    {
+      "depth": 5,
+      "type": "wrapped-korean",
+      "marker": "(나)",
+      "text": "세탁기를 재활용하는 경우"
+    },
+    {
+      "depth": 5,
+      "type": "circled-number",
+      "marker": "①",
+      "text": "파쇄시설: 50밀리미터 이하로 파쇄 할 수 있는 시설"
+    },
+    {
+      "depth": 5,
+      "type": "wrapped-korean",
+      "marker": "(다)",
+      "text": "텔레비전 및 컴퓨터 모니터를 재활용하는 경우"
+    },
+    {
+      "depth": 5,
+      "type": "circled-number",
+      "marker": "①",
+      "text": "분리시설: 앞면 유리와 뒷면 유리를 분리할 수 있는 시설로서형광물질을 회수할 수 있는 집진시설을 갖춘 밀폐시설"
+    },
+    {
+      "depth": 5,
+      "type": "circled-number",
+      "marker": "②",
+      "text": "형광물질 보관시설: 형광물질이 외부로 유출되지 아니하는 밀폐용기"
+    },
+    {
+      "depth": 5,
+      "type": "wrapped-korean",
+      "marker": "(라)",
+      "text": "휴대폰을 재활용하는 경우"
+    },
+    {
+      "depth": 5,
+      "type": "circled-number",
+      "marker": "①",
+      "text": "파쇄시설: 휴대폰과 휴대폰에서 분리한 인쇄회로기판 등을 재사용할 수 없도록 파쇄할 수 있는 시설"
+    },
+    {
+      "depth": 5,
+      "type": "wrapped-korean",
+      "marker": "(마)",
+      "text": "프린터 및 복사기, 팩시밀리를 재활용하는 경우"
+    },
+    {
+      "depth": 5,
+      "type": "circled-number",
+      "marker": "①",
+      "text": "분리시설 : 카트리지를 해체하는 과정에서 토너물질을 회수할 수 있는 집진설비를 갖춘 시설"
+    },
+    {
+      "depth": 3,
+      "type": "korean-paren",
+      "marker": "다)",
+      "text": "소각열회수시설을 이용하여 가연성 고형폐기물에서 제3조제1항제1호에 따른 에너지 회수기준에 맞게 에너지를 회수하는 경우"
+    },
+    {
+      "depth": 4,
+      "type": "wrapped-number",
+      "marker": "(1)",
+      "text": "실험실(시간당 재활용능력이 2톤 이상인 소각열회수시설의 경우만해당한다)"
+    },
+    {
+      "depth": 4,
+      "type": "wrapped-number",
+      "marker": "(2)",
+      "text": "시설 및 장비"
+    },
+    {
+      "depth": 5,
+      "type": "wrapped-korean",
+      "marker": "(가)",
+      "text": "시간당 재활용능력이 2톤 이상인 소각열회수시설(종이류, 섬유류 또는 접착제·폐페인트·기름 및 방부제 등이 묻어 있지 아니한 순수한목재류만을 소각하는 경우에는 시간당 재활용능력이 200킬로그램 이상인소각열회수시설을 말한다)"
+    },
+    {
+      "depth": 5,
+      "type": "wrapped-korean",
+      "marker": "(나)",
+      "text": "계량시설 1식 이상"
+    },
+    {
+      "depth": 5,
+      "type": "wrapped-korean",
+      "marker": "(다)",
+      "text": "배출가스의 오염물질 중 아황산가스·염화수소·질소산화물·일산화탄소 및 분진을 측정·분석할 수 있는 실험기기(시간당 재활용능력이2톤 이상인 소각열회수시설의 경우만 해당한다)"
+    },
+    {
+      "depth": 3,
+      "type": "korean-paren",
+      "marker": "라)",
+      "text": "전기자동차 폐이차전지를 재활용하는 경우"
+    },
+    {
+      "depth": 4,
+      "type": "wrapped-number",
+      "marker": "(1)",
+      "text": "전기자동차 폐이차전지의 팩(pack), 모듈(module) 또는 셀(cell)단위로 재구성하여 에너지저장장치 등 재사용 제품의 제조에 재활용하는 경우 : 전기자동차 폐이차전지의 잔존용량(SOC; Stateof Charge), 잔존수명(SOH; State of Health) 등을 측정할 수 있는 장비(정격출력 30kW 이상으로 한정한다) 1식 이상"
+    },
+    {
+      "depth": 4,
+      "type": "wrapped-number",
+      "marker": "(2)",
+      "text": "전기자동차 폐이차전지에 포함된 코발트, 리튬 등의 유가성(有價性) 자원을 재활용하는 경우 : 전기자동차 폐이차전지를 방전(放電)할 수 있는 장비 1식 이상. 다만, 방전이 완료된 전기자동차폐이차전지만 처리하는 경우는 제외한다."
+    },
+    {
+      "depth": 1,
+      "type": "korean-dot",
+      "marker": "나.",
+      "text": "지정폐기물(의료폐기물은 제외한다)을 재활용하는 경우"
+    },
+    {
+      "depth": 2,
+      "type": "number-paren",
+      "marker": "1)",
+      "text": "공통기준"
+    },
+    {
+      "depth": 3,
+      "type": "korean-paren",
+      "marker": "가)",
+      "text": "시설 및 장비"
+    },
+    {
+      "depth": 4,
+      "type": "wrapped-number",
+      "marker": "(1)",
+      "text": "보관시설"
+    },
+    {
+      "depth": 5,
+      "type": "wrapped-korean",
+      "marker": "(가)",
+      "text": "1일 재활용능력의 10일분 이상 30일분 이하의 폐기물을 보관할 수 있는 규모의 시설. 다만, 제31조제1항제3호 단서에 따라폐기물 재활용업자가 폐촉매, 리튬이차전지를 재활용하기 위하여보관하는 경우에는 10일분 이상 180일분 이하의 보관시설"
+    },
+    {
+      "depth": 5,
+      "type": "wrapped-korean",
+      "marker": "(나)",
+      "text": "폐오일필터를 재활용하는 경우에는 폐오일필터에서 새는 폐유를수거할 수 있는 구조의 시설이어야 한다."
+    },
+    {
+      "depth": 4,
+      "type": "wrapped-number",
+      "marker": "(2)",
+      "text": "재활용시설 1식 이상"
+    },
+    {
+      "depth": 4,
+      "type": "wrapped-number",
+      "marker": "(3)",
+      "text": "수집·운반차량 1대 이상(재활용대상 폐기물을 스스로 수집·운반하는 경우만 해당한다)"
+    },
+    {
+      "depth": 3,
+      "type": "korean-paren",
+      "marker": "나)",
+      "text": "기술능력 : 폐기물처리산업기사·대기환경산업기사·수질환경산업기사·공업화학산업기사 또는 환경기능사 중 1명 이상"
+    },
+    {
+      "depth": 2,
+      "type": "number-paren",
+      "marker": "2)",
+      "text": "재활용 대상 폐기물 및 방법에 따른 구체적 기준"
+    },
+    {
+      "depth": 3,
+      "type": "korean-paren",
+      "marker": "가)",
+      "text": "폐오일필터를 재활용하는 경우"
+    },
+    {
+      "depth": 4,
+      "type": "wrapped-number",
+      "marker": "(1)",
+      "text": "파쇄방법으로 재활용하는 경우"
+    },
+    {
+      "depth": 5,
+      "type": "wrapped-korean",
+      "marker": "(가)",
+      "text": "파쇄시설 : 시간당 재활용능력 200킬로그램 이상 재활용할 수 있는 능력을 가진 시설 1식 이상"
+    },
+    {
+      "depth": 5,
+      "type": "wrapped-korean",
+      "marker": "(나)",
+      "text": "압축시설 : 폐종이를 11.25kW 이상으로 압축하여 폐유를 분리할 수 있는 시설 1식 이상"
+    },
+    {
+      "depth": 4,
+      "type": "wrapped-number",
+      "marker": "(2)",
+      "text": "증류방법으로 재활용하는 경우"
+    },
+    {
+      "depth": 5,
+      "type": "wrapped-korean",
+      "marker": "(가)",
+      "text": "증류시설 : 내부용적 5.0세제곱미터 이상 시설 1식 이상"
+    },
+    {
+      "depth": 5,
+      "type": "wrapped-korean",
+      "marker": "(나)",
+      "text": "응축시설 : 내부용적의 합계 3.0제곱미터 이상"
+    },
+    {
+      "depth": 3,
+      "type": "korean-paren",
+      "marker": "나)",
+      "text": "폐유를 정제연료유로 재활용하는 경우"
+    },
+    {
+      "depth": 4,
+      "type": "wrapped-number",
+      "marker": "(1)",
+      "text": "열분해 또는 감압증류방법으로 재활용하는 경우"
+    },
+    {
+      "depth": 5,
+      "type": "wrapped-korean",
+      "marker": "(가)",
+      "text": "유량계측시설 : 보관시설별 각 1식 이상"
+    },
+    {
+      "depth": 5,
+      "type": "wrapped-korean",
+      "marker": "(나)",
+      "text": "폐유를 1일 20킬로리터 이상 재활용할 수 있는 시설"
+    },
+    {
+      "depth": 4,
+      "type": "wrapped-number",
+      "marker": "(2)",
+      "text": "약품정제 방법 그 밖의 방법으로 재활용하는 경우"
+    },
+    {
+      "depth": 5,
+      "type": "wrapped-korean",
+      "marker": "(가)",
+      "text": "유량계측시설 : 보관시설별 각 1식 이상"
+    },
+    {
+      "depth": 5,
+      "type": "wrapped-korean",
+      "marker": "(나)",
+      "text": "폐유를 1일 20킬로리터 이상 재활용할 수 있는 시설로서 다음의 기준에 적합한 시설",
+      "table": [
+        {
+          "시설": "보일러",
+          "기준": "시간당 증발량 2톤 이상 또는 발열량 800,000킬로칼로리 이상의 보일러"
+        },
+        {
+          "시설": "반응조",
+          "기준": "교반장치(휘저어 섞는 장치)가 설치된 내부용적 합계 5세제곱미터 이상 1기 이상"
+        },
+        {
+          "시설": "약품저장조",
+          "기준": "내부용적의 합계 4세제곱미터 이상 1기 이상"
+        },
+        {
+          "시설": "유량조정조",
+          "기준": "내부용적의 합계 3세제곱미터 이상 2기 이상"
+        },
+        {
+          "시설": "전처리여과장치",
+          "기준": "시간당 재활용능력 7.5세제곱미터 이상 1기 이상"
+        },
+        {
+          "시설": "원심분리기",
+          "기준": "시간당 재활용능력 5세제곱미터 이상 1기 이상"
+        },
+        {
+          "시설": "증발장치",
+          "기준": "응축 또는 폐가스소각장치가 부착된 것으로 시간당 3세제곱미터 이상의 폐유를 섭씨 100도 이상 가열하여 잔류수분을 뽑아낼 수 있는 시설"
+        },
+        {
+          "시설": "그 밖의 시설",
+          "기준": "폐유이송장치 및 부속시설"
+        }
+      ]
+    },
+    {
+      "depth": 4,
+      "type": "wrapped-number",
+      "marker": "(3)",
+      "text": "유화정제연료유로 재활용하는 경우"
+    },
+    {
+      "depth": 5,
+      "type": "wrapped-korean",
+      "marker": "(가)",
+      "text": "유량계측시설 : 보관시설별 각 1식 이상"
+    },
+    {
+      "depth": 5,
+      "type": "wrapped-korean",
+      "marker": "(나)",
+      "text": "폐유를 1일 20킬로리터 이상 재활용할 수 있는 시설로서 다음의 기준에 맞는 시설(약품정제·감압증류·열분해 그 밖의 방법에 따라 유화정제연료유로 재활용하는 시설인 경우에는 혼합장치·폐유이송장치 및 부속시설만 설치할 것)",
+      "table": [
+        {
+          "시설": "유량계측시설",
+          "기준": "보관시설별 각 1식 이상"
+        },
+        {
+          "시설": "보일러",
+          "기준": "시간당 증발량 2톤 이상 또는 발열량 800,000킬로칼로리 이상의 보일러"
+        },
+        {
+          "시설": "반응조",
+          "기준": "교반장치가 설치된 내부용적 합계 5세제곱미터 이상 1기"
+        },
+        {
+          "시설": "약품저장조",
+          "기준": "내부용적 합계 4세제곱미터 이상 1기 이상"
+        },
+        {
+          "시설": "유량조정조",
+          "기준": "내부용적 합계 3세제곱미터 이상 1기 이상"
+        },
+        {
+          "시설": "전처리여과장치",
+          "기준": "시간당 재활용능력 7.5세제곱미터 이상 1기 이상"
+        },
+        {
+          "시설": "원심분리기",
+          "기준": "시간당 재활용능력 5세제곱미터 이상 1기 이상"
+        },
+        {
+          "시설": "혼합장치",
+          "기준": "교반장치가 설치된 내부용적 합계 3세제곱미터 이상 1기"
+        },
+        {
+          "시설": "그 밖의 시설",
+          "기준": "폐유이송장치 및 부속시설"
+        }
+      ]
+    },
+    {
+      "depth": 3,
+      "type": "korean-paren",
+      "marker": "다)",
+      "text": "폐유기용제를 정제유기용제로 재활용하는 경우"
+    },
+    {
+      "depth": 4,
+      "type": "wrapped-number",
+      "marker": "(1)",
+      "text": "실험실: 다음 항목을 측정·분석할 수 있는 실험기기 및 기구"
+    },
+    {
+      "depth": 5,
+      "type": "wrapped-korean",
+      "marker": "(가)",
+      "text": "수소이온농도(pH)"
+    },
+    {
+      "depth": 5,
+      "type": "wrapped-korean",
+      "marker": "(나)",
+      "text": "화학적산소요구량(COD)"
+    },
+    {
+      "depth": 5,
+      "type": "wrapped-korean",
+      "marker": "(다)",
+      "text": "부유물질(SS)"
+    },
+    {
+      "depth": 5,
+      "type": "wrapped-korean",
+      "marker": "(라)",
+      "text": "폐유기용제에 함유된 특정수질유해물질"
+    },
+    {
+      "depth": 4,
+      "type": "wrapped-number",
+      "marker": "(2)",
+      "text": "보관시설별 유량계측설비 각 1식 이상"
+    },
+    {
+      "depth": 3,
+      "type": "korean-paren",
+      "marker": "라)",
+      "text": "폐유 등을 재생연료유로 재활용하는 경우"
+    },
+    {
+      "depth": 4,
+      "type": "wrapped-number",
+      "marker": "(1)",
+      "text": "공통시설 및 장비"
+    },
+    {
+      "depth": 5,
+      "type": "wrapped-korean",
+      "marker": "(가)",
+      "text": "유량 계측시설: 보관시설별 각 1식 이상"
+    },
+    {
+      "depth": 5,
+      "type": "wrapped-korean",
+      "marker": "(나)",
+      "text": "여과(정제)시설: 시간당 재활용능력 7.5세제곱미터 이상 1식 이상"
+    },
+    {
+      "depth": 4,
+      "type": "wrapped-number",
+      "marker": "(2)",
+      "text": "개별시설: 원료를 1일 20킬로리터 이상 처리할 수 있는 시설로서다음의 기준에 적합한 시설"
+    },
+    {
+      "depth": 5,
+      "type": "wrapped-korean",
+      "marker": "(가)",
+      "text": "혼합시설: 혼합장치가 설치된 내부용적 30세제곱미터 이상 1식이상(폐유와 다른 폐기물을 혼합하는 경우만 해당한다)"
+    },
+    {
+      "depth": 5,
+      "type": "wrapped-korean",
+      "marker": "(나)",
+      "text": "유수분리(油水分離)시설 : 폐수이동장치 및 부속시설을 포함한시설로 시간당 재활용능력 3세제곱미터 이상 1식 이상(증류를 통한 유수분리가 필요한 경우만 해당한다)"
+    },
+    {
+      "depth": 3,
+      "type": "korean-paren",
+      "marker": "마)",
+      "text": "수은회수시설을 이용하여 수은폐기물을 재활용하는 경우"
+    },
+    {
+      "depth": 4,
+      "type": "wrapped-number",
+      "marker": "(1)",
+      "text": "계량시설 1식 이상"
+    },
+    {
+      "depth": 4,
+      "type": "wrapped-number",
+      "marker": "(2)",
+      "text": "파쇄ㆍ분쇄ㆍ절단시설: 수은이 외부로 휘발ㆍ유출되지 않는 상태에서 파쇄ㆍ분쇄ㆍ절단을 통해 수은과 그 외의 유리 등을 분리할 수 있는 시설"
+    },
+    {
+      "depth": 4,
+      "type": "wrapped-number",
+      "marker": "(3)",
+      "text": "수은회수시설: 수은함유폐기물에서 수은 및 그 화합물을 회수할 수 있도록 가열장치, 응축장치, 온도와 압력을 측정하고 기록할 수 있는장치를 갖춘 시설"
+    },
+    {
+      "depth": 1,
+      "type": "korean-dot",
+      "marker": "다.",
+      "text": "지정폐기물 중 의료폐기물을 재활용하는 경우"
+    },
+    {
+      "depth": 2,
+      "type": "number-paren",
+      "marker": "1)",
+      "text": "시설 및 장비"
+    },
+    {
+      "depth": 3,
+      "type": "korean-paren",
+      "marker": "가)",
+      "text": "보관시설 : 1일 재활용능력의 3일분 이상 7일분 이하의 폐기물을 보관할 수 있는 냉동시설"
+    },
+    {
+      "depth": 3,
+      "type": "korean-paren",
+      "marker": "나)",
+      "text": "재활용시설 1식 이상"
+    },
+    {
+      "depth": 3,
+      "type": "korean-paren",
+      "marker": "다)",
+      "text": "수집운반차량 : 1대 이상(재활용대상 폐기물을 스스로 수집·운반하는 경우만 해당한다)"
+    },
+    {
+      "depth": 2,
+      "type": "number-paren",
+      "marker": "2)",
+      "text": "기술능력 : 폐기물처리산업기사·임상병리사 또는 위생사 중 1명 이상"
+    },
+    {
+      "depth": 1,
+      "type": "korean-dot",
+      "marker": "라.",
+      "text": "그 밖에 재활용대상 폐기물의 종류(의료폐기물은 제외한다) 및 방법에 따라 필요한 시설· 장비 및 기술능력을 기후에너지환경부장관이 정하여 고시하는 기준비고"
+    },
+    {
+      "depth": 0,
+      "type": "number",
+      "marker": "1.",
+      "text": "동일 법인 또는 개인이 둘 이상의 다른 종류의 폐기물처리업 허가를 받으려는 경우, 동일 폐기물처리업으로서 둘 이상의 다른 분야의 허가를 받고자하는 경우에는 사무실·실험실·시설 및 장비·기술능력을 중복하여 갖추지아니할 수 있다. 다만, 폐기물수집·운반업의 장비 및 기술능력과 의료폐기물을 대상으로 하는 폐기물처리업의 사무실·실험실·시설 및 장비·기술능력은 그러하지 아니하다"
+    },
+    {
+      "depth": 0,
+      "type": "number",
+      "marker": "2.",
+      "text": "기술능력 중 기사는 같은 종류의 산업기사 자격을 가지고 해당 분야에 2년이상 종사한 자로 대체할 수 있으며, 산업기사는 환경기능사 자격을 가지고해당 분야에서 2년 이상 종사한 자로 대체할 수 있다."
+    },
+    {
+      "depth": 0,
+      "type": "number",
+      "marker": "3.",
+      "text": "실험기기·기구에 관한 허가요건 중 시·도지사 또는 지방환경관서의 장이해당 업종 또는 영업대상폐기물을 고려하여 필요하지 아니하다고 인정하면그 실험기기 및 기구의 일부를 갖추지 아니하게 할 수 있다."
+    },
+    {
+      "depth": 0,
+      "type": "number",
+      "marker": "4.",
+      "text": "수집·운반차량 외의 장비, 세차시설 및 사업장 부지는 임차(임차계약서는임차기간을 3년 이상으로 하여 공증을 받아야 한다)하여 사용할 수 있으며,실험실·실험기구에 관한 허가요건 중 측정항목 각각에 대하여 「환경분야시험·검사 등에 관한 법률」 제16조에 따른 측정대행업자가 갖추어야 할시설·장비 등을 갖춘 측정대행자 또는 국가공인시험기관과 대행계약을 한 경우에는 해당 항목의 측정에 필요한 실험기기·실험기구·장비를 갖추지아니할 수 있으며, 전체 항목에 대하여 대행계약을 한 경우에는 실험실 및실험기기·기구·장비를 갖추지 아니할 수 있다."
+    },
+    {
+      "depth": 0,
+      "type": "number",
+      "marker": "5.",
+      "text": "허가요건 중 1일 처리능력은 연속식시설의 경우에는 24시간, 준연속식시설의 경우에는 16시간, 비연속식시설의 경우에는 8시간을 기준으로 산정한다.다만, 파쇄시설의 경우에는 8시간을 기준으로 산정한다."
+    },
+    {
+      "depth": 0,
+      "type": "number",
+      "marker": "6.",
+      "text": "허가요건 중 폐기물배출사업장으로부터 밀폐된 배관을 통하여 폐기물을 폐기물처리시설로 이송하는 경우와 시·도지사나 지방환경관서의 장의 인정을받아 위탁받은 폐기물을 보관하지 아니하고 곧바로 폐기물 재활용시설로 운반하는 경우에는 보관시설을 갖추지 아니할 수 있다."
+    },
+    {
+      "depth": 0,
+      "type": "number",
+      "marker": "7.",
+      "text": "고온소각 처분대상폐기물의 중간처분업을 하기 위하여 고온소각시설을 갖춘 자는 그 시설을 이용하여 일반소각 처분대상폐기물을 처분할 수 있다."
+    },
+    {
+      "depth": 0,
+      "type": "number",
+      "marker": "8.",
+      "text": "장비요건 중 운반차량에 대하여는 해당 허가권자가 다음 각 목의 기준에따라 다른 차량으로 대체하게 하거나 차량의 일부를 갖추게 하지 아니할 수 있다."
+    },
+    {
+      "depth": 1,
+      "type": "korean-dot",
+      "marker": "가.",
+      "text": "폐기물 수집·운반업의 수집·운반차량에 대해서는 영업대상 폐기물 및운반방법 등을 고려하여 전용차량 수량의 2분의 1 범위 내에서 수집·운반이 가능한 차량의 종류 중 다른 종류의 차량으로 대체할 수 있다."
+    },
+    {
+      "depth": 1,
+      "type": "korean-dot",
+      "marker": "나.",
+      "text": "생활폐기물을 수집·운반하는 경우에는 밀폐형 압축·압착차량을 제외한 차량을 갖추게 하지 아니할 수 있다."
+    },
+    {
+      "depth": 1,
+      "type": "korean-dot",
+      "marker": "다.",
+      "text": "생활폐기물 또는 사업장비배출시설계 폐기물 중 폐목재류(접착제, 페인트, 기름, 콘크리트 등으로 오염되지 않은 것만 해당한다), 대형폐기물(「자원의 절약과 재활용촉진에 관한 법률」 제2조제13호에 따른 대형폐기물을 말한다) 또는 음식물류 폐기물만 수집ㆍ운반하는 경우에는 밀폐형 압축ㆍ압착차량을 밀폐형 차량 또는 밀폐형 덮개 설치차량으로 대체할 수 있다."
+    },
+    {
+      "depth": 1,
+      "type": "korean-dot",
+      "marker": "라.",
+      "text": "사업장비배출시설계 폐기물을 수집ㆍ운반하는 경우로서 의료기관 일회용기저귀만을 수집ㆍ운반하는 경우에는 밀폐형 압축ㆍ압착차량 및 밀폐형 차량 또는 밀폐형 덮개 설치차량을 갖추게 하지 않을 수 있다."
+    },
+    {
+      "depth": 0,
+      "type": "number",
+      "marker": "9.",
+      "text": "「건설폐기물의 재활용촉진에 관한 법률 시행규칙」 별표 2에 따른 건설폐기물의 처리를 위한 시설·장비 등을 갖춘 자는 비고란 제1호 단서의 규정에도 불구하고 공사장생활폐기물의 처리를 위한 시설·장비 등을 갖춘 자로본다."
+    },
+    {
+      "depth": 0,
+      "type": "number",
+      "marker": "10.",
+      "text": "영 제2조 각 호에 따른 사업장에서 발생하는 사업장비배출시설계 폐기물로서 생활폐기물과 성질과 상태가 비슷하여 생활폐기물의 기준 및 방법으로수집·운반할 수 있는 경우에는 특별자치시, 특별자치도, 시·군·구의 조례가 정하는 바에 따라 생활폐기물수집·운반업자가 수집·운반할 수 있다."
+    },
+    {
+      "depth": 0,
+      "type": "number",
+      "marker": "11.",
+      "text": "별표 5 제2호가목5)에 해당하는 경우 장비 및 사무실(또는 연락장소)에관한 기준은 제1호가목에 따른 장비 및 사무실(또는 연락장소)에 관한 기준으로 한다."
+    },
+    {
+      "depth": 0,
+      "type": "number",
+      "marker": "12.",
+      "text": "폐기물을 재활용하는 자 중 제10조에 따라 재활용시설이 필요하지 아니하다고 시·도지사가 인정하는 경우에는 재활용시설 및 기술능력의 전부 또는 일부를 갖추지 아니할 수 있다."
+    }
+  ]
+}
