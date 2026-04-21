@@ -241,7 +241,7 @@ select:focus,input:focus{outline:none;border-color:#1a3a5c}
     <div class="btn-row">
       <button class="btn btn-primary" id="btn-filter">검토 항목 조회</button>
       <button class="btn btn-secondary" id="btn-reset">초기화</button>
-      <button class="btn" id="btn-test" style="background:#e8f4e8;color:#1a5c1a;border:1px solid #a8d8a8" title="테스트: W01-TR-AP-G-51-03-01-CT-0-0-0">테스트</button>
+      <button class="btn" onclick="runTest()" style="background:#e8f4e8;color:#1a5c1a;border:1px solid #a8d8a8">테스트</button>
     </div>
   </div>
 
@@ -503,29 +503,20 @@ document.getElementById('btn-deselect-all').addEventListener('click', () => {
 });
 
 // 테스트 버튼: W01-TR-AP-G-51-03-01-CT-0-0-0
-document.getElementById('btn-test').addEventListener('click', () => {
-  // 1) 모든 체크박스 해제
+function runTest() {
   document.querySelectorAll('input[type=checkbox]').forEach(c => c.checked = false);
-  // 2) 분류 정보
   document.getElementById('f-category').value = 'W01';
   updateBizTypeSelect();
   document.getElementById('f-bizType').value = 'TR';
   document.getElementById('f-docType').value = 'AP';
-  // 3) 폐기물 정보
   document.getElementById('f-wasteClass').value = 'G';
   document.getElementById('f-wasteCode').value = '51-03-01';
-  // 4) 처리 행위
   document.querySelector('.cb-action[value="CT"]').checked = true;
-  // 5) 나머지 초기화
   document.getElementById('f-approval').value = '0';
-  // 6) 상태 동기화 → 조회 → 전체 선택
-  updateCodeBar();
-  syncState();
-  selectedIds.clear();
-  filteredItems = filterItems();
+  document.getElementById('btn-filter').click();
   filteredItems.forEach((_,i) => selectedIds.add(i));
   renderItems();
-});
+}
 
 document.getElementById('btn-copy').addEventListener('click', () => {
   const text = buildExportText();
