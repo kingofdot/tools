@@ -51,7 +51,8 @@
       "marker": "■",
       "text": "폐기물관리법 시행규칙 [별표 5] <개정 2026. 3. 26.>[시행일] 제1호라목7) 다음 각 호의 구분에 따른 날",
       "answer": "",
-      "tags": null
+      "tags": null,
+      "noWord": true
     },
     {
       "depth": 0,
@@ -1271,7 +1272,10 @@
         "rCode": null,
         "facilityType": null,
         "wasteCode": null,
-        "phaseState": "liquid"
+        "phaseState": "liquid",
+        "physicalState": [
+          "L"
+        ]
       }
     },
     {
@@ -1340,7 +1344,10 @@
         "rCode": null,
         "facilityType": null,
         "wasteCode": null,
-        "phaseState": "solid"
+        "phaseState": "solid",
+        "physicalState": [
+          "S"
+        ]
       }
     },
     {
@@ -1364,7 +1371,10 @@
         "rCode": null,
         "facilityType": null,
         "wasteCode": null,
-        "phaseState": "solid"
+        "phaseState": "solid",
+        "physicalState": [
+          "S"
+        ]
       },
       "slots": [
         {
@@ -1398,7 +1408,10 @@
         "rCode": null,
         "facilityType": null,
         "wasteCode": null,
-        "phaseState": null
+        "phaseState": null,
+        "physicalState": [
+          "S"
+        ]
       },
       "slots": [
         {
@@ -1432,7 +1445,10 @@
         "rCode": null,
         "facilityType": null,
         "wasteCode": null,
-        "phaseState": null
+        "phaseState": null,
+        "physicalState": [
+          "S"
+        ]
       }
     },
     {
@@ -1475,7 +1491,10 @@
           "51-28",
           "51-12"
         ],
-        "phaseState": null
+        "phaseState": null,
+        "physicalState": [
+          "S"
+        ]
       }
     },
     {
@@ -1514,7 +1533,10 @@
           "51-05",
           "51-20"
         ],
-        "phaseState": null
+        "phaseState": null,
+        "physicalState": [
+          "S"
+        ]
       }
     },
     {
@@ -1538,7 +1560,10 @@
         "rCode": null,
         "facilityType": null,
         "wasteCode": null,
-        "phaseState": null
+        "phaseState": null,
+        "physicalState": [
+          "S"
+        ]
       }
     },
     {
@@ -1562,7 +1587,10 @@
         "rCode": null,
         "facilityType": null,
         "wasteCode": null,
-        "phaseState": null
+        "phaseState": null,
+        "physicalState": [
+          "S"
+        ]
       }
     },
     {
@@ -1586,7 +1614,10 @@
         "rCode": null,
         "facilityType": null,
         "wasteCode": null,
-        "phaseState": "liquid"
+        "phaseState": "liquid",
+        "physicalState": [
+          "L"
+        ]
       },
       "slots": [
         {
@@ -3888,7 +3919,10 @@
         "rCode": null,
         "facilityType": null,
         "wasteCode": null,
-        "phaseState": "liquid"
+        "phaseState": "liquid",
+        "physicalState": [
+          "L"
+        ]
       }
     },
     {
@@ -3957,7 +3991,10 @@
         "rCode": null,
         "facilityType": null,
         "wasteCode": null,
-        "phaseState": "solid"
+        "phaseState": "solid",
+        "physicalState": [
+          "S"
+        ]
       },
       "slots": [
         {
@@ -3991,7 +4028,10 @@
         "rCode": null,
         "facilityType": null,
         "wasteCode": null,
-        "phaseState": "liquid"
+        "phaseState": "liquid",
+        "physicalState": [
+          "L"
+        ]
       },
       "slots": [
         {

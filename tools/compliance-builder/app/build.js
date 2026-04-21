@@ -11,10 +11,12 @@ const CODE = JSON.parse(fs.readFileSync(`${BASE}/data/상황코드_코드표.jso
 
 // _idx 부여 (ALL_ITEMS에서의 원본 인덱스)
 const ALL_RAW = B5['별표내용'].map((item, idx) => ({ ...item, _idx: idx }));
-const ITEMS = ALL_RAW.filter(i => i.tags && i.tags.action);
-// Word용: tags===null(섹션헤더) + action있는 데이터 항목
+// action 있거나, action=null이지만 wasteClass 있는 공통사항 항목
+const hasContentTag = i => i.tags && (i.tags.action || i.tags.wasteClass);
+const ITEMS = ALL_RAW.filter(i => hasContentTag(i));
+// Word용: 섹션헤더(tags===null) + 체크리스트 항목
 const ALL_ITEMS_FOR_WORD = ALL_RAW.filter(i =>
-  !i.noWord && (i.tags === null || (i.tags && i.tags.action)));
+  !i.noWord && (i.tags === null || hasContentTag(i)));
 const CODES = CODE['코드표'];
 
 // facilityType 값→라벨 맵
@@ -195,7 +197,7 @@ const DOCTYPE_BY_CAT = ${JSON.stringify(CODES.docType['분류별_사용가능'])
 // ── 상태 ──────────────────────────────────────────────────────────
 const state = {
   category: '', bizType: '', docType: '',
-  wasteClass: '', wasteCode: '',
+  wasteClass: '', wasteCode: '', physicalState: '',
   action: [], rCode: [], facilityType: [],
   approval: '0'
 };
@@ -239,6 +241,10 @@ function filterItems() {
     if (!matchTag(t.wasteClass,  state.wasteClass ? [state.wasteClass] : [])) return false;
     if (!matchTag(t.action,      state.action))    return false;
     if (!matchTag(t.facilityType, state.facilityType)) return false;
+    // physicalState: null=상태 무관(통과), SL 선택=둘 다 통과, 미선택=모두 통과
+    if (t.physicalState && state.physicalState && state.physicalState !== 'SL') {
+      if (!t.physicalState.includes(state.physicalState)) return false;
+    }
     // wasteCode 필터: null=범용(항상 통과), 비null=교집합 필요
     if (t.wasteCode !== null && t.wasteCode !== undefined) {
       if (userWasteCodes.length === 0) return true; // 미입력 시 모두 포함

@@ -21,16 +21,22 @@ for idx, item in enumerate(raw):
     if isinstance(item, dict):
         all_raw.append({**item, '_idx': idx})
 
-# B5_ITEMS: action 있는 것 중 삭제 항목 제외
-items = [i for i in all_raw
-         if i.get('tags') and i['tags'].get('action')
-         and not is_deleted(i)]
+def has_content_tag(item):
+    """action 있거나, action=null이지만 wasteClass 있는 공통사항 항목"""
+    t = item.get('tags')
+    if not t:
+        return False
+    return bool(t.get('action') or t.get('wasteClass'))
 
-# B5_ALL_FOR_WORD: noWord=False & (섹션헤더 or action 있음) & 삭제 항목 제외
+# B5_ITEMS: action 있거나 wasteClass 있는 공통사항 항목, 삭제 제외
+items = [i for i in all_raw
+         if has_content_tag(i) and not is_deleted(i)]
+
+# B5_ALL_FOR_WORD: noWord=False & (섹션헤더 or 체크리스트 항목) & 삭제 제외
 all_for_word = [i for i in all_raw
                 if not i.get('noWord')
                 and not is_deleted(i)
-                and (i.get('tags') is None or (i.get('tags') and i['tags'].get('action')))]
+                and (i.get('tags') is None or has_content_tag(i))]
 
 # HTML <script> 안에서 < > & 는 이스케이프 필요 (VS Code HTML 파서 오류 방지)
 def safe_json(obj):
