@@ -475,32 +475,64 @@ async function exportToWord() {
     [...selectedIds].map(i => filteredItems[i]?._idx).filter(v => v !== undefined)
   );
 
-  // B5_ALL_FOR_WORD를 순서대로 순회하며 섹션 구조 반영
-  // 섹션헤더(tags===null) → 항상 출력
-  // 데이터항목 → 선택된 것만 출력
-  // 섹션헤더 이후 선택 항목 없으면 → "해당하지 않으므로 기재하지 않음"
-  const wordRows = [];
-  let pendingHeader = null;   // 아직 출력 안 한 섹션헤더
-  let sectionHasItems = false;
+  // noWord 항목 제외 (부칙·경과조치 등 Word 불필요 항목)
+  const B5_WORD_FILTERED = B5_ALL_FOR_WORD.filter(i => !i.noWord);
 
-  function flushPendingHeader(header) {
-    const indent = header.depth ? { left: header.depth * 150 } : undefined;
-    const text = (header.marker ? header.marker + ' ' : '') + (header.text || '');
-    wordRows.push({ leftText: text, rightText: '', depth: header.depth, isHeader: true });
+  // 최상위(depth=0) 섹션 중 선택 항목이 전혀 없는 섹션 파악
+  // → 해당 섹션은 헤더 한 줄 + "해당없음"만 출력하고 내부 전부 생략
+  const emptyTopSectionIdx = new Set();
+  {
+    let curTopIdx = null, curTopHas = false;
+    for (const item of B5_WORD_FILTERED) {
+      if (item.tags === null && item.depth === 0) {
+        if (curTopIdx !== null && !curTopHas) emptyTopSectionIdx.add(curTopIdx);
+        curTopIdx = item._idx; curTopHas = false;
+      } else if (item.tags !== null && selectedOrigIdx.has(item._idx)) {
+        curTopHas = true;
+      }
+    }
+    if (curTopIdx !== null && !curTopHas) emptyTopSectionIdx.add(curTopIdx);
   }
 
-  for (const item of B5_ALL_FOR_WORD) {
+  const wordRows = [];
+  let pendingHeader = null;
+  let sectionHasItems = false;
+  let inEmptyTopSection = false;
+
+  // isNA=true 이면 우측 열에 "해당없음" 텍스트를 헤더와 같은 행에 출력
+  function flushPendingHeader(header, isNA = false) {
+    const text = (header.marker ? header.marker + ' ' : '') + (header.text || '');
+    wordRows.push({ leftText: text, rightText: isNA ? '해당하지 않으므로 기재하지 않음' : '', depth: header.depth, isHeader: true, isNA });
+  }
+
+  for (const item of B5_WORD_FILTERED) {
     if (item.tags === null) {
-      // 이전 섹션 마무리: 선택 항목 없었으면 "해당없음" 추가
-      if (pendingHeader !== null && !sectionHasItems) {
-        flushPendingHeader(pendingHeader);
-        wordRows.push({ leftText: '', rightText: '해당하지 않으므로 기재하지 않음', depth: 0, isNA: true });
+      if (item.depth === 0) {
+        // 최상위 섹션헤더 전환 시 이전 서브헤더 마무리
+        if (pendingHeader !== null && !sectionHasItems && !inEmptyTopSection) {
+          flushPendingHeader(pendingHeader, true);
+        }
+        pendingHeader = null; sectionHasItems = false;
+        if (emptyTopSectionIdx.has(item._idx)) {
+          // 전체 미해당 섹션 → 헤더+해당없음 한 행, 내부 생략
+          flushPendingHeader(item, true);
+          inEmptyTopSection = true;
+        } else {
+          inEmptyTopSection = false;
+          pendingHeader = item;
+        }
+      } else {
+        // 서브 섹션헤더
+        if (inEmptyTopSection) continue;
+        if (pendingHeader !== null && !sectionHasItems) {
+          flushPendingHeader(pendingHeader, true);
+        }
+        pendingHeader = item;
+        sectionHasItems = false;
       }
-      pendingHeader = item;
-      sectionHasItems = false;
     } else {
+      if (inEmptyTopSection) continue;
       if (!selectedOrigIdx.has(item._idx)) continue;
-      // 이 항목이 선택됨 → 대기 중인 헤더가 있으면 먼저 출력
       if (pendingHeader !== null) {
         flushPendingHeader(pendingHeader);
         pendingHeader = null;
@@ -520,10 +552,9 @@ async function exportToWord() {
       sectionHasItems = true;
     }
   }
-  // 마지막 섹션 처리
-  if (pendingHeader !== null && !sectionHasItems) {
-    flushPendingHeader(pendingHeader);
-    wordRows.push({ leftText: '', rightText: '해당하지 않으므로 기재하지 않음', depth: 0, isNA: true });
+  // 마지막 서브헤더 마무리
+  if (pendingHeader !== null && !sectionHasItems && !inEmptyTopSection) {
+    flushPendingHeader(pendingHeader, true);
   }
 
   function buildDataRow(r, isLast) {
