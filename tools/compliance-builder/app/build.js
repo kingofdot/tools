@@ -232,6 +232,7 @@ function normalizeWasteCodes(raw) {
 function filterItems() {
   const userWasteCodes = normalizeWasteCodes(state.wasteCode);
   return B5_ITEMS.filter(item => {
+    if (/^삭제[\s<(]/.test(item.text || '')) return false;
     const t = item.tags;
     if (!matchTag(t.category,    state.category ? [state.category] : [])) return false;
     if (!matchTag(t.bizType,     state.bizType  ? [state.bizType]  : [])) return false;
