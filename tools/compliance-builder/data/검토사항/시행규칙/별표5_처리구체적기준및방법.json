@@ -59,15 +59,17 @@
       "marker": "1.",
       "text": "서울특별시, 인천광역시 및 경기도 지역: 2026년 1월 1일",
       "answer": "",
-      "tags": null
+      "tags": null,
+      "noWord": true
     },
     {
       "depth": 0,
       "type": "number",
       "marker": "2.",
-      "text": "제1호 외의 지역: 2030년 1월 1일폐기물의 처리에 관한 구체적 기준 및 방법(제14조 관련)",
+      "text": "제1호 외의 지역: 2030년 1월 1일",
       "answer": "",
-      "tags": null
+      "tags": null,
+      "noWord": true
     },
     {
       "depth": 0,

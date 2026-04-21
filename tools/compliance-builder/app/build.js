@@ -13,7 +13,8 @@ const CODE = JSON.parse(fs.readFileSync(`${BASE}/data/상황코드_코드표.jso
 const ALL_RAW = B5['별표내용'].map((item, idx) => ({ ...item, _idx: idx }));
 const ITEMS = ALL_RAW.filter(i => i.tags && i.tags.action);
 // Word용: tags===null(섹션헤더) + action있는 데이터 항목
-const ALL_ITEMS_FOR_WORD = ALL_RAW.filter(i => i.tags === null || (i.tags && i.tags.action));
+const ALL_ITEMS_FOR_WORD = ALL_RAW.filter(i =>
+  !i.noWord && (i.tags === null || (i.tags && i.tags.action)));
 const CODES = CODE['코드표'];
 
 // facilityType 값→라벨 맵
