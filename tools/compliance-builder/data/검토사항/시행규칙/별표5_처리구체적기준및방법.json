@@ -178,7 +178,7 @@
       "type": "number-paren",
       "marker": "1)",
       "text": "고체상태의 생활폐기물은 압축·압착차량이나 암롤차량 등으로서 적재함이 밀폐된 차량(이하 \"밀폐형 차량\"이라 한다)으로 수집·운반하여야 한다.",
-      "answer": "고체상태의 생활폐기물은 압축·압착차량이나 암롤차량 등 적재함이 밀폐된 차량(밀폐형 차량)으로 수집·운반하겠음",
+      "answer": "고체상태의 생활폐기물은 {{vehicles}}(밀폐형 차량)으로 수집·운반하겠음",
       "tags": {
         "category": null,
         "bizType": [
@@ -195,7 +195,17 @@
         "facilityType": null,
         "wasteCode": null,
         "phaseState": "solid"
-      }
+      },
+      "slots": [
+        {
+          "key": "vehicles",
+          "label": "밀폐형 압축·압착·암롤차량",
+          "type": "filter_join",
+          "from": "document.formData.vehicles",
+          "display": "vehicleType",
+          "join": ", "
+        }
+      ]
     },
     {
       "depth": 2,
@@ -226,7 +236,17 @@
           "51-18"
         ],
         "phaseState": null
-      }
+      },
+      "slots": [
+        {
+          "key": "vehicles",
+          "label": "밀폐형 덮개 설치차량",
+          "type": "filter_join",
+          "from": "document.formData.vehicles",
+          "display": "vehicleType",
+          "join": ", "
+        }
+      ]
     },
     {
       "depth": 3,
@@ -289,7 +309,7 @@
       "type": "number-paren",
       "marker": "4)",
       "text": "액체상태(수분 함량이 85%를 초과하는 것을 말한다. 이하 같다)의생활폐기물은 탱크로리로 수집ㆍ운반하여야 한다. 다만, 밀폐된 전용수거용기에 담아 수집ㆍ운반하는 경우에는 폐기물이 유출되거나 악취가 누출되지 않도록 적재함에 합성수지 등으로 제작된 포장으로덮개를 설치하고, 침출수나 액상의 물질이 유출 또는 누출되지 않도록 방지턱 등을 설치한 차량으로 수집ㆍ운반할 수 있다.",
-      "answer": "액체상태(수분 함량 85% 초과)의 생활폐기물은 탱크로리로 수집·운반하겠음. 다만, 밀폐된 전용 수거용기에 담아 운반하는 경우에는 덮개가 설치되고 방지턱이 있는 차량으로 수집·운반하겠음",
+      "answer": "액체상태(수분 함량 85% 초과)의 생활폐기물은 {{vehicles}}으로 수집·운반하겠음. 다만, 밀폐된 전용 수거용기에 담아 운반하는 경우에는 덮개가 설치되고 방지턱이 있는 차량으로 수집·운반하겠음",
       "tags": {
         "category": null,
         "bizType": [
@@ -306,7 +326,17 @@
         "facilityType": null,
         "wasteCode": null,
         "phaseState": "liquid"
-      }
+      },
+      "slots": [
+        {
+          "key": "vehicles",
+          "label": "탱크로리",
+          "type": "filter_join",
+          "from": "document.formData.vehicles",
+          "display": "vehicleType",
+          "join": ", "
+        }
+      ]
     },
     {
       "depth": 2,
@@ -1251,7 +1281,28 @@
         "facilityType": null,
         "wasteCode": null,
         "phaseState": null
-      }
+      },
+      "slots": [
+        {
+          "key": "vehicles",
+          "label": "수집운반 차량",
+          "type": "filter_join",
+          "from": "document.formData.vehicles",
+          "display": "vehicleType",
+          "join": ", "
+        },
+        {
+          "key": "waste_types",
+          "label": "사업장일반폐기물 종류",
+          "type": "filter_join",
+          "from": "document.formData.wasteTargetItems",
+          "display": "wasteName",
+          "join": ", ",
+          "filter": {
+            "wasteClass": "G"
+          }
+        }
+      ]
     },
     {
       "depth": 3,
@@ -1282,7 +1333,7 @@
       "type": "wrapped-number",
       "marker": "(1)",
       "text": "고상의 사업장일반폐기물은 밀폐형 차량으로 수집·운반하여야한다.",
-      "answer": "고상의 사업장일반폐기물은 밀폐형 차량으로 수집·운반하겠음",
+      "answer": "고상의 사업장일반폐기물은 {{vehicles}}으로 수집·운반하겠음",
       "tags": {
         "category": null,
         "bizType": [
@@ -1299,7 +1350,17 @@
         "facilityType": null,
         "wasteCode": null,
         "phaseState": "solid"
-      }
+      },
+      "slots": [
+        {
+          "key": "vehicles",
+          "label": "밀폐형 차량",
+          "type": "filter_join",
+          "from": "document.formData.vehicles",
+          "display": "vehicleType",
+          "join": ", "
+        }
+      ]
     },
     {
       "depth": 4,
@@ -1323,7 +1384,17 @@
         "facilityType": null,
         "wasteCode": null,
         "phaseState": null
-      }
+      },
+      "slots": [
+        {
+          "key": "vehicles",
+          "label": "밀폐형 덮개 설치차량",
+          "type": "filter_join",
+          "from": "document.formData.vehicles",
+          "display": "vehicleType",
+          "join": ", "
+        }
+      ]
     },
     {
       "depth": 5,
@@ -1484,7 +1555,7 @@
       "type": "korean-paren",
       "marker": "나)",
       "text": "액상의 사업장일반폐기물을 수집·운반하는 경우액상의 사업장일반폐기물은 탱크로리로 수집·운반하여야 한다. 다만, 밀폐된 전용의 수거용기에 담아 수집·운반하는 경우에는 폐기물의 유출 또는 악취가 누출되지 않도록 합성수지 등으로 제작된 포장으로 덮개를 설치하고, 침출수나 액상의 물질이 유출 또는누출되지 않도록 방지턱 등을 설치한 차량으로 수집·운반할 수 있다.",
-      "answer": "액상의 사업장일반폐기물은 탱크로리로 수집·운반하겠음. 다만, 밀폐된 전용 수거용기에 담아 운반하는 경우에는 합성수지 덮개와 방지턱이 설치된 차량으로 수집·운반하겠음",
+      "answer": "액상의 사업장일반폐기물은 {{vehicles}}으로 수집·운반하겠음. 다만, 밀폐된 전용 수거용기에 담아 운반하는 경우에는 합성수지 덮개와 방지턱이 설치된 차량으로 수집·운반하겠음",
       "tags": {
         "category": null,
         "bizType": [
@@ -1501,7 +1572,17 @@
         "facilityType": null,
         "wasteCode": null,
         "phaseState": "liquid"
-      }
+      },
+      "slots": [
+        {
+          "key": "vehicles",
+          "label": "탱크로리",
+          "type": "filter_join",
+          "from": "document.formData.vehicles",
+          "display": "vehicleType",
+          "join": ", "
+        }
+      ]
     },
     {
       "depth": 2,
@@ -3763,14 +3844,35 @@
         "facilityType": null,
         "wasteCode": null,
         "phaseState": null
-      }
+      },
+      "slots": [
+        {
+          "key": "vehicles",
+          "label": "수집운반 차량",
+          "type": "filter_join",
+          "from": "document.formData.vehicles",
+          "display": "vehicleType",
+          "join": ", "
+        },
+        {
+          "key": "waste_types",
+          "label": "지정폐기물 종류",
+          "type": "filter_join",
+          "from": "document.formData.wasteTargetItems",
+          "display": "wasteName",
+          "join": ", ",
+          "filter": {
+            "wasteClass": "D"
+          }
+        }
+      ]
     },
     {
       "depth": 3,
       "type": "korean-paren",
       "marker": "가)",
       "text": "고상의 지정폐기물은 밀폐형 차량으로 수집·운반하여야 한다. 다만, 밀폐된 전용 수거용기에 담아 수집·운반하는 경우에는 금속,플라스틱 또는 비산·누출·악취를 방지할 수 있는 재질로서 기후에너지환경부장관이 정하여 고시하는 재질로 제작된 밀폐형 덮개를 설치하고, 침출수 등의 유출이나 누출을 방지할 수 있는 방지턱 등을설치한 차량으로 수집·운반할 수 있다.",
-      "answer": "고상의 지정폐기물은 밀폐형 차량으로 수집·운반하겠음. 다만, 밀폐된 전용 수거용기에 담아 운반하는 경우에는 규정 재질의 밀폐형 덮개와 방지턱이 설치된 차량으로 수집·운반하겠음",
+      "answer": "고상의 지정폐기물은 {{vehicles}}으로 수집·운반하겠음. 다만, 밀폐된 전용 수거용기에 담아 운반하는 경우에는 규정 재질의 밀폐형 덮개와 방지턱이 설치된 차량으로 수집·운반하겠음",
       "tags": {
         "category": null,
         "bizType": [
@@ -3787,14 +3889,24 @@
         "facilityType": null,
         "wasteCode": null,
         "phaseState": "solid"
-      }
+      },
+      "slots": [
+        {
+          "key": "vehicles",
+          "label": "밀폐형 차량",
+          "type": "filter_join",
+          "from": "document.formData.vehicles",
+          "display": "vehicleType",
+          "join": ", "
+        }
+      ]
     },
     {
       "depth": 3,
       "type": "korean-paren",
       "marker": "나)",
       "text": "액상의 폐기물은 탱크로리로 운반하여야 한다. 다만, 밀폐된 전용수거용기에 담아 수집·운반하는 경우에는 금속, 플라스틱 또는 비산·누출·악취를 방지할 수 있는 재질, 구조, 형태 등으로서 기후에너지환경부장관이 정하여 고시하는 기준에 따른 밀폐형 덮개를 설치하고, 침출수나 액상의 물질이 유출 또는 누출되지 않도록 방지턱등을 설치한 차량으로 수집·운반할 수 있다.",
-      "answer": "액상의 지정폐기물은 탱크로리로 수집·운반하겠음. 다만, 밀폐된 전용 수거용기에 담아 운반하는 경우에는 규정 기준의 밀폐형 덮개와 방지턱이 설치된 차량으로 수집·운반하겠음",
+      "answer": "액상의 지정폐기물은 {{vehicles}}으로 수집·운반하겠음. 다만, 밀폐된 전용 수거용기에 담아 운반하는 경우에는 규정 기준의 밀폐형 덮개와 방지턱이 설치된 차량으로 수집·운반하겠음",
       "tags": {
         "category": null,
         "bizType": [
@@ -3811,7 +3923,17 @@
         "facilityType": null,
         "wasteCode": null,
         "phaseState": "liquid"
-      }
+      },
+      "slots": [
+        {
+          "key": "vehicles",
+          "label": "탱크로리",
+          "type": "filter_join",
+          "from": "document.formData.vehicles",
+          "display": "vehicleType",
+          "join": ", "
+        }
+      ]
     },
     {
       "depth": 3,
@@ -3962,7 +4084,17 @@
         "facilityType": null,
         "wasteCode": null,
         "phaseState": null
-      }
+      },
+      "slots": [
+        {
+          "key": "vehicles",
+          "label": "지정폐기물 수집운반 차량",
+          "type": "filter_join",
+          "from": "document.formData.vehicles",
+          "display": "vehicleType",
+          "join": ", "
+        }
+      ]
     },
     {
       "depth": 2,
@@ -8984,14 +9116,24 @@
           "10-12"
         ],
         "phaseState": null
-      }
+      },
+      "slots": [
+        {
+          "key": "vehicles",
+          "label": "의료폐기물 전용 운반차량",
+          "type": "filter_join",
+          "from": "document.formData.vehicles",
+          "display": "vehicleType",
+          "join": ", "
+        }
+      ]
     },
     {
       "depth": 2,
       "type": "number-paren",
       "marker": "2)",
       "text": "의료폐기물의 수집·운반차량은 섭씨 4도 이하의 냉장설비가 설치되고, 수집·운반 중에는 적재함의 내부온도를 섭씨 4도 이하로 유지하여야 한다. 다만, 적재함을 열고 의료폐기물을 싣거나 내릴 때에는 그러하지 아니하다.",
-      "answer": "의료폐기물의 수집·운반차량은 섭씨 4도 이하의 냉장설비가 설치되고, 수집·운반 중에는 적재함의 내부온도를 섭씨 4도 이하로 유지하겠음. 다만, 적재함을 열고 의료폐기물을 싣거나 내릴 때에는 그러하지 아니하다",
+      "answer": "의료폐기물의 수집·운반차량({{vehicles}})은 섭씨 4도 이하의 냉장설비가 설치되고, 수집·운반 중에는 적재함의 내부온도를 섭씨 4도 이하로 유지하겠음. 다만, 적재함을 열고 의료폐기물을 싣거나 내릴 때에는 그러하지 아니하다",
       "tags": {
         "category": null,
         "bizType": [
@@ -9010,7 +9152,17 @@
           "10-12"
         ],
         "phaseState": null
-      }
+      },
+      "slots": [
+        {
+          "key": "vehicles",
+          "label": "의료폐기물 냉장차량",
+          "type": "filter_join",
+          "from": "document.formData.vehicles",
+          "display": "vehicleType",
+          "join": ", "
+        }
+      ]
     },
     {
       "depth": 2,
@@ -9036,7 +9188,17 @@
           "10-12"
         ],
         "phaseState": null
-      }
+      },
+      "slots": [
+        {
+          "key": "vehicles",
+          "label": "의료폐기물 전용 운반차량",
+          "type": "filter_join",
+          "from": "document.formData.vehicles",
+          "display": "vehicleType",
+          "join": ", "
+        }
+      ]
     },
     {
       "depth": 2,

@@ -53,19 +53,49 @@
       "depth": 3,
       "type": "korean-paren",
       "marker": "가)",
-      "text": "밀폐형 압축·압착차량 1대(특별시·광역시는 2대) 이상"
+      "text": "밀폐형 압축·압착차량 1대(특별시·광역시는 2대) 이상",
+      "slots": [
+        {
+          "key": "vehicles",
+          "label": "밀폐형 압축·압착차량",
+          "type": "filter_join",
+          "from": "document.formData.vehicles",
+          "display": "vehicleType",
+          "join": ", "
+        }
+      ]
     },
     {
       "depth": 3,
       "type": "korean-paren",
       "marker": "나)",
-      "text": "밀폐형 차량 또는 밀폐형 덮개 설치차량 1대 이상(적재능력 합계 4.5톤 이상). 다만, 생활폐기물을 수집ㆍ운반하는 경우에는 2018년 6월 30일까지 적재능력을 적용하지 아니한다."
+      "text": "밀폐형 차량 또는 밀폐형 덮개 설치차량 1대 이상(적재능력 합계 4.5톤 이상). 다만, 생활폐기물을 수집ㆍ운반하는 경우에는 2018년 6월 30일까지 적재능력을 적용하지 아니한다.",
+      "slots": [
+        {
+          "key": "vehicles",
+          "label": "밀폐형 차량 또는 밀폐형 덮개 설치차량",
+          "type": "filter_join",
+          "from": "document.formData.vehicles",
+          "display": "vehicleType",
+          "join": ", "
+        }
+      ]
     },
     {
       "depth": 3,
       "type": "korean-paren",
       "marker": "다)",
-      "text": "섭씨 4도 이하의 냉장 적재함이 설치된 차량 1대 이상(의료기관 일회용기저귀를 수집ㆍ운반하는 경우에 한정한다)"
+      "text": "섭씨 4도 이하의 냉장 적재함이 설치된 차량 1대 이상(의료기관 일회용기저귀를 수집ㆍ운반하는 경우에 한정한다)",
+      "slots": [
+        {
+          "key": "vehicles",
+          "label": "냉장 적재함 차량",
+          "type": "filter_join",
+          "from": "document.formData.vehicles",
+          "display": "vehicleType",
+          "join": ", "
+        }
+      ]
     },
     {
       "depth": 2,
@@ -89,13 +119,33 @@
       "depth": 3,
       "type": "korean-paren",
       "marker": "가)",
-      "text": "액체상태 폐기물을 수집·운반하는 경우: 탱크로리 1대 이상, 밀폐형차량 1대 이상"
+      "text": "액체상태 폐기물을 수집·운반하는 경우: 탱크로리 1대 이상, 밀폐형차량 1대 이상",
+      "slots": [
+        {
+          "key": "vehicles",
+          "label": "탱크로리, 밀폐형 차량",
+          "type": "filter_join",
+          "from": "document.formData.vehicles",
+          "display": "vehicleType",
+          "join": ", "
+        }
+      ]
     },
     {
       "depth": 3,
       "type": "korean-paren",
       "marker": "나)",
-      "text": "고체상태 폐기물을 수집·운반하는 경우: 밀폐형 차량 또는 밀폐형덮개 설치차량 2대 이상"
+      "text": "고체상태 폐기물을 수집·운반하는 경우: 밀폐형 차량 또는 밀폐형덮개 설치차량 2대 이상",
+      "slots": [
+        {
+          "key": "vehicles",
+          "label": "밀폐형 차량 또는 밀폐형 덮개 설치차량",
+          "type": "filter_join",
+          "from": "document.formData.vehicles",
+          "display": "vehicleType",
+          "join": ", "
+        }
+      ]
     },
     {
       "depth": 2,
@@ -119,13 +169,33 @@
       "depth": 3,
       "type": "korean-paren",
       "marker": "가)",
-      "text": "액체상태 폐기물을 수집·운반하는 경우: 탱크로리 1대 이상, 밀폐형차량 1대 이상(적재능력 합계 9톤 이상)"
+      "text": "액체상태 폐기물을 수집·운반하는 경우: 탱크로리 1대 이상, 밀폐형차량 1대 이상(적재능력 합계 9톤 이상)",
+      "slots": [
+        {
+          "key": "vehicles",
+          "label": "탱크로리, 밀폐형 차량",
+          "type": "filter_join",
+          "from": "document.formData.vehicles",
+          "display": "vehicleType",
+          "join": ", "
+        }
+      ]
     },
     {
       "depth": 3,
       "type": "korean-paren",
       "marker": "나)",
-      "text": "고체상태 폐기물을 수집·운반하는 경우: 밀폐형 차량 2대 이상, 밀폐형 덮개 설치차량 1대 이상(적재능력 합계 13.5톤 이상)"
+      "text": "고체상태 폐기물을 수집·운반하는 경우: 밀폐형 차량 2대 이상, 밀폐형 덮개 설치차량 1대 이상(적재능력 합계 13.5톤 이상)",
+      "slots": [
+        {
+          "key": "vehicles",
+          "label": "밀폐형 차량, 밀폐형 덮개 설치차량",
+          "type": "filter_join",
+          "from": "document.formData.vehicles",
+          "display": "vehicleType",
+          "join": ", "
+        }
+      ]
     },
     {
       "depth": 2,
@@ -137,19 +207,53 @@
       "depth": 3,
       "type": "korean-paren",
       "marker": "가)",
-      "text": "주차장: 모든 차량을 주차할 수 있는 규모"
+      "text": "주차장: 모든 차량을 주차할 수 있는 규모",
+      "slots": [
+        {
+          "key": "parking_lot",
+          "label": "주차장",
+          "type": "filter_join",
+          "from": "document.formData.parkingLot",
+          "display": "facilityType",
+          "join": ", "
+        }
+      ]
     },
     {
       "depth": 3,
       "type": "korean-paren",
       "marker": "나)",
-      "text": "세차시설: 20제곱미터 이상"
+      "text": "세차시설: 20제곱미터 이상",
+      "slots": [
+        {
+          "key": "car_wash",
+          "label": "세차시설",
+          "type": "filter_join",
+          "from": "document.formData.carWashFacility",
+          "display": "facilityType",
+          "join": ", "
+        }
+      ]
     },
     {
       "depth": 2,
       "type": "number-paren",
       "marker": "3)",
-      "text": "기술능력: 폐기물처리산업기사·대기환경산업기사·수질환경산업기사 또는 공업화학산업기사 중 1명 이상"
+      "text": "기술능력: 폐기물처리산업기사·대기환경산업기사·수질환경산업기사 또는 공업화학산업기사 중 1명 이상",
+      "slots": [
+        {
+          "key": "technical_staff",
+          "label": "기술인력",
+          "type": "person_set",
+          "from": "document.formData.technicalPersonnel",
+          "fields": [
+            "name",
+            "birthdate",
+            "license"
+          ],
+          "join": "\n"
+        }
+      ]
     },
     {
       "depth": 2,
@@ -173,7 +277,17 @@
       "depth": 3,
       "type": "korean-paren",
       "marker": "가)",
-      "text": "적재능력 0.45톤 이상의 냉장차량(섭씨 4도 이하인 것을 말한다. 이하 같다) 3대 이상"
+      "text": "적재능력 0.45톤 이상의 냉장차량(섭씨 4도 이하인 것을 말한다. 이하 같다) 3대 이상",
+      "slots": [
+        {
+          "key": "vehicles",
+          "label": "의료폐기물 냉장차량",
+          "type": "filter_join",
+          "from": "document.formData.vehicles",
+          "display": "vehicleType",
+          "join": ", "
+        }
+      ]
     },
     {
       "depth": 3,
