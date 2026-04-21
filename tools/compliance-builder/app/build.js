@@ -245,10 +245,13 @@ function filterItems() {
     if (t.physicalState && state.physicalState && state.physicalState !== 'SL') {
       if (!t.physicalState.includes(state.physicalState)) return false;
     }
-    // wasteCode 필터: null=범용(항상 통과), 비null=교집합 필요
+    // wasteCode 필터: null=범용(항상 통과), 비null=계층 매칭 (51-03-01 입력 → 51-03 항목 매칭)
     if (t.wasteCode !== null && t.wasteCode !== undefined) {
       if (userWasteCodes.length === 0) return true; // 미입력 시 모두 포함
-      if (!t.wasteCode.some(c => userWasteCodes.includes(c))) return false;
+      const matches = t.wasteCode.some(ic =>
+        userWasteCodes.some(uc => uc === ic || uc.startsWith(ic + '-') || ic.startsWith(uc + '-'))
+      );
+      if (!matches) return false;
     }
     return true;
   });
