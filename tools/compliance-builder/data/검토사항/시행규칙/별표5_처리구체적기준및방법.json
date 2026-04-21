@@ -132,8 +132,7 @@
         ],
         "rCode": null,
         "facilityType": null,
-        "wasteCode": null,
-        "phaseState": null
+        "wasteCode": null
       }
     },
     {
@@ -164,8 +163,7 @@
         },
         "wasteCode": [
           "91-09"
-        ],
-        "phaseState": null
+        ]
       }
     },
     {
@@ -197,7 +195,9 @@
         "rCode": null,
         "facilityType": null,
         "wasteCode": null,
-        "phaseState": "solid"
+        "physicalState": [
+          "S"
+        ]
       },
       "slots": [
         {
@@ -237,8 +237,7 @@
         },
         "wasteCode": [
           "51-18"
-        ],
-        "phaseState": null
+        ]
       },
       "slots": [
         {
@@ -304,7 +303,9 @@
         "rCode": null,
         "facilityType": null,
         "wasteCode": null,
-        "phaseState": "solid"
+        "physicalState": [
+          "S"
+        ]
       }
     },
     {
@@ -328,7 +329,9 @@
         "rCode": null,
         "facilityType": null,
         "wasteCode": null,
-        "phaseState": "liquid"
+        "physicalState": [
+          "L"
+        ]
       },
       "slots": [
         {
@@ -363,8 +366,7 @@
         "facilityType": null,
         "wasteCode": [
           "91-20-00"
-        ],
-        "phaseState": null
+        ]
       }
     },
     {
@@ -392,8 +394,7 @@
         ],
         "rCode": null,
         "facilityType": null,
-        "wasteCode": null,
-        "phaseState": null
+        "wasteCode": null
       }
     },
     {
@@ -413,8 +414,7 @@
         ],
         "rCode": null,
         "facilityType": null,
-        "wasteCode": null,
-        "phaseState": null
+        "wasteCode": null
       }
     },
     {
@@ -434,8 +434,7 @@
         ],
         "rCode": null,
         "facilityType": null,
-        "wasteCode": null,
-        "phaseState": null
+        "wasteCode": null
       }
     },
     {
@@ -460,8 +459,7 @@
         ],
         "rCode": null,
         "facilityType": null,
-        "wasteCode": null,
-        "phaseState": null
+        "wasteCode": null
       }
     },
     {
@@ -499,8 +497,7 @@
         ],
         "rCode": null,
         "facilityType": null,
-        "wasteCode": null,
-        "phaseState": null
+        "wasteCode": null
       }
     },
     {
@@ -529,8 +526,7 @@
         },
         "wasteCode": [
           "91-05"
-        ],
-        "phaseState": null
+        ]
       }
     },
     {
@@ -567,8 +563,7 @@
           "91-09",
           "91-07",
           "91-10"
-        ],
-        "phaseState": null
+        ]
       }
     },
     {
@@ -613,8 +608,7 @@
         },
         "wasteCode": [
           "91-09"
-        ],
-        "phaseState": null
+        ]
       }
     },
     {
@@ -647,8 +641,7 @@
         "wasteCode": [
           "51-10",
           "01-09"
-        ],
-        "phaseState": null
+        ]
       }
     },
     {
@@ -672,8 +665,7 @@
         "facilityType": null,
         "wasteCode": [
           "91-20-00"
-        ],
-        "phaseState": null
+        ]
       }
     },
     {
@@ -695,8 +687,7 @@
         ],
         "rCode": null,
         "facilityType": null,
-        "wasteCode": null,
-        "phaseState": null
+        "wasteCode": null
       }
     },
     {
@@ -739,8 +730,7 @@
         "wasteCode": [
           "51-38",
           "91-02"
-        ],
-        "phaseState": null
+        ]
       }
     },
     {
@@ -768,7 +758,9 @@
           "51-38",
           "91-02"
         ],
-        "phaseState": "liquid"
+        "physicalState": [
+          "L"
+        ]
       }
     },
     {
@@ -795,8 +787,7 @@
         "wasteCode": [
           "51-38",
           "91-02"
-        ],
-        "phaseState": null
+        ]
       }
     },
     {
@@ -823,8 +814,7 @@
         "wasteCode": [
           "51-38",
           "91-02"
-        ],
-        "phaseState": null
+        ]
       }
     },
     {
@@ -850,8 +840,7 @@
         "wasteCode": [
           "51-38",
           "91-02"
-        ],
-        "phaseState": null
+        ]
       }
     },
     {
@@ -883,8 +872,7 @@
         "wasteCode": [
           "51-38",
           "91-02"
-        ],
-        "phaseState": null
+        ]
       }
     },
     {
@@ -908,8 +896,7 @@
         "wasteCode": [
           "51-38",
           "91-02"
-        ],
-        "phaseState": null
+        ]
       }
     },
     {
@@ -940,8 +927,7 @@
         ],
         "rCode": null,
         "facilityType": null,
-        "wasteCode": null,
-        "phaseState": null
+        "wasteCode": null
       }
     },
     {
@@ -975,8 +961,7 @@
         "wasteCode": [
           "51-38",
           "91-02"
-        ],
-        "phaseState": null
+        ]
       }
     },
     {
@@ -999,8 +984,7 @@
         ],
         "rCode": null,
         "facilityType": null,
-        "wasteCode": null,
-        "phaseState": null
+        "wasteCode": null
       }
     },
     {
@@ -1023,8 +1007,7 @@
         ],
         "rCode": null,
         "facilityType": null,
-        "wasteCode": null,
-        "phaseState": null
+        "wasteCode": null
       }
     },
     {
@@ -1050,8 +1033,7 @@
         "wasteCode": [
           "51-38",
           "91-02"
-        ],
-        "phaseState": null
+        ]
       }
     },
     {
@@ -1077,8 +1059,7 @@
         "wasteCode": [
           "51-38",
           "91-02"
-        ],
-        "phaseState": null
+        ]
       }
     },
     {
@@ -1121,7 +1102,9 @@
           "51-38",
           "91-02"
         ],
-        "phaseState": "solid"
+        "physicalState": [
+          "S"
+        ]
       }
     },
     {
@@ -1239,8 +1222,7 @@
         ],
         "rCode": null,
         "facilityType": null,
-        "wasteCode": null,
-        "phaseState": null
+        "wasteCode": null
       }
     },
     {
@@ -1263,8 +1245,7 @@
         ],
         "rCode": null,
         "facilityType": null,
-        "wasteCode": null,
-        "phaseState": null
+        "wasteCode": null
       }
     },
     {
@@ -1289,7 +1270,6 @@
         "rCode": null,
         "facilityType": null,
         "wasteCode": null,
-        "phaseState": "liquid",
         "physicalState": [
           "L"
         ]
@@ -1316,8 +1296,7 @@
         ],
         "rCode": null,
         "facilityType": null,
-        "wasteCode": null,
-        "phaseState": null
+        "wasteCode": null
       },
       "slots": [
         {
@@ -1363,7 +1342,6 @@
         "rCode": null,
         "facilityType": null,
         "wasteCode": null,
-        "phaseState": "solid",
         "physicalState": [
           "S"
         ]
@@ -1391,7 +1369,6 @@
         "rCode": null,
         "facilityType": null,
         "wasteCode": null,
-        "phaseState": "solid",
         "physicalState": [
           "S"
         ]
@@ -1429,7 +1406,6 @@
         "rCode": null,
         "facilityType": null,
         "wasteCode": null,
-        "phaseState": null,
         "physicalState": [
           "S"
         ]
@@ -1467,7 +1443,6 @@
         "rCode": null,
         "facilityType": null,
         "wasteCode": null,
-        "phaseState": null,
         "physicalState": [
           "S"
         ]
@@ -1514,7 +1489,6 @@
           "51-28",
           "51-12"
         ],
-        "phaseState": null,
         "physicalState": [
           "S"
         ]
@@ -1558,7 +1532,6 @@
           "51-05",
           "51-20"
         ],
-        "phaseState": null,
         "physicalState": [
           "S"
         ]
@@ -1586,7 +1559,6 @@
         "rCode": null,
         "facilityType": null,
         "wasteCode": null,
-        "phaseState": null,
         "physicalState": [
           "S"
         ]
@@ -1614,7 +1586,6 @@
         "rCode": null,
         "facilityType": null,
         "wasteCode": null,
-        "phaseState": null,
         "physicalState": [
           "S"
         ]
@@ -1642,7 +1613,6 @@
         "rCode": null,
         "facilityType": null,
         "wasteCode": null,
-        "phaseState": "liquid",
         "physicalState": [
           "L"
         ]
@@ -1679,8 +1649,7 @@
         ],
         "rCode": null,
         "facilityType": null,
-        "wasteCode": null,
-        "phaseState": null
+        "wasteCode": null
       }
     },
     {
@@ -1706,8 +1675,7 @@
         "facilityType": null,
         "wasteCode": [
           "51-27-04"
-        ],
-        "phaseState": null
+        ]
       }
     },
     {
@@ -1733,8 +1701,7 @@
         "facilityType": null,
         "wasteCode": [
           "51-27-04"
-        ],
-        "phaseState": null
+        ]
       }
     },
     {
@@ -1760,8 +1727,7 @@
         "facilityType": null,
         "wasteCode": [
           "51-41-05"
-        ],
-        "phaseState": null
+        ]
       }
     },
     {
@@ -1790,8 +1756,7 @@
         ],
         "rCode": null,
         "facilityType": null,
-        "wasteCode": null,
-        "phaseState": null
+        "wasteCode": null
       }
     },
     {
@@ -1812,8 +1777,7 @@
         ],
         "rCode": null,
         "facilityType": null,
-        "wasteCode": null,
-        "phaseState": null
+        "wasteCode": null
       }
     },
     {
@@ -1865,8 +1829,7 @@
           "51-28",
           "51-12",
           "51-13"
-        ],
-        "phaseState": null
+        ]
       }
     },
     {
@@ -1898,8 +1861,7 @@
         "wasteCode": [
           "51-04",
           "51-24"
-        ],
-        "phaseState": null
+        ]
       }
     },
     {
@@ -1920,8 +1882,7 @@
         ],
         "rCode": null,
         "facilityType": null,
-        "wasteCode": null,
-        "phaseState": null
+        "wasteCode": null
       }
     },
     {
@@ -1942,8 +1903,7 @@
         ],
         "rCode": null,
         "facilityType": null,
-        "wasteCode": null,
-        "phaseState": null
+        "wasteCode": null
       }
     },
     {
@@ -1964,8 +1924,7 @@
         ],
         "rCode": null,
         "facilityType": null,
-        "wasteCode": null,
-        "phaseState": null
+        "wasteCode": null
       }
     },
     {
@@ -1986,8 +1945,7 @@
         ],
         "rCode": null,
         "facilityType": null,
-        "wasteCode": null,
-        "phaseState": null
+        "wasteCode": null
       }
     },
     {
@@ -2015,8 +1973,7 @@
         },
         "wasteCode": [
           "51-14"
-        ],
-        "phaseState": null
+        ]
       }
     },
     {
@@ -2037,8 +1994,7 @@
         ],
         "rCode": null,
         "facilityType": null,
-        "wasteCode": null,
-        "phaseState": null
+        "wasteCode": null
       }
     },
     {
@@ -2059,8 +2015,7 @@
         ],
         "rCode": null,
         "facilityType": null,
-        "wasteCode": null,
-        "phaseState": null
+        "wasteCode": null
       }
     },
     {
@@ -2083,8 +2038,7 @@
         "facilityType": null,
         "wasteCode": [
           "51-27-04"
-        ],
-        "phaseState": null
+        ]
       }
     },
     {
@@ -2107,8 +2061,7 @@
         "facilityType": null,
         "wasteCode": [
           "51-27-04"
-        ],
-        "phaseState": null
+        ]
       }
     },
     {
@@ -2136,8 +2089,7 @@
         "facilityType": null,
         "wasteCode": [
           "51-27-04"
-        ],
-        "phaseState": null
+        ]
       }
     },
     {
@@ -2158,8 +2110,7 @@
         ],
         "rCode": null,
         "facilityType": null,
-        "wasteCode": null,
-        "phaseState": null
+        "wasteCode": null
       }
     },
     {
@@ -2182,8 +2133,7 @@
         "facilityType": null,
         "wasteCode": [
           "51-41-05"
-        ],
-        "phaseState": null
+        ]
       }
     },
     {
@@ -2230,8 +2180,7 @@
         ],
         "rCode": null,
         "facilityType": null,
-        "wasteCode": null,
-        "phaseState": null
+        "wasteCode": null
       }
     },
     {
@@ -2254,8 +2203,7 @@
         ],
         "rCode": null,
         "facilityType": null,
-        "wasteCode": null,
-        "phaseState": null
+        "wasteCode": null
       }
     },
     {
@@ -2293,8 +2241,7 @@
         },
         "wasteCode": [
           "51-08"
-        ],
-        "phaseState": null
+        ]
       }
     },
     {
@@ -2319,8 +2266,7 @@
         "facilityType": null,
         "wasteCode": [
           "51-08"
-        ],
-        "phaseState": null
+        ]
       }
     },
     {
@@ -2345,8 +2291,7 @@
         "facilityType": null,
         "wasteCode": [
           "51-08"
-        ],
-        "phaseState": null
+        ]
       }
     },
     {
@@ -2372,7 +2317,9 @@
         "wasteCode": [
           "51-08"
         ],
-        "phaseState": "solid"
+        "physicalState": [
+          "S"
+        ]
       }
     },
     {
@@ -2408,7 +2355,9 @@
           "51-01",
           "51-02"
         ],
-        "phaseState": "solid"
+        "physicalState": [
+          "S"
+        ]
       }
     },
     {
@@ -2436,7 +2385,9 @@
           "51-01",
           "51-02"
         ],
-        "phaseState": "solid"
+        "physicalState": [
+          "S"
+        ]
       }
     },
     {
@@ -2463,8 +2414,7 @@
           "01-02",
           "51-01",
           "51-02"
-        ],
-        "phaseState": null
+        ]
       }
     },
     {
@@ -2491,8 +2441,7 @@
           "01-02",
           "51-01",
           "51-02"
-        ],
-        "phaseState": null
+        ]
       }
     },
     {
@@ -2519,8 +2468,7 @@
           "01-02",
           "51-01",
           "51-02"
-        ],
-        "phaseState": null
+        ]
       }
     },
     {
@@ -2547,8 +2495,7 @@
           "01-02",
           "51-01",
           "51-02"
-        ],
-        "phaseState": null
+        ]
       }
     },
     {
@@ -2586,8 +2533,7 @@
         },
         "wasteCode": [
           "51-02"
-        ],
-        "phaseState": null
+        ]
       }
     },
     {
@@ -2612,8 +2558,7 @@
         "facilityType": null,
         "wasteCode": [
           "51-02"
-        ],
-        "phaseState": null
+        ]
       }
     },
     {
@@ -2638,8 +2583,7 @@
         "facilityType": null,
         "wasteCode": [
           "51-02"
-        ],
-        "phaseState": null
+        ]
       }
     },
     {
@@ -2677,8 +2621,7 @@
           "51-20",
           "51-21",
           "51-28"
-        ],
-        "phaseState": null
+        ]
       }
     },
     {
@@ -2705,8 +2648,7 @@
           "01-02",
           "51-01",
           "51-02"
-        ],
-        "phaseState": null
+        ]
       }
     },
     {
@@ -2733,8 +2675,7 @@
           "01-02",
           "51-01",
           "51-02"
-        ],
-        "phaseState": null
+        ]
       }
     },
     {
@@ -2780,8 +2721,7 @@
         },
         "wasteCode": [
           "51-05"
-        ],
-        "phaseState": null
+        ]
       }
     },
     {
@@ -2827,8 +2767,7 @@
           "51-08",
           "51-09",
           "51-13"
-        ],
-        "phaseState": null
+        ]
       }
     },
     {
@@ -2858,8 +2797,7 @@
         },
         "wasteCode": [
           "51-05"
-        ],
-        "phaseState": null
+        ]
       }
     },
     {
@@ -2884,8 +2822,7 @@
         "facilityType": null,
         "wasteCode": [
           "51-05"
-        ],
-        "phaseState": null
+        ]
       }
     },
     {
@@ -2911,7 +2848,9 @@
         "wasteCode": [
           "51-05"
         ],
-        "phaseState": "solid"
+        "physicalState": [
+          "S"
+        ]
       }
     },
     {
@@ -2948,8 +2887,7 @@
         "wasteCode": [
           "51-10",
           "51-11"
-        ],
-        "phaseState": null
+        ]
       }
     },
     {
@@ -2975,8 +2913,7 @@
         "wasteCode": [
           "51-10",
           "51-11"
-        ],
-        "phaseState": null
+        ]
       }
     },
     {
@@ -3002,8 +2939,7 @@
         "wasteCode": [
           "51-10",
           "51-11"
-        ],
-        "phaseState": null
+        ]
       }
     },
     {
@@ -3033,8 +2969,7 @@
         },
         "wasteCode": [
           "51-03"
-        ],
-        "phaseState": null
+        ]
       }
     },
     {
@@ -3064,8 +2999,7 @@
         },
         "wasteCode": [
           "51-03"
-        ],
-        "phaseState": null
+        ]
       }
     },
     {
@@ -3090,8 +3024,7 @@
         "facilityType": null,
         "wasteCode": [
           "51-03"
-        ],
-        "phaseState": null
+        ]
       }
     },
     {
@@ -3116,8 +3049,7 @@
         "facilityType": null,
         "wasteCode": [
           "51-03"
-        ],
-        "phaseState": null
+        ]
       }
     },
     {
@@ -3142,8 +3074,7 @@
         "facilityType": null,
         "wasteCode": [
           "51-03"
-        ],
-        "phaseState": null
+        ]
       }
     },
     {
@@ -3176,8 +3107,7 @@
         },
         "wasteCode": [
           "51-18"
-        ],
-        "phaseState": null
+        ]
       }
     },
     {
@@ -3202,8 +3132,7 @@
         "facilityType": null,
         "wasteCode": [
           "51-18"
-        ],
-        "phaseState": null
+        ]
       }
     },
     {
@@ -3228,8 +3157,7 @@
         "facilityType": null,
         "wasteCode": [
           "51-18"
-        ],
-        "phaseState": null
+        ]
       }
     },
     {
@@ -3254,8 +3182,7 @@
         "facilityType": null,
         "wasteCode": [
           "51-18"
-        ],
-        "phaseState": null
+        ]
       }
     },
     {
@@ -3285,8 +3212,7 @@
         },
         "wasteCode": [
           "51-18"
-        ],
-        "phaseState": null
+        ]
       }
     },
     {
@@ -3313,8 +3239,7 @@
           "01-02",
           "51-01",
           "51-02"
-        ],
-        "phaseState": null
+        ]
       }
     },
     {
@@ -3344,8 +3269,7 @@
         },
         "wasteCode": [
           "51-06"
-        ],
-        "phaseState": null
+        ]
       }
     },
     {
@@ -3370,8 +3294,7 @@
         "facilityType": null,
         "wasteCode": [
           "51-06"
-        ],
-        "phaseState": null
+        ]
       }
     },
     {
@@ -3404,8 +3327,7 @@
         "facilityType": null,
         "wasteCode": [
           "51-37"
-        ],
-        "phaseState": null
+        ]
       }
     },
     {
@@ -3430,8 +3352,7 @@
         "facilityType": null,
         "wasteCode": [
           "51-37"
-        ],
-        "phaseState": null
+        ]
       }
     },
     {
@@ -3456,8 +3377,7 @@
         "facilityType": null,
         "wasteCode": [
           "51-37"
-        ],
-        "phaseState": null
+        ]
       }
     },
     {
@@ -3482,8 +3402,7 @@
         "facilityType": null,
         "wasteCode": [
           "51-37"
-        ],
-        "phaseState": null
+        ]
       }
     },
     {
@@ -3508,8 +3427,7 @@
         "facilityType": null,
         "wasteCode": [
           "51-37"
-        ],
-        "phaseState": null
+        ]
       }
     },
     {
@@ -3534,8 +3452,7 @@
         "facilityType": null,
         "wasteCode": [
           "51-37"
-        ],
-        "phaseState": null
+        ]
       }
     },
     {
@@ -3566,7 +3483,9 @@
         "wasteCode": [
           "51-10"
         ],
-        "phaseState": "liquid"
+        "physicalState": [
+          "L"
+        ]
       }
     },
     {
@@ -3592,8 +3511,7 @@
         "wasteCode": [
           "51-38",
           "91-02"
-        ],
-        "phaseState": null
+        ]
       }
     },
     {
@@ -3619,8 +3537,7 @@
         "wasteCode": [
           "51-38",
           "91-02"
-        ],
-        "phaseState": null
+        ]
       }
     },
     {
@@ -3646,8 +3563,7 @@
         "wasteCode": [
           "51-38",
           "91-02"
-        ],
-        "phaseState": null
+        ]
       }
     },
     {
@@ -3674,7 +3590,9 @@
           "51-38",
           "91-02"
         ],
-        "phaseState": "solid"
+        "physicalState": [
+          "S"
+        ]
       }
     },
     {
@@ -3701,7 +3619,9 @@
           "51-38",
           "91-02"
         ],
-        "phaseState": "liquid"
+        "physicalState": [
+          "L"
+        ]
       }
     },
     {
@@ -3728,7 +3648,9 @@
           "51-38",
           "91-02"
         ],
-        "phaseState": "liquid"
+        "physicalState": [
+          "L"
+        ]
       }
     },
     {
@@ -3754,8 +3676,7 @@
         "wasteCode": [
           "51-38",
           "91-02"
-        ],
-        "phaseState": null
+        ]
       }
     },
     {
@@ -3781,8 +3702,7 @@
         "wasteCode": [
           "51-38",
           "91-02"
-        ],
-        "phaseState": null
+        ]
       }
     },
     {
@@ -3808,8 +3728,7 @@
         "wasteCode": [
           "51-38",
           "91-02"
-        ],
-        "phaseState": null
+        ]
       }
     },
     {
@@ -3835,8 +3754,7 @@
         "wasteCode": [
           "51-38",
           "91-02"
-        ],
-        "phaseState": null
+        ]
       }
     },
     {
@@ -3862,8 +3780,7 @@
         "wasteCode": [
           "51-38",
           "91-02"
-        ],
-        "phaseState": null
+        ]
       }
     },
     {
@@ -3889,8 +3806,7 @@
         "wasteCode": [
           "51-38",
           "91-02"
-        ],
-        "phaseState": null
+        ]
       }
     },
     {
@@ -3920,8 +3836,7 @@
         },
         "wasteCode": [
           "51-26"
-        ],
-        "phaseState": null
+        ]
       }
     },
     {
@@ -3947,8 +3862,7 @@
         "wasteCode": [
           "51-38",
           "91-02"
-        ],
-        "phaseState": null
+        ]
       }
     },
     {
@@ -4002,8 +3916,7 @@
           "01-07",
           "01-09",
           "51-05"
-        ],
-        "phaseState": null
+        ]
       }
     },
     {
@@ -4027,7 +3940,6 @@
         "rCode": null,
         "facilityType": null,
         "wasteCode": null,
-        "phaseState": "liquid",
         "physicalState": [
           "L"
         ]
@@ -4053,8 +3965,7 @@
         ],
         "rCode": null,
         "facilityType": null,
-        "wasteCode": null,
-        "phaseState": null
+        "wasteCode": null
       },
       "slots": [
         {
@@ -4099,7 +4010,6 @@
         "rCode": null,
         "facilityType": null,
         "wasteCode": null,
-        "phaseState": "solid",
         "physicalState": [
           "S"
         ]
@@ -4136,7 +4046,6 @@
         "rCode": null,
         "facilityType": null,
         "wasteCode": null,
-        "phaseState": "liquid",
         "physicalState": [
           "L"
         ]
@@ -4172,8 +4081,7 @@
         ],
         "rCode": null,
         "facilityType": null,
-        "wasteCode": null,
-        "phaseState": null
+        "wasteCode": null
       }
     },
     {
@@ -4196,8 +4104,7 @@
         ],
         "rCode": null,
         "facilityType": null,
-        "wasteCode": null,
-        "phaseState": null
+        "wasteCode": null
       }
     },
     {
@@ -4222,8 +4129,7 @@
         "facilityType": null,
         "wasteCode": [
           "01-09"
-        ],
-        "phaseState": null
+        ]
       }
     },
     {
@@ -4253,8 +4159,7 @@
         },
         "wasteCode": [
           "01-09"
-        ],
-        "phaseState": null
+        ]
       }
     },
     {
@@ -4279,8 +4184,7 @@
         "facilityType": null,
         "wasteCode": [
           "01-09"
-        ],
-        "phaseState": null
+        ]
       }
     },
     {
@@ -4303,8 +4207,7 @@
         ],
         "rCode": null,
         "facilityType": null,
-        "wasteCode": null,
-        "phaseState": null
+        "wasteCode": null
       },
       "slots": [
         {
@@ -4337,8 +4240,7 @@
         ],
         "rCode": null,
         "facilityType": null,
-        "wasteCode": null,
-        "phaseState": null
+        "wasteCode": null
       }
     },
     {
@@ -4361,8 +4263,7 @@
         ],
         "rCode": null,
         "facilityType": null,
-        "wasteCode": null,
-        "phaseState": null
+        "wasteCode": null
       }
     },
     {
@@ -4392,8 +4293,7 @@
         },
         "wasteCode": [
           "01-09"
-        ],
-        "phaseState": null
+        ]
       }
     },
     {
@@ -4423,8 +4323,7 @@
         },
         "wasteCode": [
           "01-09"
-        ],
-        "phaseState": null
+        ]
       }
     },
     {
@@ -4449,8 +4348,7 @@
         "facilityType": null,
         "wasteCode": [
           "01-09"
-        ],
-        "phaseState": null
+        ]
       }
     },
     {
@@ -4480,8 +4378,7 @@
         },
         "wasteCode": [
           "01-09"
-        ],
-        "phaseState": null
+        ]
       }
     },
     {
@@ -4511,8 +4408,7 @@
         },
         "wasteCode": [
           "01-09"
-        ],
-        "phaseState": null
+        ]
       }
     },
     {
@@ -4542,8 +4438,7 @@
         },
         "wasteCode": [
           "01-09"
-        ],
-        "phaseState": "mixed"
+        ]
       }
     },
     {
@@ -4573,8 +4468,7 @@
         },
         "wasteCode": [
           "01-09"
-        ],
-        "phaseState": null
+        ]
       }
     },
     {
@@ -4601,8 +4495,7 @@
           "11-01",
           "11-02-00",
           "11-03-00"
-        ],
-        "phaseState": null
+        ]
       }
     },
     {
@@ -4627,8 +4520,7 @@
         "facilityType": null,
         "wasteCode": [
           "11-01"
-        ],
-        "phaseState": null
+        ]
       }
     },
     {
@@ -4653,8 +4545,7 @@
         "facilityType": null,
         "wasteCode": [
           "11-02-00"
-        ],
-        "phaseState": null
+        ]
       }
     },
     {
@@ -4679,8 +4570,7 @@
         "facilityType": null,
         "wasteCode": [
           "11-03-00"
-        ],
-        "phaseState": null
+        ]
       }
     },
     {
@@ -4705,8 +4595,7 @@
         "facilityType": null,
         "wasteCode": [
           "12-00-00"
-        ],
-        "phaseState": null
+        ]
       }
     },
     {
@@ -4731,8 +4620,7 @@
         "facilityType": null,
         "wasteCode": [
           "12-00-00"
-        ],
-        "phaseState": null
+        ]
       }
     },
     {
@@ -4757,8 +4645,7 @@
         "facilityType": null,
         "wasteCode": [
           "12-00-00"
-        ],
-        "phaseState": null
+        ]
       }
     },
     {
@@ -4783,8 +4670,7 @@
         "facilityType": null,
         "wasteCode": [
           "12-00-00"
-        ],
-        "phaseState": null
+        ]
       }
     },
     {
@@ -4826,8 +4712,7 @@
         "facilityType": null,
         "wasteCode": [
           "12-00-00"
-        ],
-        "phaseState": null
+        ]
       }
     },
     {
@@ -4855,8 +4740,7 @@
         ],
         "rCode": null,
         "facilityType": null,
-        "wasteCode": null,
-        "phaseState": null
+        "wasteCode": null
       }
     },
     {
@@ -4883,8 +4767,7 @@
         },
         "wasteCode": [
           "01-04"
-        ],
-        "phaseState": null
+        ]
       }
     },
     {
@@ -4911,8 +4794,7 @@
         },
         "wasteCode": [
           "01-07"
-        ],
-        "phaseState": null
+        ]
       }
     },
     {
@@ -4939,8 +4821,7 @@
         },
         "wasteCode": [
           "01-07"
-        ],
-        "phaseState": null
+        ]
       }
     },
     {
@@ -4968,7 +4849,9 @@
         "wasteCode": [
           "01-07"
         ],
-        "phaseState": "solid"
+        "physicalState": [
+          "S"
+        ]
       }
     },
     {
@@ -4988,8 +4871,7 @@
         ],
         "rCode": null,
         "facilityType": null,
-        "wasteCode": null,
-        "phaseState": null
+        "wasteCode": null
       }
     },
     {
@@ -5009,8 +4891,7 @@
         ],
         "rCode": null,
         "facilityType": null,
-        "wasteCode": null,
-        "phaseState": null
+        "wasteCode": null
       }
     },
     {
@@ -5030,8 +4911,7 @@
         ],
         "rCode": null,
         "facilityType": null,
-        "wasteCode": null,
-        "phaseState": null
+        "wasteCode": null
       }
     },
     {
@@ -5051,8 +4931,7 @@
         ],
         "rCode": null,
         "facilityType": null,
-        "wasteCode": null,
-        "phaseState": null
+        "wasteCode": null
       }
     },
     {
@@ -5072,8 +4951,7 @@
         ],
         "rCode": null,
         "facilityType": null,
-        "wasteCode": null,
-        "phaseState": null
+        "wasteCode": null
       }
     },
     {
@@ -5129,8 +5007,7 @@
           "01-09",
           "51-01",
           "01-06"
-        ],
-        "phaseState": null
+        ]
       }
     },
     {
@@ -5150,8 +5027,7 @@
         ],
         "rCode": null,
         "facilityType": null,
-        "wasteCode": null,
-        "phaseState": null
+        "wasteCode": null
       }
     },
     {
@@ -5176,8 +5052,7 @@
           "08-02-00",
           "08-03-00",
           "08-04-00"
-        ],
-        "phaseState": null
+        ]
       }
     },
     {
@@ -5202,8 +5077,7 @@
           "08-02-00",
           "08-03-00",
           "08-04-00"
-        ],
-        "phaseState": null
+        ]
       }
     },
     {
@@ -5223,8 +5097,7 @@
         ],
         "rCode": null,
         "facilityType": null,
-        "wasteCode": null,
-        "phaseState": null
+        "wasteCode": null
       }
     },
     {
@@ -5244,8 +5117,7 @@
         ],
         "rCode": null,
         "facilityType": null,
-        "wasteCode": null,
-        "phaseState": null
+        "wasteCode": null
       }
     },
     {
@@ -5265,8 +5137,7 @@
         ],
         "rCode": null,
         "facilityType": null,
-        "wasteCode": null,
-        "phaseState": null
+        "wasteCode": null
       }
     },
     {
@@ -5286,8 +5157,7 @@
         ],
         "rCode": null,
         "facilityType": null,
-        "wasteCode": null,
-        "phaseState": null
+        "wasteCode": null
       }
     },
     {
@@ -5336,8 +5206,7 @@
         },
         "wasteCode": [
           "01-09"
-        ],
-        "phaseState": null
+        ]
       }
     },
     {
@@ -5364,8 +5233,7 @@
         },
         "wasteCode": [
           "01-09"
-        ],
-        "phaseState": null
+        ]
       }
     },
     {
@@ -5392,8 +5260,7 @@
         },
         "wasteCode": [
           "01-09"
-        ],
-        "phaseState": null
+        ]
       }
     },
     {
@@ -5420,8 +5287,7 @@
         },
         "wasteCode": [
           "01-09"
-        ],
-        "phaseState": null
+        ]
       }
     },
     {
@@ -5441,8 +5307,7 @@
         ],
         "rCode": null,
         "facilityType": null,
-        "wasteCode": null,
-        "phaseState": null
+        "wasteCode": null
       }
     },
     {
@@ -5469,8 +5334,7 @@
         },
         "wasteCode": [
           "01-09"
-        ],
-        "phaseState": null
+        ]
       }
     },
     {
@@ -5494,8 +5358,7 @@
           "11-01",
           "11-02-00",
           "11-03-00"
-        ],
-        "phaseState": null
+        ]
       }
     },
     {
@@ -5518,8 +5381,7 @@
         "wasteCode": [
           "11-01",
           "11-03-00"
-        ],
-        "phaseState": null
+        ]
       }
     },
     {
@@ -5541,8 +5403,7 @@
         "facilityType": null,
         "wasteCode": [
           "11-02-00"
-        ],
-        "phaseState": null
+        ]
       }
     },
     {
@@ -5580,8 +5441,7 @@
         "facilityType": null,
         "wasteCode": [
           "12-00-00"
-        ],
-        "phaseState": null
+        ]
       }
     },
     {
@@ -5603,8 +5463,7 @@
         "facilityType": null,
         "wasteCode": [
           "12-00-00"
-        ],
-        "phaseState": null
+        ]
       }
     },
     {
@@ -5626,8 +5485,7 @@
         "facilityType": null,
         "wasteCode": [
           "12-00-00"
-        ],
-        "phaseState": null
+        ]
       }
     },
     {
@@ -5649,8 +5507,7 @@
         "facilityType": null,
         "wasteCode": [
           "12-00-00"
-        ],
-        "phaseState": null
+        ]
       }
     },
     {
@@ -5672,8 +5529,7 @@
         "facilityType": null,
         "wasteCode": [
           "12-00-00"
-        ],
-        "phaseState": null
+        ]
       }
     },
     {
@@ -5695,8 +5551,7 @@
         "facilityType": null,
         "wasteCode": [
           "12-00-00"
-        ],
-        "phaseState": null
+        ]
       }
     },
     {
@@ -5734,8 +5589,7 @@
         ],
         "rCode": null,
         "facilityType": null,
-        "wasteCode": null,
-        "phaseState": null
+        "wasteCode": null
       }
     },
     {
@@ -5758,7 +5612,9 @@
         "rCode": null,
         "facilityType": null,
         "wasteCode": null,
-        "phaseState": "solid"
+        "physicalState": [
+          "S"
+        ]
       }
     },
     {
@@ -5794,8 +5650,7 @@
         "wasteCode": [
           "01-09",
           "01-02"
-        ],
-        "phaseState": null
+        ]
       }
     },
     {
@@ -5817,8 +5672,7 @@
         ],
         "rCode": null,
         "facilityType": null,
-        "wasteCode": null,
-        "phaseState": null
+        "wasteCode": null
       }
     },
     {
@@ -5840,8 +5694,7 @@
         ],
         "rCode": null,
         "facilityType": null,
-        "wasteCode": null,
-        "phaseState": null
+        "wasteCode": null
       }
     },
     {
@@ -5884,8 +5737,7 @@
           "01-09",
           "01-04",
           "01-02"
-        ],
-        "phaseState": null
+        ]
       }
     },
     {
@@ -5907,8 +5759,7 @@
         ],
         "rCode": null,
         "facilityType": null,
-        "wasteCode": null,
-        "phaseState": null
+        "wasteCode": null
       }
     },
     {
@@ -5937,8 +5788,7 @@
         },
         "wasteCode": [
           "01-02"
-        ],
-        "phaseState": null
+        ]
       }
     },
     {
@@ -5960,8 +5810,7 @@
         ],
         "rCode": null,
         "facilityType": null,
-        "wasteCode": null,
-        "phaseState": "mixed"
+        "wasteCode": null
       }
     },
     {
@@ -5983,8 +5832,7 @@
         ],
         "rCode": null,
         "facilityType": null,
-        "wasteCode": null,
-        "phaseState": null
+        "wasteCode": null
       }
     },
     {
@@ -6006,8 +5854,7 @@
         ],
         "rCode": null,
         "facilityType": null,
-        "wasteCode": null,
-        "phaseState": null
+        "wasteCode": null
       }
     },
     {
@@ -6029,8 +5876,7 @@
         ],
         "rCode": null,
         "facilityType": null,
-        "wasteCode": null,
-        "phaseState": null
+        "wasteCode": null
       }
     },
     {
@@ -6053,7 +5899,9 @@
         "rCode": null,
         "facilityType": null,
         "wasteCode": null,
-        "phaseState": "solid"
+        "physicalState": [
+          "S"
+        ]
       }
     },
     {
@@ -6094,7 +5942,9 @@
           "01-02",
           "01-06"
         ],
-        "phaseState": "liquid"
+        "physicalState": [
+          "L"
+        ]
       }
     },
     {
@@ -6125,7 +5975,9 @@
         "rCode": null,
         "facilityType": null,
         "wasteCode": null,
-        "phaseState": "liquid"
+        "physicalState": [
+          "L"
+        ]
       }
     },
     {
@@ -6147,8 +5999,7 @@
         ],
         "rCode": null,
         "facilityType": null,
-        "wasteCode": null,
-        "phaseState": null
+        "wasteCode": null
       }
     },
     {
@@ -6170,8 +6021,7 @@
         ],
         "rCode": null,
         "facilityType": null,
-        "wasteCode": null,
-        "phaseState": null
+        "wasteCode": null
       }
     },
     {
@@ -6193,8 +6043,7 @@
         ],
         "rCode": null,
         "facilityType": null,
-        "wasteCode": null,
-        "phaseState": null
+        "wasteCode": null
       }
     },
     {
@@ -6216,8 +6065,7 @@
         ],
         "rCode": null,
         "facilityType": null,
-        "wasteCode": null,
-        "phaseState": null
+        "wasteCode": null
       }
     },
     {
@@ -6239,8 +6087,7 @@
         ],
         "rCode": null,
         "facilityType": null,
-        "wasteCode": null,
-        "phaseState": null
+        "wasteCode": null
       }
     },
     {
@@ -6271,7 +6118,9 @@
         "rCode": null,
         "facilityType": null,
         "wasteCode": null,
-        "phaseState": "solid"
+        "physicalState": [
+          "S"
+        ]
       }
     },
     {
@@ -6293,8 +6142,7 @@
         ],
         "rCode": null,
         "facilityType": null,
-        "wasteCode": null,
-        "phaseState": null
+        "wasteCode": null
       }
     },
     {
@@ -6351,8 +6199,7 @@
         "wasteCode": [
           "04-01",
           "04-02"
-        ],
-        "phaseState": null
+        ]
       }
     },
     {
@@ -6377,8 +6224,7 @@
         "wasteCode": [
           "04-01",
           "04-02"
-        ],
-        "phaseState": null
+        ]
       }
     },
     {
@@ -6404,7 +6250,9 @@
           "04-01",
           "04-02"
         ],
-        "phaseState": "liquid"
+        "physicalState": [
+          "L"
+        ]
       }
     },
     {
@@ -6429,8 +6277,7 @@
         "wasteCode": [
           "04-01",
           "04-02"
-        ],
-        "phaseState": null
+        ]
       }
     },
     {
@@ -6455,8 +6302,7 @@
         "wasteCode": [
           "04-01",
           "04-02"
-        ],
-        "phaseState": null
+        ]
       }
     },
     {
@@ -6481,8 +6327,7 @@
         "wasteCode": [
           "04-01",
           "04-02"
-        ],
-        "phaseState": null
+        ]
       }
     },
     {
@@ -6507,8 +6352,7 @@
         "wasteCode": [
           "04-01",
           "04-02"
-        ],
-        "phaseState": null
+        ]
       }
     },
     {
@@ -6534,7 +6378,9 @@
           "04-01",
           "04-02"
         ],
-        "phaseState": "solid"
+        "physicalState": [
+          "S"
+        ]
       }
     },
     {
@@ -6560,7 +6406,9 @@
           "04-01",
           "04-02"
         ],
-        "phaseState": "liquid"
+        "physicalState": [
+          "L"
+        ]
       }
     },
     {
@@ -6585,8 +6433,7 @@
         "wasteCode": [
           "04-01",
           "04-02"
-        ],
-        "phaseState": null
+        ]
       }
     },
     {
@@ -6611,8 +6458,7 @@
         "wasteCode": [
           "04-01",
           "04-02"
-        ],
-        "phaseState": null
+        ]
       }
     },
     {
@@ -6637,8 +6483,7 @@
         "wasteCode": [
           "04-01",
           "04-02"
-        ],
-        "phaseState": null
+        ]
       }
     },
     {
@@ -6663,8 +6508,7 @@
         "wasteCode": [
           "04-01",
           "04-02"
-        ],
-        "phaseState": null
+        ]
       }
     },
     {
@@ -6706,7 +6550,9 @@
           "04-01",
           "04-02"
         ],
-        "phaseState": "solid"
+        "physicalState": [
+          "S"
+        ]
       }
     },
     {
@@ -6731,8 +6577,7 @@
         "wasteCode": [
           "04-01",
           "04-02"
-        ],
-        "phaseState": null
+        ]
       }
     },
     {
@@ -6758,8 +6603,7 @@
           "05-01",
           "05-02",
           "05-03"
-        ],
-        "phaseState": null
+        ]
       }
     },
     {
@@ -6785,8 +6629,7 @@
           "05-01",
           "05-02",
           "05-03"
-        ],
-        "phaseState": null
+        ]
       }
     },
     {
@@ -6832,7 +6675,9 @@
         "wasteCode": [
           "51-05"
         ],
-        "phaseState": "solid"
+        "physicalState": [
+          "S"
+        ]
       }
     },
     {
@@ -6862,7 +6707,9 @@
         "wasteCode": [
           "51-05"
         ],
-        "phaseState": "solid"
+        "physicalState": [
+          "S"
+        ]
       }
     },
     {
@@ -6886,8 +6733,7 @@
         "facilityType": null,
         "wasteCode": [
           "07-01"
-        ],
-        "phaseState": null
+        ]
       }
     },
     {
@@ -6932,8 +6778,7 @@
         "facilityType": null,
         "wasteCode": [
           "07-01"
-        ],
-        "phaseState": null
+        ]
       }
     },
     {
@@ -6955,8 +6800,7 @@
         ],
         "rCode": null,
         "facilityType": null,
-        "wasteCode": null,
-        "phaseState": null
+        "wasteCode": null
       }
     },
     {
@@ -6978,8 +6822,7 @@
         ],
         "rCode": null,
         "facilityType": null,
-        "wasteCode": null,
-        "phaseState": null
+        "wasteCode": null
       }
     },
     {
@@ -7020,8 +6863,7 @@
           "51-17",
           "51-13",
           "51-26"
-        ],
-        "phaseState": null
+        ]
       }
     },
     {
@@ -7046,7 +6888,9 @@
         "wasteCode": [
           "07-01"
         ],
-        "phaseState": "solid"
+        "physicalState": [
+          "S"
+        ]
       }
     },
     {
@@ -7083,8 +6927,7 @@
         },
         "wasteCode": [
           "01-03"
-        ],
-        "phaseState": null
+        ]
       }
     },
     {
@@ -7106,8 +6949,7 @@
         ],
         "rCode": null,
         "facilityType": null,
-        "wasteCode": null,
-        "phaseState": null
+        "wasteCode": null
       }
     },
     {
@@ -7129,8 +6971,7 @@
         ],
         "rCode": null,
         "facilityType": null,
-        "wasteCode": null,
-        "phaseState": null
+        "wasteCode": null
       }
     },
     {
@@ -7153,7 +6994,9 @@
         "rCode": null,
         "facilityType": null,
         "wasteCode": null,
-        "phaseState": "solid"
+        "physicalState": [
+          "S"
+        ]
       }
     },
     {
@@ -7175,8 +7018,7 @@
         ],
         "rCode": null,
         "facilityType": null,
-        "wasteCode": null,
-        "phaseState": null
+        "wasteCode": null
       }
     },
     {
@@ -7200,8 +7042,7 @@
         "facilityType": null,
         "wasteCode": [
           "07-01"
-        ],
-        "phaseState": null
+        ]
       }
     },
     {
@@ -7223,8 +7064,7 @@
         ],
         "rCode": null,
         "facilityType": null,
-        "wasteCode": null,
-        "phaseState": null
+        "wasteCode": null
       }
     },
     {
@@ -7246,8 +7086,7 @@
         ],
         "rCode": null,
         "facilityType": null,
-        "wasteCode": null,
-        "phaseState": null
+        "wasteCode": null
       }
     },
     {
@@ -7270,7 +7109,9 @@
         "rCode": null,
         "facilityType": null,
         "wasteCode": null,
-        "phaseState": "solid"
+        "physicalState": [
+          "S"
+        ]
       }
     },
     {
@@ -7307,8 +7148,7 @@
         },
         "wasteCode": [
           "51-22"
-        ],
-        "phaseState": null
+        ]
       }
     },
     {
@@ -7333,8 +7173,7 @@
         "wasteCode": [
           "03-05",
           "51-08"
-        ],
-        "phaseState": null
+        ]
       }
     },
     {
@@ -7359,8 +7198,7 @@
         "wasteCode": [
           "03-05",
           "51-08"
-        ],
-        "phaseState": null
+        ]
       }
     },
     {
@@ -7386,7 +7224,9 @@
           "03-05",
           "51-08"
         ],
-        "phaseState": "solid"
+        "physicalState": [
+          "S"
+        ]
       }
     },
     {
@@ -7415,8 +7255,7 @@
         },
         "wasteCode": [
           "51-22"
-        ],
-        "phaseState": null
+        ]
       }
     },
     {
@@ -7441,8 +7280,7 @@
         "wasteCode": [
           "03-05",
           "51-08"
-        ],
-        "phaseState": null
+        ]
       }
     },
     {
@@ -7471,8 +7309,7 @@
         },
         "wasteCode": [
           "51-22"
-        ],
-        "phaseState": null
+        ]
       }
     },
     {
@@ -7501,8 +7338,7 @@
         },
         "wasteCode": [
           "51-22"
-        ],
-        "phaseState": null
+        ]
       }
     },
     {
@@ -7527,8 +7363,7 @@
         "wasteCode": [
           "03-05",
           "51-08"
-        ],
-        "phaseState": "mixed"
+        ]
       }
     },
     {
@@ -7553,8 +7388,7 @@
         "wasteCode": [
           "03-05",
           "51-08"
-        ],
-        "phaseState": null
+        ]
       }
     },
     {
@@ -7579,8 +7413,7 @@
         "wasteCode": [
           "03-05",
           "51-08"
-        ],
-        "phaseState": null
+        ]
       }
     },
     {
@@ -7605,8 +7438,7 @@
         "wasteCode": [
           "03-05",
           "51-08"
-        ],
-        "phaseState": null
+        ]
       }
     },
     {
@@ -7632,7 +7464,9 @@
           "03-05",
           "51-08"
         ],
-        "phaseState": "solid"
+        "physicalState": [
+          "S"
+        ]
       }
     },
     {
@@ -7657,8 +7491,7 @@
         "wasteCode": [
           "03-05",
           "51-08"
-        ],
-        "phaseState": null
+        ]
       }
     },
     {
@@ -7683,8 +7516,7 @@
         "wasteCode": [
           "03-05",
           "51-08"
-        ],
-        "phaseState": null
+        ]
       }
     },
     {
@@ -7714,7 +7546,9 @@
         "wasteCode": [
           "51-01"
         ],
-        "phaseState": "solid"
+        "physicalState": [
+          "S"
+        ]
       }
     },
     {
@@ -7739,8 +7573,7 @@
         "wasteCode": [
           "03-05",
           "51-08"
-        ],
-        "phaseState": null
+        ]
       }
     },
     {
@@ -7766,7 +7599,9 @@
           "03-05",
           "51-08"
         ],
-        "phaseState": "solid"
+        "physicalState": [
+          "S"
+        ]
       }
     },
     {
@@ -7791,8 +7626,7 @@
         "wasteCode": [
           "03-05",
           "51-08"
-        ],
-        "phaseState": null
+        ]
       }
     },
     {
@@ -7839,7 +7673,9 @@
           "03-05",
           "51-08"
         ],
-        "phaseState": "solid"
+        "physicalState": [
+          "S"
+        ]
       }
     },
     {
@@ -7861,8 +7697,7 @@
         ],
         "rCode": null,
         "facilityType": null,
-        "wasteCode": null,
-        "phaseState": null
+        "wasteCode": null
       }
     },
     {
@@ -7884,8 +7719,7 @@
         ],
         "rCode": null,
         "facilityType": null,
-        "wasteCode": null,
-        "phaseState": null
+        "wasteCode": null
       }
     },
     {
@@ -7907,8 +7741,7 @@
         ],
         "rCode": null,
         "facilityType": null,
-        "wasteCode": null,
-        "phaseState": null
+        "wasteCode": null
       }
     },
     {
@@ -7933,8 +7766,7 @@
         "wasteCode": [
           "03-05",
           "51-08"
-        ],
-        "phaseState": null
+        ]
       }
     },
     {
@@ -7959,8 +7791,7 @@
         "wasteCode": [
           "03-05",
           "51-08"
-        ],
-        "phaseState": null
+        ]
       }
     },
     {
@@ -7985,8 +7816,7 @@
         "wasteCode": [
           "03-05",
           "51-08"
-        ],
-        "phaseState": null
+        ]
       }
     },
     {
@@ -8012,7 +7842,9 @@
           "03-05",
           "51-08"
         ],
-        "phaseState": "solid"
+        "physicalState": [
+          "S"
+        ]
       }
     },
     {
@@ -8037,8 +7869,7 @@
         "wasteCode": [
           "03-05",
           "51-08"
-        ],
-        "phaseState": null
+        ]
       }
     },
     {
@@ -8063,8 +7894,7 @@
         "wasteCode": [
           "03-05",
           "51-08"
-        ],
-        "phaseState": null
+        ]
       }
     },
     {
@@ -8089,8 +7919,7 @@
         "wasteCode": [
           "03-05",
           "51-08"
-        ],
-        "phaseState": null
+        ]
       }
     },
     {
@@ -8123,8 +7952,7 @@
         "wasteCode": [
           "51-12",
           "01-06"
-        ],
-        "phaseState": null
+        ]
       }
     },
     {
@@ -8157,8 +7985,7 @@
         "wasteCode": [
           "51-12",
           "01-06"
-        ],
-        "phaseState": null
+        ]
       }
     },
     {
@@ -8183,8 +8010,7 @@
         "wasteCode": [
           "03-05",
           "51-08"
-        ],
-        "phaseState": null
+        ]
       }
     },
     {
@@ -8209,8 +8035,7 @@
         "wasteCode": [
           "03-05",
           "51-08"
-        ],
-        "phaseState": null
+        ]
       }
     },
     {
@@ -8235,8 +8060,7 @@
         "wasteCode": [
           "03-05",
           "51-08"
-        ],
-        "phaseState": null
+        ]
       }
     },
     {
@@ -8262,7 +8086,9 @@
           "03-05",
           "51-08"
         ],
-        "phaseState": "solid"
+        "physicalState": [
+          "S"
+        ]
       }
     },
     {
@@ -8287,8 +8113,7 @@
         "wasteCode": [
           "03-05",
           "51-08"
-        ],
-        "phaseState": null
+        ]
       }
     },
     {
@@ -8313,8 +8138,7 @@
         "wasteCode": [
           "03-05",
           "51-08"
-        ],
-        "phaseState": null
+        ]
       }
     },
     {
@@ -8339,8 +8163,7 @@
         "wasteCode": [
           "03-05",
           "51-08"
-        ],
-        "phaseState": null
+        ]
       }
     },
     {
@@ -8365,8 +8188,7 @@
         "wasteCode": [
           "03-05",
           "51-08"
-        ],
-        "phaseState": null
+        ]
       }
     },
     {
@@ -8391,8 +8213,7 @@
         "wasteCode": [
           "03-05",
           "51-08"
-        ],
-        "phaseState": null
+        ]
       }
     },
     {
@@ -8417,8 +8238,7 @@
         "wasteCode": [
           "03-05",
           "51-08"
-        ],
-        "phaseState": null
+        ]
       }
     },
     {
@@ -8447,8 +8267,7 @@
         },
         "wasteCode": [
           "51-22"
-        ],
-        "phaseState": null
+        ]
       }
     },
     {
@@ -9004,8 +8823,7 @@
         "facilityType": null,
         "wasteCode": [
           "10-12"
-        ],
-        "phaseState": null
+        ]
       }
     },
     {
@@ -9027,8 +8845,7 @@
         "facilityType": null,
         "wasteCode": [
           "10-12"
-        ],
-        "phaseState": null
+        ]
       }
     },
     {
@@ -9050,8 +8867,7 @@
         "facilityType": null,
         "wasteCode": [
           "10-12"
-        ],
-        "phaseState": null
+        ]
       }
     },
     {
@@ -9073,8 +8889,7 @@
         "facilityType": null,
         "wasteCode": [
           "10-12"
-        ],
-        "phaseState": null
+        ]
       }
     },
     {
@@ -9096,8 +8911,7 @@
         "facilityType": null,
         "wasteCode": [
           "10-12"
-        ],
-        "phaseState": null
+        ]
       }
     },
     {
@@ -9119,8 +8933,7 @@
         "facilityType": null,
         "wasteCode": [
           "10-12"
-        ],
-        "phaseState": null
+        ]
       }
     },
     {
@@ -9142,8 +8955,7 @@
         "facilityType": null,
         "wasteCode": [
           "10-12"
-        ],
-        "phaseState": null
+        ]
       }
     },
     {
@@ -9165,8 +8977,7 @@
         "facilityType": null,
         "wasteCode": [
           "10-12"
-        ],
-        "phaseState": null
+        ]
       }
     },
     {
@@ -9188,8 +8999,7 @@
         "facilityType": null,
         "wasteCode": [
           "10-12"
-        ],
-        "phaseState": null
+        ]
       }
     },
     {
@@ -9211,8 +9021,7 @@
         "facilityType": null,
         "wasteCode": [
           "10-12"
-        ],
-        "phaseState": null
+        ]
       }
     },
     {
@@ -9234,8 +9043,7 @@
         "facilityType": null,
         "wasteCode": [
           "10-12"
-        ],
-        "phaseState": null
+        ]
       }
     },
     {
@@ -9257,8 +9065,7 @@
         "facilityType": null,
         "wasteCode": [
           "10-12"
-        ],
-        "phaseState": null
+        ]
       }
     },
     {
@@ -9280,8 +9087,7 @@
         "facilityType": null,
         "wasteCode": [
           "10-12"
-        ],
-        "phaseState": null
+        ]
       }
     },
     {
@@ -9303,8 +9109,7 @@
         "facilityType": null,
         "wasteCode": [
           "10-12"
-        ],
-        "phaseState": null
+        ]
       }
     },
     {
@@ -9326,8 +9131,7 @@
         "facilityType": null,
         "wasteCode": [
           "10-12"
-        ],
-        "phaseState": null
+        ]
       }
     },
     {
@@ -9349,8 +9153,7 @@
         "facilityType": null,
         "wasteCode": [
           "10-12"
-        ],
-        "phaseState": null
+        ]
       }
     },
     {
@@ -9405,8 +9208,7 @@
         "facilityType": null,
         "wasteCode": [
           "10-12"
-        ],
-        "phaseState": null
+        ]
       }
     },
     {
@@ -9479,8 +9281,7 @@
         "facilityType": null,
         "wasteCode": [
           "10-12"
-        ],
-        "phaseState": null
+        ]
       },
       "slots": [
         {
@@ -9515,8 +9316,7 @@
         "facilityType": null,
         "wasteCode": [
           "10-12"
-        ],
-        "phaseState": null
+        ]
       },
       "slots": [
         {
@@ -9551,8 +9351,7 @@
         "facilityType": null,
         "wasteCode": [
           "10-12"
-        ],
-        "phaseState": null
+        ]
       },
       "slots": [
         {
@@ -9587,8 +9386,7 @@
         "facilityType": null,
         "wasteCode": [
           "10-12"
-        ],
-        "phaseState": null
+        ]
       }
     },
     {
@@ -9613,8 +9411,7 @@
         "facilityType": null,
         "wasteCode": [
           "10-12"
-        ],
-        "phaseState": null
+        ]
       }
     },
     {
@@ -9639,8 +9436,7 @@
         "facilityType": null,
         "wasteCode": [
           "10-12"
-        ],
-        "phaseState": null
+        ]
       }
     },
     {
@@ -9665,8 +9461,7 @@
         "facilityType": null,
         "wasteCode": [
           "10-12"
-        ],
-        "phaseState": null
+        ]
       }
     },
     {
@@ -9698,8 +9493,7 @@
         "facilityType": null,
         "wasteCode": [
           "10-12"
-        ],
-        "phaseState": null
+        ]
       }
     },
     {
@@ -9723,8 +9517,7 @@
         "facilityType": null,
         "wasteCode": [
           "10-12"
-        ],
-        "phaseState": null
+        ]
       }
     },
     {
@@ -9748,8 +9541,7 @@
         "facilityType": null,
         "wasteCode": [
           "10-12"
-        ],
-        "phaseState": null
+        ]
       }
     },
     {
@@ -9773,8 +9565,7 @@
         "facilityType": null,
         "wasteCode": [
           "10-12"
-        ],
-        "phaseState": null
+        ]
       }
     },
     {
@@ -9798,8 +9589,7 @@
         "facilityType": null,
         "wasteCode": [
           "10-12"
-        ],
-        "phaseState": null
+        ]
       }
     },
     {
@@ -9823,8 +9613,7 @@
         "facilityType": null,
         "wasteCode": [
           "10-12"
-        ],
-        "phaseState": null
+        ]
       }
     },
     {
@@ -9848,8 +9637,7 @@
         "facilityType": null,
         "wasteCode": [
           "10-12"
-        ],
-        "phaseState": null
+        ]
       }
     },
     {
@@ -9873,8 +9661,7 @@
         "facilityType": null,
         "wasteCode": [
           "10-12"
-        ],
-        "phaseState": null
+        ]
       }
     },
     {
@@ -9898,8 +9685,7 @@
         "facilityType": null,
         "wasteCode": [
           "10-12"
-        ],
-        "phaseState": null
+        ]
       }
     },
     {
@@ -9923,8 +9709,7 @@
         "facilityType": null,
         "wasteCode": [
           "10-12"
-        ],
-        "phaseState": null
+        ]
       }
     },
     {
@@ -9948,8 +9733,7 @@
         "facilityType": null,
         "wasteCode": [
           "10-12"
-        ],
-        "phaseState": null
+        ]
       }
     },
     {
@@ -9973,8 +9757,7 @@
         "facilityType": null,
         "wasteCode": [
           "10-12"
-        ],
-        "phaseState": null
+        ]
       }
     },
     {
@@ -9998,8 +9781,7 @@
         "facilityType": null,
         "wasteCode": [
           "10-12"
-        ],
-        "phaseState": null
+        ]
       }
     },
     {
@@ -10023,8 +9805,7 @@
         "facilityType": null,
         "wasteCode": [
           "10-12"
-        ],
-        "phaseState": null
+        ]
       }
     },
     {
@@ -10048,8 +9829,7 @@
         "facilityType": null,
         "wasteCode": [
           "10-12"
-        ],
-        "phaseState": null
+        ]
       }
     },
     {
@@ -10073,8 +9853,7 @@
         "facilityType": null,
         "wasteCode": [
           "10-12"
-        ],
-        "phaseState": null
+        ]
       }
     },
     {
@@ -10098,8 +9877,7 @@
         "facilityType": null,
         "wasteCode": [
           "10-12"
-        ],
-        "phaseState": null
+        ]
       }
     },
     {
@@ -10138,8 +9916,7 @@
         ],
         "rCode": null,
         "facilityType": null,
-        "wasteCode": null,
-        "phaseState": null
+        "wasteCode": null
       }
     },
     {
@@ -10162,8 +9939,7 @@
         ],
         "rCode": null,
         "facilityType": null,
-        "wasteCode": null,
-        "phaseState": null
+        "wasteCode": null
       }
     },
     {
@@ -10189,8 +9965,7 @@
         "wasteCode": [
           "51-38",
           "91-02"
-        ],
-        "phaseState": null
+        ]
       }
     },
     {
@@ -10216,8 +9991,7 @@
         "wasteCode": [
           "51-38",
           "91-02"
-        ],
-        "phaseState": null
+        ]
       }
     },
     {
@@ -10240,8 +10014,7 @@
         ],
         "rCode": null,
         "facilityType": null,
-        "wasteCode": null,
-        "phaseState": null
+        "wasteCode": null
       }
     },
     {
@@ -10264,8 +10037,7 @@
         ],
         "rCode": null,
         "facilityType": null,
-        "wasteCode": null,
-        "phaseState": null
+        "wasteCode": null
       }
     },
     {
@@ -10288,8 +10060,7 @@
         ],
         "rCode": null,
         "facilityType": null,
-        "wasteCode": null,
-        "phaseState": null
+        "wasteCode": null
       }
     },
     {
@@ -10312,8 +10083,7 @@
         ],
         "rCode": null,
         "facilityType": null,
-        "wasteCode": null,
-        "phaseState": null
+        "wasteCode": null
       }
     },
     {
@@ -10336,8 +10106,7 @@
         ],
         "rCode": null,
         "facilityType": null,
-        "wasteCode": null,
-        "phaseState": null
+        "wasteCode": null
       }
     },
     {
@@ -10360,8 +10129,7 @@
         ],
         "rCode": null,
         "facilityType": null,
-        "wasteCode": null,
-        "phaseState": null
+        "wasteCode": null
       }
     },
     {
@@ -10384,8 +10152,7 @@
         ],
         "rCode": null,
         "facilityType": null,
-        "wasteCode": null,
-        "phaseState": null
+        "wasteCode": null
       }
     },
     {
@@ -10408,8 +10175,7 @@
         ],
         "rCode": null,
         "facilityType": null,
-        "wasteCode": null,
-        "phaseState": null
+        "wasteCode": null
       }
     },
     {
@@ -10432,8 +10198,7 @@
         ],
         "rCode": null,
         "facilityType": null,
-        "wasteCode": null,
-        "phaseState": null
+        "wasteCode": null
       }
     },
     {
@@ -10456,8 +10221,7 @@
         ],
         "rCode": null,
         "facilityType": null,
-        "wasteCode": null,
-        "phaseState": null
+        "wasteCode": null
       }
     },
     {
@@ -10482,8 +10246,7 @@
         "facilityType": null,
         "wasteCode": [
           "91-09"
-        ],
-        "phaseState": null
+        ]
       }
     },
     {
@@ -10506,8 +10269,7 @@
         ],
         "rCode": null,
         "facilityType": null,
-        "wasteCode": null,
-        "phaseState": null
+        "wasteCode": null
       }
     },
     {
@@ -10530,8 +10292,7 @@
         ],
         "rCode": null,
         "facilityType": null,
-        "wasteCode": null,
-        "phaseState": null
+        "wasteCode": null
       }
     },
     {
@@ -10554,8 +10315,7 @@
         ],
         "rCode": null,
         "facilityType": null,
-        "wasteCode": null,
-        "phaseState": null
+        "wasteCode": null
       }
     },
     {
@@ -10578,8 +10338,7 @@
         ],
         "rCode": null,
         "facilityType": null,
-        "wasteCode": null,
-        "phaseState": null
+        "wasteCode": null
       }
     },
     {
@@ -10602,8 +10361,7 @@
         ],
         "rCode": null,
         "facilityType": null,
-        "wasteCode": null,
-        "phaseState": null
+        "wasteCode": null
       }
     },
     {
@@ -10626,8 +10384,7 @@
         ],
         "rCode": null,
         "facilityType": null,
-        "wasteCode": null,
-        "phaseState": null
+        "wasteCode": null
       }
     },
     {
@@ -10650,8 +10407,7 @@
         ],
         "rCode": null,
         "facilityType": null,
-        "wasteCode": null,
-        "phaseState": null
+        "wasteCode": null
       }
     },
     {
@@ -10674,8 +10430,7 @@
         ],
         "rCode": null,
         "facilityType": null,
-        "wasteCode": null,
-        "phaseState": null
+        "wasteCode": null
       }
     },
     {
@@ -10698,8 +10453,7 @@
         ],
         "rCode": null,
         "facilityType": null,
-        "wasteCode": null,
-        "phaseState": null
+        "wasteCode": null
       }
     },
     {
@@ -10722,8 +10476,7 @@
         ],
         "rCode": null,
         "facilityType": null,
-        "wasteCode": null,
-        "phaseState": null
+        "wasteCode": null
       }
     },
     {
@@ -10753,8 +10506,7 @@
         },
         "wasteCode": [
           "51-20"
-        ],
-        "phaseState": null
+        ]
       }
     },
     {
@@ -10777,8 +10529,7 @@
         ],
         "rCode": null,
         "facilityType": null,
-        "wasteCode": null,
-        "phaseState": null
+        "wasteCode": null
       }
     },
     {
@@ -10801,8 +10552,7 @@
         ],
         "rCode": null,
         "facilityType": null,
-        "wasteCode": null,
-        "phaseState": null
+        "wasteCode": null
       }
     },
     {
@@ -10825,8 +10575,7 @@
         ],
         "rCode": null,
         "facilityType": null,
-        "wasteCode": null,
-        "phaseState": null
+        "wasteCode": null
       }
     },
     {
@@ -10849,8 +10598,7 @@
         ],
         "rCode": null,
         "facilityType": null,
-        "wasteCode": null,
-        "phaseState": null
+        "wasteCode": null
       }
     },
     {
@@ -10873,8 +10621,7 @@
         ],
         "rCode": null,
         "facilityType": null,
-        "wasteCode": null,
-        "phaseState": null
+        "wasteCode": null
       }
     },
     {
@@ -10897,8 +10644,7 @@
         ],
         "rCode": null,
         "facilityType": null,
-        "wasteCode": null,
-        "phaseState": null
+        "wasteCode": null
       }
     },
     {
@@ -10921,8 +10667,7 @@
         ],
         "rCode": null,
         "facilityType": null,
-        "wasteCode": null,
-        "phaseState": null
+        "wasteCode": null
       }
     },
     {
@@ -10945,8 +10690,7 @@
         ],
         "rCode": null,
         "facilityType": null,
-        "wasteCode": null,
-        "phaseState": null
+        "wasteCode": null
       }
     },
     {
@@ -10969,8 +10713,7 @@
         ],
         "rCode": null,
         "facilityType": null,
-        "wasteCode": null,
-        "phaseState": null
+        "wasteCode": null
       }
     },
     {
@@ -10993,8 +10736,7 @@
         ],
         "rCode": null,
         "facilityType": null,
-        "wasteCode": null,
-        "phaseState": null
+        "wasteCode": null
       }
     },
     {
@@ -11017,8 +10759,7 @@
         ],
         "rCode": null,
         "facilityType": null,
-        "wasteCode": null,
-        "phaseState": null
+        "wasteCode": null
       }
     },
     {
@@ -11041,8 +10782,7 @@
         ],
         "rCode": null,
         "facilityType": null,
-        "wasteCode": null,
-        "phaseState": null
+        "wasteCode": null
       }
     },
     {
@@ -11065,8 +10805,7 @@
         ],
         "rCode": null,
         "facilityType": null,
-        "wasteCode": null,
-        "phaseState": null
+        "wasteCode": null
       }
     },
     {
@@ -11089,8 +10828,7 @@
         ],
         "rCode": null,
         "facilityType": null,
-        "wasteCode": null,
-        "phaseState": null
+        "wasteCode": null
       }
     },
     {
@@ -11113,8 +10851,7 @@
         ],
         "rCode": null,
         "facilityType": null,
-        "wasteCode": null,
-        "phaseState": null
+        "wasteCode": null
       }
     },
     {
@@ -11137,8 +10874,7 @@
         ],
         "rCode": null,
         "facilityType": null,
-        "wasteCode": null,
-        "phaseState": null
+        "wasteCode": null
       }
     }
   ]
