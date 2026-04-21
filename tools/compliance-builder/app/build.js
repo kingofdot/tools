@@ -526,7 +526,7 @@ async function exportToWord() {
         // 서브 섹션헤더
         if (inEmptyTopSection) continue;
         if (pendingHeader !== null && !sectionHasItems) {
-          flushPendingHeader(pendingHeader, true);
+          flushPendingHeader(pendingHeader, pendingHeader.depth > 0);
         }
         pendingHeader = item;
         sectionHasItems = false;
@@ -555,7 +555,7 @@ async function exportToWord() {
   }
   // 마지막 서브헤더 마무리
   if (pendingHeader !== null && !sectionHasItems && !inEmptyTopSection) {
-    flushPendingHeader(pendingHeader, true);
+    flushPendingHeader(pendingHeader, pendingHeader.depth > 0);
   }
 
   function buildDataRow(r, isLast) {
