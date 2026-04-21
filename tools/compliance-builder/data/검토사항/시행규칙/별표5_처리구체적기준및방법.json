@@ -234,10 +234,7 @@
           "폐전기전자제품류": [
             "51-18"
           ]
-        },
-        "wasteCode": [
-          "51-18"
-        ]
+        }
       },
       "slots": [
         {
@@ -637,11 +634,7 @@
           "폐농약": [
             "01-09"
           ]
-        },
-        "wasteCode": [
-          "51-10",
-          "01-09"
-        ]
+        }
       }
     },
     {
@@ -719,8 +712,7 @@
           "RTR"
         ],
         "wasteClass": [
-          "GO",
-          "GN"
+          "L"
         ],
         "action": [
           "CT"
@@ -728,8 +720,7 @@
         "rCode": null,
         "facilityType": null,
         "wasteCode": [
-          "51-38",
-          "91-02"
+          "91-02-00"
         ]
       }
     },
@@ -746,8 +737,7 @@
           "RTR"
         ],
         "wasteClass": [
-          "GO",
-          "GN"
+          "L"
         ],
         "action": [
           "CT"
@@ -755,8 +745,7 @@
         "rCode": null,
         "facilityType": null,
         "wasteCode": [
-          "51-38",
-          "91-02"
+          "91-02-00"
         ],
         "physicalState": [
           "L"
@@ -776,8 +765,7 @@
           "RTR"
         ],
         "wasteClass": [
-          "GO",
-          "GN"
+          "L"
         ],
         "action": [
           "CT"
@@ -785,8 +773,7 @@
         "rCode": null,
         "facilityType": null,
         "wasteCode": [
-          "51-38",
-          "91-02"
+          "91-02-00"
         ]
       }
     },
@@ -803,8 +790,7 @@
           "RTR"
         ],
         "wasteClass": [
-          "GO",
-          "GN"
+          "L"
         ],
         "action": [
           "CT"
@@ -812,8 +798,7 @@
         "rCode": null,
         "facilityType": null,
         "wasteCode": [
-          "51-38",
-          "91-02"
+          "91-02-00"
         ]
       }
     },
@@ -830,7 +815,7 @@
           "RTR"
         ],
         "wasteClass": [
-          "GN"
+          "L"
         ],
         "action": [
           "CT"
@@ -838,8 +823,7 @@
         "rCode": null,
         "facilityType": null,
         "wasteCode": [
-          "51-38",
-          "91-02"
+          "91-02-00"
         ]
       }
     },
@@ -861,8 +845,7 @@
         "category": null,
         "bizType": null,
         "wasteClass": [
-          "GO",
-          "GN"
+          "L"
         ],
         "action": [
           "ST"
@@ -870,8 +853,7 @@
         "rCode": null,
         "facilityType": null,
         "wasteCode": [
-          "51-38",
-          "91-02"
+          "91-02-00"
         ]
       }
     },
@@ -885,8 +867,7 @@
         "category": null,
         "bizType": null,
         "wasteClass": [
-          "GO",
-          "GN"
+          "L"
         ],
         "action": [
           "ST"
@@ -894,8 +875,7 @@
         "rCode": null,
         "facilityType": null,
         "wasteCode": [
-          "51-38",
-          "91-02"
+          "91-02-00"
         ]
       }
     },
@@ -948,8 +928,7 @@
         "category": null,
         "bizType": null,
         "wasteClass": [
-          "GO",
-          "GN"
+          "L"
         ],
         "action": [
           "MI",
@@ -959,8 +938,7 @@
         "rCode": null,
         "facilityType": null,
         "wasteCode": [
-          "51-38",
-          "91-02"
+          "91-02-00"
         ]
       }
     },
@@ -1020,8 +998,7 @@
         "category": null,
         "bizType": null,
         "wasteClass": [
-          "GO",
-          "GN"
+          "L"
         ],
         "action": [
           "MI",
@@ -1031,8 +1008,7 @@
         "rCode": null,
         "facilityType": null,
         "wasteCode": [
-          "51-38",
-          "91-02"
+          "91-02-00"
         ]
       }
     },
@@ -1046,8 +1022,7 @@
         "category": null,
         "bizType": null,
         "wasteClass": [
-          "GO",
-          "GN"
+          "L"
         ],
         "action": [
           "MI",
@@ -1057,8 +1032,7 @@
         "rCode": null,
         "facilityType": null,
         "wasteCode": [
-          "51-38",
-          "91-02"
+          "91-02-00"
         ]
       }
     },
@@ -1088,8 +1062,7 @@
         "category": null,
         "bizType": null,
         "wasteClass": [
-          "GO",
-          "GN"
+          "L"
         ],
         "action": [
           "MI",
@@ -1099,8 +1072,7 @@
         "rCode": null,
         "facilityType": null,
         "wasteCode": [
-          "51-38",
-          "91-02"
+          "91-02-00"
         ],
         "physicalState": [
           "S"
@@ -2351,9 +2323,7 @@
         "rCode": null,
         "facilityType": null,
         "wasteCode": [
-          "01-02",
-          "51-01",
-          "51-02"
+          "51-01"
         ],
         "physicalState": [
           "S"
@@ -2381,9 +2351,7 @@
         "rCode": null,
         "facilityType": null,
         "wasteCode": [
-          "01-02",
-          "51-01",
-          "51-02"
+          "51-01"
         ],
         "physicalState": [
           "S"
@@ -2411,9 +2379,7 @@
         "rCode": null,
         "facilityType": null,
         "wasteCode": [
-          "01-02",
-          "51-01",
-          "51-02"
+          "51-01"
         ]
       }
     },
@@ -2438,9 +2404,7 @@
         "rCode": null,
         "facilityType": null,
         "wasteCode": [
-          "01-02",
-          "51-01",
-          "51-02"
+          "51-01"
         ]
       }
     },
@@ -2465,9 +2429,7 @@
         "rCode": null,
         "facilityType": null,
         "wasteCode": [
-          "01-02",
-          "51-01",
-          "51-02"
+          "51-01"
         ]
       }
     },
@@ -2492,9 +2454,7 @@
         "rCode": null,
         "facilityType": null,
         "wasteCode": [
-          "01-02",
-          "51-01",
-          "51-02"
+          "51-01"
         ]
       }
     },
@@ -2645,9 +2605,7 @@
         "rCode": null,
         "facilityType": null,
         "wasteCode": [
-          "01-02",
-          "51-01",
-          "51-02"
+          "51-17"
         ]
       }
     },
@@ -2672,9 +2630,7 @@
         "rCode": null,
         "facilityType": null,
         "wasteCode": [
-          "01-02",
-          "51-01",
-          "51-02"
+          "51-17"
         ]
       }
     },
@@ -3236,9 +3192,7 @@
         "rCode": null,
         "facilityType": null,
         "wasteCode": [
-          "01-02",
-          "51-01",
-          "51-02"
+          "51-03-01"
         ]
       }
     },
@@ -3509,8 +3463,7 @@
         "rCode": null,
         "facilityType": null,
         "wasteCode": [
-          "51-38",
-          "91-02"
+          "51-38-03"
         ]
       }
     },
@@ -3535,8 +3488,7 @@
         "rCode": null,
         "facilityType": null,
         "wasteCode": [
-          "51-38",
-          "91-02"
+          "51-38-03"
         ]
       }
     },
@@ -3561,8 +3513,7 @@
         "rCode": null,
         "facilityType": null,
         "wasteCode": [
-          "51-38",
-          "91-02"
+          "51-38-03"
         ]
       }
     },
@@ -3587,8 +3538,7 @@
         "rCode": null,
         "facilityType": null,
         "wasteCode": [
-          "51-38",
-          "91-02"
+          "51-38-03"
         ],
         "physicalState": [
           "S"
@@ -3616,8 +3566,7 @@
         "rCode": null,
         "facilityType": null,
         "wasteCode": [
-          "51-38",
-          "91-02"
+          "51-38-03"
         ],
         "physicalState": [
           "L"
@@ -3645,8 +3594,7 @@
         "rCode": null,
         "facilityType": null,
         "wasteCode": [
-          "51-38",
-          "91-02"
+          "51-38-03"
         ],
         "physicalState": [
           "L"
@@ -3674,8 +3622,7 @@
         "rCode": null,
         "facilityType": null,
         "wasteCode": [
-          "51-38",
-          "91-02"
+          "51-38-03"
         ]
       }
     },
@@ -3700,8 +3647,7 @@
         "rCode": null,
         "facilityType": null,
         "wasteCode": [
-          "51-38",
-          "91-02"
+          "51-38-03"
         ]
       }
     },
@@ -3726,8 +3672,7 @@
         "rCode": null,
         "facilityType": null,
         "wasteCode": [
-          "51-38",
-          "91-02"
+          "51-38-03"
         ]
       }
     },
@@ -3752,8 +3697,7 @@
         "rCode": null,
         "facilityType": null,
         "wasteCode": [
-          "51-38",
-          "91-02"
+          "51-38-03"
         ]
       }
     },
@@ -3778,8 +3722,7 @@
         "rCode": null,
         "facilityType": null,
         "wasteCode": [
-          "51-38",
-          "91-02"
+          "51-38-03"
         ]
       }
     },
@@ -3804,8 +3747,7 @@
         "rCode": null,
         "facilityType": null,
         "wasteCode": [
-          "51-38",
-          "91-02"
+          "51-38-03"
         ]
       }
     },
@@ -3860,8 +3802,7 @@
         "rCode": null,
         "facilityType": null,
         "wasteCode": [
-          "51-38",
-          "91-02"
+          "51-30-05"
         ]
       }
     },
@@ -3913,9 +3854,9 @@
           ]
         },
         "wasteCode": [
-          "01-07",
-          "01-09",
-          "51-05"
+          "03-02-00",
+          "01-03",
+          "07-01"
         ]
       }
     },
@@ -5001,12 +4942,14 @@
           ]
         },
         "wasteCode": [
-          "01-04",
-          "01-02",
+          "02-01",
+          "02-02",
+          "06",
+          "04",
+          "03-07",
+          "03-08",
           "01-03",
-          "01-09",
-          "51-01",
-          "01-06"
+          "01-02"
         ]
       }
     },
@@ -6673,7 +6616,7 @@
           ]
         },
         "wasteCode": [
-          "51-05"
+          "07-02-00"
         ],
         "physicalState": [
           "S"
@@ -6705,7 +6648,7 @@
           ]
         },
         "wasteCode": [
-          "51-05"
+          "07-01"
         ],
         "physicalState": [
           "S"
@@ -6859,10 +6802,9 @@
           ]
         },
         "wasteCode": [
-          "51-16",
-          "51-17",
-          "51-13",
-          "51-26"
+          "03-01",
+          "03-03",
+          "03-07"
         ]
       }
     },
@@ -7147,7 +7089,7 @@
           ]
         },
         "wasteCode": [
-          "51-22"
+          "51-08"
         ]
       }
     },
@@ -7171,7 +7113,6 @@
         "rCode": null,
         "facilityType": null,
         "wasteCode": [
-          "03-05",
           "51-08"
         ]
       }
@@ -7196,7 +7137,6 @@
         "rCode": null,
         "facilityType": null,
         "wasteCode": [
-          "03-05",
           "51-08"
         ]
       }
@@ -7221,7 +7161,6 @@
         "rCode": null,
         "facilityType": null,
         "wasteCode": [
-          "03-05",
           "51-08"
         ],
         "physicalState": [
@@ -7254,7 +7193,8 @@
           ]
         },
         "wasteCode": [
-          "51-22"
+          "12-00-00",
+          "51-08"
         ]
       }
     },
@@ -7278,7 +7218,7 @@
         "rCode": null,
         "facilityType": null,
         "wasteCode": [
-          "03-05",
+          "12-00-00",
           "51-08"
         ]
       }
@@ -7308,7 +7248,8 @@
           ]
         },
         "wasteCode": [
-          "51-22"
+          "12-00-00",
+          "51-08"
         ]
       }
     },
@@ -7337,7 +7278,8 @@
           ]
         },
         "wasteCode": [
-          "51-22"
+          "12-00-00",
+          "51-08"
         ]
       }
     },
@@ -7361,8 +7303,7 @@
         "rCode": null,
         "facilityType": null,
         "wasteCode": [
-          "03-05",
-          "51-08"
+          "01-03"
         ]
       }
     },
@@ -7384,11 +7325,7 @@
           "RCY"
         ],
         "rCode": null,
-        "facilityType": null,
-        "wasteCode": [
-          "03-05",
-          "51-08"
-        ]
+        "facilityType": null
       }
     },
     {
@@ -7411,8 +7348,7 @@
         "rCode": null,
         "facilityType": null,
         "wasteCode": [
-          "03-05",
-          "51-08"
+          "01-02"
         ]
       }
     },
@@ -7436,8 +7372,7 @@
         "rCode": null,
         "facilityType": null,
         "wasteCode": [
-          "03-05",
-          "51-08"
+          "01-02"
         ]
       }
     },
@@ -7461,8 +7396,7 @@
         "rCode": null,
         "facilityType": null,
         "wasteCode": [
-          "03-05",
-          "51-08"
+          "01-02"
         ],
         "physicalState": [
           "S"
@@ -7489,8 +7423,7 @@
         "rCode": null,
         "facilityType": null,
         "wasteCode": [
-          "03-05",
-          "51-08"
+          "01-02"
         ]
       }
     },
@@ -7514,8 +7447,7 @@
         "rCode": null,
         "facilityType": null,
         "wasteCode": [
-          "03-05",
-          "51-08"
+          "01-02"
         ]
       }
     },
@@ -7544,7 +7476,7 @@
           ]
         },
         "wasteCode": [
-          "51-01"
+          "01-02"
         ],
         "physicalState": [
           "S"
@@ -7571,8 +7503,7 @@
         "rCode": null,
         "facilityType": null,
         "wasteCode": [
-          "03-05",
-          "51-08"
+          "01-02"
         ]
       }
     },
@@ -7596,8 +7527,7 @@
         "rCode": null,
         "facilityType": null,
         "wasteCode": [
-          "03-05",
-          "51-08"
+          "51-09"
         ],
         "physicalState": [
           "S"
@@ -7624,8 +7554,7 @@
         "rCode": null,
         "facilityType": null,
         "wasteCode": [
-          "03-05",
-          "51-08"
+          "51-09"
         ]
       }
     },
@@ -7670,8 +7599,7 @@
         "rCode": null,
         "facilityType": null,
         "wasteCode": [
-          "03-05",
-          "51-08"
+          "51-09"
         ],
         "physicalState": [
           "S"
@@ -7762,11 +7690,7 @@
           "RCY"
         ],
         "rCode": null,
-        "facilityType": null,
-        "wasteCode": [
-          "03-05",
-          "51-08"
-        ]
+        "facilityType": null
       }
     },
     {
@@ -7787,11 +7711,7 @@
           "RCY"
         ],
         "rCode": null,
-        "facilityType": null,
-        "wasteCode": [
-          "03-05",
-          "51-08"
-        ]
+        "facilityType": null
       }
     },
     {
@@ -7812,11 +7732,7 @@
           "RCY"
         ],
         "rCode": null,
-        "facilityType": null,
-        "wasteCode": [
-          "03-05",
-          "51-08"
-        ]
+        "facilityType": null
       }
     },
     {
@@ -7838,10 +7754,6 @@
         ],
         "rCode": null,
         "facilityType": null,
-        "wasteCode": [
-          "03-05",
-          "51-08"
-        ],
         "physicalState": [
           "S"
         ]
@@ -7865,11 +7777,7 @@
           "RCY"
         ],
         "rCode": null,
-        "facilityType": null,
-        "wasteCode": [
-          "03-05",
-          "51-08"
-        ]
+        "facilityType": null
       }
     },
     {
@@ -7892,8 +7800,7 @@
         "rCode": null,
         "facilityType": null,
         "wasteCode": [
-          "03-05",
-          "51-08"
+          "06-01-05"
         ]
       }
     },
@@ -7917,8 +7824,7 @@
         "rCode": null,
         "facilityType": null,
         "wasteCode": [
-          "03-05",
-          "51-08"
+          "06-01-05"
         ]
       }
     },
@@ -7950,8 +7856,7 @@
           ]
         },
         "wasteCode": [
-          "51-12",
-          "01-06"
+          "06-01-05"
         ]
       }
     },
@@ -7983,8 +7888,7 @@
           ]
         },
         "wasteCode": [
-          "51-12",
-          "01-06"
+          "06-01-05"
         ]
       }
     },
@@ -8008,8 +7912,7 @@
         "rCode": null,
         "facilityType": null,
         "wasteCode": [
-          "03-05",
-          "51-08"
+          "11"
         ]
       }
     },
@@ -8033,8 +7936,7 @@
         "rCode": null,
         "facilityType": null,
         "wasteCode": [
-          "03-05",
-          "51-08"
+          "11-01"
         ]
       }
     },
@@ -8058,8 +7960,7 @@
         "rCode": null,
         "facilityType": null,
         "wasteCode": [
-          "03-05",
-          "51-08"
+          "11-02-00"
         ]
       }
     },
@@ -8083,8 +7984,7 @@
         "rCode": null,
         "facilityType": null,
         "wasteCode": [
-          "03-05",
-          "51-08"
+          "11-03-00"
         ],
         "physicalState": [
           "S"
@@ -8111,8 +8011,7 @@
         "rCode": null,
         "facilityType": null,
         "wasteCode": [
-          "03-05",
-          "51-08"
+          "12-00-00"
         ]
       }
     },
@@ -8136,8 +8035,7 @@
         "rCode": null,
         "facilityType": null,
         "wasteCode": [
-          "03-05",
-          "51-08"
+          "12-00-00"
         ]
       }
     },
@@ -8161,8 +8059,7 @@
         "rCode": null,
         "facilityType": null,
         "wasteCode": [
-          "03-05",
-          "51-08"
+          "12-00-00"
         ]
       }
     },
@@ -8186,8 +8083,7 @@
         "rCode": null,
         "facilityType": null,
         "wasteCode": [
-          "03-05",
-          "51-08"
+          "12-00-00"
         ]
       }
     },
@@ -8211,8 +8107,7 @@
         "rCode": null,
         "facilityType": null,
         "wasteCode": [
-          "03-05",
-          "51-08"
+          "12-00-00"
         ]
       }
     },
@@ -8236,8 +8131,7 @@
         "rCode": null,
         "facilityType": null,
         "wasteCode": [
-          "03-05",
-          "51-08"
+          "12-00-00"
         ]
       }
     },
@@ -8266,7 +8160,7 @@
           ]
         },
         "wasteCode": [
-          "51-22"
+          "12-00-00"
         ]
       }
     },
@@ -9955,7 +9849,8 @@
           "RTR"
         ],
         "wasteClass": [
-          "D"
+          "GO",
+          "GN"
         ],
         "action": [
           "CT"
@@ -9963,8 +9858,7 @@
         "rCode": null,
         "facilityType": null,
         "wasteCode": [
-          "51-38",
-          "91-02"
+          "51-38"
         ]
       }
     },
@@ -9981,7 +9875,8 @@
           "RTR"
         ],
         "wasteClass": [
-          "D"
+          "GO",
+          "GN"
         ],
         "action": [
           "CT"
@@ -9989,8 +9884,7 @@
         "rCode": null,
         "facilityType": null,
         "wasteCode": [
-          "51-38",
-          "91-02"
+          "51-38"
         ]
       }
     },
@@ -10237,7 +10131,7 @@
           "RTR"
         ],
         "wasteClass": [
-          "D"
+          "L"
         ],
         "action": [
           "CT"
@@ -10245,7 +10139,7 @@
         "rCode": null,
         "facilityType": null,
         "wasteCode": [
-          "91-09"
+          "91-09-00"
         ]
       }
     },
@@ -10492,7 +10386,8 @@
           "RTR"
         ],
         "wasteClass": [
-          "D"
+          "GO",
+          "GN"
         ],
         "action": [
           "CT"
