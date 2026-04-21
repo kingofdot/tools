@@ -331,12 +331,12 @@ function filterItems() {
     if (!matchTag(t.wasteClass,  state.wasteClass ? [state.wasteClass] : [])) continue;
     if (!matchTag(t.action,      state.action))    continue;
     if (!matchTag(t.facilityType, state.facilityType)) continue;
-    if (t.physicalState && state.physicalState && state.physicalState !== 'SL') {
-      if (!t.physicalState.includes(state.physicalState)) continue;
-    }
-    // 2차 필터: wasteCode 불일치 시 숨기지 않고 "해당사항 없음"으로 표시
+    // 2차 필터: physicalState·wasteCode 불일치 → 숨기지 않고 "해당사항 없음"으로 표시
     let na = false;
-    if (t.wasteCode !== null && t.wasteCode !== undefined && userWasteCodes.length > 0) {
+    if (t.physicalState && state.physicalState && state.physicalState !== 'SL') {
+      if (!t.physicalState.includes(state.physicalState)) na = true;
+    }
+    if (!na && t.wasteCode !== null && t.wasteCode !== undefined && userWasteCodes.length > 0) {
       const matches = t.wasteCode.some(ic =>
         userWasteCodes.some(uc => uc === ic || uc.startsWith(ic + '-') || ic.startsWith(uc + '-'))
       );
