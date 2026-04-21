@@ -728,7 +728,8 @@
           "RTR"
         ],
         "wasteClass": [
-          "G"
+          "GO",
+          "GN"
         ],
         "action": [
           "CT"
@@ -755,7 +756,8 @@
           "RTR"
         ],
         "wasteClass": [
-          "G"
+          "GO",
+          "GN"
         ],
         "action": [
           "CT"
@@ -782,7 +784,8 @@
           "RTR"
         ],
         "wasteClass": [
-          "G"
+          "GO",
+          "GN"
         ],
         "action": [
           "CT"
@@ -809,7 +812,8 @@
           "RTR"
         ],
         "wasteClass": [
-          "G"
+          "GO",
+          "GN"
         ],
         "action": [
           "CT"
@@ -836,7 +840,7 @@
           "RTR"
         ],
         "wasteClass": [
-          "G"
+          "GN"
         ],
         "action": [
           "CT"
@@ -868,7 +872,8 @@
         "category": null,
         "bizType": null,
         "wasteClass": [
-          "G"
+          "GO",
+          "GN"
         ],
         "action": [
           "ST"
@@ -892,7 +897,8 @@
         "category": null,
         "bizType": null,
         "wasteClass": [
-          "G"
+          "GO",
+          "GN"
         ],
         "action": [
           "ST"
@@ -924,7 +930,8 @@
         "category": null,
         "bizType": null,
         "wasteClass": [
-          "G"
+          "GO",
+          "GN"
         ],
         "action": [
           "MI",
@@ -955,7 +962,8 @@
         "category": null,
         "bizType": null,
         "wasteClass": [
-          "G"
+          "GO",
+          "GN"
         ],
         "action": [
           "MI",
@@ -981,7 +989,8 @@
         "category": null,
         "bizType": null,
         "wasteClass": [
-          "G"
+          "GO",
+          "GN"
         ],
         "action": [
           "MI",
@@ -1004,7 +1013,8 @@
         "category": null,
         "bizType": null,
         "wasteClass": [
-          "G"
+          "GO",
+          "GN"
         ],
         "action": [
           "MI",
@@ -1027,7 +1037,8 @@
         "category": null,
         "bizType": null,
         "wasteClass": [
-          "G"
+          "GO",
+          "GN"
         ],
         "action": [
           "MI",
@@ -1053,7 +1064,8 @@
         "category": null,
         "bizType": null,
         "wasteClass": [
-          "G"
+          "GO",
+          "GN"
         ],
         "action": [
           "MI",
@@ -1095,7 +1107,8 @@
         "category": null,
         "bizType": null,
         "wasteClass": [
-          "G"
+          "GO",
+          "GN"
         ],
         "action": [
           "MI",
@@ -1137,7 +1150,8 @@
         "category": null,
         "bizType": null,
         "wasteClass": [
-          "G"
+          "GO",
+          "GN"
         ],
         "action": null,
         "rCode": null,
@@ -1154,7 +1168,7 @@
         "category": null,
         "bizType": null,
         "wasteClass": [
-          "G"
+          "GN"
         ],
         "action": null,
         "rCode": null,
@@ -1171,7 +1185,7 @@
         "category": null,
         "bizType": null,
         "wasteClass": [
-          "G"
+          "GO"
         ],
         "action": null,
         "rCode": null,
@@ -1188,7 +1202,8 @@
         "category": null,
         "bizType": null,
         "wasteClass": [
-          "G"
+          "GO",
+          "GN"
         ],
         "action": null,
         "rCode": null,
@@ -1216,7 +1231,8 @@
           "RTR"
         ],
         "wasteClass": [
-          "G"
+          "GO",
+          "GN"
         ],
         "action": [
           "CT"
@@ -1240,7 +1256,7 @@
           "RTR"
         ],
         "wasteClass": [
-          "G"
+          "GN"
         ],
         "action": [
           "CT"
@@ -1264,7 +1280,8 @@
           "RTR"
         ],
         "wasteClass": [
-          "G"
+          "GO",
+          "GN"
         ],
         "action": [
           "CT"
@@ -1291,7 +1308,8 @@
           "RTR"
         ],
         "wasteClass": [
-          "G"
+          "GO",
+          "GN"
         ],
         "action": [
           "CT"
@@ -1336,7 +1354,8 @@
           "RTR"
         ],
         "wasteClass": [
-          "G"
+          "GO",
+          "GN"
         ],
         "action": [
           "CT"
@@ -1363,7 +1382,8 @@
           "RTR"
         ],
         "wasteClass": [
-          "G"
+          "GO",
+          "GN"
         ],
         "action": [
           "CT"
@@ -1400,7 +1420,8 @@
           "RTR"
         ],
         "wasteClass": [
-          "G"
+          "GO",
+          "GN"
         ],
         "action": [
           "CT"
@@ -1437,7 +1458,8 @@
           "RTR"
         ],
         "wasteClass": [
-          "G"
+          "GO",
+          "GN"
         ],
         "action": [
           "CT"
@@ -1464,7 +1486,8 @@
           "RTR"
         ],
         "wasteClass": [
-          "G"
+          "GO",
+          "GN"
         ],
         "action": [
           "CT"
@@ -1510,7 +1533,8 @@
           "RTR"
         ],
         "wasteClass": [
-          "G"
+          "GO",
+          "GN"
         ],
         "action": [
           "CT"
@@ -1553,7 +1577,8 @@
           "RTR"
         ],
         "wasteClass": [
-          "G"
+          "GO",
+          "GN"
         ],
         "action": [
           "CT"
@@ -1580,7 +1605,8 @@
           "RTR"
         ],
         "wasteClass": [
-          "G"
+          "GO",
+          "GN"
         ],
         "action": [
           "CT"
@@ -1607,7 +1633,8 @@
           "RTR"
         ],
         "wasteClass": [
-          "G"
+          "GO",
+          "GN"
         ],
         "action": [
           "CT"
@@ -1644,7 +1671,8 @@
           "RTR"
         ],
         "wasteClass": [
-          "G"
+          "GO",
+          "GN"
         ],
         "action": [
           "CT"
@@ -1668,7 +1696,8 @@
           "RTR"
         ],
         "wasteClass": [
-          "G"
+          "GO",
+          "GN"
         ],
         "action": [
           "CT"
@@ -1694,7 +1723,8 @@
           "RTR"
         ],
         "wasteClass": [
-          "G"
+          "GO",
+          "GN"
         ],
         "action": [
           "CT"
@@ -1720,7 +1750,8 @@
           "RTR"
         ],
         "wasteClass": [
-          "G"
+          "GO",
+          "GN"
         ],
         "action": [
           "CT"
@@ -1751,7 +1782,8 @@
         "category": null,
         "bizType": null,
         "wasteClass": [
-          "G"
+          "GO",
+          "GN"
         ],
         "action": [
           "ST"
@@ -1772,7 +1804,8 @@
         "category": null,
         "bizType": null,
         "wasteClass": [
-          "G"
+          "GO",
+          "GN"
         ],
         "action": [
           "ST"
@@ -1793,7 +1826,8 @@
         "category": null,
         "bizType": null,
         "wasteClass": [
-          "G"
+          "GO",
+          "GN"
         ],
         "action": [
           "ST"
@@ -1845,7 +1879,8 @@
         "category": null,
         "bizType": null,
         "wasteClass": [
-          "G"
+          "GO",
+          "GN"
         ],
         "action": [
           "ST"
@@ -1877,7 +1912,8 @@
         "category": null,
         "bizType": null,
         "wasteClass": [
-          "G"
+          "GO",
+          "GN"
         ],
         "action": [
           "ST"
@@ -1898,7 +1934,8 @@
         "category": null,
         "bizType": null,
         "wasteClass": [
-          "G"
+          "GO",
+          "GN"
         ],
         "action": [
           "ST"
@@ -1919,7 +1956,8 @@
         "category": null,
         "bizType": null,
         "wasteClass": [
-          "G"
+          "GO",
+          "GN"
         ],
         "action": [
           "ST"
@@ -1940,7 +1978,8 @@
         "category": null,
         "bizType": null,
         "wasteClass": [
-          "G"
+          "GO",
+          "GN"
         ],
         "action": [
           "ST"
@@ -1961,7 +2000,8 @@
         "category": null,
         "bizType": null,
         "wasteClass": [
-          "G"
+          "GO",
+          "GN"
         ],
         "action": [
           "ST"
@@ -1989,7 +2029,8 @@
         "category": null,
         "bizType": null,
         "wasteClass": [
-          "G"
+          "GO",
+          "GN"
         ],
         "action": [
           "ST"
@@ -2010,7 +2051,8 @@
         "category": null,
         "bizType": null,
         "wasteClass": [
-          "G"
+          "GO",
+          "GN"
         ],
         "action": [
           "ST"
@@ -2031,7 +2073,8 @@
         "category": null,
         "bizType": null,
         "wasteClass": [
-          "G"
+          "GO",
+          "GN"
         ],
         "action": [
           "ST"
@@ -2054,7 +2097,8 @@
         "category": null,
         "bizType": null,
         "wasteClass": [
-          "G"
+          "GO",
+          "GN"
         ],
         "action": [
           "ST"
@@ -2082,7 +2126,8 @@
         "category": null,
         "bizType": null,
         "wasteClass": [
-          "G"
+          "GO",
+          "GN"
         ],
         "action": [
           "ST"
@@ -2105,7 +2150,8 @@
         "category": null,
         "bizType": null,
         "wasteClass": [
-          "G"
+          "GO",
+          "GN"
         ],
         "action": [
           "ST"
@@ -2126,7 +2172,8 @@
         "category": null,
         "bizType": null,
         "wasteClass": [
-          "G"
+          "GO",
+          "GN"
         ],
         "action": [
           "ST"
@@ -2173,7 +2220,8 @@
         "category": null,
         "bizType": null,
         "wasteClass": [
-          "G"
+          "GO",
+          "GN"
         ],
         "action": [
           "MI",
@@ -2196,7 +2244,8 @@
         "category": null,
         "bizType": null,
         "wasteClass": [
-          "G"
+          "GO",
+          "GN"
         ],
         "action": [
           "MI",
@@ -2227,7 +2276,8 @@
         "category": null,
         "bizType": null,
         "wasteClass": [
-          "G"
+          "GO",
+          "GN"
         ],
         "action": [
           "MI",
@@ -2257,7 +2307,8 @@
         "category": null,
         "bizType": null,
         "wasteClass": [
-          "G"
+          "GO",
+          "GN"
         ],
         "action": [
           "MI",
@@ -2282,7 +2333,8 @@
         "category": null,
         "bizType": null,
         "wasteClass": [
-          "G"
+          "GO",
+          "GN"
         ],
         "action": [
           "MI",
@@ -2307,7 +2359,8 @@
         "category": null,
         "bizType": null,
         "wasteClass": [
-          "G"
+          "GO",
+          "GN"
         ],
         "action": [
           "MI",
@@ -2340,7 +2393,8 @@
         "category": null,
         "bizType": null,
         "wasteClass": [
-          "G"
+          "GO",
+          "GN"
         ],
         "action": [
           "MI",
@@ -2367,7 +2421,8 @@
         "category": null,
         "bizType": null,
         "wasteClass": [
-          "G"
+          "GO",
+          "GN"
         ],
         "action": [
           "MI",
@@ -2394,7 +2449,8 @@
         "category": null,
         "bizType": null,
         "wasteClass": [
-          "G"
+          "GO",
+          "GN"
         ],
         "action": [
           "MI",
@@ -2421,7 +2477,8 @@
         "category": null,
         "bizType": null,
         "wasteClass": [
-          "G"
+          "GO",
+          "GN"
         ],
         "action": [
           "MI",
@@ -2448,7 +2505,8 @@
         "category": null,
         "bizType": null,
         "wasteClass": [
-          "G"
+          "GO",
+          "GN"
         ],
         "action": [
           "MI",
@@ -2475,7 +2533,8 @@
         "category": null,
         "bizType": null,
         "wasteClass": [
-          "G"
+          "GO",
+          "GN"
         ],
         "action": [
           "MI",
@@ -2510,7 +2569,8 @@
         "category": null,
         "bizType": null,
         "wasteClass": [
-          "G"
+          "GO",
+          "GN"
         ],
         "action": [
           "MI",
@@ -2540,7 +2600,8 @@
         "category": null,
         "bizType": null,
         "wasteClass": [
-          "G"
+          "GO",
+          "GN"
         ],
         "action": [
           "MI",
@@ -2565,7 +2626,8 @@
         "category": null,
         "bizType": null,
         "wasteClass": [
-          "G"
+          "GO",
+          "GN"
         ],
         "action": [
           "MI",
@@ -2590,7 +2652,8 @@
         "category": null,
         "bizType": null,
         "wasteClass": [
-          "G"
+          "GO",
+          "GN"
         ],
         "action": [
           "MI",
@@ -2628,7 +2691,8 @@
         "category": null,
         "bizType": null,
         "wasteClass": [
-          "G"
+          "GO",
+          "GN"
         ],
         "action": [
           "MI",
@@ -2655,7 +2719,8 @@
         "category": null,
         "bizType": null,
         "wasteClass": [
-          "G"
+          "GO",
+          "GN"
         ],
         "action": [
           "MI",
@@ -2698,7 +2763,8 @@
         "category": null,
         "bizType": null,
         "wasteClass": [
-          "G"
+          "GO",
+          "GN"
         ],
         "action": [
           "MI",
@@ -2728,7 +2794,8 @@
         "category": null,
         "bizType": null,
         "wasteClass": [
-          "G"
+          "GO",
+          "GN"
         ],
         "action": [
           "MI",
@@ -2774,7 +2841,8 @@
         "category": null,
         "bizType": null,
         "wasteClass": [
-          "G"
+          "GO",
+          "GN"
         ],
         "action": [
           "MI",
@@ -2804,7 +2872,8 @@
         "category": null,
         "bizType": null,
         "wasteClass": [
-          "G"
+          "GO",
+          "GN"
         ],
         "action": [
           "MI",
@@ -2829,7 +2898,8 @@
         "category": null,
         "bizType": null,
         "wasteClass": [
-          "G"
+          "GO",
+          "GN"
         ],
         "action": [
           "MI",
@@ -2854,7 +2924,8 @@
         "category": null,
         "bizType": null,
         "wasteClass": [
-          "G"
+          "GO",
+          "GN"
         ],
         "action": [
           "MI",
@@ -2891,7 +2962,8 @@
         "category": null,
         "bizType": null,
         "wasteClass": [
-          "G"
+          "GO",
+          "GN"
         ],
         "action": [
           "MI",
@@ -2917,7 +2989,8 @@
         "category": null,
         "bizType": null,
         "wasteClass": [
-          "G"
+          "GO",
+          "GN"
         ],
         "action": [
           "MI",
@@ -2943,7 +3016,8 @@
         "category": null,
         "bizType": null,
         "wasteClass": [
-          "G"
+          "GO",
+          "GN"
         ],
         "action": [
           "MI",
@@ -2973,7 +3047,8 @@
         "category": null,
         "bizType": null,
         "wasteClass": [
-          "G"
+          "GO",
+          "GN"
         ],
         "action": [
           "MI",
@@ -3003,7 +3078,8 @@
         "category": null,
         "bizType": null,
         "wasteClass": [
-          "G"
+          "GO",
+          "GN"
         ],
         "action": [
           "MI",
@@ -3028,7 +3104,8 @@
         "category": null,
         "bizType": null,
         "wasteClass": [
-          "G"
+          "GO",
+          "GN"
         ],
         "action": [
           "MI",
@@ -3053,7 +3130,8 @@
         "category": null,
         "bizType": null,
         "wasteClass": [
-          "G"
+          "GO",
+          "GN"
         ],
         "action": [
           "MI",
@@ -3078,7 +3156,8 @@
         "category": null,
         "bizType": null,
         "wasteClass": [
-          "G"
+          "GO",
+          "GN"
         ],
         "action": [
           "MI",
@@ -3111,7 +3190,8 @@
         "category": null,
         "bizType": null,
         "wasteClass": [
-          "G"
+          "GO",
+          "GN"
         ],
         "action": [
           "MI",
@@ -3136,7 +3216,8 @@
         "category": null,
         "bizType": null,
         "wasteClass": [
-          "G"
+          "GO",
+          "GN"
         ],
         "action": [
           "MI",
@@ -3161,7 +3242,8 @@
         "category": null,
         "bizType": null,
         "wasteClass": [
-          "G"
+          "GO",
+          "GN"
         ],
         "action": [
           "MI",
@@ -3186,7 +3268,8 @@
         "category": null,
         "bizType": null,
         "wasteClass": [
-          "G"
+          "GO",
+          "GN"
         ],
         "action": [
           "MI",
@@ -3216,7 +3299,8 @@
         "category": null,
         "bizType": null,
         "wasteClass": [
-          "G"
+          "GO",
+          "GN"
         ],
         "action": [
           "MI",
@@ -3243,7 +3327,8 @@
         "category": null,
         "bizType": null,
         "wasteClass": [
-          "G"
+          "GO",
+          "GN"
         ],
         "action": [
           "MI",
@@ -3273,7 +3358,8 @@
         "category": null,
         "bizType": null,
         "wasteClass": [
-          "G"
+          "GO",
+          "GN"
         ],
         "action": [
           "MI",
@@ -3306,7 +3392,8 @@
         "category": null,
         "bizType": null,
         "wasteClass": [
-          "G"
+          "GO",
+          "GN"
         ],
         "action": [
           "MI",
@@ -3331,7 +3418,8 @@
         "category": null,
         "bizType": null,
         "wasteClass": [
-          "G"
+          "GO",
+          "GN"
         ],
         "action": [
           "MI",
@@ -3356,7 +3444,8 @@
         "category": null,
         "bizType": null,
         "wasteClass": [
-          "G"
+          "GO",
+          "GN"
         ],
         "action": [
           "MI",
@@ -3381,7 +3470,8 @@
         "category": null,
         "bizType": null,
         "wasteClass": [
-          "G"
+          "GO",
+          "GN"
         ],
         "action": [
           "MI",
@@ -3406,7 +3496,8 @@
         "category": null,
         "bizType": null,
         "wasteClass": [
-          "G"
+          "GO",
+          "GN"
         ],
         "action": [
           "MI",
@@ -3431,7 +3522,8 @@
         "category": null,
         "bizType": null,
         "wasteClass": [
-          "G"
+          "GO",
+          "GN"
         ],
         "action": [
           "MI",
@@ -3456,7 +3548,8 @@
         "category": null,
         "bizType": null,
         "wasteClass": [
-          "G"
+          "GO",
+          "GN"
         ],
         "action": [
           "MI",
@@ -3486,7 +3579,8 @@
         "category": null,
         "bizType": null,
         "wasteClass": [
-          "G"
+          "GO",
+          "GN"
         ],
         "action": [
           "MI",
@@ -3512,7 +3606,8 @@
         "category": null,
         "bizType": null,
         "wasteClass": [
-          "G"
+          "GO",
+          "GN"
         ],
         "action": [
           "MI",
@@ -3538,7 +3633,8 @@
         "category": null,
         "bizType": null,
         "wasteClass": [
-          "G"
+          "GO",
+          "GN"
         ],
         "action": [
           "MI",
@@ -3564,7 +3660,8 @@
         "category": null,
         "bizType": null,
         "wasteClass": [
-          "G"
+          "GO",
+          "GN"
         ],
         "action": [
           "MI",
@@ -3590,7 +3687,8 @@
         "category": null,
         "bizType": null,
         "wasteClass": [
-          "G"
+          "GO",
+          "GN"
         ],
         "action": [
           "MI",
@@ -3616,7 +3714,8 @@
         "category": null,
         "bizType": null,
         "wasteClass": [
-          "G"
+          "GO",
+          "GN"
         ],
         "action": [
           "MI",
@@ -3642,7 +3741,8 @@
         "category": null,
         "bizType": null,
         "wasteClass": [
-          "G"
+          "GO",
+          "GN"
         ],
         "action": [
           "MI",
@@ -3668,7 +3768,8 @@
         "category": null,
         "bizType": null,
         "wasteClass": [
-          "G"
+          "GO",
+          "GN"
         ],
         "action": [
           "MI",
@@ -3694,7 +3795,8 @@
         "category": null,
         "bizType": null,
         "wasteClass": [
-          "G"
+          "GO",
+          "GN"
         ],
         "action": [
           "MI",
@@ -3720,7 +3822,8 @@
         "category": null,
         "bizType": null,
         "wasteClass": [
-          "G"
+          "GO",
+          "GN"
         ],
         "action": [
           "MI",
@@ -3746,7 +3849,8 @@
         "category": null,
         "bizType": null,
         "wasteClass": [
-          "G"
+          "GO",
+          "GN"
         ],
         "action": [
           "MI",
@@ -3772,7 +3876,8 @@
         "category": null,
         "bizType": null,
         "wasteClass": [
-          "G"
+          "GO",
+          "GN"
         ],
         "action": [
           "MI",
@@ -3798,7 +3903,8 @@
         "category": null,
         "bizType": null,
         "wasteClass": [
-          "G"
+          "GO",
+          "GN"
         ],
         "action": [
           "MI",
@@ -3828,7 +3934,8 @@
         "category": null,
         "bizType": null,
         "wasteClass": [
-          "G"
+          "GO",
+          "GN"
         ],
         "action": [
           "MI",

@@ -5,9 +5,9 @@
 const fs = require('fs');
 const path = require('path');
 
-const BASE = 'd:/dev/tools/tools/compliance-builder';
-const B5   = JSON.parse(fs.readFileSync(`${BASE}/data/검토사항/시행규칙/별표5_처리구체적기준및방법.json`, 'utf8'));
-const CODE = JSON.parse(fs.readFileSync(`${BASE}/data/상황코드_코드표.json`, 'utf8'));
+const BASE = path.resolve(__dirname, '..');
+const B5   = JSON.parse(fs.readFileSync(path.join(BASE, 'data/검토사항/시행규칙/별표5_처리구체적기준및방법.json'), 'utf8'));
+const CODE = JSON.parse(fs.readFileSync(path.join(BASE, 'data/상황코드_코드표.json'), 'utf8'));
 
 // _idx 부여 (ALL_ITEMS에서의 원본 인덱스)
 const ALL_RAW = B5['별표내용'].map((item, idx) => ({ ...item, _idx: idx }));
@@ -117,7 +117,16 @@ select:focus,input:focus{outline:none;border-color:#1a3a5c}
       </div>
       <div class="field">
         <label>폐기물 코드 (wasteCode, 복수 가능)</label>
-        <input type="text" id="f-wasteCode" placeholder="예: 0106+0107  (없으면 0)">
+        <input type="text" id="f-wasteCode" placeholder="예: 01-06+01-07  (없으면 0)">
+      </div>
+      <div class="field">
+        <label>폐기물 물리적 상태 (physicalState)</label>
+        <select id="f-physicalState">
+          <option value="">선택 안 함 (전체)</option>
+          <option value="S">S — 고상 (고체 상태)</option>
+          <option value="L">L — 액상 (액체 상태)</option>
+          <option value="SL">S+L — 고상+액상 (둘 다)</option>
+        </select>
       </div>
     </div>
 
@@ -190,6 +199,7 @@ const BTYPE_MAP = ${JSON.stringify({
   W02: CODES.bizType.W02,
   W03: CODES.bizType.W03,
   W04: CODES.bizType.W04,
+  W05: CODES.bizType.W05,
 })};
 const DOCTYPE_VALS = ${JSON.stringify(CODES.docType['값'])};
 const DOCTYPE_BY_CAT = ${JSON.stringify(CODES.docType['분류별_사용가능'])};
@@ -353,6 +363,7 @@ function syncState() {
   state.docType    = document.getElementById('f-docType').value;
   state.wasteClass = document.getElementById('f-wasteClass').value;
   state.wasteCode  = document.getElementById('f-wasteCode').value.replace(/\\s/g,'');
+  state.physicalState = document.getElementById('f-physicalState').value;
   state.action     = [...document.querySelectorAll('.cb-action:checked')].map(e=>e.value);
   state.rCode      = [...document.querySelectorAll('.cb-rCode:checked')].map(e=>e.value);
   state.facilityType = [...document.querySelectorAll('.cb-ft:checked')].map(e=>e.value);
@@ -395,6 +406,7 @@ document.getElementById('f-bizType').addEventListener('change', updateCodeBar);
 document.getElementById('f-docType').addEventListener('change', updateCodeBar);
 document.getElementById('f-wasteClass').addEventListener('change', updateCodeBar);
 document.getElementById('f-wasteCode').addEventListener('input', updateCodeBar);
+document.getElementById('f-physicalState').addEventListener('change', updateCodeBar);
 document.getElementById('f-approval').addEventListener('change', updateCodeBar);
 document.querySelectorAll('.cb-action,.cb-rCode,.cb-ft').forEach(cb => {
   cb.addEventListener('change', updateCodeBar);
@@ -604,6 +616,6 @@ async function exportToWord() {
 </body>
 </html>`;
 
-fs.writeFileSync(`${BASE}/app/index.html`, html, 'utf8');
+fs.writeFileSync(path.join(BASE, 'app/index.html'), html, 'utf8');
 console.log('생성 완료: app/index.html');
 console.log('임베드 항목 수:', ITEMS.length);
