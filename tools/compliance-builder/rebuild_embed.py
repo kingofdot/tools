@@ -32,8 +32,14 @@ all_for_word = [i for i in all_raw
                 and not is_deleted(i)
                 and (i.get('tags') is None or (i.get('tags') and i['tags'].get('action')))]
 
-b5_items_json     = json.dumps(items,        ensure_ascii=False)
-b5_all_word_json  = json.dumps(all_for_word, ensure_ascii=False)
+# HTML <script> 안에서 < > & 는 이스케이프 필요 (VS Code HTML 파서 오류 방지)
+def safe_json(obj):
+    s = json.dumps(obj, ensure_ascii=False)
+    # HTML <script> 안에서 < > & 는 유니코드 이스케이프로 교체
+    return s.replace('<', '\\u003c').replace('>', '\\u003e').replace('&', '\\u0026')
+
+b5_items_json     = safe_json(items)
+b5_all_word_json  = safe_json(all_for_word)
 
 with open(HTML, encoding='utf-8') as f:
     html = f.read()
