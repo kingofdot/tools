@@ -54,7 +54,8 @@ def replace_const(html, const_name, new_json):
     ei = html.find(end_marker, si)
     if ei == -1:
         raise ValueError(f'{const_name} 닫힘 부분을 찾을 수 없습니다')
-    return html[:si] + f'const {const_name} = {new_json}' + html[ei:]
+    # ei + len(end_marker): 기존 ]; 를 완전히 건너뜀
+    return html[:si] + f'const {const_name} = {new_json};' + html[ei + len(end_marker):]
 
 html = replace_const(html, 'B5_ITEMS',       b5_items_json)
 html = replace_const(html, 'B5_ALL_FOR_WORD', b5_all_word_json)
