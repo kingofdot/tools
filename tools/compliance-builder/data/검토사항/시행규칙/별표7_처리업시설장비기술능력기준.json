@@ -91,7 +91,7 @@
       "type": "korean-paren",
       "marker": "가)",
       "text": "밀폐형 압축·압착차량 1대(특별시·광역시는 2대) 이상",
-      "answer": "{{차량번호}}",
+      "answer": "{{vehicleNo}}",
       "tags": {
         "category": [
           "W01"
@@ -112,8 +112,8 @@
       },
       "slots": [
         {
-          "key": "차량번호",
-          "label": "차량번호",
+          "key": "vehicleNo",
+          "label": "Vehicle Registration No. (밀폐형 압축·압착차량)",
           "type": "text",
           "hint": "예: 12가2131, 34나1231"
         }
@@ -124,7 +124,7 @@
       "type": "korean-paren",
       "marker": "나)",
       "text": "밀폐형 차량 또는 밀폐형 덮개 설치차량 1대 이상(적재능력 합계 4.5톤 이상). 다만, 생활폐기물을 수집ㆍ운반하는 경우에는 2018년 6월 30일까지 적재능력을 적용하지 아니한다.",
-      "answer": "{{차량번호}}",
+      "answer": "{{vehicleNo}}",
       "tags": {
         "category": [
           "W01"
@@ -145,8 +145,8 @@
       },
       "slots": [
         {
-          "key": "차량번호",
-          "label": "차량번호",
+          "key": "vehicleNo",
+          "label": "Vehicle Registration No. (밀폐형 덮개 설치차량 / 밀폐형 차량)",
           "type": "text",
           "hint": "예: 12가2131, 34나1231"
         }
@@ -157,7 +157,7 @@
       "type": "korean-paren",
       "marker": "다)",
       "text": "섭씨 4도 이하의 냉장 적재함이 설치된 차량 1대 이상(의료기관 일회용기저귀를 수집ㆍ운반하는 경우에 한정한다)",
-      "answer": "{{차량번호}}",
+      "answer": "{{vehicleNo}}",
       "tags": {
         "category": [
           "W01"
@@ -180,8 +180,8 @@
       },
       "slots": [
         {
-          "key": "차량번호",
-          "label": "차량번호",
+          "key": "vehicleNo",
+          "label": "Vehicle Registration No. (차량)",
           "type": "text",
           "hint": "예: 12가2131, 34나1231"
         }
@@ -192,7 +192,7 @@
       "type": "paren-number",
       "marker": "2)",
       "text": "연락장소 또는 사무실",
-      "answer": "{{연락장소}}",
+      "answer": "{{contactAddr}}",
       "tags": {
         "category": [
           "W01"
@@ -213,8 +213,8 @@
       },
       "slots": [
         {
-          "key": "연락장소",
-          "label": "연락장소(사무실) 주소",
+          "key": "contactAddr",
+          "label": "Contact / Office Address",
           "type": "text",
           "hint": "예: 서울시 강남구 ○○로 123"
         }
@@ -254,7 +254,7 @@
       "type": "korean-paren",
       "marker": "가)",
       "text": "액체상태 폐기물을 수집·운반하는 경우: 탱크로리 1대 이상, 밀폐형 차량 1대 이상",
-      "answer": "{{차량번호}}",
+      "answer": "{{vehicleNo}}",
       "tags": {
         "category": [
           "W01"
@@ -277,8 +277,8 @@
       },
       "slots": [
         {
-          "key": "차량번호",
-          "label": "차량번호",
+          "key": "vehicleNo",
+          "label": "Vehicle Registration No. (탱크로리 / 밀폐형 차량)",
           "type": "text",
           "hint": "예: 12가2131, 34나1231"
         }
@@ -289,7 +289,7 @@
       "type": "korean-paren",
       "marker": "나)",
       "text": "고체상태 폐기물을 수집·운반하는 경우: 밀폐형 차량 또는 밀폐형 덮개 설치차량 2대 이상",
-      "answer": "{{차량번호}}",
+      "answer": "{{vehicleNo}}",
       "tags": {
         "category": [
           "W01"
@@ -312,8 +312,8 @@
       },
       "slots": [
         {
-          "key": "차량번호",
-          "label": "차량번호",
+          "key": "vehicleNo",
+          "label": "Vehicle Registration No. (밀폐형 덮개 설치차량 / 밀폐형 차량)",
           "type": "text",
           "hint": "예: 12가2131, 34나1231"
         }
@@ -324,7 +324,7 @@
       "type": "paren-number",
       "marker": "2)",
       "text": "연락장소 또는 사무실",
-      "answer": "{{연락장소}}",
+      "answer": "{{contactAddr}}",
       "tags": {
         "category": [
           "W01"
@@ -344,8 +344,8 @@
       },
       "slots": [
         {
-          "key": "연락장소",
-          "label": "연락장소(사무실) 주소",
+          "key": "contactAddr",
+          "label": "Contact / Office Address",
           "type": "text",
           "hint": "예: 서울시 강남구 ○○로 123"
         }
@@ -388,7 +388,7 @@
       "type": "korean-paren",
       "marker": "가)",
       "text": "액체상태 폐기물을 수집·운반하는 경우: 탱크로리 1대 이상, 밀폐형 차량 1대 이상(적재능력 합계 9톤 이상)",
-      "answer": "{{차량번호}}",
+      "answer": "{{vehicleNo}}",
       "tags": {
         "category": [
           "W01"
@@ -422,8 +422,8 @@
       },
       "slots": [
         {
-          "key": "차량번호",
-          "label": "차량번호",
+          "key": "vehicleNo",
+          "label": "Vehicle Registration No. (탱크로리 / 밀폐형 차량)",
           "type": "text",
           "hint": "예: 12가2131, 34나1231"
         }
@@ -434,7 +434,7 @@
       "type": "korean-paren",
       "marker": "나)",
       "text": "고체상태 폐기물을 수집·운반하는 경우: 밀폐형 차량 2대 이상, 밀폐형 덮개 설치차량 1대 이상(적재능력 합계 13.5톤 이상)",
-      "answer": "{{차량번호}}",
+      "answer": "{{vehicleNo}}",
       "tags": {
         "category": [
           "W01"
@@ -468,8 +468,8 @@
       },
       "slots": [
         {
-          "key": "차량번호",
-          "label": "차량번호",
+          "key": "vehicleNo",
+          "label": "Vehicle Registration No. (밀폐형 덮개 설치차량 / 밀폐형 차량)",
           "type": "text",
           "hint": "예: 12가2131, 34나1231"
         }
@@ -488,7 +488,7 @@
       "type": "korean-paren",
       "marker": "가)",
       "text": "주차장: 모든 차량을 주차할 수 있는 규모",
-      "answer": "{{시설명세}}",
+      "answer": "{{facilitySpec}}",
       "tags": {
         "category": [
           "W01"
@@ -519,8 +519,8 @@
       },
       "slots": [
         {
-          "key": "시설명세",
-          "label": "시설 위치·규모",
+          "key": "facilitySpec",
+          "label": "Facility Location & Scale",
           "type": "text",
           "hint": "예: 부지 내 제○동 1층 (면적: ○○㎡)"
         }
@@ -531,7 +531,7 @@
       "type": "korean-paren",
       "marker": "나)",
       "text": "세차시설: 20제곱미터 이상",
-      "answer": "{{시설명세}}",
+      "answer": "{{facilitySpec}}",
       "tags": {
         "category": [
           "W01"
@@ -562,8 +562,8 @@
       },
       "slots": [
         {
-          "key": "시설명세",
-          "label": "시설 위치·규모",
+          "key": "facilitySpec",
+          "label": "Facility Location & Scale",
           "type": "text",
           "hint": "예: 부지 내 제○동 1층 (면적: ○○㎡)"
         }
@@ -574,7 +574,7 @@
       "type": "paren-number",
       "marker": "3)",
       "text": "기술능력: 폐기물처리산업기사·대기환경산업기사·수질환경산업기사 또는 공업화학산업기사 중 1명 이상",
-      "answer": "{{기술인력}}",
+      "answer": "{{techStaff}}",
       "tags": {
         "category": [
           "W01"
@@ -605,8 +605,8 @@
       },
       "slots": [
         {
-          "key": "기술인력",
-          "label": "기술인력 성명·자격번호",
+          "key": "techStaff",
+          "label": "Technical Staff (Name & License No.)",
           "type": "text",
           "hint": "예: 홍길동 (폐기물처리산업기사 제XXXX호)"
         }
@@ -617,7 +617,7 @@
       "type": "paren-number",
       "marker": "4)",
       "text": "연락장소 또는 사무실",
-      "answer": "{{연락장소}}",
+      "answer": "{{contactAddr}}",
       "tags": {
         "category": [
           "W01"
@@ -648,8 +648,8 @@
       },
       "slots": [
         {
-          "key": "연락장소",
-          "label": "연락장소(사무실) 주소",
+          "key": "contactAddr",
+          "label": "Contact / Office Address",
           "type": "text",
           "hint": "예: 서울시 강남구 ○○로 123"
         }
@@ -691,7 +691,7 @@
       "type": "korean-paren",
       "marker": "가)",
       "text": "적재능력 0.45톤 이상의 냉장차량(섭씨 4도 이하인 것을 말한다. 이하 같다) 3대 이상",
-      "answer": "{{차량번호}}",
+      "answer": "{{vehicleNo}}",
       "tags": {
         "category": [
           "W01"
@@ -713,8 +713,8 @@
       },
       "slots": [
         {
-          "key": "차량번호",
-          "label": "차량번호",
+          "key": "vehicleNo",
+          "label": "Vehicle Registration No. (냉장차량)",
           "type": "text",
           "hint": "예: 12가2131, 34나1231"
         }
@@ -725,7 +725,7 @@
       "type": "korean-paren",
       "marker": "나)",
       "text": "약물소독장비 1식 이상",
-      "answer": "{{장비명세}}",
+      "answer": "{{equipmentSpec}}",
       "tags": {
         "category": [
           "W01"
@@ -747,8 +747,8 @@
       },
       "slots": [
         {
-          "key": "장비명세",
-          "label": "장비 명세",
+          "key": "equipmentSpec",
+          "label": "Equipment Specification",
           "type": "text",
           "hint": "예: ○○ 계량기 1식, 제조번호 XXXX"
         }
@@ -759,7 +759,7 @@
       "type": "paren-number",
       "marker": "2)",
       "text": "주차장: 모든 차량을 주차할 수 있는 규모",
-      "answer": "{{시설명세}}",
+      "answer": "{{facilitySpec}}",
       "tags": {
         "category": [
           "W01"
@@ -781,8 +781,8 @@
       },
       "slots": [
         {
-          "key": "시설명세",
-          "label": "시설 위치·규모",
+          "key": "facilitySpec",
+          "label": "Facility Location & Scale",
           "type": "text",
           "hint": "예: 부지 내 제○동 1층 (면적: ○○㎡)"
         }
@@ -793,7 +793,7 @@
       "type": "paren-number",
       "marker": "3)",
       "text": "연락장소 또는 사무실",
-      "answer": "{{연락장소}}",
+      "answer": "{{contactAddr}}",
       "tags": {
         "category": [
           "W01"
@@ -815,8 +815,8 @@
       },
       "slots": [
         {
-          "key": "연락장소",
-          "label": "연락장소(사무실) 주소",
+          "key": "contactAddr",
+          "label": "Contact / Office Address",
           "type": "text",
           "hint": "예: 서울시 강남구 ○○로 123"
         }
@@ -906,7 +906,7 @@
       "type": "korean-paren",
       "marker": "가)",
       "text": "실험실",
-      "answer": "{{시설명세}}",
+      "answer": "{{facilitySpec}}",
       "tags": {
         "category": [
           "W01"
@@ -935,8 +935,8 @@
       },
       "slots": [
         {
-          "key": "시설명세",
-          "label": "시설 위치·규모",
+          "key": "facilitySpec",
+          "label": "Facility Location & Scale",
           "type": "text",
           "hint": "예: 부지 내 제○동 1층 (면적: ○○㎡)"
         }
@@ -955,7 +955,7 @@
       "type": "wrapped-number",
       "marker": "(1)",
       "text": "소각시설: 시간당 처분능력 2톤 이상",
-      "answer": "{{시설명세}}",
+      "answer": "{{facilitySpec}}",
       "tags": {
         "category": [
           "W01"
@@ -979,8 +979,8 @@
       },
       "slots": [
         {
-          "key": "시설명세",
-          "label": "시설 위치·규모",
+          "key": "facilitySpec",
+          "label": "Facility Location & Scale",
           "type": "text",
           "hint": "예: 부지 내 제○동 1층 (면적: ○○㎡)"
         }
@@ -991,7 +991,7 @@
       "type": "wrapped-number",
       "marker": "(2)",
       "text": "보관시설: 1일 처분능력의 10일분 이상 30일분 이하의 폐기물을 보관할 수 있는 규모의 시설",
-      "answer": "{{시설명세}}",
+      "answer": "{{facilitySpec}}",
       "tags": {
         "category": [
           "W01"
@@ -1020,8 +1020,8 @@
       },
       "slots": [
         {
-          "key": "시설명세",
-          "label": "시설 위치·규모",
+          "key": "facilitySpec",
+          "label": "Facility Location & Scale",
           "type": "text",
           "hint": "예: 부지 내 제○동 1층 (면적: ○○㎡)"
         }
@@ -1032,7 +1032,7 @@
       "type": "wrapped-number",
       "marker": "(3)",
       "text": "계량시설 1식 이상",
-      "answer": "{{장비명세}}",
+      "answer": "{{equipmentSpec}}",
       "tags": {
         "category": [
           "W01"
@@ -1061,8 +1061,8 @@
       },
       "slots": [
         {
-          "key": "장비명세",
-          "label": "장비 명세",
+          "key": "equipmentSpec",
+          "label": "Equipment Specification",
           "type": "text",
           "hint": "예: ○○ 계량기 1식, 제조번호 XXXX"
         }
@@ -1073,7 +1073,7 @@
       "type": "wrapped-number",
       "marker": "(4)",
       "text": "배출가스의 오염물질 중 아황산가스·염화수소·질소산화물·일산화탄소 및 분진을 측정·분석할 수 있는 실험기기",
-      "answer": "{{장비명세}}",
+      "answer": "{{equipmentSpec}}",
       "tags": {
         "category": [
           "W01"
@@ -1102,8 +1102,8 @@
       },
       "slots": [
         {
-          "key": "장비명세",
-          "label": "장비 명세",
+          "key": "equipmentSpec",
+          "label": "Equipment Specification",
           "type": "text",
           "hint": "예: ○○ 계량기 1식, 제조번호 XXXX"
         }
@@ -1114,7 +1114,7 @@
       "type": "wrapped-number",
       "marker": "(5)",
       "text": "수집·운반차량(밀폐형 차량 또는 밀폐형 덮개 설치차량을 말한다. 이하 이 표에서 같다) 1대 이상(처분대상 폐기물을 스스로 수집·운반하는 경우만 해당한다)",
-      "answer": "{{차량번호}}",
+      "answer": "{{vehicleNo}}",
       "tags": {
         "category": [
           "W01"
@@ -1143,8 +1143,8 @@
       },
       "slots": [
         {
-          "key": "차량번호",
-          "label": "차량번호",
+          "key": "vehicleNo",
+          "label": "Vehicle Registration No. (밀폐형 덮개 설치차량 / 밀폐형 차량 / 수집·운반차량)",
           "type": "text",
           "hint": "예: 12가2131, 34나1231"
         }
@@ -1155,7 +1155,7 @@
       "type": "korean-paren",
       "marker": "다)",
       "text": "기술능력: 폐기물처리산업기사 또는 대기환경산업기사 중 1명 이상",
-      "answer": "{{기술인력}}",
+      "answer": "{{techStaff}}",
       "tags": {
         "category": [
           "W01"
@@ -1184,8 +1184,8 @@
       },
       "slots": [
         {
-          "key": "기술인력",
-          "label": "기술인력 성명·자격번호",
+          "key": "techStaff",
+          "label": "Technical Staff (Name & License No.)",
           "type": "text",
           "hint": "예: 홍길동 (폐기물처리산업기사 제XXXX호)"
         }
@@ -1239,7 +1239,7 @@
       "type": "wrapped-number",
       "marker": "(1)",
       "text": "처분시설: 시간당 처분능력 200킬로그램 이상",
-      "answer": "{{시설명세}}",
+      "answer": "{{facilitySpec}}",
       "tags": {
         "category": [
           "W01"
@@ -1270,8 +1270,8 @@
       },
       "slots": [
         {
-          "key": "시설명세",
-          "label": "시설 위치·규모",
+          "key": "facilitySpec",
+          "label": "Facility Location & Scale",
           "type": "text",
           "hint": "예: 부지 내 제○동 1층 (면적: ○○㎡)"
         }
@@ -1282,7 +1282,7 @@
       "type": "wrapped-number",
       "marker": "(2)",
       "text": "보관시설: 1일 처분능력의 10일분 이상 30일분 이하의 폐기물을 보관할 수 있는 규모의 시설",
-      "answer": "{{시설명세}}",
+      "answer": "{{facilitySpec}}",
       "tags": {
         "category": [
           "W01"
@@ -1313,8 +1313,8 @@
       },
       "slots": [
         {
-          "key": "시설명세",
-          "label": "시설 위치·규모",
+          "key": "facilitySpec",
+          "label": "Facility Location & Scale",
           "type": "text",
           "hint": "예: 부지 내 제○동 1층 (면적: ○○㎡)"
         }
@@ -1325,7 +1325,7 @@
       "type": "wrapped-number",
       "marker": "(3)",
       "text": "계량시설 1식 이상",
-      "answer": "{{장비명세}}",
+      "answer": "{{equipmentSpec}}",
       "tags": {
         "category": [
           "W01"
@@ -1356,8 +1356,8 @@
       },
       "slots": [
         {
-          "key": "장비명세",
-          "label": "장비 명세",
+          "key": "equipmentSpec",
+          "label": "Equipment Specification",
           "type": "text",
           "hint": "예: ○○ 계량기 1식, 제조번호 XXXX"
         }
@@ -1368,7 +1368,7 @@
       "type": "wrapped-number",
       "marker": "(4)",
       "text": "수집·운반차량 1대 이상(처분대상 폐기물을 스스로 수집·운반하는 경우만 해당한다)",
-      "answer": "{{차량번호}}",
+      "answer": "{{vehicleNo}}",
       "tags": {
         "category": [
           "W01"
@@ -1399,8 +1399,8 @@
       },
       "slots": [
         {
-          "key": "차량번호",
-          "label": "차량번호",
+          "key": "vehicleNo",
+          "label": "Vehicle Registration No. (수집·운반차량)",
           "type": "text",
           "hint": "예: 12가2131, 34나1231"
         }
@@ -1411,7 +1411,7 @@
       "type": "korean-paren",
       "marker": "나)",
       "text": "기술능력: 폐기물처리산업기사·대기환경산업기사·수질환경산업기사·소음진동산업기사 또는 환경기능사 중 1명 이상",
-      "answer": "{{기술인력}}",
+      "answer": "{{techStaff}}",
       "tags": {
         "category": [
           "W01"
@@ -1442,8 +1442,8 @@
       },
       "slots": [
         {
-          "key": "기술인력",
-          "label": "기술인력 성명·자격번호",
+          "key": "techStaff",
+          "label": "Technical Staff (Name & License No.)",
           "type": "text",
           "hint": "예: 홍길동 (폐기물처리산업기사 제XXXX호)"
         }
@@ -1494,7 +1494,7 @@
       "type": "wrapped-number",
       "marker": "(1)",
       "text": "처분시설: 1일 처분능력 5톤 이상",
-      "answer": "{{시설명세}}",
+      "answer": "{{facilitySpec}}",
       "tags": {
         "category": [
           "W01"
@@ -1522,8 +1522,8 @@
       },
       "slots": [
         {
-          "key": "시설명세",
-          "label": "시설 위치·규모",
+          "key": "facilitySpec",
+          "label": "Facility Location & Scale",
           "type": "text",
           "hint": "예: 부지 내 제○동 1층 (면적: ○○㎡)"
         }
@@ -1534,7 +1534,7 @@
       "type": "wrapped-number",
       "marker": "(2)",
       "text": "보관시설: 1일 처분능력의 10일분 이상 30일분 이하의 폐기물을 보관할 수 있는 규모의 시설(부패와 악취발생의 방지를 위하여 수집·운반 즉시 처분하는 생물학적 처분시설을 갖춘 경우 보관시설을 설치하지 아니할 수 있다)",
-      "answer": "{{시설명세}}",
+      "answer": "{{facilitySpec}}",
       "tags": {
         "category": [
           "W01"
@@ -1562,8 +1562,8 @@
       },
       "slots": [
         {
-          "key": "시설명세",
-          "label": "시설 위치·규모",
+          "key": "facilitySpec",
+          "label": "Facility Location & Scale",
           "type": "text",
           "hint": "예: 부지 내 제○동 1층 (면적: ○○㎡)"
         }
@@ -1574,7 +1574,7 @@
       "type": "wrapped-number",
       "marker": "(3)",
       "text": "계량시설 1식 이상",
-      "answer": "{{장비명세}}",
+      "answer": "{{equipmentSpec}}",
       "tags": {
         "category": [
           "W01"
@@ -1602,8 +1602,8 @@
       },
       "slots": [
         {
-          "key": "장비명세",
-          "label": "장비 명세",
+          "key": "equipmentSpec",
+          "label": "Equipment Specification",
           "type": "text",
           "hint": "예: ○○ 계량기 1식, 제조번호 XXXX"
         }
@@ -1614,7 +1614,7 @@
       "type": "wrapped-number",
       "marker": "(4)",
       "text": "수집·운반차량 1대 이상(처분대상 폐기물을 스스로 수집·운반하는 경우만 해당한다)",
-      "answer": "{{차량번호}}",
+      "answer": "{{vehicleNo}}",
       "tags": {
         "category": [
           "W01"
@@ -1642,8 +1642,8 @@
       },
       "slots": [
         {
-          "key": "차량번호",
-          "label": "차량번호",
+          "key": "vehicleNo",
+          "label": "Vehicle Registration No. (수집·운반차량)",
           "type": "text",
           "hint": "예: 12가2131, 34나1231"
         }
@@ -1654,7 +1654,7 @@
       "type": "korean-paren",
       "marker": "나)",
       "text": "기술능력: 폐기물처리산업기사·대기환경산업기사·수질환경산업기사 또는 공업화학산업기사 중 1명 이상",
-      "answer": "{{기술인력}}",
+      "answer": "{{techStaff}}",
       "tags": {
         "category": [
           "W01"
@@ -1682,8 +1682,8 @@
       },
       "slots": [
         {
-          "key": "기술인력",
-          "label": "기술인력 성명·자격번호",
+          "key": "techStaff",
+          "label": "Technical Staff (Name & License No.)",
           "type": "text",
           "hint": "예: 홍길동 (폐기물처리산업기사 제XXXX호)"
         }
@@ -1736,7 +1736,7 @@
       "type": "wrapped-number",
       "marker": "(1)",
       "text": "실험실",
-      "answer": "{{시설명세}}",
+      "answer": "{{facilitySpec}}",
       "tags": {
         "category": [
           "W01"
@@ -1767,8 +1767,8 @@
       },
       "slots": [
         {
-          "key": "시설명세",
-          "label": "시설 위치·규모",
+          "key": "facilitySpec",
+          "label": "Facility Location & Scale",
           "type": "text",
           "hint": "예: 부지 내 제○동 1층 (면적: ○○㎡)"
         }
@@ -1779,7 +1779,7 @@
       "type": "wrapped-number",
       "marker": "(2)",
       "text": "실험기기: 수소이온농도·생물화학적산소요구량·화학적산소요구량·부유물질량 및 폐기물공정시험기준(방법)의 용출시험에 따른 별표 1에 규정된 유해물질을 측정할 수 있는 실험기기",
-      "answer": "{{장비명세}}",
+      "answer": "{{equipmentSpec}}",
       "tags": {
         "category": [
           "W01"
@@ -1810,8 +1810,8 @@
       },
       "slots": [
         {
-          "key": "장비명세",
-          "label": "장비 명세",
+          "key": "equipmentSpec",
+          "label": "Equipment Specification",
           "type": "text",
           "hint": "예: ○○ 계량기 1식, 제조번호 XXXX"
         }
@@ -1822,7 +1822,7 @@
       "type": "wrapped-number",
       "marker": "(3)",
       "text": "보관시설: 1일 처분능력의 10일분 이상 30일분 이하의 폐기물을 보관할 수 있는 보관창고",
-      "answer": "{{시설명세}}",
+      "answer": "{{facilitySpec}}",
       "tags": {
         "category": [
           "W01"
@@ -1853,8 +1853,8 @@
       },
       "slots": [
         {
-          "key": "시설명세",
-          "label": "시설 위치·규모",
+          "key": "facilitySpec",
+          "label": "Facility Location & Scale",
           "type": "text",
           "hint": "예: 부지 내 제○동 1층 (면적: ○○㎡)"
         }
@@ -1865,7 +1865,7 @@
       "type": "wrapped-number",
       "marker": "(4)",
       "text": "주차장: 모든 차량을 주차할 수 있는 규모(처분대상 폐기물을 스스로 수집·운반하는 경우만 해당한다)",
-      "answer": "{{시설명세}}",
+      "answer": "{{facilitySpec}}",
       "tags": {
         "category": [
           "W01"
@@ -1896,8 +1896,8 @@
       },
       "slots": [
         {
-          "key": "시설명세",
-          "label": "시설 위치·규모",
+          "key": "facilitySpec",
+          "label": "Facility Location & Scale",
           "type": "text",
           "hint": "예: 부지 내 제○동 1층 (면적: ○○㎡)"
         }
@@ -1908,7 +1908,7 @@
       "type": "wrapped-number",
       "marker": "(5)",
       "text": "세차시설: 20제곱미터 이상",
-      "answer": "{{시설명세}}",
+      "answer": "{{facilitySpec}}",
       "tags": {
         "category": [
           "W01"
@@ -1939,8 +1939,8 @@
       },
       "slots": [
         {
-          "key": "시설명세",
-          "label": "시설 위치·규모",
+          "key": "facilitySpec",
+          "label": "Facility Location & Scale",
           "type": "text",
           "hint": "예: 부지 내 제○동 1층 (면적: ○○㎡)"
         }
@@ -1951,7 +1951,7 @@
       "type": "wrapped-number",
       "marker": "(6)",
       "text": "계량시설 1식 이상",
-      "answer": "{{장비명세}}",
+      "answer": "{{equipmentSpec}}",
       "tags": {
         "category": [
           "W01"
@@ -1982,8 +1982,8 @@
       },
       "slots": [
         {
-          "key": "장비명세",
-          "label": "장비 명세",
+          "key": "equipmentSpec",
+          "label": "Equipment Specification",
           "type": "text",
           "hint": "예: ○○ 계량기 1식, 제조번호 XXXX"
         }
@@ -1994,7 +1994,7 @@
       "type": "wrapped-number",
       "marker": "(7)",
       "text": "수집·운반차량 1대 이상(처분대상 폐기물을 스스로 수집·운반하는 경우만 해당한다)",
-      "answer": "{{차량번호}}",
+      "answer": "{{vehicleNo}}",
       "tags": {
         "category": [
           "W01"
@@ -2025,8 +2025,8 @@
       },
       "slots": [
         {
-          "key": "차량번호",
-          "label": "차량번호",
+          "key": "vehicleNo",
+          "label": "Vehicle Registration No. (수집·운반차량)",
           "type": "text",
           "hint": "예: 12가2131, 34나1231"
         }
@@ -2045,7 +2045,7 @@
       "type": "wrapped-number",
       "marker": "(1)",
       "text": "고온소각·고온용융 처분대상폐기물: 시간당 처분능력 200킬로그램 이상의 고온소각시설 또는 고온용융시설",
-      "answer": "{{시설명세}}",
+      "answer": "{{facilitySpec}}",
       "tags": {
         "category": [
           "W01"
@@ -2079,8 +2079,8 @@
       },
       "slots": [
         {
-          "key": "시설명세",
-          "label": "시설 위치·규모",
+          "key": "facilitySpec",
+          "label": "Facility Location & Scale",
           "type": "text",
           "hint": "예: 부지 내 제○동 1층 (면적: ○○㎡)"
         }
@@ -2091,7 +2091,7 @@
       "type": "wrapped-number",
       "marker": "(2)",
       "text": "일반소각대상폐기물: 시간당 처분능력 2톤 이상의 소각시설",
-      "answer": "{{시설명세}}",
+      "answer": "{{facilitySpec}}",
       "tags": {
         "category": [
           "W01"
@@ -2124,8 +2124,8 @@
       },
       "slots": [
         {
-          "key": "시설명세",
-          "label": "시설 위치·규모",
+          "key": "facilitySpec",
+          "label": "Facility Location & Scale",
           "type": "text",
           "hint": "예: 부지 내 제○동 1층 (면적: ○○㎡)"
         }
@@ -2136,7 +2136,7 @@
       "type": "wrapped-number",
       "marker": "(3)",
       "text": "기계적·화학적 또는 생물학적 처분대상폐기물: 1일 처분능력 5톤 이상의 시설",
-      "answer": "{{시설명세}}",
+      "answer": "{{facilitySpec}}",
       "tags": {
         "category": [
           "W01"
@@ -2177,8 +2177,8 @@
       },
       "slots": [
         {
-          "key": "시설명세",
-          "label": "시설 위치·규모",
+          "key": "facilitySpec",
+          "label": "Facility Location & Scale",
           "type": "text",
           "hint": "예: 부지 내 제○동 1층 (면적: ○○㎡)"
         }
@@ -2189,7 +2189,7 @@
       "type": "paren-number",
       "marker": "2)",
       "text": "기술능력: 폐기물처리기사·대기환경기사·수질환경기사 또는 화공기사 중 1명 이상",
-      "answer": "{{기술인력}}",
+      "answer": "{{techStaff}}",
       "tags": {
         "category": [
           "W01"
@@ -2220,8 +2220,8 @@
       },
       "slots": [
         {
-          "key": "기술인력",
-          "label": "기술인력 성명·자격번호",
+          "key": "techStaff",
+          "label": "Technical Staff (Name & License No.)",
           "type": "text",
           "hint": "예: 홍길동 (폐기물처리산업기사 제XXXX호)"
         }
@@ -2273,7 +2273,7 @@
       "type": "wrapped-number",
       "marker": "(1)",
       "text": "보관창고 및 냉장시설: 1일 처분능력의 3일분 이상 5일분 이하의 폐기물을 보관할 수 있는 보관창고 및 냉장시설",
-      "answer": "{{시설명세}}",
+      "answer": "{{facilitySpec}}",
       "tags": {
         "category": [
           "W01"
@@ -2295,8 +2295,8 @@
       },
       "slots": [
         {
-          "key": "시설명세",
-          "label": "시설 위치·규모",
+          "key": "facilitySpec",
+          "label": "Facility Location & Scale",
           "type": "text",
           "hint": "예: 부지 내 제○동 1층 (면적: ○○㎡)"
         }
@@ -2307,7 +2307,7 @@
       "type": "wrapped-number",
       "marker": "(2)",
       "text": "주차장: 모든 차량을 주차할 수 있는 규모(처분대상 폐기물을 스스로 수집·운반하는 경우만 해당한다)",
-      "answer": "{{시설명세}}",
+      "answer": "{{facilitySpec}}",
       "tags": {
         "category": [
           "W01"
@@ -2329,8 +2329,8 @@
       },
       "slots": [
         {
-          "key": "시설명세",
-          "label": "시설 위치·규모",
+          "key": "facilitySpec",
+          "label": "Facility Location & Scale",
           "type": "text",
           "hint": "예: 부지 내 제○동 1층 (면적: ○○㎡)"
         }
@@ -2341,7 +2341,7 @@
       "type": "wrapped-number",
       "marker": "(3)",
       "text": "소독시설",
-      "answer": "{{시설명세}}",
+      "answer": "{{facilitySpec}}",
       "tags": {
         "category": [
           "W01"
@@ -2363,8 +2363,8 @@
       },
       "slots": [
         {
-          "key": "시설명세",
-          "label": "시설 위치·규모",
+          "key": "facilitySpec",
+          "label": "Facility Location & Scale",
           "type": "text",
           "hint": "예: 부지 내 제○동 1층 (면적: ○○㎡)"
         }
@@ -2375,7 +2375,7 @@
       "type": "wrapped-number",
       "marker": "(4)",
       "text": "수집·운반차량: 적재능력 0.45톤 이상의 냉장차량 1대 이상(처분대상 폐기물을 스스로 수집·운반하는 경우만 해당한다)",
-      "answer": "{{차량번호}}",
+      "answer": "{{vehicleNo}}",
       "tags": {
         "category": [
           "W01"
@@ -2397,8 +2397,8 @@
       },
       "slots": [
         {
-          "key": "차량번호",
-          "label": "차량번호",
+          "key": "vehicleNo",
+          "label": "Vehicle Registration No. (냉장차량 / 수집·운반차량)",
           "type": "text",
           "hint": "예: 12가2131, 34나1231"
         }
@@ -2409,7 +2409,7 @@
       "type": "korean-paren",
       "marker": "나)",
       "text": "개별시설: 시간당 처분능력 2톤 이상의 소각시설",
-      "answer": "{{시설명세}}",
+      "answer": "{{facilitySpec}}",
       "tags": {
         "category": [
           "W01"
@@ -2433,8 +2433,8 @@
       },
       "slots": [
         {
-          "key": "시설명세",
-          "label": "시설 위치·규모",
+          "key": "facilitySpec",
+          "label": "Facility Location & Scale",
           "type": "text",
           "hint": "예: 부지 내 제○동 1층 (면적: ○○㎡)"
         }
@@ -2445,7 +2445,7 @@
       "type": "paren-number",
       "marker": "2)",
       "text": "기술능력: 폐기물처리산업기사·임상병리사 또는 위생사 중 1명 이상",
-      "answer": "{{기술인력}}",
+      "answer": "{{techStaff}}",
       "tags": {
         "category": [
           "W01"
@@ -2467,8 +2467,8 @@
       },
       "slots": [
         {
-          "key": "기술인력",
-          "label": "기술인력 성명·자격번호",
+          "key": "techStaff",
+          "label": "Technical Staff (Name & License No.)",
           "type": "text",
           "hint": "예: 홍길동 (폐기물처리산업기사 제XXXX호)"
         }
@@ -2525,7 +2525,7 @@
       "type": "paren-number",
       "marker": "1)",
       "text": "실험실",
-      "answer": "{{시설명세}}",
+      "answer": "{{facilitySpec}}",
       "tags": {
         "category": [
           "W01"
@@ -2550,8 +2550,8 @@
       },
       "slots": [
         {
-          "key": "시설명세",
-          "label": "시설 위치·규모",
+          "key": "facilitySpec",
+          "label": "Facility Location & Scale",
           "type": "text",
           "hint": "예: 부지 내 제○동 1층 (면적: ○○㎡)"
         }
@@ -2570,7 +2570,7 @@
       "type": "korean-paren",
       "marker": "가)",
       "text": "면적 3천3백제곱미터 이상 또는 매립가능용적 1만세제곱미터 이상의 매립시설",
-      "answer": "{{시설명세}}",
+      "answer": "{{facilitySpec}}",
       "tags": {
         "category": [
           "W01"
@@ -2595,8 +2595,8 @@
       },
       "slots": [
         {
-          "key": "시설명세",
-          "label": "시설 위치·규모",
+          "key": "facilitySpec",
+          "label": "Facility Location & Scale",
           "type": "text",
           "hint": "예: 부지 내 제○동 1층 (면적: ○○㎡)"
         }
@@ -2607,7 +2607,7 @@
       "type": "korean-paren",
       "marker": "나)",
       "text": "별표 11에 따른 침출수배출허용기준의 항목을 측정·분석할 수 있는 실험기기. 다만, 영 제7조제1항제9호 단서에 따라 시설의 전부를 갖추지 아니한 매립시설에서 제13조제1항 각 호의 폐기물만 처분하는 경우는 제외한다.",
-      "answer": "{{장비명세}}",
+      "answer": "{{equipmentSpec}}",
       "tags": {
         "category": [
           "W01"
@@ -2632,8 +2632,8 @@
       },
       "slots": [
         {
-          "key": "장비명세",
-          "label": "장비 명세",
+          "key": "equipmentSpec",
+          "label": "Equipment Specification",
           "type": "text",
           "hint": "예: ○○ 계량기 1식, 제조번호 XXXX"
         }
@@ -2644,7 +2644,7 @@
       "type": "korean-paren",
       "marker": "다)",
       "text": "바켓용량 0.6세제곱미터 이상으로서 다짐작업이 가능한 굴착기 1대 이상",
-      "answer": "{{차량번호}}",
+      "answer": "{{vehicleNo}}",
       "tags": {
         "category": [
           "W01"
@@ -2669,8 +2669,8 @@
       },
       "slots": [
         {
-          "key": "차량번호",
-          "label": "차량번호",
+          "key": "vehicleNo",
+          "label": "Vehicle Registration No. (굴착기)",
           "type": "text",
           "hint": "예: 12가2131, 34나1231"
         }
@@ -2681,7 +2681,7 @@
       "type": "korean-paren",
       "marker": "라)",
       "text": "세차시설: 30제곱미터 이상",
-      "answer": "{{시설명세}}",
+      "answer": "{{facilitySpec}}",
       "tags": {
         "category": [
           "W01"
@@ -2706,8 +2706,8 @@
       },
       "slots": [
         {
-          "key": "시설명세",
-          "label": "시설 위치·규모",
+          "key": "facilitySpec",
+          "label": "Facility Location & Scale",
           "type": "text",
           "hint": "예: 부지 내 제○동 1층 (면적: ○○㎡)"
         }
@@ -2718,7 +2718,7 @@
       "type": "korean-paren",
       "marker": "마)",
       "text": "수집·운반차량의 계량시설 1식 이상",
-      "answer": "{{장비명세}}",
+      "answer": "{{equipmentSpec}}",
       "tags": {
         "category": [
           "W01"
@@ -2743,8 +2743,8 @@
       },
       "slots": [
         {
-          "key": "장비명세",
-          "label": "장비 명세",
+          "key": "equipmentSpec",
+          "label": "Equipment Specification",
           "type": "text",
           "hint": "예: ○○ 계량기 1식, 제조번호 XXXX"
         }
@@ -2755,7 +2755,7 @@
       "type": "korean-paren",
       "marker": "바)",
       "text": "수집·운반차량 1대 이상(처분대상 폐기물을 스스로 수집·운반하는 경우만 해당한다)",
-      "answer": "{{차량번호}}",
+      "answer": "{{vehicleNo}}",
       "tags": {
         "category": [
           "W01"
@@ -2780,8 +2780,8 @@
       },
       "slots": [
         {
-          "key": "차량번호",
-          "label": "차량번호",
+          "key": "vehicleNo",
+          "label": "Vehicle Registration No. (수집·운반차량)",
           "type": "text",
           "hint": "예: 12가2131, 34나1231"
         }
@@ -2800,7 +2800,7 @@
       "type": "korean-paren",
       "marker": "가)",
       "text": "폐기물처리산업기사 또는 수질환경산업기사 중 1명 이상",
-      "answer": "{{기술인력}}",
+      "answer": "{{techStaff}}",
       "tags": {
         "category": [
           "W01"
@@ -2822,8 +2822,8 @@
       },
       "slots": [
         {
-          "key": "기술인력",
-          "label": "기술인력 성명·자격번호",
+          "key": "techStaff",
+          "label": "Technical Staff (Name & License No.)",
           "type": "text",
           "hint": "예: 홍길동 (폐기물처리산업기사 제XXXX호)"
         }
@@ -2834,7 +2834,7 @@
       "type": "korean-paren",
       "marker": "나)",
       "text": "토목산업기사 또는 폐기물처리산업기사 중 1명 이상",
-      "answer": "{{기술인력}}",
+      "answer": "{{techStaff}}",
       "tags": {
         "category": [
           "W01"
@@ -2856,8 +2856,8 @@
       },
       "slots": [
         {
-          "key": "기술인력",
-          "label": "기술인력 성명·자격번호",
+          "key": "techStaff",
+          "label": "Technical Staff (Name & License No.)",
           "type": "text",
           "hint": "예: 홍길동 (폐기물처리산업기사 제XXXX호)"
         }
@@ -2891,7 +2891,7 @@
       "type": "paren-number",
       "marker": "1)",
       "text": "실험실",
-      "answer": "{{시설명세}}",
+      "answer": "{{facilitySpec}}",
       "tags": {
         "category": [
           "W01"
@@ -2914,8 +2914,8 @@
       },
       "slots": [
         {
-          "key": "시설명세",
-          "label": "시설 위치·규모",
+          "key": "facilitySpec",
+          "label": "Facility Location & Scale",
           "type": "text",
           "hint": "예: 부지 내 제○동 1층 (면적: ○○㎡)"
         }
@@ -2926,7 +2926,7 @@
       "type": "paren-number",
       "marker": "2)",
       "text": "실험기기·기구: 별표 11에 따른 침출수 배출허용기준의 항목을 측정·분석할 수 있는 실험기기",
-      "answer": "{{장비명세}}",
+      "answer": "{{equipmentSpec}}",
       "tags": {
         "category": [
           "W01"
@@ -2949,8 +2949,8 @@
       },
       "slots": [
         {
-          "key": "장비명세",
-          "label": "장비 명세",
+          "key": "equipmentSpec",
+          "label": "Equipment Specification",
           "type": "text",
           "hint": "예: ○○ 계량기 1식, 제조번호 XXXX"
         }
@@ -2969,7 +2969,7 @@
       "type": "korean-paren",
       "marker": "가)",
       "text": "면적 1만제곱미터 이상 또는 매립가능용적 3만세제곱미터 이상의 매립시설",
-      "answer": "{{시설명세}}",
+      "answer": "{{facilitySpec}}",
       "tags": {
         "category": [
           "W01"
@@ -2992,8 +2992,8 @@
       },
       "slots": [
         {
-          "key": "시설명세",
-          "label": "시설 위치·규모",
+          "key": "facilitySpec",
+          "label": "Facility Location & Scale",
           "type": "text",
           "hint": "예: 부지 내 제○동 1층 (면적: ○○㎡)"
         }
@@ -3004,7 +3004,7 @@
       "type": "korean-paren",
       "marker": "나)",
       "text": "주차장: 모든 차량을 주차할 수 있는 규모(처분대상 폐기물을 스스로 수집·운반하는 경우만 해당한다)",
-      "answer": "{{시설명세}}",
+      "answer": "{{facilitySpec}}",
       "tags": {
         "category": [
           "W01"
@@ -3027,8 +3027,8 @@
       },
       "slots": [
         {
-          "key": "시설명세",
-          "label": "시설 위치·규모",
+          "key": "facilitySpec",
+          "label": "Facility Location & Scale",
           "type": "text",
           "hint": "예: 부지 내 제○동 1층 (면적: ○○㎡)"
         }
@@ -3039,7 +3039,7 @@
       "type": "korean-paren",
       "marker": "다)",
       "text": "세차시설: 30제곱미터 이상",
-      "answer": "{{시설명세}}",
+      "answer": "{{facilitySpec}}",
       "tags": {
         "category": [
           "W01"
@@ -3062,8 +3062,8 @@
       },
       "slots": [
         {
-          "key": "시설명세",
-          "label": "시설 위치·규모",
+          "key": "facilitySpec",
+          "label": "Facility Location & Scale",
           "type": "text",
           "hint": "예: 부지 내 제○동 1층 (면적: ○○㎡)"
         }
@@ -3074,7 +3074,7 @@
       "type": "korean-paren",
       "marker": "라)",
       "text": "수집·운반차량의 계량시설 1식 이상",
-      "answer": "{{장비명세}}",
+      "answer": "{{equipmentSpec}}",
       "tags": {
         "category": [
           "W01"
@@ -3097,8 +3097,8 @@
       },
       "slots": [
         {
-          "key": "장비명세",
-          "label": "장비 명세",
+          "key": "equipmentSpec",
+          "label": "Equipment Specification",
           "type": "text",
           "hint": "예: ○○ 계량기 1식, 제조번호 XXXX"
         }
@@ -3109,7 +3109,7 @@
       "type": "korean-paren",
       "marker": "마)",
       "text": "수집·운반차량 1대 이상(처분대상 폐기물을 스스로 수집·운반하는 경우만 해당한다)",
-      "answer": "{{차량번호}}",
+      "answer": "{{vehicleNo}}",
       "tags": {
         "category": [
           "W01"
@@ -3132,8 +3132,8 @@
       },
       "slots": [
         {
-          "key": "차량번호",
-          "label": "차량번호",
+          "key": "vehicleNo",
+          "label": "Vehicle Registration No. (수집·운반차량)",
           "type": "text",
           "hint": "예: 12가2131, 34나1231"
         }
@@ -3144,7 +3144,7 @@
       "type": "korean-paren",
       "marker": "바)",
       "text": "바켓용량 0.6세제곱미터 이상으로서 다짐작업이 가능한 굴착기 1대 이상",
-      "answer": "{{차량번호}}",
+      "answer": "{{vehicleNo}}",
       "tags": {
         "category": [
           "W01"
@@ -3167,8 +3167,8 @@
       },
       "slots": [
         {
-          "key": "차량번호",
-          "label": "차량번호",
+          "key": "vehicleNo",
+          "label": "Vehicle Registration No. (굴착기)",
           "type": "text",
           "hint": "예: 12가2131, 34나1231"
         }
@@ -3179,7 +3179,7 @@
       "type": "korean-paren",
       "marker": "사)",
       "text": "레벨·표척 등 매립고 측정기기 1식 이상",
-      "answer": "{{장비명세}}",
+      "answer": "{{equipmentSpec}}",
       "tags": {
         "category": [
           "W01"
@@ -3202,8 +3202,8 @@
       },
       "slots": [
         {
-          "key": "장비명세",
-          "label": "장비 명세",
+          "key": "equipmentSpec",
+          "label": "Equipment Specification",
           "type": "text",
           "hint": "예: ○○ 계량기 1식, 제조번호 XXXX"
         }
@@ -3222,7 +3222,7 @@
       "type": "korean-paren",
       "marker": "가)",
       "text": "폐기물처리산업기사·수질환경산업기사 또는 화공기사 중 1명 이상",
-      "answer": "{{기술인력}}",
+      "answer": "{{techStaff}}",
       "tags": {
         "category": [
           "W01"
@@ -3242,8 +3242,8 @@
       },
       "slots": [
         {
-          "key": "기술인력",
-          "label": "기술인력 성명·자격번호",
+          "key": "techStaff",
+          "label": "Technical Staff (Name & License No.)",
           "type": "text",
           "hint": "예: 홍길동 (폐기물처리산업기사 제XXXX호)"
         }
@@ -3254,7 +3254,7 @@
       "type": "korean-paren",
       "marker": "나)",
       "text": "폐기물처리기사 1명 이상",
-      "answer": "{{기술인력}}",
+      "answer": "{{techStaff}}",
       "tags": {
         "category": [
           "W01"
@@ -3274,8 +3274,8 @@
       },
       "slots": [
         {
-          "key": "기술인력",
-          "label": "기술인력 성명·자격번호",
+          "key": "techStaff",
+          "label": "Technical Staff (Name & License No.)",
           "type": "text",
           "hint": "예: 홍길동 (폐기물처리산업기사 제XXXX호)"
         }
@@ -3309,7 +3309,7 @@
       "type": "korean",
       "marker": "가.",
       "text": "실험실",
-      "answer": "{{시설명세}}",
+      "answer": "{{facilitySpec}}",
       "tags": {
         "category": [
           "W01"
@@ -3334,8 +3334,8 @@
       },
       "slots": [
         {
-          "key": "시설명세",
-          "label": "시설 위치·규모",
+          "key": "facilitySpec",
+          "label": "Facility Location & Scale",
           "type": "text",
           "hint": "예: 부지 내 제○동 1층 (면적: ○○㎡)"
         }
@@ -3346,7 +3346,7 @@
       "type": "korean",
       "marker": "나.",
       "text": "실험기기·기구: 폐기물을 중간처분하는 경우와 최종처분하는 경우 갖추어야 할 실험기기 및 기구",
-      "answer": "{{장비명세}}",
+      "answer": "{{equipmentSpec}}",
       "tags": {
         "category": [
           "W01"
@@ -3371,8 +3371,8 @@
       },
       "slots": [
         {
-          "key": "장비명세",
-          "label": "장비 명세",
+          "key": "equipmentSpec",
+          "label": "Equipment Specification",
           "type": "text",
           "hint": "예: ○○ 계량기 1식, 제조번호 XXXX"
         }
@@ -3391,7 +3391,7 @@
       "type": "paren-number",
       "marker": "1)",
       "text": "바켓용량 0.6세제곱미터 이상으로서 다짐작업이 가능한 굴착기 1대 이상",
-      "answer": "{{차량번호}}",
+      "answer": "{{vehicleNo}}",
       "tags": {
         "category": [
           "W01"
@@ -3419,8 +3419,8 @@
       },
       "slots": [
         {
-          "key": "차량번호",
-          "label": "차량번호",
+          "key": "vehicleNo",
+          "label": "Vehicle Registration No. (굴착기)",
           "type": "text",
           "hint": "예: 12가2131, 34나1231"
         }
@@ -3431,7 +3431,7 @@
       "type": "paren-number",
       "marker": "2)",
       "text": "레벨·표척 등 매립고 측정기기 1식 이상",
-      "answer": "{{장비명세}}",
+      "answer": "{{equipmentSpec}}",
       "tags": {
         "category": [
           "W01"
@@ -3459,8 +3459,8 @@
       },
       "slots": [
         {
-          "key": "장비명세",
-          "label": "장비 명세",
+          "key": "equipmentSpec",
+          "label": "Equipment Specification",
           "type": "text",
           "hint": "예: ○○ 계량기 1식, 제조번호 XXXX"
         }
@@ -3471,7 +3471,7 @@
       "type": "paren-number",
       "marker": "3)",
       "text": "수집·운반차량 1대 이상(처분대상 폐기물을 스스로 수집·운반하는 경우만 해당한다)",
-      "answer": "{{차량번호}}",
+      "answer": "{{vehicleNo}}",
       "tags": {
         "category": [
           "W01"
@@ -3496,8 +3496,8 @@
       },
       "slots": [
         {
-          "key": "차량번호",
-          "label": "차량번호",
+          "key": "vehicleNo",
+          "label": "Vehicle Registration No. (수집·운반차량)",
           "type": "text",
           "hint": "예: 12가2131, 34나1231"
         }
@@ -3525,7 +3525,7 @@
       "type": "paren-number",
       "marker": "1)",
       "text": "보관시설: 1일 처분능력 10일분 이상 30일분 이하의 폐기물을 보관할 수 있는 규모의 시설",
-      "answer": "{{시설명세}}",
+      "answer": "{{facilitySpec}}",
       "tags": {
         "category": [
           "W01"
@@ -3550,8 +3550,8 @@
       },
       "slots": [
         {
-          "key": "시설명세",
-          "label": "시설 위치·규모",
+          "key": "facilitySpec",
+          "label": "Facility Location & Scale",
           "type": "text",
           "hint": "예: 부지 내 제○동 1층 (면적: ○○㎡)"
         }
@@ -3562,7 +3562,7 @@
       "type": "paren-number",
       "marker": "2)",
       "text": "주차장: 모든 차량을 주차할 수 있는 규모(처분대상 폐기물을 스스로 수집·운반하는 경우만 해당한다)",
-      "answer": "{{시설명세}}",
+      "answer": "{{facilitySpec}}",
       "tags": {
         "category": [
           "W01"
@@ -3587,8 +3587,8 @@
       },
       "slots": [
         {
-          "key": "시설명세",
-          "label": "시설 위치·규모",
+          "key": "facilitySpec",
+          "label": "Facility Location & Scale",
           "type": "text",
           "hint": "예: 부지 내 제○동 1층 (면적: ○○㎡)"
         }
@@ -3599,7 +3599,7 @@
       "type": "paren-number",
       "marker": "3)",
       "text": "세차시설: 30제곱미터 이상",
-      "answer": "{{시설명세}}",
+      "answer": "{{facilitySpec}}",
       "tags": {
         "category": [
           "W01"
@@ -3624,8 +3624,8 @@
       },
       "slots": [
         {
-          "key": "시설명세",
-          "label": "시설 위치·규모",
+          "key": "facilitySpec",
+          "label": "Facility Location & Scale",
           "type": "text",
           "hint": "예: 부지 내 제○동 1층 (면적: ○○㎡)"
         }
@@ -3636,7 +3636,7 @@
       "type": "paren-number",
       "marker": "4)",
       "text": "수집·운반차량의 계량시설 1식 이상",
-      "answer": "{{장비명세}}",
+      "answer": "{{equipmentSpec}}",
       "tags": {
         "category": [
           "W01"
@@ -3661,8 +3661,8 @@
       },
       "slots": [
         {
-          "key": "장비명세",
-          "label": "장비 명세",
+          "key": "equipmentSpec",
+          "label": "Equipment Specification",
           "type": "text",
           "hint": "예: ○○ 계량기 1식, 제조번호 XXXX"
         }
@@ -3673,7 +3673,7 @@
       "type": "paren-number",
       "marker": "5)",
       "text": "1일 처분능력 500톤 이상인 파쇄시설(건설폐기물 및 불연성 폐기물을 처리하는 경우만 해당한다) 또는 압축시설",
-      "answer": "{{장비명세}}",
+      "answer": "{{equipmentSpec}}",
       "tags": {
         "category": [
           "W01"
@@ -3701,8 +3701,8 @@
       },
       "slots": [
         {
-          "key": "장비명세",
-          "label": "장비 명세",
+          "key": "equipmentSpec",
+          "label": "Equipment Specification",
           "type": "text",
           "hint": "예: ○○ 계량기 1식, 제조번호 XXXX"
         }
@@ -3713,7 +3713,7 @@
       "type": "paren-number",
       "marker": "6)",
       "text": "시간당 처분능력 2톤 이상인 소각시설",
-      "answer": "{{시설명세}}",
+      "answer": "{{facilitySpec}}",
       "tags": {
         "category": [
           "W01"
@@ -3740,8 +3740,8 @@
       },
       "slots": [
         {
-          "key": "시설명세",
-          "label": "시설 위치·규모",
+          "key": "facilitySpec",
+          "label": "Facility Location & Scale",
           "type": "text",
           "hint": "예: 부지 내 제○동 1층 (면적: ○○㎡)"
         }
@@ -3752,7 +3752,7 @@
       "type": "paren-number",
       "marker": "7)",
       "text": "1일 처분능력 5톤 이상인 고형화·고화 또는 안정화 시설",
-      "answer": "{{시설명세}}",
+      "answer": "{{facilitySpec}}",
       "tags": {
         "category": [
           "W01"
@@ -3779,8 +3779,8 @@
       },
       "slots": [
         {
-          "key": "시설명세",
-          "label": "시설 위치·규모",
+          "key": "facilitySpec",
+          "label": "Facility Location & Scale",
           "type": "text",
           "hint": "예: 부지 내 제○동 1층 (면적: ○○㎡)"
         }
@@ -3791,7 +3791,7 @@
       "type": "paren-number",
       "marker": "8)",
       "text": "1일 처분능력 5톤 이상인 반응·증발·농축·응집·침전시설 등의 화학적 처분시설",
-      "answer": "{{시설명세}}",
+      "answer": "{{facilitySpec}}",
       "tags": {
         "category": [
           "W01"
@@ -3820,8 +3820,8 @@
       },
       "slots": [
         {
-          "key": "시설명세",
-          "label": "시설 위치·규모",
+          "key": "facilitySpec",
+          "label": "Facility Location & Scale",
           "type": "text",
           "hint": "예: 부지 내 제○동 1층 (면적: ○○㎡)"
         }
@@ -3832,7 +3832,7 @@
       "type": "paren-number",
       "marker": "9)",
       "text": "면적 1만제곱미터 이상 또는 매립가능용적 3만세제곱미터 이상의 매립시설",
-      "answer": "{{시설명세}}",
+      "answer": "{{facilitySpec}}",
       "tags": {
         "category": [
           "W01"
@@ -3860,8 +3860,8 @@
       },
       "slots": [
         {
-          "key": "시설명세",
-          "label": "시설 위치·규모",
+          "key": "facilitySpec",
+          "label": "Facility Location & Scale",
           "type": "text",
           "hint": "예: 부지 내 제○동 1층 (면적: ○○㎡)"
         }
@@ -3880,7 +3880,7 @@
       "type": "paren-number",
       "marker": "1)",
       "text": "폐기물처리기사·대기환경기사·수질환경기사 또는 토목기사 중 1명 이상",
-      "answer": "{{기술인력}}",
+      "answer": "{{techStaff}}",
       "tags": {
         "category": [
           "W01"
@@ -3905,8 +3905,8 @@
       },
       "slots": [
         {
-          "key": "기술인력",
-          "label": "기술인력 성명·자격번호",
+          "key": "techStaff",
+          "label": "Technical Staff (Name & License No.)",
           "type": "text",
           "hint": "예: 홍길동 (폐기물처리산업기사 제XXXX호)"
         }
@@ -3917,7 +3917,7 @@
       "type": "paren-number",
       "marker": "2)",
       "text": "폐기물처리산업기사·대기환경산업기사·수질환경산업기사 또는 공업화학산업기사 중 2명 이상",
-      "answer": "{{기술인력}}",
+      "answer": "{{techStaff}}",
       "tags": {
         "category": [
           "W01"
@@ -3942,8 +3942,8 @@
       },
       "slots": [
         {
-          "key": "기술인력",
-          "label": "기술인력 성명·자격번호",
+          "key": "techStaff",
+          "label": "Technical Staff (Name & License No.)",
           "type": "text",
           "hint": "예: 홍길동 (폐기물처리산업기사 제XXXX호)"
         }
@@ -4028,7 +4028,7 @@
       "type": "wrapped-korean",
       "marker": "(가)",
       "text": "음식물류 폐기물 및 동물성 잔재물을 재활용하는 경우: 1일분 이상 30일분 이하",
-      "answer": "{{시설명세}}",
+      "answer": "{{facilitySpec}}",
       "tags": {
         "category": [
           "W01"
@@ -4057,8 +4057,8 @@
       },
       "slots": [
         {
-          "key": "시설명세",
-          "label": "시설 위치·규모",
+          "key": "facilitySpec",
+          "label": "Facility Location & Scale",
           "type": "text",
           "hint": "예: 부지 내 제○동 1층 (면적: ○○㎡)"
         }
@@ -4069,7 +4069,7 @@
       "type": "wrapped-korean",
       "marker": "(나)",
       "text": "제31조제1항제3호 각 목의 폐기물(폐목재, 폐촉매 또는 합성수지재질의 폐김발장은 제외한다)을 재활용하는 경우: 10일분 이상 60일분 이하",
-      "answer": "{{시설명세}}",
+      "answer": "{{facilitySpec}}",
       "tags": {
         "category": [
           "W01"
@@ -4093,8 +4093,8 @@
       },
       "slots": [
         {
-          "key": "시설명세",
-          "label": "시설 위치·규모",
+          "key": "facilitySpec",
+          "label": "Facility Location & Scale",
           "type": "text",
           "hint": "예: 부지 내 제○동 1층 (면적: ○○㎡)"
         }
@@ -4105,7 +4105,7 @@
       "type": "wrapped-korean",
       "marker": "(다)",
       "text": "폐목재, 폐촉매, 합성수지재질의 폐김발장, 석탄재, 리튬이차전지, 전기자동차 폐이차전지, 태양광 폐패널 또는 「폐기물의 국가 간 이동 및 그 처리에 관한 법률」에 따라 수입하는 폐기물[별표 4의2 제2호가목1)ㆍ2) 또는 같은 호 나목1)ㆍ2)에 따른 유형으로 재활용하기 위한 목적으로 수입되는 것으로 한정한다]을 재활용하는 경우: 10일분 이상 180일분 이하",
-      "answer": "{{시설명세}}",
+      "answer": "{{facilitySpec}}",
       "tags": {
         "category": [
           "W01"
@@ -4133,8 +4133,8 @@
       },
       "slots": [
         {
-          "key": "시설명세",
-          "label": "시설 위치·규모",
+          "key": "facilitySpec",
+          "label": "Facility Location & Scale",
           "type": "text",
           "hint": "예: 부지 내 제○동 1층 (면적: ○○㎡)"
         }
@@ -4145,7 +4145,7 @@
       "type": "wrapped-korean",
       "marker": "(라)",
       "text": "(가)부터 (다)까지의 어느 하나에 해당하지 않는 경우: 10일분 이상 30일분 이하",
-      "answer": "{{시설명세}}",
+      "answer": "{{facilitySpec}}",
       "tags": {
         "category": [
           "W01"
@@ -4169,8 +4169,8 @@
       },
       "slots": [
         {
-          "key": "시설명세",
-          "label": "시설 위치·규모",
+          "key": "facilitySpec",
+          "label": "Facility Location & Scale",
           "type": "text",
           "hint": "예: 부지 내 제○동 1층 (면적: ○○㎡)"
         }
@@ -4181,7 +4181,7 @@
       "type": "wrapped-number",
       "marker": "(2)",
       "text": "재활용시설 1식 이상",
-      "answer": "{{시설명세}}",
+      "answer": "{{facilitySpec}}",
       "tags": {
         "category": [
           "W01"
@@ -4205,8 +4205,8 @@
       },
       "slots": [
         {
-          "key": "시설명세",
-          "label": "시설 위치·규모",
+          "key": "facilitySpec",
+          "label": "Facility Location & Scale",
           "type": "text",
           "hint": "예: 부지 내 제○동 1층 (면적: ○○㎡)"
         }
@@ -4217,7 +4217,7 @@
       "type": "wrapped-number",
       "marker": "(3)",
       "text": "수집·운반차량 1대 이상(재활용대상 폐기물을 스스로 수집·운반하는 경우만 해당한다). 다만, 동일한 법인 또는 개인이 둘 이상의 다른 사업장에서 동일한 폐기물을 재활용하기 위한 경우에는 사업장별 수집·운반차량 1대 외의 차량에 대해서는 공동으로 사용할 수 있다.",
-      "answer": "{{차량번호}}",
+      "answer": "{{vehicleNo}}",
       "tags": {
         "category": [
           "W01"
@@ -4241,8 +4241,8 @@
       },
       "slots": [
         {
-          "key": "차량번호",
-          "label": "차량번호",
+          "key": "vehicleNo",
+          "label": "Vehicle Registration No. (수집·운반차량)",
           "type": "text",
           "hint": "예: 12가2131, 34나1231"
         }
@@ -4261,7 +4261,7 @@
       "type": "wrapped-number",
       "marker": "(1)",
       "text": "폐기물처리산업기사·대기환경산업기사·수질환경산업기사·공업화학산업기사 또는 환경기능사 중 1명 이상. 다만, 소각열회수시설에서 에너지를 회수하는 경우에는 폐기물처리산업기사 또는 대기환경산업기사 중 1명 이상으로 한다.",
-      "answer": "{{시설명세}}",
+      "answer": "{{facilitySpec}}",
       "tags": {
         "category": [
           "W01"
@@ -4285,8 +4285,8 @@
       },
       "slots": [
         {
-          "key": "시설명세",
-          "label": "시설 위치·규모",
+          "key": "facilitySpec",
+          "label": "Facility Location & Scale",
           "type": "text",
           "hint": "예: 부지 내 제○동 1층 (면적: ○○㎡)"
         }
@@ -4424,7 +4424,7 @@
       "type": "wrapped-number",
       "marker": "(3)",
       "text": "(1)과 (2)에도 불구하고 전기자동차 폐이차전지를 재활용하는 경우에는 그린전동자동차기사, 전기기사, 전기공사기사 또는 전기 관련 분야 학사 이상의 학위를 취득한 후 해당 분야에서 1년 이상 종사한 사람 1명 이상",
-      "answer": "{{기술인력}}",
+      "answer": "{{techStaff}}",
       "tags": {
         "category": [
           "W01"
@@ -4450,8 +4450,8 @@
       },
       "slots": [
         {
-          "key": "기술인력",
-          "label": "기술인력 성명·자격번호",
+          "key": "techStaff",
+          "label": "Technical Staff (Name & License No.)",
           "type": "text",
           "hint": "예: 홍길동 (폐기물처리산업기사 제XXXX호)"
         }
@@ -4486,7 +4486,7 @@
       "type": "wrapped-korean",
       "marker": "(가)",
       "text": "보관시설 : 옥외에 설치하는 경우에는 폐기물전용 밀폐보관시설을 설치하여야 한다.",
-      "answer": "{{시설명세}}",
+      "answer": "{{facilitySpec}}",
       "tags": {
         "category": [
           "W01"
@@ -4513,8 +4513,8 @@
       },
       "slots": [
         {
-          "key": "시설명세",
-          "label": "시설 위치·규모",
+          "key": "facilitySpec",
+          "label": "Facility Location & Scale",
           "type": "text",
           "hint": "예: 부지 내 제○동 1층 (면적: ○○㎡)"
         }
@@ -4525,7 +4525,7 @@
       "type": "wrapped-korean",
       "marker": "(나)",
       "text": "세차시설 : 20제곱미터 이상",
-      "answer": "{{시설명세}}",
+      "answer": "{{facilitySpec}}",
       "tags": {
         "category": [
           "W01"
@@ -4552,8 +4552,8 @@
       },
       "slots": [
         {
-          "key": "시설명세",
-          "label": "시설 위치·규모",
+          "key": "facilitySpec",
+          "label": "Facility Location & Scale",
           "type": "text",
           "hint": "예: 부지 내 제○동 1층 (면적: ○○㎡)"
         }
@@ -4572,7 +4572,7 @@
       "type": "wrapped-korean",
       "marker": "(가)",
       "text": "사료원료로 재활용하는 경우: 사료화시설 1식 이상",
-      "answer": "{{시설명세}}",
+      "answer": "{{facilitySpec}}",
       "tags": {
         "category": [
           "W01"
@@ -4603,8 +4603,8 @@
       },
       "slots": [
         {
-          "key": "시설명세",
-          "label": "시설 위치·규모",
+          "key": "facilitySpec",
+          "label": "Facility Location & Scale",
           "type": "text",
           "hint": "예: 부지 내 제○동 1층 (면적: ○○㎡)"
         }
@@ -4692,7 +4692,7 @@
       "type": "wrapped-korean",
       "marker": "(가)",
       "text": "보관시설: 폐기물의 파쇄·분리 등 재활용 과정에서 발생되는 폐기물을 법 제13조에서 정하는 보관기준에 적합하게 보관할 수 있는 시설",
-      "answer": "{{시설명세}}",
+      "answer": "{{facilitySpec}}",
       "tags": {
         "category": [
           "W01"
@@ -4719,8 +4719,8 @@
       },
       "slots": [
         {
-          "key": "시설명세",
-          "label": "시설 위치·규모",
+          "key": "facilitySpec",
+          "label": "Facility Location & Scale",
           "type": "text",
           "hint": "예: 부지 내 제○동 1층 (면적: ○○㎡)"
         }
@@ -4731,7 +4731,7 @@
       "type": "wrapped-korean",
       "marker": "(나)",
       "text": "계량시설 1식 이상",
-      "answer": "{{장비명세}}",
+      "answer": "{{equipmentSpec}}",
       "tags": {
         "category": [
           "W01"
@@ -4758,8 +4758,8 @@
       },
       "slots": [
         {
-          "key": "장비명세",
-          "label": "장비 명세",
+          "key": "equipmentSpec",
+          "label": "Equipment Specification",
           "type": "text",
           "hint": "예: ○○ 계량기 1식, 제조번호 XXXX"
         }
@@ -4808,7 +4808,7 @@
       "type": "circled",
       "marker": "①",
       "text": "분리시설: 냉매물질과 폐유를 분리할 수 있는 시설(냉매물질의 회수량을 확인할 수 있는 장치를 갖추어야 한다)",
-      "answer": "{{장비명세}}",
+      "answer": "{{equipmentSpec}}",
       "tags": {
         "category": [
           "W01"
@@ -4837,8 +4837,8 @@
       },
       "slots": [
         {
-          "key": "장비명세",
-          "label": "장비 명세",
+          "key": "equipmentSpec",
+          "label": "Equipment Specification",
           "type": "text",
           "hint": "예: ○○ 계량기 1식, 제조번호 XXXX"
         }
@@ -4849,7 +4849,7 @@
       "type": "circled",
       "marker": "②",
       "text": "파쇄시설: 50밀리미터 이하로 파쇄 할 수 있는 시설",
-      "answer": "{{장비명세}}",
+      "answer": "{{equipmentSpec}}",
       "tags": {
         "category": [
           "W01"
@@ -4878,8 +4878,8 @@
       },
       "slots": [
         {
-          "key": "장비명세",
-          "label": "장비 명세",
+          "key": "equipmentSpec",
+          "label": "Equipment Specification",
           "type": "text",
           "hint": "예: ○○ 계량기 1식, 제조번호 XXXX"
         }
@@ -4890,7 +4890,7 @@
       "type": "circled",
       "marker": "③",
       "text": "선별시설: 철과 비철을 90퍼센트 이상 선별할 수 있는 시설",
-      "answer": "{{장비명세}}",
+      "answer": "{{equipmentSpec}}",
       "tags": {
         "category": [
           "W01"
@@ -4919,8 +4919,8 @@
       },
       "slots": [
         {
-          "key": "장비명세",
-          "label": "장비 명세",
+          "key": "equipmentSpec",
+          "label": "Equipment Specification",
           "type": "text",
           "hint": "예: ○○ 계량기 1식, 제조번호 XXXX"
         }
@@ -4931,7 +4931,7 @@
       "type": "circled",
       "marker": "④",
       "text": "냉매물질 보관시설: 보관량을 확인할 수 있는 장치를 갖춘 시설(냉장고와 에어컨디셔너를 함께 재활용하는 경우에는 냉장고와 에어컨디셔너에서 회수되는 냉매물질을 각각 보관할 수 있는 시설을 갖추어야 한다)",
-      "answer": "{{시설명세}}",
+      "answer": "{{facilitySpec}}",
       "tags": {
         "category": [
           "W01"
@@ -4958,8 +4958,8 @@
       },
       "slots": [
         {
-          "key": "시설명세",
-          "label": "시설 위치·규모",
+          "key": "facilitySpec",
+          "label": "Facility Location & Scale",
           "type": "text",
           "hint": "예: 부지 내 제○동 1층 (면적: ○○㎡)"
         }
@@ -5001,7 +5001,7 @@
       "type": "circled",
       "marker": "①",
       "text": "파쇄시설: 50밀리미터 이하로 파쇄 할 수 있는 시설",
-      "answer": "{{장비명세}}",
+      "answer": "{{equipmentSpec}}",
       "tags": {
         "category": [
           "W01"
@@ -5030,8 +5030,8 @@
       },
       "slots": [
         {
-          "key": "장비명세",
-          "label": "장비 명세",
+          "key": "equipmentSpec",
+          "label": "Equipment Specification",
           "type": "text",
           "hint": "예: ○○ 계량기 1식, 제조번호 XXXX"
         }
@@ -5073,7 +5073,7 @@
       "type": "circled",
       "marker": "①",
       "text": "분리시설: 앞면 유리와 뒷면 유리를 분리할 수 있는 시설로서 형광물질을 회수할 수 있는 집진시설을 갖춘 밀폐시설",
-      "answer": "{{장비명세}}",
+      "answer": "{{equipmentSpec}}",
       "tags": {
         "category": [
           "W01"
@@ -5102,8 +5102,8 @@
       },
       "slots": [
         {
-          "key": "장비명세",
-          "label": "장비 명세",
+          "key": "equipmentSpec",
+          "label": "Equipment Specification",
           "type": "text",
           "hint": "예: ○○ 계량기 1식, 제조번호 XXXX"
         }
@@ -5114,7 +5114,7 @@
       "type": "circled",
       "marker": "②",
       "text": "형광물질 보관시설: 형광물질이 외부로 유출되지 아니하는 밀폐용기",
-      "answer": "{{시설명세}}",
+      "answer": "{{facilitySpec}}",
       "tags": {
         "category": [
           "W01"
@@ -5141,8 +5141,8 @@
       },
       "slots": [
         {
-          "key": "시설명세",
-          "label": "시설 위치·규모",
+          "key": "facilitySpec",
+          "label": "Facility Location & Scale",
           "type": "text",
           "hint": "예: 부지 내 제○동 1층 (면적: ○○㎡)"
         }
@@ -5184,7 +5184,7 @@
       "type": "circled",
       "marker": "①",
       "text": "파쇄시설: 휴대폰과 휴대폰에서 분리한 인쇄회로기판 등을 재사용할 수 없도록 파쇄할 수 있는 시설",
-      "answer": "{{장비명세}}",
+      "answer": "{{equipmentSpec}}",
       "tags": {
         "category": [
           "W01"
@@ -5213,8 +5213,8 @@
       },
       "slots": [
         {
-          "key": "장비명세",
-          "label": "장비 명세",
+          "key": "equipmentSpec",
+          "label": "Equipment Specification",
           "type": "text",
           "hint": "예: ○○ 계량기 1식, 제조번호 XXXX"
         }
@@ -5256,7 +5256,7 @@
       "type": "circled",
       "marker": "①",
       "text": "분리시설 : 카트리지를 해체하는 과정에서 토너물질을 회수할 수 있는 집진설비를 갖춘 시설",
-      "answer": "{{장비명세}}",
+      "answer": "{{equipmentSpec}}",
       "tags": {
         "category": [
           "W01"
@@ -5285,8 +5285,8 @@
       },
       "slots": [
         {
-          "key": "장비명세",
-          "label": "장비 명세",
+          "key": "equipmentSpec",
+          "label": "Equipment Specification",
           "type": "text",
           "hint": "예: ○○ 계량기 1식, 제조번호 XXXX"
         }
@@ -5305,7 +5305,7 @@
       "type": "wrapped-number",
       "marker": "(1)",
       "text": "실험실(시간당 재활용능력이 2톤 이상인 소각열회수시설의 경우만 해당한다)",
-      "answer": "{{시설명세}}",
+      "answer": "{{facilitySpec}}",
       "tags": {
         "category": [
           "W01"
@@ -5333,8 +5333,8 @@
       },
       "slots": [
         {
-          "key": "시설명세",
-          "label": "시설 위치·규모",
+          "key": "facilitySpec",
+          "label": "Facility Location & Scale",
           "type": "text",
           "hint": "예: 부지 내 제○동 1층 (면적: ○○㎡)"
         }
@@ -5353,7 +5353,7 @@
       "type": "wrapped-korean",
       "marker": "(가)",
       "text": "시간당 재활용능력이 2톤 이상인 소각열회수시설(종이류, 섬유류 또는 접착제·폐페인트·기름 및 방부제 등이 묻어 있지 아니한 순수한 목재류만을 소각하는 경우에는 시간당 재활용능력이 200킬로그램 이상인 소각열회수시설을 말한다)",
-      "answer": "{{시설명세}}",
+      "answer": "{{facilitySpec}}",
       "tags": {
         "category": [
           "W01"
@@ -5381,8 +5381,8 @@
       },
       "slots": [
         {
-          "key": "시설명세",
-          "label": "시설 위치·규모",
+          "key": "facilitySpec",
+          "label": "Facility Location & Scale",
           "type": "text",
           "hint": "예: 부지 내 제○동 1층 (면적: ○○㎡)"
         }
@@ -5393,7 +5393,7 @@
       "type": "wrapped-korean",
       "marker": "(나)",
       "text": "계량시설 1식 이상",
-      "answer": "{{장비명세}}",
+      "answer": "{{equipmentSpec}}",
       "tags": {
         "category": [
           "W01"
@@ -5421,8 +5421,8 @@
       },
       "slots": [
         {
-          "key": "장비명세",
-          "label": "장비 명세",
+          "key": "equipmentSpec",
+          "label": "Equipment Specification",
           "type": "text",
           "hint": "예: ○○ 계량기 1식, 제조번호 XXXX"
         }
@@ -5433,7 +5433,7 @@
       "type": "wrapped-korean",
       "marker": "(다)",
       "text": "배출가스의 오염물질 중 아황산가스·염화수소·질소산화물·일산화탄소 및 분진을 측정·분석할 수 있는 실험기기(시간당 재활용능력이 2톤 이상인 소각열회수시설의 경우만 해당한다)",
-      "answer": "{{장비명세}}",
+      "answer": "{{equipmentSpec}}",
       "tags": {
         "category": [
           "W01"
@@ -5461,8 +5461,8 @@
       },
       "slots": [
         {
-          "key": "장비명세",
-          "label": "장비 명세",
+          "key": "equipmentSpec",
+          "label": "Equipment Specification",
           "type": "text",
           "hint": "예: ○○ 계량기 1식, 제조번호 XXXX"
         }
@@ -5481,7 +5481,7 @@
       "type": "wrapped-number",
       "marker": "(1)",
       "text": "전기자동차 폐이차전지의 팩(pack), 모듈(module) 또는 셀(cell) 단위로 재구성하여 에너지저장장치 등 재사용 제품의 제조에 재활용하는 경우 : 전기자동차 폐이차전지의 잔존용량(SOC; State of Charge), 잔존수명(SOH; State of Health) 등을 측정할 수 있는 장비(정격출력 30kW 이상으로 한정한다) 1식 이상",
-      "answer": "{{시설명세}}",
+      "answer": "{{facilitySpec}}",
       "tags": {
         "category": [
           "W01"
@@ -5510,8 +5510,8 @@
       },
       "slots": [
         {
-          "key": "시설명세",
-          "label": "시설 위치·규모",
+          "key": "facilitySpec",
+          "label": "Facility Location & Scale",
           "type": "text",
           "hint": "예: 부지 내 제○동 1층 (면적: ○○㎡)"
         }
@@ -5522,7 +5522,7 @@
       "type": "wrapped-number",
       "marker": "(2)",
       "text": "전기자동차 폐이차전지에 포함된 코발트, 리튬 등의 유가성(有價性) 자원을 재활용하는 경우 : 전기자동차 폐이차전지를 방전(放電)할 수 있는 장비 1식 이상. 다만, 방전이 완료된 전기자동차 폐이차전지만 처리하는 경우는 제외한다.",
-      "answer": "{{시설명세}}",
+      "answer": "{{facilitySpec}}",
       "tags": {
         "category": [
           "W01"
@@ -5550,8 +5550,8 @@
       },
       "slots": [
         {
-          "key": "시설명세",
-          "label": "시설 위치·규모",
+          "key": "facilitySpec",
+          "label": "Facility Location & Scale",
           "type": "text",
           "hint": "예: 부지 내 제○동 1층 (면적: ○○㎡)"
         }
@@ -5614,7 +5614,7 @@
       "type": "wrapped-korean",
       "marker": "(가)",
       "text": "1일 재활용능력의 10일분 이상 30일분 이하의 폐기물을 보관할 수 있는 규모의 시설. 다만, 제31조제1항제3호 단서에 따라 폐기물 재활용업자가 폐촉매, 리튬이차전지를 재활용하기 위하여 보관하는 경우에는 10일분 이상 180일분 이하의 보관시설",
-      "answer": "{{시설명세}}",
+      "answer": "{{facilitySpec}}",
       "tags": {
         "category": [
           "W01"
@@ -5647,8 +5647,8 @@
       },
       "slots": [
         {
-          "key": "시설명세",
-          "label": "시설 위치·규모",
+          "key": "facilitySpec",
+          "label": "Facility Location & Scale",
           "type": "text",
           "hint": "예: 부지 내 제○동 1층 (면적: ○○㎡)"
         }
@@ -5659,7 +5659,7 @@
       "type": "wrapped-korean",
       "marker": "(나)",
       "text": "폐오일필터를 재활용하는 경우에는 폐오일필터에서 새는 폐유를 수거할 수 있는 구조의 시설이어야 한다.",
-      "answer": "{{시설명세}}",
+      "answer": "{{facilitySpec}}",
       "tags": {
         "category": [
           "W01"
@@ -5683,8 +5683,8 @@
       },
       "slots": [
         {
-          "key": "시설명세",
-          "label": "시설 위치·규모",
+          "key": "facilitySpec",
+          "label": "Facility Location & Scale",
           "type": "text",
           "hint": "예: 부지 내 제○동 1층 (면적: ○○㎡)"
         }
@@ -5695,7 +5695,7 @@
       "type": "wrapped-number",
       "marker": "(2)",
       "text": "재활용시설 1식 이상",
-      "answer": "{{시설명세}}",
+      "answer": "{{facilitySpec}}",
       "tags": {
         "category": [
           "W01"
@@ -5728,8 +5728,8 @@
       },
       "slots": [
         {
-          "key": "시설명세",
-          "label": "시설 위치·규모",
+          "key": "facilitySpec",
+          "label": "Facility Location & Scale",
           "type": "text",
           "hint": "예: 부지 내 제○동 1층 (면적: ○○㎡)"
         }
@@ -5740,7 +5740,7 @@
       "type": "wrapped-number",
       "marker": "(3)",
       "text": "수집·운반차량 1대 이상(재활용대상 폐기물을 스스로 수집·운반하는 경우만 해당한다)",
-      "answer": "{{차량번호}}",
+      "answer": "{{vehicleNo}}",
       "tags": {
         "category": [
           "W01"
@@ -5773,8 +5773,8 @@
       },
       "slots": [
         {
-          "key": "차량번호",
-          "label": "차량번호",
+          "key": "vehicleNo",
+          "label": "Vehicle Registration No. (수집·운반차량)",
           "type": "text",
           "hint": "예: 12가2131, 34나1231"
         }
@@ -5785,7 +5785,7 @@
       "type": "korean-paren",
       "marker": "나)",
       "text": "기술능력 : 폐기물처리산업기사·대기환경산업기사·수질환경산업기사·공업화학산업기사 또는 환경기능사 중 1명 이상",
-      "answer": "{{기술인력}}",
+      "answer": "{{techStaff}}",
       "tags": {
         "category": [
           "W01"
@@ -5818,8 +5818,8 @@
       },
       "slots": [
         {
-          "key": "기술인력",
-          "label": "기술인력 성명·자격번호",
+          "key": "techStaff",
+          "label": "Technical Staff (Name & License No.)",
           "type": "text",
           "hint": "예: 홍길동 (폐기물처리산업기사 제XXXX호)"
         }
@@ -5854,7 +5854,7 @@
       "type": "wrapped-korean",
       "marker": "(가)",
       "text": "파쇄시설 : 시간당 재활용능력 200킬로그램 이상 재활용할 수 있는 능력을 가진 시설 1식 이상",
-      "answer": "{{장비명세}}",
+      "answer": "{{equipmentSpec}}",
       "tags": {
         "category": [
           "W01"
@@ -5880,8 +5880,8 @@
       },
       "slots": [
         {
-          "key": "장비명세",
-          "label": "장비 명세",
+          "key": "equipmentSpec",
+          "label": "Equipment Specification",
           "type": "text",
           "hint": "예: ○○ 계량기 1식, 제조번호 XXXX"
         }
@@ -5892,7 +5892,7 @@
       "type": "wrapped-korean",
       "marker": "(나)",
       "text": "압축시설 : 폐종이를 11.25kW 이상으로 압축하여 폐유를 분리할 수 있는 시설 1식 이상",
-      "answer": "{{장비명세}}",
+      "answer": "{{equipmentSpec}}",
       "tags": {
         "category": [
           "W01"
@@ -5918,8 +5918,8 @@
       },
       "slots": [
         {
-          "key": "장비명세",
-          "label": "장비 명세",
+          "key": "equipmentSpec",
+          "label": "Equipment Specification",
           "type": "text",
           "hint": "예: ○○ 계량기 1식, 제조번호 XXXX"
         }
@@ -5938,7 +5938,7 @@
       "type": "wrapped-korean",
       "marker": "(가)",
       "text": "증류시설 : 내부용적 5.0세제곱미터 이상 시설 1식 이상",
-      "answer": "{{장비명세}}",
+      "answer": "{{equipmentSpec}}",
       "tags": {
         "category": [
           "W01"
@@ -5964,8 +5964,8 @@
       },
       "slots": [
         {
-          "key": "장비명세",
-          "label": "장비 명세",
+          "key": "equipmentSpec",
+          "label": "Equipment Specification",
           "type": "text",
           "hint": "예: ○○ 계량기 1식, 제조번호 XXXX"
         }
@@ -5976,7 +5976,7 @@
       "type": "wrapped-korean",
       "marker": "(나)",
       "text": "응축시설 : 내부용적의 합계 3.0제곱미터 이상",
-      "answer": "{{장비명세}}",
+      "answer": "{{equipmentSpec}}",
       "tags": {
         "category": [
           "W01"
@@ -6002,8 +6002,8 @@
       },
       "slots": [
         {
-          "key": "장비명세",
-          "label": "장비 명세",
+          "key": "equipmentSpec",
+          "label": "Equipment Specification",
           "type": "text",
           "hint": "예: ○○ 계량기 1식, 제조번호 XXXX"
         }
@@ -6030,7 +6030,7 @@
       "type": "wrapped-korean",
       "marker": "(가)",
       "text": "유량계측시설 : 보관시설별 각 1식 이상",
-      "answer": "{{장비명세}}",
+      "answer": "{{equipmentSpec}}",
       "tags": {
         "category": [
           "W01"
@@ -6059,8 +6059,8 @@
       },
       "slots": [
         {
-          "key": "장비명세",
-          "label": "장비 명세",
+          "key": "equipmentSpec",
+          "label": "Equipment Specification",
           "type": "text",
           "hint": "예: ○○ 계량기 1식, 제조번호 XXXX"
         }
@@ -6071,7 +6071,7 @@
       "type": "wrapped-korean",
       "marker": "(나)",
       "text": "폐유를 1일 20킬로리터 이상 재활용할 수 있는 시설",
-      "answer": "{{시설명세}}",
+      "answer": "{{facilitySpec}}",
       "tags": {
         "category": [
           "W01"
@@ -6100,8 +6100,8 @@
       },
       "slots": [
         {
-          "key": "시설명세",
-          "label": "시설 위치·규모",
+          "key": "facilitySpec",
+          "label": "Facility Location & Scale",
           "type": "text",
           "hint": "예: 부지 내 제○동 1층 (면적: ○○㎡)"
         }
@@ -6120,7 +6120,7 @@
       "type": "wrapped-korean",
       "marker": "(가)",
       "text": "유량계측시설 : 보관시설별 각 1식 이상",
-      "answer": "{{장비명세}}",
+      "answer": "{{equipmentSpec}}",
       "tags": {
         "category": [
           "W01"
@@ -6148,8 +6148,8 @@
       },
       "slots": [
         {
-          "key": "장비명세",
-          "label": "장비 명세",
+          "key": "equipmentSpec",
+          "label": "Equipment Specification",
           "type": "text",
           "hint": "예: ○○ 계량기 1식, 제조번호 XXXX"
         }
@@ -6160,7 +6160,7 @@
       "type": "wrapped-korean",
       "marker": "(나)",
       "text": "폐유를 1일 20킬로리터 이상 재활용할 수 있는 시설로서 다음의 기준에 적합한 시설",
-      "answer": "{{시설명세}}",
+      "answer": "{{facilitySpec}}",
       "tags": {
         "category": [
           "W01"
@@ -6188,8 +6188,8 @@
       },
       "slots": [
         {
-          "key": "시설명세",
-          "label": "시설 위치·규모",
+          "key": "facilitySpec",
+          "label": "Facility Location & Scale",
           "type": "text",
           "hint": "예: 부지 내 제○동 1층 (면적: ○○㎡)"
         }
@@ -6276,7 +6276,7 @@
       "type": "wrapped-korean",
       "marker": "(가)",
       "text": "유량계측시설 : 보관시설별 각 1식 이상",
-      "answer": "{{장비명세}}",
+      "answer": "{{equipmentSpec}}",
       "tags": {
         "category": [
           "W01"
@@ -6304,8 +6304,8 @@
       },
       "slots": [
         {
-          "key": "장비명세",
-          "label": "장비 명세",
+          "key": "equipmentSpec",
+          "label": "Equipment Specification",
           "type": "text",
           "hint": "예: ○○ 계량기 1식, 제조번호 XXXX"
         }
@@ -6316,7 +6316,7 @@
       "type": "wrapped-korean",
       "marker": "(나)",
       "text": "폐유를 1일 20킬로리터 이상 재활용할 수 있는 시설로서 다음의 기준에 맞는 시설(약품정제·감압증류·열분해 그 밖의 방법에 따라 유화정제연료유로 재활용하는 시설인 경우에는 혼합장치·폐유이송장치 및 부속시설만 설치할 것)",
-      "answer": "{{시설명세}}",
+      "answer": "{{facilitySpec}}",
       "tags": {
         "category": [
           "W01"
@@ -6344,8 +6344,8 @@
       },
       "slots": [
         {
-          "key": "시설명세",
-          "label": "시설 위치·규모",
+          "key": "facilitySpec",
+          "label": "Facility Location & Scale",
           "type": "text",
           "hint": "예: 부지 내 제○동 1층 (면적: ○○㎡)"
         }
@@ -6444,7 +6444,7 @@
       "type": "wrapped-korean",
       "marker": "(가)",
       "text": "수소이온농도(pH)",
-      "answer": "{{시설명세}}",
+      "answer": "{{facilitySpec}}",
       "tags": {
         "category": [
           "W01"
@@ -6470,8 +6470,8 @@
       },
       "slots": [
         {
-          "key": "시설명세",
-          "label": "시설 위치·규모",
+          "key": "facilitySpec",
+          "label": "Facility Location & Scale",
           "type": "text",
           "hint": "예: 부지 내 제○동 1층 (면적: ○○㎡)"
         }
@@ -6482,7 +6482,7 @@
       "type": "wrapped-korean",
       "marker": "(나)",
       "text": "화학적산소요구량(COD)",
-      "answer": "{{시설명세}}",
+      "answer": "{{facilitySpec}}",
       "tags": {
         "category": [
           "W01"
@@ -6508,8 +6508,8 @@
       },
       "slots": [
         {
-          "key": "시설명세",
-          "label": "시설 위치·규모",
+          "key": "facilitySpec",
+          "label": "Facility Location & Scale",
           "type": "text",
           "hint": "예: 부지 내 제○동 1층 (면적: ○○㎡)"
         }
@@ -6520,7 +6520,7 @@
       "type": "wrapped-korean",
       "marker": "(다)",
       "text": "부유물질(SS)",
-      "answer": "{{시설명세}}",
+      "answer": "{{facilitySpec}}",
       "tags": {
         "category": [
           "W01"
@@ -6546,8 +6546,8 @@
       },
       "slots": [
         {
-          "key": "시설명세",
-          "label": "시설 위치·규모",
+          "key": "facilitySpec",
+          "label": "Facility Location & Scale",
           "type": "text",
           "hint": "예: 부지 내 제○동 1층 (면적: ○○㎡)"
         }
@@ -6558,7 +6558,7 @@
       "type": "wrapped-korean",
       "marker": "(라)",
       "text": "폐유기용제에 함유된 특정수질유해물질",
-      "answer": "{{시설명세}}",
+      "answer": "{{facilitySpec}}",
       "tags": {
         "category": [
           "W01"
@@ -6584,8 +6584,8 @@
       },
       "slots": [
         {
-          "key": "시설명세",
-          "label": "시설 위치·규모",
+          "key": "facilitySpec",
+          "label": "Facility Location & Scale",
           "type": "text",
           "hint": "예: 부지 내 제○동 1층 (면적: ○○㎡)"
         }
@@ -6596,7 +6596,7 @@
       "type": "wrapped-number",
       "marker": "(2)",
       "text": "보관시설별 유량계측설비 각 1식 이상",
-      "answer": "{{장비명세}}",
+      "answer": "{{equipmentSpec}}",
       "tags": {
         "category": [
           "W01"
@@ -6622,8 +6622,8 @@
       },
       "slots": [
         {
-          "key": "장비명세",
-          "label": "장비 명세",
+          "key": "equipmentSpec",
+          "label": "Equipment Specification",
           "type": "text",
           "hint": "예: ○○ 계량기 1식, 제조번호 XXXX"
         }
@@ -6650,7 +6650,7 @@
       "type": "wrapped-korean",
       "marker": "(가)",
       "text": "유량 계측시설: 보관시설별 각 1식 이상",
-      "answer": "{{시설명세}}",
+      "answer": "{{facilitySpec}}",
       "tags": {
         "category": [
           "W01"
@@ -6678,8 +6678,8 @@
       },
       "slots": [
         {
-          "key": "시설명세",
-          "label": "시설 위치·규모",
+          "key": "facilitySpec",
+          "label": "Facility Location & Scale",
           "type": "text",
           "hint": "예: 부지 내 제○동 1층 (면적: ○○㎡)"
         }
@@ -6690,7 +6690,7 @@
       "type": "wrapped-korean",
       "marker": "(나)",
       "text": "여과(정제)시설: 시간당 재활용능력 7.5세제곱미터 이상 1식 이상",
-      "answer": "{{장비명세}}",
+      "answer": "{{equipmentSpec}}",
       "tags": {
         "category": [
           "W01"
@@ -6718,8 +6718,8 @@
       },
       "slots": [
         {
-          "key": "장비명세",
-          "label": "장비 명세",
+          "key": "equipmentSpec",
+          "label": "Equipment Specification",
           "type": "text",
           "hint": "예: ○○ 계량기 1식, 제조번호 XXXX"
         }
@@ -6738,7 +6738,7 @@
       "type": "wrapped-korean",
       "marker": "(가)",
       "text": "혼합시설: 혼합장치가 설치된 내부용적 30세제곱미터 이상 1식 이상(폐유와 다른 폐기물을 혼합하는 경우만 해당한다)",
-      "answer": "{{장비명세}}",
+      "answer": "{{equipmentSpec}}",
       "tags": {
         "category": [
           "W01"
@@ -6764,8 +6764,8 @@
       },
       "slots": [
         {
-          "key": "장비명세",
-          "label": "장비 명세",
+          "key": "equipmentSpec",
+          "label": "Equipment Specification",
           "type": "text",
           "hint": "예: ○○ 계량기 1식, 제조번호 XXXX"
         }
@@ -6776,7 +6776,7 @@
       "type": "wrapped-korean",
       "marker": "(나)",
       "text": "유수분리(油水分離)시설 : 폐수이동장치 및 부속시설을 포함한 시설로 시간당 재활용능력 3세제곱미터 이상 1식 이상(증류를 통한 유수분리가 필요한 경우만 해당한다)",
-      "answer": "{{시설명세}}",
+      "answer": "{{facilitySpec}}",
       "tags": {
         "category": [
           "W01"
@@ -6804,8 +6804,8 @@
       },
       "slots": [
         {
-          "key": "시설명세",
-          "label": "시설 위치·규모",
+          "key": "facilitySpec",
+          "label": "Facility Location & Scale",
           "type": "text",
           "hint": "예: 부지 내 제○동 1층 (면적: ○○㎡)"
         }
@@ -6824,7 +6824,7 @@
       "type": "wrapped-number",
       "marker": "(1)",
       "text": "계량시설 1식 이상",
-      "answer": "{{장비명세}}",
+      "answer": "{{equipmentSpec}}",
       "tags": {
         "category": [
           "W01"
@@ -6850,8 +6850,8 @@
       },
       "slots": [
         {
-          "key": "장비명세",
-          "label": "장비 명세",
+          "key": "equipmentSpec",
+          "label": "Equipment Specification",
           "type": "text",
           "hint": "예: ○○ 계량기 1식, 제조번호 XXXX"
         }
@@ -6862,7 +6862,7 @@
       "type": "wrapped-number",
       "marker": "(2)",
       "text": "파쇄ㆍ분쇄ㆍ절단시설: 수은이 외부로 휘발ㆍ유출되지 않는 상태에서 파쇄ㆍ분쇄ㆍ절단을 통해 수은과 그 외의 유리 등을 분리할 수 있는 시설",
-      "answer": "{{시설명세}}",
+      "answer": "{{facilitySpec}}",
       "tags": {
         "category": [
           "W01"
@@ -6890,8 +6890,8 @@
       },
       "slots": [
         {
-          "key": "시설명세",
-          "label": "시설 위치·규모",
+          "key": "facilitySpec",
+          "label": "Facility Location & Scale",
           "type": "text",
           "hint": "예: 부지 내 제○동 1층 (면적: ○○㎡)"
         }
@@ -6902,7 +6902,7 @@
       "type": "wrapped-number",
       "marker": "(3)",
       "text": "수은회수시설: 수은함유폐기물에서 수은 및 그 화합물을 회수할 수 있도록 가열장치, 응축장치, 온도와 압력을 측정하고 기록할 수 있는 장치를 갖춘 시설",
-      "answer": "{{장비명세}}",
+      "answer": "{{equipmentSpec}}",
       "tags": {
         "category": [
           "W01"
@@ -6928,8 +6928,8 @@
       },
       "slots": [
         {
-          "key": "장비명세",
-          "label": "장비 명세",
+          "key": "equipmentSpec",
+          "label": "Equipment Specification",
           "type": "text",
           "hint": "예: ○○ 계량기 1식, 제조번호 XXXX"
         }
@@ -6975,7 +6975,7 @@
       "type": "korean-paren",
       "marker": "가)",
       "text": "보관시설 : 1일 재활용능력의 3일분 이상 7일분 이하의 폐기물을 보관할 수 있는 냉동시설",
-      "answer": "{{시설명세}}",
+      "answer": "{{facilitySpec}}",
       "tags": {
         "category": [
           "W01"
@@ -6999,8 +6999,8 @@
       },
       "slots": [
         {
-          "key": "시설명세",
-          "label": "시설 위치·규모",
+          "key": "facilitySpec",
+          "label": "Facility Location & Scale",
           "type": "text",
           "hint": "예: 부지 내 제○동 1층 (면적: ○○㎡)"
         }
@@ -7011,7 +7011,7 @@
       "type": "korean-paren",
       "marker": "나)",
       "text": "재활용시설 1식 이상",
-      "answer": "{{시설명세}}",
+      "answer": "{{facilitySpec}}",
       "tags": {
         "category": [
           "W01"
@@ -7035,8 +7035,8 @@
       },
       "slots": [
         {
-          "key": "시설명세",
-          "label": "시설 위치·규모",
+          "key": "facilitySpec",
+          "label": "Facility Location & Scale",
           "type": "text",
           "hint": "예: 부지 내 제○동 1층 (면적: ○○㎡)"
         }
@@ -7047,7 +7047,7 @@
       "type": "korean-paren",
       "marker": "다)",
       "text": "수집운반차량 : 1대 이상(재활용대상 폐기물을 스스로 수집·운반하는 경우만 해당한다)",
-      "answer": "{{차량번호}}",
+      "answer": "{{vehicleNo}}",
       "tags": {
         "category": [
           "W01"
@@ -7071,8 +7071,8 @@
       },
       "slots": [
         {
-          "key": "차량번호",
-          "label": "차량번호",
+          "key": "vehicleNo",
+          "label": "Vehicle Registration No. (수집운반차량)",
           "type": "text",
           "hint": "예: 12가2131, 34나1231"
         }
@@ -7083,7 +7083,7 @@
       "type": "paren-number",
       "marker": "2)",
       "text": "기술능력 : 폐기물처리산업기사·임상병리사 또는 위생사 중 1명 이상",
-      "answer": "{{기술인력}}",
+      "answer": "{{techStaff}}",
       "tags": {
         "category": [
           "W01"
@@ -7107,8 +7107,8 @@
       },
       "slots": [
         {
-          "key": "기술인력",
-          "label": "기술인력 성명·자격번호",
+          "key": "techStaff",
+          "label": "Technical Staff (Name & License No.)",
           "type": "text",
           "hint": "예: 홍길동 (폐기물처리산업기사 제XXXX호)"
         }
@@ -7151,7 +7151,7 @@
       "type": "number",
       "marker": "1.",
       "text": "동일 법인 또는 개인이 둘 이상의 다른 종류의 폐기물처리업 허가를 받으려는 경우, 동일 폐기물처리업으로서 둘 이상의 다른 분야의 허가를 받고자 하는 경우에는 사무실·실험실·시설 및 장비·기술능력을 중복하여 갖추지 아니할 수 있다. 다만, 폐기물수집·운반업의 장비 및 기술능력과 의료폐기물을 대상으로 하는 폐기물처리업의 사무실·실험실·시설 및 장비·기술능력은 그러하지 아니하다",
-      "answer": "{{시설명세}}",
+      "answer": "{{facilitySpec}}",
       "tags": {
         "category": [
           "W01"
@@ -7177,8 +7177,8 @@
       },
       "slots": [
         {
-          "key": "시설명세",
-          "label": "시설 위치·규모",
+          "key": "facilitySpec",
+          "label": "Facility Location & Scale",
           "type": "text",
           "hint": "예: 부지 내 제○동 1층 (면적: ○○㎡)"
         }
