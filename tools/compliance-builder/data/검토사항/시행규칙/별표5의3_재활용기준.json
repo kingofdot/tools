@@ -37,13 +37,19 @@
   ],
   "별표서식PDF파일링크": "/LSW/flDownload.do?flSeq=162813001",
   "별표PDF파일명": "law0085672026032600033KC_000503E_20260326.pdf",
-  "subject": ["S-허가-RTR", "S-허가-RCY", "S-신고", "S-자가처리-배출자"],
+  "subject": [
+    "S-허가-RTR",
+    "S-허가-RCY",
+    "S-신고",
+    "S-자가처리-배출자"
+  ],
   "별표내용": [
     {
       "depth": 0,
       "type": "title",
       "marker": "■",
-      "text": "폐기물관리법 시행규칙 [별표 5의3] <개정 2025. 12. 30.>폐기물의 재활용 기준(제14조의3제1항 관련)"
+      "text": "폐기물관리법 시행규칙 [별표 5의3] <개정 2025. 12. 30.>폐기물의 재활용 기준(제14조의3제1항 관련)",
+      "answer": "폐기물관리법 시행규칙 [별표 5의3] <개정 2025. 12. 30.>폐기물의 재활용 기준(제14조의3제1항 관련)."
     },
     {
       "depth": 0,
@@ -64,7 +70,9 @@
         "category": null,
         "bizType": null,
         "wasteClass": null,
-        "action": ["RE"],
+        "action": [
+          "RE"
+        ],
         "rCode": null,
         "facilityType": null
       }
@@ -79,7 +87,9 @@
         "category": null,
         "bizType": null,
         "wasteClass": null,
-        "action": ["RE"],
+        "action": [
+          "RE"
+        ],
         "rCode": null,
         "facilityType": null
       }
@@ -94,7 +104,9 @@
         "category": null,
         "bizType": null,
         "wasteClass": null,
-        "action": ["RE"],
+        "action": [
+          "RE"
+        ],
         "rCode": null,
         "facilityType": null
       }
@@ -109,7 +121,9 @@
         "category": null,
         "bizType": null,
         "wasteClass": null,
-        "action": ["RE"],
+        "action": [
+          "RE"
+        ],
         "rCode": null,
         "facilityType": null
       }
@@ -124,7 +138,9 @@
         "category": null,
         "bizType": null,
         "wasteClass": null,
-        "action": ["RE"],
+        "action": [
+          "RE"
+        ],
         "rCode": null,
         "facilityType": null
       }
@@ -139,7 +155,9 @@
         "category": null,
         "bizType": null,
         "wasteClass": null,
-        "action": ["RE"],
+        "action": [
+          "RE"
+        ],
         "rCode": null,
         "facilityType": null
       }
@@ -154,7 +172,9 @@
         "category": null,
         "bizType": null,
         "wasteClass": null,
-        "action": ["RE"],
+        "action": [
+          "RE"
+        ],
         "rCode": null,
         "facilityType": null
       }
@@ -169,7 +189,9 @@
         "category": null,
         "bizType": null,
         "wasteClass": null,
-        "action": ["RE"],
+        "action": [
+          "RE"
+        ],
         "rCode": null,
         "facilityType": null
       }
@@ -184,7 +206,9 @@
         "category": null,
         "bizType": null,
         "wasteClass": null,
-        "action": ["RE"],
+        "action": [
+          "RE"
+        ],
         "rCode": null,
         "facilityType": null
       }
@@ -208,8 +232,12 @@
         "category": null,
         "bizType": null,
         "wasteClass": null,
-        "action": ["RE"],
-        "rCode": ["R-1"],
+        "action": [
+          "RE"
+        ],
+        "rCode": [
+          "R-1"
+        ],
         "facilityType": null
       }
     },
@@ -224,8 +252,12 @@
         "bizType": null,
         "wasteClass": null,
         "wasteCode": null,
-        "action": ["RE"],
-        "rCode": ["R-1"],
+        "action": [
+          "RE"
+        ],
+        "rCode": [
+          "R-1"
+        ],
         "facilityType": null
       }
     },
@@ -240,8 +272,12 @@
         "bizType": null,
         "wasteClass": null,
         "wasteCode": null,
-        "action": ["RE"],
-        "rCode": ["R-1-1"],
+        "action": [
+          "RE"
+        ],
+        "rCode": [
+          "R-1-1"
+        ],
         "facilityType": null
       }
     },
@@ -250,21 +286,60 @@
       "type": "wrapped-number",
       "marker": "(1)",
       "text": "재사용 과정에서 폐기물의 원형이 유지되고 성상 등의 변화가 없어야하며 부착, 결합 등의 형태로 다른 제품의 부속물 등으로 사용하는 경우에도 또한 같다.",
-      "answer": "재사용 과정에서 폐기물의 원형이 유지되고 성상의 변화가 없도록 하겠으며, 부착·결합 등의 형태로 다른 제품의 부속물로 사용하는 경우에도 동일하게 적용하겠음."
+      "answer": "재사용 과정에서 폐기물의 원형이 유지되고 성상의 변화가 없도록 하겠으며, 부착·결합 등의 형태로 다른 제품의 부속물로 사용하는 경우에도 동일하게 적용하겠음.",
+      "tags": {
+        "category": null,
+        "bizType": null,
+        "wasteClass": null,
+        "wasteCode": null,
+        "action": [
+          "RE"
+        ],
+        "rCode": [
+          "R-1-1"
+        ],
+        "facilityType": null
+      }
     },
     {
       "depth": 4,
       "type": "wrapped-number",
       "marker": "(2)",
       "text": "이물질 등을 모두 제거한 이후 재사용해야 하며, 대상 폐기물 이외의다른 물질을 혼합해 재사용할 수 없다.",
-      "answer": "이물질을 모두 제거한 이후 재사용하겠으며, 대상 폐기물 이외의 다른 물질을 혼합해 재사용하지 않겠음."
+      "answer": "이물질을 모두 제거한 이후 재사용하겠으며, 대상 폐기물 이외의 다른 물질을 혼합해 재사용하지 않겠음.",
+      "tags": {
+        "category": null,
+        "bizType": null,
+        "wasteClass": null,
+        "wasteCode": null,
+        "action": [
+          "RE"
+        ],
+        "rCode": [
+          "R-1-1"
+        ],
+        "facilityType": null
+      }
     },
     {
       "depth": 4,
       "type": "wrapped-number",
       "marker": "(3)",
       "text": "반드시 동일한 용도 및 공정에 재사용되어야 하며, 본래 용도와 다른폐기물 특성을 이용해 재사용할 수 없다.",
-      "answer": "반드시 동일한 용도 및 공정에 재사용하겠으며, 본래 용도와 다른 폐기물 특성을 이용해 재사용하지 않겠음."
+      "answer": "반드시 동일한 용도 및 공정에 재사용하겠으며, 본래 용도와 다른 폐기물 특성을 이용해 재사용하지 않겠음.",
+      "tags": {
+        "category": null,
+        "bizType": null,
+        "wasteClass": null,
+        "wasteCode": null,
+        "action": [
+          "RE"
+        ],
+        "rCode": [
+          "R-1-1"
+        ],
+        "facilityType": null
+      }
     },
     {
       "depth": 3,
@@ -275,10 +350,17 @@
       "tags": {
         "category": null,
         "bizType": null,
-        "wasteClass": ["GO", "GN"],
+        "wasteClass": [
+          "GO",
+          "GN"
+        ],
         "wasteCode": null,
-        "action": ["RE"],
-        "rCode": ["R-1-2"],
+        "action": [
+          "RE"
+        ],
+        "rCode": [
+          "R-1-2"
+        ],
         "facilityType": null
       }
     },
@@ -287,21 +369,60 @@
       "type": "wrapped-number",
       "marker": "(1)",
       "text": "지정폐기물이 아닌 폐기물을 일정한 형태를 갖춘 제품으로 재사용해야 하며, 별표 4의2 제2호부터 제5호까지의 재활용 유형으로 분류될 수 있는 경우에는 해당 유형의 재활용 기준을 따라야 한다.",
-      "answer": "지정폐기물이 아닌 폐기물만을 일정한 형태를 갖춘 제품으로 재사용하겠으며, 별표4의2 제2호~제5호 재활용 유형으로 분류 가능한 경우 해당 유형의 재활용 기준을 따르겠음."
+      "answer": "지정폐기물이 아닌 폐기물만을 일정한 형태를 갖춘 제품으로 재사용하겠으며, 별표4의2 제2호~제5호 재활용 유형으로 분류 가능한 경우 해당 유형의 재활용 기준을 따르겠음.",
+      "tags": {
+        "category": null,
+        "bizType": null,
+        "wasteClass": null,
+        "wasteCode": null,
+        "action": [
+          "RE"
+        ],
+        "rCode": [
+          "R-1-2"
+        ],
+        "facilityType": null
+      }
     },
     {
       "depth": 4,
       "type": "wrapped-number",
       "marker": "(2)",
       "text": "재사용 과정에서 폐기물의 원형이 유지되고 성상 등의 변화가 없어야하며, 부착, 결합 등의 형태로 다른 제품의 부속물 등으로 사용하는 경우에도 또한 같다.",
-      "answer": "재사용 과정에서 폐기물의 원형이 유지되고 성상의 변화가 없도록 하겠으며, 부착·결합 등의 형태로 다른 제품의 부속물로 사용하는 경우에도 동일하게 적용하겠음."
+      "answer": "재사용 과정에서 폐기물의 원형이 유지되고 성상의 변화가 없도록 하겠으며, 부착·결합 등의 형태로 다른 제품의 부속물로 사용하는 경우에도 동일하게 적용하겠음.",
+      "tags": {
+        "category": null,
+        "bizType": null,
+        "wasteClass": null,
+        "wasteCode": null,
+        "action": [
+          "RE"
+        ],
+        "rCode": [
+          "R-1-2"
+        ],
+        "facilityType": null
+      }
     },
     {
       "depth": 4,
       "type": "wrapped-number",
       "marker": "(3)",
       "text": "이물질 등을 모두 제거한 이후 재사용해야 하며 대상 폐기물 이외의다른 물질이나 폐기물을 혼합해 재사용할 수 없다.",
-      "answer": "이물질을 모두 제거한 이후 재사용하겠으며, 대상 폐기물 이외의 다른 물질이나 폐기물을 혼합해 재사용하지 않겠음."
+      "answer": "이물질을 모두 제거한 이후 재사용하겠으며, 대상 폐기물 이외의 다른 물질이나 폐기물을 혼합해 재사용하지 않겠음.",
+      "tags": {
+        "category": null,
+        "bizType": null,
+        "wasteClass": null,
+        "wasteCode": null,
+        "action": [
+          "RE"
+        ],
+        "rCode": [
+          "R-1-2"
+        ],
+        "facilityType": null
+      }
     },
     {
       "depth": 4,
@@ -312,10 +433,19 @@
       "tags": {
         "category": null,
         "bizType": null,
-        "wasteClass": ["GO", "GN"],
-        "wasteCode": ["51-20-26"],
-        "action": ["RE"],
-        "rCode": ["R-1-2"],
+        "wasteClass": [
+          "GO",
+          "GN"
+        ],
+        "wasteCode": [
+          "51-20-26"
+        ],
+        "action": [
+          "RE"
+        ],
+        "rCode": [
+          "R-1-2"
+        ],
         "facilityType": null
       }
     },
@@ -342,10 +472,19 @@
       "tags": {
         "category": null,
         "bizType": null,
-        "wasteClass": ["GO", "GN"],
-        "wasteCode": ["51-21"],
-        "action": ["RE"],
-        "rCode": ["R-1-2"],
+        "wasteClass": [
+          "GO",
+          "GN"
+        ],
+        "wasteCode": [
+          "51-21"
+        ],
+        "action": [
+          "RE"
+        ],
+        "rCode": [
+          "R-1-2"
+        ],
         "facilityType": null
       }
     },
@@ -360,8 +499,12 @@
         "bizType": null,
         "wasteClass": null,
         "wasteCode": null,
-        "action": ["RE"],
-        "rCode": ["R-2"],
+        "action": [
+          "RE"
+        ],
+        "rCode": [
+          "R-2"
+        ],
         "facilityType": null
       }
     },
@@ -376,8 +519,12 @@
         "bizType": null,
         "wasteClass": null,
         "wasteCode": null,
-        "action": ["RE"],
-        "rCode": ["R-2-1"],
+        "action": [
+          "RE"
+        ],
+        "rCode": [
+          "R-2-1"
+        ],
         "facilityType": null
       }
     },
@@ -386,21 +533,64 @@
       "type": "wrapped-number",
       "marker": "(1)",
       "text": "재사용 과정에서 폐기물의 원형이 유지되고 성상 등의 변화가 없어야하며 부착, 결합 등의 형태로 다른 제품의 부속물 등으로 사용하는 경우에도 또한 같다.",
-      "answer": "재사용 과정에서 폐기물의 원형이 유지되고 성상의 변화가 없도록 하겠으며, 부착·결합 등의 형태로 다른 제품의 부속물로 사용하는 경우에도 동일하게 적용하겠음."
+      "answer": "재사용 과정에서 폐기물의 원형이 유지되고 성상의 변화가 없도록 하겠으며, 부착·결합 등의 형태로 다른 제품의 부속물로 사용하는 경우에도 동일하게 적용하겠음.",
+      "tags": {
+        "category": null,
+        "bizType": null,
+        "wasteClass": null,
+        "wasteCode": null,
+        "action": [
+          "RE"
+        ],
+        "rCode": [
+          "R-2-1"
+        ],
+        "facilityType": null
+      }
     },
     {
       "depth": 4,
       "type": "wrapped-number",
       "marker": "(2)",
       "text": "동일한 용도 및 공정에 재사용되어야 하며, 본래 용도와 다른 폐기물특성을 이용해 재사용할 수 없다.",
-      "answer": "동일한 용도 및 공정에 재사용하겠으며, 본래 용도와 다른 폐기물 특성을 이용해 재사용하지 않겠음."
+      "answer": "동일한 용도 및 공정에 재사용하겠으며, 본래 용도와 다른 폐기물 특성을 이용해 재사용하지 않겠음.",
+      "tags": {
+        "category": null,
+        "bizType": null,
+        "wasteClass": null,
+        "wasteCode": null,
+        "action": [
+          "RE"
+        ],
+        "rCode": [
+          "R-2-1"
+        ],
+        "facilityType": null
+      }
     },
     {
       "depth": 4,
       "type": "wrapped-number",
       "marker": "(3)",
       "text": "재활용 과정에서 지정폐기물, 특정대기유해물질 또는 특정수질유해물질이 배출되지 않아야 한다. 다만 폐유, 폐유기용제 등 지정폐기물이포함되어 있는 폐드럼 등의 용기류를 재활용하는 과정에서 지정폐기물, 특정대기유해물질 또는 특정수질유해물질이 배출되는 경우 폐기물을 별도로 분리·회수해 적정하게 보관 및 처리해야 하며 특정대기유해물질 또는 특정수질유해물질 등의 오염물질이 배출되는 경우에는 이를처리할 수 있는 처리시설을 설치·운영해야 한다.",
-      "answer": "재활용 과정에서 지정폐기물·특정대기유해물질·특정수질유해물질이 배출되지 않도록 하겠음. 다만, 폐유·폐유기용제 등 지정폐기물이 포함된 폐드럼 용기류 재활용 시 배출되는 폐기물은 별도 분리·회수·적정 보관·처리하고, 특정대기·수질유해물질 등 오염물질 배출 시 이를 처리할 수 있는 처리시설을 설치·운영하겠음."
+      "answer": "재활용 과정에서 지정폐기물·특정대기유해물질·특정수질유해물질이 배출되지 않도록 하겠음. 다만, 폐유·폐유기용제 등 지정폐기물이 포함된 폐드럼 용기류 재활용 시 배출되는 폐기물은 별도 분리·회수·적정 보관·처리하고, 특정대기·수질유해물질 등 오염물질 배출 시 이를 처리할 수 있는 처리시설을 설치·운영하겠음.",
+      "tags": {
+        "category": null,
+        "bizType": null,
+        "wasteClass": [
+          "D"
+        ],
+        "wasteCode": [
+          "06"
+        ],
+        "action": [
+          "RE"
+        ],
+        "rCode": [
+          "R-2-1"
+        ],
+        "facilityType": null
+      }
     },
     {
       "depth": 4,
@@ -411,10 +601,18 @@
       "tags": {
         "category": null,
         "bizType": null,
-        "wasteClass": ["D"],
-        "wasteCode": ["02-01-02"],
-        "action": ["RE"],
-        "rCode": ["R-2-1"],
+        "wasteClass": [
+          "D"
+        ],
+        "wasteCode": [
+          "02-01-02"
+        ],
+        "action": [
+          "RE"
+        ],
+        "rCode": [
+          "R-2-1"
+        ],
         "facilityType": null
       }
     },
@@ -436,8 +634,12 @@
         "bizType": null,
         "wasteClass": null,
         "wasteCode": null,
-        "action": ["RE"],
-        "rCode": ["R-2-2"],
+        "action": [
+          "RE"
+        ],
+        "rCode": [
+          "R-2-2"
+        ],
         "facilityType": null
       }
     },
@@ -446,21 +648,64 @@
       "type": "wrapped-number",
       "marker": "(1)",
       "text": "폐기물을 일정한 형태를 갖춘 제품으로 재사용해야 하며, 별표 4의2제2호부터 제5호까지의 재활용 유형으로 분류될 수 있는 경우에는 해당 유형의 재활용 기준을 따라야 한다.",
-      "answer": "폐기물을 일정한 형태를 갖춘 제품으로 재사용하겠으며, 별표4의2 제2호~제5호 재활용 유형으로 분류 가능한 경우 해당 유형의 재활용 기준을 따르겠음."
+      "answer": "폐기물을 일정한 형태를 갖춘 제품으로 재사용하겠으며, 별표4의2 제2호~제5호 재활용 유형으로 분류 가능한 경우 해당 유형의 재활용 기준을 따르겠음.",
+      "tags": {
+        "category": null,
+        "bizType": null,
+        "wasteClass": null,
+        "wasteCode": null,
+        "action": [
+          "RE"
+        ],
+        "rCode": [
+          "R-2-2"
+        ],
+        "facilityType": null
+      }
     },
     {
       "depth": 4,
       "type": "wrapped-number",
       "marker": "(2)",
       "text": "재사용 과정에서 폐기물의 원형이 유지되고 성상 등의 변화가 없어야하며 부착, 결합 등의 형태로 다른 제품의 부속물 등으로 사용하는 경우에도 또한 같다.",
-      "answer": "재사용 과정에서 폐기물의 원형이 유지되고 성상의 변화가 없도록 하겠으며, 부착·결합 등의 형태로 다른 제품의 부속물로 사용하는 경우에도 동일하게 적용하겠음."
+      "answer": "재사용 과정에서 폐기물의 원형이 유지되고 성상의 변화가 없도록 하겠으며, 부착·결합 등의 형태로 다른 제품의 부속물로 사용하는 경우에도 동일하게 적용하겠음.",
+      "tags": {
+        "category": null,
+        "bizType": null,
+        "wasteClass": null,
+        "wasteCode": null,
+        "action": [
+          "RE"
+        ],
+        "rCode": [
+          "R-2-2"
+        ],
+        "facilityType": null
+      }
     },
     {
       "depth": 4,
       "type": "wrapped-number",
       "marker": "(3)",
       "text": "재활용 과정에서 지정폐기물, 특정대기유해물질 또는 특정수질유해물질이 배출되지 않아야 한다. 다만 폐유, 폐유기용제 등 지정폐기물이포함되어 있는 폐드럼 등의 용기류를 재활용하는 과정에서 지정폐기물, 특정대기유해물질 또는 특정수질유해물질이 배출되는 경우 폐기물을 별도로 분리·회수해 적정하게 보관 및 처리해야 하며 특정대기유해물질 또는 특정수질유해물질 등의 오염물질이 배출되는 경우에는 이를처리할 수 있는 처리시설을 설치·운영해야 한다.",
-      "answer": "재활용 과정에서 지정폐기물·특정대기유해물질·특정수질유해물질이 배출되지 않도록 하겠음. 다만, 폐유·폐유기용제 등 지정폐기물이 포함된 폐드럼 용기류 재활용 시 배출되는 폐기물은 별도 분리·회수·적정 보관·처리하고, 특정대기·수질유해물질 등 오염물질 배출 시 이를 처리할 수 있는 처리시설을 설치·운영하겠음."
+      "answer": "재활용 과정에서 지정폐기물·특정대기유해물질·특정수질유해물질이 배출되지 않도록 하겠음. 다만, 폐유·폐유기용제 등 지정폐기물이 포함된 폐드럼 용기류 재활용 시 배출되는 폐기물은 별도 분리·회수·적정 보관·처리하고, 특정대기·수질유해물질 등 오염물질 배출 시 이를 처리할 수 있는 처리시설을 설치·운영하겠음.",
+      "tags": {
+        "category": null,
+        "bizType": null,
+        "wasteClass": [
+          "D"
+        ],
+        "wasteCode": [
+          "06"
+        ],
+        "action": [
+          "RE"
+        ],
+        "rCode": [
+          "R-2-2"
+        ],
+        "facilityType": null
+      }
     },
     {
       "depth": 4,
@@ -471,10 +716,19 @@
       "tags": {
         "category": null,
         "bizType": null,
-        "wasteClass": ["GO", "GN"],
-        "wasteCode": ["51-20-26"],
-        "action": ["RE"],
-        "rCode": ["R-2-2"],
+        "wasteClass": [
+          "GO",
+          "GN"
+        ],
+        "wasteCode": [
+          "51-20-26"
+        ],
+        "action": [
+          "RE"
+        ],
+        "rCode": [
+          "R-2-2"
+        ],
         "facilityType": null
       }
     },
@@ -501,10 +755,19 @@
       "tags": {
         "category": null,
         "bizType": null,
-        "wasteClass": ["GO", "GN"],
-        "wasteCode": ["51-17"],
-        "action": ["RE"],
-        "rCode": ["R-2-2"],
+        "wasteClass": [
+          "GO",
+          "GN"
+        ],
+        "wasteCode": [
+          "51-17"
+        ],
+        "action": [
+          "RE"
+        ],
+        "rCode": [
+          "R-2-2"
+        ],
         "facilityType": null
       }
     },
@@ -518,8 +781,13 @@
         "category": null,
         "bizType": null,
         "wasteClass": null,
-        "action": ["RE"],
-        "rCode": ["R-2", "R-3"],
+        "action": [
+          "RE"
+        ],
+        "rCode": [
+          "R-2",
+          "R-3"
+        ],
         "facilityType": null
       }
     },
@@ -534,8 +802,12 @@
         "bizType": null,
         "wasteClass": null,
         "wasteCode": null,
-        "action": ["RE"],
-        "rCode": ["R-3"],
+        "action": [
+          "RE"
+        ],
+        "rCode": [
+          "R-3"
+        ],
         "facilityType": null
       }
     },
@@ -550,8 +822,12 @@
         "bizType": null,
         "wasteClass": null,
         "wasteCode": null,
-        "action": ["RE"],
-        "rCode": ["R-3-1"],
+        "action": [
+          "RE"
+        ],
+        "rCode": [
+          "R-3-1"
+        ],
         "facilityType": null
       }
     },
@@ -564,10 +840,18 @@
       "tags": {
         "category": null,
         "bizType": null,
-        "wasteClass": ["L"],
-        "wasteCode": ["91-09"],
-        "action": ["RE"],
-        "rCode": ["R-3-1"],
+        "wasteClass": [
+          "L"
+        ],
+        "wasteCode": [
+          "91-09"
+        ],
+        "action": [
+          "RE"
+        ],
+        "rCode": [
+          "R-3-1"
+        ],
         "facilityType": null
       }
     },
@@ -608,10 +892,19 @@
       "tags": {
         "category": null,
         "bizType": null,
-        "wasteClass": ["GO", "GN"],
-        "wasteCode": ["51-29"],
-        "action": ["RE"],
-        "rCode": ["R-3-1"],
+        "wasteClass": [
+          "GO",
+          "GN"
+        ],
+        "wasteCode": [
+          "51-29"
+        ],
+        "action": [
+          "RE"
+        ],
+        "rCode": [
+          "R-3-1"
+        ],
         "facilityType": null
       }
     },
@@ -638,10 +931,18 @@
       "tags": {
         "category": null,
         "bizType": null,
-        "wasteClass": ["D"],
-        "wasteCode": ["03-07"],
-        "action": ["RE"],
-        "rCode": ["R-3-1"],
+        "wasteClass": [
+          "D"
+        ],
+        "wasteCode": [
+          "03-07"
+        ],
+        "action": [
+          "RE"
+        ],
+        "rCode": [
+          "R-3-1"
+        ],
         "facilityType": null
       }
     },
@@ -698,8 +999,12 @@
         "bizType": null,
         "wasteClass": null,
         "wasteCode": null,
-        "action": ["RE"],
-        "rCode": ["R-3-2"],
+        "action": [
+          "RE"
+        ],
+        "rCode": [
+          "R-3-2"
+        ],
         "facilityType": null
       }
     },
@@ -712,10 +1017,18 @@
       "tags": {
         "category": null,
         "bizType": null,
-        "wasteClass": ["L"],
-        "wasteCode": ["91-09"],
-        "action": ["RE"],
-        "rCode": ["R-3-2"],
+        "wasteClass": [
+          "L"
+        ],
+        "wasteCode": [
+          "91-09"
+        ],
+        "action": [
+          "RE"
+        ],
+        "rCode": [
+          "R-3-2"
+        ],
         "facilityType": null
       }
     },
@@ -756,10 +1069,19 @@
       "tags": {
         "category": null,
         "bizType": null,
-        "wasteClass": ["GO", "GN"],
-        "wasteCode": ["51-29"],
-        "action": ["RE"],
-        "rCode": ["R-3-2"],
+        "wasteClass": [
+          "GO",
+          "GN"
+        ],
+        "wasteCode": [
+          "51-29"
+        ],
+        "action": [
+          "RE"
+        ],
+        "rCode": [
+          "R-3-2"
+        ],
         "facilityType": null
       }
     },
@@ -786,10 +1108,18 @@
       "tags": {
         "category": null,
         "bizType": null,
-        "wasteClass": ["D"],
-        "wasteCode": ["03-07"],
-        "action": ["RE"],
-        "rCode": ["R-3-2"],
+        "wasteClass": [
+          "D"
+        ],
+        "wasteCode": [
+          "03-07"
+        ],
+        "action": [
+          "RE"
+        ],
+        "rCode": [
+          "R-3-2"
+        ],
         "facilityType": null
       }
     },
@@ -804,8 +1134,12 @@
         "bizType": null,
         "wasteClass": null,
         "wasteCode": null,
-        "action": ["RE"],
-        "rCode": ["R-3-3"],
+        "action": [
+          "RE"
+        ],
+        "rCode": [
+          "R-3-3"
+        ],
         "facilityType": null
       }
     },
@@ -818,10 +1152,22 @@
       "tags": {
         "category": null,
         "bizType": null,
-        "wasteClass": ["GO", "GN"],
-        "wasteCode": ["51-28", "51-29", "51-03", "51-30"],
-        "action": ["RE"],
-        "rCode": ["R-3-3"],
+        "wasteClass": [
+          "GO",
+          "GN"
+        ],
+        "wasteCode": [
+          "51-28",
+          "51-29",
+          "51-03",
+          "51-30"
+        ],
+        "action": [
+          "RE"
+        ],
+        "rCode": [
+          "R-3-3"
+        ],
         "facilityType": null
       }
     },
@@ -883,10 +1229,19 @@
       "tags": {
         "category": null,
         "bizType": null,
-        "wasteClass": ["GO", "GN"],
-        "wasteCode": ["51-03"],
-        "action": ["RE"],
-        "rCode": ["R-3-3"],
+        "wasteClass": [
+          "GO",
+          "GN"
+        ],
+        "wasteCode": [
+          "51-03"
+        ],
+        "action": [
+          "RE"
+        ],
+        "rCode": [
+          "R-3-3"
+        ],
         "facilityType": null
       }
     },
@@ -955,10 +1310,19 @@
       "tags": {
         "category": null,
         "bizType": null,
-        "wasteClass": ["GO", "GN"],
-        "wasteCode": ["51-03"],
-        "action": ["RE"],
-        "rCode": ["R-3-3"],
+        "wasteClass": [
+          "GO",
+          "GN"
+        ],
+        "wasteCode": [
+          "51-03"
+        ],
+        "action": [
+          "RE"
+        ],
+        "rCode": [
+          "R-3-3"
+        ],
         "facilityType": null
       }
     },
@@ -971,10 +1335,18 @@
       "tags": {
         "category": null,
         "bizType": null,
-        "wasteClass": ["D"],
-        "wasteCode": ["06"],
-        "action": ["RE"],
-        "rCode": ["R-3-3"],
+        "wasteClass": [
+          "D"
+        ],
+        "wasteCode": [
+          "06"
+        ],
+        "action": [
+          "RE"
+        ],
+        "rCode": [
+          "R-3-3"
+        ],
         "facilityType": null
       }
     },
@@ -1008,10 +1380,19 @@
       "tags": {
         "category": null,
         "bizType": null,
-        "wasteClass": ["D"],
-        "wasteCode": ["03-10-03", "03-10-04"],
-        "action": ["RE"],
-        "rCode": ["R-3-3"],
+        "wasteClass": [
+          "D"
+        ],
+        "wasteCode": [
+          "03-10-03",
+          "03-10-04"
+        ],
+        "action": [
+          "RE"
+        ],
+        "rCode": [
+          "R-3-3"
+        ],
         "facilityType": null
       }
     },
@@ -1054,8 +1435,12 @@
         "bizType": null,
         "wasteClass": null,
         "wasteCode": null,
-        "action": ["RE"],
-        "rCode": ["R-3-3"],
+        "action": [
+          "RE"
+        ],
+        "rCode": [
+          "R-3-3"
+        ],
         "facilityType": null
       }
     },
@@ -1070,8 +1455,12 @@
         "bizType": null,
         "wasteClass": null,
         "wasteCode": null,
-        "action": ["RE"],
-        "rCode": ["R-3-4"],
+        "action": [
+          "RE"
+        ],
+        "rCode": [
+          "R-3-4"
+        ],
         "facilityType": null
       }
     },
@@ -1086,8 +1475,12 @@
         "bizType": null,
         "wasteClass": null,
         "wasteCode": null,
-        "action": ["RE"],
-        "rCode": ["R-3-5"],
+        "action": [
+          "RE"
+        ],
+        "rCode": [
+          "R-3-5"
+        ],
         "facilityType": null
       }
     },
@@ -1095,169 +1488,299 @@
       "depth": 2,
       "type": "number-paren",
       "marker": "2)",
-      "text": "R-4 유형의 재활용 기준"
+      "text": "R-4 유형의 재활용 기준",
+      "answer": "R-4 유형으로 재활용할 경우 하위 세부 기준을 준수하겠음.",
+      "tags": {
+        "category": null,
+        "bizType": null,
+        "wasteClass": null,
+        "wasteCode": null,
+        "action": [
+          "RE"
+        ],
+        "rCode": [
+          "R-4"
+        ],
+        "facilityType": null
+      }
     },
     {
       "depth": 3,
       "type": "korean-paren",
       "marker": "가)",
-      "text": "R-4-2 유형의 재활용 기준"
+      "text": "R-4-2 유형의 재활용 기준",
+      "answer": "R-4-2 유형으로 재활용할 경우 하위 세부 기준을 준수하겠음.",
+      "tags": {
+        "category": null,
+        "bizType": null,
+        "wasteClass": null,
+        "wasteCode": null,
+        "action": [
+          "RE"
+        ],
+        "rCode": [
+          "R-4-2"
+        ],
+        "facilityType": null
+      }
     },
     {
       "depth": 4,
       "type": "wrapped-number",
       "marker": "(1)",
-      "text": "폐기물에 함유된 유해물질이 별표 1에 따른 유해물질의 기준 미만인폐기물만 재활용해야 한다."
+      "text": "폐기물에 함유된 유해물질이 별표 1에 따른 유해물질의 기준 미만인폐기물만 재활용해야 한다.",
+      "answer": "폐기물에 함유된 유해물질이 별표 1에 따른 유해물질의 기준 미만인폐기물만 재활용하겠음.",
+      "tags": {
+        "category": null,
+        "bizType": null,
+        "wasteClass": null,
+        "wasteCode": null,
+        "action": [
+          "RE"
+        ],
+        "rCode": [
+          "R-4-2"
+        ],
+        "facilityType": null
+      }
     },
     {
       "depth": 4,
       "type": "wrapped-number",
       "marker": "(2)",
-      "text": "건설용 골재로 재활용하는 경우에는 「건설폐기물의 재활용촉진에 관한 법률」 제35조에 따른 순환골재의 품질기준을 준수해야 한다."
+      "text": "건설용 골재로 재활용하는 경우에는 「건설폐기물의 재활용촉진에 관한 법률」 제35조에 따른 순환골재의 품질기준을 준수해야 한다.",
+      "answer": "건설용 골재로 재활용하는 경우에는 「건설폐기물의 재활용촉진에 관한 법률」 제35조에 따른 순환골재의 품질기준을 준수하겠음.",
+      "tags": {
+        "category": null,
+        "bizType": null,
+        "wasteClass": null,
+        "wasteCode": null,
+        "action": [
+          "RE"
+        ],
+        "rCode": [
+          "R-4-2"
+        ],
+        "facilityType": null
+      }
     },
     {
       "depth": 4,
       "type": "wrapped-number",
       "marker": "(3)",
-      "text": "철강슬래그 및 석탄재를 재활용하는 경우에는 「자원의 절약과 재활용촉진에 관한 법률」 제25조제1항에 따른 지침을 준수해야 한다."
+      "text": "철강슬래그 및 석탄재를 재활용하는 경우에는 「자원의 절약과 재활용촉진에 관한 법률」 제25조제1항에 따른 지침을 준수해야 한다.",
+      "answer": "철강슬래그 및 석탄재를 재활용하는 경우에는 「자원의 절약과 재활용촉진에 관한 법률」 제25조제1항에 따른 지침을 준수하겠음.",
+      "tags": {
+        "category": null,
+        "bizType": null,
+        "wasteClass": [
+          "GO",
+          "GN"
+        ],
+        "wasteCode": [
+          "51-04"
+        ],
+        "action": [
+          "RE"
+        ],
+        "rCode": [
+          "R-4-2"
+        ],
+        "facilityType": null
+      }
     },
     {
       "depth": 4,
       "type": "wrapped-number",
       "marker": "(4)",
-      "text": "금속 또는 비금속 제련과정에서 발생하는 슬래그를 시멘트 제조 또는콘크리트 골재 등의 용도로 사용하기 위해 급냉, 수쇄·풍쇄 등을 통한파쇄 공정을 거쳐 입자상 또는 분말상으로 만드는 경우에는 다음의 기준을 준수해야 한다."
+      "text": "금속 또는 비금속 제련과정에서 발생하는 슬래그를 시멘트 제조 또는콘크리트 골재 등의 용도로 사용하기 위해 급냉, 수쇄·풍쇄 등을 통한파쇄 공정을 거쳐 입자상 또는 분말상으로 만드는 경우에는 다음의 기준을 준수해야 한다.",
+      "answer": "금속 또는 비금속 제련과정에서 발생하는 슬래그를 시멘트 제조 또는콘크리트 골재 등의 용도로 사용하기 위해 급냉, 수쇄·풍쇄 등을 통한파쇄 공정을 거쳐 입자상 또는 분말상으로 만드는 경우에는 하위 기준을 준수하겠음.",
+      "tags": {
+        "category": null,
+        "bizType": null,
+        "wasteClass": null,
+        "wasteCode": null,
+        "action": [
+          "RE"
+        ],
+        "rCode": [
+          "R-4-2"
+        ],
+        "facilityType": null
+      }
     },
     {
       "depth": 5,
       "type": "wrapped-korean",
       "marker": "(가)",
-      "text": "시멘트 제조용으로 공급하는 경우에는 「자원의 절약과 재활용촉진에 관한 법률 시행규칙」 제20조의3제3항에 따라 기후에너지환경부장관이 고시한 고형연료제품의 품질검사 방법에 따른 시험결과가다음의 기준을 충족해야 한다."
+      "text": "시멘트 제조용으로 공급하는 경우에는 「자원의 절약과 재활용촉진에 관한 법률 시행규칙」 제20조의3제3항에 따라 기후에너지환경부장관이 고시한 고형연료제품의 품질검사 방법에 따른 시험결과가다음의 기준을 충족해야 한다.",
+      "answer": "시멘트 제조용으로 공급하는 경우에는 「자원의 절약과 재활용촉진에 관한 법률 시행규칙」 제20조의3제3항에 따라 기후에너지환경부장관이 고시한 고형연료제품의 품질검사 방법에 따른 시험결과가다음의 기준을 충족하겠음."
     },
     {
       "depth": 5,
       "type": "circled-number",
       "marker": "①",
-      "text": "동 제련과정에서 발생하는 경우"
+      "text": "동 제련과정에서 발생하는 경우",
+      "answer": "동 제련과정에서 발생하는 경우."
     },
     {
       "depth": 6,
       "type": "circled-korean",
       "marker": "㉮",
-      "text": "납: 킬로그램 당 3,200밀리그램 미만"
+      "text": "납: 킬로그램 당 3,200밀리그램 미만",
+      "answer": "납: 킬로그램 당 3,200밀리그램 미만 기준을 충족하겠음."
     },
     {
       "depth": 6,
       "type": "circled-korean",
       "marker": "㉯",
-      "text": "구리: 킬로그램 당 10,000밀리그램 미만"
+      "text": "구리: 킬로그램 당 10,000밀리그램 미만",
+      "answer": "구리: 킬로그램 당 10,000밀리그램 미만 기준을 충족하겠음."
     },
     {
       "depth": 6,
       "type": "circled-korean",
       "marker": "㉰",
-      "text": "카드뮴: 킬로그램 당 100밀리그램 미만"
+      "text": "카드뮴: 킬로그램 당 100밀리그램 미만",
+      "answer": "카드뮴: 킬로그램 당 100밀리그램 미만 기준을 충족하겠음."
     },
     {
       "depth": 6,
       "type": "circled-korean",
       "marker": "㉱",
-      "text": "비소: 킬로그램 당 900밀리그램 미만"
+      "text": "비소: 킬로그램 당 900밀리그램 미만",
+      "answer": "비소: 킬로그램 당 900밀리그램 미만 기준을 충족하겠음."
     },
     {
       "depth": 6,
       "type": "circled-korean",
       "marker": "㉲",
-      "text": "수은: 킬로그램 당 2.0밀리그램 미만"
+      "text": "수은: 킬로그램 당 2.0밀리그램 미만",
+      "answer": "수은: 킬로그램 당 2.0밀리그램 미만 기준을 충족하겠음."
     },
     {
       "depth": 5,
       "type": "circled-number",
       "marker": "②",
-      "text": "아연 제련과정에서 발생하는 경우"
+      "text": "아연 제련과정에서 발생하는 경우",
+      "answer": "아연 제련과정에서 발생하는 경우."
     },
     {
       "depth": 6,
       "type": "circled-korean",
       "marker": "㉮",
-      "text": "납: 킬로그램 당 7,000밀리그램 미만"
+      "text": "납: 킬로그램 당 7,000밀리그램 미만",
+      "answer": "납: 킬로그램 당 7,000밀리그램 미만 기준을 충족하겠음."
     },
     {
       "depth": 6,
       "type": "circled-korean",
       "marker": "㉯",
-      "text": "구리: 킬로그램 당 14,000밀리그램 미만"
+      "text": "구리: 킬로그램 당 14,000밀리그램 미만",
+      "answer": "구리: 킬로그램 당 14,000밀리그램 미만 기준을 충족하겠음."
     },
     {
       "depth": 6,
       "type": "circled-korean",
       "marker": "㉰",
-      "text": "카드뮴: 킬로그램 당 60밀리그램 미만"
+      "text": "카드뮴: 킬로그램 당 60밀리그램 미만",
+      "answer": "카드뮴: 킬로그램 당 60밀리그램 미만 기준을 충족하겠음."
     },
     {
       "depth": 6,
       "type": "circled-korean",
       "marker": "㉱",
-      "text": "비소: 킬로그램 당 500밀리그램 미만"
+      "text": "비소: 킬로그램 당 500밀리그램 미만",
+      "answer": "비소: 킬로그램 당 500밀리그램 미만 기준을 충족하겠음."
     },
     {
       "depth": 6,
       "type": "circled-korean",
       "marker": "㉲",
-      "text": "수은: 킬로그램 당 2.0밀리그램 미만"
+      "text": "수은: 킬로그램 당 2.0밀리그램 미만",
+      "answer": "수은: 킬로그램 당 2.0밀리그램 미만 기준을 충족하겠음."
     },
     {
       "depth": 5,
       "type": "circled-number",
       "marker": "③",
-      "text": "그 외의 경우"
+      "text": "그 외의 경우",
+      "answer": "그 외의 경우."
     },
     {
       "depth": 6,
       "type": "circled-korean",
       "marker": "㉮",
-      "text": "납: 킬로그램 당 1,000밀리그램 미만"
+      "text": "납: 킬로그램 당 1,000밀리그램 미만",
+      "answer": "납: 킬로그램 당 1,000밀리그램 미만 기준을 충족하겠음."
     },
     {
       "depth": 6,
       "type": "circled-korean",
       "marker": "㉯",
-      "text": "구리: 킬로그램 당 3,000밀리그램 미만"
+      "text": "구리: 킬로그램 당 3,000밀리그램 미만",
+      "answer": "구리: 킬로그램 당 3,000밀리그램 미만 기준을 충족하겠음."
     },
     {
       "depth": 6,
       "type": "circled-korean",
       "marker": "㉰",
-      "text": "카드뮴: 킬로그램 당 60밀리그램 미만"
+      "text": "카드뮴: 킬로그램 당 60밀리그램 미만",
+      "answer": "카드뮴: 킬로그램 당 60밀리그램 미만 기준을 충족하겠음."
     },
     {
       "depth": 6,
       "type": "circled-korean",
       "marker": "㉱",
-      "text": "비소: 킬로그램 당 500밀리그램 미만"
+      "text": "비소: 킬로그램 당 500밀리그램 미만",
+      "answer": "비소: 킬로그램 당 500밀리그램 미만 기준을 충족하겠음."
     },
     {
       "depth": 6,
       "type": "circled-korean",
       "marker": "㉲",
-      "text": "수은: 킬로그램 당 2.0밀리그램 미만"
+      "text": "수은: 킬로그램 당 2.0밀리그램 미만",
+      "answer": "수은: 킬로그램 당 2.0밀리그램 미만 기준을 충족하겠음."
     },
     {
       "depth": 5,
       "type": "wrapped-korean",
       "marker": "(나)",
-      "text": "콘크리트용 골재 등으로 공급하는 경우에는 한국산업표준에 따른용도별 규격 또는 품질에 적합해야 한다. 다만, 입도(粒度)는 그러하지 아니하며, 한국산업표준이 설정되어 있지 않은 경우에는 같은 용도에 대한 한국산업표준을 준용할 수 있다."
+      "text": "콘크리트용 골재 등으로 공급하는 경우에는 한국산업표준에 따른용도별 규격 또는 품질에 적합해야 한다. 다만, 입도(粒度)는 그러하지 아니하며, 한국산업표준이 설정되어 있지 않은 경우에는 같은 용도에 대한 한국산업표준을 준용할 수 있다.",
+      "answer": "콘크리트용 골재 등으로 공급하는 경우에는 한국산업표준에 따른용도별 규격 또는 품질에 적합해야 한다. 다만, 입도(粒度)는 그러하지 아니하며, 한국산업표준이 설정되어 있지 않은 경우에는 같은 용도에 대한 한국산업표준을 준용할 수 있음을 숙지하겠음."
     },
     {
       "depth": 4,
       "type": "wrapped-number",
       "marker": "(5)",
-      "text": "비산재, 바닥재 등 소각재와 그 잔재물이나 보크사이트 잔재물[적토(赤土), 수산화알루미늄의 제조 공정에서 발생한 광물성폐기물을 말한다]은 다음의 기준을 충족하는 경우에만 재활용해야 하며, 이를 충족시키지 못할 경우 해당 기준을 충족시키도록 처리한 후 사용해야 한다."
+      "text": "비산재, 바닥재 등 소각재와 그 잔재물이나 보크사이트 잔재물[적토(赤土), 수산화알루미늄의 제조 공정에서 발생한 광물성폐기물을 말한다]은 다음의 기준을 충족하는 경우에만 재활용해야 하며, 이를 충족시키지 못할 경우 해당 기준을 충족시키도록 처리한 후 사용해야 한다.",
+      "answer": "비산재, 바닥재 등 소각재와 그 잔재물이나 보크사이트 잔재물[적토(赤土), 수산화알루미늄의 제조 공정에서 발생한 광물성폐기물을 말한다]은 다음의 기준을 충족하는 경우에만 재활용해야 하며, 이를 충족시키지 못할 경우 해당 기준을 충족시키도록 처리한 후 사용하겠음.",
+      "tags": {
+        "category": null,
+        "bizType": null,
+        "wasteClass": [
+          "GO",
+          "GN",
+          "D"
+        ],
+        "wasteCode": [
+          "51-08"
+        ],
+        "action": [
+          "RE"
+        ],
+        "rCode": [
+          "R-4-2"
+        ],
+        "facilityType": null
+      }
     },
     {
       "depth": 5,
       "type": "wrapped-korean",
       "marker": "(가)",
-      "text": "강열감량(强熱減量)은 5.0 퍼센트 이하여야 한다."
+      "text": "강열감량(强熱減量)은 5.0 퍼센트 이하여야 한다.",
+      "answer": "강열감량(强熱減量)은 5.0 퍼센트 이하겠음."
     },
     {
       "depth": 5,
@@ -1298,25 +1821,48 @@
           "용출농도": "250.0 이내"
         }
       ],
-      "note": "비고"
+      "note": "비고",
+      "answer": "용출기준(단위: ㎎/L)."
     },
     {
       "depth": 0,
       "type": "number",
       "marker": "1.",
-      "text": "염소화합물을 제외한 화합물 등의 용출농도는 폐기물에 관한 공정시험기준의 중금속 등의 용출시험방법에 따라 측정하고, 염소화합물의 용출농도는 폐기물에 관한 공정시험기준에 따라 중금속 측정을 위한 용출조작을 한 후 해당 용출용액에 대하여 수질오염물질에 관한 공정시험기준에 따라 측정된 염소이온 농도값을 따른다."
+      "text": "염소화합물을 제외한 화합물 등의 용출농도는 폐기물에 관한 공정시험기준의 중금속 등의 용출시험방법에 따라 측정하고, 염소화합물의 용출농도는 폐기물에 관한 공정시험기준에 따라 중금속 측정을 위한 용출조작을 한 후 해당 용출용액에 대하여 수질오염물질에 관한 공정시험기준에 따라 측정된 염소이온 농도값을 따른다.",
+      "answer": "염소화합물을 제외한 화합물 등의 용출농도는 폐기물에 관한 공정시험기준의 중금속 등의 용출시험방법에 따라 측정하고, 염소화합물의 용출농도는 폐기물에 관한 공정시험기준에 따라 중금속 측정을 위한 용출조작을 한 후 해당 용출용액에 대하여 수질오염물질에 관한 공정시험기준에 따라 측정된 염소이온 농도값을 따른다."
     },
     {
       "depth": 0,
       "type": "number",
       "marker": "2.",
-      "text": "고화제 제조 용도로 사용하는 경우의 염소화합물 용출농도는 소각재 및 그 화합물과 다른 원료물질을 혼합하여 재활용하는 단계에서 실험한 결과 기준 농도 이내이면 용출기준을 충족한 것으로본다."
+      "text": "고화제 제조 용도로 사용하는 경우의 염소화합물 용출농도는 소각재 및 그 화합물과 다른 원료물질을 혼합하여 재활용하는 단계에서 실험한 결과 기준 농도 이내이면 용출기준을 충족한 것으로본다.",
+      "answer": "고화제 제조 용도로 사용하는 경우의 염소화합물 용출농도는 소각재 및 그 화합물과 다른 원료물질을 혼합하여 재활용하는 단계에서 실험한 결과 기준 농도 이내이면 용출기준을 충족한 것으로본다."
     },
     {
       "depth": 4,
       "type": "wrapped-number",
       "marker": "(6)",
-      "text": "소각시설에서 발생하는 소각재와 수산화알루미늄 제조 공정에서 발생한 보크사이트 잔재물 등을 요업제품의 원료로 재활용하는 경우에는해당 제품이 다음의 기준 및 한국산업표준 따른 요업제품의 규격과 품질을 충족하도록 소각재 혼합 비율을 조정하여 사용하여야 한다. 다만,다른 법령에서 정하는 별도의 용출 또는 함량 기준이 있을 경우에는 그기준에 따라야 한다."
+      "text": "소각시설에서 발생하는 소각재와 수산화알루미늄 제조 공정에서 발생한 보크사이트 잔재물 등을 요업제품의 원료로 재활용하는 경우에는해당 제품이 다음의 기준 및 한국산업표준 따른 요업제품의 규격과 품질을 충족하도록 소각재 혼합 비율을 조정하여 사용하여야 한다. 다만,다른 법령에서 정하는 별도의 용출 또는 함량 기준이 있을 경우에는 그기준에 따라야 한다.",
+      "answer": "소각시설에서 발생하는 소각재와 수산화알루미늄 제조 공정에서 발생한 보크사이트 잔재물 등을 요업제품의 원료로 재활용하는 경우에는해당 제품이 다음의 기준 및 한국산업표준 따른 요업제품의 규격과 품질을 충족하도록 소각재 혼합 비율을 조정하여 사용하여야 한다. 다만,다른 법령에서 정하는 별도의 용출 또는 함량 기준이 있을 경우에는 그기준에 따르겠음.",
+      "tags": {
+        "category": null,
+        "bizType": null,
+        "wasteClass": [
+          "GO",
+          "GN",
+          "D"
+        ],
+        "wasteCode": [
+          "51-08"
+        ],
+        "action": [
+          "RE"
+        ],
+        "rCode": [
+          "R-4-2"
+        ],
+        "facilityType": null
+      }
     },
     {
       "depth": 5,
@@ -1353,7 +1899,8 @@
           "용출농도": "0.050 이내"
         }
       ],
-      "note": "비고: 용출농도는 폐기물에 관한 공정시험기준의 중금속 등의 용출시험방법에 따라 측정한다."
+      "note": "비고: 용출농도는 폐기물에 관한 공정시험기준의 중금속 등의 용출시험방법에 따라 측정한다.",
+      "answer": "용출기준(단위: ㎎/L)."
     },
     {
       "depth": 5,
@@ -1390,577 +1937,1143 @@
           "함량기준(바닥재 재활용제품 1㎏당)": "120.0 이내"
         }
       ],
-      "note": "비고: 각 항목은 토양오염물질에 관한 공정시험기준에 따라 측정한다."
+      "note": "비고: 각 항목은 토양오염물질에 관한 공정시험기준에 따라 측정한다.",
+      "answer": "중금속 등 함량 기준(단위: ㎎/㎏)."
     },
     {
       "depth": 4,
       "type": "wrapped-number",
       "marker": "(7)",
-      "text": "정수처리오니로 요업제품을 제조하는 경우 원료로 사용하는 정수처리오니는 (11)(나)②에서 정한 철 외의 대체원료 기준에 적합하여야 하며,제조된 요업제품은 (6)(가)의 용출기준과 (나)의 중금속 등 함량 기준에적합하여야 한다."
+      "text": "정수처리오니로 요업제품을 제조하는 경우 원료로 사용하는 정수처리오니는 (11)(나)②에서 정한 철 외의 대체원료 기준에 적합하여야 하며,제조된 요업제품은 (6)(가)의 용출기준과 (나)의 중금속 등 함량 기준에적합하여야 한다.",
+      "answer": "정수처리오니로 요업제품을 제조하는 경우 원료로 사용하는 정수처리오니는 (11)(나)②에서 정한 철 외의 대체원료 기준에 적합하여야 하며,제조된 요업제품은 (6)(가)의 용출기준과 (나)의 중금속 등 함량 기준에적합하겠음.",
+      "tags": {
+        "category": null,
+        "bizType": null,
+        "wasteClass": [
+          "GO",
+          "GN"
+        ],
+        "wasteCode": [
+          "51-02"
+        ],
+        "action": [
+          "RE"
+        ],
+        "rCode": [
+          "R-4-2"
+        ],
+        "facilityType": null
+      }
     },
     {
       "depth": 4,
       "type": "wrapped-number",
       "marker": "(8)",
-      "text": "소성과정을 거쳐 폐패각을 가공한 폐패각 분말을 황토포장, 황토미장,황토블록 등 시멘트 대체용 경화제로 재활용하는 경우 폐패각 분말은토양오염물질에 관한 공정시험기준의 함량시험 결과가 다음의 기준을충족해야 한다."
+      "text": "소성과정을 거쳐 폐패각을 가공한 폐패각 분말을 황토포장, 황토미장,황토블록 등 시멘트 대체용 경화제로 재활용하는 경우 폐패각 분말은토양오염물질에 관한 공정시험기준의 함량시험 결과가 다음의 기준을충족해야 한다.",
+      "answer": "소성과정을 거쳐 폐패각을 가공한 폐패각 분말을 황토포장, 황토미장,황토블록 등 시멘트 대체용 경화제로 재활용하는 경우 폐패각 분말은토양오염물질에 관한 공정시험기준의 함량시험 결과가 다음의 기준을충족하겠음.",
+      "tags": {
+        "category": null,
+        "bizType": null,
+        "wasteClass": [
+          "GO",
+          "GN"
+        ],
+        "wasteCode": [
+          "51-17"
+        ],
+        "action": [
+          "RE"
+        ],
+        "rCode": [
+          "R-4-2"
+        ],
+        "facilityType": null
+      }
     },
     {
       "depth": 5,
       "type": "wrapped-korean",
       "marker": "(가)",
-      "text": "납·구리·비소·수은·카드뮴·6가크롬·시안화합물: (6)(나)의 바닥재를이용한 요업제품의 중금속 등 함량 기준 이내"
+      "text": "납·구리·비소·수은·카드뮴·6가크롬·시안화합물: (6)(나)의 바닥재를이용한 요업제품의 중금속 등 함량 기준 이내",
+      "answer": "납·구리·비소·수은·카드뮴·6가크롬·시안화합물: (6)(나)의 바닥재를이용한 요업제품의 중금속 등 함량 기준 이내."
     },
     {
       "depth": 5,
       "type": "wrapped-korean",
       "marker": "(나)",
-      "text": "수소이온농도(pH): 12.4 이하"
+      "text": "수소이온농도(pH): 12.4 이하",
+      "answer": "수소이온농도(pH): 12.4 이하 기준을 충족하겠음."
     },
     {
       "depth": 4,
       "type": "wrapped-number",
       "marker": "(9)",
-      "text": "폐주물사를 가공하여 재생주물사로 사용하는 경우에는 폐기물에 관한공정시험기준, 한국산업표준 또는 국제적으로 통용되는 시험방법에 따른 시험결과가 다음의 기준을 충족해야 한다."
+      "text": "폐주물사를 가공하여 재생주물사로 사용하는 경우에는 폐기물에 관한공정시험기준, 한국산업표준 또는 국제적으로 통용되는 시험방법에 따른 시험결과가 다음의 기준을 충족해야 한다.",
+      "answer": "폐주물사를 가공하여 재생주물사로 사용하는 경우에는 폐기물에 관한공정시험기준, 한국산업표준 또는 국제적으로 통용되는 시험방법에 따른 시험결과가 다음의 기준을 충족하겠음.",
+      "tags": {
+        "category": null,
+        "bizType": null,
+        "wasteClass": [
+          "GO",
+          "GN"
+        ],
+        "wasteCode": [
+          "51-19"
+        ],
+        "action": [
+          "RE"
+        ],
+        "rCode": [
+          "R-4-2"
+        ],
+        "facilityType": null
+      }
     },
     {
       "depth": 5,
       "type": "wrapped-korean",
       "marker": "(가)",
-      "text": "수소이온농도(pH): 6.0 이상 11.0 이하"
+      "text": "수소이온농도(pH): 6.0 이상 11.0 이하",
+      "answer": "수소이온농도(pH): 6.0 이상 11.0 이하 기준을 충족하겠음."
     },
     {
       "depth": 5,
       "type": "wrapped-korean",
       "marker": "(나)",
-      "text": "비중: 2.3 이상 2.8 이하"
+      "text": "비중: 2.3 이상 2.8 이하",
+      "answer": "비중: 2.3 이상 2.8 이하 기준을 충족하겠음."
     },
     {
       "depth": 5,
       "type": "wrapped-korean",
       "marker": "(다)",
-      "text": "이물질: 무게비율로 1.0퍼센트 이하"
+      "text": "이물질: 무게비율로 1.0퍼센트 이하",
+      "answer": "이물질: 무게비율로 1.0퍼센트 이하 기준을 충족하겠음."
     },
     {
       "depth": 5,
       "type": "wrapped-korean",
       "marker": "(라)",
-      "text": "납·구리·비소·수은·카드뮴 또는 그 화합물 및 6가크롬화합물: 별표1에 따른 유해물질의 기준 미만일 것"
+      "text": "납·구리·비소·수은·카드뮴 또는 그 화합물 및 6가크롬화합물: 별표1에 따른 유해물질의 기준 미만일 것",
+      "answer": "납·구리·비소·수은·카드뮴 또는 그 화합물 및 6가크롬화합물: 별표1에 따른 유해물질의 기준 미만일 것."
     },
     {
       "depth": 4,
       "type": "wrapped-number",
       "marker": "(10)",
-      "text": "폐석고 등 폐기물을 재활용하여 제조한 시멘트 응결지연제는 폐기물에 관한 공정시험기준 또는 한국산업표준에 따라 시험한 결과 다음의기준을 충족하여야 한다."
+      "text": "폐석고 등 폐기물을 재활용하여 제조한 시멘트 응결지연제는 폐기물에 관한 공정시험기준 또는 한국산업표준에 따라 시험한 결과 다음의기준을 충족하여야 한다.",
+      "answer": "폐석고 등 폐기물을 재활용하여 제조한 시멘트 응결지연제는 폐기물에 관한 공정시험기준 또는 한국산업표준에 따라 시험한 결과 다음의기준을 충족하겠음.",
+      "tags": {
+        "category": null,
+        "bizType": null,
+        "wasteClass": [
+          "GO",
+          "GN"
+        ],
+        "wasteCode": [
+          "51-12",
+          "51-13"
+        ],
+        "action": [
+          "RE"
+        ],
+        "rCode": [
+          "R-4-2"
+        ],
+        "facilityType": null
+      }
     },
     {
       "depth": 5,
       "type": "wrapped-korean",
       "marker": "(가)",
-      "text": "무수황산: 무게비율 38.0퍼센트 이상"
+      "text": "무수황산: 무게비율 38.0퍼센트 이상",
+      "answer": "무수황산: 무게비율 38.0퍼센트 이상 기준을 충족하겠음."
     },
     {
       "depth": 5,
       "type": "wrapped-korean",
       "marker": "(나)",
-      "text": "수용성 인산: 무게비율 0.1퍼센트 미만"
+      "text": "수용성 인산: 무게비율 0.1퍼센트 미만",
+      "answer": "수용성 인산: 무게비율 0.1퍼센트 미만 기준을 충족하겠음."
     },
     {
       "depth": 5,
       "type": "wrapped-korean",
       "marker": "(다)",
-      "text": "유해물질의 함유량이 별표 1에 따른 유해물질의 기준 미만일 것"
+      "text": "유해물질의 함유량이 별표 1에 따른 유해물질의 기준 미만일 것",
+      "answer": "유해물질의 함유량이 별표 1에 따른 유해물질의 기준 미만일 것."
     },
     {
       "depth": 4,
       "type": "wrapped-number",
       "marker": "(11)",
-      "text": "지정폐기물이 아닌 사업장폐기물을 시멘트대체원료로 재활용하는 경우에는 다음의 기준에 적합하여야 한다."
+      "text": "지정폐기물이 아닌 사업장폐기물을 시멘트대체원료로 재활용하는 경우에는 다음의 기준에 적합하여야 한다.",
+      "answer": "지정폐기물이 아닌 사업장폐기물을 시멘트대체원료로 재활용하는 경우에는 다음의 기준에 적합하겠음.",
+      "tags": {
+        "category": null,
+        "bizType": null,
+        "wasteClass": null,
+        "wasteCode": null,
+        "action": [
+          "RE"
+        ],
+        "rCode": [
+          "R-4-2"
+        ],
+        "facilityType": null
+      }
     },
     {
       "depth": 5,
       "type": "wrapped-korean",
       "marker": "(가)",
-      "text": "철강슬래그 및 석탄재를 재활용하는 경우에는 「자원의 절약과 재활용촉진에 관한 법률」 제25조제1항에 따른 지침을 준수해야 한다."
+      "text": "철강슬래그 및 석탄재를 재활용하는 경우에는 「자원의 절약과 재활용촉진에 관한 법률」 제25조제1항에 따른 지침을 준수해야 한다.",
+      "answer": "철강슬래그 및 석탄재를 재활용하는 경우에는 「자원의 절약과 재활용촉진에 관한 법률」 제25조제1항에 따른 지침을 준수하겠음."
     },
     {
       "depth": 5,
       "type": "wrapped-korean",
       "marker": "(나)",
-      "text": "대체원료로 재활용하는 폐기물은 「자원의 절약과 재활용촉진에관한 법률 시행규칙」 제20조의3제3항에 따라 기후에너지환경부장관이 고시한 고형연료제품의 품질검사 방법에 따른 시험결과가 다음의 기준을 충족하여야 한다."
+      "text": "대체원료로 재활용하는 폐기물은 「자원의 절약과 재활용촉진에관한 법률 시행규칙」 제20조의3제3항에 따라 기후에너지환경부장관이 고시한 고형연료제품의 품질검사 방법에 따른 시험결과가 다음의 기준을 충족하여야 한다.",
+      "answer": "대체원료로 재활용하는 폐기물은 「자원의 절약과 재활용촉진에관한 법률 시행규칙」 제20조의3제3항에 따라 기후에너지환경부장관이 고시한 고형연료제품의 품질검사 방법에 따른 시험결과가 다음의 기준을 충족하겠음."
     },
     {
       "depth": 5,
       "type": "circled-number",
       "marker": "①",
-      "text": "철 대체원료의 경우"
+      "text": "철 대체원료의 경우",
+      "answer": "철 대체원료의 경우."
     },
     {
       "depth": 6,
       "type": "circled-korean",
       "marker": "㉮",
-      "text": "납: 킬로그램 당 1,000밀리그램 미만"
+      "text": "납: 킬로그램 당 1,000밀리그램 미만",
+      "answer": "납: 킬로그램 당 1,000밀리그램 미만 기준을 충족하겠음."
     },
     {
       "depth": 6,
       "type": "circled-korean",
       "marker": "㉯",
-      "text": "구리: 킬로그램 당 3,000밀리그램 미만"
+      "text": "구리: 킬로그램 당 3,000밀리그램 미만",
+      "answer": "구리: 킬로그램 당 3,000밀리그램 미만 기준을 충족하겠음."
     },
     {
       "depth": 6,
       "type": "circled-korean",
       "marker": "㉰",
-      "text": "카드뮴: 킬로그램 당 60밀리그램 미만"
+      "text": "카드뮴: 킬로그램 당 60밀리그램 미만",
+      "answer": "카드뮴: 킬로그램 당 60밀리그램 미만 기준을 충족하겠음."
     },
     {
       "depth": 6,
       "type": "circled-korean",
       "marker": "㉱",
-      "text": "비소: 킬로그램 당 500밀리그램 미만"
+      "text": "비소: 킬로그램 당 500밀리그램 미만",
+      "answer": "비소: 킬로그램 당 500밀리그램 미만 기준을 충족하겠음."
     },
     {
       "depth": 6,
       "type": "circled-korean",
       "marker": "㉲",
-      "text": "수은: 킬로그램 당 2.0밀리그램 미만"
+      "text": "수은: 킬로그램 당 2.0밀리그램 미만",
+      "answer": "수은: 킬로그램 당 2.0밀리그램 미만 기준을 충족하겠음."
     },
     {
       "depth": 5,
       "type": "circled-number",
       "marker": "②",
-      "text": "철 외의 대체원료의 경우"
+      "text": "철 외의 대체원료의 경우",
+      "answer": "철 외의 대체원료의 경우."
     },
     {
       "depth": 6,
       "type": "circled-korean",
       "marker": "㉮",
-      "text": "납: 킬로그램 당 150밀리그램 미만"
+      "text": "납: 킬로그램 당 150밀리그램 미만",
+      "answer": "납: 킬로그램 당 150밀리그램 미만 기준을 충족하겠음."
     },
     {
       "depth": 6,
       "type": "circled-korean",
       "marker": "㉯",
-      "text": "구리: 킬로그램 당 800밀리그램 미만"
+      "text": "구리: 킬로그램 당 800밀리그램 미만",
+      "answer": "구리: 킬로그램 당 800밀리그램 미만 기준을 충족하겠음."
     },
     {
       "depth": 6,
       "type": "circled-korean",
       "marker": "㉰",
-      "text": "카드뮴: 킬로그램 당 50밀리그램 미만"
+      "text": "카드뮴: 킬로그램 당 50밀리그램 미만",
+      "answer": "카드뮴: 킬로그램 당 50밀리그램 미만 기준을 충족하겠음."
     },
     {
       "depth": 6,
       "type": "circled-korean",
       "marker": "㉱",
-      "text": "비소: 킬로그램 당 50밀리그램 미만"
+      "text": "비소: 킬로그램 당 50밀리그램 미만",
+      "answer": "비소: 킬로그램 당 50밀리그램 미만 기준을 충족하겠음."
     },
     {
       "depth": 6,
       "type": "circled-korean",
       "marker": "㉲",
-      "text": "수은: 킬로그램 당 2.0밀리그램 미만"
+      "text": "수은: 킬로그램 당 2.0밀리그램 미만",
+      "answer": "수은: 킬로그램 당 2.0밀리그램 미만 기준을 충족하겠음."
     },
     {
       "depth": 5,
       "type": "wrapped-korean",
       "marker": "(다)",
-      "text": "(나)에도 불구하고 철 대체원료 중 동 제련소에서 발생하는 슬래그등에 대해서는 다음의 기준을 적용한다."
+      "text": "(나)에도 불구하고 철 대체원료 중 동 제련소에서 발생하는 슬래그등에 대해서는 다음의 기준을 적용한다.",
+      "answer": "(나)에도 불구하고 철 대체원료 중 동 제련소에서 발생하는 슬래그등에 대해서는 다음의 기준을 적용한다."
     },
     {
       "depth": 5,
       "type": "circled-number",
       "marker": "①",
-      "text": "동 제련소에서 발생하는 슬래그"
+      "text": "동 제련소에서 발생하는 슬래그",
+      "answer": "동 제련소에서 발생하는 슬래그."
     },
     {
       "depth": 6,
       "type": "circled-korean",
       "marker": "㉮",
-      "text": "납: 킬로그램 당 3,200밀리그램 미만"
+      "text": "납: 킬로그램 당 3,200밀리그램 미만",
+      "answer": "납: 킬로그램 당 3,200밀리그램 미만 기준을 충족하겠음."
     },
     {
       "depth": 6,
       "type": "circled-korean",
       "marker": "㉯",
-      "text": "구리: 킬로그램 당 10,000밀리그램 미만"
+      "text": "구리: 킬로그램 당 10,000밀리그램 미만",
+      "answer": "구리: 킬로그램 당 10,000밀리그램 미만 기준을 충족하겠음."
     },
     {
       "depth": 6,
       "type": "circled-korean",
       "marker": "㉰",
-      "text": "카드뮴: 킬로그램 당 100밀리그램 미만"
+      "text": "카드뮴: 킬로그램 당 100밀리그램 미만",
+      "answer": "카드뮴: 킬로그램 당 100밀리그램 미만 기준을 충족하겠음."
     },
     {
       "depth": 6,
       "type": "circled-korean",
       "marker": "㉱",
-      "text": "비소: 킬로그램 당 900밀리그램 미만"
+      "text": "비소: 킬로그램 당 900밀리그램 미만",
+      "answer": "비소: 킬로그램 당 900밀리그램 미만 기준을 충족하겠음."
     },
     {
       "depth": 6,
       "type": "circled-korean",
       "marker": "㉲",
-      "text": "수은: 킬로그램 당 2.0밀리그램 미만"
+      "text": "수은: 킬로그램 당 2.0밀리그램 미만",
+      "answer": "수은: 킬로그램 당 2.0밀리그램 미만 기준을 충족하겠음."
     },
     {
       "depth": 5,
       "type": "circled-number",
       "marker": "②",
-      "text": "아연 제련소에서 발생하는 슬래그"
+      "text": "아연 제련소에서 발생하는 슬래그",
+      "answer": "아연 제련소에서 발생하는 슬래그."
     },
     {
       "depth": 6,
       "type": "circled-korean",
       "marker": "㉮",
-      "text": "납: 킬로그램 당 7,000밀리그램 미만"
+      "text": "납: 킬로그램 당 7,000밀리그램 미만",
+      "answer": "납: 킬로그램 당 7,000밀리그램 미만 기준을 충족하겠음."
     },
     {
       "depth": 6,
       "type": "circled-korean",
       "marker": "㉯",
-      "text": "구리: 킬로그램 당 14,000밀리그램 미만"
+      "text": "구리: 킬로그램 당 14,000밀리그램 미만",
+      "answer": "구리: 킬로그램 당 14,000밀리그램 미만 기준을 충족하겠음."
     },
     {
       "depth": 6,
       "type": "circled-korean",
       "marker": "㉰",
-      "text": "카드뮴: 킬로그램 당 60밀리그램 미만"
+      "text": "카드뮴: 킬로그램 당 60밀리그램 미만",
+      "answer": "카드뮴: 킬로그램 당 60밀리그램 미만 기준을 충족하겠음."
     },
     {
       "depth": 6,
       "type": "circled-korean",
       "marker": "㉱",
-      "text": "비소: 킬로그램 당 500밀리그램 미만"
+      "text": "비소: 킬로그램 당 500밀리그램 미만",
+      "answer": "비소: 킬로그램 당 500밀리그램 미만 기준을 충족하겠음."
     },
     {
       "depth": 6,
       "type": "circled-korean",
       "marker": "㉲",
-      "text": "수은: 킬로그램 당 2.0밀리그램 미만"
+      "text": "수은: 킬로그램 당 2.0밀리그램 미만",
+      "answer": "수은: 킬로그램 당 2.0밀리그램 미만 기준을 충족하겠음."
     },
     {
       "depth": 5,
       "type": "circled-number",
       "marker": "③",
-      "text": "제철소의 폐기물 중 대기오염 방지시설에서 포집된 분진(철 성분이 함유된 것에 한한다) 및 오니(습식 방지시설에서 포집된 것으로서 철 성분이 함유된 것에 한한다)"
+      "text": "제철소의 폐기물 중 대기오염 방지시설에서 포집된 분진(철 성분이 함유된 것에 한한다) 및 오니(습식 방지시설에서 포집된 것으로서 철 성분이 함유된 것에 한한다)",
+      "answer": "제철소의 폐기물 중 대기오염 방지시설에서 포집된 분진(철 성분이 함유된 것에 한한다) 및 오니(습식 방지시설에서 포집된 것으로서 철 성분이 함유된 것에 한한다)."
     },
     {
       "depth": 6,
       "type": "circled-korean",
       "marker": "㉮",
-      "text": "납: 킬로그램 당 4,000밀리그램 미만"
+      "text": "납: 킬로그램 당 4,000밀리그램 미만",
+      "answer": "납: 킬로그램 당 4,000밀리그램 미만 기준을 충족하겠음."
     },
     {
       "depth": 6,
       "type": "circled-korean",
       "marker": "㉯",
-      "text": "구리: 킬로그램 당 3,000밀리그램 미만"
+      "text": "구리: 킬로그램 당 3,000밀리그램 미만",
+      "answer": "구리: 킬로그램 당 3,000밀리그램 미만 기준을 충족하겠음."
     },
     {
       "depth": 6,
       "type": "circled-korean",
       "marker": "㉰",
-      "text": "카드뮴: 킬로그램 당 100밀리그램 미만"
+      "text": "카드뮴: 킬로그램 당 100밀리그램 미만",
+      "answer": "카드뮴: 킬로그램 당 100밀리그램 미만 기준을 충족하겠음."
     },
     {
       "depth": 6,
       "type": "circled-korean",
       "marker": "㉱",
-      "text": "비소: 킬로그램 당 500밀리그램 미만"
+      "text": "비소: 킬로그램 당 500밀리그램 미만",
+      "answer": "비소: 킬로그램 당 500밀리그램 미만 기준을 충족하겠음."
     },
     {
       "depth": 6,
       "type": "circled-korean",
       "marker": "㉲",
-      "text": "수은: 킬로그램 당 2.0밀리그램 미만"
+      "text": "수은: 킬로그램 당 2.0밀리그램 미만",
+      "answer": "수은: 킬로그램 당 2.0밀리그램 미만 기준을 충족하겠음."
     },
     {
       "depth": 4,
       "type": "wrapped-number",
       "marker": "(12)",
-      "text": "규소철 생산과정에서 발생되는 분진(실리카퓸)을 콘크리트용 혼화재로 사용하려는 경우에는 지정폐기물이 아닌 폐기물만을 재활용 할 수 있다."
+      "text": "규소철 생산과정에서 발생되는 분진(실리카퓸)을 콘크리트용 혼화재로 사용하려는 경우에는 지정폐기물이 아닌 폐기물만을 재활용 할 수 있다.",
+      "answer": "규소철 생산과정에서 발생되는 분진(실리카퓸)을 콘크리트용 혼화재로 사용하려는 경우에는 지정폐기물이 아닌 폐기물만을 재활용 할 수 있음을 숙지하겠음.",
+      "tags": {
+        "category": null,
+        "bizType": null,
+        "wasteClass": [
+          "GO",
+          "GN"
+        ],
+        "wasteCode": [
+          "51-05"
+        ],
+        "action": [
+          "RE"
+        ],
+        "rCode": [
+          "R-4-2"
+        ],
+        "facilityType": null
+      }
     },
     {
       "depth": 4,
       "type": "wrapped-number",
       "marker": "(13)",
-      "text": "무기성오니를 별표 4의2 제4호가목부터 다목까지 및 바목에 따른 유형의 용도에 사용되는 골재제품으로 재활용 하려는 경우에는 제2호라목1)가)(3)의 기준에 적합한 무기성오니만 사용해야 한다."
+      "text": "무기성오니를 별표 4의2 제4호가목부터 다목까지 및 바목에 따른 유형의 용도에 사용되는 골재제품으로 재활용 하려는 경우에는 제2호라목1)가)(3)의 기준에 적합한 무기성오니만 사용해야 한다.",
+      "answer": "무기성오니를 별표 4의2 제4호가목부터 다목까지 및 바목에 따른 유형의 용도에 사용되는 골재제품으로 재활용 하려는 경우에는 제2호라목1)가)(3)의 기준에 적합한 무기성오니만 사용하겠음.",
+      "tags": {
+        "category": null,
+        "bizType": null,
+        "wasteClass": [
+          "GO",
+          "GN"
+        ],
+        "wasteCode": [
+          "51-02"
+        ],
+        "action": [
+          "RE"
+        ],
+        "rCode": [
+          "R-4-2"
+        ],
+        "facilityType": null
+      }
     },
     {
       "depth": 4,
       "type": "wrapped-number",
       "marker": "(14)",
-      "text": "커피찌꺼기를 점토로 재활용하여 요업제품을 제조하는 경우 해당 제품이 제2호나목2)가)(6)의 기준을 충족하도록 커피찌꺼기의 사용비율을 조절해야 한다."
+      "text": "커피찌꺼기를 점토로 재활용하여 요업제품을 제조하는 경우 해당 제품이 제2호나목2)가)(6)의 기준을 충족하도록 커피찌꺼기의 사용비율을 조절해야 한다.",
+      "answer": "커피찌꺼기를 점토로 재활용하여 요업제품을 제조하는 경우 해당 제품이 제2호나목2)가)(6)의 기준을 충족하도록 커피찌꺼기의 사용비율을 조절하겠음.",
+      "tags": {
+        "category": null,
+        "bizType": null,
+        "wasteClass": [
+          "GO",
+          "GN"
+        ],
+        "wasteCode": [
+          "51-17"
+        ],
+        "action": [
+          "RE"
+        ],
+        "rCode": [
+          "R-4-2"
+        ],
+        "facilityType": null
+      }
     },
     {
       "depth": 3,
       "type": "korean-paren",
       "marker": "나)",
-      "text": "R-4-5 유형의 재활용 기준"
+      "text": "R-4-5 유형의 재활용 기준",
+      "answer": "R-4-5 유형으로 재활용할 경우 하위 세부 기준을 준수하겠음.",
+      "tags": {
+        "category": null,
+        "bizType": null,
+        "wasteClass": null,
+        "wasteCode": null,
+        "action": [
+          "RE"
+        ],
+        "rCode": [
+          "R-4-5"
+        ],
+        "facilityType": null
+      }
     },
     {
       "depth": 4,
       "type": "wrapped-number",
       "marker": "(1)",
-      "text": "폐철도목재받침목의 경우 절단, 세척 등의 방법으로 가공하는 경우로한정하며, 폐기물 및 토양오염물질에 관한 공정시험기준, 한국산업표준에 따른 시험방법 또는 국제적으로 통용되는 시험방법에 따라 시험한결과가 다음의 기준을 충족해야 한다."
+      "text": "폐철도목재받침목의 경우 절단, 세척 등의 방법으로 가공하는 경우로한정하며, 폐기물 및 토양오염물질에 관한 공정시험기준, 한국산업표준에 따른 시험방법 또는 국제적으로 통용되는 시험방법에 따라 시험한결과가 다음의 기준을 충족해야 한다.",
+      "answer": "폐철도목재받침목의 경우 절단, 세척 등의 방법으로 가공하는 경우로한정하며, 폐기물 및 토양오염물질에 관한 공정시험기준, 한국산업표준에 따른 시험방법 또는 국제적으로 통용되는 시험방법에 따라 시험한결과가 다음의 기준을 충족하겠음.",
+      "tags": {
+        "category": null,
+        "bizType": null,
+        "wasteClass": [
+          "GO",
+          "GN"
+        ],
+        "wasteCode": [
+          "51-20-26"
+        ],
+        "action": [
+          "RE"
+        ],
+        "rCode": [
+          "R-4-5"
+        ],
+        "facilityType": null
+      }
     },
     {
       "depth": 5,
       "type": "wrapped-korean",
       "marker": "(가)",
-      "text": "벤조(a)안트라센: 킬로그램 당 3.0밀리그램 미만"
+      "text": "벤조(a)안트라센: 킬로그램 당 3.0밀리그램 미만",
+      "answer": "벤조(a)안트라센: 킬로그램 당 3.0밀리그램 미만 기준을 충족하겠음."
     },
     {
       "depth": 5,
       "type": "wrapped-korean",
       "marker": "(나)",
-      "text": "벤조(a)피렌: 킬로그램 당 3.0밀리그램 미만"
+      "text": "벤조(a)피렌: 킬로그램 당 3.0밀리그램 미만",
+      "answer": "벤조(a)피렌: 킬로그램 당 3.0밀리그램 미만 기준을 충족하겠음."
     },
     {
       "depth": 5,
       "type": "wrapped-korean",
       "marker": "(다)",
-      "text": "다이벤조(a,h)안트라센: 킬로그램 당 3.0밀리그램 미만"
+      "text": "다이벤조(a,h)안트라센: 킬로그램 당 3.0밀리그램 미만",
+      "answer": "다이벤조(a,h)안트라센: 킬로그램 당 3.0밀리그램 미만."
     },
     {
       "depth": 5,
       "type": "wrapped-korean",
       "marker": "(라)",
-      "text": "기름성분: 중량비를 기준으로 0.35퍼센트 미만"
+      "text": "기름성분: 중량비를 기준으로 0.35퍼센트 미만",
+      "answer": "기름성분: 중량비를 기준으로 0.35퍼센트 미만 기준을 충족하겠음."
     },
     {
       "depth": 4,
       "type": "wrapped-number",
       "marker": "(2)",
-      "text": "성형탄(成型炭)을 제조하는 경우에는 「목재의 지속가능한 이용에 관한 법률 시행령」 제19조의4제1항제14호에 따른 성형숯의 사용원료로이용할 수 있는 폐목재만 사용해야 한다."
+      "text": "성형탄(成型炭)을 제조하는 경우에는 「목재의 지속가능한 이용에 관한 법률 시행령」 제19조의4제1항제14호에 따른 성형숯의 사용원료로이용할 수 있는 폐목재만 사용해야 한다.",
+      "answer": "성형탄(成型炭)을 제조하는 경우에는 「목재의 지속가능한 이용에 관한 법률 시행령」 제19조의4제1항제14호에 따른 성형숯의 사용원료로이용할 수 있는 폐목재만 사용하겠음.",
+      "tags": {
+        "category": null,
+        "bizType": null,
+        "wasteClass": [
+          "GO",
+          "GN"
+        ],
+        "wasteCode": [
+          "51-20"
+        ],
+        "action": [
+          "RE"
+        ],
+        "rCode": [
+          "R-4-5"
+        ],
+        "facilityType": null
+      }
     },
     {
       "depth": 4,
       "type": "wrapped-number",
       "marker": "(3)",
-      "text": "톱밥을 제조하는 경우에는 원목상태 그대로이거나 폐목재ㆍ기름ㆍ방부제 등이 묻지 않은 폐목재만 사용해야 한다."
+      "text": "톱밥을 제조하는 경우에는 원목상태 그대로이거나 폐목재ㆍ기름ㆍ방부제 등이 묻지 않은 폐목재만 사용해야 한다.",
+      "answer": "톱밥을 제조하는 경우에는 원목상태 그대로이거나 폐목재ㆍ기름ㆍ방부제 등이 묻지 않은 폐목재만 사용하겠음.",
+      "tags": {
+        "category": null,
+        "bizType": null,
+        "wasteClass": [
+          "GO",
+          "GN"
+        ],
+        "wasteCode": [
+          "51-20"
+        ],
+        "action": [
+          "RE"
+        ],
+        "rCode": [
+          "R-4-5"
+        ],
+        "facilityType": null
+      }
     },
     {
       "depth": 4,
       "type": "wrapped-number",
       "marker": "(4)",
-      "text": "커피찌꺼기를 목재 플라스틱 복합재, 목재펠릿, 목재칩, 목재브리켓으로 재활용하는 경우에는「목재의 지속가능한 이용에 관한 법률」제20조제1항에 따라 고시한 규격과 품질기준을 준수해야 한다."
+      "text": "커피찌꺼기를 목재 플라스틱 복합재, 목재펠릿, 목재칩, 목재브리켓으로 재활용하는 경우에는「목재의 지속가능한 이용에 관한 법률」제20조제1항에 따라 고시한 규격과 품질기준을 준수해야 한다.",
+      "answer": "커피찌꺼기를 목재 플라스틱 복합재, 목재펠릿, 목재칩, 목재브리켓으로 재활용하는 경우에는「목재의 지속가능한 이용에 관한 법률」제20조제1항에 따라 고시한 규격과 품질기준을 준수하겠음.",
+      "tags": {
+        "category": null,
+        "bizType": null,
+        "wasteClass": [
+          "GO",
+          "GN"
+        ],
+        "wasteCode": [
+          "51-20"
+        ],
+        "action": [
+          "RE"
+        ],
+        "rCode": [
+          "R-4-5"
+        ],
+        "facilityType": null
+      }
     },
     {
       "depth": 3,
       "type": "korean-paren",
       "marker": "다)",
-      "text": "R-4-6 유형의 재활용 기준"
+      "text": "R-4-6 유형의 재활용 기준",
+      "answer": "R-4-6 유형으로 재활용할 경우 하위 세부 기준을 준수하겠음.",
+      "tags": {
+        "category": null,
+        "bizType": null,
+        "wasteClass": null,
+        "wasteCode": null,
+        "action": [
+          "RE"
+        ],
+        "rCode": [
+          "R-4-6"
+        ],
+        "facilityType": null
+      }
     },
     {
       "depth": 4,
       "type": "wrapped-number",
       "marker": "(1)",
-      "text": "재생윤활유는 「석유 및 석유대체연료 사업법」 제24조에 따라 고시된 윤활유의 품질기준에 적합하여야 하며, 재생윤활유를 판매하는 경우에는 폐윤활유를 재활용한 제품임을 소비자가 알 수 있도록 표시해야 한다."
+      "text": "재생윤활유는 「석유 및 석유대체연료 사업법」 제24조에 따라 고시된 윤활유의 품질기준에 적합하여야 하며, 재생윤활유를 판매하는 경우에는 폐윤활유를 재활용한 제품임을 소비자가 알 수 있도록 표시해야 한다.",
+      "answer": "재생윤활유는 「석유 및 석유대체연료 사업법」 제24조에 따라 고시된 윤활유의 품질기준에 적합하여야 하며, 재생윤활유를 판매하는 경우에는 폐윤활유를 재활용한 제품임을 소비자가 알 수 있도록 표시하겠음.",
+      "tags": {
+        "category": null,
+        "bizType": null,
+        "wasteClass": [
+          "D"
+        ],
+        "wasteCode": [
+          "06"
+        ],
+        "action": [
+          "RE"
+        ],
+        "rCode": [
+          "R-4-6"
+        ],
+        "facilityType": null
+      }
     },
     {
       "depth": 4,
       "type": "wrapped-number",
       "marker": "(2)",
-      "text": "폐아이소프로필알콜을 제외한 폐유기용제와 폐페인트 등을 재생유기용제로 재활용하는 경우 공업용으로만 제조할 수 있으며, 폐기물에 관한 공정시험기준 또는 한국산업표준에 따른 시험 결과가 다음의 기준을 충족해야 한다."
+      "text": "폐아이소프로필알콜을 제외한 폐유기용제와 폐페인트 등을 재생유기용제로 재활용하는 경우 공업용으로만 제조할 수 있으며, 폐기물에 관한 공정시험기준 또는 한국산업표준에 따른 시험 결과가 다음의 기준을 충족해야 한다.",
+      "answer": "폐아이소프로필알콜을 제외한 폐유기용제와 폐페인트 등을 재생유기용제로 재활용하는 경우 공업용으로만 제조할 수 있으며, 폐기물에 관한 공정시험기준 또는 한국산업표준에 따른 시험 결과가 다음의 기준을 충족하겠음.",
+      "tags": {
+        "category": null,
+        "bizType": null,
+        "wasteClass": [
+          "D"
+        ],
+        "wasteCode": [
+          "06"
+        ],
+        "action": [
+          "RE"
+        ],
+        "rCode": [
+          "R-4-6"
+        ],
+        "facilityType": null
+      }
     },
     {
       "depth": 5,
       "type": "wrapped-korean",
       "marker": "(가)",
-      "text": "납과 그 화합물: 리터당 1.0밀리그램 이하"
+      "text": "납과 그 화합물: 리터당 1.0밀리그램 이하",
+      "answer": "납과 그 화합물: 리터당 1.0밀리그램 이하 기준을 충족하겠음."
     },
     {
       "depth": 5,
       "type": "wrapped-korean",
       "marker": "(나)",
-      "text": "비소와 그 화합물: 리터당 1.0밀리그램 이하"
+      "text": "비소와 그 화합물: 리터당 1.0밀리그램 이하",
+      "answer": "비소와 그 화합물: 리터당 1.0밀리그램 이하 기준을 충족하겠음."
     },
     {
       "depth": 5,
       "type": "wrapped-korean",
       "marker": "(다)",
-      "text": "수은과 그 화합물: 리터당 1.0밀리그램 이하"
+      "text": "수은과 그 화합물: 리터당 1.0밀리그램 이하",
+      "answer": "수은과 그 화합물: 리터당 1.0밀리그램 이하 기준을 충족하겠음."
     },
     {
       "depth": 5,
       "type": "wrapped-korean",
       "marker": "(라)",
-      "text": "카드뮴과 그 화합물: 리터당 1.0밀리그램 이하"
+      "text": "카드뮴과 그 화합물: 리터당 1.0밀리그램 이하",
+      "answer": "카드뮴과 그 화합물: 리터당 1.0밀리그램 이하 기준을 충족하겠음."
     },
     {
       "depth": 5,
       "type": "wrapped-korean",
       "marker": "(마)",
-      "text": "크롬과 그 화합물: 리터당 1.0밀리그램 이하"
+      "text": "크롬과 그 화합물: 리터당 1.0밀리그램 이하",
+      "answer": "크롬과 그 화합물: 리터당 1.0밀리그램 이하 기준을 충족하겠음."
     },
     {
       "depth": 5,
       "type": "wrapped-korean",
       "marker": "(바)",
-      "text": "증발찌꺼기: 무게 비율로 0.1퍼센트 이하"
+      "text": "증발찌꺼기: 무게 비율로 0.1퍼센트 이하",
+      "answer": "증발찌꺼기: 무게 비율로 0.1퍼센트 이하 기준을 충족하겠음."
     },
     {
       "depth": 4,
       "type": "wrapped-number",
       "marker": "(3)",
-      "text": "폐유기용제 중 폐아이소프로필알콜(프로판-2-올)을 가공하여 정제아이소프로필알콜로 재활용하는 경우, 가공된 정제이소프로필알콜은 한국산업표준에 따른 시험 결과가 다음의 기준을 충족해야 한다."
+      "text": "폐유기용제 중 폐아이소프로필알콜(프로판-2-올)을 가공하여 정제아이소프로필알콜로 재활용하는 경우, 가공된 정제이소프로필알콜은 한국산업표준에 따른 시험 결과가 다음의 기준을 충족해야 한다.",
+      "answer": "폐유기용제 중 폐아이소프로필알콜(프로판-2-올)을 가공하여 정제아이소프로필알콜로 재활용하는 경우, 가공된 정제이소프로필알콜은 한국산업표준에 따른 시험 결과가 다음의 기준을 충족하겠음.",
+      "tags": {
+        "category": null,
+        "bizType": null,
+        "wasteClass": [
+          "D"
+        ],
+        "wasteCode": [
+          "06"
+        ],
+        "action": [
+          "RE"
+        ],
+        "rCode": [
+          "R-4-6"
+        ],
+        "facilityType": null
+      }
     },
     {
       "depth": 5,
       "type": "wrapped-korean",
       "marker": "(가)",
-      "text": "함량: 무게비율로 70.0퍼센트 이상"
+      "text": "함량: 무게비율로 70.0퍼센트 이상",
+      "answer": "함량: 무게비율로 70.0퍼센트 이상 기준을 충족하겠음."
     },
     {
       "depth": 5,
       "type": "wrapped-korean",
       "marker": "(나)",
-      "text": "수분: 무게비율로 10.0퍼센트 이하"
+      "text": "수분: 무게비율로 10.0퍼센트 이하",
+      "answer": "수분: 무게비율로 10.0퍼센트 이하 기준을 충족하겠음."
     },
     {
       "depth": 5,
       "type": "wrapped-korean",
       "marker": "(다)",
-      "text": "증발찌꺼기: 무게비율로 0.1퍼센트 이하"
+      "text": "증발찌꺼기: 무게비율로 0.1퍼센트 이하",
+      "answer": "증발찌꺼기: 무게비율로 0.1퍼센트 이하 기준을 충족하겠음."
     },
     {
       "depth": 3,
       "type": "korean-paren",
       "marker": "라)",
-      "text": "R-4-7 유형의 재활용 기준"
+      "text": "R-4-7 유형의 재활용 기준",
+      "answer": "R-4-7 유형으로 재활용할 경우 하위 세부 기준을 준수하겠음.",
+      "tags": {
+        "category": null,
+        "bizType": null,
+        "wasteClass": null,
+        "wasteCode": null,
+        "action": [
+          "RE"
+        ],
+        "rCode": [
+          "R-4-7"
+        ],
+        "facilityType": null
+      }
     },
     {
       "depth": 4,
       "type": "wrapped-number",
       "marker": "(1)",
-      "text": "재생페인트는 「대기환경보전법 시행규칙」 별표 16의2 제2호나목4)의 공업용 도료로 사용해야 하며, 해당 용도에 따른 휘발성유기화합물함유기준에 적합해야 한다."
+      "text": "재생페인트는 「대기환경보전법 시행규칙」 별표 16의2 제2호나목4)의 공업용 도료로 사용해야 하며, 해당 용도에 따른 휘발성유기화합물함유기준에 적합해야 한다.",
+      "answer": "재생페인트는 「대기환경보전법 시행규칙」 별표 16의2 제2호나목4)의 공업용 도료로 사용해야 하며, 해당 용도에 따른 휘발성유기화합물함유기준에 적합하겠음.",
+      "tags": {
+        "category": null,
+        "bizType": null,
+        "wasteClass": null,
+        "wasteCode": null,
+        "action": [
+          "RE"
+        ],
+        "rCode": [
+          "R-4-7"
+        ],
+        "facilityType": null
+      }
     },
     {
       "depth": 4,
       "type": "wrapped-number",
       "marker": "(2)",
-      "text": "수은구성폐기물을 재활용하는 경우에는 수은 및 그 화합물의 순도는95% 이상이어야 하며, 「수은에 관한 미나마타협약」에서 금지된 용도로 사용해서는 안 된다."
+      "text": "수은구성폐기물을 재활용하는 경우에는 수은 및 그 화합물의 순도는95% 이상이어야 하며, 「수은에 관한 미나마타협약」에서 금지된 용도로 사용해서는 안 된다.",
+      "answer": "수은구성폐기물을 재활용하는 경우에는 수은 및 그 화합물의 순도는95% 이상이어야 하며, 「수은에 관한 미나마타협약」에서 금지된 용도로 사용해서는 안 된다.",
+      "tags": {
+        "category": null,
+        "bizType": null,
+        "wasteClass": [
+          "D"
+        ],
+        "wasteCode": [
+          "11-01-03"
+        ],
+        "action": [
+          "RE"
+        ],
+        "rCode": [
+          "R-4-7"
+        ],
+        "facilityType": null
+      }
     },
     {
       "depth": 3,
       "type": "korean-paren",
       "marker": "마)",
-      "text": "R-4-9 유형의 재활용 기준"
+      "text": "R-4-9 유형의 재활용 기준",
+      "answer": "R-4-9 유형으로 재활용할 경우 하위 세부 기준을 준수하겠음.",
+      "tags": {
+        "category": null,
+        "bizType": null,
+        "wasteClass": null,
+        "wasteCode": null,
+        "action": [
+          "RE"
+        ],
+        "rCode": [
+          "R-4-9"
+        ],
+        "facilityType": null
+      }
     },
     {
       "depth": 4,
       "type": "wrapped-number",
       "marker": "(1)",
-      "text": "폐산, 폐알칼리를 수처리제로 직접 사용하는 경우에는 폐산, 폐알칼리에 함유된 해당 처리시설에서 처리할 수 없는 오염물질(수소이온농도를제외한다)이 「물환경보전법 시행규칙」 별표 13에 따른 청정지역의오염물질 배출허용기준 이내여야 한다."
+      "text": "폐산, 폐알칼리를 수처리제로 직접 사용하는 경우에는 폐산, 폐알칼리에 함유된 해당 처리시설에서 처리할 수 없는 오염물질(수소이온농도를제외한다)이 「물환경보전법 시행규칙」 별표 13에 따른 청정지역의오염물질 배출허용기준 이내여야 한다.",
+      "answer": "폐산, 폐알칼리를 수처리제로 직접 사용하는 경우에는 폐산, 폐알칼리에 함유된 해당 처리시설에서 처리할 수 없는 오염물질(수소이온농도를제외한다)이 「물환경보전법 시행규칙」 별표 13에 따른 청정지역의오염물질 배출허용기준 이내여야 한다.",
+      "tags": {
+        "category": null,
+        "bizType": null,
+        "wasteClass": [
+          "D"
+        ],
+        "wasteCode": [
+          "02-01",
+          "02-02"
+        ],
+        "action": [
+          "RE"
+        ],
+        "rCode": [
+          "R-4-9"
+        ],
+        "facilityType": null
+      }
     },
     {
       "depth": 4,
       "type": "wrapped-number",
       "marker": "(2)",
-      "text": "폐산·폐알칼리를 수처리제로 제조한 후 사용하는 경우에는 「먹는물관리법」 제36조에 따라 기후에너지환경부장관이 고시하는 수처리제의 기준을 충족하여야 하며, 그 기준에서 정하지 않은 오염물질 중 수처리제에 함유된 해당 처리시설에서 처리할 수 없는 오염물질(수소이온농도는 제외한다)이 「물환경보전법 시행규칙」 별표 13에 따른 청정지역의 오염물질 배출허용기준 이내여야 한다."
+      "text": "폐산·폐알칼리를 수처리제로 제조한 후 사용하는 경우에는 「먹는물관리법」 제36조에 따라 기후에너지환경부장관이 고시하는 수처리제의 기준을 충족하여야 하며, 그 기준에서 정하지 않은 오염물질 중 수처리제에 함유된 해당 처리시설에서 처리할 수 없는 오염물질(수소이온농도는 제외한다)이 「물환경보전법 시행규칙」 별표 13에 따른 청정지역의 오염물질 배출허용기준 이내여야 한다.",
+      "answer": "폐산·폐알칼리를 수처리제로 제조한 후 사용하는 경우에는 「먹는물관리법」 제36조에 따라 기후에너지환경부장관이 고시하는 수처리제의 기준을 충족하여야 하며, 그 기준에서 정하지 않은 오염물질 중 수처리제에 함유된 해당 처리시설에서 처리할 수 없는 오염물질(수소이온농도는 제외한다)이 「물환경보전법 시행규칙」 별표 13에 따른 청정지역의 오염물질 배출허용기준 이내여야 한다.",
+      "tags": {
+        "category": null,
+        "bizType": null,
+        "wasteClass": [
+          "D"
+        ],
+        "wasteCode": [
+          "02-01",
+          "02-02"
+        ],
+        "action": [
+          "RE"
+        ],
+        "rCode": [
+          "R-4-9"
+        ],
+        "facilityType": null
+      }
     },
     {
       "depth": 4,
       "type": "wrapped-number",
       "marker": "(3)",
-      "text": "폐산·폐알칼리를 수처리제로 사용할 수 있는 처리시설은 다음과 같다."
+      "text": "폐산·폐알칼리를 수처리제로 사용할 수 있는 처리시설은 다음과 같다.",
+      "answer": "폐산·폐알칼리를 수처리제로 사용할 수 있는 처리시설은 다음과 같다.",
+      "tags": {
+        "category": null,
+        "bizType": null,
+        "wasteClass": [
+          "D"
+        ],
+        "wasteCode": [
+          "02-01",
+          "02-02"
+        ],
+        "action": [
+          "RE"
+        ],
+        "rCode": [
+          "R-4-9"
+        ],
+        "facilityType": null
+      }
     },
     {
       "depth": 5,
       "type": "wrapped-korean",
       "marker": "(가)",
-      "text": "「하수도법」 제2조제9호에 따른 공공하수처리시설"
+      "text": "「하수도법」 제2조제9호에 따른 공공하수처리시설",
+      "answer": "「하수도법」 제2조제9호에 따른 공공하수처리시설."
     },
     {
       "depth": 5,
       "type": "wrapped-korean",
       "marker": "(나)",
-      "text": "「물환경보전법」 제2조제12호에 따른 수질오염방지시설"
+      "text": "「물환경보전법」 제2조제12호에 따른 수질오염방지시설",
+      "answer": "「물환경보전법」 제2조제12호에 따른 수질오염방지시설."
     },
     {
       "depth": 5,
       "type": "wrapped-korean",
       "marker": "(다)",
-      "text": "「물환경보전법」 제48조에 따른 공공폐수처리시설"
+      "text": "「물환경보전법」 제48조에 따른 공공폐수처리시설",
+      "answer": "「물환경보전법」 제48조에 따른 공공폐수처리시설."
     },
     {
       "depth": 5,
       "type": "wrapped-korean",
       "marker": "(라)",
-      "text": "「가축분뇨의 관리 및 이용에 관한 법률」 제2조제8호에 따른 처리시설"
+      "text": "「가축분뇨의 관리 및 이용에 관한 법률」 제2조제8호에 따른 처리시설",
+      "answer": "「가축분뇨의 관리 및 이용에 관한 법률」 제2조제8호에 따른 처리시설."
     },
     {
       "depth": 5,
       "type": "wrapped-korean",
       "marker": "(마)",
-      "text": "침출수처리시설"
+      "text": "침출수처리시설",
+      "answer": "침출수처리시설."
     },
     {
       "depth": 4,
       "type": "wrapped-number",
       "marker": "(4)",
-      "text": "음식물류폐기물 및 음식물류폐기물 재활용과정에서 발생하는 액상의폐기물을 분리, 혼합, 발효 등의 과정을 거쳐 침출수처리시설 또는「물환경보전법」 제2조제12호에 따른 수질오염방지시설의 운영에 필요한 유기탄소원을 제조하거나 유기탄소원으로 재활용하는 경우, 그유기탄소원은 다음의 기준을 충족하여야 한다."
+      "text": "음식물류폐기물 및 음식물류폐기물 재활용과정에서 발생하는 액상의폐기물을 분리, 혼합, 발효 등의 과정을 거쳐 침출수처리시설 또는「물환경보전법」 제2조제12호에 따른 수질오염방지시설의 운영에 필요한 유기탄소원을 제조하거나 유기탄소원으로 재활용하는 경우, 그유기탄소원은 다음의 기준을 충족하여야 한다.",
+      "answer": "음식물류폐기물 및 음식물류폐기물 재활용과정에서 발생하는 액상의폐기물을 분리, 혼합, 발효 등의 과정을 거쳐 침출수처리시설 또는「물환경보전법」 제2조제12호에 따른 수질오염방지시설의 운영에 필요한 유기탄소원을 제조하거나 유기탄소원으로 재활용하는 경우, 그유기탄소원은 다음의 기준을 충족하겠음.",
+      "tags": {
+        "category": null,
+        "bizType": null,
+        "wasteClass": [
+          "L"
+        ],
+        "wasteCode": [
+          "91-02"
+        ],
+        "action": [
+          "RE"
+        ],
+        "rCode": [
+          "R-4-9"
+        ],
+        "facilityType": null
+      }
     },
     {
       "depth": 5,
       "type": "wrapped-korean",
       "marker": "(가)",
-      "text": "부유물질(SS) 5,000㎎/L 이하"
+      "text": "부유물질(SS) 5,000㎎/L 이하",
+      "answer": "부유물질(SS) 5,000㎎/L 이하."
     },
     {
       "depth": 5,
       "type": "wrapped-korean",
       "marker": "(나)",
-      "text": "노르말헥산(N-Hexan) 1,000㎎/L 이하"
+      "text": "노르말헥산(N-Hexan) 1,000㎎/L 이하",
+      "answer": "노르말헥산(N-Hexan) 1,000㎎/L 이하."
     },
     {
       "depth": 5,
       "type": "wrapped-korean",
       "marker": "(다)",
-      "text": "총질소(T-N) 1,000㎎/L 이하"
+      "text": "총질소(T-N) 1,000㎎/L 이하",
+      "answer": "총질소(T-N) 1,000㎎/L 이하."
     },
     {
       "depth": 5,
       "type": "wrapped-korean",
       "marker": "(라)",
-      "text": "총인 400㎎/L 이하"
+      "text": "총인 400㎎/L 이하",
+      "answer": "총인 400㎎/L 이하."
     },
     {
       "depth": 5,
       "type": "wrapped-korean",
       "marker": "(마)",
-      "text": "화학적 산소요구량(CODcr) 20,000㎎/L 이상"
+      "text": "화학적 산소요구량(CODcr) 20,000㎎/L 이상",
+      "answer": "화학적 산소요구량(CODcr) 20,000㎎/L 이상."
     },
     {
       "depth": 5,
       "type": "wrapped-korean",
       "marker": "(바)",
-      "text": "구리·수은·납 및 카드뮴과 그 밖의 오염물질 중 사용하고자 하는시설에서 처리할 수 없는 오염물질은 「물환경보전법 시행규칙」별표 13에 따른 수질오염물질의 배출허용기준 중 나지역의 배출허용기준 이하"
+      "text": "구리·수은·납 및 카드뮴과 그 밖의 오염물질 중 사용하고자 하는시설에서 처리할 수 없는 오염물질은 「물환경보전법 시행규칙」별표 13에 따른 수질오염물질의 배출허용기준 중 나지역의 배출허용기준 이하",
+      "answer": "구리·수은·납 및 카드뮴과 그 밖의 오염물질 중 사용하고자 하는시설에서 처리할 수 없는 오염물질은 「물환경보전법 시행규칙」별표 13에 따른 수질오염물질의 배출허용기준 중 나지역의 배출허용기준 이하."
     },
     {
       "depth": 5,
       "type": "wrapped-korean",
       "marker": "(사)",
-      "text": "유기탄소원으로 직접 사용하고자 하는 경우에는 침출수처리시설또는 폐수처리시설에 균등하게 투입할 수 있는 설비를 갖추어야 한다."
+      "text": "유기탄소원으로 직접 사용하고자 하는 경우에는 침출수처리시설또는 폐수처리시설에 균등하게 투입할 수 있는 설비를 갖추어야 한다.",
+      "answer": "유기탄소원으로 직접 사용하고자 하는 경우에는 침출수처리시설또는 폐수처리시설에 균등하게 투입할 수 있는 설비를 갖추겠음."
     },
     {
       "depth": 4,
       "type": "wrapped-number",
       "marker": "(5)",
-      "text": "제지슬러지를 소각한 분말형태의 소각재를 산성폐수응집제로 사용하는 경우에는 중량기준 40퍼센트 미만의 산화칼슘, 산화나트륨, 산화마그네슘 등 알칼리성 분말과 혼합하여 pH 12.5 이상이 되도록 해야 한다."
+      "text": "제지슬러지를 소각한 분말형태의 소각재를 산성폐수응집제로 사용하는 경우에는 중량기준 40퍼센트 미만의 산화칼슘, 산화나트륨, 산화마그네슘 등 알칼리성 분말과 혼합하여 pH 12.5 이상이 되도록 해야 한다.",
+      "answer": "제지슬러지를 소각한 분말형태의 소각재를 산성폐수응집제로 사용하는 경우에는 중량기준 40퍼센트 미만의 산화칼슘, 산화나트륨, 산화마그네슘 등 알칼리성 분말과 혼합하여 pH 12.5 이상이 되도록 하겠음.",
+      "tags": {
+        "category": null,
+        "bizType": null,
+        "wasteClass": [
+          "GO",
+          "GN",
+          "D"
+        ],
+        "wasteCode": [
+          "51-08"
+        ],
+        "action": [
+          "RE"
+        ],
+        "rCode": [
+          "R-4-9"
+        ],
+        "facilityType": null
+      }
     },
     {
       "depth": 4,
       "type": "wrapped-number",
       "marker": "(6)",
-      "text": "하수처리오니를 오·폐수 처리용 담체(擔體)로 재활용하는 경우 소성·소결과정을 거쳐 제품을 제조하여야 한다."
+      "text": "하수처리오니를 오·폐수 처리용 담체(擔體)로 재활용하는 경우 소성·소결과정을 거쳐 제품을 제조하여야 한다.",
+      "answer": "하수처리오니를 오·폐수 처리용 담체(擔體)로 재활용하는 경우 소성·소결과정을 거쳐 제품을 제조하겠음.",
+      "tags": {
+        "category": null,
+        "bizType": null,
+        "wasteClass": [
+          "GO",
+          "GN"
+        ],
+        "wasteCode": [
+          "51-02"
+        ],
+        "action": [
+          "RE"
+        ],
+        "rCode": [
+          "R-4-9"
+        ],
+        "facilityType": null
+      }
     },
     {
       "depth": 3,
       "type": "korean-paren",
       "marker": "바)",
-      "text": "R-4-10 유형의 재활용 기준「약사법」에 따라 의약품의 제조허가를 받은 자가 의료폐기물 중 태반을원료로 의약품을 제조하는 경우만 재활용 할 수 있다."
+      "text": "R-4-10 유형의 재활용 기준「약사법」에 따라 의약품의 제조허가를 받은 자가 의료폐기물 중 태반을원료로 의약품을 제조하는 경우만 재활용 할 수 있다.",
+      "answer": "R-4-10 유형으로 재활용할 경우 하위 세부 기준을 준수하겠음.",
+      "tags": {
+        "category": null,
+        "bizType": null,
+        "wasteClass": [
+          "D"
+        ],
+        "wasteCode": [
+          "11-01-02"
+        ],
+        "action": [
+          "RE"
+        ],
+        "rCode": [
+          "R-4-10"
+        ],
+        "facilityType": null
+      }
     },
     {
       "depth": 1,
@@ -1972,8 +3085,12 @@
         "category": null,
         "bizType": null,
         "wasteClass": null,
-        "action": ["RE"],
-        "rCode": ["R-4"],
+        "action": [
+          "RE"
+        ],
+        "rCode": [
+          "R-4"
+        ],
         "facilityType": null
       }
     },
@@ -1981,91 +3098,284 @@
       "depth": 2,
       "type": "number-paren",
       "marker": "1)",
-      "text": "R-5 유형의 재활용 기준"
+      "text": "R-5 유형의 재활용 기준",
+      "answer": "R-5 유형으로 재활용할 경우 하위 세부 기준을 준수하겠음.",
+      "tags": {
+        "category": null,
+        "bizType": null,
+        "wasteClass": null,
+        "wasteCode": null,
+        "action": [
+          "RE"
+        ],
+        "rCode": [
+          "R-5"
+        ],
+        "facilityType": null
+      }
     },
     {
       "depth": 3,
       "type": "korean-paren",
       "marker": "가)",
-      "text": "R-5-1 유형의 재활용 기준철강슬래그 및 석탄재를 재활용하는 경우에는 「자원의 절약과 재활용촉진에 관한 법률」 제25조제1항에 따른 지침을 준수해야 한다."
+      "text": "R-5-1 유형의 재활용 기준철강슬래그 및 석탄재를 재활용하는 경우에는 「자원의 절약과 재활용촉진에 관한 법률」 제25조제1항에 따른 지침을 준수해야 한다.",
+      "answer": "R-5-1 유형으로 재활용할 경우 하위 세부 기준을 준수하겠음.",
+      "tags": {
+        "category": null,
+        "bizType": null,
+        "wasteClass": null,
+        "wasteCode": null,
+        "action": [
+          "RE"
+        ],
+        "rCode": [
+          "R-5-1"
+        ],
+        "facilityType": null
+      }
     },
     {
       "depth": 3,
       "type": "korean-paren",
       "marker": "나)",
-      "text": "R-5-2 유형의 재활용 기준「사료관리법」 제2조제1호에 따른 동물·어류 등 중 반추(反芻) 동물을제외한 동물·어류 등의 먹이로 사용하려고 수거한 음식물류 폐기물을 농가에 공급하려는 경우에는 「사료관리법」 제8조에 따라 등록한 사료제조업자의 음식물류 폐기물 재활용시설에서 재활용해야 한다."
+      "text": "R-5-2 유형의 재활용 기준「사료관리법」 제2조제1호에 따른 동물·어류 등 중 반추(反芻) 동물을제외한 동물·어류 등의 먹이로 사용하려고 수거한 음식물류 폐기물을 농가에 공급하려는 경우에는 「사료관리법」 제8조에 따라 등록한 사료제조업자의 음식물류 폐기물 재활용시설에서 재활용해야 한다.",
+      "answer": "R-5-2 유형으로 재활용할 경우 하위 세부 기준을 준수하겠음.",
+      "tags": {
+        "category": null,
+        "bizType": null,
+        "wasteClass": null,
+        "wasteCode": null,
+        "action": [
+          "RE"
+        ],
+        "rCode": [
+          "R-5-2"
+        ],
+        "facilityType": null
+      }
     },
     {
       "depth": 3,
       "type": "korean-paren",
       "marker": "다)",
-      "text": "R-5-4 유형의 재활용 기준"
+      "text": "R-5-4 유형의 재활용 기준",
+      "answer": "R-5-4 유형으로 재활용할 경우 하위 세부 기준을 준수하겠음.",
+      "tags": {
+        "category": null,
+        "bizType": null,
+        "wasteClass": null,
+        "wasteCode": null,
+        "action": [
+          "RE"
+        ],
+        "rCode": [
+          "R-5-4"
+        ],
+        "facilityType": null
+      }
     },
     {
       "depth": 4,
       "type": "wrapped-number",
       "marker": "(1)",
-      "text": "퇴비의 원료로 사용하는 동·식물성 잔재물, 음식물류 폐기물, 유기성오니, 폐식용유, 왕겨, 쌀겨 또는 초목류 등과 이들을 원료로 하여 생산된 퇴비는 「비료관리법」 제4조에 따라 설정·지정된 보통비료의 공정규격 또는 부산물비료의 규격을 충족하여야 한다."
+      "text": "퇴비의 원료로 사용하는 동·식물성 잔재물, 음식물류 폐기물, 유기성오니, 폐식용유, 왕겨, 쌀겨 또는 초목류 등과 이들을 원료로 하여 생산된 퇴비는 「비료관리법」 제4조에 따라 설정·지정된 보통비료의 공정규격 또는 부산물비료의 규격을 충족하여야 한다.",
+      "answer": "퇴비의 원료로 사용하는 동·식물성 잔재물, 음식물류 폐기물, 유기성오니, 폐식용유, 왕겨, 쌀겨 또는 초목류 등과 이들을 원료로 하여 생산된 퇴비는 「비료관리법」 제4조에 따라 설정·지정된 보통비료의 공정규격 또는 부산물비료의 규격을 충족하겠음.",
+      "tags": {
+        "category": null,
+        "bizType": null,
+        "wasteClass": [
+          "GO",
+          "GN"
+        ],
+        "wasteCode": [
+          "51-17"
+        ],
+        "action": [
+          "RE"
+        ],
+        "rCode": [
+          "R-5-4"
+        ],
+        "facilityType": null
+      }
     },
     {
       "depth": 4,
       "type": "wrapped-number",
       "marker": "(2)",
-      "text": "가축 또는 양식 어류의 먹이로 사용하고자 하는 경우 「사료관리법 시행규칙」 제30조에 따른 검정방법에 따라 검정을 한 결과가 「사료관리법」 제11조제1항에 따른 사료공정 및 같은 법 제14조제4항에 따른유해물질의 범위 및 허용기준을 충족해야 하며, 「양식산업발전법 시행령」제41조에 따른 사료 사용의 제한 또는 금지에 관한 사항을 준수(양식 어류의 경우만 해당한다)해야 한다."
+      "text": "가축 또는 양식 어류의 먹이로 사용하고자 하는 경우 「사료관리법 시행규칙」 제30조에 따른 검정방법에 따라 검정을 한 결과가 「사료관리법」 제11조제1항에 따른 사료공정 및 같은 법 제14조제4항에 따른유해물질의 범위 및 허용기준을 충족해야 하며, 「양식산업발전법 시행령」제41조에 따른 사료 사용의 제한 또는 금지에 관한 사항을 준수(양식 어류의 경우만 해당한다)해야 한다.",
+      "answer": "가축 또는 양식 어류의 먹이로 사용하고자 하는 경우 「사료관리법 시행규칙」 제30조에 따른 검정방법에 따라 검정을 한 결과가 「사료관리법」 제11조제1항에 따른 사료공정 및 같은 법 제14조제4항에 따른유해물질의 범위 및 허용기준을 충족해야 하며, 「양식산업발전법 시행령」제41조에 따른 사료 사용의 제한 또는 금지에 관한 사항을 준수(양식 어류의 경우만 해당한다)하겠음.",
+      "tags": {
+        "category": null,
+        "bizType": null,
+        "wasteClass": null,
+        "wasteCode": null,
+        "action": [
+          "RE"
+        ],
+        "rCode": [
+          "R-5-4"
+        ],
+        "facilityType": null
+      }
     },
     {
       "depth": 4,
       "type": "wrapped-number",
       "marker": "(3)",
-      "text": "가축전염병이 발생하였거나 발생할 우려가 있어 농림축산식품부장관이 기후에너지환경부장관에게 음식물류폐기물의 가축 먹이 사용금지를 요청한 경우에는 음식물류폐기물을 해당 가축의 먹이로 직접 생산(법 제29조제2항에 따른 폐기물처리시설 설치승인을 받거나 설치신고를 한 폐기물처리시설에서 생산하는 경우는 제외한다)하여 사용해서는안 된다. 이 경우 기후에너지환경부장관은 금지 사실 및 금지 시작일을관보에 고시하고, 필요한 경우 기후에너지환경부 인터넷 홈페이지에게시하거나 신문 또는 방송 등의 방법으로 알려야 한다."
+      "text": "가축전염병이 발생하였거나 발생할 우려가 있어 농림축산식품부장관이 기후에너지환경부장관에게 음식물류폐기물의 가축 먹이 사용금지를 요청한 경우에는 음식물류폐기물을 해당 가축의 먹이로 직접 생산(법 제29조제2항에 따른 폐기물처리시설 설치승인을 받거나 설치신고를 한 폐기물처리시설에서 생산하는 경우는 제외한다)하여 사용해서는안 된다. 이 경우 기후에너지환경부장관은 금지 사실 및 금지 시작일을관보에 고시하고, 필요한 경우 기후에너지환경부 인터넷 홈페이지에게시하거나 신문 또는 방송 등의 방법으로 알려야 한다.",
+      "answer": "가축전염병이 발생하였거나 발생할 우려가 있어 농림축산식품부장관이 기후에너지환경부장관에게 음식물류폐기물의 가축 먹이 사용금지를 요청한 경우에는 음식물류폐기물을 해당 가축의 먹이로 직접 생산(법 제29조제2항에 따른 폐기물처리시설 설치승인을 받거나 설치신고를 한 폐기물처리시설에서 생산하는 경우는 제외한다)하여 사용해서는안 된다. 이 경우 기후에너지환경부장관은 금지 사실 및 금지 시작일을관보에 고시하고, 필요한 경우 기후에너지환경부 인터넷 홈페이지에게시하거나 신문 또는 방송 등의 방법으로 알려야 한다.",
+      "tags": {
+        "category": null,
+        "bizType": null,
+        "wasteClass": [
+          "L"
+        ],
+        "wasteCode": [
+          "91-02"
+        ],
+        "action": [
+          "RE"
+        ],
+        "rCode": [
+          "R-5-4"
+        ],
+        "facilityType": null
+      }
     },
     {
       "depth": 4,
       "type": "wrapped-number",
       "marker": "(4)",
-      "text": "제초작업으로 발생한 초본류는 제초한 곳에서 주변 지역의 환경오염이 없이 풋거름으로 재활용하거나 잡초를 덮어 잡초의 발생을 억제하기 위한 용도로 사용하여야 한다."
+      "text": "제초작업으로 발생한 초본류는 제초한 곳에서 주변 지역의 환경오염이 없이 풋거름으로 재활용하거나 잡초를 덮어 잡초의 발생을 억제하기 위한 용도로 사용하여야 한다.",
+      "answer": "제초작업으로 발생한 초본류는 제초한 곳에서 주변 지역의 환경오염이 없이 풋거름으로 재활용하거나 잡초를 덮어 잡초의 발생을 억제하기 위한 용도로 사용하겠음.",
+      "tags": {
+        "category": null,
+        "bizType": null,
+        "wasteClass": null,
+        "wasteCode": null,
+        "action": [
+          "RE"
+        ],
+        "rCode": [
+          "R-5-4"
+        ],
+        "facilityType": null
+      }
     },
     {
       "depth": 2,
       "type": "number-paren",
       "marker": "2)",
-      "text": "R-6 유형의 재활용 기준"
+      "text": "R-6 유형의 재활용 기준",
+      "answer": "R-6 유형으로 재활용할 경우 하위 세부 기준을 준수하겠음.",
+      "tags": {
+        "category": null,
+        "bizType": null,
+        "wasteClass": null,
+        "wasteCode": null,
+        "action": [
+          "RE"
+        ],
+        "rCode": [
+          "R-6"
+        ],
+        "facilityType": null
+      }
     },
     {
       "depth": 3,
       "type": "korean-paren",
       "marker": "가)",
-      "text": "R-6-1 유형의 재활용 기준재활용에 대한 구체적인 기준은 기후에너지환경부장관이 별도로 정하여고시한다."
+      "text": "R-6-1 유형의 재활용 기준재활용에 대한 구체적인 기준은 기후에너지환경부장관이 별도로 정하여고시한다.",
+      "answer": "R-6-1 유형으로 재활용할 경우 하위 세부 기준을 준수하겠음.",
+      "tags": {
+        "category": null,
+        "bizType": null,
+        "wasteClass": null,
+        "wasteCode": null,
+        "action": [
+          "RE"
+        ],
+        "rCode": [
+          "R-6-1"
+        ],
+        "facilityType": null
+      }
     },
     {
       "depth": 3,
       "type": "korean-paren",
       "marker": "나)",
-      "text": "R-6-2 유형의 재활용 기준"
+      "text": "R-6-2 유형의 재활용 기준",
+      "answer": "R-6-2 유형으로 재활용할 경우 하위 세부 기준을 준수하겠음.",
+      "tags": {
+        "category": null,
+        "bizType": null,
+        "wasteClass": null,
+        "wasteCode": null,
+        "action": [
+          "RE"
+        ],
+        "rCode": [
+          "R-6-2"
+        ],
+        "facilityType": null
+      }
     },
     {
       "depth": 4,
       "type": "wrapped-number",
       "marker": "(1)",
-      "text": "녹화토를 생산하는 경우 가)에 따라 기후에너지환경부장관이 고시하는 기준 중 부숙공정을 거쳐야 한다."
+      "text": "녹화토를 생산하는 경우 가)에 따라 기후에너지환경부장관이 고시하는 기준 중 부숙공정을 거쳐야 한다.",
+      "answer": "녹화토를 생산하는 경우 가)에 따라 기후에너지환경부장관이 고시하는 기준 중 부숙공정을 거쳐야 한다.",
+      "tags": {
+        "category": null,
+        "bizType": null,
+        "wasteClass": null,
+        "wasteCode": null,
+        "action": [
+          "RE"
+        ],
+        "rCode": [
+          "R-6-2"
+        ],
+        "facilityType": null
+      }
     },
     {
       "depth": 4,
       "type": "wrapped-number",
       "marker": "(2)",
-      "text": "가공된 비탈면녹화토는 토양오염물질에 관한 공정시험기준 또는 국제적으로 통용되는 시험방법에 따라 시험한 결과가 다음의 기준을 충족하여야 한다."
+      "text": "가공된 비탈면녹화토는 토양오염물질에 관한 공정시험기준 또는 국제적으로 통용되는 시험방법에 따라 시험한 결과가 다음의 기준을 충족하여야 한다.",
+      "answer": "가공된 비탈면녹화토는 토양오염물질에 관한 공정시험기준 또는 국제적으로 통용되는 시험방법에 따라 시험한 결과가 다음의 기준을 충족하겠음.",
+      "tags": {
+        "category": null,
+        "bizType": null,
+        "wasteClass": null,
+        "wasteCode": null,
+        "action": [
+          "RE"
+        ],
+        "rCode": [
+          "R-6-2"
+        ],
+        "facilityType": null
+      }
     },
     {
       "depth": 5,
       "type": "wrapped-korean",
       "marker": "(가)",
-      "text": "수소이온농도(pH): 5.5 이상 8.0 이하"
+      "text": "수소이온농도(pH): 5.5 이상 8.0 이하",
+      "answer": "수소이온농도(pH): 5.5 이상 8.0 이하 기준을 충족하겠음."
     },
     {
       "depth": 5,
       "type": "wrapped-korean",
       "marker": "(나)",
-      "text": "비소, 카드뮴, 구리, 납, 니켈, 불소, 6가크롬, 시안, 페놀, 수은, 아연및 석유계총탄화수소: 「토양환경보전법 시행규칙」 별표 3에 따른토양오염우려기준 이내"
+      "text": "비소, 카드뮴, 구리, 납, 니켈, 불소, 6가크롬, 시안, 페놀, 수은, 아연및 석유계총탄화수소: 「토양환경보전법 시행규칙」 별표 3에 따른토양오염우려기준 이내",
+      "answer": "비소, 카드뮴, 구리, 납, 니켈, 불소, 6가크롬, 시안, 페놀, 수은, 아연및 석유계총탄화수소: 「토양환경보전법 시행규칙」 별표 3에 따른토양오염우려기준 이내."
     },
     {
       "depth": 1,
@@ -2077,8 +3387,12 @@
         "category": null,
         "bizType": null,
         "wasteClass": null,
-        "action": ["RE"],
-        "rCode": ["R-5"],
+        "action": [
+          "RE"
+        ],
+        "rCode": [
+          "R-5"
+        ],
         "facilityType": null
       }
     },
@@ -2086,391 +3400,928 @@
       "depth": 2,
       "type": "number-paren",
       "marker": "1)",
-      "text": "R-7 유형의 재활용 기준"
+      "text": "R-7 유형의 재활용 기준",
+      "answer": "R-7 유형으로 재활용할 경우 하위 세부 기준을 준수하겠음.",
+      "tags": {
+        "category": null,
+        "bizType": null,
+        "wasteClass": null,
+        "wasteCode": null,
+        "action": [
+          "RE"
+        ],
+        "rCode": [
+          "R-7"
+        ],
+        "facilityType": null
+      }
     },
     {
       "depth": 3,
       "type": "korean-paren",
       "marker": "가)",
-      "text": "R-7-1 유형의 재활용 기준"
+      "text": "R-7-1 유형의 재활용 기준",
+      "answer": "R-7-1 유형으로 재활용할 경우 하위 세부 기준을 준수하겠음.",
+      "tags": {
+        "category": null,
+        "bizType": null,
+        "wasteClass": null,
+        "wasteCode": null,
+        "action": [
+          "RE"
+        ],
+        "rCode": [
+          "R-7-1"
+        ],
+        "facilityType": null
+      }
     },
     {
       "depth": 4,
       "type": "wrapped-number",
       "marker": "(1)",
-      "text": "지정폐기물이 아닌 폐기물을 인·허가된 건축·토목공사에 재활용하여야 하며, 저지대·연약지반 등에 이용할 때에는 시·도지사가 별도로 인정하는 경우만 해당한다."
+      "text": "지정폐기물이 아닌 폐기물을 인·허가된 건축·토목공사에 재활용하여야 하며, 저지대·연약지반 등에 이용할 때에는 시·도지사가 별도로 인정하는 경우만 해당한다.",
+      "answer": "지정폐기물이 아닌 폐기물을 인·허가된 건축·토목공사에 재활용하여야 하며, 저지대·연약지반 등에 이용할 때에는 시·도지사가 별도로 인정하는 경우만 해당한다.",
+      "tags": {
+        "category": null,
+        "bizType": null,
+        "wasteClass": null,
+        "wasteCode": null,
+        "action": [
+          "RE"
+        ],
+        "rCode": [
+          "R-7-1"
+        ],
+        "facilityType": null
+      }
     },
     {
       "depth": 4,
       "type": "wrapped-number",
       "marker": "(2)",
-      "text": "석탄재·연탄재·점토점결 폐주물사·무기성오니 또는 생활폐기물 소각시설 바닥재를 재활용하는 경우에는 다음의 기준을 준수해야 한다."
+      "text": "석탄재·연탄재·점토점결 폐주물사·무기성오니 또는 생활폐기물 소각시설 바닥재를 재활용하는 경우에는 다음의 기준을 준수해야 한다.",
+      "answer": "석탄재·연탄재·점토점결 폐주물사·무기성오니 또는 생활폐기물 소각시설 바닥재를 재활용하는 경우에는 하위 기준을 준수하겠음.",
+      "tags": {
+        "category": null,
+        "bizType": null,
+        "wasteClass": [
+          "GO",
+          "GN"
+        ],
+        "wasteCode": [
+          "51-19"
+        ],
+        "action": [
+          "RE"
+        ],
+        "rCode": [
+          "R-7-1"
+        ],
+        "facilityType": null
+      }
     },
     {
       "depth": 5,
       "type": "wrapped-korean",
       "marker": "(가)",
-      "text": "일반토사류나 건설폐재류를 재활용한 토사류를 부피기준으로 50퍼센트(생활폐기물 소각시설 바닥재의 경우 75퍼센트) 이상 혼합하여사용해야 하며, 건설폐재류는 「건설폐기물의 재활용촉진에 관한법률」 제35조에 따른 순환골재의 품질기준을 충족해야 한다."
+      "text": "일반토사류나 건설폐재류를 재활용한 토사류를 부피기준으로 50퍼센트(생활폐기물 소각시설 바닥재의 경우 75퍼센트) 이상 혼합하여사용해야 하며, 건설폐재류는 「건설폐기물의 재활용촉진에 관한법률」 제35조에 따른 순환골재의 품질기준을 충족해야 한다.",
+      "answer": "일반토사류나 건설폐재류를 재활용한 토사류를 부피기준으로 50퍼센트(생활폐기물 소각시설 바닥재의 경우 75퍼센트) 이상 혼합하여사용해야 하며, 건설폐재류는 「건설폐기물의 재활용촉진에 관한법률」 제35조에 따른 순환골재의 품질기준을 충족하겠음."
     },
     {
       "depth": 5,
       "type": "wrapped-korean",
       "marker": "(나)",
-      "text": "(가)에도 불구하고 석탄재에 일반토사류나 건설폐재류를 재활용한토사류를 혼합하여 사용하면 해당 건축·토목공사의 설계시공지침이나 도로공사표준시방서의 품질기준에 부적합하게 되는 경우에는 혼합하지 아니하거나, 그 혼합비율을 조정하여 사용할 수 있다."
+      "text": "(가)에도 불구하고 석탄재에 일반토사류나 건설폐재류를 재활용한토사류를 혼합하여 사용하면 해당 건축·토목공사의 설계시공지침이나 도로공사표준시방서의 품질기준에 부적합하게 되는 경우에는 혼합하지 아니하거나, 그 혼합비율을 조정하여 사용할 수 있다.",
+      "answer": "(가)에도 불구하고 석탄재에 일반토사류나 건설폐재류를 재활용한토사류를 혼합하여 사용하면 해당 건축·토목공사의 설계시공지침이나 도로공사표준시방서의 품질기준에 부적합하게 되는 경우에는 혼합하지 아니하거나, 그 혼합비율을 조정하여 사용할 수 있음을 숙지하겠음."
     },
     {
       "depth": 4,
       "type": "wrapped-number",
       "marker": "(3)",
-      "text": "무기성오니는 하수준설토(고형물 중 유기성 물질의 함량이 7퍼센트이하인 것만 해당한다), 토기·자기·내화물·시멘트·콘크리트·석재품의제조 및 가공시설, 수도사업용 정수시설, 비금속광물 분쇄시설(굴착을포함한다), 토사세척시설, 또는 농업활동 과정에서 배출된 농업용 폐플라스틱 필름·시트류를 분리·세척하는 과정에서 발생하는 무기성오니및 건설오니(건설공사의 세륜시설에서 발생하는 것만 해당한다)를 수분함량 70퍼센트 이하로 탈수·건조한 것만 재활용할 수 있다."
+      "text": "무기성오니는 하수준설토(고형물 중 유기성 물질의 함량이 7퍼센트이하인 것만 해당한다), 토기·자기·내화물·시멘트·콘크리트·석재품의제조 및 가공시설, 수도사업용 정수시설, 비금속광물 분쇄시설(굴착을포함한다), 토사세척시설, 또는 농업활동 과정에서 배출된 농업용 폐플라스틱 필름·시트류를 분리·세척하는 과정에서 발생하는 무기성오니및 건설오니(건설공사의 세륜시설에서 발생하는 것만 해당한다)를 수분함량 70퍼센트 이하로 탈수·건조한 것만 재활용할 수 있다.",
+      "answer": "무기성오니는 하수준설토(고형물 중 유기성 물질의 함량이 7퍼센트이하인 것만 해당한다), 토기·자기·내화물·시멘트·콘크리트·석재품의제조 및 가공시설, 수도사업용 정수시설, 비금속광물 분쇄시설(굴착을포함한다), 토사세척시설, 또는 농업활동 과정에서 배출된 농업용 폐플라스틱 필름·시트류를 분리·세척하는 과정에서 발생하는 무기성오니및 건설오니(건설공사의 세륜시설에서 발생하는 것만 해당한다)를 수분함량 70퍼센트 이하로 탈수·건조한 것만 재활용할 수 있음을 숙지하겠음.",
+      "tags": {
+        "category": null,
+        "bizType": null,
+        "wasteClass": [
+          "GO",
+          "GN"
+        ],
+        "wasteCode": [
+          "51-02"
+        ],
+        "action": [
+          "RE"
+        ],
+        "rCode": [
+          "R-7-1"
+        ],
+        "facilityType": null
+      }
     },
     {
       "depth": 4,
       "type": "wrapped-number",
       "marker": "(4)",
-      "text": "폐석재의 경우 석재가공과정이나 벤토나이트 제조공정에서 발생한 것만 재활용할 수 있다."
+      "text": "폐석재의 경우 석재가공과정이나 벤토나이트 제조공정에서 발생한 것만 재활용할 수 있다.",
+      "answer": "폐석재의 경우 석재가공과정이나 벤토나이트 제조공정에서 발생한 것만 재활용할 수 있음을 숙지하겠음.",
+      "tags": {
+        "category": null,
+        "bizType": null,
+        "wasteClass": [
+          "GO",
+          "GN"
+        ],
+        "wasteCode": [
+          "51-21"
+        ],
+        "action": [
+          "RE"
+        ],
+        "rCode": [
+          "R-7-1"
+        ],
+        "facilityType": null
+      }
     },
     {
       "depth": 4,
       "type": "wrapped-number",
       "marker": "(5)",
-      "text": "철강슬래그·석탄재는 「자원의 절약과 재활용촉진에 관한 법률」 제25조제1항에 따른 지침을 준수하여 사용하여야 한다."
+      "text": "철강슬래그·석탄재는 「자원의 절약과 재활용촉진에 관한 법률」 제25조제1항에 따른 지침을 준수하여 사용하여야 한다.",
+      "answer": "철강슬래그·석탄재는 「자원의 절약과 재활용촉진에 관한 법률」 제25조제1항에 따른 지침을 준수하여 사용하겠음.",
+      "tags": {
+        "category": null,
+        "bizType": null,
+        "wasteClass": [
+          "GO",
+          "GN"
+        ],
+        "wasteCode": [
+          "51-04"
+        ],
+        "action": [
+          "RE"
+        ],
+        "rCode": [
+          "R-7-1"
+        ],
+        "facilityType": null
+      }
     },
     {
       "depth": 4,
       "type": "wrapped-number",
       "marker": "(6)",
-      "text": "생활폐기물 소각시설 바닥재는 제2호나목2)가)(5)(나)의 기준(염소화합물은 제외한다)을 충족하는 경우에만 재활용할 수 있다."
+      "text": "생활폐기물 소각시설 바닥재는 제2호나목2)가)(5)(나)의 기준(염소화합물은 제외한다)을 충족하는 경우에만 재활용할 수 있다.",
+      "answer": "생활폐기물 소각시설 바닥재는 제2호나목2)가)(5)(나)의 기준(염소화합물은 제외한다)을 충족하는 경우에만 재활용할 수 있음을 숙지하겠음.",
+      "tags": {
+        "category": null,
+        "bizType": null,
+        "wasteClass": null,
+        "wasteCode": null,
+        "action": [
+          "RE"
+        ],
+        "rCode": [
+          "R-7-1"
+        ],
+        "facilityType": null
+      }
     },
     {
       "depth": 4,
       "type": "wrapped-number",
       "marker": "(7)",
-      "text": "성토재 등(제14조의5제3항제3호 각 목에 해당하는 골재를 사용하는 경우는 제외한다)으로 사용하는 기간 및 성토재 등의 매립 종료 후 2년(법 제48조에 따른 조치명령을 이행하기 위하여 소요된 기간은 제외한다)까지는 매분기별 1회 이상 침출수의 수질 및 인근 지역의 지하수 또는 해수의 수질 등을 측정(석탄재에 일반토사류 등을 50퍼센트 이상 혼합하여 사용하는 경우는 2018년 7월 21일부터 적용한다)하여 다음 연도 2월 말일까지 폐기물처리업의 허가 기관 또는 폐기물처리 신고의 수리기관에 보고하여야 한다. 다만, 법 제13조의3제1항에 따라 재활용환경성평가를 받아 재활용하는 경우는 제외한다."
+      "text": "성토재 등(제14조의5제3항제3호 각 목에 해당하는 골재를 사용하는 경우는 제외한다)으로 사용하는 기간 및 성토재 등의 매립 종료 후 2년(법 제48조에 따른 조치명령을 이행하기 위하여 소요된 기간은 제외한다)까지는 매분기별 1회 이상 침출수의 수질 및 인근 지역의 지하수 또는 해수의 수질 등을 측정(석탄재에 일반토사류 등을 50퍼센트 이상 혼합하여 사용하는 경우는 2018년 7월 21일부터 적용한다)하여 다음 연도 2월 말일까지 폐기물처리업의 허가 기관 또는 폐기물처리 신고의 수리기관에 보고하여야 한다. 다만, 법 제13조의3제1항에 따라 재활용환경성평가를 받아 재활용하는 경우는 제외한다.",
+      "answer": "성토재 등(제14조의5제3항제3호 각 목에 해당하는 골재를 사용하는 경우는 제외한다)으로 사용하는 기간 및 성토재 등의 매립 종료 후 2년(법 제48조에 따른 조치명령을 이행하기 위하여 소요된 기간은 제외한다)까지는 매분기별 1회 이상 침출수의 수질 및 인근 지역의 지하수 또는 해수의 수질 등을 측정(석탄재에 일반토사류 등을 50퍼센트 이상 혼합하여 사용하는 경우는 2018년 7월 21일부터 적용한다)하여 다음 연도 2월 말일까지 폐기물처리업의 허가 기관 또는 폐기물처리 신고의 수리기관에 보고하여야 한다. 다만, 법 제13조의3제1항에 따라 재활용환경성평가를 받아 재활용하는 경우는 제외한다.",
+      "tags": {
+        "category": null,
+        "bizType": null,
+        "wasteClass": [
+          "GO",
+          "GN"
+        ],
+        "wasteCode": [
+          "51-13"
+        ],
+        "action": [
+          "RE"
+        ],
+        "rCode": [
+          "R-7-1"
+        ],
+        "facilityType": null
+      }
     },
     {
       "depth": 3,
       "type": "korean-paren",
       "marker": "나)",
-      "text": "R-7-2 유형의 재활용 기준"
+      "text": "R-7-2 유형의 재활용 기준",
+      "answer": "R-7-2 유형으로 재활용할 경우 하위 세부 기준을 준수하겠음.",
+      "tags": {
+        "category": null,
+        "bizType": null,
+        "wasteClass": null,
+        "wasteCode": null,
+        "action": [
+          "RE"
+        ],
+        "rCode": [
+          "R-7-2"
+        ],
+        "facilityType": null
+      }
     },
     {
       "depth": 4,
       "type": "wrapped-number",
       "marker": "(1)",
-      "text": "가)에 따른 R-7-1 유형의 재활용 기준을 준수하여 재활용하여야 한다."
+      "text": "가)에 따른 R-7-1 유형의 재활용 기준을 준수하여 재활용하여야 한다.",
+      "answer": "가)에 따른 R-7-1 유형의 재활용 기준을 준수하여 재활용하겠음.",
+      "tags": {
+        "category": null,
+        "bizType": null,
+        "wasteClass": null,
+        "wasteCode": null,
+        "action": [
+          "RE"
+        ],
+        "rCode": [
+          "R-7-2"
+        ],
+        "facilityType": null
+      }
     },
     {
       "depth": 4,
       "type": "wrapped-number",
       "marker": "(2)",
-      "text": "공유수면은 바다만 해당하며, 매립면허를 받은 지역은 매립공사 준공인가를 받은 지역과 매립면허 또는 매립공사 준공인가를 받은 지역으로 둘러싸인 지역을 포함한다."
+      "text": "공유수면은 바다만 해당하며, 매립면허를 받은 지역은 매립공사 준공인가를 받은 지역과 매립면허 또는 매립공사 준공인가를 받은 지역으로 둘러싸인 지역을 포함한다.",
+      "answer": "공유수면은 바다만 해당하며, 매립면허를 받은 지역은 매립공사 준공인가를 받은 지역과 매립면허 또는 매립공사 준공인가를 받은 지역으로 둘러싸인 지역을 포함한다.",
+      "tags": {
+        "category": null,
+        "bizType": null,
+        "wasteClass": null,
+        "wasteCode": null,
+        "action": [
+          "RE"
+        ],
+        "rCode": [
+          "R-7-2"
+        ],
+        "facilityType": null
+      }
     },
     {
       "depth": 4,
       "type": "wrapped-number",
       "marker": "(3)",
-      "text": "폐패각을 재활용하는 경우 최대 길이 20밀리미터 이하로 분쇄하고, 수분함량 70퍼센트 이하로 탈수·건조해야 하며, 일반토사류 등과 혼합하여 사용하는 경우에는 일반토사류 등의 비율이 부피기준으로 70퍼센트이상이어야 한다."
+      "text": "폐패각을 재활용하는 경우 최대 길이 20밀리미터 이하로 분쇄하고, 수분함량 70퍼센트 이하로 탈수·건조해야 하며, 일반토사류 등과 혼합하여 사용하는 경우에는 일반토사류 등의 비율이 부피기준으로 70퍼센트이상이어야 한다.",
+      "answer": "폐패각을 재활용하는 경우 최대 길이 20밀리미터 이하로 분쇄하고, 수분함량 70퍼센트 이하로 탈수·건조해야 하며, 일반토사류 등과 혼합하여 사용하는 경우에는 일반토사류 등의 비율이 부피기준으로 70퍼센트이상이어야 한다.",
+      "tags": {
+        "category": null,
+        "bizType": null,
+        "wasteClass": [
+          "GO",
+          "GN"
+        ],
+        "wasteCode": [
+          "51-17"
+        ],
+        "action": [
+          "RE"
+        ],
+        "rCode": [
+          "R-7-2"
+        ],
+        "facilityType": null
+      }
     },
     {
       "depth": 4,
       "type": "wrapped-number",
       "marker": "(4)",
-      "text": "폐석고·폐석회를 공유수면 매립면허를 받은 지역의 성토재로 사용하는 경우에는 선별·파쇄 등의 중간처리 후 일반토사류 등과 적절하게 혼합·중화하는 재활용 과정을 거쳐야 한다."
+      "text": "폐석고·폐석회를 공유수면 매립면허를 받은 지역의 성토재로 사용하는 경우에는 선별·파쇄 등의 중간처리 후 일반토사류 등과 적절하게 혼합·중화하는 재활용 과정을 거쳐야 한다.",
+      "answer": "폐석고·폐석회를 공유수면 매립면허를 받은 지역의 성토재로 사용하는 경우에는 선별·파쇄 등의 중간처리 후 일반토사류 등과 적절하게 혼합·중화하는 재활용 과정을 거쳐야 한다.",
+      "tags": {
+        "category": null,
+        "bizType": null,
+        "wasteClass": [
+          "GO",
+          "GN"
+        ],
+        "wasteCode": [
+          "51-12",
+          "51-13"
+        ],
+        "action": [
+          "RE"
+        ],
+        "rCode": [
+          "R-7-2"
+        ],
+        "facilityType": null
+      }
     },
     {
       "depth": 5,
       "type": "wrapped-korean",
       "marker": "(가)",
-      "text": "혼합·중화하는 경우에는 지형 여건, 환경 위해성 여부, 공사 안전성등을 종합적으로 고려하여 일반토사류 등과 섞어 사용하거나 일정두께의 층별로 번갈아 사용하여야 한다."
+      "text": "혼합·중화하는 경우에는 지형 여건, 환경 위해성 여부, 공사 안전성등을 종합적으로 고려하여 일반토사류 등과 섞어 사용하거나 일정두께의 층별로 번갈아 사용하여야 한다.",
+      "answer": "혼합·중화하는 경우에는 지형 여건, 환경 위해성 여부, 공사 안전성등을 종합적으로 고려하여 일반토사류 등과 섞어 사용하거나 일정두께의 층별로 번갈아 사용하겠음."
     },
     {
       "depth": 5,
       "type": "wrapped-korean",
       "marker": "(나)",
-      "text": "일반토사류 등과 혼합하여 사용하는 경우에는 일반토사류 등의 비율을 부피기준으로 폐석회는 80퍼센트, 폐석고는 70퍼센트 이상으로 하여야 한다."
+      "text": "일반토사류 등과 혼합하여 사용하는 경우에는 일반토사류 등의 비율을 부피기준으로 폐석회는 80퍼센트, 폐석고는 70퍼센트 이상으로 하여야 한다.",
+      "answer": "일반토사류 등과 혼합하여 사용하는 경우에는 일반토사류 등의 비율을 부피기준으로 폐석회는 80퍼센트, 폐석고는 70퍼센트 이상으로 하겠음."
     },
     {
       "depth": 5,
       "type": "wrapped-korean",
       "marker": "(다)",
-      "text": "폐기물에 관한 공정시험기준에 따라 시험한 결과 재활용 대상 폐기물에 함유된 유해물질이 별표 1의 유해물질 함유기준 이내여야한다."
+      "text": "폐기물에 관한 공정시험기준에 따라 시험한 결과 재활용 대상 폐기물에 함유된 유해물질이 별표 1의 유해물질 함유기준 이내여야한다.",
+      "answer": "폐기물에 관한 공정시험기준에 따라 시험한 결과 재활용 대상 폐기물에 함유된 유해물질이 별표 1의 유해물질 함유기준 이내여야한다."
     },
     {
       "depth": 4,
       "type": "wrapped-number",
       "marker": "(5)",
-      "text": "공유수면의 성토재나 뒷채움재로 재활용한 지역의 최상층은 일반토사층으로 시공하여야 한다."
+      "text": "공유수면의 성토재나 뒷채움재로 재활용한 지역의 최상층은 일반토사층으로 시공하여야 한다.",
+      "answer": "공유수면의 성토재나 뒷채움재로 재활용한 지역의 최상층은 일반토사층으로 시공하겠음.",
+      "tags": {
+        "category": null,
+        "bizType": null,
+        "wasteClass": null,
+        "wasteCode": null,
+        "action": [
+          "RE"
+        ],
+        "rCode": [
+          "R-7-2"
+        ],
+        "facilityType": null
+      }
     },
     {
       "depth": 3,
       "type": "korean-paren",
       "marker": "다)",
-      "text": "R-7-3 유형의 재활용 기준"
+      "text": "R-7-3 유형의 재활용 기준",
+      "answer": "R-7-3 유형으로 재활용할 경우 하위 세부 기준을 준수하겠음.",
+      "tags": {
+        "category": null,
+        "bizType": null,
+        "wasteClass": null,
+        "wasteCode": null,
+        "action": [
+          "RE"
+        ],
+        "rCode": [
+          "R-7-3"
+        ],
+        "facilityType": null
+      }
     },
     {
       "depth": 4,
       "type": "wrapped-number",
       "marker": "(1)",
-      "text": "폐기물매립시설의 복토재로 재활용하는 경우에는 다음의 기준을 준수하여 재활용하여야 한다."
+      "text": "폐기물매립시설의 복토재로 재활용하는 경우에는 다음의 기준을 준수하여 재활용하여야 한다.",
+      "answer": "폐기물매립시설의 복토재로 재활용하는 경우에는 하위 기준을 준수하겠음.",
+      "tags": {
+        "category": null,
+        "bizType": null,
+        "wasteClass": [
+          "L"
+        ],
+        "wasteCode": [
+          "91-06"
+        ],
+        "action": [
+          "RE"
+        ],
+        "rCode": [
+          "R-7-3"
+        ],
+        "facilityType": null
+      }
     },
     {
       "depth": 5,
       "type": "wrapped-korean",
       "marker": "(가)",
-      "text": "지정폐기물에 해당하지 않는 폐기물을 사용하여야 하며, 가)에 따른 R-7-1 유형의 재활용 기준을 준수하여 재활용하여야 한다. 다만, 가)(7)의 기준은 영 제7조제1항제9호 단서에 따라 시설의 일부를 갖추지 아니한 폐기물매립시설의 복토재로 재활용하는 경우만해당한다."
+      "text": "지정폐기물에 해당하지 않는 폐기물을 사용하여야 하며, 가)에 따른 R-7-1 유형의 재활용 기준을 준수하여 재활용하여야 한다. 다만, 가)(7)의 기준은 영 제7조제1항제9호 단서에 따라 시설의 일부를 갖추지 아니한 폐기물매립시설의 복토재로 재활용하는 경우만해당한다.",
+      "answer": "지정폐기물에 해당하지 않는 폐기물을 사용하여야 하며, 가)에 따른 R-7-1 유형의 재활용 기준을 준수하여 재활용하여야 한다. 다만, 가)(7)의 기준은 영 제7조제1항제9호 단서에 따라 시설의 일부를 갖추지 아니한 폐기물매립시설의 복토재로 재활용하는 경우만해당한다."
     },
     {
       "depth": 5,
       "type": "wrapped-korean",
       "marker": "(나)",
-      "text": "재활용 대상 폐기물 또는 일반토사와 혼합한 폐기물은 「토양환경보전법 시행규칙」 별표 3에 따른 토양오염우려기준 중 2지역의 기준을 충족하여야한다."
+      "text": "재활용 대상 폐기물 또는 일반토사와 혼합한 폐기물은 「토양환경보전법 시행규칙」 별표 3에 따른 토양오염우려기준 중 2지역의 기준을 충족하여야한다.",
+      "answer": "재활용 대상 폐기물 또는 일반토사와 혼합한 폐기물은 「토양환경보전법 시행규칙」 별표 3에 따른 토양오염우려기준 중 2지역의 기준을 충족하겠음."
     },
     {
       "depth": 5,
       "type": "wrapped-korean",
       "marker": "(다)",
-      "text": "유기성 오니를 폐기물매립시설의 복토재로 재활용하는 경우에는다음의 기준을 준수하여야 한다."
+      "text": "유기성 오니를 폐기물매립시설의 복토재로 재활용하는 경우에는다음의 기준을 준수하여야 한다.",
+      "answer": "유기성 오니를 폐기물매립시설의 복토재로 재활용하는 경우에는하위 기준을 준수하겠음."
     },
     {
       "depth": 5,
       "type": "circled-number",
       "marker": "①",
-      "text": "고화처리하여 재활용하여야 하며, 생산된 고화처리물은 폐기물 및토양오염물질에 관한 공정시험기준 또는 한국산업표준(KS F 2322,KS F 2314)에 따라 시험한 결과 다음의 기준을 충족하여야 한다."
+      "text": "고화처리하여 재활용하여야 하며, 생산된 고화처리물은 폐기물 및토양오염물질에 관한 공정시험기준 또는 한국산업표준(KS F 2322,KS F 2314)에 따라 시험한 결과 다음의 기준을 충족하여야 한다.",
+      "answer": "고화처리하여 재활용하여야 하며, 생산된 고화처리물은 폐기물 및토양오염물질에 관한 공정시험기준 또는 한국산업표준(KS F 2322,KS F 2314)에 따라 시험한 결과 다음의 기준을 충족하겠음."
     },
     {
       "depth": 6,
       "type": "circled-korean",
       "marker": "㉮",
-      "text": "수소이온농도(pH): 12.4 이하"
+      "text": "수소이온농도(pH): 12.4 이하",
+      "answer": "수소이온농도(pH): 12.4 이하 기준을 충족하겠음."
     },
     {
       "depth": 6,
       "type": "circled-korean",
       "marker": "㉯",
-      "text": "수분함량: 50퍼센트 이하"
+      "text": "수분함량: 50퍼센트 이하",
+      "answer": "수분함량: 50퍼센트 이하 기준을 충족하겠음."
     },
     {
       "depth": 6,
       "type": "circled-korean",
       "marker": "㉰",
-      "text": "투수계수: 1.0×10-7㎝/sec 이상 1.0×10-3㎝/sec 이하"
+      "text": "투수계수: 1.0×10-7㎝/sec 이상 1.0×10-3㎝/sec 이하",
+      "answer": "투수계수: 1.0×10-7㎝/sec 이상 1.0×10-3㎝/sec 이하 기준을 충족하겠음."
     },
     {
       "depth": 6,
       "type": "circled-korean",
       "marker": "㉱",
-      "text": "일축압축강도: 0.10MPa 이상"
+      "text": "일축압축강도: 0.10MPa 이상",
+      "answer": "일축압축강도: 0.10MPa 이상 기준을 충족하겠음."
     },
     {
       "depth": 6,
       "type": "circled-korean",
       "marker": "㉲",
-      "text": "유해물질 함량: 「토양환경보전법 시행규칙」 별표 3에 따른 토양오염우려기준 중 2지역 기준 이내"
+      "text": "유해물질 함량: 「토양환경보전법 시행규칙」 별표 3에 따른 토양오염우려기준 중 2지역 기준 이내",
+      "answer": "유해물질 함량: 「토양환경보전법 시행규칙」 별표 3에 따른 토양오염우려기준 중 2지역 기준 이내."
     },
     {
       "depth": 5,
       "type": "circled-number",
       "marker": "②",
-      "text": "그 밖에 복토재로의 재활용에 관한 구체적인 기준은 환경부장관이정하여 고시한다."
+      "text": "그 밖에 복토재로의 재활용에 관한 구체적인 기준은 환경부장관이정하여 고시한다.",
+      "answer": "그 밖에 복토재로의 재활용에 관한 구체적인 기준은 환경부장관이정하여 고시한다."
     },
     {
       "depth": 5,
       "type": "wrapped-korean",
       "marker": "(라)",
-      "text": "보크사이트 잔재물을 폐기물매립시설의 복토재로 재활용하는 경우(최종복토재로의 재활용은 제외한다)에는 다음의 기준을 준수하여야 한다."
+      "text": "보크사이트 잔재물을 폐기물매립시설의 복토재로 재활용하는 경우(최종복토재로의 재활용은 제외한다)에는 다음의 기준을 준수하여야 한다.",
+      "answer": "보크사이트 잔재물을 폐기물매립시설의 복토재로 재활용하는 경우(최종복토재로의 재활용은 제외한다)에는 하위 기준을 준수하겠음."
     },
     {
       "depth": 5,
       "type": "circled-number",
       "marker": "①",
-      "text": "수소이온농도(pH)가 7.0 이상 10.0 이하가 되도록 중화하고 수분함량을 70퍼센트 이하로 탈수·건조한 후 재활용하여야 한다."
+      "text": "수소이온농도(pH)가 7.0 이상 10.0 이하가 되도록 중화하고 수분함량을 70퍼센트 이하로 탈수·건조한 후 재활용하여야 한다.",
+      "answer": "수소이온농도(pH)가 7.0 이상 10.0 이하가 되도록 중화하고 수분함량을 70퍼센트 이하로 탈수·건조한 후 재활용하겠음."
     },
     {
       "depth": 5,
       "type": "circled-number",
       "marker": "②",
-      "text": "일반토사류를 부피기준으로 50퍼센트 이상 혼합하여 사용하여야한다."
+      "text": "일반토사류를 부피기준으로 50퍼센트 이상 혼합하여 사용하여야한다.",
+      "answer": "일반토사류를 부피기준으로 50퍼센트 이상 혼합하여 사용하겠음."
     },
     {
       "depth": 5,
       "type": "circled-number",
       "marker": "③",
-      "text": "재활용하는 보크사이트 잔재물의 지정폐기물 해당 여부와 수소이온농도를 매월 1회 이상 측정하여 다음 연도의 2월 말일까지 해당폐기물매립시설의 폐기물처리업 허가 기관 또는 폐기물매립시설설치 승인·신고 기관에 보고하여야 한다."
+      "text": "재활용하는 보크사이트 잔재물의 지정폐기물 해당 여부와 수소이온농도를 매월 1회 이상 측정하여 다음 연도의 2월 말일까지 해당폐기물매립시설의 폐기물처리업 허가 기관 또는 폐기물매립시설설치 승인·신고 기관에 보고하여야 한다.",
+      "answer": "재활용하는 보크사이트 잔재물의 지정폐기물 해당 여부와 수소이온농도를 매월 1회 이상 측정하여 다음 연도의 2월 말일까지 해당폐기물매립시설의 폐기물처리업 허가 기관 또는 폐기물매립시설설치 승인·신고 기관에 보고하겠음."
     },
     {
       "depth": 4,
       "type": "wrapped-number",
       "marker": "(2)",
-      "text": "바다와 인접한 폐기물매립시설에 폐석회, 폐석고를 복토재로 재활용하는 경우에는 다음의 기준을 준수하여야 한다."
+      "text": "바다와 인접한 폐기물매립시설에 폐석회, 폐석고를 복토재로 재활용하는 경우에는 다음의 기준을 준수하여야 한다.",
+      "answer": "바다와 인접한 폐기물매립시설에 폐석회, 폐석고를 복토재로 재활용하는 경우에는 하위 기준을 준수하겠음.",
+      "tags": {
+        "category": null,
+        "bizType": null,
+        "wasteClass": [
+          "GO",
+          "GN"
+        ],
+        "wasteCode": [
+          "51-12",
+          "51-13"
+        ],
+        "action": [
+          "RE"
+        ],
+        "rCode": [
+          "R-7-3"
+        ],
+        "facilityType": null
+      }
     },
     {
       "depth": 5,
       "type": "wrapped-korean",
       "marker": "(가)",
-      "text": "폐기물에 관한 공정시험기준에 따라 시험한 결과 재활용 대상 폐기물에 함유된 유해물질이 별표 1의 유해물질 함유기준 이내여야한다."
+      "text": "폐기물에 관한 공정시험기준에 따라 시험한 결과 재활용 대상 폐기물에 함유된 유해물질이 별표 1의 유해물질 함유기준 이내여야한다.",
+      "answer": "폐기물에 관한 공정시험기준에 따라 시험한 결과 재활용 대상 폐기물에 함유된 유해물질이 별표 1의 유해물질 함유기준 이내여야한다."
     },
     {
       "depth": 5,
       "type": "wrapped-korean",
       "marker": "(나)",
-      "text": "선별·파쇄 등의 중간 처리 후 다음의 기준에 따라 일반토사류 등과혼합·중화하여 다지는 등의 적절한 재활용공정을 거쳐야 한다."
+      "text": "선별·파쇄 등의 중간 처리 후 다음의 기준에 따라 일반토사류 등과혼합·중화하여 다지는 등의 적절한 재활용공정을 거쳐야 한다.",
+      "answer": "선별·파쇄 등의 중간 처리 후 다음의 기준에 따라 일반토사류 등과혼합·중화하여 다지는 등의 적절한 재활용공정을 거쳐야 한다."
     },
     {
       "depth": 5,
       "type": "circled-number",
       "marker": "①",
-      "text": "혼합·중화방법은 지형 여건, 환경 위해성 여부, 공사안전성 등을종합적으로 고려하여 일반토사류 등과 섞어 사용하여야 한다."
+      "text": "혼합·중화방법은 지형 여건, 환경 위해성 여부, 공사안전성 등을종합적으로 고려하여 일반토사류 등과 섞어 사용하여야 한다.",
+      "answer": "혼합·중화방법은 지형 여건, 환경 위해성 여부, 공사안전성 등을종합적으로 고려하여 일반토사류 등과 섞어 사용하겠음."
     },
     {
       "depth": 5,
       "type": "circled-number",
       "marker": "②",
-      "text": "일반토사류 등과 혼합사용하는 경우 일반토사류 등의 비율을 부피기준으로 폐석회의 경우 80퍼센트 이상, 폐석고의 경우 70퍼센트이상으로 하여야 한다."
+      "text": "일반토사류 등과 혼합사용하는 경우 일반토사류 등의 비율을 부피기준으로 폐석회의 경우 80퍼센트 이상, 폐석고의 경우 70퍼센트이상으로 하여야 한다.",
+      "answer": "일반토사류 등과 혼합사용하는 경우 일반토사류 등의 비율을 부피기준으로 폐석회의 경우 80퍼센트 이상, 폐석고의 경우 70퍼센트이상으로 하겠음."
     },
     {
       "depth": 3,
       "type": "korean-paren",
       "marker": "라)",
-      "text": "R-7-4 유형의 재활용 기준"
+      "text": "R-7-4 유형의 재활용 기준",
+      "answer": "R-7-4 유형으로 재활용할 경우 하위 세부 기준을 준수하겠음.",
+      "tags": {
+        "category": null,
+        "bizType": null,
+        "wasteClass": null,
+        "wasteCode": null,
+        "action": [
+          "RE"
+        ],
+        "rCode": [
+          "R-7-4"
+        ],
+        "facilityType": null
+      }
     },
     {
       "depth": 4,
       "type": "wrapped-number",
       "marker": "(1)",
-      "text": "재활용 대상 폐기물은 다음과 같다."
+      "text": "재활용 대상 폐기물은 다음과 같다.",
+      "answer": "재활용 대상 폐기물은 다음과 같다.",
+      "tags": {
+        "category": null,
+        "bizType": null,
+        "wasteClass": null,
+        "wasteCode": null,
+        "action": [
+          "RE"
+        ],
+        "rCode": [
+          "R-7-4"
+        ],
+        "facilityType": null
+      }
     },
     {
       "depth": 5,
       "type": "wrapped-korean",
       "marker": "(가)",
-      "text": "석산에서 채석 시 또는 골재[「골재채취법 시행령」 제2조의2제6호에 따른 골재선별·파쇄업자가 생산하는 골재(바다골재는 제외한다)를 말한다]를 생산하는 과정에서 발생하는 석재·골재폐수처리오니 및 폐석분토사"
+      "text": "석산에서 채석 시 또는 골재[「골재채취법 시행령」 제2조의2제6호에 따른 골재선별·파쇄업자가 생산하는 골재(바다골재는 제외한다)를 말한다]를 생산하는 과정에서 발생하는 석재·골재폐수처리오니 및 폐석분토사",
+      "answer": "석산에서 채석 시 또는 골재[「골재채취법 시행령」 제2조의2제6호에 따른 골재선별·파쇄업자가 생산하는 골재(바다골재는 제외한다)를 말한다]를 생산하는 과정에서 발생하는 석재·골재폐수처리오니 및 폐석분토사."
     },
     {
       "depth": 5,
       "type": "wrapped-korean",
       "marker": "(나)",
-      "text": "석재가공공정에서 발생하는 석재·골재폐수처리오니, 폐석재 및 폐석분토사"
+      "text": "석재가공공정에서 발생하는 석재·골재폐수처리오니, 폐석재 및 폐석분토사",
+      "answer": "석재가공공정에서 발생하는 석재·골재폐수처리오니, 폐석재 및 폐석분토사."
     },
     {
       "depth": 5,
       "type": "wrapped-korean",
       "marker": "(다)",
-      "text": "(가) 또는 (나)의 석재·골재폐수처리오니, 폐석재 및 폐석분토사를재활용한 골재"
+      "text": "(가) 또는 (나)의 석재·골재폐수처리오니, 폐석재 및 폐석분토사를재활용한 골재",
+      "answer": "(가) 또는 (나)의 석재·골재폐수처리오니, 폐석재 및 폐석분토사를재활용한 골재."
     },
     {
       "depth": 5,
       "type": "wrapped-korean",
       "marker": "(라)",
-      "text": "사업장일반폐기물 중 (가) 또는 (나)의 석재·골재폐수처리오니, 폐석재 및 폐석분토사와 비슷한 용도로 재활용할 수 있도록 기후에너지환경부장관이 재활용 기준 및 절차·방법을 정하여 고시하는 폐기물"
+      "text": "사업장일반폐기물 중 (가) 또는 (나)의 석재·골재폐수처리오니, 폐석재 및 폐석분토사와 비슷한 용도로 재활용할 수 있도록 기후에너지환경부장관이 재활용 기준 및 절차·방법을 정하여 고시하는 폐기물",
+      "answer": "사업장일반폐기물 중 (가) 또는 (나)의 석재·골재폐수처리오니, 폐석재 및 폐석분토사와 비슷한 용도로 재활용할 수 있도록 기후에너지환경부장관이 재활용 기준 및 절차·방법을 정하여 고시하는 폐기물."
     },
     {
       "depth": 4,
       "type": "wrapped-number",
       "marker": "(2)",
-      "text": "(1)에 따른 재활용 대상 폐기물은 수분함량 30퍼센트 이하로 탈수·건조하여야 한다."
+      "text": "(1)에 따른 재활용 대상 폐기물은 수분함량 30퍼센트 이하로 탈수·건조하여야 한다.",
+      "answer": "(1)에 따른 재활용 대상 폐기물은 수분함량 30퍼센트 이하로 탈수·건조하겠음.",
+      "tags": {
+        "category": null,
+        "bizType": null,
+        "wasteClass": null,
+        "wasteCode": null,
+        "action": [
+          "RE"
+        ],
+        "rCode": [
+          "R-7-4"
+        ],
+        "facilityType": null
+      }
     },
     {
       "depth": 4,
       "type": "wrapped-number",
       "marker": "(3)",
-      "text": "재활용 대상 폐기물에 함유된 유해물질이 별표 1의 유해물질 함유기준 이내여야 하며, 「토양환경보전법 시행규칙」 별표 3의 토양오염우려기준 중 임야에 적용되는 기준 이내이어야 한다."
+      "text": "재활용 대상 폐기물에 함유된 유해물질이 별표 1의 유해물질 함유기준 이내여야 하며, 「토양환경보전법 시행규칙」 별표 3의 토양오염우려기준 중 임야에 적용되는 기준 이내이어야 한다.",
+      "answer": "재활용 대상 폐기물에 함유된 유해물질이 별표 1의 유해물질 함유기준 이내여야 하며, 「토양환경보전법 시행규칙」 별표 3의 토양오염우려기준 중 임야에 적용되는 기준 이내이어야 한다.",
+      "tags": {
+        "category": null,
+        "bizType": null,
+        "wasteClass": null,
+        "wasteCode": null,
+        "action": [
+          "RE"
+        ],
+        "rCode": [
+          "R-7-4"
+        ],
+        "facilityType": null
+      }
     },
     {
       "depth": 4,
       "type": "wrapped-number",
       "marker": "(4)",
-      "text": "재활용하는 과정에서 주변지역 오염방지 등을 위해 다음의 기준에 따라 반입폐기물 및 지하수, 지표수 등에 대한 유해물질 등의 분석을 실시하고, 그 결과를 다음 연도 2월 말일까지 폐기물처리업의 허가 기관또는 폐기물처리 신고 기관과 「산지관리법」에 따른 해당 석산의 토석채취 허가 또는 신고 기관에 보고하고, 그 사본을 3년간 보관하여야한다."
+      "text": "재활용하는 과정에서 주변지역 오염방지 등을 위해 다음의 기준에 따라 반입폐기물 및 지하수, 지표수 등에 대한 유해물질 등의 분석을 실시하고, 그 결과를 다음 연도 2월 말일까지 폐기물처리업의 허가 기관또는 폐기물처리 신고 기관과 「산지관리법」에 따른 해당 석산의 토석채취 허가 또는 신고 기관에 보고하고, 그 사본을 3년간 보관하여야한다.",
+      "answer": "재활용하는 과정에서 주변지역 오염방지 등을 위해 다음의 기준에 따라 반입폐기물 및 지하수, 지표수 등에 대한 유해물질 등의 분석을 실시하고, 그 결과를 다음 연도 2월 말일까지 폐기물처리업의 허가 기관또는 폐기물처리 신고 기관과 「산지관리법」에 따른 해당 석산의 토석채취 허가 또는 신고 기관에 보고하고, 그 사본을 3년간 보관하겠음.",
+      "tags": {
+        "category": null,
+        "bizType": null,
+        "wasteClass": null,
+        "wasteCode": null,
+        "action": [
+          "RE"
+        ],
+        "rCode": [
+          "R-7-4"
+        ],
+        "facilityType": null
+      }
     },
     {
       "depth": 5,
       "type": "wrapped-korean",
       "marker": "(가)",
-      "text": "재활용되는 폐기물은 분기마다 1회 이상 (3)에 따른 유해물질을 분석하여야 한다."
+      "text": "재활용되는 폐기물은 분기마다 1회 이상 (3)에 따른 유해물질을 분석하여야 한다.",
+      "answer": "재활용되는 폐기물은 분기마다 1회 이상 (3)에 따른 유해물질을 분석하겠음."
     },
     {
       "depth": 5,
       "type": "wrapped-korean",
       "marker": "(나)",
-      "text": "재활용하는 기간에는 매분기별 1회, 재활용이 완료된 이후에는 5년간(법 제48조에 따른 조치명령을 이행하기 위하여 소요된 기간은 제외한다) 매분기별 1회 이상 침출수의 수질 및 주변지역의 지하수 및 지표수질 등을 분석 또는 조사하여야 한다."
+      "text": "재활용하는 기간에는 매분기별 1회, 재활용이 완료된 이후에는 5년간(법 제48조에 따른 조치명령을 이행하기 위하여 소요된 기간은 제외한다) 매분기별 1회 이상 침출수의 수질 및 주변지역의 지하수 및 지표수질 등을 분석 또는 조사하여야 한다.",
+      "answer": "재활용하는 기간에는 매분기별 1회, 재활용이 완료된 이후에는 5년간(법 제48조에 따른 조치명령을 이행하기 위하여 소요된 기간은 제외한다) 매분기별 1회 이상 침출수의 수질 및 주변지역의 지하수 및 지표수질 등을 분석 또는 조사하겠음."
     },
     {
       "depth": 4,
       "type": "wrapped-number",
       "marker": "(5)",
-      "text": "(3) 및 (4)에 따른 폐기물의 유해물질과 토양오염물질의 시료채취 및분석은 폐기물 및 토양오염물질에 관한 공정시험기준에 따라 실시하여야 한다."
+      "text": "(3) 및 (4)에 따른 폐기물의 유해물질과 토양오염물질의 시료채취 및분석은 폐기물 및 토양오염물질에 관한 공정시험기준에 따라 실시하여야 한다.",
+      "answer": "(3) 및 (4)에 따른 폐기물의 유해물질과 토양오염물질의 시료채취 및분석은 폐기물 및 토양오염물질에 관한 공정시험기준에 따라 실시하겠음.",
+      "tags": {
+        "category": null,
+        "bizType": null,
+        "wasteClass": null,
+        "wasteCode": null,
+        "action": [
+          "RE"
+        ],
+        "rCode": [
+          "R-7-4"
+        ],
+        "facilityType": null
+      }
     },
     {
       "depth": 4,
       "type": "wrapped-number",
       "marker": "(6)",
-      "text": "재활용하는 과정에서 재활용되는 폐기물이 흩날리지 않도록 살수(撒水) 등 필요한 조치를 하여야 한다."
+      "text": "재활용하는 과정에서 재활용되는 폐기물이 흩날리지 않도록 살수(撒水) 등 필요한 조치를 하여야 한다.",
+      "answer": "재활용하는 과정에서 재활용되는 폐기물이 흩날리지 않도록 살수(撒水) 등 필요한 조치를 하겠음.",
+      "tags": {
+        "category": null,
+        "bizType": null,
+        "wasteClass": null,
+        "wasteCode": null,
+        "action": [
+          "RE"
+        ],
+        "rCode": [
+          "R-7-4"
+        ],
+        "facilityType": null
+      }
     },
     {
       "depth": 3,
       "type": "korean-paren",
       "marker": "마)",
-      "text": "R-7-5 유형의 재활용 기준"
+      "text": "R-7-5 유형의 재활용 기준",
+      "answer": "R-7-5 유형으로 재활용할 경우 하위 세부 기준을 준수하겠음.",
+      "tags": {
+        "category": null,
+        "bizType": null,
+        "wasteClass": null,
+        "wasteCode": null,
+        "action": [
+          "RE"
+        ],
+        "rCode": [
+          "R-7-5"
+        ],
+        "facilityType": null
+      }
     },
     {
       "depth": 4,
       "type": "wrapped-number",
       "marker": "(1)",
-      "text": "지하 매설관로 주변의 방식사로 재활용하는 경우에는 다음의 기준을준수하여야 한다."
+      "text": "지하 매설관로 주변의 방식사로 재활용하는 경우에는 다음의 기준을준수하여야 한다.",
+      "answer": "지하 매설관로 주변의 방식사로 재활용하는 경우에는 다음의 기준을준수하겠음.",
+      "tags": {
+        "category": null,
+        "bizType": null,
+        "wasteClass": null,
+        "wasteCode": null,
+        "action": [
+          "RE"
+        ],
+        "rCode": [
+          "R-7-5"
+        ],
+        "facilityType": null
+      }
     },
     {
       "depth": 5,
       "type": "wrapped-korean",
       "marker": "(가)",
-      "text": "재활용 대상 폐기물은 점토점결 폐주물사나 단일성분의 이산화탄소 주형에서 발생되는 폐주물사로서 하수도관, 가스관 및 전선관 등지하매설관의 방식용으로만 재활용하여야 한다."
+      "text": "재활용 대상 폐기물은 점토점결 폐주물사나 단일성분의 이산화탄소 주형에서 발생되는 폐주물사로서 하수도관, 가스관 및 전선관 등지하매설관의 방식용으로만 재활용하여야 한다.",
+      "answer": "재활용 대상 폐기물은 점토점결 폐주물사나 단일성분의 이산화탄소 주형에서 발생되는 폐주물사로서 하수도관, 가스관 및 전선관 등지하매설관의 방식용으로만 재활용하겠음."
     },
     {
       "depth": 5,
       "type": "wrapped-korean",
       "marker": "(나)",
-      "text": "재활용 대상 폐주물사는 토양오염물질에 관한 공정시험기준에 따라 시험한 결과가 「토양환경보전법 시행규칙」 별표 3에서 정하는지역별 토양오염우려기준을 충족하여야 한다. 다만, 폐주물사를 재활용하려는 지역에 1지역, 2지역과 3지역이 혼재되어 있는 경우에는 토양오염우려기준이 가장 엄격한 지역의 기준을 충족하여야 한다."
+      "text": "재활용 대상 폐주물사는 토양오염물질에 관한 공정시험기준에 따라 시험한 결과가 「토양환경보전법 시행규칙」 별표 3에서 정하는지역별 토양오염우려기준을 충족하여야 한다. 다만, 폐주물사를 재활용하려는 지역에 1지역, 2지역과 3지역이 혼재되어 있는 경우에는 토양오염우려기준이 가장 엄격한 지역의 기준을 충족하여야 한다.",
+      "answer": "재활용 대상 폐주물사는 토양오염물질에 관한 공정시험기준에 따라 시험한 결과가 「토양환경보전법 시행규칙」 별표 3에서 정하는지역별 토양오염우려기준을 충족하여야 한다. 다만, 폐주물사를 재활용하려는 지역에 1지역, 2지역과 3지역이 혼재되어 있는 경우에는 토양오염우려기준이 가장 엄격한 지역의 기준을 충족하겠음."
     },
     {
       "depth": 4,
       "type": "wrapped-number",
       "marker": "(2)",
-      "text": "옥외석유저장탱크의 하부 방식사로 재활용하는 경우 다음의 기준을준수하여야 한다."
+      "text": "옥외석유저장탱크의 하부 방식사로 재활용하는 경우 다음의 기준을준수하여야 한다.",
+      "answer": "옥외석유저장탱크의 하부 방식사로 재활용하는 경우 다음의 기준을준수하겠음.",
+      "tags": {
+        "category": null,
+        "bizType": null,
+        "wasteClass": null,
+        "wasteCode": null,
+        "action": [
+          "RE"
+        ],
+        "rCode": [
+          "R-7-5"
+        ],
+        "facilityType": null
+      }
     },
     {
       "depth": 5,
       "type": "wrapped-korean",
       "marker": "(가)",
-      "text": "재활용가능폐기물은 옥외 석유저장탱크의 하부에서 발생한 지정폐기물이 아닌 폐사에 한정한다."
+      "text": "재활용가능폐기물은 옥외 석유저장탱크의 하부에서 발생한 지정폐기물이 아닌 폐사에 한정한다.",
+      "answer": "재활용가능폐기물은 옥외 석유저장탱크의 하부에서 발생한 지정폐기물이 아닌 폐사에 한정한다."
     },
     {
       "depth": 5,
       "type": "wrapped-korean",
       "marker": "(나)",
-      "text": "옥외석유저장탱크의 하부 방식사로만 재활용하여야 한다."
+      "text": "옥외석유저장탱크의 하부 방식사로만 재활용하여야 한다.",
+      "answer": "옥외석유저장탱크의 하부 방식사로만 재활용하겠음."
     },
     {
       "depth": 3,
       "type": "korean-paren",
       "marker": "바)",
-      "text": "R-7-6 유형의 재활용 기준"
+      "text": "R-7-6 유형의 재활용 기준",
+      "answer": "R-7-6 유형으로 재활용할 경우 하위 세부 기준을 준수하겠음.",
+      "tags": {
+        "category": null,
+        "bizType": null,
+        "wasteClass": null,
+        "wasteCode": null,
+        "action": [
+          "RE"
+        ],
+        "rCode": [
+          "R-7-6"
+        ],
+        "facilityType": null
+      }
     },
     {
       "depth": 4,
       "type": "wrapped-number",
       "marker": "(1)",
-      "text": "농지에 성토재로 이용하는 경우에는 관할 시·도지사가 별도로 인정[(2)의 경우는 제외한다]하는 경우에만 사용할 수 있으며, 1)가)에 따른 기준을 준수하여 재활용하여야 한다."
+      "text": "농지에 성토재로 이용하는 경우에는 관할 시·도지사가 별도로 인정[(2)의 경우는 제외한다]하는 경우에만 사용할 수 있으며, 1)가)에 따른 기준을 준수하여 재활용하여야 한다.",
+      "answer": "농지에 성토재로 이용하는 경우에는 관할 시·도지사가 별도로 인정[(2)의 경우는 제외한다]하는 경우에만 사용할 수 있으며, 1)가)에 따른 기준을 준수하여 재활용하겠음.",
+      "tags": {
+        "category": null,
+        "bizType": null,
+        "wasteClass": null,
+        "wasteCode": null,
+        "action": [
+          "RE"
+        ],
+        "rCode": [
+          "R-7-6"
+        ],
+        "facilityType": null
+      }
     },
     {
       "depth": 4,
       "type": "wrapped-number",
       "marker": "(2)",
-      "text": "농업활동 과정에서 배출된 농업용 폐플라스틱 필름·시트류를 분리·세척하는 과정에서 발생하는 무기성오니를 농경지의 성토재로 재활용하는 경우에는 수분함량 70퍼센트 이하로 탈수·건조한 후 일반토사류를부피기준으로 50퍼센트 이상 혼합하여 재활용하여야 한다."
+      "text": "농업활동 과정에서 배출된 농업용 폐플라스틱 필름·시트류를 분리·세척하는 과정에서 발생하는 무기성오니를 농경지의 성토재로 재활용하는 경우에는 수분함량 70퍼센트 이하로 탈수·건조한 후 일반토사류를부피기준으로 50퍼센트 이상 혼합하여 재활용하여야 한다.",
+      "answer": "농업활동 과정에서 배출된 농업용 폐플라스틱 필름·시트류를 분리·세척하는 과정에서 발생하는 무기성오니를 농경지의 성토재로 재활용하는 경우에는 수분함량 70퍼센트 이하로 탈수·건조한 후 일반토사류를부피기준으로 50퍼센트 이상 혼합하여 재활용하겠음.",
+      "tags": {
+        "category": null,
+        "bizType": null,
+        "wasteClass": [
+          "GO",
+          "GN"
+        ],
+        "wasteCode": [
+          "51-02"
+        ],
+        "action": [
+          "RE"
+        ],
+        "rCode": [
+          "R-7-6"
+        ],
+        "facilityType": null
+      }
     },
     {
       "depth": 4,
       "type": "wrapped-number",
       "marker": "(3)",
-      "text": "(2)에도 불구하고 농지 소유주가 자신이 소유한 농지의 개량을 목적으로 사용하는 경우로서 해당 무기성오니가 「토양환경보전법 시행규칙」별표 3에 따른 토양오염우려기준 이내인 경우에는 일반토사류와혼합하지 않을 수 있다. 이 경우 가)(7)은 적용하지 않는다."
+      "text": "(2)에도 불구하고 농지 소유주가 자신이 소유한 농지의 개량을 목적으로 사용하는 경우로서 해당 무기성오니가 「토양환경보전법 시행규칙」별표 3에 따른 토양오염우려기준 이내인 경우에는 일반토사류와혼합하지 않을 수 있다. 이 경우 가)(7)은 적용하지 않는다.",
+      "answer": "(2)에도 불구하고 농지 소유주가 자신이 소유한 농지의 개량을 목적으로 사용하는 경우로서 해당 무기성오니가 「토양환경보전법 시행규칙」별표 3에 따른 토양오염우려기준 이내인 경우에는 일반토사류와혼합하지 않을 수 있다. 이 경우 가)(7)은 적용하지 않는다.",
+      "tags": {
+        "category": null,
+        "bizType": null,
+        "wasteClass": [
+          "GO",
+          "GN"
+        ],
+        "wasteCode": [
+          "51-02"
+        ],
+        "action": [
+          "RE"
+        ],
+        "rCode": [
+          "R-7-6"
+        ],
+        "facilityType": null
+      }
     },
     {
       "depth": 1,
@@ -2482,8 +4333,15 @@
         "category": null,
         "bizType": null,
         "wasteClass": null,
-        "action": ["RE"],
-        "rCode": ["R-6", "R-7", "R-8", "R-9"],
+        "action": [
+          "RE"
+        ],
+        "rCode": [
+          "R-6",
+          "R-7",
+          "R-8",
+          "R-9"
+        ],
         "facilityType": null
       }
     },
@@ -2491,457 +4349,874 @@
       "depth": 2,
       "type": "number-paren",
       "marker": "1)",
-      "text": "R-8 유형의 재활용 기준"
+      "text": "R-8 유형의 재활용 기준",
+      "answer": "R-8 유형으로 재활용할 경우 하위 세부 기준을 준수하겠음.",
+      "tags": {
+        "category": null,
+        "bizType": null,
+        "wasteClass": null,
+        "wasteCode": null,
+        "action": [
+          "RE"
+        ],
+        "rCode": [
+          "R-8"
+        ],
+        "facilityType": null
+      }
     },
     {
       "depth": 3,
       "type": "korean-paren",
       "marker": "가)",
-      "text": "R-8-1 유형의 재활용 기준"
+      "text": "R-8-1 유형의 재활용 기준",
+      "answer": "R-8-1 유형으로 재활용할 경우 하위 세부 기준을 준수하겠음.",
+      "tags": {
+        "category": null,
+        "bizType": null,
+        "wasteClass": null,
+        "wasteCode": null,
+        "action": [
+          "RE"
+        ],
+        "rCode": [
+          "R-8-1"
+        ],
+        "facilityType": null
+      }
     },
     {
       "depth": 4,
       "type": "wrapped-number",
       "marker": "(1)",
-      "text": "시멘트 보조연료로 사용할 때에는 제3조제1항제3호에 따른 폐기물로서, 다음의 기준에 적합한 폐기물만을 재활용하여 시멘트 품질을 안정적으로 유지하여야 한다."
+      "text": "시멘트 보조연료로 사용할 때에는 제3조제1항제3호에 따른 폐기물로서, 다음의 기준에 적합한 폐기물만을 재활용하여 시멘트 품질을 안정적으로 유지하여야 한다.",
+      "answer": "시멘트 보조연료로 사용할 때에는 제3조제1항제3호에 따른 폐기물로서, 다음의 기준에 적합한 폐기물만을 재활용하여 시멘트 품질을 안정적으로 유지하겠음.",
+      "tags": {
+        "category": null,
+        "bizType": null,
+        "wasteClass": null,
+        "wasteCode": null,
+        "action": [
+          "RE"
+        ],
+        "rCode": [
+          "R-8-1"
+        ],
+        "facilityType": null
+      }
     },
     {
       "depth": 5,
       "type": "wrapped-korean",
       "marker": "(가)",
-      "text": "시멘트 소성로에서 보조연료로 재활용하는 폐기물은 「자원의 절약과 재활용촉진에 관한 법률 시행규칙」 제20조의3제3항에 따른고형연료제품의 품질 시험·분석방법에 따라 시험한 결과(저위발열량 외의 항목은 건조된 상태를 기준으로 한다)가 다음의 기준에 적합하여야 한다."
+      "text": "시멘트 소성로에서 보조연료로 재활용하는 폐기물은 「자원의 절약과 재활용촉진에 관한 법률 시행규칙」 제20조의3제3항에 따른고형연료제품의 품질 시험·분석방법에 따라 시험한 결과(저위발열량 외의 항목은 건조된 상태를 기준으로 한다)가 다음의 기준에 적합하여야 한다.",
+      "answer": "시멘트 소성로에서 보조연료로 재활용하는 폐기물은 「자원의 절약과 재활용촉진에 관한 법률 시행규칙」 제20조의3제3항에 따른고형연료제품의 품질 시험·분석방법에 따라 시험한 결과(저위발열량 외의 항목은 건조된 상태를 기준으로 한다)가 다음의 기준에 적합하겠음."
     },
     {
       "depth": 5,
       "type": "circled-number",
       "marker": "①",
-      "text": "납: 킬로그램 당 200밀리그램 미만"
+      "text": "납: 킬로그램 당 200밀리그램 미만",
+      "answer": "납: 킬로그램 당 200밀리그램 미만 기준을 충족하겠음."
     },
     {
       "depth": 5,
       "type": "circled-number",
       "marker": "②",
-      "text": "구리: 킬로그램 당 800밀리그램 미만"
+      "text": "구리: 킬로그램 당 800밀리그램 미만",
+      "answer": "구리: 킬로그램 당 800밀리그램 미만 기준을 충족하겠음."
     },
     {
       "depth": 5,
       "type": "circled-number",
       "marker": "③",
-      "text": "카드뮴: 킬로그램 당 9밀리그램 미만"
+      "text": "카드뮴: 킬로그램 당 9밀리그램 미만",
+      "answer": "카드뮴: 킬로그램 당 9밀리그램 미만 기준을 충족하겠음."
     },
     {
       "depth": 5,
       "type": "circled-number",
       "marker": "④",
-      "text": "비소: 킬로그램 당 13밀리그램 미만"
+      "text": "비소: 킬로그램 당 13밀리그램 미만",
+      "answer": "비소: 킬로그램 당 13밀리그램 미만 기준을 충족하겠음."
     },
     {
       "depth": 5,
       "type": "circled-number",
       "marker": "⑤",
-      "text": "수은: 킬로그램 당 1.2밀리그램 미만"
+      "text": "수은: 킬로그램 당 1.2밀리그램 미만",
+      "answer": "수은: 킬로그램 당 1.2밀리그램 미만 기준을 충족하겠음."
     },
     {
       "depth": 5,
       "type": "circled-number",
       "marker": "⑥",
-      "text": "염소농도: 무게의 2퍼센트 미만"
+      "text": "염소농도: 무게의 2퍼센트 미만",
+      "answer": "염소농도: 무게의 2퍼센트 미만 기준을 충족하겠음."
     },
     {
       "depth": 5,
       "type": "circled-number",
       "marker": "⑦",
-      "text": "저위발열량: 킬로그램 당 4,500킬로칼로리 이상"
+      "text": "저위발열량: 킬로그램 당 4,500킬로칼로리 이상",
+      "answer": "저위발열량: 킬로그램 당 4,500킬로칼로리 이상 기준을 충족하겠음."
     },
     {
       "depth": 5,
       "type": "wrapped-korean",
       "marker": "(나)",
-      "text": "(가)에도 불구하고 폐목재에 대하여는 다음의 기준을 적용한다."
+      "text": "(가)에도 불구하고 폐목재에 대하여는 다음의 기준을 적용한다.",
+      "answer": "(가)에도 불구하고 폐목재에 대하여는 다음의 기준을 적용한다."
     },
     {
       "depth": 5,
       "type": "circled-number",
       "marker": "①",
-      "text": "납: 킬로그램 당 30밀리그램 이하"
+      "text": "납: 킬로그램 당 30밀리그램 이하",
+      "answer": "납: 킬로그램 당 30밀리그램 이하 기준을 충족하겠음."
     },
     {
       "depth": 5,
       "type": "circled-number",
       "marker": "②",
-      "text": "구리: 킬로그램 당 800밀리그램 미만"
+      "text": "구리: 킬로그램 당 800밀리그램 미만",
+      "answer": "구리: 킬로그램 당 800밀리그램 미만 기준을 충족하겠음."
     },
     {
       "depth": 5,
       "type": "circled-number",
       "marker": "③",
-      "text": "카드뮴: 킬로그램 당 2.0밀리그램 이하"
+      "text": "카드뮴: 킬로그램 당 2.0밀리그램 이하",
+      "answer": "카드뮴: 킬로그램 당 2.0밀리그램 이하 기준을 충족하겠음."
     },
     {
       "depth": 5,
       "type": "circled-number",
       "marker": "④",
-      "text": "비소: 킬로그램 당 2.0밀리그램 이하"
+      "text": "비소: 킬로그램 당 2.0밀리그램 이하",
+      "answer": "비소: 킬로그램 당 2.0밀리그램 이하 기준을 충족하겠음."
     },
     {
       "depth": 5,
       "type": "circled-number",
       "marker": "⑤",
-      "text": "수은: 킬로그램 당 1.0밀리그램 이하"
+      "text": "수은: 킬로그램 당 1.0밀리그램 이하",
+      "answer": "수은: 킬로그램 당 1.0밀리그램 이하 기준을 충족하겠음."
     },
     {
       "depth": 5,
       "type": "circled-number",
       "marker": "⑥",
-      "text": "염소농도: 무게의 2퍼센트 이하"
+      "text": "염소농도: 무게의 2퍼센트 이하",
+      "answer": "염소농도: 무게의 2퍼센트 이하 기준을 충족하겠음."
     },
     {
       "depth": 5,
       "type": "circled-number",
       "marker": "⑦",
-      "text": "저위발열량: 킬로그램 당 3,500킬로칼로리 이상"
+      "text": "저위발열량: 킬로그램 당 3,500킬로칼로리 이상",
+      "answer": "저위발열량: 킬로그램 당 3,500킬로칼로리 이상 기준을 충족하겠음."
     },
     {
       "depth": 3,
       "type": "korean-paren",
       "marker": "나)",
-      "text": "R-8-2 유형의 재활용 기준: 지정폐기물이 아닌 가연성 고형폐기물[폴리염화비닐(PVC)은 제외한다]만 재활용할 수 있다."
+      "text": "R-8-2 유형의 재활용 기준: 지정폐기물이 아닌 가연성 고형폐기물[폴리염화비닐(PVC)은 제외한다]만 재활용할 수 있다.",
+      "answer": "R-8-2 유형으로 재활용할 경우 하위 세부 기준을 준수하겠음.",
+      "tags": {
+        "category": null,
+        "bizType": null,
+        "wasteClass": null,
+        "wasteCode": null,
+        "action": [
+          "RE"
+        ],
+        "rCode": [
+          "R-8-2"
+        ],
+        "facilityType": null
+      }
     },
     {
       "depth": 2,
       "type": "number-paren",
       "marker": "2)",
-      "text": "R-9 유형의 재활용 기준"
+      "text": "R-9 유형의 재활용 기준",
+      "answer": "R-9 유형으로 재활용할 경우 하위 세부 기준을 준수하겠음.",
+      "tags": {
+        "category": null,
+        "bizType": null,
+        "wasteClass": null,
+        "wasteCode": null,
+        "action": [
+          "RE"
+        ],
+        "rCode": [
+          "R-9"
+        ],
+        "facilityType": null
+      }
     },
     {
       "depth": 3,
       "type": "korean-paren",
       "marker": "가)",
-      "text": "R-9-2 유형의 재활용 기준"
+      "text": "R-9-2 유형의 재활용 기준",
+      "answer": "R-9-2 유형으로 재활용할 경우 하위 세부 기준을 준수하겠음.",
+      "tags": {
+        "category": null,
+        "bizType": null,
+        "wasteClass": null,
+        "wasteCode": null,
+        "action": [
+          "RE"
+        ],
+        "rCode": [
+          "R-9-2"
+        ],
+        "facilityType": null
+      }
     },
     {
       "depth": 4,
       "type": "wrapped-number",
       "marker": "(1)",
-      "text": "폐유를 이용하여 유화방법으로 재활용하는 경우에는 다음의 기준에따라 제조하여야 하며, 기후에너지환경부장관은 유화정제연료유의 안정성을 측정하기 위한 시험 방법 등을 정하여 고시할 수 있다."
+      "text": "폐유를 이용하여 유화방법으로 재활용하는 경우에는 다음의 기준에따라 제조하여야 하며, 기후에너지환경부장관은 유화정제연료유의 안정성을 측정하기 위한 시험 방법 등을 정하여 고시할 수 있다.",
+      "answer": "폐유를 이용하여 유화방법으로 재활용하는 경우에는 다음의 기준에따라 제조하여야 하며, 기후에너지환경부장관은 유화정제연료유의 안정성을 측정하기 위한 시험 방법 등을 정하여 고시할 수 있음을 숙지하겠음.",
+      "tags": {
+        "category": null,
+        "bizType": null,
+        "wasteClass": [
+          "D"
+        ],
+        "wasteCode": [
+          "06"
+        ],
+        "action": [
+          "RE"
+        ],
+        "rCode": [
+          "R-9-2"
+        ],
+        "facilityType": null
+      }
     },
     {
       "depth": 5,
       "type": "wrapped-korean",
       "marker": "(가)",
-      "text": "정제연료유 등에 적당량의 물과 유화제(乳化劑) 등을 첨가·혼합하여 기계적·화학적·초음파 방법 등을 이용하여 유화시켜야 한다."
+      "text": "정제연료유 등에 적당량의 물과 유화제(乳化劑) 등을 첨가·혼합하여 기계적·화학적·초음파 방법 등을 이용하여 유화시켜야 한다.",
+      "answer": "정제연료유 등에 적당량의 물과 유화제(乳化劑) 등을 첨가·혼합하여 기계적·화학적·초음파 방법 등을 이용하여 유화시켜야 한다."
     },
     {
       "depth": 5,
       "type": "wrapped-korean",
       "marker": "(나)",
-      "text": "유화정제연료유(약품정제·감압증류·열분해, 그 밖의 방법으로 정제된 정제연료유에 유화제 등을 더 넣어 유화시키거나 폐유 중 중금속·회분 및 슬러지 등을 제거한 후 유화제 등을 더 넣어 유화시킨것을 말한다)는 안정성을 가지고 균일한 유화상태로 30일 이상 유지되어야 한다."
+      "text": "유화정제연료유(약품정제·감압증류·열분해, 그 밖의 방법으로 정제된 정제연료유에 유화제 등을 더 넣어 유화시키거나 폐유 중 중금속·회분 및 슬러지 등을 제거한 후 유화제 등을 더 넣어 유화시킨것을 말한다)는 안정성을 가지고 균일한 유화상태로 30일 이상 유지되어야 한다.",
+      "answer": "유화정제연료유(약품정제·감압증류·열분해, 그 밖의 방법으로 정제된 정제연료유에 유화제 등을 더 넣어 유화시키거나 폐유 중 중금속·회분 및 슬러지 등을 제거한 후 유화제 등을 더 넣어 유화시킨것을 말한다)는 안정성을 가지고 균일한 유화상태로 30일 이상 유지되어야 한다."
     },
     {
       "depth": 5,
       "type": "wrapped-korean",
       "marker": "(다)",
-      "text": "유화정제연료유의 함수율은 부피비율로 15퍼센트 이하여야 한다."
+      "text": "유화정제연료유의 함수율은 부피비율로 15퍼센트 이하여야 한다.",
+      "answer": "유화정제연료유의 함수율은 부피비율로 15퍼센트 이하겠음."
     },
     {
       "depth": 4,
       "type": "wrapped-number",
       "marker": "(2)",
-      "text": "폐유나 폐식용유를 이용하여 정제 연료유를 재활용하는 경우에는 다음의 기준에 따라 제조되어야 한다."
+      "text": "폐유나 폐식용유를 이용하여 정제 연료유를 재활용하는 경우에는 다음의 기준에 따라 제조되어야 한다.",
+      "answer": "폐유나 폐식용유를 이용하여 정제 연료유를 재활용하는 경우에는 다음의 기준에 따라 제조되어야 한다.",
+      "tags": {
+        "category": null,
+        "bizType": null,
+        "wasteClass": [
+          "D"
+        ],
+        "wasteCode": [
+          "06"
+        ],
+        "action": [
+          "RE"
+        ],
+        "rCode": [
+          "R-9-2"
+        ],
+        "facilityType": null
+      }
     },
     {
       "depth": 5,
       "type": "wrapped-korean",
       "marker": "(가)",
-      "text": "재활용한 정제연료유는 폐기물에 관한 공정시험기준, 한국산업표준에 따른 시험방법 또는 대기오염물질에 관한 공정시험기준에 따른 시험결과가 다음의 기준에 적합하여야 한다."
+      "text": "재활용한 정제연료유는 폐기물에 관한 공정시험기준, 한국산업표준에 따른 시험방법 또는 대기오염물질에 관한 공정시험기준에 따른 시험결과가 다음의 기준에 적합하여야 한다.",
+      "answer": "재활용한 정제연료유는 폐기물에 관한 공정시험기준, 한국산업표준에 따른 시험방법 또는 대기오염물질에 관한 공정시험기준에 따른 시험결과가 다음의 기준에 적합하겠음."
     },
     {
       "depth": 5,
       "type": "circled-number",
       "marker": "①",
-      "text": "남은 탄소: 무게비율로 4퍼센트 이하(열분해방법이나 감압증류방법으로 재활용하는 경우에는 0.15퍼센트 이하)"
+      "text": "남은 탄소: 무게비율로 4퍼센트 이하(열분해방법이나 감압증류방법으로 재활용하는 경우에는 0.15퍼센트 이하)",
+      "answer": "남은 탄소: 무게비율로 4퍼센트 이하(열분해방법이나 감압증류방법으로 재활용하는 경우에는 0.15퍼센트 이하)."
     },
     {
       "depth": 5,
       "type": "circled-number",
       "marker": "②",
-      "text": "수분 및 침전물: 부피비율로 2.0퍼센트 이하(열분해방법이나 감압증류방법으로 재활용하는 경우에는 0.5퍼센트 이하, 유화정제연료유로 재활용하는 경우에는 15퍼센트 이하)"
+      "text": "수분 및 침전물: 부피비율로 2.0퍼센트 이하(열분해방법이나 감압증류방법으로 재활용하는 경우에는 0.5퍼센트 이하, 유화정제연료유로 재활용하는 경우에는 15퍼센트 이하)",
+      "answer": "수분 및 침전물: 부피비율로 2.0퍼센트 이하(열분해방법이나 감압증류방법으로 재활용하는 경우에는 0.5퍼센트 이하, 유화정제연료유로 재활용하는 경우에는 15퍼센트 이하)."
     },
     {
       "depth": 5,
       "type": "circled-number",
       "marker": "③",
-      "text": "회분: 무게비율로 1.0퍼센트 이하(열분해방법이나 감압증류방법으로 재활용하는 경우에는 0.05퍼센트 이하)"
+      "text": "회분: 무게비율로 1.0퍼센트 이하(열분해방법이나 감압증류방법으로 재활용하는 경우에는 0.05퍼센트 이하)",
+      "answer": "회분: 무게비율로 1.0퍼센트 이하(열분해방법이나 감압증류방법으로 재활용하는 경우에는 0.05퍼센트 이하)."
     },
     {
       "depth": 5,
       "type": "circled-number",
       "marker": "④",
-      "text": "황분: 무게비율로 0.55퍼센트 이하(열분해방법이나 감압증류방법으로 재활용하는 경우에는 0.2퍼센트 이하)"
+      "text": "황분: 무게비율로 0.55퍼센트 이하(열분해방법이나 감압증류방법으로 재활용하는 경우에는 0.2퍼센트 이하)",
+      "answer": "황분: 무게비율로 0.55퍼센트 이하(열분해방법이나 감압증류방법으로 재활용하는 경우에는 0.2퍼센트 이하)."
     },
     {
       "depth": 5,
       "type": "circled-number",
       "marker": "⑤",
-      "text": "카드뮴 및 그 화합물: 리터당 1밀리그램 이하"
+      "text": "카드뮴 및 그 화합물: 리터당 1밀리그램 이하",
+      "answer": "카드뮴 및 그 화합물: 리터당 1밀리그램 이하 기준을 충족하겠음."
     },
     {
       "depth": 5,
       "type": "circled-number",
       "marker": "⑥",
-      "text": "납 및 그 화합물: 리터당 30밀리그램 이하(열분해방법이나 감압증류방법으로 재활용하는 경우에는 리터당 1밀리그램 이하)"
+      "text": "납 및 그 화합물: 리터당 30밀리그램 이하(열분해방법이나 감압증류방법으로 재활용하는 경우에는 리터당 1밀리그램 이하)",
+      "answer": "납 및 그 화합물: 리터당 30밀리그램 이하(열분해방법이나 감압증류방법으로 재활용하는 경우에는 리터당 1밀리그램 이하)."
     },
     {
       "depth": 5,
       "type": "circled-number",
       "marker": "⑦",
-      "text": "크롬 및 그 화합물: 리터당 5밀리그램 이하(열분해방법이나 감압증류방법으로 재활용하는 경우에는 리터당 1밀리그램 이하)"
+      "text": "크롬 및 그 화합물: 리터당 5밀리그램 이하(열분해방법이나 감압증류방법으로 재활용하는 경우에는 리터당 1밀리그램 이하)",
+      "answer": "크롬 및 그 화합물: 리터당 5밀리그램 이하(열분해방법이나 감압증류방법으로 재활용하는 경우에는 리터당 1밀리그램 이하)."
     },
     {
       "depth": 5,
       "type": "circled-number",
       "marker": "⑧",
-      "text": "비소 및 그 화합물: 리터당 2밀리그램 이하(열분해방법이나 감압증류방법으로 재활용하는 경우에는 리터당 1밀리그램 이하)"
+      "text": "비소 및 그 화합물: 리터당 2밀리그램 이하(열분해방법이나 감압증류방법으로 재활용하는 경우에는 리터당 1밀리그램 이하)",
+      "answer": "비소 및 그 화합물: 리터당 2밀리그램 이하(열분해방법이나 감압증류방법으로 재활용하는 경우에는 리터당 1밀리그램 이하)."
     },
     {
       "depth": 5,
       "type": "circled-number",
       "marker": "⑨",
-      "text": "인화점: 섭씨 40도 이상(열분해방법으로 재활용하는 경우에는 섭씨 30도 이상)"
+      "text": "인화점: 섭씨 40도 이상(열분해방법으로 재활용하는 경우에는 섭씨 30도 이상)",
+      "answer": "인화점: 섭씨 40도 이상(열분해방법으로 재활용하는 경우에는 섭씨 30도 이상)."
     },
     {
       "depth": 4,
       "type": "wrapped-number",
       "marker": "(3)",
-      "text": "폐유나 폐유가 아닌 지정폐기물중 액체 상태이거나 유동성(流動性)이있는 폐기물과 폐유의 혼합물을 열원(熱源)으로 사용할 수 있도록 균일화시켜 재생연료유로 재활용하는 경우에는 다음의 사항을 준수하여야한다."
+      "text": "폐유나 폐유가 아닌 지정폐기물중 액체 상태이거나 유동성(流動性)이있는 폐기물과 폐유의 혼합물을 열원(熱源)으로 사용할 수 있도록 균일화시켜 재생연료유로 재활용하는 경우에는 다음의 사항을 준수하여야한다.",
+      "answer": "폐유나 폐유가 아닌 지정폐기물중 액체 상태이거나 유동성(流動性)이있는 폐기물과 폐유의 혼합물을 열원(熱源)으로 사용할 수 있도록 균일화시켜 재생연료유로 재활용하는 경우에는 다음의 사항을 준수하겠음.",
+      "tags": {
+        "category": null,
+        "bizType": null,
+        "wasteClass": [
+          "D"
+        ],
+        "wasteCode": [
+          "06"
+        ],
+        "action": [
+          "RE"
+        ],
+        "rCode": [
+          "R-9-2"
+        ],
+        "facilityType": null
+      }
     },
     {
       "depth": 5,
       "type": "wrapped-korean",
       "marker": "(가)",
-      "text": "폐유가 아닌 지정폐기물 중 액체상태이거나 유동성이 있는 폐기물은 폐페인트 및 폐락커 혼합물, 할로겐족을 제외한 폐유기용제로 한정하며, 재생연료유는 다음의 용도로만 사용할 수 있다."
+      "text": "폐유가 아닌 지정폐기물 중 액체상태이거나 유동성이 있는 폐기물은 폐페인트 및 폐락커 혼합물, 할로겐족을 제외한 폐유기용제로 한정하며, 재생연료유는 다음의 용도로만 사용할 수 있다.",
+      "answer": "폐유가 아닌 지정폐기물 중 액체상태이거나 유동성이 있는 폐기물은 폐페인트 및 폐락커 혼합물, 할로겐족을 제외한 폐유기용제로 한정하며, 재생연료유는 다음의 용도로만 사용할 수 있음을 숙지하겠음."
     },
     {
       "depth": 5,
       "type": "circled-number",
       "marker": "①",
-      "text": "시멘트와 석고를 제조하기 위한 소성로에서 보조연료로 사용"
+      "text": "시멘트와 석고를 제조하기 위한 소성로에서 보조연료로 사용",
+      "answer": "시멘트와 석고를 제조하기 위한 소성로에서 보조연료로 사용."
     },
     {
       "depth": 5,
       "type": "circled-number",
       "marker": "②",
-      "text": "소각시설에서 고온소각용으로 사용"
+      "text": "소각시설에서 고온소각용으로 사용",
+      "answer": "소각시설에서 고온소각용으로 사용."
     },
     {
       "depth": 5,
       "type": "wrapped-korean",
       "marker": "(나)",
-      "text": "재활용한 재생연료유는 폐기물에 관한 공정시험기준, 한국산업표준에 따른 시험방법 또는 대기오염물질에 관한 공정시험기준에 따른 시험결과가 다음의 기준에 적합하여야 한다."
+      "text": "재활용한 재생연료유는 폐기물에 관한 공정시험기준, 한국산업표준에 따른 시험방법 또는 대기오염물질에 관한 공정시험기준에 따른 시험결과가 다음의 기준에 적합하여야 한다.",
+      "answer": "재활용한 재생연료유는 폐기물에 관한 공정시험기준, 한국산업표준에 따른 시험방법 또는 대기오염물질에 관한 공정시험기준에 따른 시험결과가 다음의 기준에 적합하겠음."
     },
     {
       "depth": 5,
       "type": "circled-number",
       "marker": "①",
-      "text": "저위(低位)발열량: 킬로그램 당 3,500킬로칼로리 이상"
+      "text": "저위(低位)발열량: 킬로그램 당 3,500킬로칼로리 이상",
+      "answer": "저위(低位)발열량: 킬로그램 당 3,500킬로칼로리 이상."
     },
     {
       "depth": 5,
       "type": "circled-number",
       "marker": "②",
-      "text": "황: 무게비율로 2.5퍼센트 이하"
+      "text": "황: 무게비율로 2.5퍼센트 이하",
+      "answer": "황: 무게비율로 2.5퍼센트 이하 기준을 충족하겠음."
     },
     {
       "depth": 5,
       "type": "circled-number",
       "marker": "③",
-      "text": "납 및 그 화합물: 킬로그램 당 100밀리그램 이하"
+      "text": "납 및 그 화합물: 킬로그램 당 100밀리그램 이하",
+      "answer": "납 및 그 화합물: 킬로그램 당 100밀리그램 이하 기준을 충족하겠음."
     },
     {
       "depth": 5,
       "type": "circled-number",
       "marker": "④",
-      "text": "카드뮴 및 그 화합물: 킬로그램 당 1밀리그램 이하"
+      "text": "카드뮴 및 그 화합물: 킬로그램 당 1밀리그램 이하",
+      "answer": "카드뮴 및 그 화합물: 킬로그램 당 1밀리그램 이하 기준을 충족하겠음."
     },
     {
       "depth": 5,
       "type": "circled-number",
       "marker": "⑤",
-      "text": "비소 및 그 화합물: 킬로그램 당 2밀리그램 이하"
+      "text": "비소 및 그 화합물: 킬로그램 당 2밀리그램 이하",
+      "answer": "비소 및 그 화합물: 킬로그램 당 2밀리그램 이하 기준을 충족하겠음."
     },
     {
       "depth": 5,
       "type": "circled-number",
       "marker": "⑥",
-      "text": "크롬 및 그 화합물: 킬로그램 당 50밀리그램 이하"
+      "text": "크롬 및 그 화합물: 킬로그램 당 50밀리그램 이하",
+      "answer": "크롬 및 그 화합물: 킬로그램 당 50밀리그램 이하 기준을 충족하겠음."
     },
     {
       "depth": 5,
       "type": "circled-number",
       "marker": "⑦",
-      "text": "수은 및 그 화합물: 킬로그램 당 1.0밀리그램 이하"
+      "text": "수은 및 그 화합물: 킬로그램 당 1.0밀리그램 이하",
+      "answer": "수은 및 그 화합물: 킬로그램 당 1.0밀리그램 이하 기준을 충족하겠음."
     },
     {
       "depth": 5,
       "type": "circled-number",
       "marker": "⑧",
-      "text": "염소 및 그 화합물: 킬로그램 당 2,000밀리그램 이하"
+      "text": "염소 및 그 화합물: 킬로그램 당 2,000밀리그램 이하",
+      "answer": "염소 및 그 화합물: 킬로그램 당 2,000밀리그램 이하 기준을 충족하겠음."
     },
     {
       "depth": 4,
       "type": "wrapped-number",
       "marker": "(4)",
-      "text": "폐식용유는 「석유 및 석유대체연료 사업법」에 따른 석유대체연료중 바이오디젤(BD100), 바이오디젤연료유(BD20) 또는 바이오중유로재활용할 수 있다. 이 경우 같은 법 제31조제2항에 따라 고시된 바이오디젤(BD100), 바이오디젤연료유(BD20) 또는 바이오중유의 품질기준에적합하여야 한다."
+      "text": "폐식용유는 「석유 및 석유대체연료 사업법」에 따른 석유대체연료중 바이오디젤(BD100), 바이오디젤연료유(BD20) 또는 바이오중유로재활용할 수 있다. 이 경우 같은 법 제31조제2항에 따라 고시된 바이오디젤(BD100), 바이오디젤연료유(BD20) 또는 바이오중유의 품질기준에적합하여야 한다.",
+      "answer": "폐식용유는 「석유 및 석유대체연료 사업법」에 따른 석유대체연료중 바이오디젤(BD100), 바이오디젤연료유(BD20) 또는 바이오중유로재활용할 수 있다. 이 경우 같은 법 제31조제2항에 따라 고시된 바이오디젤(BD100), 바이오디젤연료유(BD20) 또는 바이오중유의 품질기준에적합하겠음.",
+      "tags": {
+        "category": null,
+        "bizType": null,
+        "wasteClass": [
+          "GO",
+          "GN"
+        ],
+        "wasteCode": [
+          "51-16"
+        ],
+        "action": [
+          "RE"
+        ],
+        "rCode": [
+          "R-9-2"
+        ],
+        "facilityType": null
+      }
     },
     {
       "depth": 3,
       "type": "korean-paren",
       "marker": "나)",
-      "text": "R-9-3 유형의 재활용 기준"
+      "text": "R-9-3 유형의 재활용 기준",
+      "answer": "R-9-3 유형으로 재활용할 경우 하위 세부 기준을 준수하겠음.",
+      "tags": {
+        "category": null,
+        "bizType": null,
+        "wasteClass": null,
+        "wasteCode": null,
+        "action": [
+          "RE"
+        ],
+        "rCode": [
+          "R-9-3"
+        ],
+        "facilityType": null
+      }
     },
     {
       "depth": 4,
       "type": "wrapped-number",
       "marker": "(1)",
-      "text": "폐합성고분자화합물, 폐타이어 및 폐목재류 등을 이용하여 열분해 등의 방법으로 가스ㆍ유류 등을 제조하는 경우로 한정한다."
+      "text": "폐합성고분자화합물, 폐타이어 및 폐목재류 등을 이용하여 열분해 등의 방법으로 가스ㆍ유류 등을 제조하는 경우로 한정한다.",
+      "answer": "폐합성고분자화합물, 폐타이어 및 폐목재류 등을 이용하여 열분해 등의 방법으로 가스ㆍ유류 등을 제조하는 경우로 한정한다.",
+      "tags": {
+        "category": null,
+        "bizType": null,
+        "wasteClass": [
+          "GO",
+          "GN"
+        ],
+        "wasteCode": [
+          "51-20"
+        ],
+        "action": [
+          "RE"
+        ],
+        "rCode": [
+          "R-9-3"
+        ],
+        "facilityType": null
+      }
     },
     {
       "depth": 4,
       "type": "wrapped-number",
       "marker": "(2)",
-      "text": "유류를 제조하는 경우 제조한 유류는 2)가)(2)(가)에 따른 정제연료유의 기준에 적합하여야 한다."
+      "text": "유류를 제조하는 경우 제조한 유류는 2)가)(2)(가)에 따른 정제연료유의 기준에 적합하여야 한다.",
+      "answer": "유류를 제조하는 경우 제조한 유류는 2)가)(2)(가)에 따른 정제연료유의 기준에 적합하겠음.",
+      "tags": {
+        "category": null,
+        "bizType": null,
+        "wasteClass": [
+          "D"
+        ],
+        "wasteCode": [
+          "06"
+        ],
+        "action": [
+          "RE"
+        ],
+        "rCode": [
+          "R-9-3"
+        ],
+        "facilityType": null
+      }
     },
     {
       "depth": 4,
       "type": "wrapped-number",
       "marker": "(3)",
-      "text": "폐철도목재받침목은 절단, 세척 등의 과정을 거쳐 가공된 것만 사용하여야 하며, 폐기물 및 토양오염물질에 관한 공정시험기준, 한국산업표준에 따른 시험방법 또는 국제적으로 통용되는 시험방법에 따라 시험한 결과 다음의 기준을 충족해야 한다."
+      "text": "폐철도목재받침목은 절단, 세척 등의 과정을 거쳐 가공된 것만 사용하여야 하며, 폐기물 및 토양오염물질에 관한 공정시험기준, 한국산업표준에 따른 시험방법 또는 국제적으로 통용되는 시험방법에 따라 시험한 결과 다음의 기준을 충족해야 한다.",
+      "answer": "폐철도목재받침목은 절단, 세척 등의 과정을 거쳐 가공된 것만 사용하여야 하며, 폐기물 및 토양오염물질에 관한 공정시험기준, 한국산업표준에 따른 시험방법 또는 국제적으로 통용되는 시험방법에 따라 시험한 결과 다음의 기준을 충족하겠음.",
+      "tags": {
+        "category": null,
+        "bizType": null,
+        "wasteClass": [
+          "GO",
+          "GN"
+        ],
+        "wasteCode": [
+          "51-20-26"
+        ],
+        "action": [
+          "RE"
+        ],
+        "rCode": [
+          "R-9-3"
+        ],
+        "facilityType": null
+      }
     },
     {
       "depth": 5,
       "type": "circled-number",
       "marker": "①",
-      "text": "벤조(a)안트라센: 킬로그램 당 3.0밀리그램 미만"
+      "text": "벤조(a)안트라센: 킬로그램 당 3.0밀리그램 미만",
+      "answer": "벤조(a)안트라센: 킬로그램 당 3.0밀리그램 미만 기준을 충족하겠음."
     },
     {
       "depth": 5,
       "type": "circled-number",
       "marker": "②",
-      "text": "벤조(a)피렌: 킬로그램 당 3.0밀리그램 미만"
+      "text": "벤조(a)피렌: 킬로그램 당 3.0밀리그램 미만",
+      "answer": "벤조(a)피렌: 킬로그램 당 3.0밀리그램 미만 기준을 충족하겠음."
     },
     {
       "depth": 5,
       "type": "circled-number",
       "marker": "③",
-      "text": "다이벤조(a,h)안트라센: 킬로그램 당 3.0밀리그램 미만"
+      "text": "다이벤조(a,h)안트라센: 킬로그램 당 3.0밀리그램 미만",
+      "answer": "다이벤조(a,h)안트라센: 킬로그램 당 3.0밀리그램 미만."
     },
     {
       "depth": 5,
       "type": "circled-number",
       "marker": "④",
-      "text": "기름성분: 중량비를 기준으로 0.35퍼센트 미만"
+      "text": "기름성분: 중량비를 기준으로 0.35퍼센트 미만",
+      "answer": "기름성분: 중량비를 기준으로 0.35퍼센트 미만 기준을 충족하겠음."
     },
     {
       "depth": 4,
       "type": "wrapped-number",
       "marker": "(4)",
-      "text": "음식물류폐기물은 열분해시설(가스화시설을 포함한다)을 거쳐 합성가스를 제조하는 경우로 한정한다."
+      "text": "음식물류폐기물은 열분해시설(가스화시설을 포함한다)을 거쳐 합성가스를 제조하는 경우로 한정한다.",
+      "answer": "음식물류폐기물은 열분해시설(가스화시설을 포함한다)을 거쳐 합성가스를 제조하는 경우로 한정한다.",
+      "tags": {
+        "category": null,
+        "bizType": null,
+        "wasteClass": [
+          "L"
+        ],
+        "wasteCode": [
+          "91-02"
+        ],
+        "action": [
+          "RE"
+        ],
+        "rCode": [
+          "R-9-3"
+        ],
+        "facilityType": null
+      }
     },
     {
       "depth": 3,
       "type": "korean-paren",
       "marker": "다)",
-      "text": "R-9-5 유형의 재활용 기준"
+      "text": "R-9-5 유형의 재활용 기준",
+      "answer": "R-9-5 유형으로 재활용할 경우 하위 세부 기준을 준수하겠음.",
+      "tags": {
+        "category": null,
+        "bizType": null,
+        "wasteClass": null,
+        "wasteCode": null,
+        "action": [
+          "RE"
+        ],
+        "rCode": [
+          "R-9-5"
+        ],
+        "facilityType": null
+      }
     },
     {
       "depth": 4,
       "type": "wrapped-number",
       "marker": "(1)",
-      "text": "연료로 가공하여 사용할 수 있는 유기성 오니(지정폐기물, 분뇨 또는가축분뇨 등의 생물학적 처리공정 전 단계에서 발생되는 오니류는 제외한다)는 다음의 시설에서 발생되는 것만 해당한다."
+      "text": "연료로 가공하여 사용할 수 있는 유기성 오니(지정폐기물, 분뇨 또는가축분뇨 등의 생물학적 처리공정 전 단계에서 발생되는 오니류는 제외한다)는 다음의 시설에서 발생되는 것만 해당한다.",
+      "answer": "연료로 가공하여 사용할 수 있는 유기성 오니(지정폐기물, 분뇨 또는가축분뇨 등의 생물학적 처리공정 전 단계에서 발생되는 오니류는 제외한다)는 다음의 시설에서 발생되는 것만 해당한다.",
+      "tags": {
+        "category": null,
+        "bizType": null,
+        "wasteClass": [
+          "GO",
+          "GN"
+        ],
+        "wasteCode": [
+          "51-01"
+        ],
+        "action": [
+          "RE"
+        ],
+        "rCode": [
+          "R-9-5"
+        ],
+        "facilityType": null
+      }
     },
     {
       "depth": 5,
       "type": "wrapped-korean",
       "marker": "(가)",
-      "text": "「하수도법」 제2조제9호에 따른 공공하수처리시설 또는 같은 조제11호에 따른 분뇨처리시설"
+      "text": "「하수도법」 제2조제9호에 따른 공공하수처리시설 또는 같은 조제11호에 따른 분뇨처리시설",
+      "answer": "「하수도법」 제2조제9호에 따른 공공하수처리시설 또는 같은 조제11호에 따른 분뇨처리시설."
     },
     {
       "depth": 5,
       "type": "wrapped-korean",
       "marker": "(나)",
-      "text": "「물환경보전법」 제2조제12호에 따른 수질오염방지시설(같은 조제10호의 폐수배출시설의 경우만 해당한다)"
+      "text": "「물환경보전법」 제2조제12호에 따른 수질오염방지시설(같은 조제10호의 폐수배출시설의 경우만 해당한다)",
+      "answer": "「물환경보전법」 제2조제12호에 따른 수질오염방지시설(같은 조제10호의 폐수배출시설의 경우만 해당한다)."
     },
     {
       "depth": 5,
       "type": "wrapped-korean",
       "marker": "(다)",
-      "text": "「가축분뇨의 관리 및 이용에 관한 법률」 제2조제9호에 따른 공공처리시설"
+      "text": "「가축분뇨의 관리 및 이용에 관한 법률」 제2조제9호에 따른 공공처리시설",
+      "answer": "「가축분뇨의 관리 및 이용에 관한 법률」 제2조제9호에 따른 공공처리시설."
     },
     {
       "depth": 4,
       "type": "wrapped-number",
       "marker": "(2)",
-      "text": "유기성 오니, 커피찌꺼기 및 버섯폐배지의 저위발열량(「자원의 절약과 재활용촉진에 관한 법률 시행규칙」 제20조의3제3항에 따른 고형연료제품의 품질 시험·분석방법에 따라 시험한 결과를 말한다. 이하 같다)이 킬로그램당 3천킬로칼로리 이상이어야 한다. 다만, 해당 유기성 오니에서 일부 에너지를 회수한 후 가공하는 경우에는 저위발열량이 킬로그램당 2천킬로칼로리 이상이어야 한다."
+      "text": "유기성 오니, 커피찌꺼기 및 버섯폐배지의 저위발열량(「자원의 절약과 재활용촉진에 관한 법률 시행규칙」 제20조의3제3항에 따른 고형연료제품의 품질 시험·분석방법에 따라 시험한 결과를 말한다. 이하 같다)이 킬로그램당 3천킬로칼로리 이상이어야 한다. 다만, 해당 유기성 오니에서 일부 에너지를 회수한 후 가공하는 경우에는 저위발열량이 킬로그램당 2천킬로칼로리 이상이어야 한다.",
+      "answer": "유기성 오니, 커피찌꺼기 및 버섯폐배지의 저위발열량(「자원의 절약과 재활용촉진에 관한 법률 시행규칙」 제20조의3제3항에 따른 고형연료제품의 품질 시험·분석방법에 따라 시험한 결과를 말한다. 이하 같다)이 킬로그램당 3천킬로칼로리 이상이어야 한다. 다만, 해당 유기성 오니에서 일부 에너지를 회수한 후 가공하는 경우에는 저위발열량이 킬로그램당 2천킬로칼로리 이상이어야 한다.",
+      "tags": {
+        "category": null,
+        "bizType": null,
+        "wasteClass": [
+          "GO",
+          "GN"
+        ],
+        "wasteCode": [
+          "51-17"
+        ],
+        "action": [
+          "RE"
+        ],
+        "rCode": [
+          "R-9-5"
+        ],
+        "facilityType": null
+      }
     },
     {
       "depth": 4,
       "type": "wrapped-number",
       "marker": "(3)",
-      "text": "연료로 제조하는 과정에서 지정폐기물 또는 폐합성고분자화합물 등과혼합하여서는 안 된다. 다만, 원목 상태이거나 원목을 기계적으로 가공·처리한 상태의 것으로써 페인트, 기름, 방부제 등이 묻지 않은 폐목재를 가공하여 혼합할 수 있다."
+      "text": "연료로 제조하는 과정에서 지정폐기물 또는 폐합성고분자화합물 등과혼합하여서는 안 된다. 다만, 원목 상태이거나 원목을 기계적으로 가공·처리한 상태의 것으로써 페인트, 기름, 방부제 등이 묻지 않은 폐목재를 가공하여 혼합할 수 있다.",
+      "answer": "연료로 제조하는 과정에서 지정폐기물 또는 폐합성고분자화합물 등과혼합하여서는 안 된다. 다만, 원목 상태이거나 원목을 기계적으로 가공·처리한 상태의 것으로써 페인트, 기름, 방부제 등이 묻지 않은 폐목재를 가공하여 혼합할 수 있음을 숙지하겠음.",
+      "tags": {
+        "category": null,
+        "bizType": null,
+        "wasteClass": [
+          "GO",
+          "GN"
+        ],
+        "wasteCode": [
+          "51-20"
+        ],
+        "action": [
+          "RE"
+        ],
+        "rCode": [
+          "R-9-5"
+        ],
+        "facilityType": null
+      }
     },
     {
       "depth": 4,
       "type": "wrapped-number",
       "marker": "(4)",
-      "text": "가공된 연료는 다음의 구분에 따라 사용하여야 한다."
+      "text": "가공된 연료는 다음의 구분에 따라 사용하여야 한다.",
+      "answer": "가공된 연료는 다음의 구분에 따라 사용하겠음.",
+      "tags": {
+        "category": null,
+        "bizType": null,
+        "wasteClass": null,
+        "wasteCode": null,
+        "action": [
+          "RE"
+        ],
+        "rCode": [
+          "R-9-5"
+        ],
+        "facilityType": null
+      }
     },
     {
       "depth": 5,
       "type": "wrapped-korean",
       "marker": "(가)",
-      "text": "공공하수처리시설, 분뇨처리시설 또는 가축분뇨 공공처리시설에서발생된 유기성 오니를 가공하여 제조한 연료: 화력발전소 또는 열병합발전소에서 사용해야 한다."
+      "text": "공공하수처리시설, 분뇨처리시설 또는 가축분뇨 공공처리시설에서발생된 유기성 오니를 가공하여 제조한 연료: 화력발전소 또는 열병합발전소에서 사용해야 한다.",
+      "answer": "공공하수처리시설, 분뇨처리시설 또는 가축분뇨 공공처리시설에서발생된 유기성 오니를 가공하여 제조한 연료: 화력발전소 또는 열병합발전소에서 사용하겠음."
     },
     {
       "depth": 5,
       "type": "wrapped-korean",
       "marker": "(나)",
-      "text": "수질오염방지시설에서 발생된 유기성 오니를 가공하여 제조한 연료: 화력발전소 또는 열병합발전소에서 사용하되, 총 연료사용량의 0.5퍼센트 이내로 사용하여야 한다."
+      "text": "수질오염방지시설에서 발생된 유기성 오니를 가공하여 제조한 연료: 화력발전소 또는 열병합발전소에서 사용하되, 총 연료사용량의 0.5퍼센트 이내로 사용하여야 한다.",
+      "answer": "수질오염방지시설에서 발생된 유기성 오니를 가공하여 제조한 연료: 화력발전소 또는 열병합발전소에서 사용하되, 총 연료사용량의 0.5퍼센트 이내로 사용하겠음."
     },
     {
       "depth": 4,
       "type": "wrapped-number",
       "marker": "(5)",
-      "text": "가공된 연료는 수분 함유량 10퍼센트 이하, 회분 함유량(건조된 상태기준) 35퍼센트 이하, 황분 함유량(건조된 상태 기준) 2퍼센트 이하, 길이(원형인 경우에는 지름) 40밀리미터 이하여야 한다. 다만, 화력발전소에서 연료로 사용하는 경우에는 회분 함유량이 35퍼센트를 초과할 수 있다."
+      "text": "가공된 연료는 수분 함유량 10퍼센트 이하, 회분 함유량(건조된 상태기준) 35퍼센트 이하, 황분 함유량(건조된 상태 기준) 2퍼센트 이하, 길이(원형인 경우에는 지름) 40밀리미터 이하여야 한다. 다만, 화력발전소에서 연료로 사용하는 경우에는 회분 함유량이 35퍼센트를 초과할 수 있다.",
+      "answer": "가공된 연료는 수분 함유량 10퍼센트 이하, 회분 함유량(건조된 상태기준) 35퍼센트 이하, 황분 함유량(건조된 상태 기준) 2퍼센트 이하, 길이(원형인 경우에는 지름) 40밀리미터 이하여야 한다. 다만, 화력발전소에서 연료로 사용하는 경우에는 회분 함유량이 35퍼센트를 초과할 수 있음을 숙지하겠음.",
+      "tags": {
+        "category": null,
+        "bizType": null,
+        "wasteClass": null,
+        "wasteCode": null,
+        "action": [
+          "RE"
+        ],
+        "rCode": [
+          "R-9-5"
+        ],
+        "facilityType": null
+      }
     },
     {
       "depth": 4,
       "type": "wrapped-number",
       "marker": "(6)",
-      "text": "연료로 재활용하는 유기성 오니, 커피찌꺼기 및 버섯폐배지는 「자원의 절약과 재활용촉진에 관한 법률 시행규칙」 제20조의3제3항에 따른고형연료제품의 품질 시험·분석방법에 따라 시험한 결과(건조된 상태를 기준으로 한다)가 다음의 기준에 적합해야 한다."
+      "text": "연료로 재활용하는 유기성 오니, 커피찌꺼기 및 버섯폐배지는 「자원의 절약과 재활용촉진에 관한 법률 시행규칙」 제20조의3제3항에 따른고형연료제품의 품질 시험·분석방법에 따라 시험한 결과(건조된 상태를 기준으로 한다)가 다음의 기준에 적합해야 한다.",
+      "answer": "연료로 재활용하는 유기성 오니, 커피찌꺼기 및 버섯폐배지는 「자원의 절약과 재활용촉진에 관한 법률 시행규칙」 제20조의3제3항에 따른고형연료제품의 품질 시험·분석방법에 따라 시험한 결과(건조된 상태를 기준으로 한다)가 다음의 기준에 적합하겠음.",
+      "tags": {
+        "category": null,
+        "bizType": null,
+        "wasteClass": [
+          "GO",
+          "GN"
+        ],
+        "wasteCode": [
+          "51-17"
+        ],
+        "action": [
+          "RE"
+        ],
+        "rCode": [
+          "R-9-5"
+        ],
+        "facilityType": null
+      }
     },
     {
       "depth": 5,
       "type": "wrapped-korean",
       "marker": "(가)",
-      "text": "수은: 킬로그램 당 1.20밀리그램 이하"
+      "text": "수은: 킬로그램 당 1.20밀리그램 이하",
+      "answer": "수은: 킬로그램 당 1.20밀리그램 이하 기준을 충족하겠음."
     },
     {
       "depth": 5,
       "type": "wrapped-korean",
       "marker": "(나)",
-      "text": "카드뮴: 킬로그램 당 9.0밀리그램 이하"
+      "text": "카드뮴: 킬로그램 당 9.0밀리그램 이하",
+      "answer": "카드뮴: 킬로그램 당 9.0밀리그램 이하 기준을 충족하겠음."
     },
     {
       "depth": 5,
       "type": "wrapped-korean",
       "marker": "(다)",
-      "text": "납: 킬로그램 당 200.0밀리그램 이하"
+      "text": "납: 킬로그램 당 200.0밀리그램 이하",
+      "answer": "납: 킬로그램 당 200.0밀리그램 이하 기준을 충족하겠음."
     },
     {
       "depth": 5,
       "type": "wrapped-korean",
       "marker": "(라)",
-      "text": "비소: 킬로그램 당 13.0밀리그램 이하"
+      "text": "비소: 킬로그램 당 13.0밀리그램 이하",
+      "answer": "비소: 킬로그램 당 13.0밀리그램 이하 기준을 충족하겠음."
     },
     {
       "depth": 1,
@@ -2953,8 +5228,12 @@
         "category": null,
         "bizType": null,
         "wasteClass": null,
-        "action": ["RE"],
-        "rCode": ["R-10"],
+        "action": [
+          "RE"
+        ],
+        "rCode": [
+          "R-10"
+        ],
         "facilityType": null
       }
     }
