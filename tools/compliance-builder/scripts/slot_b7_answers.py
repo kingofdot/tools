@@ -125,8 +125,14 @@ FTYPE_DEFS = [
     ("사료화시설",           "feedSpec",         False, "사료화시설"),
     ("냉매물질 보관",        "refrigerantSpec",  False, "냉매물질 보관시설"),
     ("형광물질 보관",        "fluorescSpec",     False, "형광물질 보관시설"),
-    ("파쇄ㆍ분쇄",           "shreddingSpec",    False, "파쇄·분쇄·절단시설"),
-    ("유수분리(油水分離)",   "separationSpec",   False, "유수분리시설"),
+    ("파쇄ㆍ분쇄",           "shreddingSpec",          False, "파쇄·분쇄·절단시설"),
+    ("유수분리(油水分離)",   "separationSpec",         False, "유수분리시설"),
+    # 미분류 해소용 — "일분"은 폐이차전지보다 반드시 앞에 있어야 (다) 항목 오분류 방지
+    ("기계적·화학적",        "mechanicalTreatmentSpec", True, "기계적·화학적 처분시설"),
+    ("고형화",               "solidificationSpec",      True, "고형화·안정화 시설"),
+    ("일분",                 "storageSpec",             True, "보관시설 (용량 기준)"),
+    ("폐이차전지",           "batteryRecyclingSpec",    False, "폐이차전지 재활용시설"),
+    ("폐오일필터",           "oilFilterSpec",           True, "폐오일필터 재활용시설"),
 ]
 
 # facility로 분류됐지만 실제로는 equipmentSpec인 항목 (측정 항목 단독 표기 등)
@@ -318,7 +324,10 @@ md_lines.append("| `{{refrigerantSpec}}` | 냉매물질 보관시설 위치·규
 md_lines.append("| `{{fluorescSpec}}` | 형광물질 보관시설 위치·규모 |")
 md_lines.append("| `{{shreddingSpec}}` | 파쇄·분쇄·절단시설 위치·규모 |")
 md_lines.append("| `{{separationSpec}}` | 유수분리시설 위치·규모 |")
-md_lines.append("| `{{facilitySpec_*}}` | 기타 시설 (미분류) |")
+md_lines.append("| `{{mechanicalTreatmentSpec_*}}` | 기계적·화학적 처분시설 위치·처분능력 |")
+md_lines.append("| `{{solidificationSpec_*}}` | 고형화·안정화 시설 위치·처분능력 |")
+md_lines.append("| `{{batteryRecyclingSpec}}` | 폐이차전지 재활용시설 위치·규모 |")
+md_lines.append("| `{{oilFilterSpec_*}}` | 폐오일필터 재활용시설 구조·규모 |")
 md_lines.append("")
 md_lines.append("### 기타")
 md_lines.append("| 키 | 내용 |")
