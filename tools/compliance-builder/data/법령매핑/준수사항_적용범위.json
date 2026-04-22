@@ -1,10 +1,10 @@
 {
   "_meta": {
-    "version": "0.7",
+    "version": "0.8",
     "description": "신고자·처리자 유형별 준수 별표 적용범위 매핑 (다이어그램 소스)",
     "status": "draft",
     "lastUpdated": "2026-04-22",
-    "completedAnnexes": ["별표5", "별표5의3", "별표5의4", "별표6", "별표7", "별표8", "별표17", "별표17의2"],
+    "completedAnnexes": ["별표5", "별표5의3", "별표5의4", "별표6", "별표7", "별표8", "별표9", "별표17", "별표17의2"],
     "pendingAnnexes": []
   },
 
@@ -185,6 +185,20 @@
         { "sectionNo": null, "title": "폐기물처리 신고자 준수사항 (처리방법 준수 등)", "bizType": null }
       ],
       "note": "별표8(허가 처리업자 준수사항)에 대응하는 신고자 전용 준수사항. 허가 처리업자에는 미적용."
+    },
+    {
+      "id": "A-별표9",
+      "annex": "별표9",
+      "title": "폐기물처리시설의 설치기준",
+      "legalChain": [
+        { "level": "법",       "article": "제29조①",  "label": "폐기물처리시설은 기후부령으로 정하는 기준에 맞게 설치" },
+        { "level": "시행규칙", "article": "제35조①",  "label": "별표9와 같다" }
+      ],
+      "sections": [
+        { "sectionNo": 1, "title": "폐기물 처분시설 (소각·매립 등)", "bizType": ["ID", "FD"] },
+        { "sectionNo": 2, "title": "폐기물 재활용시설",               "bizType": ["RTR", "RCY"] }
+      ],
+      "note": "시설을 설치하는 자 전반에 적용. 수집·운반업(TR)은 처리시설 설치가 없으므로 미적용. 허가자 외의 자(자가처리 배출자 등)도 법 제29조②에 따른 승인·신고 후 동일 기준 적용."
     }
   ],
 
@@ -380,6 +394,36 @@
       "annexId":   "A-별표8",
       "appliedSections": null,
       "note": "법 제25조⑨ 허가 처리업자 준수사항 → 별표8 전체 적용"
+    },
+    {
+      "subjectId": "S-허가-RTR",
+      "annexId":   "A-별표9",
+      "appliedSections": [2],
+      "note": "중간재활용시설 설치 기준 적용"
+    },
+    {
+      "subjectId": "S-허가-ID",
+      "annexId":   "A-별표9",
+      "appliedSections": [1],
+      "note": "중간처분시설 설치 기준 적용"
+    },
+    {
+      "subjectId": "S-허가-FD",
+      "annexId":   "A-별표9",
+      "appliedSections": [1],
+      "note": "최종처분시설 설치 기준 적용"
+    },
+    {
+      "subjectId": "S-허가-RCY",
+      "annexId":   "A-별표9",
+      "appliedSections": [2],
+      "note": "최종재활용시설 설치 기준 적용"
+    },
+    {
+      "subjectId": "S-자가처리-배출자",
+      "annexId":   "A-별표9",
+      "appliedSections": null,
+      "note": "법 제29조② 승인·신고 후 자체 처리시설 설치 시 적용"
     },
     {
       "subjectId": "S-신고",
