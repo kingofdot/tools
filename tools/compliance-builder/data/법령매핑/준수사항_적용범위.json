@@ -1,10 +1,10 @@
 {
   "_meta": {
-    "version": "0.1",
+    "version": "0.5",
     "description": "신고자·처리자 유형별 준수 별표 적용범위 매핑 (다이어그램 소스)",
     "status": "draft",
     "lastUpdated": "2026-04-22",
-    "completedAnnexes": ["별표5", "별표5의3", "별표5의4", "별표6", "별표7"],
+    "completedAnnexes": ["별표5", "별표5의3", "별표5의4", "별표6", "별표7", "별표8"],
     "pendingAnnexes": []
   },
 
@@ -144,6 +144,19 @@
         { "sectionNo": 7, "title": "폐기물 종합재활용업",    "bizType": ["RTR", "RCY"] }
       ],
       "note": "폐기물처리 신고자 제외 (법 제25조① 명시). 허가 처리업자에게만 적용. 법 제25조⑥에 따라 제2~7호 허가자는 수집·운반업 허가 없이 자체 수집·운반 가능 (별표7 수집운반 기준도 준용)."
+    },
+    {
+      "id": "A-별표8",
+      "annex": "별표8",
+      "title": "폐기물처리업자의 준수사항",
+      "legalChain": [
+        { "level": "법",       "article": "제25조⑨6호", "label": "폐기물 처리 계약 시 계약서 작성·보관 등 기후부령으로 정하는 준수사항" },
+        { "level": "시행규칙", "article": "제32조",      "label": "별표8과 같다" }
+      ],
+      "sections": [
+        { "sectionNo": null, "title": "폐기물처리업자 준수사항 (계약서 작성·보관 등)", "bizType": null }
+      ],
+      "note": "별표7과 동일 대상(허가 처리업자). 신고자 미적용 (법 제25조⑨는 제③항 허가자에게만 적용)."
     }
   ],
 
@@ -309,6 +322,36 @@
       "annexId":   "A-별표5",
       "appliedSections": null,
       "note": "시행령 제7조③ 완화 기준 적용. 수집운반증 면제·보관기간 연장."
+    },
+    {
+      "subjectId": "S-허가-TR",
+      "annexId":   "A-별표8",
+      "appliedSections": null,
+      "note": "법 제25조⑨ 허가 처리업자 준수사항 → 별표8 전체 적용"
+    },
+    {
+      "subjectId": "S-허가-RTR",
+      "annexId":   "A-별표8",
+      "appliedSections": null,
+      "note": "법 제25조⑨ 허가 처리업자 준수사항 → 별표8 전체 적용"
+    },
+    {
+      "subjectId": "S-허가-ID",
+      "annexId":   "A-별표8",
+      "appliedSections": null,
+      "note": "법 제25조⑨ 허가 처리업자 준수사항 → 별표8 전체 적용"
+    },
+    {
+      "subjectId": "S-허가-FD",
+      "annexId":   "A-별표8",
+      "appliedSections": null,
+      "note": "법 제25조⑨ 허가 처리업자 준수사항 → 별표8 전체 적용"
+    },
+    {
+      "subjectId": "S-허가-RCY",
+      "annexId":   "A-별표8",
+      "appliedSections": null,
+      "note": "법 제25조⑨ 허가 처리업자 준수사항 → 별표8 전체 적용"
     }
   ]
 }
