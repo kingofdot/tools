@@ -4,7 +4,7 @@
     "description": "신고자·처리자 유형별 준수 별표 적용범위 매핑 (다이어그램 소스)",
     "status": "draft",
     "lastUpdated": "2026-04-22",
-    "completedAnnexes": ["별표5", "별표5의4"],
+    "completedAnnexes": ["별표5", "별표5의3", "별표5의4"],
     "pendingAnnexes": []
   },
 
@@ -86,6 +86,19 @@
       "note": "처리 행위자 전체에 적용. 각 섹션은 해당 wasteClass에만 적용됨."
     },
     {
+      "id": "A-별표5의3",
+      "annex": "별표5의3",
+      "title": "폐기물의 재활용 기준",
+      "legalChain": [
+        { "level": "법",       "article": "제13조의2①5호", "label": "누구든지 폐기물을 재활용하는 자 — 재활용 기준 준수" },
+        { "level": "시행규칙", "article": "제14조의3①",    "label": "별표5의3에 따른 재활용 기준을 말한다" }
+      ],
+      "sections": [
+        { "sectionNo": null, "title": "재활용 가능 폐기물 및 재활용 유형별 기준 (R코드 기반)", "wasteClass": null }
+      ],
+      "note": "별표5의4와 동일한 법 제13조의2에서 분기. 별표5의3은 '재활용 가능 여부·방법'(기준), 별표5의4는 '이행 준수사항'. 재활용 행위자는 두 가지 모두 적용."
+    },
+    {
       "id": "A-별표5의4",
       "annex": "별표5의4",
       "title": "폐기물을 재활용하는 자의 준수사항",
@@ -117,6 +130,12 @@
     },
     {
       "subjectId": "S-허가-RTR",
+      "annexId":   "A-별표5의3",
+      "appliedSections": null,
+      "note": "재활용 행위 → 별표5의3 재활용 기준 준수 (R코드 유형별)"
+    },
+    {
+      "subjectId": "S-허가-RTR",
       "annexId":   "A-별표5의4",
       "appliedSections": [1, 2, 3],
       "note": "재활용 행위자이므로 별표5의4 중첩 적용"
@@ -141,6 +160,12 @@
     },
     {
       "subjectId": "S-허가-RCY",
+      "annexId":   "A-별표5의3",
+      "appliedSections": null,
+      "note": "재활용 행위 → 별표5의3 재활용 기준 준수 (R코드 유형별)"
+    },
+    {
+      "subjectId": "S-허가-RCY",
       "annexId":   "A-별표5의4",
       "appliedSections": [1, 2, 3],
       "note": "재활용 행위자이므로 별표5의4 중첩 적용"
@@ -150,6 +175,12 @@
       "annexId":   "A-별표5",
       "appliedSections": [1, 2, 3, 4, 6],
       "note": "시행령 제7조①-7호 명시. 해당 wasteClass에 따라 섹션 결정."
+    },
+    {
+      "subjectId": "S-신고",
+      "annexId":   "A-별표5의3",
+      "appliedSections": null,
+      "note": "신고자 중 재활용 행위자에 한해 적용 (R코드 유형별)"
     },
     {
       "subjectId": "S-신고",
