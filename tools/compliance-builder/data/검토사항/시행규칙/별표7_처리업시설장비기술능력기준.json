@@ -91,7 +91,7 @@
       "type": "korean-paren",
       "marker": "가)",
       "text": "밀폐형 압축·압착차량 1대(특별시·광역시는 2대) 이상",
-      "answer": "{{vehicleNo}}",
+      "answer": "{{compactVehicleNo_Gen}}",
       "tags": {
         "category": [
           "W01"
@@ -112,7 +112,7 @@
       },
       "slots": [
         {
-          "key": "vehicleNo",
+          "key": "compactVehicleNo_Gen",
           "label": "Vehicle Registration No. (밀폐형 압축·압착차량)",
           "type": "text",
           "hint": "예: 12가2131, 34나1231"
@@ -124,7 +124,7 @@
       "type": "korean-paren",
       "marker": "나)",
       "text": "밀폐형 차량 또는 밀폐형 덮개 설치차량 1대 이상(적재능력 합계 4.5톤 이상). 다만, 생활폐기물을 수집ㆍ운반하는 경우에는 2018년 6월 30일까지 적재능력을 적용하지 아니한다.",
-      "answer": "{{vehicleNo}}",
+      "answer": "{{closedVehicleNo_Gen}}",
       "tags": {
         "category": [
           "W01"
@@ -145,8 +145,8 @@
       },
       "slots": [
         {
-          "key": "vehicleNo",
-          "label": "Vehicle Registration No. (밀폐형 덮개 설치차량 / 밀폐형 차량)",
+          "key": "closedVehicleNo_Gen",
+          "label": "Vehicle Registration No. (밀폐형 차량 / 밀폐형 덮개 설치차량)",
           "type": "text",
           "hint": "예: 12가2131, 34나1231"
         }
@@ -157,7 +157,7 @@
       "type": "korean-paren",
       "marker": "다)",
       "text": "섭씨 4도 이하의 냉장 적재함이 설치된 차량 1대 이상(의료기관 일회용기저귀를 수집ㆍ운반하는 경우에 한정한다)",
-      "answer": "{{vehicleNo}}",
+      "answer": "{{refrigVehicleNo_Gen}}",
       "tags": {
         "category": [
           "W01"
@@ -180,8 +180,8 @@
       },
       "slots": [
         {
-          "key": "vehicleNo",
-          "label": "Vehicle Registration No. (차량)",
+          "key": "refrigVehicleNo_Gen",
+          "label": "Vehicle Registration No. (냉장차량)",
           "type": "text",
           "hint": "예: 12가2131, 34나1231"
         }
@@ -254,7 +254,7 @@
       "type": "korean-paren",
       "marker": "가)",
       "text": "액체상태 폐기물을 수집·운반하는 경우: 탱크로리 1대 이상, 밀폐형 차량 1대 이상",
-      "answer": "{{vehicleNo}}",
+      "answer": "{{tankerNo_Ind}}, {{closedVehicleNo_Ind}}",
       "tags": {
         "category": [
           "W01"
@@ -277,8 +277,14 @@
       },
       "slots": [
         {
-          "key": "vehicleNo",
-          "label": "Vehicle Registration No. (탱크로리 / 밀폐형 차량)",
+          "key": "tankerNo_Ind",
+          "label": "Vehicle Registration No. (탱크로리)",
+          "type": "text",
+          "hint": "예: 12가2131, 34나1231"
+        },
+        {
+          "key": "closedVehicleNo_Ind",
+          "label": "Vehicle Registration No. (밀폐형 차량)",
           "type": "text",
           "hint": "예: 12가2131, 34나1231"
         }
@@ -289,7 +295,7 @@
       "type": "korean-paren",
       "marker": "나)",
       "text": "고체상태 폐기물을 수집·운반하는 경우: 밀폐형 차량 또는 밀폐형 덮개 설치차량 2대 이상",
-      "answer": "{{vehicleNo}}",
+      "answer": "{{closedVehicleNo_Ind}}",
       "tags": {
         "category": [
           "W01"
@@ -312,8 +318,8 @@
       },
       "slots": [
         {
-          "key": "vehicleNo",
-          "label": "Vehicle Registration No. (밀폐형 덮개 설치차량 / 밀폐형 차량)",
+          "key": "closedVehicleNo_Ind",
+          "label": "Vehicle Registration No. (밀폐형 차량 / 밀폐형 덮개 설치차량)",
           "type": "text",
           "hint": "예: 12가2131, 34나1231"
         }
@@ -388,7 +394,7 @@
       "type": "korean-paren",
       "marker": "가)",
       "text": "액체상태 폐기물을 수집·운반하는 경우: 탱크로리 1대 이상, 밀폐형 차량 1대 이상(적재능력 합계 9톤 이상)",
-      "answer": "{{vehicleNo}}",
+      "answer": "{{tankerNo_Haz}}, {{closedVehicleNo_Haz}}",
       "tags": {
         "category": [
           "W01"
@@ -422,8 +428,14 @@
       },
       "slots": [
         {
-          "key": "vehicleNo",
-          "label": "Vehicle Registration No. (탱크로리 / 밀폐형 차량)",
+          "key": "tankerNo_Haz",
+          "label": "Vehicle Registration No. (탱크로리)",
+          "type": "text",
+          "hint": "예: 12가2131, 34나1231"
+        },
+        {
+          "key": "closedVehicleNo_Haz",
+          "label": "Vehicle Registration No. (밀폐형 차량)",
           "type": "text",
           "hint": "예: 12가2131, 34나1231"
         }
@@ -434,7 +446,7 @@
       "type": "korean-paren",
       "marker": "나)",
       "text": "고체상태 폐기물을 수집·운반하는 경우: 밀폐형 차량 2대 이상, 밀폐형 덮개 설치차량 1대 이상(적재능력 합계 13.5톤 이상)",
-      "answer": "{{vehicleNo}}",
+      "answer": "{{closedVehicleNo_Haz}}, {{coveredVehicleNo_Haz}}",
       "tags": {
         "category": [
           "W01"
@@ -468,8 +480,14 @@
       },
       "slots": [
         {
-          "key": "vehicleNo",
-          "label": "Vehicle Registration No. (밀폐형 덮개 설치차량 / 밀폐형 차량)",
+          "key": "closedVehicleNo_Haz",
+          "label": "Vehicle Registration No. (밀폐형 차량)",
+          "type": "text",
+          "hint": "예: 12가2131, 34나1231"
+        },
+        {
+          "key": "coveredVehicleNo_Haz",
+          "label": "Vehicle Registration No. (밀폐형 덮개 설치차량)",
           "type": "text",
           "hint": "예: 12가2131, 34나1231"
         }
@@ -691,7 +709,7 @@
       "type": "korean-paren",
       "marker": "가)",
       "text": "적재능력 0.45톤 이상의 냉장차량(섭씨 4도 이하인 것을 말한다. 이하 같다) 3대 이상",
-      "answer": "{{vehicleNo}}",
+      "answer": "{{refrigVehicleNo_Med}}",
       "tags": {
         "category": [
           "W01"
@@ -713,7 +731,7 @@
       },
       "slots": [
         {
-          "key": "vehicleNo",
+          "key": "refrigVehicleNo_Med",
           "label": "Vehicle Registration No. (냉장차량)",
           "type": "text",
           "hint": "예: 12가2131, 34나1231"
@@ -1114,7 +1132,7 @@
       "type": "wrapped-number",
       "marker": "(5)",
       "text": "수집·운반차량(밀폐형 차량 또는 밀폐형 덮개 설치차량을 말한다. 이하 이 표에서 같다) 1대 이상(처분대상 폐기물을 스스로 수집·운반하는 경우만 해당한다)",
-      "answer": "{{vehicleNo}}",
+      "answer": "{{ctVehicleNo_Gen}}",
       "tags": {
         "category": [
           "W01"
@@ -1143,8 +1161,8 @@
       },
       "slots": [
         {
-          "key": "vehicleNo",
-          "label": "Vehicle Registration No. (밀폐형 덮개 설치차량 / 밀폐형 차량 / 수집·운반차량)",
+          "key": "ctVehicleNo_Gen",
+          "label": "Vehicle Registration No. (수집·운반차량 / 밀폐형 차량 / 밀폐형 덮개 설치차량)",
           "type": "text",
           "hint": "예: 12가2131, 34나1231"
         }
@@ -1368,7 +1386,7 @@
       "type": "wrapped-number",
       "marker": "(4)",
       "text": "수집·운반차량 1대 이상(처분대상 폐기물을 스스로 수집·운반하는 경우만 해당한다)",
-      "answer": "{{vehicleNo}}",
+      "answer": "{{ctVehicleNo_Gen}}",
       "tags": {
         "category": [
           "W01"
@@ -1399,7 +1417,7 @@
       },
       "slots": [
         {
-          "key": "vehicleNo",
+          "key": "ctVehicleNo_Gen",
           "label": "Vehicle Registration No. (수집·운반차량)",
           "type": "text",
           "hint": "예: 12가2131, 34나1231"
@@ -1614,7 +1632,7 @@
       "type": "wrapped-number",
       "marker": "(4)",
       "text": "수집·운반차량 1대 이상(처분대상 폐기물을 스스로 수집·운반하는 경우만 해당한다)",
-      "answer": "{{vehicleNo}}",
+      "answer": "{{ctVehicleNo_Gen}}",
       "tags": {
         "category": [
           "W01"
@@ -1642,7 +1660,7 @@
       },
       "slots": [
         {
-          "key": "vehicleNo",
+          "key": "ctVehicleNo_Gen",
           "label": "Vehicle Registration No. (수집·운반차량)",
           "type": "text",
           "hint": "예: 12가2131, 34나1231"
@@ -1994,7 +2012,7 @@
       "type": "wrapped-number",
       "marker": "(7)",
       "text": "수집·운반차량 1대 이상(처분대상 폐기물을 스스로 수집·운반하는 경우만 해당한다)",
-      "answer": "{{vehicleNo}}",
+      "answer": "{{ctVehicleNo_Haz}}",
       "tags": {
         "category": [
           "W01"
@@ -2025,7 +2043,7 @@
       },
       "slots": [
         {
-          "key": "vehicleNo",
+          "key": "ctVehicleNo_Haz",
           "label": "Vehicle Registration No. (수집·운반차량)",
           "type": "text",
           "hint": "예: 12가2131, 34나1231"
@@ -2375,7 +2393,7 @@
       "type": "wrapped-number",
       "marker": "(4)",
       "text": "수집·운반차량: 적재능력 0.45톤 이상의 냉장차량 1대 이상(처분대상 폐기물을 스스로 수집·운반하는 경우만 해당한다)",
-      "answer": "{{vehicleNo}}",
+      "answer": "{{refrigVehicleNo_Med}}",
       "tags": {
         "category": [
           "W01"
@@ -2397,8 +2415,8 @@
       },
       "slots": [
         {
-          "key": "vehicleNo",
-          "label": "Vehicle Registration No. (냉장차량 / 수집·운반차량)",
+          "key": "refrigVehicleNo_Med",
+          "label": "Vehicle Registration No. (냉장차량)",
           "type": "text",
           "hint": "예: 12가2131, 34나1231"
         }
@@ -2644,7 +2662,7 @@
       "type": "korean-paren",
       "marker": "다)",
       "text": "바켓용량 0.6세제곱미터 이상으로서 다짐작업이 가능한 굴착기 1대 이상",
-      "answer": "{{vehicleNo}}",
+      "answer": "{{excavatorNo_Gen}}",
       "tags": {
         "category": [
           "W01"
@@ -2669,7 +2687,7 @@
       },
       "slots": [
         {
-          "key": "vehicleNo",
+          "key": "excavatorNo_Gen",
           "label": "Vehicle Registration No. (굴착기)",
           "type": "text",
           "hint": "예: 12가2131, 34나1231"
@@ -2755,7 +2773,7 @@
       "type": "korean-paren",
       "marker": "바)",
       "text": "수집·운반차량 1대 이상(처분대상 폐기물을 스스로 수집·운반하는 경우만 해당한다)",
-      "answer": "{{vehicleNo}}",
+      "answer": "{{ctVehicleNo_Gen}}",
       "tags": {
         "category": [
           "W01"
@@ -2780,7 +2798,7 @@
       },
       "slots": [
         {
-          "key": "vehicleNo",
+          "key": "ctVehicleNo_Gen",
           "label": "Vehicle Registration No. (수집·운반차량)",
           "type": "text",
           "hint": "예: 12가2131, 34나1231"
@@ -3109,7 +3127,7 @@
       "type": "korean-paren",
       "marker": "마)",
       "text": "수집·운반차량 1대 이상(처분대상 폐기물을 스스로 수집·운반하는 경우만 해당한다)",
-      "answer": "{{vehicleNo}}",
+      "answer": "{{ctVehicleNo_Haz}}",
       "tags": {
         "category": [
           "W01"
@@ -3132,7 +3150,7 @@
       },
       "slots": [
         {
-          "key": "vehicleNo",
+          "key": "ctVehicleNo_Haz",
           "label": "Vehicle Registration No. (수집·운반차량)",
           "type": "text",
           "hint": "예: 12가2131, 34나1231"
@@ -3144,7 +3162,7 @@
       "type": "korean-paren",
       "marker": "바)",
       "text": "바켓용량 0.6세제곱미터 이상으로서 다짐작업이 가능한 굴착기 1대 이상",
-      "answer": "{{vehicleNo}}",
+      "answer": "{{excavatorNo_Haz}}",
       "tags": {
         "category": [
           "W01"
@@ -3167,7 +3185,7 @@
       },
       "slots": [
         {
-          "key": "vehicleNo",
+          "key": "excavatorNo_Haz",
           "label": "Vehicle Registration No. (굴착기)",
           "type": "text",
           "hint": "예: 12가2131, 34나1231"
@@ -3391,7 +3409,7 @@
       "type": "paren-number",
       "marker": "1)",
       "text": "바켓용량 0.6세제곱미터 이상으로서 다짐작업이 가능한 굴착기 1대 이상",
-      "answer": "{{vehicleNo}}",
+      "answer": "{{excavatorNo_Haz}}",
       "tags": {
         "category": [
           "W01"
@@ -3419,7 +3437,7 @@
       },
       "slots": [
         {
-          "key": "vehicleNo",
+          "key": "excavatorNo_Haz",
           "label": "Vehicle Registration No. (굴착기)",
           "type": "text",
           "hint": "예: 12가2131, 34나1231"
@@ -3471,7 +3489,7 @@
       "type": "paren-number",
       "marker": "3)",
       "text": "수집·운반차량 1대 이상(처분대상 폐기물을 스스로 수집·운반하는 경우만 해당한다)",
-      "answer": "{{vehicleNo}}",
+      "answer": "{{ctVehicleNo_Haz}}",
       "tags": {
         "category": [
           "W01"
@@ -3496,7 +3514,7 @@
       },
       "slots": [
         {
-          "key": "vehicleNo",
+          "key": "ctVehicleNo_Haz",
           "label": "Vehicle Registration No. (수집·운반차량)",
           "type": "text",
           "hint": "예: 12가2131, 34나1231"
@@ -4217,7 +4235,7 @@
       "type": "wrapped-number",
       "marker": "(3)",
       "text": "수집·운반차량 1대 이상(재활용대상 폐기물을 스스로 수집·운반하는 경우만 해당한다). 다만, 동일한 법인 또는 개인이 둘 이상의 다른 사업장에서 동일한 폐기물을 재활용하기 위한 경우에는 사업장별 수집·운반차량 1대 외의 차량에 대해서는 공동으로 사용할 수 있다.",
-      "answer": "{{vehicleNo}}",
+      "answer": "{{ctVehicleNo_Gen}}",
       "tags": {
         "category": [
           "W01"
@@ -4241,7 +4259,7 @@
       },
       "slots": [
         {
-          "key": "vehicleNo",
+          "key": "ctVehicleNo_Gen",
           "label": "Vehicle Registration No. (수집·운반차량)",
           "type": "text",
           "hint": "예: 12가2131, 34나1231"
@@ -5740,7 +5758,7 @@
       "type": "wrapped-number",
       "marker": "(3)",
       "text": "수집·운반차량 1대 이상(재활용대상 폐기물을 스스로 수집·운반하는 경우만 해당한다)",
-      "answer": "{{vehicleNo}}",
+      "answer": "{{ctVehicleNo_Haz}}",
       "tags": {
         "category": [
           "W01"
@@ -5773,7 +5791,7 @@
       },
       "slots": [
         {
-          "key": "vehicleNo",
+          "key": "ctVehicleNo_Haz",
           "label": "Vehicle Registration No. (수집·운반차량)",
           "type": "text",
           "hint": "예: 12가2131, 34나1231"
@@ -7047,7 +7065,7 @@
       "type": "korean-paren",
       "marker": "다)",
       "text": "수집운반차량 : 1대 이상(재활용대상 폐기물을 스스로 수집·운반하는 경우만 해당한다)",
-      "answer": "{{vehicleNo}}",
+      "answer": "{{ctVehicleNo_Med}}",
       "tags": {
         "category": [
           "W01"
@@ -7071,7 +7089,7 @@
       },
       "slots": [
         {
-          "key": "vehicleNo",
+          "key": "ctVehicleNo_Med",
           "label": "Vehicle Registration No. (수집운반차량)",
           "type": "text",
           "hint": "예: 12가2131, 34나1231"
