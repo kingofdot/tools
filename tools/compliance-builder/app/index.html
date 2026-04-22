@@ -78,6 +78,8 @@ select:focus,input:focus{outline:none;border-color:#1a3a5c}
 .av-table td.av-text{background:#fff;width:48%}
 .av-table td.av-answer{background:#f5fff8;color:#1a5c2a;width:48%}
 .av-table td.av-answer.empty{color:#bbb;font-style:italic}
+.av-tags{margin-top:5px;display:flex;flex-wrap:wrap;gap:3px}
+.av-tags span{font-size:10px;color:#666;background:#eef0f4;border-radius:9px;padding:1px 7px;line-height:1.6}
 </style>
 </head>
 <body>
@@ -919,6 +921,44 @@ updateCodeBar();
   const noAnswerToggle = document.getElementById('av-no-answer-toggle');
   const avCount = document.getElementById('av-count');
 
+  // 태그 한글 변환 맵
+  const CLASS_KO  = {D:'지정폐기물', GO:'사업장(배출시설계)', GN:'사업장(비배출시설계)', L:'생활폐기물'};
+  const ACTION_KO = {CT:'수집·운반', ST:'보관', MI:'중간처분', FI:'최종처분', RCY:'재활용'};
+  const STATE_KO  = {S:'고상', L:'액상', SL:'고상+액상'};
+  const CAT_KO    = {W01:'처리업 허가', W02:'처리 신고', W03:'시설 설치 승인', W04:'배출자 신고', W05:'시설 설치 신고'};
+
+  function buildTagsHtml(it) {
+    const t = it.tags || {};
+    const parts = [];
+
+    // wasteClass
+    const wc = [].concat(t.wasteClass || []).filter(Boolean);
+    if (wc.length) parts.push(wc.map(v => CLASS_KO[v] || v).join(' · '));
+
+    // wasteCode — 숫자 코드만
+    const codes = [].concat(t.wasteCode || []).filter(Boolean);
+    if (codes.length) parts.push(codes.join(', '));
+
+    // action
+    const act = [].concat(t.action || []).filter(Boolean);
+    if (act.length) parts.push(act.map(v => ACTION_KO[v] || v).join(' · '));
+
+    // physicalState
+    const ps = [].concat(t.physicalState || []).filter(Boolean);
+    if (ps.length) parts.push(ps.map(v => STATE_KO[v] || v).join('+'));
+
+    // category
+    const cat = [].concat(t.category || []).filter(Boolean);
+    if (cat.length) parts.push(cat.map(v => CAT_KO[v] || v).join(' · '));
+
+    // rCode
+    const rc = [].concat(t.rCode || []).filter(Boolean);
+    if (rc.length) parts.push(rc.join(' · '));
+
+    if (!parts.length) return '';
+    return '<div class="av-tags">' + parts.map(p => '<span>' + p + '</span>').join('') + '</div>';
+  }
+
   // SOURCES + ITEMS_BY_SOURCE 구조 활용
   SOURCES.forEach(function(src) {
     const opt = document.createElement('option');
@@ -954,9 +994,10 @@ updateCodeBar();
       rows.forEach(function(it) {
         const tr = document.createElement('tr');
         const ans = it.answer || '';
+        const tagsHtml = buildTagsHtml(it);
         tr.innerHTML =
           '<td class="av-marker">' + (it.marker || '') + '</td>' +
-          '<td class="av-text">' + (it.text || '') + '</td>' +
+          '<td class="av-text">' + (it.text || '') + tagsHtml + '</td>' +
           '<td class="av-answer' + (ans ? '' : ' empty') + '">' + (ans || '(답변 없음)') + '</td>';
         tbody.appendChild(tr);
       });
