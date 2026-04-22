@@ -4,7 +4,7 @@
     "description": "신고자·처리자 유형별 준수 별표 적용범위 매핑 (다이어그램 소스)",
     "status": "draft",
     "lastUpdated": "2026-04-22",
-    "completedAnnexes": ["별표5", "별표5의3", "별표5의4", "별표6", "별표7", "별표8", "별표9", "별표17", "별표17의2"],
+    "completedAnnexes": ["법제13의2", "별표5", "별표5의3", "별표5의4", "별표6", "별표7", "별표8", "별표9", "별표17", "별표17의2"],
     "pendingAnnexes": []
   },
 
@@ -84,6 +84,23 @@
         { "sectionNo": 6, "title": "수집운반증",       "wasteClass": null }
       ],
       "note": "처리 행위자 전체에 적용. 각 섹션은 해당 wasteClass에만 적용됨."
+    },
+    {
+      "id": "A-법제13의2",
+      "annex": "법제13의2",
+      "title": "폐기물의 재활용 원칙 및 준수사항",
+      "legalChain": [
+        { "level": "법",       "article": "제13조의2",  "label": "재활용 원칙·금지·준수사항 (상위 근거 조문)" },
+        { "level": "시행령",   "article": "제7조의2",   "label": "별표4의2 (재활용 준수사항 — 유해물질 제거·안정화 등)" },
+        { "level": "시행령",   "article": "제7조의3",   "label": "별표4의3 (재활용 금지·제한 폐기물)" },
+        { "level": "시행규칙", "article": "제14조의3",  "label": "별표5의3·5의4 위임" }
+      ],
+      "sections": [
+        { "sectionNo": 1, "title": "재활용 원칙 (오염예방 5호)",                    "wasteClass": null },
+        { "sectionNo": 2, "title": "재활용 금지·제한 (폐석면·PCBs·의료·폐유독물 등)", "wasteClass": null },
+        { "sectionNo": 3, "title": "오염예방·저감방법 및 취급기준 (별표5의4 위임)",   "wasteClass": null }
+      ],
+      "note": "재활용 행위자(허가·신고) 및 자가처리 배출자에 적용. 별표5의3·5의4의 상위 근거 조문."
     },
     {
       "id": "A-별표5의3",
@@ -203,6 +220,30 @@
   ],
 
   "mappings": [
+    {
+      "subjectId": "S-허가-RTR",
+      "annexId":   "A-법제13의2",
+      "appliedSections": null,
+      "note": "재활용 가능 폐기물 수집·운반 행위 → 재활용 원칙·금지·준수사항 상위 조문 적용"
+    },
+    {
+      "subjectId": "S-허가-RCY",
+      "annexId":   "A-법제13의2",
+      "appliedSections": null,
+      "note": "재활용 행위 → 재활용 원칙·금지·준수사항 상위 조문 적용"
+    },
+    {
+      "subjectId": "S-신고",
+      "annexId":   "A-법제13의2",
+      "appliedSections": null,
+      "note": "신고자 중 재활용 행위자에 한해 적용 (별표5의3·5의4의 근거 조문)"
+    },
+    {
+      "subjectId": "S-자가처리-배출자",
+      "annexId":   "A-법제13의2",
+      "appliedSections": null,
+      "note": "법 제17조① 자가처리 중 재활용하는 경우 적용"
+    },
     {
       "subjectId": "S-허가-TR",
       "annexId":   "A-별표5",

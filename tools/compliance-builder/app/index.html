@@ -68,9 +68,11 @@ select:focus,input:focus{outline:none;border-color:#1a3a5c}
 .av-table th{background:#e8ecf2;color:#1a3a5c;font-weight:700;padding:6px 10px;border:1px solid #ccd;text-align:left;font-size:11px}
 .av-table td{padding:7px 10px;border:1px solid #e0e4ea;vertical-align:top}
 .av-table td.av-marker{color:#1a3a5c;font-weight:700;white-space:nowrap;width:36px}
-.av-table td.av-text{background:#fff;width:48%}
-.av-table td.av-answer{background:#f5fff8;color:#1a5c2a;width:48%}
+.av-table td.av-text{background:#fff;width:38%}
+.av-table td.av-answer{background:#f5fff8;color:#1a5c2a;width:38%}
 .av-table td.av-answer.empty{color:#bbb;font-style:italic}
+.av-table td.av-tags{background:#fafbfc;width:18%;font-size:10px}
+.av-table td.av-tags .tag-pill{display:inline-block;margin:1px 2px}
 </style>
 </head>
 <body>
@@ -594,8 +596,32 @@ document.getElementById('btn-download').addEventListener('click', exportToWord);
 
       const table = document.createElement('table');
       table.className = 'av-table';
-      table.innerHTML = '<thead><tr><th style="width:36px">번호</th><th>법령 기준</th><th>준수계획서 답변</th></tr></thead>';
+      table.innerHTML = '<thead><tr><th style="width:36px">번호</th><th>법령 기준</th><th>준수계획서 답변</th><th>태그</th></tr></thead>';
       const tbody = document.createElement('tbody');
+
+      function renderTagsHtml(tags) {
+        if (!tags || typeof tags !== 'object') return '';
+        const parts = [];
+        for (const k of Object.keys(tags)) {
+          const v = tags[k];
+          if (v == null) continue;
+          if (Array.isArray(v)) {
+            if (!v.length) continue;
+            v.forEach(function(x){
+              parts.push('<span class="tag-pill">' + k + ':' + x + '</span>');
+            });
+          } else if (typeof v === 'object') {
+            for (const kk of Object.keys(v)) {
+              const vv = v[kk];
+              const disp = Array.isArray(vv) ? vv.join(',') : vv;
+              parts.push('<span class="tag-pill">' + k + '.' + kk + ':' + disp + '</span>');
+            }
+          } else {
+            parts.push('<span class="tag-pill">' + k + ':' + v + '</span>');
+          }
+        }
+        return parts.join(' ');
+      }
 
       rows.forEach(function(it) {
         const tr = document.createElement('tr');
@@ -603,7 +629,8 @@ document.getElementById('btn-download').addEventListener('click', exportToWord);
         tr.innerHTML =
           '<td class="av-marker">' + (it.marker || '') + '</td>' +
           '<td class="av-text">' + (it.text || '') + '</td>' +
-          '<td class="av-answer' + (ans ? '' : ' empty') + '">' + (ans || '(답변 없음)') + '</td>';
+          '<td class="av-answer' + (ans ? '' : ' empty') + '">' + (ans || '(답변 없음)') + '</td>' +
+          '<td class="av-tags">' + renderTagsHtml(it.tags) + '</td>';
         tbody.appendChild(tr);
       });
 
