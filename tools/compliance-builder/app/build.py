@@ -156,12 +156,34 @@ select:focus,input:focus{{outline:none;border-color:#1a3a5c}}
 #export-bar{{position:sticky;bottom:0;background:#fff;border-top:1px solid #dde;padding:8px 14px;display:flex;gap:8px;align-items:center}}
 #selected-count{{font-size:12px;color:#666;flex:1}}
 .wastevar{{font-weight:600;color:#c06000}}
+/* 전체 보기 모달 */
+#all-view-modal{{display:none;position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:1000;overflow:auto}}
+#all-view-inner{{background:#fff;margin:32px auto;max-width:1100px;border-radius:8px;overflow:hidden;box-shadow:0 8px 32px rgba(0,0,0,.3)}}
+#all-view-header{{background:#1a3a5c;color:#fff;padding:12px 20px;display:flex;align-items:center;justify-content:space-between}}
+#all-view-header h2{{font-size:14px;font-weight:700}}
+#btn-close-all{{background:transparent;border:1px solid rgba(255,255,255,.4);color:#fff;border-radius:4px;padding:3px 10px;cursor:pointer;font-size:12px}}
+#btn-close-all:hover{{background:rgba(255,255,255,.15)}}
+.av-filter-bar{{padding:8px 16px;background:#f0f4f8;border-bottom:1px solid #dde;display:flex;gap:10px;align-items:center;font-size:12px}}
+.av-filter-bar label{{color:#555}}
+#av-filter-src{{padding:3px 6px;border:1px solid #ccd;border-radius:4px;font-size:12px;font-family:inherit}}
+#av-no-answer-toggle{{margin:0}}
+#all-view-content{{padding:16px}}
+.av-source-block{{margin-bottom:24px}}
+.av-source-title{{font-size:12px;font-weight:700;color:#fff;background:#1a3a5c;padding:5px 12px;border-radius:4px;margin-bottom:8px}}
+.av-table{{width:100%;border-collapse:collapse;font-size:12px;line-height:1.6}}
+.av-table th{{background:#e8ecf2;color:#1a3a5c;font-weight:700;padding:6px 10px;border:1px solid #ccd;text-align:left;font-size:11px}}
+.av-table td{{padding:7px 10px;border:1px solid #e0e4ea;vertical-align:top}}
+.av-table td.av-marker{{color:#1a3a5c;font-weight:700;white-space:nowrap;width:36px}}
+.av-table td.av-text{{background:#fff;width:48%}}
+.av-table td.av-answer{{background:#f5fff8;color:#1a5c2a;width:48%}}
+.av-table td.av-answer.empty{{color:#bbb;font-style:italic}}
 </style>
 </head>
 <body>
 <header>
   <h1>폐기물 준수계획서 작성 도구</h1>
   <span style="font-size:11px;opacity:.7">별표5 기준 검토 · 별표5 항목 선택 · 텍스트 내보내기</span>
+  <button class="btn" id="btn-all-view" style="margin-left:auto;background:#2c5f8a;color:#fff;font-size:12px;padding:5px 14px">전체 보기</button>
 </header>
 <div id="code-bar">상황코드: —</div>
 <div class="layout">
@@ -258,6 +280,22 @@ select:focus,input:focus{{outline:none;border-color:#1a3a5c}}
       <button class="btn btn-secondary" id="btn-copy">클립보드 복사</button>
       <button class="btn btn-primary" id="btn-download">Word 다운로드 (.docx)</button>
     </div>
+  </div>
+</div>
+
+<!-- 전체 보기 모달 -->
+<div id="all-view-modal">
+  <div id="all-view-inner">
+    <div id="all-view-header">
+      <h2>전체 검토사항 — 기준 · 답변</h2>
+      <button id="btn-close-all">닫기 ✕</button>
+    </div>
+    <div class="av-filter-bar">
+      <label>별표 선택: <select id="av-filter-src"><option value="">전체</option></select></label>
+      <label><input type="checkbox" id="av-no-answer-toggle"> 답변 없는 항목 숨기기</label>
+      <span id="av-count" style="margin-left:auto;color:#888"></span>
+    </div>
+    <div id="all-view-content"></div>
   </div>
 </div>
 
@@ -502,6 +540,91 @@ document.getElementById('btn-copy').addEventListener('click', () => {{
 }});
 
 document.getElementById('btn-download').addEventListener('click', exportToWord);
+
+// ── 전체 보기 모달 ────────────────────────────────────────────────
+(function() {{
+  const modal = document.getElementById('all-view-modal');
+  const content = document.getElementById('all-view-content');
+  const srcSelect = document.getElementById('av-filter-src');
+  const noAnswerToggle = document.getElementById('av-no-answer-toggle');
+  const avCount = document.getElementById('av-count');
+
+  // B5_ITEMS is a flat list — group by _source for display
+  const srcMap = {{}};
+  B5_ITEMS.forEach(function(it) {{
+    const s = it._source || 'b5';
+    if (!srcMap[s]) srcMap[s] = [];
+    srcMap[s].push(it);
+  }});
+  const srcIds = Object.keys(srcMap);
+  srcIds.forEach(function(sid) {{
+    const opt = document.createElement('option');
+    opt.value = sid; opt.textContent = '[' + sid + ']';
+    srcSelect.appendChild(opt);
+  }});
+
+  function renderAll() {{
+    const filterSrc = srcSelect.value;
+    const hideNoAnswer = noAnswerToggle.checked;
+    content.innerHTML = '';
+    let total = 0;
+
+    srcIds.forEach(function(sid) {{
+      if (filterSrc && sid !== filterSrc) return;
+      const rows = srcMap[sid].filter(function(it) {{
+        return !(hideNoAnswer && !it.answer);
+      }});
+      if (!rows.length) return;
+      total += rows.length;
+
+      const block = document.createElement('div');
+      block.className = 'av-source-block';
+      block.innerHTML = '<div class="av-source-title">[' + sid + ']</div>';
+
+      const table = document.createElement('table');
+      table.className = 'av-table';
+      table.innerHTML = '<thead><tr><th style="width:36px">번호</th><th>법령 기준</th><th>준수계획서 답변</th></tr></thead>';
+      const tbody = document.createElement('tbody');
+
+      rows.forEach(function(it) {{
+        const tr = document.createElement('tr');
+        const ans = it.answer || '';
+        tr.innerHTML =
+          '<td class="av-marker">' + (it.marker || '') + '</td>' +
+          '<td class="av-text">' + (it.text || '') + '</td>' +
+          '<td class="av-answer' + (ans ? '' : ' empty') + '">' + (ans || '(답변 없음)') + '</td>';
+        tbody.appendChild(tr);
+      }});
+
+      table.appendChild(tbody);
+      block.appendChild(table);
+      content.appendChild(block);
+    }});
+
+    avCount.textContent = '총 ' + total + '건';
+  }}
+
+  document.getElementById('btn-all-view').addEventListener('click', function() {{
+    renderAll();
+    modal.style.display = 'block';
+    document.body.style.overflow = 'hidden';
+  }});
+
+  document.getElementById('btn-close-all').addEventListener('click', function() {{
+    modal.style.display = 'none';
+    document.body.style.overflow = '';
+  }});
+
+  modal.addEventListener('click', function(e) {{
+    if (e.target === modal) {{
+      modal.style.display = 'none';
+      document.body.style.overflow = '';
+    }}
+  }});
+
+  srcSelect.addEventListener('change', renderAll);
+  noAnswerToggle.addEventListener('change', renderAll);
+}})();
 
 async function exportToWord() {{
   if (!selectedIds.size) {{ alert('내보낼 항목을 선택해주세요.'); return; }}
