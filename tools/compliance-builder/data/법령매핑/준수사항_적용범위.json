@@ -4,7 +4,7 @@
     "description": "신고자·처리자 유형별 준수 별표 적용범위 매핑 (다이어그램 소스)",
     "status": "draft",
     "lastUpdated": "2026-04-22",
-    "completedAnnexes": ["별표5", "별표5의3", "별표5의4", "별표6"],
+    "completedAnnexes": ["별표5", "별표5의3", "별표5의4", "별표6", "별표7"],
     "pendingAnnexes": []
   },
 
@@ -125,6 +125,25 @@
         { "sectionNo": null, "title": "폐기물인계서 (배출자 → 수집운반 → 처분/재활용)", "wasteClass": null }
       ],
       "note": "의료폐기물은 RFID 방식으로 별도 처리 (법 제18조③ 단서). 일반 사업장폐기물에 적용."
+    },
+    {
+      "id": "A-별표7",
+      "annex": "별표7",
+      "title": "폐기물처리업의 시설·장비·기술능력 기준",
+      "legalChain": [
+        { "level": "법",       "article": "제25조③",   "label": "기후부령으로 정하는 기준에 따른 시설·장비·기술능력을 갖추어 허가" },
+        { "level": "시행규칙", "article": "제28조⑥",   "label": "별표7과 같다" }
+      ],
+      "sections": [
+        { "sectionNo": 1, "title": "폐기물 수집·운반업",    "bizType": ["TR"] },
+        { "sectionNo": 2, "title": "폐기물 중간처분업",      "bizType": ["ID"] },
+        { "sectionNo": 3, "title": "폐기물 최종처분업",      "bizType": ["FD"] },
+        { "sectionNo": 4, "title": "폐기물 중간재활용업",    "bizType": ["RTR"] },
+        { "sectionNo": 5, "title": "폐기물 최종재활용업",    "bizType": ["RCY"] },
+        { "sectionNo": 6, "title": "폐기물 종합처분업",      "bizType": ["ID", "FD"] },
+        { "sectionNo": 7, "title": "폐기물 종합재활용업",    "bizType": ["RTR", "RCY"] }
+      ],
+      "note": "폐기물처리 신고자 제외 (법 제25조① 명시). 허가 처리업자에게만 적용. 법 제25조⑥에 따라 제2~7호 허가자는 수집·운반업 허가 없이 자체 수집·운반 가능 (별표7 수집운반 기준도 준용)."
     }
   ],
 
@@ -212,6 +231,36 @@
       "annexId":   "A-별표5",
       "appliedSections": [1, 2],
       "note": "생활폐기물 처리자 → 섹션1, 2"
+    },
+    {
+      "subjectId": "S-허가-TR",
+      "annexId":   "A-별표7",
+      "appliedSections": [1],
+      "note": "수집·운반업 허가 기준 — 별표7 제1호"
+    },
+    {
+      "subjectId": "S-허가-RTR",
+      "annexId":   "A-별표7",
+      "appliedSections": [4, 7],
+      "note": "중간재활용업(4) 또는 종합재활용업(7) 허가 기준"
+    },
+    {
+      "subjectId": "S-허가-ID",
+      "annexId":   "A-별표7",
+      "appliedSections": [2, 6],
+      "note": "중간처분업(2) 또는 종합처분업(6) 허가 기준"
+    },
+    {
+      "subjectId": "S-허가-FD",
+      "annexId":   "A-별표7",
+      "appliedSections": [3, 6],
+      "note": "최종처분업(3) 또는 종합처분업(6) 허가 기준"
+    },
+    {
+      "subjectId": "S-허가-RCY",
+      "annexId":   "A-별표7",
+      "appliedSections": [5, 7],
+      "note": "최종재활용업(5) 또는 종합재활용업(7) 허가 기준"
     },
     {
       "subjectId": "S-허가-TR",
