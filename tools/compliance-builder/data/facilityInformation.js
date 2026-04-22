@@ -30,7 +30,8 @@ var FacilityMasterDB = [
     "facilityMethod": null,
     "bizType": ["ID"],
     "parentCode": null,
-    "capacityNote": null
+    "capacityNote": null,
+    "capacityMin": null
   },
 
   // ── 가. 소각시설 ──────────────────────────────────────────
@@ -41,7 +42,8 @@ var FacilityMasterDB = [
     "facilityMethod": "thermal",
     "bizType": ["ID"],
     "parentCode": "ID",
-    "capacityNote": null
+    "capacityNote": null,
+    "capacityMin": null
   },
   {
     "facilityCode": "ID-T-01",
@@ -50,7 +52,8 @@ var FacilityMasterDB = [
     "facilityMethod": "thermal",
     "bizType": ["ID"],
     "parentCode": "ID-T",
-    "capacityNote": null
+    "capacityNote": null,
+    "capacityMin": null
   },
   {
     "facilityCode": "ID-T-02",
@@ -59,7 +62,8 @@ var FacilityMasterDB = [
     "facilityMethod": "thermal",
     "bizType": ["ID"],
     "parentCode": "ID-T",
-    "capacityNote": null
+    "capacityNote": null,
+    "capacityMin": null
   },
   {
     "facilityCode": "ID-T-03",
@@ -68,7 +72,8 @@ var FacilityMasterDB = [
     "facilityMethod": "thermal",
     "bizType": ["ID"],
     "parentCode": "ID-T",
-    "capacityNote": null
+    "capacityNote": null,
+    "capacityMin": null
   },
   {
     "facilityCode": "ID-T-04",
@@ -77,7 +82,8 @@ var FacilityMasterDB = [
     "facilityMethod": "thermal",
     "bizType": ["ID"],
     "parentCode": "ID-T",
-    "capacityNote": null
+    "capacityNote": null,
+    "capacityMin": null
   },
   {
     "facilityCode": "ID-T-05",
@@ -86,7 +92,8 @@ var FacilityMasterDB = [
     "facilityMethod": "thermal",
     "bizType": ["ID"],
     "parentCode": "ID-T",
-    "capacityNote": "ID-T-01~04 중 둘 이상 조합"
+    "capacityNote": "ID-T-01~04 중 둘 이상 조합",
+    "capacityMin": null
   },
 
   // ── 나. 기계적 처분시설 ───────────────────────────────────
@@ -97,7 +104,8 @@ var FacilityMasterDB = [
     "facilityMethod": "mechanical",
     "bizType": ["ID"],
     "parentCode": "ID",
-    "capacityNote": null
+    "capacityNote": null,
+    "capacityMin": null
   },
   {
     "facilityCode": "ID-M-01",
@@ -106,7 +114,8 @@ var FacilityMasterDB = [
     "facilityMethod": "mechanical",
     "bizType": ["ID"],
     "parentCode": "ID-M",
-    "capacityNote": "동력 7.5kW 이상"
+    "capacityNote": "동력 7.5kW 이상",
+    "capacityMin": {"value": 7.5, "unit": "kW", "basis": "동력"}
   },
   {
     "facilityCode": "ID-M-02",
@@ -115,7 +124,8 @@ var FacilityMasterDB = [
     "facilityMethod": "mechanical",
     "bizType": ["ID"],
     "parentCode": "ID-M",
-    "capacityNote": "동력 15kW 이상"
+    "capacityNote": "동력 15kW 이상",
+    "capacityMin": {"value": 15, "unit": "kW", "basis": "동력"}
   },
   {
     "facilityCode": "ID-M-03",
@@ -124,7 +134,8 @@ var FacilityMasterDB = [
     "facilityMethod": "mechanical",
     "bizType": ["ID"],
     "parentCode": "ID-M",
-    "capacityNote": "동력 7.5kW 이상"
+    "capacityNote": "동력 7.5kW 이상",
+    "capacityMin": {"value": 7.5, "unit": "kW", "basis": "동력"}
   },
   {
     "facilityCode": "ID-M-04",
@@ -133,7 +144,8 @@ var FacilityMasterDB = [
     "facilityMethod": "mechanical",
     "bizType": ["ID"],
     "parentCode": "ID-M",
-    "capacityNote": "동력 7.5kW 이상"
+    "capacityNote": "동력 7.5kW 이상",
+    "capacityMin": {"value": 7.5, "unit": "kW", "basis": "동력"}
   },
   {
     "facilityCode": "ID-M-05",
@@ -142,7 +154,8 @@ var FacilityMasterDB = [
     "facilityMethod": "mechanical",
     "bizType": ["ID"],
     "parentCode": "ID-M",
-    "capacityNote": null
+    "capacityNote": null,
+    "capacityMin": null
   },
   {
     "facilityCode": "ID-M-06",
@@ -151,7 +164,8 @@ var FacilityMasterDB = [
     "facilityMethod": "mechanical",
     "bizType": ["ID"],
     "parentCode": "ID-M",
-    "capacityNote": "분리·증류·추출·여과 등 단위시설 포함"
+    "capacityNote": "분리·증류·추출·여과 등 단위시설 포함",
+    "capacityMin": null
   },
   {
     "facilityCode": "ID-M-07",
@@ -160,7 +174,8 @@ var FacilityMasterDB = [
     "facilityMethod": "mechanical",
     "bizType": ["ID"],
     "parentCode": "ID-M",
-    "capacityNote": null
+    "capacityNote": null,
+    "capacityMin": null
   },
   {
     "facilityCode": "ID-M-08",
@@ -169,7 +184,8 @@ var FacilityMasterDB = [
     "facilityMethod": "mechanical",
     "bizType": ["ID"],
     "parentCode": "ID-M",
-    "capacityNote": null
+    "capacityNote": null,
+    "capacityMin": null
   },
   {
     "facilityCode": "ID-M-09",
@@ -178,7 +194,8 @@ var FacilityMasterDB = [
     "facilityMethod": "mechanical",
     "bizType": ["ID"],
     "parentCode": "ID-M",
-    "capacityNote": null
+    "capacityNote": null,
+    "capacityMin": null
   },
 
   // ── 다. 화학적 처분시설 ───────────────────────────────────
@@ -189,7 +206,8 @@ var FacilityMasterDB = [
     "facilityMethod": "chemical",
     "bizType": ["ID"],
     "parentCode": "ID",
-    "capacityNote": null
+    "capacityNote": null,
+    "capacityMin": null
   },
   {
     "facilityCode": "ID-C-01",
@@ -198,7 +216,8 @@ var FacilityMasterDB = [
     "facilityMethod": "chemical",
     "bizType": ["ID"],
     "parentCode": "ID-C",
-    "capacityNote": null
+    "capacityNote": null,
+    "capacityMin": null
   },
   {
     "facilityCode": "ID-C-02",
@@ -207,7 +226,8 @@ var FacilityMasterDB = [
     "facilityMethod": "chemical",
     "bizType": ["ID"],
     "parentCode": "ID-C",
-    "capacityNote": "중화·산화·환원·중합·축합·치환 등 단위시설 포함"
+    "capacityNote": "중화·산화·환원·중합·축합·치환 등 단위시설 포함",
+    "capacityMin": null
   },
   {
     "facilityCode": "ID-C-03",
@@ -216,7 +236,8 @@ var FacilityMasterDB = [
     "facilityMethod": "chemical",
     "bizType": ["ID"],
     "parentCode": "ID-C",
-    "capacityNote": null
+    "capacityNote": null,
+    "capacityMin": null
   },
 
   // ── 라. 생물학적 처분시설 ─────────────────────────────────
@@ -227,7 +248,8 @@ var FacilityMasterDB = [
     "facilityMethod": "biological",
     "bizType": ["ID"],
     "parentCode": "ID",
-    "capacityNote": null
+    "capacityNote": null,
+    "capacityMin": null
   },
   {
     "facilityCode": "ID-B-01",
@@ -236,7 +258,8 @@ var FacilityMasterDB = [
     "facilityMethod": "biological",
     "bizType": ["ID"],
     "parentCode": "ID-B",
-    "capacityNote": "1일 처분능력 100kg 이상"
+    "capacityNote": "1일 처분능력 100kg 이상",
+    "capacityMin": {"value": 100, "unit": "kg/일", "basis": "1일 처분능력"}
   },
   {
     "facilityCode": "ID-B-02",
@@ -245,7 +268,8 @@ var FacilityMasterDB = [
     "facilityMethod": "biological",
     "bizType": ["ID"],
     "parentCode": "ID-B",
-    "capacityNote": null
+    "capacityNote": null,
+    "capacityMin": null
   },
 
   // ── 마. 기타 중간처분시설 (장관 고시) ────────────────────
@@ -256,7 +280,8 @@ var FacilityMasterDB = [
     "facilityMethod": null,
     "bizType": ["ID"],
     "parentCode": "ID",
-    "capacityNote": null
+    "capacityNote": null,
+    "capacityMin": null
   },
 
   // ══════════════════════════════════════════════════════════
@@ -269,7 +294,8 @@ var FacilityMasterDB = [
     "facilityMethod": null,
     "bizType": ["FD"],
     "parentCode": null,
-    "capacityNote": null
+    "capacityNote": null,
+    "capacityMin": null
   },
 
   // ── 가. 매립시설 ──────────────────────────────────────────
@@ -280,7 +306,8 @@ var FacilityMasterDB = [
     "facilityMethod": "landfill",
     "bizType": ["FD"],
     "parentCode": "FD",
-    "capacityNote": null
+    "capacityNote": null,
+    "capacityMin": null
   },
   {
     "facilityCode": "FD-L-01",
@@ -289,7 +316,8 @@ var FacilityMasterDB = [
     "facilityMethod": "landfill",
     "bizType": ["FD"],
     "parentCode": "FD-L",
-    "capacityNote": null
+    "capacityNote": null,
+    "capacityMin": null
   },
   {
     "facilityCode": "FD-L-02",
@@ -298,7 +326,8 @@ var FacilityMasterDB = [
     "facilityMethod": "landfill",
     "bizType": ["FD"],
     "parentCode": "FD-L",
-    "capacityNote": "침출수 처리시설·가스 소각·발전·연료화 시설 등 부대시설 포함"
+    "capacityNote": "침출수 처리시설·가스 소각·발전·연료화 시설 등 부대시설 포함",
+    "capacityMin": null
   },
 
   // ── 나. 기타 최종처분시설 (장관 고시) ────────────────────
@@ -309,7 +338,8 @@ var FacilityMasterDB = [
     "facilityMethod": null,
     "bizType": ["FD"],
     "parentCode": "FD",
-    "capacityNote": null
+    "capacityNote": null,
+    "capacityMin": null
   },
 
   // ══════════════════════════════════════════════════════════
@@ -322,7 +352,8 @@ var FacilityMasterDB = [
     "facilityMethod": null,
     "bizType": ["RCY"],
     "parentCode": null,
-    "capacityNote": null
+    "capacityNote": null,
+    "capacityMin": null
   },
 
   // ── 가. 기계적 재활용시설 ─────────────────────────────────
@@ -333,7 +364,8 @@ var FacilityMasterDB = [
     "facilityMethod": "mechanical",
     "bizType": ["RCY"],
     "parentCode": "RCY",
-    "capacityNote": null
+    "capacityNote": null,
+    "capacityMin": null
   },
   {
     "facilityCode": "RCY-M-01",
@@ -342,7 +374,8 @@ var FacilityMasterDB = [
     "facilityMethod": "mechanical",
     "bizType": ["RCY"],
     "parentCode": "RCY-M",
-    "capacityNote": "동력 7.5kW 이상"
+    "capacityNote": "동력 7.5kW 이상",
+    "capacityMin": {"value": 7.5, "unit": "kW", "basis": "동력"}
   },
   {
     "facilityCode": "RCY-M-02",
@@ -351,7 +384,8 @@ var FacilityMasterDB = [
     "facilityMethod": "mechanical",
     "bizType": ["RCY"],
     "parentCode": "RCY-M",
-    "capacityNote": "동력 15kW 이상"
+    "capacityNote": "동력 15kW 이상",
+    "capacityMin": {"value": 15, "unit": "kW", "basis": "동력"}
   },
   {
     "facilityCode": "RCY-M-03",
@@ -360,7 +394,8 @@ var FacilityMasterDB = [
     "facilityMethod": "mechanical",
     "bizType": ["RCY"],
     "parentCode": "RCY-M",
-    "capacityNote": "동력 7.5kW 이상"
+    "capacityNote": "동력 7.5kW 이상",
+    "capacityMin": {"value": 7.5, "unit": "kW", "basis": "동력"}
   },
   {
     "facilityCode": "RCY-M-04",
@@ -369,7 +404,8 @@ var FacilityMasterDB = [
     "facilityMethod": "mechanical",
     "bizType": ["RCY"],
     "parentCode": "RCY-M",
-    "capacityNote": "동력 7.5kW 이상"
+    "capacityNote": "동력 7.5kW 이상",
+    "capacityMin": {"value": 7.5, "unit": "kW", "basis": "동력"}
   },
   {
     "facilityCode": "RCY-M-05",
@@ -378,7 +414,8 @@ var FacilityMasterDB = [
     "facilityMethod": "mechanical",
     "bizType": ["RCY"],
     "parentCode": "RCY-M",
-    "capacityNote": null
+    "capacityNote": null,
+    "capacityMin": null
   },
   {
     "facilityCode": "RCY-M-06",
@@ -387,7 +424,8 @@ var FacilityMasterDB = [
     "facilityMethod": "mechanical",
     "bizType": ["RCY"],
     "parentCode": "RCY-M",
-    "capacityNote": null
+    "capacityNote": null,
+    "capacityMin": null
   },
   {
     "facilityCode": "RCY-M-07",
@@ -396,7 +434,8 @@ var FacilityMasterDB = [
     "facilityMethod": "mechanical",
     "bizType": ["RCY"],
     "parentCode": "RCY-M",
-    "capacityNote": "분리·증류·추출·여과 등 단위시설 포함"
+    "capacityNote": "분리·증류·추출·여과 등 단위시설 포함",
+    "capacityMin": null
   },
   {
     "facilityCode": "RCY-M-08",
@@ -405,7 +444,8 @@ var FacilityMasterDB = [
     "facilityMethod": "mechanical",
     "bizType": ["RCY"],
     "parentCode": "RCY-M",
-    "capacityNote": null
+    "capacityNote": null,
+    "capacityMin": null
   },
   {
     "facilityCode": "RCY-M-09",
@@ -414,7 +454,8 @@ var FacilityMasterDB = [
     "facilityMethod": "mechanical",
     "bizType": ["RCY"],
     "parentCode": "RCY-M",
-    "capacityNote": null
+    "capacityNote": null,
+    "capacityMin": null
   },
   {
     "facilityCode": "RCY-M-10",
@@ -423,7 +464,8 @@ var FacilityMasterDB = [
     "facilityMethod": "mechanical",
     "bizType": ["RCY"],
     "parentCode": "RCY-M",
-    "capacityNote": "철도용 폐목재 받침목 재활용 한정"
+    "capacityNote": "철도용 폐목재 받침목 재활용 한정",
+    "capacityMin": null
   },
 
   // ── 나. 화학적 재활용시설 ─────────────────────────────────
@@ -434,7 +476,8 @@ var FacilityMasterDB = [
     "facilityMethod": "chemical",
     "bizType": ["RCY"],
     "parentCode": "RCY",
-    "capacityNote": null
+    "capacityNote": null,
+    "capacityMin": null
   },
   {
     "facilityCode": "RCY-C-01",
@@ -443,7 +486,8 @@ var FacilityMasterDB = [
     "facilityMethod": "chemical",
     "bizType": ["RCY"],
     "parentCode": "RCY-C",
-    "capacityNote": null
+    "capacityNote": null,
+    "capacityMin": null
   },
   {
     "facilityCode": "RCY-C-02",
@@ -452,7 +496,8 @@ var FacilityMasterDB = [
     "facilityMethod": "chemical",
     "bizType": ["RCY"],
     "parentCode": "RCY-C",
-    "capacityNote": "중화·산화·환원·중합·축합·치환 등 단위시설 포함"
+    "capacityNote": "중화·산화·환원·중합·축합·치환 등 단위시설 포함",
+    "capacityMin": null
   },
   {
     "facilityCode": "RCY-C-03",
@@ -461,7 +506,8 @@ var FacilityMasterDB = [
     "facilityMethod": "chemical",
     "bizType": ["RCY"],
     "parentCode": "RCY-C",
-    "capacityNote": null
+    "capacityNote": null,
+    "capacityMin": null
   },
   {
     "facilityCode": "RCY-C-04",
@@ -470,7 +516,8 @@ var FacilityMasterDB = [
     "facilityMethod": "chemical",
     "bizType": ["RCY"],
     "parentCode": "RCY-C",
-    "capacityNote": "가스화시설 포함"
+    "capacityNote": "가스화시설 포함",
+    "capacityMin": null
   },
 
   // ── 다. 생물학적 재활용시설 ───────────────────────────────
@@ -481,7 +528,8 @@ var FacilityMasterDB = [
     "facilityMethod": "biological",
     "bizType": ["RCY"],
     "parentCode": "RCY",
-    "capacityNote": null
+    "capacityNote": null,
+    "capacityMin": null
   },
   {
     "facilityCode": "RCY-B-01",
@@ -490,7 +538,8 @@ var FacilityMasterDB = [
     "facilityMethod": "biological",
     "bizType": ["RCY"],
     "parentCode": "RCY-B",
-    "capacityNote": "1일 재활용능력 100kg 이상"
+    "capacityNote": "1일 재활용능력 100kg 이상",
+    "capacityMin": {"value": 100, "unit": "kg/일", "basis": "1일 재활용능력"}
   },
   {
     "facilityCode": "RCY-B-01A",
@@ -499,7 +548,8 @@ var FacilityMasterDB = [
     "facilityMethod": "biological",
     "bizType": ["RCY"],
     "parentCode": "RCY-B-01",
-    "capacityNote": "1일 100kg 이상 (100kg~200kg 음식물류 폐기물 부숙시설 제외)"
+    "capacityNote": "1일 100kg 이상 (100kg~200kg 음식물류 폐기물 부숙시설 제외)",
+    "capacityMin": {"value": 100, "unit": "kg/일", "basis": "1일 재활용능력"}
   },
   {
     "facilityCode": "RCY-B-01B",
@@ -508,7 +558,8 @@ var FacilityMasterDB = [
     "facilityMethod": "biological",
     "bizType": ["RCY"],
     "parentCode": "RCY-B-01",
-    "capacityNote": "건조에 의한 사료화 시설 포함"
+    "capacityNote": "건조에 의한 사료화 시설 포함",
+    "capacityMin": null
   },
   {
     "facilityCode": "RCY-B-01C",
@@ -517,7 +568,8 @@ var FacilityMasterDB = [
     "facilityMethod": "biological",
     "bizType": ["RCY"],
     "parentCode": "RCY-B-01",
-    "capacityNote": "건조 퇴비화·지렁이분변토·생석회 처리시설 포함"
+    "capacityNote": "건조 퇴비화·지렁이분변토·생석회 처리시설 포함",
+    "capacityMin": null
   },
   {
     "facilityCode": "RCY-B-01D",
@@ -526,7 +578,8 @@ var FacilityMasterDB = [
     "facilityMethod": "biological",
     "bizType": ["RCY"],
     "parentCode": "RCY-B-01",
-    "capacityNote": null
+    "capacityNote": null,
+    "capacityMin": null
   },
   {
     "facilityCode": "RCY-B-01E",
@@ -535,7 +588,8 @@ var FacilityMasterDB = [
     "facilityMethod": "biological",
     "bizType": ["RCY"],
     "parentCode": "RCY-B-01",
-    "capacityNote": null
+    "capacityNote": null,
+    "capacityMin": null
   },
   {
     "facilityCode": "RCY-B-02",
@@ -544,7 +598,8 @@ var FacilityMasterDB = [
     "facilityMethod": "biological",
     "bizType": ["RCY"],
     "parentCode": "RCY-B",
-    "capacityNote": null
+    "capacityNote": null,
+    "capacityMin": null
   },
   {
     "facilityCode": "RCY-B-03",
@@ -553,7 +608,8 @@ var FacilityMasterDB = [
     "facilityMethod": "biological",
     "bizType": ["RCY"],
     "parentCode": "RCY-B",
-    "capacityNote": null
+    "capacityNote": null,
+    "capacityMin": null
   },
 
   // ── 라~카. 기타 재활용시설 ────────────────────────────────
@@ -564,7 +620,8 @@ var FacilityMasterDB = [
     "facilityMethod": "kiln",
     "bizType": ["RCY"],
     "parentCode": "RCY",
-    "capacityNote": null
+    "capacityNote": null,
+    "capacityMin": null
   },
   {
     "facilityCode": "RCY-S",
@@ -573,7 +630,8 @@ var FacilityMasterDB = [
     "facilityMethod": "smelting",
     "bizType": ["RCY"],
     "parentCode": "RCY",
-    "capacityNote": "폐기물에서 비철금속 추출 한정"
+    "capacityNote": "폐기물에서 비철금속 추출 한정",
+    "capacityMin": null
   },
   {
     "facilityCode": "RCY-P",
@@ -582,7 +640,8 @@ var FacilityMasterDB = [
     "facilityMethod": "sintering",
     "bizType": ["RCY"],
     "parentCode": "RCY",
-    "capacityNote": "시멘트 소성로 제외"
+    "capacityNote": "시멘트 소성로 제외",
+    "capacityMin": null
   },
   {
     "facilityCode": "RCY-G",
@@ -591,7 +650,8 @@ var FacilityMasterDB = [
     "facilityMethod": "aggregate",
     "bizType": ["RCY"],
     "parentCode": "RCY",
-    "capacityNote": null
+    "capacityNote": null,
+    "capacityMin": null
   },
   {
     "facilityCode": "RCY-PH",
@@ -600,7 +660,8 @@ var FacilityMasterDB = [
     "facilityMethod": "pharmaceutical",
     "bizType": ["RCY"],
     "parentCode": "RCY",
-    "capacityNote": null
+    "capacityNote": null,
+    "capacityMin": null
   },
   {
     "facilityCode": "RCY-H",
@@ -609,7 +670,8 @@ var FacilityMasterDB = [
     "facilityMethod": "heatRecovery",
     "bizType": ["RCY"],
     "parentCode": "RCY",
-    "capacityNote": "시간당 재활용능력 200kg 이상 (법 제13조의2제1항제5호 에너지회수 시설)"
+    "capacityNote": "시간당 재활용능력 200kg 이상 (법 제13조의2제1항제5호 에너지회수 시설)",
+    "capacityMin": {"value": 200, "unit": "kg/hr", "basis": "시간당 재활용능력"}
   },
   {
     "facilityCode": "RCY-HG",
@@ -618,7 +680,8 @@ var FacilityMasterDB = [
     "facilityMethod": "mercuryRecovery",
     "bizType": ["RCY"],
     "parentCode": "RCY",
-    "capacityNote": null
+    "capacityNote": null,
+    "capacityMin": null
   },
   {
     "facilityCode": "RCY-SE",
@@ -627,7 +690,8 @@ var FacilityMasterDB = [
     "facilityMethod": "sorting",
     "bizType": ["RCY"],
     "parentCode": "RCY",
-    "capacityNote": "재활용 가능 폐기물 선별 시설"
+    "capacityNote": "재활용 가능 폐기물 선별 시설",
+    "capacityMin": null
   }
 
 ];
