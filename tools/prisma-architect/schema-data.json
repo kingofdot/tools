@@ -3643,7 +3643,7 @@
         "dbColumn": "wasteCode",
         "syncGroup": "",
         "onClick": "",
-        "onChange": "lookupWaste",
+        "onChange": "lookupWaste,mergeWasteName",
         "focusOut": "",
         "realtime": ""
       },
@@ -3665,7 +3665,7 @@
         "dbColumn": "wasteName",
         "syncGroup": "",
         "onClick": "",
-        "onChange": "lookupWasteByName",
+        "onChange": "lookupWasteByName,mergeWasteName",
         "focusOut": "",
         "realtime": ""
       },
@@ -5737,6 +5737,22 @@
       "outputDesc": ""
     },
     {
+      "name": "mergeWasteName",
+      "desc": "폐기물코드·명칭을 합쳐 wasteMergeName 생성 — (코드)명칭 형식",
+      "params": [
+        {
+          "name": "wasteCode",
+          "desc": ""
+        },
+        {
+          "name": "wasteName",
+          "desc": ""
+        }
+      ],
+      "outputType": "string",
+      "outputDesc": ""
+    },
+    {
       "name": "calcStorageAmount",
       "desc": "부피(volume)와 개수(quantity)로 저장용량을 계산합니다",
       "params": [
@@ -5945,5 +5961,5 @@
     }
   ],
   "annotations": [],
-  "savedAt": "2026. 4. 17. 오후 2:19:37"
+  "savedAt": "2026. 4. 23. 오후 3:05:41"
 }
