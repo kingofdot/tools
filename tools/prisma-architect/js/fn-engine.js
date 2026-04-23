@@ -60,13 +60,18 @@ function runOnChange(modelName, changedField, rowIndex, { calcOnly = false } = {
   const explicit  = (fieldMeta.onChange || '').trim()
     .split(',').map(s => s.trim()).filter(Boolean);
 
-  // watch 기반 자동 트리거 — Calculation(outputField 보유)만, 루프 위험 있는 Lookup/Options는 제외
-  // outputField가 현재 모델 메타에 실제 존재할 때만 붙여 cross-model 오염 방지
+  // watch 기반 자동 트리거
+  //   - Calculation(outputField): 현재 모델 메타에 outputField가 있을 때만 (cross-model 오염 방지)
+  //   - HeaderControl: DOM 가시성만 건드리므로 루프 위험 없음 — 무조건 허용
+  //   - Lookup(outputFields)/Options(optionsOutput): 값을 건드려 루프 가능 → 제외 (명시 onChange 필요)
   const modelMeta = metaStore[modelName] || {};
   const auto = FunctionRegistry.findByWatch(changedField).filter(fnName => {
     if (explicit.includes(fnName)) return false;
     const def = FunctionRegistry.get(fnName);
-    return def && def.outputField && (def.outputField in modelMeta);
+    if (!def) return false;
+    if (def.headerControl) return true;
+    if (def.outputField && (def.outputField in modelMeta)) return true;
+    return false;
   });
 
   const toRun = [...explicit, ...auto];
