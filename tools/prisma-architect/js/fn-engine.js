@@ -237,10 +237,28 @@ function _executeHeaderControl(modelName, fnName, rowIndex) {
 
   const { targets = [], rules = {} } = def.headerControl;
   const watchField = (def.watch || [])[0];
-  const el  = document.querySelector(_mockfieldSelector(modelName, watchField, rowIndex));
-  const val = el?.value ?? '';
 
-  const visible = new Set(rules[val] || []);
+  // 엑셀 뷰: 여러 행이 각자 값을 가지므로 전체 행을 훑어 "합집합(OR)" 으로 visible 결정
+  //   어떤 행이든 해당 컬럼을 필요로 하면 컬럼 표시 (최대 조건)
+  // 1:1 폼: 행이 하나뿐이니 그 값 하나만 보면 동일하게 동작
+  const allEls = document.querySelectorAll(`[data-mockfield^="${modelName}.${watchField}"]`);
+  const visible = new Set();
+  if (allEls.length === 0) {
+    // DOM에 없으면 현재 rowIndex만 확인 (fallback)
+    const el = document.querySelector(_mockfieldSelector(modelName, watchField, rowIndex));
+    const v = el?.value ?? '';
+    (rules[v] || []).forEach(h => visible.add(h));
+  } else {
+    allEls.forEach(el => {
+      // data-mockfield 가 정확히 watchField 자체이거나 watchField.{rowIndex} 인 것만
+      const key = el.getAttribute('data-mockfield') || '';
+      const expectForm = `${modelName}.${watchField}`;
+      const expectRow  = `${modelName}.${watchField}.`;
+      if (key !== expectForm && !key.startsWith(expectRow)) return;
+      const v = el.value ?? '';
+      (rules[v] || []).forEach(h => visible.add(h));
+    });
+  }
 
   if (!headerVisibilityStore[modelName]) headerVisibilityStore[modelName] = {};
   targets.forEach(h => { headerVisibilityStore[modelName][h] = !visible.has(h); });

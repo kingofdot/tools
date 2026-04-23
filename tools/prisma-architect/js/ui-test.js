@@ -308,8 +308,19 @@ function renderUiTestPreview() {
   // calculation 컬럼 소수점 포매팅 적용 (store는 raw, display만 포매팅)
   _applyAllDecimalFormatting();
 
-  // headerControl 함수로 설정된 컬럼 visibility 복원 (re-render 후에도 유지)
+  // headerControl: 초기 렌더 시 각 모델의 watch 필드 값 기준으로 visibility 계산
+  //   onChange 트리거를 기다리지 않고도 첫 그림에서 Shape별 컬럼 정리가 되도록
   checkedNames.forEach(name => {
+    const modelMeta = metaStore[name] || {};
+    Object.values(FunctionRegistry._store).forEach(def => {
+      if (!def.headerControl) return;
+      const watchField = (def.watch || [])[0];
+      if (!watchField || !(watchField in modelMeta)) return;
+      const fnName = Object.keys(FunctionRegistry._store).find(k => FunctionRegistry._store[k] === def);
+      if (fnName && typeof _executeHeaderControl === 'function') {
+        _executeHeaderControl(name, fnName, null);
+      }
+    });
     if (typeof _applyHeaderVisibility === 'function') _applyHeaderVisibility(name);
   });
 }
