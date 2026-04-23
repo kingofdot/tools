@@ -3,92 +3,126 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <meta name="theme-color" content="#1f2937">
+  <meta name="theme-color" content="#2b5240">
   <meta name="tool-name" content="Study Notes">
   <meta name="tool-tag" content="Notes">
-  <meta name="tool-description" content="GitHub을 백업 서버로 쓰는 개인 공부 노트 — 들여쓰기 자동 번호, 법조문·판례 뱃지, PWA 지원">
-  <title>Study Notes</title>
+  <meta name="tool-description" content="學習錄 — 종이·만년필 그린 디자인의 개인 공부 노트 (GitHub 백업 + PWA)">
+  <title>學習錄 · Study Notes</title>
   <link rel="manifest" href="manifest.json">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/variable/pretendardvariable.min.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=JetBrains+Mono:wght@400;500&display=swap">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-  <!-- 상단바 -->
-  <header class="topbar">
-    <button class="icon-btn mobile-only" id="toggleSidebarBtn" title="목록">≡</button>
-    <h1 class="brand">Study Notes</h1>
-    <div class="search-inline">
-      <input type="search" id="searchInput" placeholder="검색 (과목·주제·두문자·내용)">
-    </div>
-    <div class="topbar-actions">
-      <span class="sync-state" id="syncState" title="동기화 상태">●</span>
-      <button class="icon-btn" id="syncBtn" title="동기화 (Ctrl+S)">⇅</button>
-      <button class="icon-btn" id="shortcutsBtn" title="단축키 (?)">⌨</button>
-      <button class="icon-btn" id="settingsBtn" title="설정 (Ctrl+,)">⚙</button>
-    </div>
-  </header>
+  <main class="library">
 
-  <!-- 과목 탭 (맨 위 고정) -->
-  <nav class="subject-tabs" id="subjectTabs" title="Alt+1~9 로 전환"></nav>
-
-  <main class="workspace">
-
-    <!-- 좌측: 같은 과목의 노트 목록 (세로, 드래그 정렬) -->
-    <aside class="sidebar" id="sidebar">
-      <div class="sidebar-header">
-        <button class="btn btn-primary btn-sm" id="newNoteBtn">+ 새 노트</button>
+    <!-- ── 좌: 과목 레일 ── -->
+    <aside class="subject-rail" id="subjectRail">
+      <div class="rail-brand">
+        <div class="brand-han">學習錄</div>
+        <div class="brand-en">STUDY · 2026</div>
       </div>
-      <ol class="note-list" id="noteList"></ol>
+
+      <div class="rail-section-label">과목</div>
+      <nav class="subject-list" id="subjectList"></nav>
+
+      <div class="rail-footer">
+        <span class="sync-pill">
+          <span class="sync-dot" id="syncState"></span>
+          <span id="syncStateLabel">동기화됨</span>
+        </span>
+        <span class="rail-actions">
+          <button class="rail-btn" id="syncBtn" title="동기화 (Ctrl+S)">⇅</button>
+          <button class="rail-btn" id="shortcutsBtn" title="단축키 (?)">⌨</button>
+          <button class="rail-btn" id="settingsBtn" title="설정 (Ctrl+,)">⚙</button>
+        </span>
+      </div>
     </aside>
 
-    <!-- 우측: 편집/보기 -->
-    <section class="editor-pane">
-
-      <div class="meta-row">
-        <label class="meta-field">
-          <span>과목</span>
-          <input type="text" id="subjectInput" list="subjectList" placeholder="예: 민법">
-          <datalist id="subjectList"></datalist>
-        </label>
-        <label class="meta-field meta-grow">
-          <span>주제</span>
-          <input type="text" id="topicInput" placeholder="예: 매매의 효력">
-        </label>
-        <label class="meta-field">
-          <span>두문자</span>
-          <input type="text" id="mnemonicInput" placeholder="예: 재대과">
-        </label>
-        <div class="view-toggle" role="group">
-          <button class="view-btn active" data-mode="study" title="보기 (Ctrl+E로 전환)">📖 보기</button>
-          <button class="view-btn" data-mode="edit" title="편집 (Ctrl+E로 전환)">✏ 편집</button>
+    <!-- ── 중: 노트 목록 ── -->
+    <section class="note-column">
+      <header class="note-column-header">
+        <div class="note-column-title">
+          <span id="activeSubjectName">과목</span>
+          <button class="add-note-btn" id="newNoteBtn" title="새 노트 (Ctrl+N)">＋ 새 노트</button>
         </div>
-        <button class="icon-btn danger" id="deleteNoteBtn" title="이 노트 삭제 (Ctrl+Del)">🗑</button>
-      </div>
-
-      <div class="study-area" id="studyArea">
-
-        <!-- 보기 모드 -->
-        <article id="preview" class="preview"></article>
-
-        <!-- 편집 모드 -->
-        <div class="edit-area" id="editArea" hidden>
-          <textarea id="bodyInput" spellcheck="false"
-            placeholder="제목을 쓰고 Enter, Tab으로 들여쓰기, Shift+Tab으로 내어쓰기.&#10;번호는 자동으로 매겨집니다."></textarea>
-          <aside class="edit-preview" id="editPreview"></aside>
+        <div class="search-box">
+          <span class="search-icon">⌕</span>
+          <input type="search" id="searchInput" placeholder="검색… (주제·본문·두문자)">
         </div>
+      </header>
+      <ol class="note-list" id="noteList"></ol>
+    </section>
 
+    <!-- ── 우: 편집/보기 ── -->
+    <section class="paper-column">
+      <header class="paper-toolbar">
+        <div class="breadcrumb">
+          <span class="breadcrumb-subject" id="breadcrumbSubject">—</span>
+          <span class="breadcrumb-sep">›</span>
+          <span class="breadcrumb-topic" id="breadcrumbTopic">선택된 노트 없음</span>
+        </div>
+        <div class="toolbar-right">
+          <div class="view-toggle" role="group">
+            <button class="view-btn active" data-mode="study" title="보기 (Ctrl+E)">📖 보기</button>
+            <button class="view-btn" data-mode="edit" title="편집 (Ctrl+E)">✏ 편집</button>
+          </div>
+          <button class="rail-btn danger" id="deleteNoteBtn" title="이 노트 삭제 (Ctrl+Del)">🗑</button>
+        </div>
+      </header>
+
+      <div class="paper-scroll">
+        <article class="paper" id="paper">
+
+          <!-- 표지 -->
+          <header class="paper-cover" id="paperCover">
+            <div class="paper-subject" id="paperSubject"></div>
+            <input type="text" id="topicInput" class="paper-title-input" placeholder="주제를 입력하세요...">
+            <div class="paper-mnemonic-row" id="mnemonicRow">
+              <span class="mnemonic-label">두문자</span>
+              <input type="text" id="mnemonicInput" class="paper-mnemonic-input" placeholder="예: 재대과">
+            </div>
+            <div class="paper-subject-row">
+              <span class="subject-label">과목</span>
+              <input type="text" id="subjectInput" list="subjectDataList" class="paper-subject-input" placeholder="예: 민법">
+              <datalist id="subjectDataList"></datalist>
+            </div>
+          </header>
+
+          <!-- 본문 -->
+          <section class="paper-body">
+            <!-- 보기 모드: 트리 -->
+            <div id="preview" class="preview"></div>
+            <!-- 편집 모드: textarea + 미리보기 -->
+            <div class="edit-area" id="editArea" hidden>
+              <textarea id="bodyInput" spellcheck="false"
+                placeholder="제목을 쓰고 Enter, Tab으로 들여쓰기, Shift+Tab으로 내어쓰기.&#10;번호는 자동으로 매겨집니다."></textarea>
+              <div class="edit-preview"><div id="editPreview" class="preview"></div></div>
+            </div>
+          </section>
+
+          <footer class="paper-footer">
+            <span class="paper-date" id="paperDate"></span>
+            <span class="paper-fin">— 學 —</span>
+          </footer>
+        </article>
       </div>
-
     </section>
 
   </main>
+
+  <!-- 모바일 좌측 토글 -->
+  <button class="mobile-rail-toggle mobile-only" id="toggleSidebarBtn" title="과목/목록">≡</button>
 
   <!-- 설정 모달 -->
   <div class="modal-overlay" id="settingsModal" hidden>
     <div class="modal">
       <div class="modal-header">
-        <h2>설정</h2>
-        <button class="icon-btn" data-close-modal="settingsModal">✕</button>
+        <h2>設定 · 설정</h2>
+        <button class="rail-btn" data-close-modal="settingsModal">✕</button>
       </div>
       <div class="modal-body">
         <label class="form-row">
@@ -102,12 +136,12 @@
         <label class="form-row">
           <span>파일 경로</span>
           <input type="text" id="ghPath" placeholder="tools/study-notes/notes-data.json">
-          <small>이미 존재하는 저장소 안의 경로 — 새 저장소 만들 필요 없음</small>
+          <small>이미 존재하는 저장소 안의 경로</small>
         </label>
         <label class="form-row">
           <span>Personal Access Token</span>
           <input type="password" id="ghToken" placeholder="github_pat_... (Contents: R&W)">
-          <small>fine-grained PAT — 위 저장소의 Contents: Read & Write 권한</small>
+          <small>fine-grained PAT — 위 저장소의 Contents: Read & Write</small>
         </label>
         <label class="form-row form-row-inline">
           <input type="checkbox" id="ghAutoSync">
@@ -121,46 +155,42 @@
     </div>
   </div>
 
-  <!-- 단축키 도움말 모달 -->
+  <!-- 단축키 모달 -->
   <div class="modal-overlay" id="shortcutsModal" hidden>
     <div class="modal modal-wide">
       <div class="modal-header">
         <h2>⌨ 단축키</h2>
-        <button class="icon-btn" data-close-modal="shortcutsModal">✕</button>
+        <button class="rail-btn" data-close-modal="shortcutsModal">✕</button>
       </div>
       <div class="modal-body shortcut-body">
         <div class="sc-section">
           <h3>전역</h3>
-          <div class="sc-row"><kbd>Ctrl</kbd>+<kbd>E</kbd><span>보기 ↔ 편집 모드 토글</span></div>
+          <div class="sc-row"><kbd>Ctrl</kbd>+<kbd>E</kbd><span>보기 ↔ 편집</span></div>
           <div class="sc-row"><kbd>Ctrl</kbd>+<kbd>N</kbd><span>새 노트 (현재 과목)</span></div>
           <div class="sc-row"><kbd>Ctrl</kbd>+<kbd>S</kbd><span>GitHub 동기화</span></div>
           <div class="sc-row"><kbd>Ctrl</kbd>+<kbd>K</kbd><span>검색창 포커스</span></div>
-          <div class="sc-row"><kbd>Ctrl</kbd>+<kbd>,</kbd><span>설정 열기</span></div>
+          <div class="sc-row"><kbd>Ctrl</kbd>+<kbd>,</kbd><span>설정</span></div>
           <div class="sc-row"><kbd>Ctrl</kbd>+<kbd>Del</kbd><span>현재 노트 삭제</span></div>
-          <div class="sc-row"><kbd>?</kbd><span>이 도움말 열기</span></div>
+          <div class="sc-row"><kbd>?</kbd><span>이 도움말</span></div>
         </div>
         <div class="sc-section">
-          <h3>과목 탭</h3>
-          <div class="sc-row"><kbd>Alt</kbd>+<kbd>1</kbd>~<kbd>9</kbd><span>과목 탭 순서대로 전환</span></div>
-          <div class="sc-row"><kbd>Alt</kbd>+<kbd>←</kbd>/<kbd>→</kbd><span>이전 / 다음 과목 탭</span></div>
+          <h3>이동</h3>
+          <div class="sc-row"><kbd>Alt</kbd>+<kbd>1</kbd>~<kbd>9</kbd><span>N번째 과목으로</span></div>
+          <div class="sc-row"><kbd>Alt</kbd>+<kbd>←</kbd>/<kbd>→</kbd><span>이전 / 다음 과목</span></div>
+          <div class="sc-row"><kbd>Alt</kbd>+<kbd>↑</kbd>/<kbd>↓</kbd><span>이전 / 다음 노트</span></div>
         </div>
         <div class="sc-section">
-          <h3>노트 목록</h3>
-          <div class="sc-row"><kbd>Alt</kbd>+<kbd>↑</kbd>/<kbd>↓</kbd><span>이전 / 다음 노트 열기</span></div>
-          <div class="sc-row"><span class="sc-hint">드래그 핸들 ⋮⋮ 로 순서 변경</span></div>
-        </div>
-        <div class="sc-section">
-          <h3>본문 편집 (편집 모드)</h3>
-          <div class="sc-row"><kbd>Tab</kbd><span>들여쓰기 (깊이 +1)</span></div>
-          <div class="sc-row"><kbd>Shift</kbd>+<kbd>Tab</kbd><span>내어쓰기 (깊이 -1)</span></div>
-          <div class="sc-row"><kbd>Enter</kbd><span>새 줄 (직전 들여쓰기 유지)</span></div>
+          <h3>본문 입력</h3>
+          <div class="sc-row"><kbd>Tab</kbd><span>들여쓰기 +1</span></div>
+          <div class="sc-row"><kbd>Shift</kbd>+<kbd>Tab</kbd><span>들여쓰기 -1</span></div>
+          <div class="sc-row"><kbd>Enter</kbd><span>새 줄 (들여쓰기 유지)</span></div>
         </div>
         <div class="sc-section">
           <h3>자동 포맷</h3>
-          <div class="sc-row"><span class="sc-hint">깊이별 번호: <b>I</b> → <b>1.</b> → <b>1)</b> → <b>①</b> → <b>가.</b></span></div>
-          <div class="sc-row"><span class="sc-hint">법조문 <code>(제○조 제○항)</code> / 판례 <code>○○다○○○○</code> 자동 뱃지</span></div>
-          <div class="sc-row"><span class="sc-hint">선두 <code>1.2.1.</code> 같은 번호는 자동 무시 + 점 개수로 깊이 추정 (복붙용)</span></div>
-          <div class="sc-row"><kbd>`</kbd><span>줄 맨 앞 백틱 → 번호 없는 본문 (대제목 아래 바로 설명용)</span></div>
+          <div class="sc-row"><span class="sc-hint">깊이별: <b>I</b> → <b>1.</b> → <b>1)</b> → <b>①</b> → <b>가.</b></span></div>
+          <div class="sc-row"><span class="sc-hint">법조문 <code>(제○조)</code> · 판례 <code>○○다○○○○</code> 자동 뱃지</span></div>
+          <div class="sc-row"><span class="sc-hint">선두 <code>1.2.1.</code> 자동 무시 + 점 개수로 깊이 추정</span></div>
+          <div class="sc-row"><kbd>`</kbd><span>줄 맨 앞 → 번호 없는 본문</span></div>
         </div>
       </div>
       <div class="modal-footer">

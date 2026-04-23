@@ -26,7 +26,7 @@ function closeModal(id) {
 function bindGlobal() {
   // 모바일 사이드바 토글
   document.getElementById('toggleSidebarBtn')?.addEventListener('click', () => {
-    document.getElementById('sidebar').classList.toggle('open');
+    document.querySelector('.library')?.classList.toggle('show-rail');
   });
 
   // 새 노트 — 현재 활성 과목으로, 편집 모드로 전환

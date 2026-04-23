@@ -76,6 +76,9 @@ function setViewMode(mode) {
   }
 }
 
+// sync-state 점은 rail 안의 .sync-dot로 이동
+// (setSyncState가 #syncState를 찾아 클래스 토글하므로 그대로 동작)
+
 function handleTab(ta, isShift) {
   const v = ta.value;
   const start = ta.selectionStart, end = ta.selectionEnd;
@@ -180,7 +183,11 @@ function loadNoteIntoEditor(id) {
 
 function setSyncState(state) {
   const el = document.getElementById('syncState');
+  if (!el) return;
   el.classList.remove('synced', 'dirty', 'error');
   if (state) el.classList.add(state);
-  el.title = { synced: '동기화됨', dirty: '저장 대기', error: '오류' }[state] || '';
+  const label = { synced: '동기화됨', dirty: '저장 대기', error: '오류' }[state] || '';
+  el.title = label;
+  const $lbl = document.getElementById('syncStateLabel');
+  if ($lbl) $lbl.textContent = label || '동기화됨';
 }

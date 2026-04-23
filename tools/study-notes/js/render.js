@@ -1,69 +1,60 @@
 // === RENDER ===
-// 트리 → HTML
+// 트리 → HTML (ol/li 기반)
 
-function renderTree(nodes) {
-  if (!nodes.length) {
-    return '<div class="preview-empty">📖 편집 모드(✏ 편집)에서 내용을 작성하면 여기에 표시됩니다.<br>Tab/Shift+Tab으로 들여쓰기 단계 조절.</div>';
-  }
-  return nodes.map(renderNode).join('');
+function renderTree(nodes, depth = 0) {
+  if (!nodes.length) return '';
+  return `<ol>${nodes.map(n => renderNode(n, depth)).join('')}</ol>`;
 }
 
-function renderNode(node) {
+function renderNode(node, depth) {
   const nameHtml = highlightInline(node.name);
-  const childrenHtml = node.children.length
-    ? `<div class="children">${node.children.map(renderNode).join('')}</div>`
-    : '';
+  const childrenHtml = node.children.length ? renderTree(node.children, depth + 1) : '';
+
   if (node.noMarker) {
-    // 번호 없는 본문 — depth 3 본문 크기로 렌더
-    return `
-      <div class="item no-marker depth-3">
-        <div class="item-body">${nameHtml}</div>
-        ${childrenHtml}
-      </div>
-    `;
-  }
-  return `
-    <div class="item depth-${Math.min(node.depth, 4)}">
-      <div class="item-title">
-        <span class="item-num">${node.marker}</span>
-        <span class="item-name">${nameHtml}</span>
+    return `<li data-depth="${depth}">
+      <div class="item-line no-marker" data-depth="${Math.max(depth, 3)}">
+        <span class="item-text">${nameHtml}</span>
       </div>
       ${childrenHtml}
-    </div>
-  `;
-}
-
-function buildPreviewHtml(noteOrNull) {
-  const raw = document.getElementById('bodyInput').value;
-  const tree = numberTree(parseBody(raw));
-  let inner = renderTree(tree);
-
-  // 보기 모드에서만 헤더(주제·두문자) 표시
-  let header = '';
-  if (viewMode === 'study' && noteOrNull) {
-    const t = noteOrNull.topic || '';
-    const m = noteOrNull.mnemonic || '';
-    if (t || m) {
-      header = `<header class="doc-header">
-        ${t ? `<div class="doc-title">${esc(t)}</div>` : ''}
-        ${m ? `<div class="doc-mnemonic">${esc(m)}</div>` : ''}
-      </header>`;
-    }
+    </li>`;
   }
 
-  let html = header + inner;
+  return `<li data-depth="${depth}">
+    <div class="item-line" data-depth="${Math.min(depth, 4)}">
+      <span class="item-marker">${node.marker || ''}</span>
+      <span class="item-text">${nameHtml}</span>
+    </div>
+    ${childrenHtml}
+  </li>`;
+}
+
+function buildPreviewHtml() {
+  const raw = document.getElementById('bodyInput').value;
+  const tree = numberTree(parseBody(raw));
+  let html = renderTree(tree);
+  if (!html) html = '<div class="note-list-empty" style="padding:60px 0">📖 내용을 입력하세요. Tab으로 들여쓰기.</div>';
   if (searchQuery) html = highlightSearch(html, searchQuery);
   return html;
 }
 
 function renderPreview() {
-  const note = currentId ? findNote(currentId) : null;
-  const html = buildPreviewHtml(note);
+  const html = buildPreviewHtml();
   document.getElementById('preview').innerHTML = html;
-  // 편집 모드의 라이브 미리보기도 같은 트리 (헤더 제외)
   const $ep = document.getElementById('editPreview');
-  if ($ep) {
-    const treeOnly = renderTree(numberTree(parseBody(document.getElementById('bodyInput').value)));
-    $ep.innerHTML = `<div class="preview">${searchQuery ? highlightSearch(treeOnly, searchQuery) : treeOnly}</div>`;
+  if ($ep) $ep.innerHTML = html;
+
+  // 표지(주제·두문자) + 빵부스러기 갱신
+  if (currentId) {
+    const n = findNote(currentId);
+    if (n) {
+      const $bcS = document.getElementById('breadcrumbSubject');
+      const $bcT = document.getElementById('breadcrumbTopic');
+      const $coverS = document.getElementById('paperSubject');
+      const $date = document.getElementById('paperDate');
+      if ($bcS) $bcS.textContent = n.subject || '미분류';
+      if ($bcT) $bcT.textContent = n.topic || '(제목 없음)';
+      if ($coverS) $coverS.textContent = n.subject || '';
+      if ($date) $date.textContent = n.updatedAt ? '수정일 · ' + n.updatedAt.slice(0, 10).replace(/-/g, '.') : '';
+    }
   }
 }
