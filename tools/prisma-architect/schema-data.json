@@ -3006,8 +3006,8 @@
         "initialCreation": "true",
         "showNodeDetail": "",
         "creationConditions": "",
-        "dbTable": "",
-        "dbColumn": "",
+        "dbTable": "WasteTargetItem",
+        "dbColumn": "wasteMergeName",
         "syncGroup": "",
         "onClick": "optionsTargetWaste",
         "onChange": "",
@@ -5968,5 +5968,5 @@
     }
   ],
   "annotations": [],
-  "savedAt": "2026. 4. 23. 오후 4:07:10"
+  "savedAt": "2026. 4. 23. 오후 4:11:39"
 }
