@@ -3,11 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <meta name="theme-color" content="#2b5240">
-  <meta name="tool-name" content="Study Notes">
+  <meta name="theme-color" content="#b4472e">
+  <meta name="tool-name" content="공부록">
   <meta name="tool-tag" content="Notes">
-  <meta name="tool-description" content="學習錄 — 종이·만년필 그린 디자인의 개인 공부 노트 (GitHub 백업 + PWA)">
-  <title>學習錄 · Study Notes</title>
+  <meta name="tool-description" content="공부록 — 파일폴더·인장 디자인의 개인 공부 노트 (GitHub 백업 + PWA)">
+  <title>공부록 · Study Notes</title>
   <link rel="manifest" href="manifest.json">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -17,105 +17,117 @@
 </head>
 <body>
 
-  <main class="library">
+  <main class="desk">
 
-    <!-- ── 좌: 과목 레일 ── -->
-    <aside class="subject-rail" id="subjectRail">
-      <div class="rail-brand">
-        <div class="brand-han">學習錄</div>
-        <div class="brand-en">STUDY · 2026</div>
-      </div>
+    <!-- ── Top bar: 브랜드 + 폴더 탭 + 검색 ── -->
+    <header class="topbar">
+      <button class="mobile-toggle mobile-only" id="toggleSidebarBtn" title="목록">≡</button>
 
-      <div class="rail-section-label">과목</div>
-      <nav class="subject-list" id="subjectList"></nav>
-
-      <div class="rail-footer">
-        <span class="sync-pill">
-          <span class="sync-dot" id="syncState"></span>
-          <span id="syncStateLabel">동기화됨</span>
-        </span>
-        <span class="rail-actions">
-          <button class="rail-btn" id="syncBtn" title="동기화 (Ctrl+S)">⇅</button>
-          <button class="rail-btn" id="shortcutsBtn" title="단축키 (?)">⌨</button>
-          <button class="rail-btn" id="settingsBtn" title="설정 (Ctrl+,)">⚙</button>
-        </span>
-      </div>
-    </aside>
-
-    <!-- ── 중: 노트 목록 ── -->
-    <section class="note-column">
-      <header class="note-column-header">
-        <div class="note-column-title">
-          <span id="activeSubjectName">과목</span>
-          <button class="add-note-btn" id="newNoteBtn" title="새 노트 (Ctrl+N)">＋ 새 노트</button>
+      <div class="brand">
+        <div class="brand-seal">學</div>
+        <div class="brand-text">
+          <div class="brand-title">공부록</div>
+          <div class="brand-sub">행정사 2026</div>
         </div>
+      </div>
+
+      <nav class="folder-tabs" id="folderTabs"></nav>
+
+      <div class="topbar-right">
         <div class="search-box">
           <span class="search-icon">⌕</span>
-          <input type="search" id="searchInput" placeholder="검색… (주제·본문·두문자)">
+          <input type="search" id="searchInput" placeholder="검색…">
         </div>
-      </header>
-      <ol class="note-list" id="noteList"></ol>
-    </section>
-
-    <!-- ── 우: 편집/보기 ── -->
-    <section class="paper-column">
-      <header class="paper-toolbar">
-        <div class="breadcrumb">
-          <span class="breadcrumb-subject" id="breadcrumbSubject">—</span>
-          <span class="breadcrumb-sep">›</span>
-          <span class="breadcrumb-topic" id="breadcrumbTopic">선택된 노트 없음</span>
-        </div>
-        <div class="toolbar-right">
-          <div class="view-toggle" role="group">
-            <button class="view-btn active" data-mode="study" title="보기 (Ctrl+E)">📖 보기</button>
-            <button class="view-btn" data-mode="edit" title="편집 (Ctrl+E)">✏ 편집</button>
-          </div>
-          <button class="rail-btn danger" id="deleteNoteBtn" title="이 노트 삭제 (Ctrl+Del)">🗑</button>
-        </div>
-      </header>
-
-      <div class="paper-scroll">
-        <article class="paper" id="paper">
-
-          <!-- 표지 -->
-          <header class="paper-cover" id="paperCover">
-            <div class="paper-subject" id="paperSubject"></div>
-            <input type="text" id="topicInput" class="paper-title-input" placeholder="주제를 입력하세요...">
-            <div class="paper-mnemonic-row" id="mnemonicRow">
-              <span class="mnemonic-label">두문자</span>
-              <input type="text" id="mnemonicInput" class="paper-mnemonic-input" placeholder="예: 재대과">
-            </div>
-            <div class="paper-subject-row">
-              <span class="subject-label">과목</span>
-              <input type="text" id="subjectInput" list="subjectDataList" class="paper-subject-input" placeholder="예: 민법">
-              <datalist id="subjectDataList"></datalist>
-            </div>
-          </header>
-
-          <!-- 본문 -->
-          <section class="paper-body">
-            <!-- 보기 모드: 트리 -->
-            <div id="preview" class="preview"></div>
-            <!-- 편집 모드: textarea + 미리보기 -->
-            <div class="edit-area" id="editArea" hidden>
-              <textarea id="bodyInput" spellcheck="false"
-                placeholder="제목을 쓰고 Enter, Tab으로 들여쓰기, Shift+Tab으로 내어쓰기.&#10;번호는 자동으로 매겨집니다."></textarea>
-              <div class="edit-preview"><div id="editPreview" class="preview"></div></div>
-            </div>
-          </section>
-
-          <footer class="paper-footer">
-            <span class="paper-date" id="paperDate"></span>
-            <span class="paper-fin">— 學 —</span>
-          </footer>
-        </article>
+        <button class="rail-btn" id="layoutToggleBtn" title="PC ↔ 모바일 보기 전환">🖥</button>
+        <button class="rail-btn" id="syncBtn" title="동기화 (Ctrl+S)">⇅</button>
+        <button class="rail-btn" id="shortcutsBtn" title="단축키 (?)">⌨</button>
+        <button class="rail-btn" id="settingsBtn" title="설정 (Ctrl+,)">⚙</button>
+        <span class="sync-pill">
+          <span class="sync-dot" id="syncState"></span>
+          <span id="syncStateLabel" class="sr-only">동기화됨</span>
+        </span>
       </div>
-    </section>
+    </header>
 
+    <!-- ── 메인: 카드덱 + 페이지 ── -->
+    <div class="main-grid" id="mainGrid">
+
+      <!-- 카드덱 -->
+      <aside class="card-deck">
+        <div class="deck-header">
+          <span class="deck-count">NOTES · <span id="noteCount">0</span></span>
+          <button class="add-note-btn" id="newNoteBtn" title="새 노트 (Ctrl+N)">＋ 추가</button>
+        </div>
+        <ol class="note-deck" id="noteList"></ol>
+      </aside>
+
+      <!-- 페이지 -->
+      <section class="page-area">
+
+        <!-- 페이지 헤더 -->
+        <header class="page-toolbar">
+          <div class="breadcrumb">
+            <span class="bc-dot" id="breadcrumbDot"></span>
+            <span class="bc-subject" id="breadcrumbSubject">—</span>
+            <span class="bc-sep">/</span>
+            <span class="bc-topic" id="breadcrumbTopic">선택된 노트 없음</span>
+          </div>
+          <div class="toolbar-right">
+            <div class="view-toggle" role="group">
+              <button class="view-btn active" data-mode="study" title="펼침 (Ctrl+E)">펼침</button>
+              <button class="view-btn" data-mode="edit" title="고침 (Ctrl+E)">고침</button>
+            </div>
+            <button class="rail-btn danger" id="deleteNoteBtn" title="삭제 (Ctrl+Del)">🗑</button>
+          </div>
+        </header>
+
+        <!-- 페이지 본문 -->
+        <div class="page-scroll">
+          <div class="page-canvas">
+
+            <!-- 印章: 행정사 필기 -->
+            <div class="seal" aria-hidden="true">
+              <span>行政士<br>筆記</span>
+            </div>
+
+            <article class="page" id="page">
+              <!-- 표지 -->
+              <header class="page-cover">
+                <div class="cover-row">
+                  <span class="cover-subject-tag" id="coverSubjectTag">—</span>
+                  <span class="cover-date" id="coverDate"></span>
+                </div>
+                <input type="text" id="topicInput" class="page-title-input" placeholder="주제를 입력하세요...">
+
+                <div class="page-meta">
+                  <label class="meta-line meta-mnemonic">
+                    <span>두문자</span>
+                    <input type="text" id="mnemonicInput" placeholder="예: 재대과">
+                  </label>
+                  <label class="meta-line">
+                    <span>과목</span>
+                    <input type="text" id="subjectInput" list="subjectDataList" placeholder="예: 민법">
+                    <datalist id="subjectDataList"></datalist>
+                  </label>
+                </div>
+              </header>
+
+              <!-- 본문 -->
+              <section class="page-body">
+                <div id="preview" class="preview"></div>
+                <div class="edit-area" id="editArea" hidden>
+                  <textarea id="bodyInput" spellcheck="false"
+                    placeholder="제목을 쓰고 Enter, Tab으로 들여쓰기, Shift+Tab으로 내어쓰기.&#10;번호는 자동으로 매겨집니다."></textarea>
+                  <div class="edit-preview"><div id="editPreview" class="preview"></div></div>
+                </div>
+              </section>
+            </article>
+
+          </div>
+        </div>
+      </section>
+    </div>
   </main>
-
-  <!-- 모바일 좌측 토글 -->
-  <button class="mobile-rail-toggle mobile-only" id="toggleSidebarBtn" title="과목/목록">≡</button>
 
   <!-- 설정 모달 -->
   <div class="modal-overlay" id="settingsModal" hidden>
@@ -165,7 +177,7 @@
       <div class="modal-body shortcut-body">
         <div class="sc-section">
           <h3>전역</h3>
-          <div class="sc-row"><kbd>Ctrl</kbd>+<kbd>E</kbd><span>보기 ↔ 편집</span></div>
+          <div class="sc-row"><kbd>Ctrl</kbd>+<kbd>E</kbd><span>펼침 ↔ 고침</span></div>
           <div class="sc-row"><kbd>Ctrl</kbd>+<kbd>N</kbd><span>새 노트 (현재 과목)</span></div>
           <div class="sc-row"><kbd>Ctrl</kbd>+<kbd>S</kbd><span>GitHub 동기화</span></div>
           <div class="sc-row"><kbd>Ctrl</kbd>+<kbd>K</kbd><span>검색창 포커스</span></div>
@@ -175,7 +187,7 @@
         </div>
         <div class="sc-section">
           <h3>이동</h3>
-          <div class="sc-row"><kbd>Alt</kbd>+<kbd>1</kbd>~<kbd>9</kbd><span>N번째 과목으로</span></div>
+          <div class="sc-row"><kbd>Alt</kbd>+<kbd>1</kbd>~<kbd>9</kbd><span>N번째 과목 폴더</span></div>
           <div class="sc-row"><kbd>Alt</kbd>+<kbd>←</kbd>/<kbd>→</kbd><span>이전 / 다음 과목</span></div>
           <div class="sc-row"><kbd>Alt</kbd>+<kbd>↑</kbd>/<kbd>↓</kbd><span>이전 / 다음 노트</span></div>
         </div>

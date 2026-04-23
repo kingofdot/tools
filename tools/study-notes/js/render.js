@@ -49,12 +49,12 @@ function renderPreview() {
     if (n) {
       const $bcS = document.getElementById('breadcrumbSubject');
       const $bcT = document.getElementById('breadcrumbTopic');
-      const $coverS = document.getElementById('paperSubject');
-      const $date = document.getElementById('paperDate');
+      const $coverTag = document.getElementById('coverSubjectTag');
+      const $coverDate = document.getElementById('coverDate');
       if ($bcS) $bcS.textContent = n.subject || '미분류';
       if ($bcT) $bcT.textContent = n.topic || '(제목 없음)';
-      if ($coverS) $coverS.textContent = n.subject || '';
-      if ($date) $date.textContent = n.updatedAt ? '수정일 · ' + n.updatedAt.slice(0, 10).replace(/-/g, '.') : '';
+      if ($coverTag) $coverTag.textContent = n.subject || '미분류';
+      if ($coverDate) $coverDate.textContent = n.updatedAt ? n.updatedAt.slice(0, 10).replace(/-/g, '.') : '';
     }
   }
 }

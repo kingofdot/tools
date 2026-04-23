@@ -24,9 +24,30 @@ function closeModal(id) {
 }
 
 function bindGlobal() {
-  // 모바일 사이드바 토글
+  // 모바일 카드덱 토글
   document.getElementById('toggleSidebarBtn')?.addEventListener('click', () => {
-    document.querySelector('.library')?.classList.toggle('show-rail');
+    document.querySelector('.desk')?.classList.toggle('show-deck');
+  });
+
+  // PC ↔ 모바일 보기 토글 (auto / force-pc / force-mobile)
+  const LAYOUT_KEY = 'study-notes:layout';
+  const $layoutBtn = document.getElementById('layoutToggleBtn');
+  function applyLayout(mode) {
+    document.body.classList.remove('force-pc', 'force-mobile');
+    if (mode === 'pc') document.body.classList.add('force-pc');
+    else if (mode === 'mobile') document.body.classList.add('force-mobile');
+    if ($layoutBtn) {
+      $layoutBtn.textContent = mode === 'pc' ? '🖥' : mode === 'mobile' ? '📱' : '⇄';
+      $layoutBtn.title = `현재 보기: ${mode === 'pc' ? 'PC 강제' : mode === 'mobile' ? '모바일 강제' : '자동'} — 클릭해서 전환`;
+    }
+    localStorage.setItem(LAYOUT_KEY, mode);
+  }
+  applyLayout(localStorage.getItem(LAYOUT_KEY) || 'auto');
+  $layoutBtn?.addEventListener('click', () => {
+    const cur = localStorage.getItem(LAYOUT_KEY) || 'auto';
+    const next = cur === 'auto' ? 'pc' : cur === 'pc' ? 'mobile' : 'auto';
+    applyLayout(next);
+    toast(`보기 모드: ${next === 'pc' ? 'PC 강제' : next === 'mobile' ? '모바일 강제' : '자동(화면 크기에 따름)'}`, 'info');
   });
 
   // 새 노트 — 현재 활성 과목으로, 편집 모드로 전환

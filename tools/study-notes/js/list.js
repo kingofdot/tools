@@ -1,45 +1,50 @@
 // === LIST ===
-// 좌: 과목 레일 (vertical) / 가운데: 노트 카드 목록
+// 상단: 파일폴더 탭 (과목별)
+// 좌측: 카드덱 (현재 과목 노트들)
 
 let activeSubject = null;
+
+const TAB_VARS = ['--tab-1','--tab-2','--tab-3','--tab-4','--tab-5','--tab-6','--tab-7','--tab-8'];
 
 function getSubjects() {
   return [...new Set(notes.map(n => n.subject || '_미분류'))].sort();
 }
-
 function countBySubject(subj) {
   return notes.filter(n => (n.subject || '_미분류') === subj).length;
 }
+function colorVarFor(idx) { return TAB_VARS[idx % TAB_VARS.length]; }
+
+function applyActiveTabColor() {
+  const subs = getSubjects();
+  const idx = Math.max(0, subs.indexOf(activeSubject));
+  const cssVar = colorVarFor(idx);
+  // var(--tab-N) → 실제 색 풀어서 --active-tab-color로 박음
+  const computed = getComputedStyle(document.documentElement).getPropertyValue(cssVar).trim();
+  document.documentElement.style.setProperty('--active-tab-color', computed || 'var(--tab-1)');
+}
 
 function refreshTabs() {
-  const $list = document.getElementById('subjectList');
-  if (!$list) return;
+  const $tabs = document.getElementById('folderTabs');
+  if (!$tabs) return;
   const subs = getSubjects();
   if (!subs.length) subs.push('_미분류');
   if (!subs.includes(activeSubject)) activeSubject = subs[0];
 
-  const ROMAN_LO = ['i','ii','iii','iv','v','vi','vii','viii','ix','x','xi','xii'];
-
   const html = subs.map((s, i) => {
     const label = s === '_미분류' ? '미분류' : s;
     const active = s === activeSubject ? 'active' : '';
-    const idx = ROMAN_LO[i] || (i + 1);
+    const colorVar = colorVarFor(i);
     return `
-      <button class="subject-row ${active}" data-subject="${esc(s)}" title="Alt+${i + 1}">
-        <span class="row-left">
-          <span class="row-idx">${idx}</span>
-          <span class="row-name">${esc(label)}</span>
-        </span>
-        <span class="row-count">${countBySubject(s)}</span>
+      <button class="folder-tab ${active}" data-subject="${esc(s)}" data-idx="${i}"
+              style="--tab-color: var(${colorVar});" title="Alt+${i+1}">
+        <span class="tab-num">${String(i+1).padStart(2,'0')}</span>
+        <span class="tab-label">${esc(label)}</span>
+        <span class="tab-count">${countBySubject(s)}</span>
       </button>`;
-  }).join('') + `<button class="subject-add" id="addSubjectBtn">＋ 과목 추가</button>`;
-  $list.innerHTML = html;
+  }).join('') + `<button class="folder-tab-add" id="addSubjectBtn" title="과목 추가">＋</button>`;
+  $tabs.innerHTML = html;
 
-  // 활성 과목 표시 (가운데 컬럼 헤더)
-  const $name = document.getElementById('activeSubjectName');
-  if ($name) $name.textContent = activeSubject === '_미분류' ? '미분류' : activeSubject;
-
-  $list.querySelectorAll('.subject-row').forEach(el => {
+  $tabs.querySelectorAll('.folder-tab').forEach(el => {
     el.addEventListener('click', () => {
       activeSubject = el.dataset.subject;
       refreshTabs();
@@ -61,6 +66,7 @@ function refreshTabs() {
   });
 
   refreshSubjectDatalist();
+  applyActiveTabColor();
 }
 
 function refreshSubjectDatalist() {
@@ -81,24 +87,32 @@ function refreshList() {
   refreshTabs();
   const $ul = document.getElementById('noteList');
   const list = notesInActive();
+  const $count = document.getElementById('noteCount');
+  if ($count) $count.textContent = list.length;
+
   if (!list.length) {
-    $ul.innerHTML = `<li class="note-list-empty">${searchQuery ? '검색 결과 없음' : '노트가 없습니다.\n＋ 새 노트로 시작하세요.'}</li>`;
+    $ul.innerHTML = `<li class="note-list-empty">${searchQuery ? '검색 결과 없음' : '노트가 없습니다.\n＋ 추가로 시작하세요.'}</li>`;
     return;
   }
-  $ul.innerHTML = list.map(n => renderNoteCard(n)).join('');
+  $ul.innerHTML = list.map((n, i) => renderNoteCard(n, i)).join('');
   bindNoteCards($ul);
 }
 
-function renderNoteCard(n) {
+function renderNoteCard(n, i) {
   const active = n.id === currentId ? 'active' : '';
   const title = n.topic || '(제목 없음)';
-  const mn = n.mnemonic ? `<span class="note-card-mnemonic">${esc(n.mnemonic)}</span>` : '';
   const date = n.updatedAt ? n.updatedAt.slice(0, 10).replace(/-/g, '.') : '';
+  const mn = n.mnemonic
+    ? `<div class="note-card-mnem"><span class="note-card-mnem-label">MNEM</span><span class="note-card-mnem-value">${esc(n.mnemonic)}</span></div>`
+    : '';
   return `
     <li class="note-card ${active}" data-id="${esc(n.id)}" draggable="true">
+      <div class="note-card-row">
+        <span class="note-card-no">No. ${String(i+1).padStart(3,'0')}</span>
+        <span class="note-card-date">${date}</span>
+      </div>
       <div class="note-card-title">${esc(title)}</div>
-      <div class="note-card-meta">${mn}<span class="note-card-date">${date}</span></div>
-      <div class="note-card-handle" title="드래그해서 순서 변경">⋮⋮</div>
+      ${mn}
     </li>
   `;
 }
@@ -106,12 +120,10 @@ function renderNoteCard(n) {
 function bindNoteCards($ul) {
   let draggingId = null;
   $ul.querySelectorAll('.note-card').forEach(el => {
-    el.addEventListener('click', (e) => {
-      if (e.target.closest('.note-card-handle')) return;
+    el.addEventListener('click', () => {
       if (dirty) { commitEdits(); saveNotes(); }
       loadNoteIntoEditor(el.dataset.id);
-      // 모바일에서 좌측 닫기
-      document.querySelector('.library')?.classList.remove('show-rail');
+      document.querySelector('.desk')?.classList.remove('show-deck');
     });
     el.addEventListener('dragstart', (e) => {
       draggingId = el.dataset.id;
@@ -121,7 +133,8 @@ function bindNoteCards($ul) {
     });
     el.addEventListener('dragend', () => {
       el.classList.remove('dragging');
-      $ul.querySelectorAll('.drop-before, .drop-after').forEach(x => x.classList.remove('drop-before', 'drop-after'));
+      $ul.querySelectorAll('.drop-before, .drop-after').forEach(x =>
+        x.classList.remove('drop-before', 'drop-after'));
       draggingId = null;
     });
     el.addEventListener('dragover', (e) => {
@@ -156,14 +169,12 @@ function switchToSubjectAt(idx) {
   const list = notesInActive();
   if (list.length) loadNoteIntoEditor(list[0].id);
 }
-
 function switchSubjectByDelta(delta) {
   const subs = getSubjects();
   const i = subs.indexOf(activeSubject);
   if (i < 0) return switchToSubjectAt(0);
   switchToSubjectAt(i + delta);
 }
-
 function switchNoteByDelta(delta) {
   const list = notesInActive();
   if (!list.length) return;
