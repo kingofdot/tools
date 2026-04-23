@@ -13,10 +13,11 @@ function refreshTabs() {
   if (!subs.length) subs.push('_미분류');
   if (!subs.includes(activeSubject)) activeSubject = subs[0];
 
-  const html = subs.map(s => {
+  const html = subs.map((s, i) => {
     const label = s === '_미분류' ? '미분류' : s;
     const active = s === activeSubject ? 'active' : '';
-    return `<button class="subject-tab ${active}" data-subject="${esc(s)}">${esc(label)}</button>`;
+    const hotkey = i < 9 ? `<span class="subject-tab-idx" title="Alt+${i + 1}">${i + 1}</span>` : '';
+    return `<button class="subject-tab ${active}" data-subject="${esc(s)}" data-idx="${i}">${hotkey}${esc(label)}</button>`;
   }).join('') + `<button class="subject-tab subject-tab-add" id="addSubjectBtn" title="과목 추가">+</button>`;
   $tabs.innerHTML = html;
 
@@ -41,6 +42,38 @@ function refreshTabs() {
     loadNoteIntoEditor(note.id);
     document.getElementById('topicInput').focus();
   });
+}
+
+// 단축키용: 과목 탭 전환
+function switchToSubjectAt(idx) {
+  const subs = getSubjects();
+  if (!subs.length) return;
+  const target = subs[Math.max(0, Math.min(subs.length - 1, idx))];
+  if (!target || target === activeSubject) return;
+  activeSubject = target;
+  refreshTabs();
+  refreshList();
+  const list = notesInActive();
+  if (list.length) loadNoteIntoEditor(list[0].id);
+}
+
+function switchSubjectByDelta(delta) {
+  const subs = getSubjects();
+  const i = subs.indexOf(activeSubject);
+  if (i < 0) return switchToSubjectAt(0);
+  switchToSubjectAt(i + delta);
+}
+
+// 단축키용: 이전/다음 노트
+function switchNoteByDelta(delta) {
+  const list = notesInActive();
+  if (!list.length) return;
+  const i = list.findIndex(n => n.id === currentId);
+  const next = list[Math.max(0, Math.min(list.length - 1, (i < 0 ? 0 : i + delta)))];
+  if (next && next.id !== currentId) {
+    if (dirty) { commitEdits(); saveNotes(); }
+    loadNoteIntoEditor(next.id);
+  }
 }
 
 function notesInActive() {

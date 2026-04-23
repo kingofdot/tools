@@ -88,6 +88,51 @@ function bindGlobal() {
     }
   });
 
+  // 단축키 도움말
+  document.getElementById('shortcutsBtn').addEventListener('click', () => openModal('shortcutsModal'));
+
+  // 전역 단축키
+  window.addEventListener('keydown', (e) => {
+    // 모달이 열려 있으면 ESC로 닫기만
+    const openedModal = document.querySelector('.modal-overlay:not([hidden])');
+    if (e.key === 'Escape' && openedModal) {
+      openedModal.hidden = true;
+      return;
+    }
+
+    const mod = e.ctrlKey || e.metaKey;
+    const inInput = /^(INPUT|TEXTAREA|SELECT)$/.test(document.activeElement?.tagName || '');
+    const k = e.key.toLowerCase();
+
+    // Ctrl 조합
+    if (mod && !e.shiftKey && !e.altKey) {
+      if (k === 's') { e.preventDefault(); fullSync(); return; }
+      if (k === 'n') { e.preventDefault(); document.getElementById('newNoteBtn').click(); return; }
+      if (k === 'k') { e.preventDefault(); document.getElementById('searchInput').focus(); document.getElementById('searchInput').select(); return; }
+      if (k === ',') { e.preventDefault(); document.getElementById('settingsBtn').click(); return; }
+      if (k === 'delete') { e.preventDefault(); document.getElementById('deleteNoteBtn').click(); return; }
+    }
+
+    // Alt 조합
+    if (e.altKey && !e.ctrlKey && !e.metaKey && !e.shiftKey) {
+      if (/^[1-9]$/.test(e.key)) {
+        e.preventDefault();
+        switchToSubjectAt(parseInt(e.key, 10) - 1);
+        return;
+      }
+      if (e.key === 'ArrowLeft')  { e.preventDefault(); switchSubjectByDelta(-1); return; }
+      if (e.key === 'ArrowRight') { e.preventDefault(); switchSubjectByDelta(1); return; }
+      if (e.key === 'ArrowUp')    { e.preventDefault(); switchNoteByDelta(-1); return; }
+      if (e.key === 'ArrowDown')  { e.preventDefault(); switchNoteByDelta(1); return; }
+    }
+
+    // ? 단독 — 입력 필드에 포커스 없을 때만
+    if (e.key === '?' && !inInput && !mod && !e.altKey) {
+      e.preventDefault();
+      openModal('shortcutsModal');
+    }
+  });
+
   // 종료 전 저장 보장
   window.addEventListener('beforeunload', () => {
     if (dirty) { commitEdits(); saveNotes(); }

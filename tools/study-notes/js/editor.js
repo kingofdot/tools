@@ -36,9 +36,9 @@ function bindEditor() {
     btn.addEventListener('click', () => setViewMode(btn.dataset.mode));
   });
 
-  // Ctrl+E 단축키
+  // Ctrl+E 단축키 (편집/보기 토글)
   window.addEventListener('keydown', (e) => {
-    if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'e') {
+    if ((e.ctrlKey || e.metaKey) && !e.shiftKey && !e.altKey && e.key.toLowerCase() === 'e') {
       e.preventDefault();
       setViewMode(viewMode === 'study' ? 'edit' : 'study');
     }

@@ -22,13 +22,14 @@
     </div>
     <div class="topbar-actions">
       <span class="sync-state" id="syncState" title="동기화 상태">●</span>
-      <button class="icon-btn" id="syncBtn" title="동기화">⇅</button>
-      <button class="icon-btn" id="settingsBtn" title="설정">⚙</button>
+      <button class="icon-btn" id="syncBtn" title="동기화 (Ctrl+S)">⇅</button>
+      <button class="icon-btn" id="shortcutsBtn" title="단축키 (?)">⌨</button>
+      <button class="icon-btn" id="settingsBtn" title="설정 (Ctrl+,)">⚙</button>
     </div>
   </header>
 
-  <!-- 과목 탭 -->
-  <nav class="subject-tabs" id="subjectTabs"></nav>
+  <!-- 과목 탭 (맨 위 고정) -->
+  <nav class="subject-tabs" id="subjectTabs" title="Alt+1~9 로 전환"></nav>
 
   <main class="workspace">
 
@@ -111,6 +112,52 @@
       <div class="modal-footer">
         <button class="btn" data-close-modal="settingsModal">취소</button>
         <button class="btn btn-primary" id="saveSettingsBtn">저장</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 단축키 도움말 모달 -->
+  <div class="modal-overlay" id="shortcutsModal" hidden>
+    <div class="modal modal-wide">
+      <div class="modal-header">
+        <h2>⌨ 단축키</h2>
+        <button class="icon-btn" data-close-modal="shortcutsModal">✕</button>
+      </div>
+      <div class="modal-body shortcut-body">
+        <div class="sc-section">
+          <h3>전역</h3>
+          <div class="sc-row"><kbd>Ctrl</kbd>+<kbd>E</kbd><span>보기 ↔ 편집 모드 토글</span></div>
+          <div class="sc-row"><kbd>Ctrl</kbd>+<kbd>N</kbd><span>새 노트 (현재 과목)</span></div>
+          <div class="sc-row"><kbd>Ctrl</kbd>+<kbd>S</kbd><span>GitHub 동기화</span></div>
+          <div class="sc-row"><kbd>Ctrl</kbd>+<kbd>K</kbd><span>검색창 포커스</span></div>
+          <div class="sc-row"><kbd>Ctrl</kbd>+<kbd>,</kbd><span>설정 열기</span></div>
+          <div class="sc-row"><kbd>Ctrl</kbd>+<kbd>Del</kbd><span>현재 노트 삭제</span></div>
+          <div class="sc-row"><kbd>?</kbd><span>이 도움말 열기</span></div>
+        </div>
+        <div class="sc-section">
+          <h3>과목 탭</h3>
+          <div class="sc-row"><kbd>Alt</kbd>+<kbd>1</kbd>~<kbd>9</kbd><span>과목 탭 순서대로 전환</span></div>
+          <div class="sc-row"><kbd>Alt</kbd>+<kbd>←</kbd>/<kbd>→</kbd><span>이전 / 다음 과목 탭</span></div>
+        </div>
+        <div class="sc-section">
+          <h3>노트 목록</h3>
+          <div class="sc-row"><kbd>Alt</kbd>+<kbd>↑</kbd>/<kbd>↓</kbd><span>이전 / 다음 노트 열기</span></div>
+          <div class="sc-row"><span class="sc-hint">드래그 핸들 ⋮⋮ 로 순서 변경</span></div>
+        </div>
+        <div class="sc-section">
+          <h3>본문 편집 (편집 모드)</h3>
+          <div class="sc-row"><kbd>Tab</kbd><span>들여쓰기 (깊이 +1)</span></div>
+          <div class="sc-row"><kbd>Shift</kbd>+<kbd>Tab</kbd><span>내어쓰기 (깊이 -1)</span></div>
+          <div class="sc-row"><kbd>Enter</kbd><span>새 줄 (직전 들여쓰기 유지)</span></div>
+        </div>
+        <div class="sc-section">
+          <h3>자동 포맷</h3>
+          <div class="sc-row"><span class="sc-hint">깊이별 번호: <b>I</b> → <b>1.</b> → <b>1)</b> → <b>①</b> → <b>가.</b></span></div>
+          <div class="sc-row"><span class="sc-hint">법조문 <code>(제○조 제○항)</code> / 판례 <code>○○다○○○○</code> 자동 뱃지</span></div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-primary" data-close-modal="shortcutsModal">닫기</button>
       </div>
     </div>
   </div>
