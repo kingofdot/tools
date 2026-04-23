@@ -23,8 +23,17 @@
 const FunctionRegistry = {
   _store: {},
 
-  register(name, { watch, outputField, outputFields, optionsOutput, fn, desc = '', outputType = 'float' }) {
-    this._store[name] = { watch, outputField: outputField || null, outputFields: outputFields || null, optionsOutput: optionsOutput || null, fn, desc, outputType };
+  register(name, { watch, outputField, outputFields, optionsOutput, headerControl, fn, desc = '', outputType = 'float' }) {
+    this._store[name] = {
+      watch,
+      outputField:   outputField   || null,
+      outputFields:  outputFields  || null,
+      optionsOutput: optionsOutput || null,
+      headerControl: headerControl || null,
+      fn,
+      desc,
+      outputType,
+    };
   },
 
   get(name) {
