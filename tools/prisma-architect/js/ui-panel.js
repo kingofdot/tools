@@ -118,12 +118,12 @@ const SYSTEM_TYPE_HINTS = {
     dim: ['comboboxName','dbTable','dbColumn','syncGroup','dataSource'],
   },
   dynamic_select: {
-    highlight: ['onClick'],
-    dim: ['comboboxName','dbTable','dbColumn','syncGroup','dataSource','variableType'],
+    highlight: ['dbTable','dbColumn','onClick'],
+    dim: ['comboboxName','syncGroup','dataSource','variableType'],
   },
   dynamic_combobox: {
-    highlight: ['onClick'],
-    dim: ['comboboxName','dbTable','dbColumn','syncGroup','dataSource','variableType'],
+    highlight: ['dbTable','dbColumn','onClick'],
+    dim: ['comboboxName','syncGroup','dataSource','variableType'],
   },
   calculation_readonly: {
     highlight: ['onChange'],
@@ -420,6 +420,8 @@ function renderUiTable() {
   rows.forEach((row) => {
     const modelOpts = schema.models.map(m => m.name);
     const isDbType = row.meta.systemType === 'db_select' || row.meta.systemType === 'db_combobox';
+    const isDynamicType = row.meta.systemType === 'dynamic_select' || row.meta.systemType === 'dynamic_combobox';
+    const isDbLike = isDbType || isDynamicType;
     // syncGroup: 현재 모델에서 이미 쓰인 그룹명 수집 (제안용)
     const existingSyncGroups = isDbType
       ? [...new Set(Object.values(metaStore[selectedUiModel] || {}).map(m => m.syncGroup || '').filter(Boolean))]
@@ -430,20 +432,31 @@ function renderUiTable() {
       const val = row.meta[h.name] !== undefined ? row.meta[h.name] : '';
       const fillBtn = `<button contenteditable="false" class="fill-down-btn" title="아래로 채우기" onclick="event.stopPropagation();fillDown('${row.fieldName}','${h.name}')">↓</button>`;
 
-      // ── db_select / db_combobox 전용 셀 ─────────────────────
-      if (isDbType && h.name === 'dbTable') {
-        const opts = ['', ...masterDataRegistry.map(m => m.name)]
+      // ── db_*/dynamic_* 공통: dbTable / dbColumn 셀 ──────────
+      //   db_*      → masterDataRegistry(정적 참조 테이블)
+      //   dynamic_* → schema.models(사용자 입력 모델, mockStore 소스)
+      if (isDbLike && h.name === 'dbTable') {
+        const tableNames = isDynamicType
+          ? (schema.models || []).map(m => m.name)
+          : masterDataRegistry.map(m => m.name);
+        const opts = ['', ...tableNames]
           .map(o => `<option value="${o}"${o === val ? ' selected' : ''}>${o || '— 선택 —'}</option>`).join('');
         return `<td style="min-width:120px;padding:2px 4px;position:relative">
           <select data-field="${row.fieldName}" data-col="dbTable"
             onchange="onDbTableChange('${row.fieldName}',this.value)"
             style="${selStyle}">${opts}</select>${fillBtn}</td>`;
       }
-      if (isDbType && h.name === 'dbColumn') {
+      if (isDbLike && h.name === 'dbColumn') {
         const selectedTable = row.meta.dbTable || '';
-        const entry = masterDataRegistry.find(m => m.name === selectedTable);
-        const raw = entry ? window[entry.globalVar] : null;
-        const cols = (Array.isArray(raw) && raw.length > 0) ? Object.keys(raw[0]) : [];
+        let cols = [];
+        if (isDynamicType) {
+          const m = (schema.models || []).find(mm => mm.name === selectedTable);
+          cols = m ? m.fields.map(f => f.name) : [];
+        } else {
+          const entry = masterDataRegistry.find(m => m.name === selectedTable);
+          const raw = entry ? window[entry.globalVar] : null;
+          cols = (Array.isArray(raw) && raw.length > 0) ? Object.keys(raw[0]) : [];
+        }
         const opts = ['', ...cols]
           .map(o => `<option value="${o}"${o === val ? ' selected' : ''}>${o || '— 선택 —'}</option>`).join('');
         return `<td style="min-width:120px;padding:2px 4px;position:relative">
