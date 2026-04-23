@@ -91,6 +91,7 @@ function refreshSubjectDatalist() {
 }
 
 function refreshList() {
+  refreshTabs();
   refreshSubjectDatalist();
   const $ul = document.getElementById('noteList');
   const list = notesInActive();
