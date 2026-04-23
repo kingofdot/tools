@@ -167,6 +167,32 @@ FunctionRegistry.register('lookupWasteByName', {
 
 // ── 옵션 함수 (Options) ───────────────────────────────────
 
+// bottomShape(바닥모양) 변경 → 관련 치수 컬럼만 보이기
+//   원       → 직경(diameter)
+//   사각     → 너비(width) + 길이(length)
+//   삼각형   → 밑변(bottomSide) + 높이(verticalSide)
+//   사다리꼴 → 윗변(topSide) + 밑변(bottomSide) + 높이(verticalSide)
+// height / Area 등은 항상 표시 (targets 밖)
+FunctionRegistry.register('shapeControl', {
+  desc: '바닥모양 변경 시 관련 치수 컬럼만 표시/숨김',
+  watch: ['bottomShape'],
+  headerControl: {
+    targets: ['diameter', 'width', 'length', 'topSide', 'bottomSide', 'verticalSide'],
+    rules: {
+      '원':       ['diameter'],
+      'CIRCLE':   ['diameter'],
+      '사각':      ['width', 'length'],
+      'RECT':     ['width', 'length'],
+      '삼각형':    ['bottomSide', 'verticalSide'],
+      'TRIANGLE': ['bottomSide', 'verticalSide'],
+      '사다리꼴':  ['topSide', 'bottomSide', 'verticalSide'],
+      'TRAPEZOID':['topSide', 'bottomSide', 'verticalSide'],
+      'MANUAL':   [],
+    },
+  },
+  fn() { return ''; },
+});
+
 // WasteTargetItem 행 → targetWaste 드롭다운 선택지
 // 각 행의 wasteMergeName을 우선 사용, 비어있으면 (wasteCode)wasteName 즉석 합성
 FunctionRegistry.register('optionsTargetWaste', {

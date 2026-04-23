@@ -3018,7 +3018,7 @@
         "id": "",
         "label": "바닥모양",
         "variableType": "text",
-        "systemType": "combobox",
+        "systemType": "select",
         "isRequired": "false",
         "defaultValue": "사각",
         "showNode": "true",
@@ -3038,7 +3038,7 @@
         "dbColumn": "",
         "syncGroup": "",
         "onClick": "",
-        "onChange": "calcArea",
+        "onChange": "calcArea,shapeControl",
         "focusOut": "",
         "realtime": ""
       },
