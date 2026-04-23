@@ -31,6 +31,24 @@ function bindEditor() {
     });
   });
 
+  // 과목 입력: 현재 노트의 과목 변경 + 해당 과목 탭으로 전환
+  const $subject = document.getElementById('subjectInput');
+  $subject.addEventListener('change', () => {
+    const newSub = $subject.value.trim();
+    if (!currentId) return;
+    const n = findNote(currentId);
+    if (!n) return;
+    n.subject = newSub;
+    n.updatedAt = new Date().toISOString();
+    // 해당 과목 탭으로 전환(없으면 새로 생김)
+    activeSubject = newSub || '_미분류';
+    markDirty();
+    saveNotes();
+    refreshTabs();
+    refreshList();
+    scheduleSave();
+  });
+
   // 보기/편집 토글
   document.querySelectorAll('.view-btn').forEach(btn => {
     btn.addEventListener('click', () => setViewMode(btn.dataset.mode));
@@ -135,7 +153,10 @@ function commitEdits() {
   if (!currentId) return;
   const n = findNote(currentId);
   if (!n) return;
-  n.subject = activeSubject && activeSubject !== '_미분류' ? activeSubject : (n.subject || '');
+  const subjEl = document.getElementById('subjectInput');
+  // 입력 필드에 값 있으면 그걸, 없으면 활성 탭 따름
+  const typed = subjEl.value.trim();
+  n.subject = typed || (activeSubject && activeSubject !== '_미분류' ? activeSubject : '');
   n.topic = document.getElementById('topicInput').value.trim();
   n.mnemonic = document.getElementById('mnemonicInput').value.trim();
   n.body = document.getElementById('bodyInput').value;
@@ -146,6 +167,7 @@ function loadNoteIntoEditor(id) {
   const n = findNote(id);
   if (!n) return;
   currentId = id;
+  document.getElementById('subjectInput').value = n.subject || '';
   document.getElementById('topicInput').value = n.topic || '';
   document.getElementById('mnemonicInput').value = n.mnemonic || '';
   document.getElementById('bodyInput').value = n.body || '';

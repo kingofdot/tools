@@ -83,7 +83,15 @@ function notesInActive() {
     .sort((a, b) => (a.order ?? 0) - (b.order ?? 0));
 }
 
+function refreshSubjectDatalist() {
+  const $dl = document.getElementById('subjectList');
+  if (!$dl) return;
+  const subs = getSubjects().filter(s => s !== '_미분류');
+  $dl.innerHTML = subs.map(s => `<option value="${esc(s)}">`).join('');
+}
+
 function refreshList() {
+  refreshSubjectDatalist();
   const $ul = document.getElementById('noteList');
   const list = notesInActive();
   if (!list.length) {

@@ -45,6 +45,11 @@
     <section class="editor-pane">
 
       <div class="meta-row">
+        <label class="meta-field">
+          <span>과목</span>
+          <input type="text" id="subjectInput" list="subjectList" placeholder="예: 민법">
+          <datalist id="subjectList"></datalist>
+        </label>
         <label class="meta-field meta-grow">
           <span>주제</span>
           <input type="text" id="topicInput" placeholder="예: 매매의 효력">
@@ -57,7 +62,7 @@
           <button class="view-btn active" data-mode="study" title="보기 (Ctrl+E로 전환)">📖 보기</button>
           <button class="view-btn" data-mode="edit" title="편집 (Ctrl+E로 전환)">✏ 편집</button>
         </div>
-        <button class="icon-btn danger" id="deleteNoteBtn" title="이 노트 삭제">🗑</button>
+        <button class="icon-btn danger" id="deleteNoteBtn" title="이 노트 삭제 (Ctrl+Del)">🗑</button>
       </div>
 
       <div class="study-area" id="studyArea">
