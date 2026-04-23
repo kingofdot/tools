@@ -390,7 +390,7 @@ input, textarea, select { font-family: inherit; color: inherit; }
 }
 .page-canvas {
   position: relative;
-  padding: 44px 56px 80px;
+  padding: 44px 64px 80px;
   min-height: 100%;
 }
 
@@ -417,9 +417,11 @@ input, textarea, select { font-family: inherit; color: inherit; }
 }
 
 .page {
-  max-width: 720px;
+  max-width: 1280px;
   margin: 0 auto;
 }
+/* 편집 모드일 때는 더 넓게 */
+.page.edit-wide { max-width: none; }
 
 /* ─── Cover ─── */
 .page-cover { margin-bottom: 28px; }
@@ -608,30 +610,31 @@ mark.search-hit {
 /* ─── Edit area ─── */
 .edit-area {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 18px;
+  grid-template-columns: minmax(420px, 1fr) minmax(420px, 1fr);
+  gap: 24px;
   margin-top: 16px;
 }
 #bodyInput {
-  width: 100%; min-height: 540px;
+  width: 100%;
+  min-height: calc(100vh - 360px);
   border: 1px solid var(--rule); border-radius: 3px;
-  padding: 14px;
-  font-size: 13px;
+  padding: 18px 20px;
+  font-size: 14px;
   font-family: var(--mono);
   color: var(--ink);
   background: var(--paper-alt);
   outline: 0; resize: vertical;
-  line-height: 1.6;
+  line-height: 1.7;
   tab-size: 4;
   white-space: pre;
 }
 .edit-preview {
   border: 1px solid var(--rule);
   border-radius: 3px;
-  padding: 18px;
+  padding: 20px 24px;
   background: var(--paper);
   overflow-y: auto;
-  max-height: 600px;
+  max-height: calc(100vh - 320px);
 }
 
 /* ═══════════════════════════════════════════════════════════════

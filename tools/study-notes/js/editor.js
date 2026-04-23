@@ -70,6 +70,8 @@ function setViewMode(mode) {
   const showStudy = mode === 'study';
   document.getElementById('preview').hidden = !showStudy;
   document.getElementById('editArea').hidden = showStudy;
+  // 편집 모드에서는 페이지 폭 제한 풀어 화면 가득 사용
+  document.getElementById('page')?.classList.toggle('edit-wide', !showStudy);
   renderPreview();
   if (mode === 'edit') {
     setTimeout(() => document.getElementById('bodyInput').focus(), 0);
