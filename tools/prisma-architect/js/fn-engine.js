@@ -57,11 +57,21 @@ function _mockfieldSelector(modelName, fieldName, rowIndex) {
 // calcOnly=true: Lookup 체인 시 다른 Lookup 재실행 방지 (무한루프 방지)
 function runOnChange(modelName, changedField, rowIndex, { calcOnly = false } = {}) {
   const fieldMeta = (metaStore[modelName] || {})[changedField] || {};
-  const fnNamesRaw = (fieldMeta.onChange || '').trim();
-  if (!fnNamesRaw) return;
-  fnNamesRaw.split(',').map(s => s.trim()).filter(Boolean).forEach(fnName => {
-    _executeByTrigger(modelName, fnName, rowIndex, calcOnly);
+  const explicit  = (fieldMeta.onChange || '').trim()
+    .split(',').map(s => s.trim()).filter(Boolean);
+
+  // watch 기반 자동 트리거 — Calculation(outputField 보유)만, 루프 위험 있는 Lookup/Options는 제외
+  // outputField가 현재 모델 메타에 실제 존재할 때만 붙여 cross-model 오염 방지
+  const modelMeta = metaStore[modelName] || {};
+  const auto = FunctionRegistry.findByWatch(changedField).filter(fnName => {
+    if (explicit.includes(fnName)) return false;
+    const def = FunctionRegistry.get(fnName);
+    return def && def.outputField && (def.outputField in modelMeta);
   });
+
+  const toRun = [...explicit, ...auto];
+  if (!toRun.length) return;
+  toRun.forEach(fnName => _executeByTrigger(modelName, fnName, rowIndex, calcOnly));
 }
 
 // ── onClick 트리거 ────────────────────────────────────────

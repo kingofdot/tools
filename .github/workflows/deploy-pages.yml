@@ -22,6 +22,16 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Inject build version (prisma-architect)
+        shell: bash
+        run: |
+          SHA="${GITHUB_SHA}"
+          TIME=$(date -u +"%Y-%m-%d %H:%MZ")
+          FILE="tools/prisma-architect/js/version.js"
+          sed -i "s|__BUILD_SHA__|${SHA}|g" "$FILE"
+          sed -i "s|__BUILD_TIME__|${TIME}|g" "$FILE"
+          echo "Injected SHA=${SHA:0:7} TIME=${TIME} into ${FILE}"
+
       - name: Generate tool catalog
         shell: pwsh
         run: ./scripts/build-tool-catalog.ps1
