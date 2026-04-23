@@ -382,6 +382,15 @@ input, textarea, select { font-family: inherit; color: inherit; }
   font-weight: 400;
 }
 
+/* 번호 없는 본문 ( `텍스트 ) — 제목 바로 아래 설명용 */
+.preview .item.no-marker > .item-body {
+  font-size: 15px;
+  font-weight: 400;
+  color: var(--text);
+  margin: 4px 0 6px;
+  padding-left: 0;
+}
+
 /* 제목 위에 보여줄 두문자 (preview 안에서) */
 .preview .doc-header {
   text-align: center;

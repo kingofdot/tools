@@ -13,6 +13,15 @@ function renderNode(node) {
   const childrenHtml = node.children.length
     ? `<div class="children">${node.children.map(renderNode).join('')}</div>`
     : '';
+  if (node.noMarker) {
+    // 번호 없는 본문 — depth 3 본문 크기로 렌더
+    return `
+      <div class="item no-marker depth-3">
+        <div class="item-body">${nameHtml}</div>
+        ${childrenHtml}
+      </div>
+    `;
+  }
   return `
     <div class="item depth-${Math.min(node.depth, 4)}">
       <div class="item-title">
