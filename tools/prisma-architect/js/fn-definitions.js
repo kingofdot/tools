@@ -167,6 +167,28 @@ FunctionRegistry.register('lookupWasteByName', {
 
 // ── 옵션 함수 (Options) ───────────────────────────────────
 
+// WasteTargetItem 행 → targetWaste 드롭다운 선택지
+// 각 행의 wasteMergeName을 우선 사용, 비어있으면 (wasteCode)wasteName 즉석 합성
+FunctionRegistry.register('optionsTargetWaste', {
+  desc: 'WasteTargetItem 행들을 targetWaste 드롭다운 옵션으로 — wasteMergeName 우선, 없으면 (코드)명칭 합성',
+  watch: [],
+  optionsOutput: 'targetWaste',
+  fn() {
+    const rows = (typeof mockStore !== 'undefined' && Array.isArray(mockStore.WasteTargetItem))
+      ? mockStore.WasteTargetItem : [];
+    const out = [];
+    rows.forEach(r => {
+      const merged = (r?.wasteMergeName || '').trim();
+      if (merged) { out.push(merged); return; }
+      const code = (r?.wasteCode || '').trim();
+      const name = (r?.wasteName || '').trim();
+      if (!code && !name) return;
+      out.push(concat(code, name, '(', ''));
+    });
+    return [...new Set(out)];
+  },
+});
+
 // preAnalysisRequired(해당/해당없음) + wasteCode → recyclingCode 선택지 동적 교체
 FunctionRegistry.register('optionsRecyclingCode', {
   desc: '재활용분석 결과에 따라 recyclingCode 드롭다운 선택지 교체',
