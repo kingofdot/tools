@@ -2988,7 +2988,7 @@
       "targetWaste": {
         "commentary": "",
         "id": "",
-        "label": "",
+        "label": "보관대상폐기물",
         "variableType": "text",
         "systemType": "text",
         "isRequired": "false",
@@ -3017,7 +3017,7 @@
       "specificGravity": {
         "commentary": "",
         "id": "",
-        "label": "",
+        "label": "비중",
         "variableType": "text",
         "systemType": "text",
         "isRequired": "false",
@@ -3046,7 +3046,7 @@
       "bottomShape": {
         "commentary": "",
         "id": "",
-        "label": "",
+        "label": "바닥모양",
         "variableType": "text",
         "systemType": "combobox",
         "isRequired": "false",
@@ -3075,7 +3075,7 @@
       "diameter": {
         "commentary": "",
         "id": "",
-        "label": "",
+        "label": "직경",
         "variableType": "text",
         "systemType": "text",
         "isRequired": "false",
@@ -3104,7 +3104,7 @@
       "width": {
         "commentary": "",
         "id": "",
-        "label": "",
+        "label": "너비",
         "variableType": "text",
         "systemType": "text",
         "isRequired": "false",
@@ -3133,7 +3133,7 @@
       "length": {
         "commentary": "",
         "id": "",
-        "label": "",
+        "label": "길이",
         "variableType": "text",
         "systemType": "text",
         "isRequired": "false",
@@ -3162,7 +3162,7 @@
       "topSide": {
         "commentary": "",
         "id": "",
-        "label": "",
+        "label": "윗변",
         "variableType": "text",
         "systemType": "text",
         "isRequired": "false",
@@ -3191,7 +3191,7 @@
       "bottomSide": {
         "commentary": "",
         "id": "",
-        "label": "",
+        "label": "아랫변",
         "variableType": "text",
         "systemType": "text",
         "isRequired": "false",
@@ -3220,7 +3220,7 @@
       "verticalSide": {
         "commentary": "",
         "id": "",
-        "label": "",
+        "label": "세로변",
         "variableType": "text",
         "systemType": "text",
         "isRequired": "false",
@@ -3249,7 +3249,7 @@
       "height": {
         "commentary": "",
         "id": "",
-        "label": "",
+        "label": "높이",
         "variableType": "text",
         "systemType": "text",
         "isRequired": "false",
@@ -3278,7 +3278,7 @@
       "Area": {
         "commentary": "",
         "id": "",
-        "label": "",
+        "label": "면적",
         "variableType": "text",
         "systemType": "calculation_readonly",
         "isRequired": "false",
@@ -3307,7 +3307,7 @@
       "quantity": {
         "commentary": "",
         "id": "",
-        "label": "",
+        "label": "수량",
         "variableType": "text",
         "systemType": "text",
         "isRequired": "false",
@@ -3336,7 +3336,7 @@
       "volume": {
         "commentary": "",
         "id": "",
-        "label": "",
+        "label": "용적",
         "variableType": "text",
         "systemType": "calculation_readonly",
         "isRequired": "false",
@@ -3365,7 +3365,7 @@
       "storageAmount": {
         "commentary": "",
         "id": "",
-        "label": "",
+        "label": "보관량",
         "variableType": "text",
         "systemType": "calculation_readonly",
         "isRequired": "false",
@@ -3394,7 +3394,7 @@
       "storageDays": {
         "commentary": "",
         "id": "",
-        "label": "",
+        "label": "보관일수",
         "variableType": "text",
         "systemType": "text",
         "isRequired": "false",
@@ -3423,7 +3423,7 @@
       "changeType": {
         "commentary": "",
         "id": "",
-        "label": "",
+        "label": "변경여부",
         "variableType": "text",
         "systemType": "text",
         "isRequired": "false",
@@ -5793,6 +5793,13 @@
       "outputDesc": ""
     },
     {
+      "name": "optionsTargetWaste",
+      "desc": "WasteTargetItem 행들을 targetWaste 드롭다운 옵션으로 — wasteMergeName 우선, 없으면 (코드)명칭 합성",
+      "params": [],
+      "outputType": "float",
+      "outputDesc": ""
+    },
+    {
       "name": "optionsRecyclingCode",
       "desc": "재활용분석 결과에 따라 recyclingCode 드롭다운 선택지 교체",
       "params": [
@@ -5961,5 +5968,5 @@
     }
   ],
   "annotations": [],
-  "savedAt": "2026. 4. 23. 오후 3:24:59"
+  "savedAt": "2026. 4. 23. 오후 4:05:35"
 }
