@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="theme-color" content="#1f2937">
+  <meta name="tool-name" content="Study Notes">
+  <meta name="tool-tag" content="Notes">
+  <meta name="tool-description" content="GitHub을 백업 서버로 쓰는 개인 공부 노트 — 들여쓰기 자동 번호, 법조문·판례 뱃지, PWA 지원">
+  <title>Study Notes</title>
+  <link rel="manifest" href="manifest.json">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- 상단바 -->
+  <header class="topbar">
+    <button class="icon-btn mobile-only" id="toggleSidebarBtn" title="목록">≡</button>
+    <h1 class="brand">Study Notes</h1>
+    <div class="search-inline">
+      <input type="search" id="searchInput" placeholder="검색 (과목·주제·두문자·내용)">
+    </div>
+    <div class="topbar-actions">
+      <span class="sync-state" id="syncState" title="동기화 상태">●</span>
+      <button class="icon-btn" id="syncBtn" title="동기화">⇅</button>
+      <button class="icon-btn" id="settingsBtn" title="설정">⚙</button>
+    </div>
+  </header>
+
+  <!-- 과목 탭 -->
+  <nav class="subject-tabs" id="subjectTabs"></nav>
+
+  <main class="workspace">
+
+    <!-- 좌측: 같은 과목의 노트 목록 (세로, 드래그 정렬) -->
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-header">
+        <button class="btn btn-primary btn-sm" id="newNoteBtn">+ 새 노트</button>
+      </div>
+      <ol class="note-list" id="noteList"></ol>
+    </aside>
+
+    <!-- 우측: 편집/보기 -->
+    <section class="editor-pane">
+
+      <div class="meta-row">
+        <label class="meta-field meta-grow">
+          <span>주제</span>
+          <input type="text" id="topicInput" placeholder="예: 매매의 효력">
+        </label>
+        <label class="meta-field">
+          <span>두문자</span>
+          <input type="text" id="mnemonicInput" placeholder="예: 재대과">
+        </label>
+        <div class="view-toggle" role="group">
+          <button class="view-btn active" data-mode="study" title="보기 (Ctrl+E로 전환)">📖 보기</button>
+          <button class="view-btn" data-mode="edit" title="편집 (Ctrl+E로 전환)">✏ 편집</button>
+        </div>
+        <button class="icon-btn danger" id="deleteNoteBtn" title="이 노트 삭제">🗑</button>
+      </div>
+
+      <div class="study-area" id="studyArea">
+
+        <!-- 보기 모드 -->
+        <article id="preview" class="preview"></article>
+
+        <!-- 편집 모드 -->
+        <div class="edit-area" id="editArea" hidden>
+          <textarea id="bodyInput" spellcheck="false"
+            placeholder="제목을 쓰고 Enter, Tab으로 들여쓰기, Shift+Tab으로 내어쓰기.&#10;번호는 자동으로 매겨집니다."></textarea>
+          <aside class="edit-preview" id="editPreview"></aside>
+        </div>
+
+      </div>
+
+    </section>
+
+  </main>
+
+  <!-- 설정 모달 -->
+  <div class="modal-overlay" id="settingsModal" hidden>
+    <div class="modal">
+      <div class="modal-header">
+        <h2>설정</h2>
+        <button class="icon-btn" data-close-modal="settingsModal">✕</button>
+      </div>
+      <div class="modal-body">
+        <label class="form-row">
+          <span>GitHub 사용자명</span>
+          <input type="text" id="ghOwner" placeholder="kingofdot">
+        </label>
+        <label class="form-row">
+          <span>저장소 이름</span>
+          <input type="text" id="ghRepo" placeholder="tools">
+        </label>
+        <label class="form-row">
+          <span>파일 경로</span>
+          <input type="text" id="ghPath" placeholder="tools/study-notes/notes-data.json">
+          <small>이미 존재하는 저장소 안의 경로 — 새 저장소 만들 필요 없음</small>
+        </label>
+        <label class="form-row">
+          <span>Personal Access Token</span>
+          <input type="password" id="ghToken" placeholder="github_pat_... (Contents: R&W)">
+          <small>fine-grained PAT — 위 저장소의 Contents: Read & Write 권한</small>
+        </label>
+        <label class="form-row form-row-inline">
+          <input type="checkbox" id="ghAutoSync">
+          <span>자동 동기화 (5초 디바운스)</span>
+        </label>
+      </div>
+      <div class="modal-footer">
+        <button class="btn" data-close-modal="settingsModal">취소</button>
+        <button class="btn btn-primary" id="saveSettingsBtn">저장</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 토스트 -->
+  <div class="toast-container" id="toastContainer"></div>
+
+  <!-- JS -->
+  <script src="js/state.js"></script>
+  <script src="js/storage.js"></script>
+  <script src="js/parser.js"></script>
+  <script src="js/highlight.js"></script>
+  <script src="js/numbering.js"></script>
+  <script src="js/render.js"></script>
+  <script src="js/editor.js"></script>
+  <script src="js/list.js"></script>
+  <script src="js/search.js"></script>
+  <script src="js/github.js"></script>
+  <script src="js/sync.js"></script>
+  <script src="js/init.js"></script>
+</body>
+</html>
