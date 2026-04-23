@@ -44,6 +44,15 @@ const CellComponents = {
     return [...new Set(raw.map(r => r[dbColumn]).filter(v => v !== undefined && v !== null && v !== ''))];
   },
 
+  // Mock 리졸버: dynamic_select/dynamic_combobox — mockStore[dbTable] 의 dbColumn 유니크 값
+  // 사용자가 직접 입력하는 모델(예: WasteTargetItem)을 드롭다운 소스로 쓸 때
+  _mockResolver(dbTable, dbColumn) {
+    if (!dbTable || !dbColumn) return [];
+    const store = (typeof mockStore !== 'undefined') ? mockStore : null;
+    const rows = store && Array.isArray(store[dbTable]) ? store[dbTable] : [];
+    return [...new Set(rows.map(r => r?.[dbColumn]).filter(v => v !== undefined && v !== null && v !== ''))];
+  },
+
   configure({ optionsResolver } = {}) {
     if (optionsResolver) this._resolver = optionsResolver;
   },
@@ -156,13 +165,21 @@ const CellComponents = {
     renderDisplay(val) { return _esc(val); },
   },
 
-  // 함수가 선택지를 동적으로 결정하는 타입 (onClick → Options 함수)
-  // 초기 옵션 없음 — _updateCellOptions 가 onClick 시 채워줌
+  // 함수가 선택지를 동적으로 결정하는 타입
+  //  1) meta.dbTable+dbColumn 지정 → mockStore[dbTable] 에서 즉시 옵션 생성 (범용)
+  //  2) onClick → Options 함수로 _updateCellOptions 호출 (커스텀 로직)
   dynamic_select: {
     editable: true,
-    renderInput(val) {
-      const sel = val ? `<option value="${_esc(val)}" selected>${_esc(val)}</option>` : '';
-      return `<select ${_iBase}><option value="">—</option>${sel}</select>`;
+    renderInput(val, meta) {
+      let opts = '';
+      if (meta.dbTable && meta.dbColumn) {
+        opts = CellComponents._mockResolver(meta.dbTable, meta.dbColumn)
+          .map(o => `<option value="${_esc(o)}"${val === o ? ' selected' : ''}>${_esc(o)}</option>`)
+          .join('');
+      } else if (val) {
+        opts = `<option value="${_esc(val)}" selected>${_esc(val)}</option>`;
+      }
+      return `<select ${_iBase}><option value="">—</option>${opts}</select>`;
     },
     renderDisplay(val) { return _esc(val); },
   },
@@ -173,8 +190,12 @@ const CellComponents = {
       // _mockField 기반으로 고유 datalist ID 생성 (행마다 다른 옵션 허용)
       const safeId = (meta._mockField || 'dyn').replace(/[^a-zA-Z0-9]/g, '_');
       const listId = `dynlist_${safeId}`;
+      const opts = (meta.dbTable && meta.dbColumn)
+        ? CellComponents._mockResolver(meta.dbTable, meta.dbColumn)
+            .map(o => `<option value="${_esc(o)}">`).join('')
+        : '';
       return `<input type="text" ${_iBase} value="${_esc(val)}" list="${listId}" autocomplete="off">` +
-             `<datalist id="${listId}"></datalist>`;
+             `<datalist id="${listId}">${opts}</datalist>`;
     },
     renderDisplay(val) { return _esc(val); },
   },

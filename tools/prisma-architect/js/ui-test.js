@@ -525,13 +525,19 @@ function buildInput(fieldName, meta, modelName) {
            `<datalist id="${listId}">${opts}</datalist>`;
   }
   if (type === 'dynamic_select') {
-    // 옵션은 onClick 함수가 동적으로 채움 — 초기엔 빈 select
-    return `<select ${mf} ${onChange} style="${s}"><option value="">— 선택 —</option></select>`;
+    // meta.dbTable+dbColumn 있으면 mockStore에서 즉시 옵션 생성, 없으면 Options 함수가 채움
+    const vals = (meta.dbTable && meta.dbColumn)
+      ? CellComponents._mockResolver(meta.dbTable, meta.dbColumn) : [];
+    const opts = vals.map(o => `<option value="${o}">${o}</option>`).join('');
+    return `<select ${mf} ${onChange} style="${s}"><option value="">— 선택 —</option>${opts}</select>`;
   }
   if (type === 'dynamic_combobox') {
     const listId = `dynlist_${modelName}_${fieldName}`;
+    const vals = (meta.dbTable && meta.dbColumn)
+      ? CellComponents._mockResolver(meta.dbTable, meta.dbColumn) : [];
+    const opts = vals.map(o => `<option value="${o}">`).join('');
     return `<input type="text" list="${listId}" ${mf} ${onChange} ${onInputDatalist} style="${s}" autocomplete="off" placeholder="${ph}">` +
-           `<datalist id="${listId}"></datalist>`;
+           `<datalist id="${listId}">${opts}</datalist>`;
   }
   if (type === 'boolean') {
     return `<select ${mf} ${onChange} style="${s}"><option value="">— 선택 —</option><option value="true">true</option><option value="false">false</option></select>`;
