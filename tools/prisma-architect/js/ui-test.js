@@ -34,9 +34,26 @@ function _autoStoreSet(modelName, fieldName, rowIndex, value) {
 }
 
 // ── mockStore 뷰어 ───────────────────────────────────────
+// 현재 테스트 화면에 체크된 모델은 전체 필드 셰이프를 채워 표시 (값 없으면 "")
+// 체크 안 된 모델은 기존 저장값 그대로.
 function mockStoreView() {
   const viewer = document.getElementById('mockStoreViewer');
-  viewer.textContent = JSON.stringify(mockStore, null, 2);
+  const view = JSON.parse(JSON.stringify(mockStore || {}));
+
+  (uitestChecked instanceof Set ? [...uitestChecked] : []).forEach(modelName => {
+    const model = (schema.models || []).find(m => m.name === modelName);
+    if (!model) return;
+    const fieldNames = model.fields.map(f => f.name);
+    if (!Array.isArray(view[modelName])) view[modelName] = [];
+    if (view[modelName].length === 0) view[modelName].push({ _id: '1' });
+    view[modelName] = view[modelName].map((row, i) => {
+      const filled = { _id: row?._id ?? String(i + 1) };
+      fieldNames.forEach(fn => { filled[fn] = row?.[fn] ?? ''; });
+      return filled;
+    });
+  });
+
+  viewer.textContent = JSON.stringify(view, null, 2);
   document.getElementById('mockStoreModal').classList.add('show');
 }
 
