@@ -177,6 +177,9 @@ function _executeFunction(modelName, fieldName, fnName, rowIndex) {
 }
 
 function _updateCell(modelName, fieldName, rowIndex, value) {
+  // hidden/미렌더 필드라도 스토어엔 반영해야 함 (예: 숨긴 calculation 결과)
+  if (typeof _autoStoreSet === 'function') _autoStoreSet(modelName, fieldName, rowIndex, value);
+
   const input = document.querySelector(_mockfieldSelector(modelName, fieldName, rowIndex));
   if (!input) return;
 
@@ -198,8 +201,6 @@ function _updateCell(modelName, fieldName, rowIndex, value) {
   }
 
   display.innerHTML = comp?.renderDisplay ? comp.renderDisplay(displayVal, {}) : displayVal;
-
-  if (typeof _autoStoreSet === 'function') _autoStoreSet(modelName, fieldName, rowIndex, value);
 }
 
 // ── HeaderControl: 컬럼 동적 show/hide ───────────────────
