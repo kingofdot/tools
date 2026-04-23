@@ -42,6 +42,22 @@ const FunctionRegistry = {
 // ── 공통 헬퍼 ─────────────────────────────────────────────
 const _p = v => parseFloat(v) || 0;
 
+// 텍스트 합치기 — 각 값을 괄호로 감싸 이어 붙임.
+//   concat('A','B')            → '(A)B'
+//   concat('A','B','(','[')    → '(A)[B]'
+//   concat('A','B','','')      → 'AB'
+// wrapA/wrapB 에 여는 괄호 한 글자( ( [ { < )를 주면 자동으로 닫는 괄호 짝을 붙임.
+// 빈 문자열이면 감싸지 않음. 그 외 문자는 접두사로만 붙임.
+const _PAIRS = { '(':')', '[':']', '{':'}', '<':'>' };
+function concat(A, B, wrapA = '(', wrapB = '') {
+  const wrap = (v, w) => {
+    if (w === '') return String(v ?? '');
+    const close = _PAIRS[w] ?? '';
+    return `${w}${v ?? ''}${close}`;
+  };
+  return wrap(A, wrapA) + wrap(B, wrapB);
+}
+
 // ── 함수 정의 ─────────────────────────────────────────────
 
 // 바닥 면적 계산 (WasteStorageFacility.Area)
@@ -85,6 +101,21 @@ FunctionRegistry.register('calcVolume', {
     const height = _p(params.height);
     if (!area || !height) return '';
     return (area * height).toFixed(4);
+  },
+});
+
+// 폐기물 병합명 — wasteCode/wasteName 을 괄호로 묶어 wasteMergeName 에 출력
+// 예: wasteCode="51-01-01", wasteName="폐유" → "(51-01-01)폐유"
+FunctionRegistry.register('mergeWasteName', {
+  desc: '폐기물코드·명칭을 합쳐 wasteMergeName 생성 — (코드)명칭 형식',
+  outputField: 'wasteMergeName',
+  outputType: 'string',
+  watch: ['wasteCode', 'wasteName'],
+  fn(params) {
+    const code = (params.wasteCode || '').trim();
+    const name = (params.wasteName || '').trim();
+    if (!code && !name) return '';
+    return concat(code, name, '(', '');
   },
 });
 

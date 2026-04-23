@@ -40,21 +40,27 @@ UI 테스트 (fn-engine + CellGrid)
 </td>
 ```
 
-### 등록된 타입
+### 등록된 타입 (17종)
 
-| type | 위젯 | 특이사항 |
-|---|---|---|
-| `text` | `<input type="text">` | 기본값 |
-| `number` | `<input type="number">` | 우측 정렬 |
-| `date` | `<input type="date">` | |
-| `select` | `<select>` | 수정불가 드롭다운. comboboxName → optionsResolver |
-| `combobox` | `<input list="datalist">` | 검색 + 직접 입력 가능 |
-| `boolean` | `<select>` true/false | |
-| `calculation` | `<input readonly>` | 함수 결과 자동 세팅. 수정불가 |
-| `calculation_editable` | `<input>` | 함수 결과 자동 세팅. 수정 가능 |
-| `lookup_readonly` | `<input readonly>` | |
-| `lookup_editable` | `<select>` or `<input>` | dataSource 있으면 select |
-| `hidden` | 없음 | 렌더 자체 스킵 |
+| 분류 | type | 위젯 | editable | 특이사항 |
+|---|---|---|---|---|
+| 기본 | `text` | `<input type="text">` | ✅ | 기본값. placeholder 지원 |
+| 기본 | `number` | `<input type="number">` | ✅ | 우측 정렬 |
+| 기본 | `date` | `<input type="date">` | ✅ | 편집 진입 시 picker 자동 |
+| 기본 | `datetime` | `<input type="datetime-local">` | ✅ | 날짜+시간 |
+| 기본 | `boolean` | `<select>` true/false | ✅ | rich display (색상) |
+| 기본 | `json` | `<textarea>` | ✅ | monospace, display는 `<code>` |
+| 기본 | `hidden` | — | ❌ | 렌더 자체 스킵 |
+| 옵션 | `select` | `<select>` | ✅ | comboboxName → optionsResolver |
+| 옵션 | `combobox` | `<input list>` | ✅ | 검색 + 직접 입력 |
+| DB 옵션 | `db_select` | `<select>` | ✅ | dbTable + dbColumn → _dbResolver |
+| DB 옵션 | `db_combobox` | `<input list>` | ✅ | DB 기반 검색 + 직접 입력 |
+| 동적 옵션 | `dynamic_select` | `<select>` | ✅ | onClick → Options 함수로 옵션 교체 |
+| 동적 옵션 | `dynamic_combobox` | `<input list>` | ✅ | 행별 datalist 분리 가능 |
+| 함수 결과 | `calculation_readonly` | `<input readonly>` | ❌ | 함수 결과 자동 세팅, 수정 불가 |
+| 함수 결과 | `calculation_editable` | `<input>` | ✅ | 함수 결과 자동 세팅, 수정 가능 |
+| 모델 참조 | `lookup_readonly` | `<input readonly>` | ❌ | 🚧 **미구현** — dataSource는 힌트로만 표시, cross-model 참조 로직은 조립모델 단계에서 결정 |
+| 모델 참조 | `lookup_editable` | `<select>` or `<input>` | ✅ | 🚧 **미구현** — 동일 |
 
 ### select vs combobox
 
@@ -64,13 +70,21 @@ UI 테스트 (fn-engine + CellGrid)
 | 검색/필터 | 불가 | 브라우저 기본 필터 |
 | 용도 | 코드 등 정해진 값 | 이름처럼 수정 여지 있는 값 |
 
-### calculation vs calculation_editable
+### 옵션 출처별 4분할 (select/combobox/db_*/dynamic_*)
 
-| | `calculation` | `calculation_editable` |
+| | 옵션 출처 | 언제 쓰나 |
 |---|---|---|
-| 함수 타입 | Calculation | Lookup |
-| 사용자 수정 | 불가 | 가능 |
-| 예시 | Area = 너비×길이 | wasteName (코드 선택 후 수정 가능) |
+| `select` / `combobox` | `comboboxStore[comboboxName]` — 사전 등록된 정적 목록 | 코드·카테고리처럼 목록이 변하지 않음 |
+| `db_select` / `db_combobox` | `masterDataRegistry`에 등록된 전역 DB 변수의 `dbColumn` 유니크 값 | 폐기물 마스터처럼 DB 테이블 참조 |
+| `dynamic_select` / `dynamic_combobox` | `onClick` 트리거의 Options 함수가 런타임에 계산 | 다른 필드 값에 따라 옵션이 달라짐 (행별 다를 수도) |
+
+### calculation_readonly vs calculation_editable
+
+| | `calculation_readonly` | `calculation_editable` |
+|---|---|---|
+| 함수 결과 자동 세팅 | ✅ | ✅ |
+| 사용자 수정 | 불가 (잠김) | 가능 (자동값 위에 덮어쓰기 가능) |
+| 예시 | Area = 너비 × 길이 (계산만, 건드릴 수 없음) | 추천 단가 자동 세팅 후 담당자가 조정 |
 
 ### buildCell()
 
@@ -170,9 +184,11 @@ metaStore의 각 필드에 붙는 메타 컬럼 전체 목록.
 |---|---|---|
 | `select` / `combobox` | comboboxName | dbTable, dbColumn, syncGroup |
 | `db_select` / `db_combobox` | dbTable, dbColumn, syncGroup | comboboxName |
-| `calculation` | onChange | comboboxName, dbTable, onClick, focusOut |
+| `dynamic_select` / `dynamic_combobox` | onClick (Options 함수) | comboboxName, dbTable |
+| `calculation_readonly` | onChange | comboboxName, dbTable, onClick, focusOut |
 | `calculation_editable` | onChange | comboboxName, dbTable, onClick, focusOut |
-| `lookup_readonly/editable` | dataSource | comboboxName, dbTable |
+| `lookup_readonly` / `lookup_editable` | dataSource | comboboxName, dbTable |
+| `json` | — | comboboxName, dbTable |
 | `hidden` | (전부 흐림) | |
 
 ---
@@ -358,6 +374,7 @@ UI모델 함수(같은 모델 내) vs 조립모델 플로우(모델 간):
 ## 미결/예정 항목
 
 - [ ] **조립모델 구현** — 화면 레이아웃 + 모델 간 데이터 흐름
+- [ ] **lookup_readonly / lookup_editable 타입** — 현재 dataSource 힌트만 표시. cross-model 참조 로직은 조립모델 설계와 함께 결정 예정 (단독 구현 X)
 - [ ] **db_select/db_combobox/syncGroup 엔진** — 선언만으로 양방향 연동
 - [ ] **cross-row 연산** — N행 합산 등 `storeAction` 개념 설계 필요
 - [ ] **focusOut / realtime 트리거** — 엔진 연결 미구현

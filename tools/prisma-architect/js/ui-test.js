@@ -339,7 +339,7 @@ function renderForm1to1(rows, modelName) {
 // ── 함수 역할 맵 ────────────────────────────────────────────
 // 모델의 각 필드가 함수와 어떤 관계인지 반환.
 //   'input'  — FunctionRegistry 어딘가의 watch 목록에 포함 (인자 필드)
-//   'output' — systemType === 'calculation' (결과 필드)
+//   'output' — systemType === 'calculation_readonly' (결과 필드)
 //   undefined — 함수와 무관
 function _buildFnRoles(modelName) {
   const meta = metaStore[modelName] || {};
@@ -483,8 +483,11 @@ function buildInput(fieldName, meta, modelName) {
 
   // readonly/calculation이 아닌 입력 필드: 스토어 자동 업데이트 + fn 트리거
   const isDbType = type === 'db_select' || type === 'db_combobox';
-  const onChange = (!ro && modelName)
-    ? `onchange="_autoStoreSet('${modelName}','${fieldName}',null,this.value);runOnChange('${modelName}','${fieldName}',null)${isDbType ? `;runAutoDbSync('${modelName}','${fieldName}',null)` : ''}"`
+  const commitExpr = `_autoStoreSet('${modelName}','${fieldName}',null,this.value);runOnChange('${modelName}','${fieldName}',null)${isDbType ? `;runAutoDbSync('${modelName}','${fieldName}',null)` : ''}`;
+  const onChange = (!ro && modelName) ? `onchange="${commitExpr}"` : '';
+  // datalist: change는 blur 때만 터지므로 input + 옵션 매칭으로 즉시 커밋
+  const onInputDatalist = (!ro && modelName)
+    ? `oninput="if([...(document.getElementById(this.getAttribute('list'))?.options||[])].some(o=>o.value===this.value)){${commitExpr}}"`
     : '';
 
   if (type === 'select' || type === 'combobox') {
@@ -501,7 +504,7 @@ function buildInput(fieldName, meta, modelName) {
     const vals = CellComponents._dbResolver(meta.dbTable || '', meta.dbColumn || '');
     const listId = `dbl_${meta.dbTable || 'x'}_${meta.dbColumn || 'y'}`;
     const opts = vals.map(o => `<option value="${o}">`).join('');
-    return `<input type="text" list="${listId}" ${mf} ${onChange} style="${s}" autocomplete="off" placeholder="${ph}">` +
+    return `<input type="text" list="${listId}" ${mf} ${onChange} ${onInputDatalist} style="${s}" autocomplete="off" placeholder="${ph}">` +
            `<datalist id="${listId}">${opts}</datalist>`;
   }
   if (type === 'dynamic_select') {
@@ -510,7 +513,7 @@ function buildInput(fieldName, meta, modelName) {
   }
   if (type === 'dynamic_combobox') {
     const listId = `dynlist_${modelName}_${fieldName}`;
-    return `<input type="text" list="${listId}" ${mf} ${onChange} style="${s}" autocomplete="off" placeholder="${ph}">` +
+    return `<input type="text" list="${listId}" ${mf} ${onChange} ${onInputDatalist} style="${s}" autocomplete="off" placeholder="${ph}">` +
            `<datalist id="${listId}"></datalist>`;
   }
   if (type === 'boolean') {

@@ -388,6 +388,7 @@ class CellGrid {
     this.el.removeEventListener('dblclick',  this._dh);
     this.el.removeEventListener('focusout',  this._fh);
     this.el.removeEventListener('change',    this._ch);
+    this.el.removeEventListener('input',     this._ih);
   }
 
   // ── Private ────────────────────────────────────────────
@@ -398,11 +399,13 @@ class CellGrid {
     this._dh = e => this._onDblclick(e);
     this._fh = e => this._onFocusout(e);
     this._ch = e => this._onChange(e);
+    this._ih = e => this._onInput(e);
     this.el.addEventListener('keydown',   this._kh);
     this.el.addEventListener('mousedown', this._mh);
     this.el.addEventListener('dblclick',  this._dh);
     this.el.addEventListener('focusout',  this._fh);
     this.el.addEventListener('change',    this._ch);
+    this.el.addEventListener('input',     this._ih);
   }
 
   _onKeydown(e) {
@@ -497,17 +500,34 @@ class CellGrid {
     this.startEdit(+cell.dataset.row, +cell.dataset.col, false);
   }
 
-  // select/boolean — 드롭다운 값 선택 즉시 commit
-  // combobox(datalist+input) — 목록에서 선택 시 change 이벤트 발생 → 즉시 commit
+  // 드롭다운형 위젯 — 선택 즉시 commit (select/db_select/dynamic_select/boolean/combobox 계열)
+  // DOM 구조 기반 판정: <select> 또는 <input list="..."> (datalist 연결) → 즉시 commit
+  // 새 셀 타입이 추가돼도 DOM이 이 두 형태라면 자동 대응
   _onChange(e) {
     const input = e.target.closest(this.opt.inputSel);
     if (!input) return;
-    const cell = input.closest(this.opt.cellSel);
-    if (!cell) return;
-    const type = cell.dataset.cellType;
-    if (type === 'select' || type === 'combobox' || type === 'boolean') {
-      this.commit();
-    }
+
+    const isSelect   = input.tagName === 'SELECT';
+    const isDatalist = input.tagName === 'INPUT' && input.hasAttribute('list');
+
+    if (isSelect || isDatalist) this.commit();
+  }
+
+  // datalist 옵션 클릭은 'change'가 아닌 'input' 이벤트로 먼저 들어옴.
+  // (change는 포커스아웃 때만 터지는 브라우저 특성)
+  // 입력값이 datalist 옵션 중 하나와 정확히 일치하면 즉시 commit.
+  _onInput(e) {
+    const input = e.target.closest(this.opt.inputSel);
+    if (!input) return;
+    if (input.tagName !== 'INPUT' || !input.hasAttribute('list')) return;
+
+    const listId = input.getAttribute('list');
+    const dl = listId && document.getElementById(listId);
+    if (!dl) return;
+
+    const val = input.value;
+    const matched = Array.from(dl.options).some(o => o.value === val);
+    if (matched) this.commit();
   }
 
   // 포커스가 그리드 바깥으로 나가면 선택/편집 상태 해제
