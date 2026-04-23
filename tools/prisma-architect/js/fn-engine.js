@@ -248,10 +248,12 @@ function _executeHeaderControl(modelName, fnName, rowIndex) {
   // 1:1 폼: 행이 하나뿐이니 그 값 하나만 보면 동일하게 동작
   const allEls = document.querySelectorAll(`[data-mockfield^="${modelName}.${watchField}"]`);
   const visible = new Set();
+  const seenValues = [];
   if (allEls.length === 0) {
     // DOM에 없으면 현재 rowIndex만 확인 (fallback)
     const el = document.querySelector(_mockfieldSelector(modelName, watchField, rowIndex));
     const v = el?.value ?? '';
+    seenValues.push(v);
     (rules[v] || []).forEach(h => visible.add(h));
   } else {
     allEls.forEach(el => {
@@ -261,8 +263,13 @@ function _executeHeaderControl(modelName, fnName, rowIndex) {
       const expectRow  = `${modelName}.${watchField}.`;
       if (key !== expectForm && !key.startsWith(expectRow)) return;
       const v = el.value ?? '';
+      seenValues.push(v);
       (rules[v] || []).forEach(h => visible.add(h));
     });
+  }
+  // 진단 로그 — devtools 콘솔에서 확인
+  if (typeof console !== 'undefined' && console.debug) {
+    console.debug('[shapeControl]', { modelName, fnName, watchField, seenValues, visible: [...visible], rulesKeys: Object.keys(rules), allElsCount: allEls.length });
   }
 
   if (!headerVisibilityStore[modelName]) headerVisibilityStore[modelName] = {};
