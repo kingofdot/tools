@@ -3020,7 +3020,7 @@
         "variableType": "text",
         "systemType": "select",
         "isRequired": "false",
-        "defaultValue": "사각",
+        "defaultValue": "",
         "showNode": "true",
         "showNodeDeatil": "true",
         "CreationConditions": "initial",
@@ -5739,6 +5739,18 @@
       "outputDesc": ""
     },
     {
+      "name": "shapeControl",
+      "desc": "바닥모양 변경 시 관련 치수 컬럼만 표시/숨김",
+      "params": [
+        {
+          "name": "bottomShape",
+          "desc": ""
+        }
+      ],
+      "outputType": "float",
+      "outputDesc": ""
+    },
+    {
       "name": "optionsTargetWaste",
       "desc": "WasteTargetItem 행들을 targetWaste 드롭다운 옵션으로 — wasteMergeName 우선, 없으면 (코드)명칭 합성",
       "params": [],
@@ -5914,5 +5926,5 @@
     }
   ],
   "annotations": [],
-  "savedAt": "2026. 4. 23. 오후 4:33:25"
+  "savedAt": "2026. 4. 23. 오후 6:00:12"
 }
