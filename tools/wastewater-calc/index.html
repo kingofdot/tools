@@ -1,0 +1,674 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>폐수처리 농도 계산기</title>
+<meta name="tool-name" content="폐수처리 농도 계산기">
+<meta name="tool-tag" content="환경">
+<meta name="tool-description" content="물질별 초기 농도와 처리시설별 제거율(%)을 입력해 시설별 처리 후 농도와 최종 처리수 농도를 실시간 계산합니다. 시설·물질 자유 추가, 크기 설정 가능.">
+
+<style>
+  :root {
+    /* 컬러 — 모던 다크 */
+    --bg:        #0a0a0c;
+    --surface:   #141418;
+    --surface-2: #1c1c22;
+    --border:    #2a2a33;
+    --border-2:  #3a3a45;
+    --text:      #e7e7ea;
+    --text-dim:  #a1a1aa;
+    --muted:     #6b6b74;
+    --accent:    #3b82f6;
+    --accent-bg: rgba(59,130,246,0.08);
+    --success:   #10b981;
+    --success-bg:rgba(16,185,129,0.10);
+    --warn:      #f59e0b;
+    --danger:    #ef4444;
+    --calc-bg:   rgba(59,130,246,0.06);
+
+    /* 크기 (사용자 조절) */
+    --ui-cell-w:   80px;
+    --ui-label-w:  150px;
+    --ui-row-h:    36px;
+    --ui-font:     12px;
+    --ui-font-h:   11.5px;
+  }
+  *, *::before, *::after { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    padding: 28px 32px 40px;
+    font-family: -apple-system, BlinkMacSystemFont, "Inter", "Segoe UI", "Malgun Gothic", sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    font-size: 13px;
+    line-height: 1.45;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ─── 헤더 ─── */
+  .page-head {
+    display: flex; align-items: flex-start; gap: 12px;
+    margin-bottom: 22px; flex-wrap: wrap;
+  }
+  .page-head h1 {
+    font-size: 18px; font-weight: 700; margin: 0 0 4px;
+    letter-spacing: -0.01em;
+  }
+  .page-head .desc {
+    font-size: 12px; color: var(--text-dim); margin: 0;
+  }
+
+  /* ─── 버튼 공통 ─── */
+  .btn {
+    display: inline-flex; align-items: center; gap: 6px;
+    background: var(--surface); color: var(--text);
+    border: 1px solid var(--border); border-radius: 6px;
+    padding: 7px 13px; font-size: 12.5px; font-family: inherit;
+    cursor: pointer; transition: all 0.12s;
+  }
+  .btn:hover { background: var(--surface-2); border-color: var(--border-2); }
+  .btn.primary { background: var(--accent); border-color: var(--accent); color: white; }
+  .btn.primary:hover { filter: brightness(1.1); border-color: var(--accent); }
+  .btn.ghost { background: transparent; border-color: var(--border); color: var(--text-dim); }
+  .btn.ghost:hover { color: var(--text); border-color: var(--border-2); }
+  .btn.sm { padding: 4px 9px; font-size: 11px; border-radius: 5px; }
+  .btn.icon {
+    padding: 0; width: 20px; height: 20px; border-radius: 4px;
+    font-size: 13px; justify-content: center;
+    background: transparent; border-color: transparent;
+    color: var(--muted);
+  }
+  .btn.icon:hover { background: rgba(239,68,68,0.12); color: var(--danger); border-color: transparent; }
+
+  /* ─── 툴바 ─── */
+  .toolbar {
+    display: flex; gap: 8px; align-items: center;
+    margin-bottom: 14px; flex-wrap: wrap;
+  }
+  .toolbar .formula {
+    margin-left: auto; font-size: 11.5px; color: var(--muted);
+    font-family: "JetBrains Mono", "Consolas", monospace;
+  }
+
+  /* ─── 설정 패널 ─── */
+  .settings {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 12px 16px;
+    margin-bottom: 14px;
+  }
+  .settings summary {
+    cursor: pointer; font-size: 12px; color: var(--text-dim);
+    user-select: none; list-style: none;
+    display: inline-flex; align-items: center; gap: 6px;
+  }
+  .settings summary::-webkit-details-marker { display: none; }
+  .settings summary::before {
+    content: "▸"; display: inline-block; font-size: 9px;
+    transition: transform 0.15s;
+  }
+  .settings details[open] summary::before { transform: rotate(90deg); }
+  .settings-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 12px 22px; margin-top: 14px; padding-top: 14px;
+    border-top: 1px solid var(--border);
+  }
+  .setting { display: flex; align-items: center; gap: 10px; font-size: 12px; }
+  .setting label { flex: 0 0 78px; color: var(--text-dim); font-size: 11.5px; }
+  .setting input[type="range"] {
+    flex: 1; accent-color: var(--accent);
+  }
+  .setting .val {
+    flex: 0 0 52px; text-align: right; color: var(--accent);
+    font-family: "JetBrains Mono", "Consolas", monospace;
+    font-size: 11.5px;
+  }
+
+  /* ─── 테이블 래퍼 ─── */
+  .table-wrap {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    overflow: auto;
+    max-height: calc(100vh - 240px);
+  }
+
+  /* ─── 테이블 ─── */
+  table {
+    border-collapse: collapse;
+    width: max-content;
+    min-width: 100%;
+    font-size: var(--ui-font);
+    table-layout: fixed;
+  }
+  col.col-label { width: var(--ui-label-w); }
+  col.col-data  { width: var(--ui-cell-w); }
+
+  th, td {
+    height: var(--ui-row-h);
+    padding: 0 8px;
+    text-align: center;
+    vertical-align: middle;
+    border-right: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    font-variant-numeric: tabular-nums;
+  }
+  th { font-weight: 500; color: var(--text-dim); font-size: var(--ui-font-h); }
+  td { color: var(--text); }
+
+  /* ─── 헤더 (첫 번째 행) ─── */
+  thead th {
+    background: var(--surface-2);
+    position: sticky; top: 0; z-index: 3;
+    height: auto; padding: 8px 6px;
+    vertical-align: top;
+  }
+  th.col-first { z-index: 4; }
+  .corner-label {
+    color: var(--muted); font-weight: 500; font-size: 11px;
+    text-align: left; padding-left: 12px;
+  }
+  .pollutant-head {
+    position: relative;
+    display: flex; flex-direction: column; gap: 3px;
+    padding: 0 2px 2px;
+  }
+  .pollutant-head .remove {
+    position: absolute; top: -4px; right: -2px;
+    width: 16px; height: 16px; border-radius: 3px;
+    background: transparent; border: none; cursor: pointer;
+    color: var(--muted); font-size: 12px; line-height: 1;
+    padding: 0; opacity: 0.5; transition: all 0.1s;
+  }
+  .pollutant-head .remove:hover { opacity: 1; color: var(--danger); background: rgba(239,68,68,0.12); }
+
+  input.inp-name {
+    width: 100%; min-width: 0; background: transparent; border: 1px solid transparent;
+    color: var(--text); font: inherit; font-weight: 600; font-size: var(--ui-font-h);
+    text-align: center; padding: 2px 4px; border-radius: 4px;
+  }
+  input.inp-unit {
+    width: 100%; min-width: 0; background: transparent; border: 1px solid transparent;
+    color: var(--muted); font: inherit; font-size: 10.5px;
+    text-align: center; padding: 1px 4px; border-radius: 4px;
+  }
+  input.inp-num, input.inp-val {
+    width: 100%; min-width: 0; background: transparent; border: 1px solid transparent;
+    color: var(--text); font: inherit; font-size: var(--ui-font);
+    text-align: center; padding: 4px 6px; border-radius: 4px;
+    font-variant-numeric: tabular-nums; box-sizing: border-box;
+  }
+  input:focus {
+    outline: none; background: var(--bg); border-color: var(--accent) !important;
+  }
+  input.passthrough { color: var(--warn); font-style: italic; }
+
+  /* 문자 토글 */
+  .pt-toggle {
+    display: inline-flex; align-items: center; gap: 4px;
+    font-size: 10px; color: var(--muted); cursor: pointer;
+    justify-content: center; margin-top: 2px;
+    user-select: none;
+  }
+  .pt-toggle input { width: 10px; height: 10px; accent-color: var(--accent); margin: 0; }
+  .pt-toggle:hover { color: var(--text-dim); }
+
+  /* ─── 행별 스타일 ─── */
+  tr.row-initial th, tr.row-initial td { background: var(--surface-2); }
+  tr.row-rate    td.numeric { background: transparent; }
+  tr.row-conc    td         { background: var(--calc-bg); color: #93c5fd; }
+
+  /* 시설 섹션 헤더 (colspan 전체) */
+  tr.facility-section > th {
+    background: var(--surface-2);
+    border-top: 1px solid var(--border-2);
+    height: auto; padding: 8px 12px;
+    text-align: left;
+  }
+  .facility-title {
+    display: flex; align-items: center; gap: 8px;
+  }
+  .facility-title .dot {
+    width: 6px; height: 6px; border-radius: 50%; background: var(--accent);
+    flex: none;
+  }
+  .facility-title input {
+    flex: 1; min-width: 0; background: transparent; border: 1px solid transparent;
+    color: var(--text); font: inherit; font-weight: 600; font-size: 12.5px;
+    padding: 3px 6px; border-radius: 4px;
+  }
+  .facility-title input:focus { background: var(--bg); border-color: var(--accent); outline: none; }
+
+  /* 서브라벨 */
+  .sub-label {
+    color: var(--muted); font-size: 11px; font-weight: 400;
+    text-align: left !important; padding-left: 32px !important;
+  }
+
+  /* 최종 결과 */
+  tr.row-final th {
+    background: var(--surface-2); color: var(--text);
+    border-top: 1px solid var(--border-2);
+    font-weight: 600;
+  }
+  tr.row-final td {
+    background: var(--success-bg); color: var(--success); font-weight: 600;
+  }
+  tr.row-final.eff td { background: rgba(16,185,129,0.06); }
+
+  /* 처리 전 농도 라벨 */
+  .row-initial th.label-cell {
+    color: var(--text); font-weight: 600;
+    text-align: left; padding-left: 14px;
+  }
+
+  /* 계산값 셀 */
+  td.calc, td.final { font-family: "JetBrains Mono", "Consolas", monospace; }
+
+  /* 마지막 셀의 border-right 제거 */
+  tr > :last-child { border-right: none; }
+
+  /* 빈 상태 */
+  .empty-state {
+    padding: 60px 20px; text-align: center; color: var(--muted);
+    font-size: 13px;
+  }
+
+  /* 범례 */
+  .legend {
+    margin-top: 14px; display: flex; gap: 16px; flex-wrap: wrap;
+    font-size: 11.5px; color: var(--muted);
+  }
+  .legend .chip {
+    display: inline-flex; align-items: center; gap: 5px;
+  }
+  .legend .chip::before {
+    content: ""; width: 10px; height: 10px; border-radius: 2px; border: 1px solid var(--border);
+  }
+  .legend .c-in::before   { background: var(--surface-2); }
+  .legend .c-calc::before { background: var(--calc-bg); border-color: rgba(59,130,246,0.3); }
+  .legend .c-final::before{ background: var(--success-bg); border-color: rgba(16,185,129,0.3); }
+
+</style>
+</head>
+<body>
+
+<div class="page-head">
+  <div>
+    <h1>폐수처리 농도 계산기</h1>
+    <p class="desc">물질별 초기 농도와 각 처리시설의 제거율(%)을 입력하면 시설별 처리 후 농도와 최종 처리수 농도를 실시간 계산합니다.</p>
+  </div>
+</div>
+
+<div class="settings">
+  <details>
+    <summary>크기 설정</summary>
+    <div class="settings-grid">
+      <div class="setting">
+        <label>물질칸 너비</label>
+        <input type="range" id="s-cellw" min="32" max="200" step="1">
+        <span class="val" id="v-cellw"></span>
+      </div>
+      <div class="setting">
+        <label>구분칸 너비</label>
+        <input type="range" id="s-labelw" min="80" max="280" step="1">
+        <span class="val" id="v-labelw"></span>
+      </div>
+      <div class="setting">
+        <label>행 높이</label>
+        <input type="range" id="s-rowh" min="24" max="60" step="1">
+        <span class="val" id="v-rowh"></span>
+      </div>
+      <div class="setting">
+        <label>글자 크기</label>
+        <input type="range" id="s-font" min="9" max="18" step="0.5">
+        <span class="val" id="v-font"></span>
+      </div>
+      <div class="setting">
+        <label>헤더 글자</label>
+        <input type="range" id="s-fonth" min="9" max="16" step="0.5">
+        <span class="val" id="v-fonth"></span>
+      </div>
+      <div class="setting" style="justify-content:flex-end">
+        <button class="btn sm ghost" onclick="resetSettings()">기본값으로</button>
+      </div>
+    </div>
+  </details>
+</div>
+
+<div class="toolbar">
+  <button class="btn primary" onclick="addPollutant()">＋ 물질</button>
+  <button class="btn primary" onclick="addFacility()">＋ 처리시설</button>
+  <button class="btn ghost" onclick="loadSample()">예시 불러오기</button>
+  <button class="btn ghost" onclick="resetAll()">전체 초기화</button>
+  <span class="formula">C<sub>후</sub> = C<sub>전</sub> × (1 − r/100)</span>
+</div>
+
+<div class="table-wrap">
+  <table id="tbl">
+    <colgroup id="colgroup"></colgroup>
+    <thead id="thead"></thead>
+    <tbody id="tbody"></tbody>
+  </table>
+</div>
+
+<div class="legend">
+  <span class="chip c-in">입력</span>
+  <span class="chip c-calc">시설별 처리 후 (자동)</span>
+  <span class="chip c-final">최종 결과 (자동)</span>
+  <span>· "문자" 체크 시 계산 제외 · 초기값 그대로 표시</span>
+</div>
+
+<script>
+/* ─────────── 상태 ─────────── */
+let nextPid = 1, nextFid = 1;
+let pollutants = [];  // { id, name, unit, initial, passthrough }
+let facilities = [];  // { id, name, rates: {pid:rate} }
+
+/* ─────────── 상태 변경 ─────────── */
+function addPollutant(opts = {}) {
+  pollutants.push({
+    id: nextPid++,
+    name: opts.name ?? '',
+    unit: opts.unit ?? 'mg/L',
+    initial: opts.initial ?? '',
+    passthrough: opts.passthrough ?? false,
+  });
+  render();
+}
+function removePollutant(id) {
+  pollutants = pollutants.filter(p => p.id !== id);
+  facilities.forEach(f => delete f.rates[id]);
+  render();
+}
+function addFacility(opts = {}) {
+  facilities.push({ id: nextFid++, name: opts.name ?? '', rates: { ...(opts.rates ?? {}) } });
+  render();
+}
+function removeFacility(id) {
+  facilities = facilities.filter(f => f.id !== id);
+  render();
+}
+function resetAll() {
+  if (!confirm('모든 물질과 시설을 초기화합니다. 계속할까요?')) return;
+  pollutants = []; facilities = []; nextPid = 1; nextFid = 1;
+  render();
+}
+function loadSample() {
+  pollutants = []; facilities = []; nextPid = 1; nextFid = 1;
+  [
+    { name:'pH',      unit:'',     initial:'7-8',   passthrough:true },
+    { name:'TOC',     unit:'mg/L', initial:41.94 },
+    { name:'BOD',     unit:'mg/L', initial:75.5 },
+    { name:'SS',      unit:'mg/L', initial:55.4 },
+    { name:'ABS',     unit:'mg/L', initial:5 },
+    { name:'N-H(등)', unit:'mg/L', initial:18.338 },
+    { name:'N-H(광)', unit:'mg/L', initial:4.338 },
+    { name:'총질소',  unit:'mg/L', initial:11.52 },
+    { name:'총인',    unit:'mg/L', initial:2.525 },
+    { name:'생태독성',unit:'TU',   initial:3.6 },
+  ].forEach(p => pollutants.push({ id: nextPid++, ...p, passthrough: p.passthrough ?? false }));
+  const ids = pollutants.map(p => p.id);
+  const [ph, toc, bod, ss, abs_, nhd, nhg, tn, tp, eco] = ids;
+  facilities.push({ id: nextFid++, name:'반응·중화·응집시설',
+    rates: { [toc]:65,[bod]:65,[ss]:65,[abs_]:65,[nhd]:65,[nhg]:65,[tn]:65,[tp]:20,[eco]:50 } });
+  facilities.push({ id: nextFid++, name:'침전시설',
+    rates: { [toc]:30,[bod]:30,[ss]:30,[abs_]:30,[nhd]:30,[nhg]:30,[tn]:30,[tp]:20,[eco]:10 } });
+  facilities.push({ id: nextFid++, name:'여과시설 (활성탄)',
+    rates: { [toc]:60,[bod]:60,[ss]:65,[abs_]:20,[nhd]:20,[nhg]:20,[tn]:20,[tp]:10,[eco]:10 } });
+  render();
+}
+
+/* ─────────── 계산 ─────────── */
+function computedConc(pid, facilityIndex) {
+  const p = pollutants.find(x => x.id === pid);
+  if (!p) return '';
+  if (p.passthrough) return p.initial;
+  let conc = Number(p.initial);
+  if (!isFinite(conc)) return '';
+  for (let i = 0; i <= facilityIndex; i++) {
+    const r = Number(facilities[i].rates[pid]);
+    if (!isFinite(r)) continue;
+    conc = conc * (1 - r / 100);
+  }
+  return conc;
+}
+function finalEfficiency(pid) {
+  const p = pollutants.find(x => x.id === pid);
+  if (!p || p.passthrough) return '-';
+  const init = Number(p.initial);
+  if (!isFinite(init) || init === 0) return '-';
+  const final = computedConc(pid, facilities.length - 1);
+  if (!isFinite(final)) return '-';
+  return (((init - final) / init) * 100);
+}
+function fmt(v, digits = 3) {
+  if (typeof v !== 'number' || !isFinite(v)) return v ?? '';
+  if (Math.abs(v) >= 100) return v.toFixed(1);
+  return v.toFixed(digits).replace(/\.?0+$/, '');
+}
+
+/* ─────────── 렌더 ─────────── */
+function render() {
+  const colgroup = document.getElementById('colgroup');
+  const thead = document.getElementById('thead');
+  const tbody = document.getElementById('tbody');
+
+  if (!pollutants.length && !facilities.length) {
+    colgroup.innerHTML = '';
+    thead.innerHTML = '';
+    tbody.innerHTML = `<tr><td class="empty-state">상단의 "＋ 물질" / "＋ 처리시설" 을 눌러 시작하거나<br>"예시 불러오기"를 클릭해 샘플 데이터로 시작하세요.</td></tr>`;
+    return;
+  }
+
+  const totalCols = 1 + pollutants.length;
+
+  // ── colgroup ──
+  colgroup.innerHTML = '<col class="col-label">' + pollutants.map(() => '<col class="col-data">').join('');
+
+  // ── thead ──
+  let h = '<tr>';
+  h += `<th class="col-first corner-label" rowspan="1">구분</th>`;
+  pollutants.forEach(p => {
+    h += `<th>
+      <div class="pollutant-head">
+        <button class="remove" title="이 물질 삭제" onclick="removePollutant(${p.id})">×</button>
+        <input class="inp-name" placeholder="물질명" value="${esc(p.name)}"
+               oninput="updatePollutant(${p.id},'name',this.value)">
+        <input class="inp-unit" placeholder="단위" value="${esc(p.unit)}"
+               oninput="updatePollutant(${p.id},'unit',this.value)">
+        <label class="pt-toggle" title="숫자가 아닌 값(pH 등) — 계산 제외, 초기값 그대로 표시">
+          <input type="checkbox" ${p.passthrough?'checked':''}
+                 onchange="updatePollutant(${p.id},'passthrough',this.checked)">
+          문자
+        </label>
+      </div>
+    </th>`;
+  });
+  h += '</tr>';
+  thead.innerHTML = h;
+
+  // ── tbody ──
+  let b = '';
+
+  // 처리 전 농도
+  b += '<tr class="row-initial">';
+  b += '<th class="label-cell">처리 전 농도</th>';
+  pollutants.forEach(p => {
+    b += `<td>
+      <input class="inp-val ${p.passthrough?'passthrough':''}" placeholder="값"
+             value="${esc(p.initial)}"
+             oninput="updatePollutant(${p.id},'initial',this.value)">
+    </td>`;
+  });
+  b += '</tr>';
+
+  // 시설별 섹션
+  facilities.forEach((f, fi) => {
+    // 섹션 헤더 (전체 행 차지)
+    b += `<tr class="facility-section">
+      <th colspan="${totalCols}">
+        <div class="facility-title">
+          <span class="dot"></span>
+          <input placeholder="시설명" value="${esc(f.name)}"
+                 oninput="updateFacility(${f.id},'name',this.value)">
+          <button class="btn icon" title="이 시설 삭제" onclick="removeFacility(${f.id})">×</button>
+        </div>
+      </th>
+    </tr>`;
+
+    // 제거율 행
+    b += '<tr class="row-rate">';
+    b += '<th class="sub-label">제거율 (%)</th>';
+    pollutants.forEach(p => {
+      if (p.passthrough) {
+        b += '<td class="numeric"><span style="color:var(--muted)">—</span></td>';
+      } else {
+        const rv = f.rates[p.id];
+        b += `<td class="numeric">
+          <input class="inp-num" type="number" step="any" placeholder="%"
+                 value="${rv ?? ''}" oninput="updateRate(${f.id},${p.id},this.value)">
+        </td>`;
+      }
+    });
+    b += '</tr>';
+
+    // 처리 후 농도 행
+    b += '<tr class="row-conc">';
+    b += '<th class="sub-label">처리 후 농도</th>';
+    pollutants.forEach(p => {
+      b += `<td class="calc" data-calc="${p.id}-${fi}"></td>`;
+    });
+    b += '</tr>';
+  });
+
+  // 최종처리효율
+  b += '<tr class="row-final eff">';
+  b += '<th>최종 처리효율</th>';
+  pollutants.forEach(p => {
+    b += `<td class="final" data-final-eff="${p.id}"></td>`;
+  });
+  b += '</tr>';
+
+  // 처리수 농도
+  b += '<tr class="row-final">';
+  b += '<th>처리수 농도</th>';
+  pollutants.forEach(p => {
+    b += `<td class="final" data-final-conc="${p.id}"></td>`;
+  });
+  b += '</tr>';
+
+  tbody.innerHTML = b;
+  refreshCalc();
+  reapplyCurrentSizes();
+}
+
+function refreshCalc() {
+  pollutants.forEach(p => {
+    facilities.forEach((f, fi) => {
+      const td = document.querySelector(`td[data-calc="${p.id}-${fi}"]`);
+      if (td) td.textContent = p.passthrough ? (p.initial || '') : fmt(computedConc(p.id, fi));
+    });
+    const effTd = document.querySelector(`td[data-final-eff="${p.id}"]`);
+    if (effTd) {
+      const eff = finalEfficiency(p.id);
+      effTd.textContent = typeof eff === 'number' ? eff.toFixed(2) + '%' : eff;
+    }
+    const concTd = document.querySelector(`td[data-final-conc="${p.id}"]`);
+    if (concTd) {
+      concTd.textContent = p.passthrough ? (p.initial || '') : fmt(computedConc(p.id, facilities.length - 1));
+    }
+  });
+}
+
+/* ─────────── 업데이트 ─────────── */
+function updatePollutant(id, field, value) {
+  const p = pollutants.find(x => x.id === id);
+  if (!p) return;
+  p[field] = value;
+  if (field === 'passthrough') render();
+  else refreshCalc();
+}
+function updateFacility(id, field, value) {
+  const f = facilities.find(x => x.id === id);
+  if (!f) return;
+  f[field] = value;
+  refreshCalc();
+}
+function updateRate(fid, pid, value) {
+  const f = facilities.find(x => x.id === fid);
+  if (!f) return;
+  if (value === '' || value === null) delete f.rates[pid];
+  else f.rates[pid] = Number(value);
+  refreshCalc();
+}
+
+/* ─────────── 이스케이프 ─────────── */
+function esc(s) {
+  if (s === null || s === undefined) return '';
+  return String(s)
+    .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+}
+
+/* ─────────── 크기 설정 ─────────── */
+const SIZE_VARS = [
+  { key: 'cellw',  css: '--ui-cell-w',  unit: 'px', def: 80 },
+  { key: 'labelw', css: '--ui-label-w', unit: 'px', def: 150 },
+  { key: 'rowh',   css: '--ui-row-h',   unit: 'px', def: 36 },
+  { key: 'font',   css: '--ui-font',    unit: 'px', def: 12 },
+  { key: 'fonth',  css: '--ui-font-h',  unit: 'px', def: 11.5 },
+];
+const SIZE_KEY = 'ww-calc-sizes-v2';
+
+function applySize(v, value) {
+  document.documentElement.style.setProperty(v.css, value + v.unit);
+  const label = document.getElementById('v-' + v.key);
+  if (label) label.textContent = value + v.unit;
+}
+function saveSizes() {
+  const data = {};
+  SIZE_VARS.forEach(v => {
+    const el = document.getElementById('s-' + v.key);
+    if (el) data[v.key] = parseFloat(el.value);
+  });
+  localStorage.setItem(SIZE_KEY, JSON.stringify(data));
+}
+function loadSizes() {
+  let saved = {};
+  try { saved = JSON.parse(localStorage.getItem(SIZE_KEY) || '{}'); } catch(_) {}
+  SIZE_VARS.forEach(v => {
+    const slider = document.getElementById('s-' + v.key);
+    if (!slider) return;
+    const val = saved[v.key] ?? v.def;
+    slider.value = val;
+    applySize(v, val);
+    slider.oninput = () => { applySize(v, parseFloat(slider.value)); saveSizes(); };
+  });
+}
+function reapplyCurrentSizes() {
+  SIZE_VARS.forEach(v => {
+    const slider = document.getElementById('s-' + v.key);
+    if (slider) applySize(v, parseFloat(slider.value));
+  });
+}
+function resetSettings() {
+  SIZE_VARS.forEach(v => {
+    const slider = document.getElementById('s-' + v.key);
+    if (slider) { slider.value = v.def; applySize(v, v.def); }
+  });
+  saveSizes();
+}
+
+/* ─────────── 초기화 ─────────── */
+loadSizes();
+loadSample();
+</script>
+
+</body>
+</html>
