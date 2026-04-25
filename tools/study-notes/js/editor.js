@@ -20,7 +20,14 @@ function bindEditor() {
     markDirty();
     renderPreview();
     scheduleSave();
+    syncPreviewScroll();
   });
+
+  // 좌측 스크롤 → 우측 미리보기 동기 스크롤
+  $body.addEventListener('scroll', syncPreviewScroll);
+  // 좌측 키 입력으로 커서 이동(방향키 등)에도 반영
+  $body.addEventListener('keyup', syncPreviewScroll);
+  $body.addEventListener('click', syncPreviewScroll);
 
   [$topic, $mnemonic].forEach(el => {
     el.addEventListener('input', () => {
@@ -74,8 +81,27 @@ function setViewMode(mode) {
   document.getElementById('page')?.classList.toggle('edit-wide', !showStudy);
   renderPreview();
   if (mode === 'edit') {
-    setTimeout(() => document.getElementById('bodyInput').focus(), 0);
+    setTimeout(() => {
+      const $body = document.getElementById('bodyInput');
+      $body.focus();
+      // 마지막 줄로 커서 이동 (편집 이어쓰기 좋게)
+      const len = $body.value.length;
+      try { $body.setSelectionRange(len, len); } catch (_) {}
+      syncPreviewScroll();
+    }, 0);
   }
+}
+
+// 좌측 textarea의 커서/스크롤 위치를 우측 미리보기에도 비례 적용
+function syncPreviewScroll() {
+  const $ta = document.getElementById('bodyInput');
+  const $preview = document.getElementById('editPreview');
+  if (!$ta || !$preview) return;
+  // textarea 안에서 보이는 가운데 라인 비율(0~1)
+  const taScrollMax = Math.max(1, $ta.scrollHeight - $ta.clientHeight);
+  const ratio = Math.min(1, Math.max(0, $ta.scrollTop / taScrollMax));
+  const previewScrollMax = Math.max(0, $preview.scrollHeight - $preview.clientHeight);
+  $preview.scrollTop = ratio * previewScrollMax;
 }
 
 // sync-state 점은 rail 안의 .sync-dot로 이동
