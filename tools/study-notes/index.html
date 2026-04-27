@@ -73,11 +73,7 @@
             <span class="bc-topic" id="breadcrumbTopic">선택된 노트 없음</span>
           </div>
           <div class="toolbar-right">
-            <button class="rail-btn" id="bodyTextBtn" title="본문 텍스트 토글 — 현재 줄에 ` 접두사 (Ctrl+/)" hidden>본문</button>
-            <div class="view-toggle" role="group">
-              <button class="view-btn active" data-mode="study" title="펼침 (Ctrl+E)">펼침</button>
-              <button class="view-btn" data-mode="edit" title="고침 (Ctrl+E)">고침</button>
-            </div>
+            <button class="rail-btn" id="bodyTextBtn" title="본문 텍스트 토글 — 현재 줄에 ` 접두사 (Ctrl+/)">본문</button>
             <button class="rail-btn danger" id="deleteNoteBtn" title="삭제 (Ctrl+Del)">🗑</button>
           </div>
         </header>
@@ -122,14 +118,15 @@
                 </div>
               </header>
 
-              <!-- 본문 -->
-              <section class="page-body">
-                <div id="preview" class="preview"></div>
-                <div class="edit-area" id="editArea" hidden>
+              <!-- 본문: 위 = 정리된 미리보기, 아래 = 입력 textarea -->
+              <section class="page-body body-stack">
+                <div class="preview-pane">
+                  <div id="preview" class="preview"></div>
+                </div>
+                <div class="split-handle-v" id="splitHandle" title="드래그하여 위/아래 비율 조절 — 더블클릭으로 50:50"></div>
+                <div class="edit-pane">
                   <textarea id="bodyInput" spellcheck="false"
                     placeholder="제목을 쓰고 Enter, Tab으로 들여쓰기, Shift+Tab으로 내어쓰기.&#10;Ctrl+/ 로 본문(번호 없음) 토글.&#10;번호는 자동으로 매겨집니다."></textarea>
-                  <div class="split-handle" id="splitHandle" title="드래그하여 좌·우 비율 조절"></div>
-                  <div class="edit-preview"><div id="editPreview" class="preview"></div></div>
                 </div>
               </section>
             </article>
@@ -188,7 +185,6 @@
       <div class="modal-body shortcut-body">
         <div class="sc-section">
           <h3>전역</h3>
-          <div class="sc-row"><kbd>Ctrl</kbd>+<kbd>E</kbd><span>펼침 ↔ 고침</span></div>
           <div class="sc-row"><kbd>Ctrl</kbd>+<kbd>N</kbd><span>새 노트 (현재 과목)</span></div>
           <div class="sc-row"><kbd>Ctrl</kbd>+<kbd>S</kbd><span>GitHub 동기화</span></div>
           <div class="sc-row"><kbd>Ctrl</kbd>+<kbd>K</kbd><span>검색창 포커스</span></div>

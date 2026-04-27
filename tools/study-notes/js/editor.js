@@ -1,5 +1,6 @@
 // === EDITOR ===
-// 메타 입력 + 본문 입력(Tab/Shift-Tab) + 보기/편집 모드 토글
+// 단일 화면 — 위쪽: 정리된 미리보기, 아래쪽: textarea 입력
+// 모드 토글 없음. textarea 입력 → 즉시 미리보기 갱신.
 
 function bindEditor() {
   const $body = document.getElementById('bodyInput');
@@ -25,34 +26,25 @@ function bindEditor() {
     markDirty();
     renderPreview();
     scheduleSave();
-    syncPreviewScroll();
   });
 
-  // 좌측 스크롤 → 우측 미리보기 동기 스크롤
-  $body.addEventListener('scroll', syncPreviewScroll);
-  $body.addEventListener('keyup', syncPreviewScroll);
-  $body.addEventListener('click', syncPreviewScroll);
-
-  // 메타 입력들 — Enter 누르면 다음 입력으로 포커스 이동
-  // (text input 의 기본 동작은 폼이 없을 때 무반응 → 저장 흐름이 끊겨 보임)
-  // 마지막(dueDate)에서 Enter → 본문 편집 모드 + 본문 포커스
-  const metaChain = [$topic, $mnemonic, $subTopic, $dueDate];
+  // 메타 입력 5종 — Enter 누르면 다음으로 포커스 체인
+  // topic → mnemonic → subject → subTopic → dueDate → 본문 textarea
+  const $subject = document.getElementById('subjectInput');
+  const metaChain = [$topic, $mnemonic, $subject, $subTopic, $dueDate];
   metaChain.forEach((el, i) => {
     el.addEventListener('input', () => {
       markDirty();
       scheduleSave();
       refreshList();
-      if (viewMode === 'study') renderPreview();
+      renderPreview();
     });
     el.addEventListener('keydown', (e) => {
       if (e.key !== 'Enter') return;
       e.preventDefault();
       const next = metaChain[i + 1];
       if (next) { next.focus(); next.select?.(); }
-      else {
-        setViewMode('edit');
-        setTimeout(() => $body.focus(), 0);
-      }
+      else { setTimeout(() => $body.focus(), 0); }
     });
   });
 
@@ -60,7 +52,6 @@ function bindEditor() {
   $dueDate.addEventListener('change', () => { markDirty(); scheduleSave(); refreshList(); });
 
   // 과목 입력: 현재 노트의 과목 변경 + 해당 과목 탭으로 전환
-  const $subject = document.getElementById('subjectInput');
   $subject.addEventListener('change', () => {
     const newSub = $subject.value.trim();
     if (!currentId) return;
@@ -75,33 +66,19 @@ function bindEditor() {
     refreshList();
     scheduleSave();
   });
-  // 과목 input에서도 Enter → 다음(소과목)으로
-  $subject.addEventListener('keydown', (e) => {
-    if (e.key === 'Enter') { e.preventDefault(); $subTopic.focus(); $subTopic.select(); }
-  });
 
-  // 보기/편집 토글
-  document.querySelectorAll('.view-btn').forEach(btn => {
-    btn.addEventListener('click', () => setViewMode(btn.dataset.mode));
-  });
-
-  // 본문 토글 버튼
+  // 본문 토글 버튼 (현재 줄에 백틱 prefix)
   document.getElementById('bodyTextBtn')?.addEventListener('click', () => {
-    if (viewMode !== 'edit') setViewMode('edit');
-    setTimeout(() => { $body.focus(); toggleBackticks($body); }, 0);
+    $body.focus();
+    toggleBackticks($body);
   });
 
-  // 분할 핸들 드래그
+  // 분할 핸들 (위/아래) 드래그
   bindSplitHandle();
 
-  // Ctrl+E (편집/보기), Ctrl+/ (본문 토글) — 전역 단축키
+  // Ctrl+/ — 본문 토글 (textarea 외부 포커스에서도)
   window.addEventListener('keydown', (e) => {
-    if ((e.ctrlKey || e.metaKey) && !e.shiftKey && !e.altKey && e.key.toLowerCase() === 'e') {
-      e.preventDefault();
-      setViewMode(viewMode === 'study' ? 'edit' : 'study');
-    }
-    if ((e.ctrlKey || e.metaKey) && !e.shiftKey && !e.altKey && e.key === '/' && viewMode === 'edit') {
-      // bodyInput 포커스가 아닐 때만 (포커스 시엔 keydown 핸들러가 처리)
+    if ((e.ctrlKey || e.metaKey) && !e.shiftKey && !e.altKey && e.key === '/') {
       if (document.activeElement?.id !== 'bodyInput') {
         e.preventDefault();
         $body.focus();
@@ -111,44 +88,9 @@ function bindEditor() {
   });
 }
 
-function setViewMode(mode) {
-  viewMode = mode;
-  document.querySelectorAll('.view-btn').forEach(b =>
-    b.classList.toggle('active', b.dataset.mode === mode));
-  const showStudy = mode === 'study';
-  document.getElementById('preview').hidden = !showStudy;
-  document.getElementById('editArea').hidden = showStudy;
-  document.getElementById('page')?.classList.toggle('edit-wide', !showStudy);
-  // 본문 토글 버튼은 편집 모드에서만 노출
-  const $bbtn = document.getElementById('bodyTextBtn');
-  if ($bbtn) $bbtn.hidden = showStudy;
-  renderPreview();
-  if (mode === 'edit') {
-    applyEditSplit();
-    setTimeout(() => {
-      const $body = document.getElementById('bodyInput');
-      $body.focus();
-      const len = $body.value.length;
-      try { $body.setSelectionRange(len, len); } catch (_) {}
-      syncPreviewScroll();
-    }, 0);
-  }
-}
-
 // 좌측 textarea의 커서/스크롤 위치를 우측 미리보기에도 비례 적용
-function syncPreviewScroll() {
-  const $ta = document.getElementById('bodyInput');
-  const $preview = document.getElementById('editPreview');
-  if (!$ta || !$preview) return;
-  // textarea 안에서 보이는 가운데 라인 비율(0~1)
-  const taScrollMax = Math.max(1, $ta.scrollHeight - $ta.clientHeight);
-  const ratio = Math.min(1, Math.max(0, $ta.scrollTop / taScrollMax));
-  const previewScrollMax = Math.max(0, $preview.scrollHeight - $preview.clientHeight);
-  $preview.scrollTop = ratio * previewScrollMax;
-}
-
-// sync-state 점은 rail 안의 .sync-dot로 이동
-// (setSyncState가 #syncState를 찾아 클래스 토글하므로 그대로 동작)
+// (단일 미리보기 사용으로 사실상 미리보기는 위쪽 한 곳만 — 호환용으로 남겨둠)
+function syncPreviewScroll() { /* no-op — 단일 미리보기 */ }
 
 function handleTab(ta, isShift) {
   const v = ta.value;
@@ -198,7 +140,7 @@ function handleEnter(ta) {
   const lineRest = v.slice(start, v.indexOf('\n', start) === -1 ? v.length : v.indexOf('\n', start));
   const isEmptyLine = (lineHead.replace(/^\t*/, '').trim() === '' && lineRest.trim() === '');
 
-  // 빈 줄에서 Enter → 들여쓰기 한 단계 감소 (한 단계 위로)
+  // 빈 줄에서 Enter → 들여쓰기 한 단계 감소
   if (isEmptyLine && headTabs.length > 0) {
     const newHead = headTabs.slice(0, -1);
     ta.value = v.slice(0, lineStart) + newHead + v.slice(start);
@@ -214,8 +156,7 @@ function handleEnter(ta) {
   ta.dispatchEvent(new Event('input'));
 }
 
-// 선택 영역(또는 현재 줄)의 첫 글자 위치에 백틱(`)을 토글한다.
-// 백틱이 이미 들여쓰기 직후에 있으면 제거, 없으면 삽입.
+// 선택 영역(또는 현재 줄)의 들여쓰기 직후에 백틱(`) prefix 토글
 function toggleBackticks(ta) {
   const v = ta.value;
   const start = ta.selectionStart, end = ta.selectionEnd;
@@ -227,39 +168,37 @@ function toggleBackticks(ta) {
   const after = v.slice(lastLineEnd);
 
   const lines = region.split('\n');
-  // 모든 줄이 이미 백틱 prefix 면 제거, 아니면 삽입 (혼합 시 삽입 우선)
   const allHave = lines.every(l => /^\t*`/.test(l));
   const modified = lines.map(l => {
     if (allHave) return l.replace(/^(\t*)`/, '$1');
-    if (/^\t*`/.test(l)) return l;            // 이미 있는 줄은 그대로
+    if (/^\t*`/.test(l)) return l;
     return l.replace(/^(\t*)/, '$1`');
   }).join('\n');
 
   ta.value = before + modified + after;
-  // 선택 영역 보존
   const delta = modified.length - region.length;
   ta.selectionStart = start;
   ta.selectionEnd = end + delta;
   ta.dispatchEvent(new Event('input'));
 }
 
-// 분할 핸들 드래그로 좌:우 비율 조절
+// 분할 핸들 — 위(preview) ↕ 아래(textarea) 비율
 function bindSplitHandle() {
   const handle = document.getElementById('splitHandle');
-  const area = document.getElementById('editArea');
-  if (!handle || !area) return;
+  const stack = document.querySelector('.body-stack');
+  if (!handle || !stack) return;
   applyEditSplit();
   let dragging = false;
   handle.addEventListener('mousedown', (e) => {
     dragging = true;
-    document.body.style.cursor = 'col-resize';
+    document.body.style.cursor = 'row-resize';
     e.preventDefault();
   });
   window.addEventListener('mousemove', (e) => {
     if (!dragging) return;
-    const r = area.getBoundingClientRect();
-    let ratio = (e.clientX - r.left) / r.width;
-    ratio = Math.max(0.2, Math.min(0.8, ratio));
+    const r = stack.getBoundingClientRect();
+    let ratio = (e.clientY - r.top) / r.height;
+    ratio = Math.max(0.15, Math.min(0.85, ratio));
     editSplit = ratio;
     applyEditSplit();
   });
@@ -271,12 +210,13 @@ function bindSplitHandle() {
   });
   handle.addEventListener('dblclick', () => { editSplit = 0.5; applyEditSplit(); saveEditSplit(); });
 }
+
 function applyEditSplit() {
-  const area = document.getElementById('editArea');
-  if (!area) return;
-  const left = (editSplit * 100).toFixed(2);
-  const right = (100 - editSplit * 100).toFixed(2);
-  area.style.gridTemplateColumns = `minmax(0, ${left}fr) 6px minmax(0, ${right}fr)`;
+  const stack = document.querySelector('.body-stack');
+  if (!stack) return;
+  const top = (editSplit * 100).toFixed(2);
+  const bottom = (100 - editSplit * 100).toFixed(2);
+  stack.style.gridTemplateRows = `minmax(0, ${top}fr) 6px minmax(0, ${bottom}fr)`;
 }
 
 // === 저장 디바운스 ===
@@ -294,7 +234,6 @@ function scheduleSave() {
     saveNotes();
     refreshList();
     if (settings.ghAutoSync && settings.ghToken) {
-      // 편집이 잦은 구간엔 5초 더 기다려 한 번만 PUT
       clearTimeout(_pushTimer);
       _pushTimer = setTimeout(() => autoPush(), 5000);
     }
@@ -334,6 +273,9 @@ function loadNoteIntoEditor(id) {
   dirty = false;
   setSyncState('synced');
 }
+
+// 모드 호환 shim — 다른 코드에서 호출해도 안전
+function setViewMode() { /* no-op — 단일 화면 */ }
 
 function setSyncState(state) {
   const el = document.getElementById('syncState');

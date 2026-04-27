@@ -363,25 +363,6 @@ input, textarea, select { font-family: inherit; color: inherit; }
 }
 
 .toolbar-right { display: flex; align-items: center; gap: 6px; }
-.view-toggle {
-  display: inline-flex;
-  border: 1px solid var(--rule);
-  border-radius: 3px;
-  overflow: hidden;
-  background: var(--paper);
-}
-.view-btn {
-  border: 0; background: transparent;
-  color: var(--ink-soft);
-  font-family: var(--serif);
-  font-size: 12px; font-weight: 600;
-  padding: 5px 16px;
-  cursor: pointer;
-}
-.view-btn.active {
-  background: var(--accent);
-  color: var(--paper);
-}
 
 /* ─── Page scroll + canvas ─── */
 .page-scroll {
@@ -417,11 +398,9 @@ input, textarea, select { font-family: inherit; color: inherit; }
 }
 
 .page {
-  max-width: 1280px;
+  max-width: 1400px;
   margin: 0 auto;
 }
-/* 편집 모드일 때는 더 넓게 */
-.page.edit-wide { max-width: none; }
 
 /* ─── Cover ─── */
 .page-cover { margin-bottom: 28px; }
@@ -607,44 +586,45 @@ mark.search-hit {
   padding: 0 2px; border-radius: 2px;
 }
 
-/* ─── Edit area ─── */
-.edit-area {
+/* ─── Body stack: 위(preview) ↕ 아래(textarea) ─── */
+.body-stack {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) 6px minmax(0, 1fr);
+  grid-template-rows: minmax(0, 1fr) 6px minmax(0, 1fr);
   gap: 0;
   margin-top: 16px;
+  min-height: calc(100vh - 360px);
 }
-.split-handle {
-  width: 6px;
-  cursor: col-resize;
+.preview-pane {
+  border: 1px solid var(--rule);
+  border-radius: 3px;
+  padding: 20px 24px;
+  background: var(--paper);
+  overflow-y: auto;
+}
+.edit-pane { display: flex; }
+.split-handle-v {
+  height: 6px;
+  cursor: row-resize;
   background: var(--rule-soft);
   border-radius: 3px;
+  margin: 4px 0;
   transition: background 0.15s;
-  align-self: stretch;
-  margin: 0 4px;
 }
-.split-handle:hover, .split-handle:active { background: var(--accent); }
+.split-handle-v:hover, .split-handle-v:active { background: var(--accent); }
 #bodyInput {
   width: 100%;
-  min-height: calc(100vh - 360px);
+  height: 100%;
+  min-height: 160px;
   border: 1px solid var(--rule); border-radius: 3px;
   padding: 18px 20px;
   font-size: 14px;
   font-family: var(--mono);
   color: var(--ink);
   background: var(--paper-alt);
-  outline: 0; resize: vertical;
+  outline: 0; resize: none;
   line-height: 1.7;
   tab-size: 4;
   white-space: pre;
-}
-.edit-preview {
-  border: 1px solid var(--rule);
-  border-radius: 3px;
-  padding: 20px 24px;
-  background: var(--paper);
-  overflow-y: auto;
-  max-height: calc(100vh - 320px);
 }
 
 /* ═══════════════════════════════════════════════════════════════
@@ -819,8 +799,9 @@ body.force-mobile .desk {
   .meta-line input, .meta-mnemonic input { width: 130px; font-size: 13px; }
   .meta-mnemonic input { font-size: 16px; }
 
-  .edit-area { grid-template-columns: 1fr !important; }
-  .edit-preview, .split-handle { display: none !important; }
+  .body-stack {
+    grid-template-rows: minmax(140px, auto) 6px 1fr !important;
+  }
 }
 
 /* 강제 모바일 모드 (사용자가 토글 ON) */
@@ -846,9 +827,9 @@ body.force-mobile .seal { top: 14px; right: 18px; width: 48px; height: 48px; }
 body.force-mobile .seal span { font-size: 9px; }
 body.force-mobile .page-canvas { padding: 24px 18px 60px; }
 body.force-mobile .page-title-input { font-size: 26px; }
-body.force-mobile .edit-area { grid-template-columns: 1fr !important; }
-body.force-mobile .edit-preview,
-body.force-mobile .split-handle { display: none !important; }
+body.force-mobile .body-stack {
+  grid-template-rows: minmax(140px, auto) 6px 1fr !important;
+}
 
 /* 강제 PC 모드 — 미디어쿼리 무시 */
 body.force-pc .mobile-only { display: none !important; }
@@ -860,8 +841,7 @@ body.force-pc .seal { top: 30px !important; right: 50px !important; width: 60px 
 body.force-pc .seal span { font-size: 11px !important; }
 body.force-pc .page-canvas { padding: 44px 56px 80px !important; }
 body.force-pc .page-title-input { font-size: 34px !important; }
-body.force-pc .edit-preview { display: block !important; }
-body.force-pc .split-handle { display: block !important; }
+body.force-pc .body-stack { display: grid !important; }
 
 /* ═══════════════════════════════════════════════════════════════
    추가 — 소과목 그룹, 일정 뱃지, 탭 드래그, 본문 토글 버튼

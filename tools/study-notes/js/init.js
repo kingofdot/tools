@@ -50,13 +50,12 @@ function bindGlobal() {
     toast(`보기 모드: ${next === 'pc' ? 'PC 강제' : next === 'mobile' ? '모바일 강제' : '자동(화면 크기에 따름)'}`, 'info');
   });
 
-  // 새 노트 — 현재 활성 과목으로, 편집 모드로 전환
+  // 새 노트 — 현재 활성 과목으로
   document.getElementById('newNoteBtn').addEventListener('click', () => {
     if (currentId && dirty) { commitEdits(); saveNotes(); }
     const note = newNoteTemplate(activeSubject);
     upsertNote(note);
     loadNoteIntoEditor(note.id);
-    setViewMode('edit');
     document.getElementById('topicInput').focus();
   });
 

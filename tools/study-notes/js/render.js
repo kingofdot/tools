@@ -40,8 +40,6 @@ function buildPreviewHtml() {
 function renderPreview() {
   const html = buildPreviewHtml();
   document.getElementById('preview').innerHTML = html;
-  const $ep = document.getElementById('editPreview');
-  if ($ep) $ep.innerHTML = html;
 
   // 표지(주제·두문자) + 빵부스러기 갱신
   if (currentId) {
