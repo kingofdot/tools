@@ -19,12 +19,33 @@ function loadNotes() {
   } catch (_) {
     notes = [];
   }
-  // order 필드 마이그레이션
+  // 마이그레이션 — 누락 필드 채움
   let mutated = false;
   notes.forEach((n, i) => {
     if (typeof n.order !== 'number') { n.order = i; mutated = true; }
+    if (typeof n.subTopic !== 'string') { n.subTopic = ''; mutated = true; }
+    if (typeof n.dueDate !== 'string')  { n.dueDate = '';  mutated = true; }
   });
   if (mutated) saveNotes();
+}
+
+function loadSubjectOrder() {
+  try {
+    const raw = localStorage.getItem(SUBJECT_ORDER_KEY);
+    subjectOrder = raw ? JSON.parse(raw) : [];
+    if (!Array.isArray(subjectOrder)) subjectOrder = [];
+  } catch (_) { subjectOrder = []; }
+}
+function saveSubjectOrder() {
+  localStorage.setItem(SUBJECT_ORDER_KEY, JSON.stringify(subjectOrder));
+}
+
+function loadEditSplit() {
+  const v = parseFloat(localStorage.getItem(EDIT_SPLIT_KEY) || '');
+  if (isFinite(v) && v >= 0.15 && v <= 0.85) editSplit = v;
+}
+function saveEditSplit() {
+  localStorage.setItem(EDIT_SPLIT_KEY, String(editSplit));
 }
 
 function saveNotes() {
@@ -60,9 +81,11 @@ function newNoteTemplate(subject) {
   return {
     id,
     subject: subj === '_미분류' ? '' : subj,
+    subTopic: '',
     topic: '',
     mnemonic: '',
     body: '',
+    dueDate: '',
     order: nextOrderForSubject(subj),
     updatedAt: ts.toISOString(),
     sha: null,

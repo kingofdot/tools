@@ -73,6 +73,7 @@
             <span class="bc-topic" id="breadcrumbTopic">선택된 노트 없음</span>
           </div>
           <div class="toolbar-right">
+            <button class="rail-btn" id="bodyTextBtn" title="본문 텍스트 토글 — 현재 줄에 ` 접두사 (Ctrl+/)" hidden>본문</button>
             <div class="view-toggle" role="group">
               <button class="view-btn active" data-mode="study" title="펼침 (Ctrl+E)">펼침</button>
               <button class="view-btn" data-mode="edit" title="고침 (Ctrl+E)">고침</button>
@@ -109,6 +110,15 @@
                     <input type="text" id="subjectInput" list="subjectDataList" placeholder="예: 민법">
                     <datalist id="subjectDataList"></datalist>
                   </label>
+                  <label class="meta-line">
+                    <span>소과목</span>
+                    <input type="text" id="subTopicInput" list="subTopicDataList" placeholder="예: 매매 / 임대차">
+                    <datalist id="subTopicDataList"></datalist>
+                  </label>
+                  <label class="meta-line">
+                    <span>일정</span>
+                    <input type="date" id="dueDateInput">
+                  </label>
                 </div>
               </header>
 
@@ -117,7 +127,8 @@
                 <div id="preview" class="preview"></div>
                 <div class="edit-area" id="editArea" hidden>
                   <textarea id="bodyInput" spellcheck="false"
-                    placeholder="제목을 쓰고 Enter, Tab으로 들여쓰기, Shift+Tab으로 내어쓰기.&#10;번호는 자동으로 매겨집니다."></textarea>
+                    placeholder="제목을 쓰고 Enter, Tab으로 들여쓰기, Shift+Tab으로 내어쓰기.&#10;Ctrl+/ 로 본문(번호 없음) 토글.&#10;번호는 자동으로 매겨집니다."></textarea>
+                  <div class="split-handle" id="splitHandle" title="드래그하여 좌·우 비율 조절"></div>
                   <div class="edit-preview"><div id="editPreview" class="preview"></div></div>
                 </div>
               </section>
@@ -195,7 +206,9 @@
           <h3>본문 입력</h3>
           <div class="sc-row"><kbd>Tab</kbd><span>들여쓰기 +1</span></div>
           <div class="sc-row"><kbd>Shift</kbd>+<kbd>Tab</kbd><span>들여쓰기 -1</span></div>
-          <div class="sc-row"><kbd>Enter</kbd><span>새 줄 (들여쓰기 유지)</span></div>
+          <div class="sc-row"><kbd>Enter</kbd><span>새 줄 (들여쓰기 유지) — 빈 줄에서 한 단계 위로</span></div>
+          <div class="sc-row"><kbd>Ctrl</kbd>+<kbd>/</kbd><span>본문 텍스트 토글 (번호 제외)</span></div>
+          <div class="sc-row"><kbd>Enter</kbd> on 제목/두문자<span>다음 메타 → 본문 편집 모드</span></div>
         </div>
         <div class="sc-section">
           <h3>자동 포맷</h3>

@@ -168,6 +168,8 @@ function bindGlobal() {
 (function boot() {
   loadSettings();
   loadNotes();
+  loadSubjectOrder();
+  loadEditSplit();
 
   // 아무것도 없으면 샘플 하나 삽입
   if (!notes.length) {

@@ -610,10 +610,20 @@ mark.search-hit {
 /* ─── Edit area ─── */
 .edit-area {
   display: grid;
-  grid-template-columns: minmax(420px, 1fr) minmax(420px, 1fr);
-  gap: 24px;
+  grid-template-columns: minmax(0, 1fr) 6px minmax(0, 1fr);
+  gap: 0;
   margin-top: 16px;
 }
+.split-handle {
+  width: 6px;
+  cursor: col-resize;
+  background: var(--rule-soft);
+  border-radius: 3px;
+  transition: background 0.15s;
+  align-self: stretch;
+  margin: 0 4px;
+}
+.split-handle:hover, .split-handle:active { background: var(--accent); }
 #bodyInput {
   width: 100%;
   min-height: calc(100vh - 360px);
@@ -809,8 +819,8 @@ body.force-mobile .desk {
   .meta-line input, .meta-mnemonic input { width: 130px; font-size: 13px; }
   .meta-mnemonic input { font-size: 16px; }
 
-  .edit-area { grid-template-columns: 1fr; }
-  .edit-preview { display: none; }
+  .edit-area { grid-template-columns: 1fr !important; }
+  .edit-preview, .split-handle { display: none !important; }
 }
 
 /* 강제 모바일 모드 (사용자가 토글 ON) */
@@ -836,8 +846,9 @@ body.force-mobile .seal { top: 14px; right: 18px; width: 48px; height: 48px; }
 body.force-mobile .seal span { font-size: 9px; }
 body.force-mobile .page-canvas { padding: 24px 18px 60px; }
 body.force-mobile .page-title-input { font-size: 26px; }
-body.force-mobile .edit-area { grid-template-columns: 1fr; }
-body.force-mobile .edit-preview { display: none; }
+body.force-mobile .edit-area { grid-template-columns: 1fr !important; }
+body.force-mobile .edit-preview,
+body.force-mobile .split-handle { display: none !important; }
 
 /* 강제 PC 모드 — 미디어쿼리 무시 */
 body.force-pc .mobile-only { display: none !important; }
@@ -849,5 +860,68 @@ body.force-pc .seal { top: 30px !important; right: 50px !important; width: 60px 
 body.force-pc .seal span { font-size: 11px !important; }
 body.force-pc .page-canvas { padding: 44px 56px 80px !important; }
 body.force-pc .page-title-input { font-size: 34px !important; }
-body.force-pc .edit-area { grid-template-columns: 1fr 1fr !important; }
 body.force-pc .edit-preview { display: block !important; }
+body.force-pc .split-handle { display: block !important; }
+
+/* ═══════════════════════════════════════════════════════════════
+   추가 — 소과목 그룹, 일정 뱃지, 탭 드래그, 본문 토글 버튼
+   ═══════════════════════════════════════════════════════════════ */
+
+/* 카드덱 — 소과목 그룹 헤더 */
+.note-group-header {
+  list-style: none;
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  padding: 14px 14px 6px;
+  margin: 0;
+  border-top: 1px dashed var(--rule);
+}
+.note-group-header:first-child { border-top: 0; padding-top: 6px; }
+
+/* 카드 — 일정(D-day) 뱃지 */
+.note-card-row {
+  display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
+}
+.note-card-due {
+  display: inline-flex; align-items: center; gap: 2px;
+  font-size: 10px; font-weight: 700;
+  padding: 1px 6px; border-radius: 99px;
+  background: var(--paper-deep);
+  color: var(--ink-soft);
+  font-family: var(--mono);
+  letter-spacing: 0.02em;
+}
+.note-card-due.due-past   { background: rgba(184, 73, 58, 0.15);  color: var(--danger); }
+.note-card-due.due-today  { background: var(--accent);            color: #fff; }
+.note-card-due.due-soon   { background: rgba(201, 122, 44, 0.18); color: var(--warn); }
+.note-card-due.due-future { background: rgba(82, 115, 77, 0.14);  color: var(--green); }
+
+/* 폴더 탭 — 드래그 시각 표시 */
+.folder-tab.tab-dragging { opacity: 0.5; }
+.folder-tab.tab-drop-before { box-shadow: -3px 0 0 var(--accent); }
+.folder-tab.tab-drop-after  { box-shadow:  3px 0 0 var(--accent); }
+.folder-tab[draggable="true"] { cursor: grab; }
+.folder-tab[draggable="true"]:active { cursor: grabbing; }
+
+/* 표지 — 소과목/일정 입력 */
+.meta-line input[type="date"] {
+  font-family: var(--mono);
+  font-size: 13px;
+}
+
+/* 본문 토글 버튼 */
+#bodyTextBtn {
+  font-family: var(--mono);
+  font-size: 12px;
+  font-weight: 600;
+  padding: 4px 10px;
+  letter-spacing: 0.04em;
+}
+#bodyTextBtn:hover {
+  background: var(--accent);
+  color: #fff;
+  border-color: var(--accent);
+}

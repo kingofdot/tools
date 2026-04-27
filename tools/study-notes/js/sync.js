@@ -5,6 +5,7 @@ async function pushAll() {
   if (!settings.ghToken) return;
   const payload = {
     notes,
+    subjectOrder,
     savedAt: new Date().toLocaleString('ko-KR'),
   };
   await ghPutAll(payload);
@@ -26,6 +27,10 @@ async function pullAll() {
     if (Array.isArray(data.notes)) {
       notes = data.notes;
       saveNotes();
+      if (Array.isArray(data.subjectOrder)) {
+        subjectOrder = data.subjectOrder;
+        saveSubjectOrder();
+      }
       refreshList();
       if (currentId && findNote(currentId)) loadNoteIntoEditor(currentId);
       else if (notes.length) loadNoteIntoEditor(notes[0].id);
@@ -62,6 +67,11 @@ async function fullSync() {
       }
       notes = [...byId.values()];
       saveNotes();
+      // subjectOrder는 원격 우선 (사용자가 한 곳에서 바꾼 순서가 다른 곳에서도 바로 반영되도록)
+      if (Array.isArray(data.subjectOrder) && data.subjectOrder.length) {
+        subjectOrder = data.subjectOrder;
+        saveSubjectOrder();
+      }
     }
     // 로컬 → 원격
     await pushAll();

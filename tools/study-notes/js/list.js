@@ -1,13 +1,27 @@
 // === LIST ===
 // 상단: 파일폴더 탭 (과목별)
-// 좌측: 카드덱 (현재 과목 노트들)
+// 좌측: 카드덱 (현재 과목 노트들 — 소과목별 그룹)
 
 let activeSubject = null;
 
 const TAB_VARS = ['--tab-1','--tab-2','--tab-3','--tab-4','--tab-5','--tab-6','--tab-7','--tab-8'];
 
+// subjectOrder 가 정의돼 있으면 그 순서 우선, 나머지는 알파벳 순으로 뒤에 붙임
 function getSubjects() {
-  return [...new Set(notes.map(n => n.subject || '_미분류'))].sort();
+  const present = [...new Set(notes.map(n => n.subject || '_미분류'))];
+  if (!subjectOrder || !subjectOrder.length) return present.sort();
+  const ordered = subjectOrder.filter(s => present.includes(s));
+  const rest = present.filter(s => !ordered.includes(s)).sort();
+  return [...ordered, ...rest];
+}
+
+// 노트 중 한 과목 안에서 사용된 소과목 목록 (활성 과목 기준)
+function getSubTopicsForActive() {
+  return [...new Set(
+    notes.filter(n => (n.subject || '_미분류') === activeSubject)
+         .map(n => (n.subTopic || '').trim())
+         .filter(s => s.length)
+  )].sort();
 }
 function countBySubject(subj) {
   return notes.filter(n => (n.subject || '_미분류') === subj).length;
@@ -35,8 +49,8 @@ function refreshTabs() {
     const active = s === activeSubject ? 'active' : '';
     const colorVar = colorVarFor(i);
     return `
-      <button class="folder-tab ${active}" data-subject="${esc(s)}" data-idx="${i}"
-              style="--tab-color: var(${colorVar});" title="Alt+${i+1}">
+      <button class="folder-tab ${active}" data-subject="${esc(s)}" data-idx="${i}" draggable="true"
+              style="--tab-color: var(${colorVar});" title="Alt+${i+1} · 드래그로 순서 변경">
         <span class="tab-num">${String(i+1).padStart(2,'0')}</span>
         <span class="tab-label">${esc(label)}</span>
         <span class="tab-count">${countBySubject(s)}</span>
@@ -53,12 +67,18 @@ function refreshTabs() {
       if (list.length) loadNoteIntoEditor(list[0].id);
     });
   });
+  bindTabDragSort($tabs);
   document.getElementById('addSubjectBtn')?.addEventListener('click', () => {
     const name = (prompt('새 과목 이름') || '').trim();
     if (!name) return;
     activeSubject = name;
     const note = newNoteTemplate(name);
     upsertNote(note);
+    // 새 과목은 마지막에 추가
+    if (!subjectOrder.includes(name)) {
+      subjectOrder = [...getSubjects().filter(s => s !== name), name];
+      saveSubjectOrder();
+    }
     refreshTabs();
     refreshList();
     loadNoteIntoEditor(note.id);
@@ -66,7 +86,65 @@ function refreshTabs() {
   });
 
   refreshSubjectDatalist();
+  refreshSubTopicDatalist();
   applyActiveTabColor();
+}
+
+// 폴더 탭 드래그 정렬
+function bindTabDragSort($tabs) {
+  let dragging = null;
+  $tabs.querySelectorAll('.folder-tab').forEach(el => {
+    el.addEventListener('dragstart', (e) => {
+      dragging = el;
+      el.classList.add('tab-dragging');
+      e.dataTransfer.effectAllowed = 'move';
+      try { e.dataTransfer.setData('text/plain', el.dataset.subject); } catch (_) {}
+    });
+    el.addEventListener('dragend', () => {
+      el.classList.remove('tab-dragging');
+      $tabs.querySelectorAll('.tab-drop-before, .tab-drop-after')
+        .forEach(x => x.classList.remove('tab-drop-before', 'tab-drop-after'));
+      dragging = null;
+    });
+    el.addEventListener('dragover', (e) => {
+      if (!dragging || dragging === el) return;
+      e.preventDefault();
+      const r = el.getBoundingClientRect();
+      const before = (e.clientX - r.left) < r.width / 2;
+      el.classList.toggle('tab-drop-before', before);
+      el.classList.toggle('tab-drop-after', !before);
+    });
+    el.addEventListener('dragleave', () => el.classList.remove('tab-drop-before', 'tab-drop-after'));
+    el.addEventListener('drop', (e) => {
+      e.preventDefault();
+      if (!dragging || dragging === el) return;
+      const r = el.getBoundingClientRect();
+      const before = (e.clientX - r.left) < r.width / 2;
+      const fromSub = dragging.dataset.subject;
+      const toSub   = el.dataset.subject;
+      reorderSubject(fromSub, toSub, before ? 'before' : 'after');
+      refreshTabs();
+      refreshList();
+    });
+  });
+}
+
+function reorderSubject(fromSub, toSub, position) {
+  // 현재 보이는 과목 순서를 기준으로 재배치 → subjectOrder 갱신
+  const cur = getSubjects();
+  const without = cur.filter(s => s !== fromSub);
+  const tIdx = without.indexOf(toSub);
+  if (tIdx < 0) return;
+  const insertAt = position === 'before' ? tIdx : tIdx + 1;
+  without.splice(insertAt, 0, fromSub);
+  subjectOrder = without;
+  saveSubjectOrder();
+}
+
+function refreshSubTopicDatalist() {
+  const $dl = document.getElementById('subTopicDataList');
+  if (!$dl) return;
+  $dl.innerHTML = getSubTopicsForActive().map(s => `<option value="${esc(s)}">`).join('');
 }
 
 function refreshSubjectDatalist() {
@@ -94,7 +172,33 @@ function refreshList() {
     $ul.innerHTML = `<li class="note-list-empty">${searchQuery ? '검색 결과 없음' : '노트가 없습니다.\n＋ 추가로 시작하세요.'}</li>`;
     return;
   }
-  $ul.innerHTML = list.map((n, i) => renderNoteCard(n, i)).join('');
+  // 소과목별 그룹핑 — 소과목 없는 카드는 "(미분류)" 그룹 (혹은 그룹 헤더 생략)
+  const groups = new Map();
+  list.forEach(n => {
+    const key = (n.subTopic || '').trim();
+    if (!groups.has(key)) groups.set(key, []);
+    groups.get(key).push(n);
+  });
+  const subTopicCount = [...groups.keys()].filter(k => k).length;
+  const showHeaders = subTopicCount > 0;  // 소과목이 하나라도 있으면 헤더 표시
+
+  let html = '';
+  let cardIndex = 0;
+  // 빈 키(소과목 없음) 먼저, 그 외는 알파벳 순
+  const keys = [...groups.keys()].sort((a, b) => a.localeCompare(b));
+  if (keys.includes('')) { keys.splice(keys.indexOf(''), 1); keys.unshift(''); }
+
+  keys.forEach(key => {
+    if (showHeaders) {
+      const label = key || '(소과목 없음)';
+      html += `<li class="note-group-header">${esc(label)}</li>`;
+    }
+    groups.get(key).forEach(n => {
+      cardIndex++;
+      html += renderNoteCard(n, cardIndex);
+    });
+  });
+  $ul.innerHTML = html;
   bindNoteCards($ul);
 }
 
@@ -105,10 +209,26 @@ function renderNoteCard(n, i) {
   const mn = n.mnemonic
     ? `<div class="note-card-mnem"><span class="note-card-mnem-label">MNEM</span><span class="note-card-mnem-value">${esc(n.mnemonic)}</span></div>`
     : '';
+  // 일정 — 오늘 이후/오늘/지난 으로 색 구분
+  let dueHtml = '';
+  if (n.dueDate) {
+    const today = new Date(); today.setHours(0,0,0,0);
+    const due = new Date(n.dueDate); due.setHours(0,0,0,0);
+    const diffDays = Math.round((due - today) / (1000*60*60*24));
+    let cls = 'due-future';
+    if (diffDays < 0) cls = 'due-past';
+    else if (diffDays === 0) cls = 'due-today';
+    else if (diffDays <= 3) cls = 'due-soon';
+    const label = diffDays === 0 ? '오늘'
+                : diffDays > 0 ? `D-${diffDays}`
+                : `D+${-diffDays}`;
+    dueHtml = `<span class="note-card-due ${cls}" title="일정: ${esc(n.dueDate)}">📅 ${label}</span>`;
+  }
   return `
     <li class="note-card ${active}" data-id="${esc(n.id)}" draggable="true">
       <div class="note-card-row">
-        <span class="note-card-no">No. ${String(i+1).padStart(3,'0')}</span>
+        <span class="note-card-no">No. ${String(i).padStart(3,'0')}</span>
+        ${dueHtml}
         <span class="note-card-date">${date}</span>
       </div>
       <div class="note-card-title">${esc(title)}</div>
