@@ -116,7 +116,9 @@ function bindGlobal() {
     // 모달이 열려 있으면 ESC로 닫기만
     const openedModal = document.querySelector('.modal-overlay:not([hidden])');
     if (e.key === 'Escape' && openedModal) {
-      openedModal.hidden = true;
+      // 시험 모달이면 quizState 정리까지 한 번에
+      if (openedModal.id === 'quizModal' && typeof closeQuiz === 'function') closeQuiz();
+      else openedModal.hidden = true;
       return;
     }
 
@@ -130,6 +132,7 @@ function bindGlobal() {
       if (k === 'n') { e.preventDefault(); document.getElementById('newNoteBtn').click(); return; }
       if (k === 'k') { e.preventDefault(); document.getElementById('searchInput').focus(); document.getElementById('searchInput').select(); return; }
       if (k === ',') { e.preventDefault(); document.getElementById('settingsBtn').click(); return; }
+      if (k === 't') { e.preventDefault(); document.getElementById('quizBtn').click(); return; }
       if (k === 'delete') { e.preventDefault(); document.getElementById('deleteNoteBtn').click(); return; }
     }
 
@@ -198,6 +201,7 @@ function bindGlobal() {
   bindEditor();
   bindSearch();
   bindGlobal();
+  bindQuiz();
 
   loadNoteIntoEditor(currentId);
   refreshList();
