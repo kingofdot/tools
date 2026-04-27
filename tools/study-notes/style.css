@@ -1174,3 +1174,25 @@ body.force-pc .body-stack { display: grid !important; }
   .quiz-sentence { font-size: 16px; padding: 14px 16px; }
   .quiz-result-score { font-size: 26px; }
 }
+
+/* 시험 — 랜덤 번호 강조 */
+.quiz-progress .quiz-no {
+  font-family: var(--mono);
+  font-size: 17px;
+  font-weight: 800;
+  color: var(--accent);
+  letter-spacing: 0.04em;
+}
+.quiz-progress .quiz-no-progress {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--ink-faint);
+  margin-left: 8px;
+  letter-spacing: 0.04em;
+}
+.qri-no {
+  font-family: var(--mono);
+  color: var(--accent);
+  margin-right: 4px;
+  letter-spacing: 0.04em;
+}

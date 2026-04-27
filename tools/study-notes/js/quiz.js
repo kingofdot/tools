@@ -1,14 +1,16 @@
 // === QUIZ ===
 // 시험 보기: 과목/소과목 선택 → 본문 줄에서 "조사 앞 단어" 빈칸 → 한 줄 = 한 문제
 
-// 한국어 조사 — 긴 것부터 매칭 (정규식 alternation은 좌→우 우선)
+// 한국어 조사 — 긴 것 먼저 매칭되도록 정렬 (alternation 좌→우 우선)
 const QUIZ_PARTICLES = [
   '입니다','이며','이고','이다',
   '처럼','마다','부터','까지','에서','으로','한테','에게','같이','조차','보다',
   '은','는','이','가','을','를','의','에','로','와','과','도','만','께','뿐'
 ];
+// stem 은 non-greedy(+?) — '민법으로' 가 '민법으'+'로'가 아니라 '민법'+'으로' 로 잡히도록.
+// non-greedy 라도 최소 2글자 보장: 첫 [가-힣A-Za-z] + 1자 이상 [가-힣A-Za-z0-9]+?
 const QUIZ_RE = new RegExp(
-  '([가-힣A-Za-z][가-힣A-Za-z0-9]+)(' + QUIZ_PARTICLES.join('|') + ')(?=[\\s.,!?)\\]\\}　]|$)',
+  '([가-힣A-Za-z][가-힣A-Za-z0-9]+?)(' + QUIZ_PARTICLES.join('|') + ')(?=[\\s.,!?)\\]\\}　]|$)',
   'g'
 );
 
@@ -165,6 +167,14 @@ function startQuiz(subject, subTopic) {
     }
     return;
   }
+  // 1..N 순열을 무작위로 배정 — 진행 순서와 무관한 "문제 번호"
+  const labels = Array.from({ length: questions.length }, (_, i) => i + 1);
+  for (let i = labels.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [labels[i], labels[j]] = [labels[j], labels[i]];
+  }
+  questions.forEach((q, i) => { q.displayNo = labels[i]; });
+
   quizState = { questions, idx: 0, score: 0, history: [] };
   document.getElementById('quizSetup').hidden = true;
   document.getElementById('quizResult').hidden = true;
@@ -190,8 +200,10 @@ function showQuestion() {
   document.getElementById('quizSentence').innerHTML =
     `${esc(before)}${blank}${esc(after)}`;
 
-  document.getElementById('quizProgress').textContent =
-    `${quizState.idx + 1} / ${quizState.questions.length}`;
+  // 큰 글씨로 랜덤 번호, 옆에 작게 실제 진행률
+  document.getElementById('quizProgress').innerHTML =
+    `<b class="quiz-no">#${q.displayNo}</b>`
+    + `<span class="quiz-no-progress">(${quizState.idx + 1}/${quizState.questions.length})</span>`;
   document.getElementById('quizScore').textContent = `정답 ${quizState.score}`;
 
   const $a = document.getElementById('quizAnswerInput');
@@ -261,7 +273,7 @@ function showResult() {
   } else {
     $list.innerHTML = wrong.map(w => `
       <div class="quiz-result-item">
-        <div class="qri-meta">${esc(w.noteSubject)}${w.noteSubTopic ? ' · ' + esc(w.noteSubTopic) : ''} · ${esc(w.noteTopic)}</div>
+        <div class="qri-meta"><b class="qri-no">#${w.displayNo}</b> ${esc(w.noteSubject)}${w.noteSubTopic ? ' · ' + esc(w.noteSubTopic) : ''} · ${esc(w.noteTopic)}</div>
         <div class="qri-line">${esc(w.lineRaw.slice(0, w.blankStart))}<b class="qri-stem">${esc(w.stem)}</b>${esc(w.particle)}${esc(w.lineRaw.slice(w.blankEnd))}</div>
         ${w.userAnswer && !w.skipped ? `<div class="qri-yours">입력: ${esc(w.userAnswer)}</div>` : (w.skipped ? `<div class="qri-yours">(건너뜀)</div>` : '')}
       </div>
