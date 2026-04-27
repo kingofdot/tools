@@ -1399,3 +1399,59 @@ body.force-pc .body-stack { display: grid !important; }
   .quiz-left { max-height: 40vh; }
   .quiz-right { max-height: 40vh; }
 }
+
+/* 시험 — 좌측 노트 표지 (mini cover) */
+.quiz-cover {
+  border-bottom: 1.5px dashed var(--rule);
+  padding: 0 4px 14px;
+  margin-bottom: 14px;
+}
+.quiz-cover-row {
+  display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
+  margin-bottom: 6px;
+}
+.quiz-cover-tag {
+  background: var(--accent);
+  color: #fff;
+  font-family: var(--serif);
+  font-weight: 700;
+  font-size: 11.5px;
+  letter-spacing: 0.04em;
+  padding: 2px 9px;
+  border-radius: 3px;
+}
+.quiz-cover-date {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--ink-faint);
+}
+.quiz-cover-title {
+  margin: 4px 0 6px;
+  font-family: var(--serif);
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--ink);
+  line-height: 1.25;
+  word-break: keep-all;
+}
+.quiz-cover-meta {
+  font-family: var(--serif);
+  font-size: 12px;
+  color: var(--ink-soft);
+  background: var(--paper-deep);
+  padding: 2px 9px;
+  border-radius: 99px;
+}
+.quiz-cover-meta b {
+  font-weight: 700;
+  color: var(--accent);
+  margin-right: 4px;
+  letter-spacing: 0.06em;
+}
+
+/* 시험 — 본문 트리 (.preview 스타일 상속) */
+.quiz-page-body {
+  /* 트리 ol/li 가시화는 .preview 규칙에 위임. 살짝만 조정 */
+}
+.quiz-page-body .item-line { padding-left: 0; }
+.quiz-page-body ol { padding-left: 0; }

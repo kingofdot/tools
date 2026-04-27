@@ -228,6 +228,10 @@ function startQuiz(subject, subTopic) {
 }
 
 // ─── 노트 화면 그리기 ─────────────────────────────────
+// 좌측: 노트 표지(과목·일정·두문자·소과목) + 정식 트리 렌더 + 빈칸 자리만 #번호 칩
+// 빈칸을 PUA 문자 토큰(<label>)으로 치환해서 parser→renderer→highlight 통과시키고,
+// 마지막에 토큰을 빈칸 칩 HTML로 후처리 교체한다.
+
 function showNote() {
   if (!quizState) return;
   const q = quizState.notes[quizState.idx];
@@ -243,15 +247,14 @@ function showNote() {
     `<b class="quiz-no">#${q.displayNo}</b>`
     + `<span class="quiz-no-progress">(${quizState.idx + 1}/${quizState.notes.length})</span>`;
   const totalSoFar = quizState.history.reduce((s, h) => s + h.correctCount, 0);
-  const totalBlanks = quizState.history.reduce((s, h) => s + h.totalBlanks, 0);
+  const sumBlanks  = quizState.history.reduce((s, h) => s + h.totalBlanks, 0);
   document.getElementById('quizScore').textContent =
-    totalBlanks ? `누적 ${totalSoFar}/${totalBlanks}` : '시작';
+    sumBlanks ? `누적 ${totalSoFar}/${sumBlanks}` : '시작';
 
-  // 좌측: 본문에 빈칸 라벨 삽입
-  const $page = document.getElementById('quizPage');
-  $page.innerHTML = q.lines.map(ln => renderLineWithBlanks(ln)).join('');
+  // 좌측 페이지 렌더 (표지 + 본문 트리)
+  document.getElementById('quizPage').innerHTML = renderQuizNoteHtml(q);
 
-  // 우측: 빈칸별 입력란
+  // 우측 입력란
   const allBlanks = q.lines.flatMap(l => l.blanks);
   const $inputs = document.getElementById('quizInputs');
   $inputs.innerHTML = allBlanks.map(b => `
@@ -263,7 +266,6 @@ function showNote() {
     </li>
   `).join('');
 
-  // 입력 사이 Tab/Enter 이동, 마지막에서 Enter → 채점
   const $fields = $inputs.querySelectorAll('.quiz-input-field');
   $fields.forEach((el, i) => {
     el.addEventListener('keydown', (e) => {
@@ -285,24 +287,61 @@ function showNote() {
   setTimeout(() => $fields[0]?.focus(), 0);
 }
 
-function renderLineWithBlanks(ln) {
-  if (!ln.blanks.length) {
-    return `<div class="quiz-line">${esc(ln.raw) || '&nbsp;'}</div>`;
-  }
-  // raw 기준 위치로 자르되 leading tabs는 시각적 들여쓰기로 변환
-  const leadingTabs = (ln.raw.match(/^\t*/) || [''])[0].length;
-  const indent = leadingTabs > 0 ? `style="padding-left:${leadingTabs * 18}px"` : '';
-  let inner = '';
-  let cursor = 0;
-  ln.blanks.forEach(b => {
-    inner += esc(ln.raw.slice(cursor, b.start));
-    inner += `<span class="quiz-blank-num quiz-blank-${b.type}" data-label="${b.label}">#${b.label}</span>`;
-    cursor = b.end;
+// 노트의 표지 + 빈칸 토큰화한 본문을 정식 트리로 렌더, 후처리로 토큰을 칩으로 교체
+function renderQuizNoteHtml(q) {
+  // 1) 빈칸 자리를 PUA 토큰으로 치환한 modifiedBody 생성 + label→type 맵
+  const labelMap = new Map();
+  let body = '';
+  q.lines.forEach((ln, i) => {
+    if (i > 0) body += '\n';
+    let cursor = 0;
+    ln.blanks.forEach(b => {
+      body += ln.raw.slice(cursor, b.start);
+      body += `${b.label}`;
+      cursor = b.end;
+      labelMap.set(b.label, b);
+    });
+    body += ln.raw.slice(cursor);
   });
-  inner += esc(ln.raw.slice(cursor));
-  // 시각적 들여쓰기는 padding으로, 텍스트의 leading tabs는 제거
-  const textWithoutLeadTabs = inner.replace(/^\t+/, '');
-  return `<div class="quiz-line" ${indent}>${textWithoutLeadTabs}</div>`;
+
+  // 2) 기존 parser → numberTree → renderTree → highlightInline 통과
+  let html = '';
+  if (typeof parseBody === 'function' && typeof renderTree === 'function' && typeof numberTree === 'function') {
+    const tree = numberTree(parseBody(body));
+    html = renderTree(tree);
+  } else {
+    // fallback (이론상 도달 안함)
+    html = `<pre>${esc(body)}</pre>`;
+  }
+  if (!html) html = '<div class="qp-empty">본문이 없습니다.</div>';
+
+  // 3) 토큰을 빈칸 칩으로 교체
+  html = html.replace(/(\d+)/g, (_, label) => {
+    const b = labelMap.get(parseInt(label, 10));
+    const type = b?.type || 'word';
+    return `<span class="quiz-blank-num quiz-blank-${type}" data-label="${label}">#${label}</span>`;
+  });
+
+  // 4) 표지 (과목/일정/두문자/소과목)
+  const note = (typeof findNote === 'function') ? findNote(q.noteId) : null;
+  const cover = renderQuizCover(q, note);
+
+  // 'preview' 클래스를 함께 부여해 기존 노트 스타일(ol/li 트리 + 법조항·판례 뱃지) 적용
+  return cover + `<div class="quiz-page-body preview">${html}</div>`;
+}
+
+function renderQuizCover(q, note) {
+  const tag = `<span class="quiz-cover-tag">${esc(q.subject)}</span>`;
+  const date = note?.dueDate ? `<span class="quiz-cover-date">📅 ${esc(note.dueDate)}</span>` : '';
+  const topic = `<h3 class="quiz-cover-title">${esc(q.topic)}</h3>`;
+  const meta = [];
+  if (note?.mnemonic) meta.push(`<span class="quiz-cover-meta"><b>두문자</b> ${esc(note.mnemonic)}</span>`);
+  if (q.subTopic)     meta.push(`<span class="quiz-cover-meta"><b>소과목</b> ${esc(q.subTopic)}</span>`);
+  return `<div class="quiz-cover">
+    <div class="quiz-cover-row">${tag}${date}</div>
+    ${topic}
+    ${meta.length ? `<div class="quiz-cover-row">${meta.join('')}</div>` : ''}
+  </div>`;
 }
 
 function highlightBlank(label, on) {
