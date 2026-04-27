@@ -1629,3 +1629,7 @@ body.force-pc .body-stack { display: grid !important; }
 .main-grid.quiz-mode + * {
   /* 후속 영역 — 사용 안함 */
 }
+
+/* hidden 속성 강제 — display 규칙 충돌 방지 */
+.quiz-stage[hidden],
+.quiz-host[hidden] { display: none !important; }
