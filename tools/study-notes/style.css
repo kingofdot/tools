@@ -905,3 +905,61 @@ body.force-pc .body-stack { display: grid !important; }
   color: #fff;
   border-color: var(--accent);
 }
+
+/* ═══════════════════════════════════════════════════════════════
+   소과목 탭 (과목 탭 아래 1단계)
+   ═══════════════════════════════════════════════════════════════ */
+.subtopic-bar {
+  background: var(--paper);
+  border-top: 1px solid var(--rule);
+  padding: 6px 24px;
+  flex-shrink: 0;
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+.subtopic-tabs {
+  display: inline-flex; gap: 4px; align-items: center;
+}
+.subtopic-tab {
+  background: transparent;
+  border: 1px solid transparent;
+  color: var(--ink-soft);
+  font-family: var(--serif);
+  font-size: 12.5px;
+  padding: 4px 11px;
+  border-radius: 12px;
+  cursor: pointer;
+  white-space: nowrap;
+  display: inline-flex; align-items: center; gap: 6px;
+  transition: all 0.12s;
+}
+.subtopic-tab:hover {
+  background: var(--paper-alt);
+  border-color: var(--rule);
+  color: var(--ink);
+}
+.subtopic-tab.active {
+  background: var(--active-tab-color, var(--accent));
+  color: #fff;
+  border-color: var(--active-tab-color, var(--accent));
+  font-weight: 600;
+}
+.subtopic-tab .subtopic-count {
+  font-family: var(--mono);
+  font-size: 9.5px;
+  font-weight: 600;
+  background: var(--paper-alt);
+  color: var(--ink-faint);
+  padding: 1px 6px;
+  border-radius: 99px;
+  letter-spacing: 0.04em;
+}
+.subtopic-tab.active .subtopic-count {
+  background: rgba(255,255,255,0.25);
+  color: #fff;
+}
+
+@media (max-width: 720px) {
+  .subtopic-bar { padding: 4px 12px; }
+  .subtopic-tab { font-size: 12px; padding: 3px 9px; }
+}

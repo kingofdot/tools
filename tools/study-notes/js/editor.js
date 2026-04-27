@@ -51,6 +51,17 @@ function bindEditor() {
   // 일정 변경 즉시 카드 갱신
   $dueDate.addEventListener('change', () => { markDirty(); scheduleSave(); refreshList(); });
 
+  // 소과목 변경 — 탭에도 바로 반영
+  $subTopic.addEventListener('change', () => {
+    if (!currentId) return;
+    const n = findNote(currentId);
+    if (n) { n.subTopic = $subTopic.value.trim(); n.updatedAt = new Date().toISOString(); }
+    markDirty();
+    saveNotes();
+    refreshTabs();
+    refreshList();
+  });
+
   // 과목 입력: 현재 노트의 과목 변경 + 해당 과목 탭으로 전환
   $subject.addEventListener('change', () => {
     const newSub = $subject.value.trim();

@@ -23,6 +23,19 @@ function getSubTopicsForActive() {
          .filter(s => s.length)
   )].sort();
 }
+
+function notesInActiveSubject() {
+  return notes
+    .filter(n => (n.subject || '_미분류') === activeSubject)
+    .filter(n => filterOne(n, searchQuery));
+}
+
+function countSubTopic(subTopic) {
+  return notes.filter(n =>
+    (n.subject || '_미분류') === activeSubject &&
+    (n.subTopic || '') === subTopic
+  ).length;
+}
 function countBySubject(subj) {
   return notes.filter(n => (n.subject || '_미분류') === subj).length;
 }
@@ -61,6 +74,7 @@ function refreshTabs() {
   $tabs.querySelectorAll('.folder-tab').forEach(el => {
     el.addEventListener('click', () => {
       activeSubject = el.dataset.subject;
+      activeSubTopic = null;  // 과목 전환 시 소과목 필터 해제
       refreshTabs();
       refreshList();
       const list = notesInActive();
@@ -87,7 +101,54 @@ function refreshTabs() {
 
   refreshSubjectDatalist();
   refreshSubTopicDatalist();
+  refreshSubTopicTabs();
   applyActiveTabColor();
+}
+
+function refreshSubTopicTabs() {
+  const $row = document.getElementById('subTopicTabs');
+  const $bar = document.getElementById('subTopicBar');
+  if (!$row || !$bar) return;
+  const tops = getSubTopicsForActive();
+
+  // 활성 소과목이 현재 과목에 없으면 리셋
+  if (activeSubTopic !== null && !tops.includes(activeSubTopic)) activeSubTopic = null;
+
+  if (!tops.length) {
+    $row.innerHTML = '';
+    $bar.style.display = 'none';
+    return;
+  }
+  $bar.style.display = '';
+
+  const totalCount = notesInActiveSubject().length;
+  const allActive = activeSubTopic === null ? 'active' : '';
+  let html = `<button class="subtopic-tab ${allActive}" data-subtopic="">
+    <span class="subtopic-label">전체</span>
+    <span class="subtopic-count">${totalCount}</span>
+  </button>`;
+
+  html += tops.map(t => {
+    const cnt = countSubTopic(t);
+    const active = activeSubTopic === t ? 'active' : '';
+    return `<button class="subtopic-tab ${active}" data-subtopic="${esc(t)}">
+      <span class="subtopic-label">${esc(t)}</span>
+      <span class="subtopic-count">${cnt}</span>
+    </button>`;
+  }).join('');
+
+  $row.innerHTML = html;
+
+  $row.querySelectorAll('.subtopic-tab').forEach(el => {
+    el.addEventListener('click', () => {
+      const v = el.dataset.subtopic || '';
+      activeSubTopic = v === '' ? null : v;
+      refreshSubTopicTabs();
+      refreshList();
+      const list = notesInActive();
+      if (list.length) loadNoteIntoEditor(list[0].id);
+    });
+  });
 }
 
 // 폴더 탭 드래그 정렬
@@ -157,6 +218,7 @@ function refreshSubjectDatalist() {
 function notesInActive() {
   return notes
     .filter(n => (n.subject || '_미분류') === activeSubject)
+    .filter(n => activeSubTopic === null || (n.subTopic || '') === activeSubTopic)
     .filter(n => filterOne(n, searchQuery))
     .sort((a, b) => (a.order ?? 0) - (b.order ?? 0));
 }
@@ -180,7 +242,8 @@ function refreshList() {
     groups.get(key).push(n);
   });
   const subTopicCount = [...groups.keys()].filter(k => k).length;
-  const showHeaders = subTopicCount > 0;  // 소과목이 하나라도 있으면 헤더 표시
+  // "전체"일 때만 그룹 헤더 표시 — 특정 소과목 선택 시엔 깔끔하게 카드만
+  const showHeaders = (activeSubTopic === null) && subTopicCount > 0;
 
   let html = '';
   let cardIndex = 0;

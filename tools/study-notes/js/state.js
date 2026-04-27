@@ -9,6 +9,9 @@ let searchQuery = '';
 // 사용자 정의 과목 탭 순서 — 비어 있으면 기본 알파벳 순
 let subjectOrder = [];
 
+// 활성 소과목 — null 이면 "전체" (현재 과목의 모든 노트)
+let activeSubTopic = null;
+
 // prisma-architect 패턴: kingofdot/tools 저장소의 tools/study-notes/notes-data.json 에
 // 모든 노트를 단일 파일로 저장. 별도 저장소 생성 불필요.
 let settings = {
