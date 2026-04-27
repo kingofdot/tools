@@ -258,20 +258,25 @@
         </div>
       </div>
 
-      <!-- 2) 풀이 단계 -->
+      <!-- 2) 풀이 단계 — 좌: 노트 본문 / 우: 빈칸별 입력 -->
       <div class="quiz-stage" id="quizPlay" hidden>
         <div class="modal-header">
           <div class="quiz-header-info">
             <span class="quiz-progress" id="quizProgress">0 / 0</span>
-            <span class="quiz-score" id="quizScore">정답 0</span>
+            <span class="quiz-score" id="quizScore">시작</span>
           </div>
           <button class="rail-btn" data-close-modal="quizModal">✕</button>
         </div>
-        <div class="modal-body quiz-play-body">
-          <div class="quiz-meta" id="quizMeta"></div>
-          <div class="quiz-sentence" id="quizSentence"></div>
-          <input type="text" id="quizAnswerInput" class="quiz-answer" placeholder="빈칸에 들어갈 단어를 입력 후 Enter" autocomplete="off">
-          <div class="quiz-feedback" id="quizFeedback"></div>
+        <div class="modal-body quiz-play-body quiz-grid">
+          <div class="quiz-left">
+            <div class="quiz-meta" id="quizMeta"></div>
+            <div class="quiz-page" id="quizPage"></div>
+            <div class="quiz-feedback" id="quizFeedback"></div>
+          </div>
+          <div class="quiz-right">
+            <div class="quiz-right-title">빈칸 입력</div>
+            <ol class="quiz-inputs" id="quizInputs"></ol>
+          </div>
         </div>
         <div class="modal-footer">
           <button class="btn ghost" id="quizSkipBtn">건너뛰기</button>
