@@ -67,6 +67,75 @@
         <ol class="note-deck" id="noteList"></ol>
       </aside>
 
+      <!-- 시험 모드 (inline — main-grid에 .quiz-mode 클래스 토글로 활성화) -->
+      <div class="quiz-host" id="quizHost" hidden>
+
+        <!-- 헤더 (단계 공통) -->
+        <header class="quiz-host-header">
+          <div class="quiz-host-meta">
+            <button class="rail-btn" id="quizBackToSetupBtn" hidden title="설정으로 돌아가기">← 설정</button>
+            <span class="quiz-host-title">📝 시험 보기</span>
+            <span class="quiz-progress" id="quizProgress"></span>
+            <span class="quiz-score" id="quizScore"></span>
+          </div>
+          <button class="rail-btn danger" id="quizExitBtn" title="시험 종료 (ESC)">시험 종료 ✕</button>
+        </header>
+
+        <!-- 1) 설정 -->
+        <div class="quiz-stage quiz-stage-setup" id="quizSetup">
+          <div class="quiz-setup-card">
+            <p class="quiz-intro">노트의 본문에서 <b>조사 앞 단어</b> · <b>법조항</b> · <b>판례번호</b>를 빈칸으로 만들어 출제합니다. 한 노트가 한 문제 사이클입니다.</p>
+            <div class="quiz-setup-fields">
+              <label class="form-row">
+                <span>과목</span>
+                <select id="quizSubject"></select>
+              </label>
+              <label class="form-row">
+                <span>소과목</span>
+                <select id="quizSubTopic"></select>
+              </label>
+            </div>
+            <div class="quiz-setup-actions">
+              <button class="btn btn-primary btn-lg" id="quizStartBtn">시작 →</button>
+            </div>
+            <div class="quiz-tip">✓ Tab/Enter 로 다음 빈칸 · 마지막에서 Enter로 채점 · ESC로 종료</div>
+          </div>
+        </div>
+
+        <!-- 2) 풀이 -->
+        <div class="quiz-stage quiz-stage-play" id="quizPlay" hidden>
+          <div class="quiz-grid">
+            <div class="quiz-left">
+              <div class="quiz-meta" id="quizMeta"></div>
+              <div class="quiz-page" id="quizPage"></div>
+              <div class="quiz-feedback" id="quizFeedback"></div>
+            </div>
+            <div class="quiz-right">
+              <div class="quiz-right-title">빈칸 입력</div>
+              <ol class="quiz-inputs" id="quizInputs"></ol>
+            </div>
+          </div>
+          <footer class="quiz-stage-footer">
+            <button class="btn ghost" id="quizSkipBtn">건너뛰기</button>
+            <button class="btn btn-primary" id="quizCheckBtn">정답 확인</button>
+            <button class="btn btn-primary" id="quizNextBtn" hidden>다음 →</button>
+          </footer>
+        </div>
+
+        <!-- 3) 결과 -->
+        <div class="quiz-stage quiz-stage-result" id="quizResult" hidden>
+          <div class="quiz-result-wrapper">
+            <h2 class="quiz-result-title">📊 결과</h2>
+            <div class="quiz-result-score" id="quizResultScore"></div>
+            <div class="quiz-result-list" id="quizResultList"></div>
+          </div>
+          <footer class="quiz-stage-footer">
+            <button class="btn" id="quizExitBtn2">닫기</button>
+            <button class="btn btn-primary" id="quizRestartBtn">다시 시작</button>
+          </footer>
+        </div>
+      </div>
+
       <!-- 페이지 -->
       <section class="page-area">
 
@@ -227,82 +296,6 @@
     </div>
   </div>
 
-  <!-- 시험 모달 -->
-  <div class="modal-overlay quiz-overlay" id="quizModal" hidden tabindex="-1">
-    <div class="modal modal-quiz">
-
-      <!-- 1) 설정 단계 -->
-      <div class="quiz-stage" id="quizSetup">
-        <div class="modal-header">
-          <h2>📝 시험 보기</h2>
-          <button class="rail-btn" id="quizCloseBtn">✕</button>
-        </div>
-        <div class="modal-body">
-          <p class="quiz-intro">노트의 본문 문장에서 <b>조사 앞 단어</b>를 빈칸으로 만들어 출제합니다. 한 문장이 한 문제입니다.</p>
-          <label class="form-row">
-            <span>과목</span>
-            <select id="quizSubject"></select>
-          </label>
-          <label class="form-row">
-            <span>소과목</span>
-            <select id="quizSubTopic"></select>
-          </label>
-          <div class="quiz-tip">
-            ✓ Enter로 정답 확인 · 한 번 더 Enter로 다음<br>
-            ✓ ESC로 종료 · 건너뛰기 가능
-          </div>
-        </div>
-        <div class="modal-footer">
-          <button class="btn" id="quizCloseBtn2" data-close-modal="quizModal">취소</button>
-          <button class="btn btn-primary" id="quizStartBtn">시작 →</button>
-        </div>
-      </div>
-
-      <!-- 2) 풀이 단계 — 좌: 노트 본문 / 우: 빈칸별 입력 -->
-      <div class="quiz-stage" id="quizPlay" hidden>
-        <div class="modal-header">
-          <div class="quiz-header-info">
-            <span class="quiz-progress" id="quizProgress">0 / 0</span>
-            <span class="quiz-score" id="quizScore">시작</span>
-          </div>
-          <button class="rail-btn" data-close-modal="quizModal">✕</button>
-        </div>
-        <div class="modal-body quiz-play-body quiz-grid">
-          <div class="quiz-left">
-            <div class="quiz-meta" id="quizMeta"></div>
-            <div class="quiz-page" id="quizPage"></div>
-            <div class="quiz-feedback" id="quizFeedback"></div>
-          </div>
-          <div class="quiz-right">
-            <div class="quiz-right-title">빈칸 입력</div>
-            <ol class="quiz-inputs" id="quizInputs"></ol>
-          </div>
-        </div>
-        <div class="modal-footer">
-          <button class="btn ghost" id="quizSkipBtn">건너뛰기</button>
-          <button class="btn btn-primary" id="quizCheckBtn">정답 확인</button>
-          <button class="btn btn-primary" id="quizNextBtn" hidden>다음 →</button>
-        </div>
-      </div>
-
-      <!-- 3) 결과 단계 -->
-      <div class="quiz-stage" id="quizResult" hidden>
-        <div class="modal-header">
-          <h2>📊 결과</h2>
-          <button class="rail-btn" data-close-modal="quizModal">✕</button>
-        </div>
-        <div class="modal-body">
-          <div class="quiz-result-score" id="quizResultScore">0 / 0</div>
-          <div class="quiz-result-list" id="quizResultList"></div>
-        </div>
-        <div class="modal-footer">
-          <button class="btn" data-close-modal="quizModal">닫기</button>
-          <button class="btn btn-primary" id="quizRestartBtn">다시 시작</button>
-        </div>
-      </div>
-
-    </div>
-  </div>
 
   <!-- 토스트 -->
   <div class="toast-container" id="toastContainer"></div>

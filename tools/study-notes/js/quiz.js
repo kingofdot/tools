@@ -41,17 +41,41 @@ function bindQuiz() {
     updateQuizCount();
   });
   document.getElementById('quizSubTopic')?.addEventListener('change', updateQuizCount);
-  document.getElementById('quizCloseBtn')?.addEventListener('click', closeQuiz);
   document.getElementById('quizCheckBtn')?.addEventListener('click', checkAllAnswers);
   document.getElementById('quizNextBtn')?.addEventListener('click', nextNote);
   document.getElementById('quizSkipBtn')?.addEventListener('click', skipNote);
-  document.getElementById('quizRestartBtn')?.addEventListener('click', () => {
-    closeQuiz();
+  document.getElementById('quizExitBtn')?.addEventListener('click', closeQuiz);
+  document.getElementById('quizExitBtn2')?.addEventListener('click', closeQuiz);
+  document.getElementById('quizBackToSetupBtn')?.addEventListener('click', () => {
+    quizState = null;
+    showStage('setup');
     openQuizSetup();
   });
-  document.getElementById('quizModal')?.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape') { closeQuiz(); }
+  document.getElementById('quizRestartBtn')?.addEventListener('click', () => {
+    quizState = null;
+    openQuizSetup();
   });
+
+  // 시험 모드 활성화 동안 ESC 처리 (입력 중일 때도)
+  document.addEventListener('keydown', (e) => {
+    const host = document.getElementById('quizHost');
+    if (host?.hidden) return;
+    if (e.key === 'Escape') { e.preventDefault(); closeQuiz(); }
+  });
+}
+
+// 단계 전환
+function showStage(stage /* 'setup' | 'play' | 'result' */) {
+  document.getElementById('quizSetup').hidden  = stage !== 'setup';
+  document.getElementById('quizPlay').hidden   = stage !== 'play';
+  document.getElementById('quizResult').hidden = stage !== 'result';
+  // 헤더 정보는 풀이 단계에서만 의미 있음
+  const $progress = document.getElementById('quizProgress');
+  const $score = document.getElementById('quizScore');
+  if (stage !== 'play') {
+    $progress.textContent = '';
+    $score.textContent = '';
+  }
 }
 
 function openQuizSetup() {
@@ -64,10 +88,12 @@ function openQuizSetup() {
   refreshQuizSubTopicOptions();
   updateQuizCount();
 
-  document.getElementById('quizSetup').hidden = false;
-  document.getElementById('quizPlay').hidden = true;
-  document.getElementById('quizResult').hidden = true;
-  openModal('quizModal');
+  // main-grid 를 시험 모드로
+  const grid = document.getElementById('mainGrid');
+  const host = document.getElementById('quizHost');
+  grid?.classList.add('quiz-mode');
+  if (host) host.hidden = false;
+  showStage('setup');
   setTimeout(() => $sub.focus(), 0);
 }
 
@@ -101,7 +127,10 @@ function updateQuizCount() {
 }
 
 function closeQuiz() {
-  closeModal('quizModal');
+  const grid = document.getElementById('mainGrid');
+  const host = document.getElementById('quizHost');
+  grid?.classList.remove('quiz-mode');
+  if (host) host.hidden = true;
   quizState = null;
 }
 
@@ -221,9 +250,7 @@ function startQuiz(subject, subTopic) {
   built.forEach((q, i) => { q.displayNo = labels[i]; });
 
   quizState = { notes: built, idx: 0, history: [], answeredCurrent: false };
-  document.getElementById('quizSetup').hidden = true;
-  document.getElementById('quizResult').hidden = true;
-  document.getElementById('quizPlay').hidden = false;
+  showStage('play');
   showNote();
 }
 
@@ -451,8 +478,7 @@ function skipNote() {
 
 // ─── 결과 ──────────────────────────────────────────────
 function showResult() {
-  document.getElementById('quizPlay').hidden = true;
-  document.getElementById('quizResult').hidden = false;
+  showStage('result');
   const total = quizState.history.reduce((s, h) => s + h.totalBlanks, 0);
   const correct = quizState.history.reduce((s, h) => s + h.correctCount, 0);
   const pct = total ? Math.round((correct / total) * 100) : 0;
