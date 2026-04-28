@@ -2,14 +2,43 @@
 
 (function () {
   let files = [];
+  let sortKey = null;     // 'name' | 'size' | 'date' | null (수동)
+  let sortAsc = true;
 
   function refresh() {
     const list = document.getElementById('mergeList');
-    renderFileList(list, files, { onChange: refresh });
+    renderFileList(list, files, { onChange: () => { sortKey = null; refresh(); } });
     document.getElementById('mergeRun').disabled = files.length < 1;
     document.getElementById('mergeClear').hidden = files.length === 0;
+    document.getElementById('mergeSort').hidden = files.length < 2;
+    updateSortLabels();
     setStatus(document.getElementById('mergeStatus'),
       files.length ? `${files.length}개 PDF 대기 중` : '', '');
+  }
+
+  function updateSortLabels() {
+    document.querySelectorAll('#mergeSort button[data-sort]').forEach(btn => {
+      const k = btn.dataset.sort;
+      const base = { name: '이름', size: '크기', date: '수정일' }[k] || k;
+      const arrow = (sortKey === k) ? (sortAsc ? ' ↑' : ' ↓') : '';
+      btn.textContent = base + arrow;
+      btn.classList.toggle('active', sortKey === k);
+    });
+  }
+
+  function applySort(key) {
+    if (sortKey === key) sortAsc = !sortAsc;
+    else { sortKey = key; sortAsc = true; }
+    files.sort((a, b) => {
+      let va, vb;
+      if (key === 'name')      { va = a.name.toLowerCase(); vb = b.name.toLowerCase(); }
+      else if (key === 'size') { va = a.size; vb = b.size; }
+      else                     { va = a.lastModified || 0; vb = b.lastModified || 0; }
+      if (va < vb) return sortAsc ? -1 : 1;
+      if (va > vb) return sortAsc ? 1 : -1;
+      return 0;
+    });
+    refresh();
   }
 
   window.bindMerge = function bindMerge() {
@@ -17,10 +46,17 @@
     const input = document.getElementById('mergeInput');
     bindDropZone(drop, input, ['.pdf', 'application/pdf'], (newFiles) => {
       files.push(...newFiles.filter(f => f.type === 'application/pdf' || /\.pdf$/i.test(f.name)));
+      sortKey = null;
       refresh();
     });
 
-    document.getElementById('mergeClear').addEventListener('click', () => { files = []; refresh(); });
+    document.querySelectorAll('#mergeSort button[data-sort]').forEach(btn => {
+      btn.addEventListener('click', () => applySort(btn.dataset.sort));
+    });
+
+    document.getElementById('mergeClear').addEventListener('click', () => {
+      files = []; sortKey = null; refresh();
+    });
     document.getElementById('mergeRun').addEventListener('click', runMerge);
   };
 

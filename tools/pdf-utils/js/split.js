@@ -1,103 +1,177 @@
-// === split.js — PDF 분리 ===
+// === split.js — PDF 수정 (페이지 단위 자유 편집) ===
+// 여러 PDF를 업로드 → 각 페이지를 썸네일로 나열 → 삭제·정렬 → 새 PDF로 저장
 
 (function () {
-  let file = null;
-  let pageCount = 0;
+  let pages = [];           // [{ id, srcId, srcPageIndex, srcFileName, thumb }]
+  const bufs = new Map();   // srcId → ArrayBuffer (원본 PDF 데이터)
 
   function refresh() {
-    const list = document.getElementById('splitList');
+    const grid = document.getElementById('splitGrid');
+    const wrap = document.getElementById('splitGridWrap');
     const form = document.getElementById('splitForm');
-    if (!file) {
-      list.innerHTML = '';
+    const run  = document.getElementById('splitRun');
+    const info = document.getElementById('splitPageInfo');
+    const status = document.getElementById('splitStatus');
+
+    if (!pages.length) {
+      grid.innerHTML = '';
+      wrap.hidden = true;
       form.hidden = true;
-      document.getElementById('splitRun').disabled = true;
-      document.getElementById('splitClear').hidden = true;
-      setStatus(document.getElementById('splitStatus'), '', '');
+      run.disabled = true;
+      setStatus(status, '', '');
       return;
     }
-    renderFileList(list, [file], {
-      onChange: () => { file = null; pageCount = 0; refresh(); },
-      showOrder: false,
-      getMeta: f => `${pageCount || '?'} 페이지 · ${prettySize(f.size)}`,
-    });
+    wrap.hidden = false;
     form.hidden = false;
-    document.getElementById('splitRun').disabled = false;
-    document.getElementById('splitClear').hidden = false;
-    setStatus(document.getElementById('splitStatus'),
-      pageCount ? `총 ${pageCount} 페이지` : '읽는 중…',
-      pageCount ? '' : 'busy');
+    run.disabled = false;
+    info.textContent = `${pages.length} 페이지`;
+
+    grid.innerHTML = pages.map((p, i) => `
+      <div class="page-card" data-id="${escapeHtml(p.id)}" draggable="true">
+        <button class="page-del" data-id="${escapeHtml(p.id)}" title="이 페이지 삭제">✕</button>
+        <div class="page-thumb"><img src="${p.thumb}" alt=""></div>
+        <div class="page-meta">
+          <span class="page-no">${i + 1}</span>
+          <span class="page-src" title="${escapeHtml(p.srcFileName)} · p${p.srcPageIndex + 1}">${escapeHtml(p.srcFileName)} · p${p.srcPageIndex + 1}</span>
+        </div>
+      </div>
+    `).join('');
+
+    grid.querySelectorAll('.page-del').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        pages = pages.filter(p => p.id !== btn.dataset.id);
+        cleanupUnusedBufs();
+        refresh();
+      });
+    });
+    bindGridDragSort(grid);
   }
 
-  window.bindSplit = function bindSplit() {
-    const drop = document.getElementById('splitDrop');
-    const input = document.getElementById('splitInput');
-    bindDropZone(drop, input, ['.pdf', 'application/pdf'], async (newFiles) => {
-      const f = newFiles[0];
-      if (!f) return;
-      file = f; pageCount = 0; refresh();
-      try {
-        const buf = await f.arrayBuffer();
-        const doc = await PDFLib.PDFDocument.load(buf, { ignoreEncryption: true });
-        pageCount = doc.getPageCount();
+  function cleanupUnusedBufs() {
+    const used = new Set(pages.map(p => p.srcId));
+    for (const k of [...bufs.keys()]) if (!used.has(k)) bufs.delete(k);
+  }
+
+  function bindGridDragSort(grid) {
+    let dragId = null;
+    grid.querySelectorAll('.page-card').forEach(el => {
+      el.addEventListener('dragstart', (e) => {
+        dragId = el.dataset.id;
+        el.classList.add('dragging');
+        e.dataTransfer.effectAllowed = 'move';
+        try { e.dataTransfer.setData('text/plain', dragId); } catch (_) {}
+      });
+      el.addEventListener('dragend', () => {
+        el.classList.remove('dragging');
+        grid.querySelectorAll('.drop-before, .drop-after').forEach(x =>
+          x.classList.remove('drop-before', 'drop-after'));
+        dragId = null;
+      });
+      el.addEventListener('dragover', (e) => {
+        if (!dragId || dragId === el.dataset.id) return;
+        e.preventDefault();
+        const r = el.getBoundingClientRect();
+        const before = (e.clientX - r.left) < r.width / 2;
+        el.classList.toggle('drop-before', before);
+        el.classList.toggle('drop-after', !before);
+      });
+      el.addEventListener('dragleave', () => el.classList.remove('drop-before', 'drop-after'));
+      el.addEventListener('drop', (e) => {
+        e.preventDefault();
+        if (!dragId || dragId === el.dataset.id) return;
+        const r = el.getBoundingClientRect();
+        const before = (e.clientX - r.left) < r.width / 2;
+        const fromIdx = pages.findIndex(p => p.id === dragId);
+        const toIdx   = pages.findIndex(p => p.id === el.dataset.id);
+        if (fromIdx < 0 || toIdx < 0) return;
+        const item = pages.splice(fromIdx, 1)[0];
+        let insertAt = toIdx + (before ? 0 : 1);
+        if (fromIdx < toIdx) insertAt -= 1;
+        pages.splice(insertAt, 0, item);
         refresh();
-      } catch (e) {
-        setStatus(document.getElementById('splitStatus'), 'PDF 열기 실패: ' + e.message, 'error');
-      }
+      });
     });
+  }
 
-    document.getElementById('splitMode').addEventListener('change', (e) => {
-      document.getElementById('splitRangeRow').hidden = e.target.value !== 'ranges';
-    });
-    document.getElementById('splitClear').addEventListener('click', () => { file = null; pageCount = 0; refresh(); });
-    document.getElementById('splitRun').addEventListener('click', runSplit);
-  };
+  async function renderThumb(pdf, pageNum, scale = 0.4) {
+    const page = await pdf.getPage(pageNum);
+    const viewport = page.getViewport({ scale });
+    const canvas = document.createElement('canvas');
+    canvas.width = Math.round(viewport.width);
+    canvas.height = Math.round(viewport.height);
+    const ctx = canvas.getContext('2d');
+    ctx.fillStyle = '#ffffff';
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    await page.render({ canvasContext: ctx, viewport }).promise;
+    return canvas.toDataURL('image/png');
+  }
 
-  async function runSplit() {
+  async function addFile(file) {
+    const status = document.getElementById('splitStatus');
+    const srcId = `s_${Date.now()}_${Math.random().toString(36).slice(2, 8)}`;
+    let buf;
+    try { buf = await file.arrayBuffer(); }
+    catch (e) { setStatus(status, '파일 읽기 실패: ' + e.message, 'error'); return; }
+    bufs.set(srcId, buf);
+
+    setStatus(status, `미리보기 생성 중 — ${file.name}`, 'busy');
+    let pdf;
+    try {
+      // pdfjs는 ArrayBuffer를 transfer할 수 있어 슬라이스로 분리 (원본은 pdf-lib용)
+      pdf = await pdfjsLib.getDocument({ data: buf.slice(0) }).promise;
+    } catch (e) {
+      bufs.delete(srcId);
+      setStatus(status, `"${file.name}" 열기 실패: ${e.message}`, 'error');
+      return;
+    }
+    const total = pdf.numPages;
+    for (let i = 1; i <= total; i++) {
+      setStatus(status, `${file.name} — 페이지 미리보기 (${i}/${total})`, 'busy');
+      let thumb = '';
+      try { thumb = await renderThumb(pdf, i); } catch (_) {}
+      pages.push({
+        id: `${srcId}_${i - 1}`,
+        srcId,
+        srcPageIndex: i - 1,
+        srcFileName: file.name,
+        thumb,
+      });
+      // 점진적 렌더 — 매 페이지마다 그리드 갱신
+      refresh();
+    }
+    setStatus(status, `${total}장 추가됨 — ${file.name}`, 'success');
+  }
+
+  async function runSave() {
     const status = document.getElementById('splitStatus');
     const btn = document.getElementById('splitRun');
-    if (!file || !pageCount) return;
-    const mode = document.getElementById('splitMode').value;
+    if (!pages.length) return;
     btn.disabled = true;
-    setStatus(status, '분리 중…', 'busy');
+    setStatus(status, 'PDF 생성 중…', 'busy');
 
     try {
-      const buf = await file.arrayBuffer();
-      const src = await PDFLib.PDFDocument.load(buf, { ignoreEncryption: true });
-
-      let groups;  // [[1,2,3], [5], [7,8,9]]
-      if (mode === 'each') {
-        groups = Array.from({ length: pageCount }, (_, i) => [i + 1]);
-      } else {
-        const text = document.getElementById('splitRanges').value.trim();
-        if (!text) throw new Error('페이지 범위를 입력하세요 (예: 1-3, 5, 7-9)');
-        groups = parseRanges(text, pageCount);
-      }
-
-      const baseName = file.name.replace(/\.pdf$/i, '');
-      // 단일 결과 → 그냥 PDF, 여러 개 → ZIP
-      if (groups.length === 1) {
-        const out = await PDFLib.PDFDocument.create();
-        const pages = await out.copyPages(src, groups[0].map(p => p - 1));
-        pages.forEach(p => out.addPage(p));
-        const bytes = await out.save();
-        downloadBlob(new Blob([bytes], { type: 'application/pdf' }),
-          `${baseName}_${groupLabel(groups[0])}.pdf`);
-        setStatus(status, `완료 — ${groups[0].length} 페이지`, 'success');
-      } else {
-        const zip = new JSZip();
-        for (let gi = 0; gi < groups.length; gi++) {
-          setStatus(status, `처리 중 (${gi+1}/${groups.length})`, 'busy');
-          const out = await PDFLib.PDFDocument.create();
-          const pages = await out.copyPages(src, groups[gi].map(p => p - 1));
-          pages.forEach(p => out.addPage(p));
-          const bytes = await out.save();
-          zip.file(`${baseName}_${groupLabel(groups[gi])}.pdf`, bytes);
+      const out = await PDFLib.PDFDocument.create();
+      const docCache = new Map();      // srcId → PDFDocument
+      for (let i = 0; i < pages.length; i++) {
+        if (i % 5 === 0) setStatus(status, `복사 중 (${i + 1}/${pages.length})`, 'busy');
+        const p = pages[i];
+        let src = docCache.get(p.srcId);
+        if (!src) {
+          const buf = bufs.get(p.srcId);
+          if (!buf) throw new Error(`원본 데이터를 찾을 수 없습니다: ${p.srcFileName}`);
+          src = await PDFLib.PDFDocument.load(buf.slice(0), { ignoreEncryption: true });
+          docCache.set(p.srcId, src);
         }
-        setStatus(status, 'ZIP 생성 중…', 'busy');
-        const zipBlob = await zip.generateAsync({ type: 'blob', compression: 'DEFLATE' });
-        downloadBlob(zipBlob, `${baseName}_split.zip`);
-        setStatus(status, `완료 — ${groups.length}개 PDF · ${prettySize(zipBlob.size)}`, 'success');
+        const [copied] = await out.copyPages(src, [p.srcPageIndex]);
+        out.addPage(copied);
       }
+      const fileName = (document.getElementById('splitName').value.trim() || 'edited.pdf')
+        .replace(/\.pdf$/i, '') + '.pdf';
+      const bytes = await out.save();
+      const blob = new Blob([bytes], { type: 'application/pdf' });
+      downloadBlob(blob, fileName);
+      setStatus(status, `완료 — ${pages.length} 페이지 · ${prettySize(blob.size)}`, 'success');
     } catch (err) {
       console.error(err);
       setStatus(status, '실패: ' + err.message, 'error');
@@ -106,10 +180,19 @@
     }
   }
 
-  function groupLabel(group) {
-    if (group.length === 1) return `p${group[0]}`;
-    const first = group[0], last = group[group.length - 1];
-    if (last - first + 1 === group.length) return `p${first}-${last}`;
-    return `p${first}_${last}`;
-  }
+  window.bindSplit = function bindSplit() {
+    const drop = document.getElementById('splitDrop');
+    const input = document.getElementById('splitInput');
+    bindDropZone(drop, input, ['.pdf', 'application/pdf'], async (newFiles) => {
+      const pdfs = newFiles.filter(f =>
+        f.type === 'application/pdf' || /\.pdf$/i.test(f.name));
+      // 순차로 추가 (PDF.js 동시 로드 안전)
+      for (const f of pdfs) await addFile(f);
+    });
+
+    document.getElementById('splitClearAll').addEventListener('click', () => {
+      pages = []; bufs.clear(); refresh();
+    });
+    document.getElementById('splitRun').addEventListener('click', runSave);
+  };
 })();
