@@ -365,14 +365,21 @@ input, textarea, select { font-family: inherit; color: inherit; }
 .toolbar-right { display: flex; align-items: center; gap: 6px; }
 
 /* ─── Page scroll + canvas ─── */
+/* 외부 스크롤은 cover 영역만, body-stack은 viewport 고정 높이로 작동 */
 .page-scroll {
-  flex: 1; overflow-y: auto;
+  flex: 1;
+  overflow: hidden;
+  display: flex; flex-direction: column;
   background: var(--paper);
+  min-height: 0;
 }
 .page-canvas {
   position: relative;
-  padding: 44px 64px 80px;
-  min-height: 100%;
+  padding: 28px 64px 0;
+  flex: 1;
+  display: flex; flex-direction: column;
+  min-height: 0;
+  overflow: hidden;
 }
 
 /* 印章 seal */
@@ -400,10 +407,20 @@ input, textarea, select { font-family: inherit; color: inherit; }
 .page {
   max-width: 1400px;
   margin: 0 auto;
+  width: 100%;
+  flex: 1;
+  display: flex; flex-direction: column;
+  min-height: 0;
 }
 
 /* ─── Cover ─── */
-.page-cover { margin-bottom: 28px; }
+.page-cover {
+  margin-bottom: 16px;
+  flex-shrink: 0;
+  /* cover 자체가 너무 길면 안에서만 스크롤 */
+  max-height: 40vh;
+  overflow-y: auto;
+}
 .cover-row {
   display: flex; align-items: center; gap: 12px;
   margin-bottom: 12px;
@@ -480,7 +497,11 @@ input, textarea, select { font-family: inherit; color: inherit; }
 .meta-mnemonic input::placeholder { color: var(--rule); letter-spacing: 0; font-weight: 400; }
 
 /* ─── Body / preview ─── */
-.page-body { min-height: 200px; }
+.page-body {
+  flex: 1;
+  min-height: 0;
+  display: flex; flex-direction: column;
+}
 
 .preview { font-family: var(--serif); }
 .preview ol { list-style: none; margin: 0; padding: 0; }
@@ -586,13 +607,15 @@ mark.search-hit {
   padding: 0 2px; border-radius: 2px;
 }
 
-/* ─── Body stack: 위(preview) ↕ 아래(textarea) ─── */
+/* ─── Body stack: 위(preview) ↕ 아래(textarea) — 각 패널 독립 스크롤 ─── */
 .body-stack {
   display: grid;
   grid-template-rows: minmax(0, 1fr) 6px minmax(0, 1fr);
   gap: 0;
-  margin-top: 16px;
-  min-height: calc(100vh - 360px);
+  margin-top: 0;
+  flex: 1;
+  min-height: 0;
+  padding-bottom: 16px;
 }
 .preview-pane {
   border: 1px solid var(--rule);
@@ -600,8 +623,12 @@ mark.search-hit {
   padding: 20px 24px;
   background: var(--paper);
   overflow-y: auto;
+  min-height: 0;
 }
-.edit-pane { display: flex; }
+.edit-pane {
+  display: flex;
+  min-height: 0;
+}
 .split-handle-v {
   height: 6px;
   cursor: row-resize;
@@ -614,7 +641,7 @@ mark.search-hit {
 #bodyInput {
   width: 100%;
   height: 100%;
-  min-height: 160px;
+  min-height: 0;
   border: 1px solid var(--rule); border-radius: 3px;
   padding: 18px 20px;
   font-size: 14px;
@@ -625,6 +652,7 @@ mark.search-hit {
   line-height: 1.7;
   tab-size: 4;
   white-space: pre;
+  overflow-y: auto;
 }
 
 /* ═══════════════════════════════════════════════════════════════
