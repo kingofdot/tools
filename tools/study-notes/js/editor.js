@@ -118,16 +118,16 @@ function syncPreviewScroll() { syncPreviewToCursor(); }
 function syncPreviewToCursor() {
   const $ta = document.getElementById('bodyInput');
   const $preview = document.getElementById('preview');
-  if (!$ta || !$preview) return;
-  if (document.activeElement !== $ta) {
-    // 포커스 없을 때는 스크롤만, 강조는 안 함
-  }
+  // 실제 스크롤되는 컨테이너는 .preview-pane (overflow-y:auto)
+  const $scroller = document.querySelector('.preview-pane') || $preview;
+  if (!$ta || !$preview || !$scroller) return;
+
   const cursor = $ta.selectionStart || 0;
   // 커서 앞쪽의 \n 개수 = 0-based 줄 번호
   const upto = $ta.value.slice(0, cursor);
   const cursorLine = (upto.match(/\n/g) || []).length;
 
-  // data-line 가진 li 중 cursorLine 이하 중 가장 큰 라인의 노드 (없으면 가장 가까운 다음)
+  // data-line ≤ cursorLine 중 가장 큰 라인의 노드 (없으면 첫 항목)
   const items = $preview.querySelectorAll('li[data-line]');
   if (!items.length) return;
   let best = null;
@@ -139,20 +139,19 @@ function syncPreviewToCursor() {
       bestLine = ln;
     }
   }
-  // 커서가 첫 항목보다 위쪽이면 첫 항목 사용
   if (!best) best = items[0];
   if (!best) return;
 
-  // 부드럽게 가운데로
-  const focusEl = best.querySelector(':scope > .item-line') || best;
-  const r = focusEl.getBoundingClientRect();
-  const pr = $preview.getBoundingClientRect();
-  const target = $preview.scrollTop + (r.top - pr.top) - ($preview.clientHeight / 2) + (r.height / 2);
-  $preview.scrollTo({ top: Math.max(0, target), behavior: 'smooth' });
-
-  // 강조 효과
+  // 강조 효과 — 강조부터 적용한 뒤 스크롤하면 글자 크기 변화 영향 없음
   $preview.querySelectorAll('.item-line.editing').forEach(el => el.classList.remove('editing'));
+  const focusEl = best.querySelector(':scope > .item-line') || best;
   focusEl.classList.add('editing');
+
+  // 실제 스크롤 컨테이너 기준으로 가운데 정렬
+  const r = focusEl.getBoundingClientRect();
+  const sr = $scroller.getBoundingClientRect();
+  const target = $scroller.scrollTop + (r.top - sr.top) - ($scroller.clientHeight / 2) + (r.height / 2);
+  $scroller.scrollTo({ top: Math.max(0, target), behavior: 'smooth' });
 }
 
 function handleTab(ta, isShift) {
