@@ -135,16 +135,16 @@
     {
       "id": "2026-05-01T05-15-03",
       "subject": "행정사실무법",
-      "subTopic": "",
+      "subTopic": "행정심판",
       "topic": "피청구인적격(제17조)",
       "mnemonic": "",
       "body": "",
       "dueDate": "",
       "order": 9,
-      "updatedAt": "2026-05-01T05:15:09.268Z",
+      "updatedAt": "2026-05-01T05:15:16.293Z",
       "sha": null
     }
   ],
   "subjectOrder": [],
-  "savedAt": "2026. 5. 1. 오후 2:15:14"
+  "savedAt": "2026. 5. 1. 오후 2:15:21"
 }
