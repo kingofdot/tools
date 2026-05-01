@@ -123,16 +123,16 @@
     {
       "id": "2026-05-01T05-04-27",
       "subject": "행정사실무법",
-      "subTopic": "",
-      "topic": "",
+      "subTopic": "행정심판",
+      "topic": "청구인적격",
       "mnemonic": "",
       "body": "",
       "dueDate": "",
       "order": 8,
-      "updatedAt": "2026-05-01T05:04:27.959Z",
+      "updatedAt": "2026-05-01T05:04:34.613Z",
       "sha": null
     }
   ],
   "subjectOrder": [],
-  "savedAt": "2026. 5. 1. 오후 2:04:29"
+  "savedAt": "2026. 5. 1. 오후 2:04:39"
 }
