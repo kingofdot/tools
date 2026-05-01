@@ -239,8 +239,20 @@
       "order": 17,
       "updatedAt": "2026-05-01T06:36:13.508Z",
       "sha": null
+    },
+    {
+      "id": "2026-05-01T06-39-43",
+      "subject": "행정사실무법",
+      "subTopic": "",
+      "topic": "집행정지",
+      "mnemonic": "",
+      "body": "",
+      "dueDate": "",
+      "order": 18,
+      "updatedAt": "2026-05-01T06:39:49.292Z",
+      "sha": null
     }
   ],
   "subjectOrder": [],
-  "savedAt": "2026. 5. 1. 오후 3:39:40"
+  "savedAt": "2026. 5. 1. 오후 3:39:54"
 }
