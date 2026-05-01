@@ -114,11 +114,7 @@ function refreshSubTopicTabs() {
   // 활성 소과목이 현재 과목에 없으면 리셋
   if (activeSubTopic !== null && !tops.includes(activeSubTopic)) activeSubTopic = null;
 
-  if (!tops.length) {
-    $row.innerHTML = '';
-    $bar.style.display = 'none';
-    return;
-  }
+  // 과목이 비어 있어도(소과목이 없어도) 추가 버튼은 항상 보이게
   $bar.style.display = '';
 
   const totalCount = notesInActiveSubject().length;
@@ -137,9 +133,12 @@ function refreshSubTopicTabs() {
     </button>`;
   }).join('');
 
+  // + 소과목 추가 버튼
+  html += `<button class="subtopic-tab subtopic-tab-add" id="addSubTopicBtn" title="새 소과목 추가">＋</button>`;
+
   $row.innerHTML = html;
 
-  $row.querySelectorAll('.subtopic-tab').forEach(el => {
+  $row.querySelectorAll('.subtopic-tab:not(#addSubTopicBtn)').forEach(el => {
     el.addEventListener('click', () => {
       const v = el.dataset.subtopic || '';
       activeSubTopic = v === '' ? null : v;
@@ -148,6 +147,24 @@ function refreshSubTopicTabs() {
       const list = notesInActive();
       if (list.length) loadNoteIntoEditor(list[0].id);
     });
+  });
+
+  document.getElementById('addSubTopicBtn')?.addEventListener('click', () => {
+    if (!activeSubject || activeSubject === '_미분류') {
+      alert('먼저 과목을 선택하거나 추가하세요.');
+      return;
+    }
+    const name = (prompt('새 소과목 이름 (예: 매매 / 임대차)') || '').trim();
+    if (!name) return;
+    activeSubTopic = name;
+    // 해당 소과목의 첫 노트 자동 생성
+    const note = newNoteTemplate(activeSubject);
+    note.subTopic = name;
+    upsertNote(note);
+    refreshTabs();        // 소과목 탭 + 카운트 등 전체 갱신
+    refreshList();
+    loadNoteIntoEditor(note.id);
+    document.getElementById('topicInput').focus();
   });
 }
 

@@ -958,6 +958,19 @@ body.force-pc .body-stack { display: grid !important; }
   background: rgba(255,255,255,0.25);
   color: #fff;
 }
+.subtopic-tab-add {
+  border: 1px dashed var(--ink-faint) !important;
+  color: var(--ink-faint) !important;
+  font-family: var(--sans);
+  font-size: 13px;
+  padding: 3px 10px !important;
+  margin-left: 4px;
+}
+.subtopic-tab-add:hover {
+  color: var(--accent) !important;
+  border-color: var(--accent) !important;
+  background: var(--paper) !important;
+}
 
 @media (max-width: 720px) {
   .subtopic-bar { padding: 4px 12px; }
