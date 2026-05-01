@@ -26,7 +26,18 @@ function bindEditor() {
     markDirty();
     renderPreview();
     scheduleSave();
+    syncPreviewToCursor();
   });
+
+  // 커서 위치 변동 시 위 미리보기에서 해당 줄로 스크롤 + 강조
+  $body.addEventListener('keyup', (e) => {
+    // 텍스트 변경이 아닌 단순 커서 이동(방향키 등)
+    if (['ArrowUp','ArrowDown','ArrowLeft','ArrowRight','Home','End','PageUp','PageDown'].includes(e.key)) {
+      syncPreviewToCursor();
+    }
+  });
+  $body.addEventListener('click', syncPreviewToCursor);
+  $body.addEventListener('focus', syncPreviewToCursor);
 
   // 메타 입력 5종 — Enter 누르면 다음으로 포커스 체인
   // topic → mnemonic → subject → subTopic → dueDate → 본문 textarea
@@ -99,9 +110,50 @@ function bindEditor() {
   });
 }
 
-// 좌측 textarea의 커서/스크롤 위치를 우측 미리보기에도 비례 적용
-// (단일 미리보기 사용으로 사실상 미리보기는 위쪽 한 곳만 — 호환용으로 남겨둠)
-function syncPreviewScroll() { /* no-op — 단일 미리보기 */ }
+// 호환용 (다른 곳에서 호출되는 경우 대비)
+function syncPreviewScroll() { syncPreviewToCursor(); }
+
+// textarea 커서가 위치한 줄 번호와 같은 data-line 항목을 미리보기에서 찾아
+// 가운데로 스크롤 + 잠시 강조
+function syncPreviewToCursor() {
+  const $ta = document.getElementById('bodyInput');
+  const $preview = document.getElementById('preview');
+  if (!$ta || !$preview) return;
+  if (document.activeElement !== $ta) {
+    // 포커스 없을 때는 스크롤만, 강조는 안 함
+  }
+  const cursor = $ta.selectionStart || 0;
+  // 커서 앞쪽의 \n 개수 = 0-based 줄 번호
+  const upto = $ta.value.slice(0, cursor);
+  const cursorLine = (upto.match(/\n/g) || []).length;
+
+  // data-line 가진 li 중 cursorLine 이하 중 가장 큰 라인의 노드 (없으면 가장 가까운 다음)
+  const items = $preview.querySelectorAll('li[data-line]');
+  if (!items.length) return;
+  let best = null;
+  let bestLine = -1;
+  for (const li of items) {
+    const ln = +li.dataset.line;
+    if (ln <= cursorLine && ln > bestLine) {
+      best = li;
+      bestLine = ln;
+    }
+  }
+  // 커서가 첫 항목보다 위쪽이면 첫 항목 사용
+  if (!best) best = items[0];
+  if (!best) return;
+
+  // 부드럽게 가운데로
+  const focusEl = best.querySelector(':scope > .item-line') || best;
+  const r = focusEl.getBoundingClientRect();
+  const pr = $preview.getBoundingClientRect();
+  const target = $preview.scrollTop + (r.top - pr.top) - ($preview.clientHeight / 2) + (r.height / 2);
+  $preview.scrollTo({ top: Math.max(0, target), behavior: 'smooth' });
+
+  // 강조 효과
+  $preview.querySelectorAll('.item-line.editing').forEach(el => el.classList.remove('editing'));
+  focusEl.classList.add('editing');
+}
 
 function handleTab(ta, isShift) {
   const v = ta.value;

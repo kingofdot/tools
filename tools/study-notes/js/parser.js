@@ -46,7 +46,8 @@ function parseBody(text) {
   const root = { depth: -1, children: [] };
   const stack = [root];
 
-  for (const raw of lines) {
+  for (let lineIdx = 0; lineIdx < lines.length; lineIdx++) {
+    const raw = lines[lineIdx];
     if (!raw.trim()) continue;
     let { depth: tabDepth, rest } = _measureIndent(raw);
 
@@ -72,6 +73,7 @@ function parseBody(text) {
       depth,
       name: rest.trim(),
       noMarker,
+      lineIdx,            // 원본 textarea의 줄 번호 — 스크롤 동기화용
       children: [],
     };
     parent.children.push(node);

@@ -9,9 +9,10 @@ function renderTree(nodes, depth = 0) {
 function renderNode(node, depth) {
   const nameHtml = highlightInline(node.name);
   const childrenHtml = node.children.length ? renderTree(node.children, depth + 1) : '';
+  const lineAttr = (typeof node.lineIdx === 'number') ? ` data-line="${node.lineIdx}"` : '';
 
   if (node.noMarker) {
-    return `<li data-depth="${depth}">
+    return `<li data-depth="${depth}"${lineAttr}>
       <div class="item-line no-marker" data-depth="${Math.max(depth, 3)}">
         <span class="item-text">${nameHtml}</span>
       </div>
@@ -19,7 +20,7 @@ function renderNode(node, depth) {
     </li>`;
   }
 
-  return `<li data-depth="${depth}">
+  return `<li data-depth="${depth}"${lineAttr}>
     <div class="item-line" data-depth="${Math.min(depth, 4)}">
       <span class="item-marker">${node.marker || ''}</span>
       <span class="item-text">${nameHtml}</span>
