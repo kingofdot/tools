@@ -170,7 +170,11 @@ function syncPreviewToCursor() {
   // 강조 효과 — 강조부터 적용한 뒤 스크롤하면 글자 크기 변화 영향 없음
   $preview.querySelectorAll('.item-line.editing').forEach(el => el.classList.remove('editing'));
   const focusEl = best.querySelector(':scope > .item-line') || best;
-  focusEl.classList.add('editing');
+  // depth 0 (제일 큰 제목)에는 강조를 붙이지 않음 — 이미 시각적으로 강해서 지저분해짐
+  const depth = focusEl.dataset?.depth ?? best.dataset?.depth;
+  if (depth !== '0') {
+    focusEl.classList.add('editing');
+  }
 
   // 실제 스크롤 컨테이너 기준으로 가운데 정렬
   const r = focusEl.getBoundingClientRect();
