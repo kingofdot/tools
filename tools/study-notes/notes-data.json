@@ -179,8 +179,20 @@
       "order": 12,
       "updatedAt": "2026-05-01T05:58:03.246Z",
       "sha": null
+    },
+    {
+      "id": "2026-05-01T05-59-32",
+      "subject": "행정사실무법",
+      "subTopic": "",
+      "topic": "위원의 제척, 기피, 회피",
+      "mnemonic": "",
+      "body": "",
+      "dueDate": "",
+      "order": 13,
+      "updatedAt": "2026-05-01T05:59:38.615Z",
+      "sha": null
     }
   ],
   "subjectOrder": [],
-  "savedAt": "2026. 5. 1. 오후 2:58:08"
+  "savedAt": "2026. 5. 1. 오후 2:59:43"
 }
