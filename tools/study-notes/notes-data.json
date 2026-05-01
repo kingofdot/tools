@@ -97,18 +97,6 @@
       "dueDate": ""
     },
     {
-      "id": "2026-05-01T02-29-27",
-      "subject": "행정절차론",
-      "subTopic": "행정사법",
-      "topic": "",
-      "mnemonic": "",
-      "body": "",
-      "dueDate": "",
-      "order": 6,
-      "updatedAt": "2026-05-01T02:29:27.996Z",
-      "sha": null
-    },
-    {
       "id": "2026-05-01T02-29-41",
       "subject": "행정절차론",
       "subTopic": "행정심판",
@@ -122,5 +110,5 @@
     }
   ],
   "subjectOrder": [],
-  "savedAt": "2026. 5. 1. 오전 11:30:06"
+  "savedAt": "2026. 5. 1. 오전 11:30:10"
 }
