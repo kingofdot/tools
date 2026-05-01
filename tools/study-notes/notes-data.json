@@ -95,8 +95,20 @@
       "sha": null,
       "subTopic": "비송사건",
       "dueDate": ""
+    },
+    {
+      "id": "2026-05-01T02-44-03",
+      "subject": "행정사실무법",
+      "subTopic": "행정심판",
+      "topic": "",
+      "mnemonic": "",
+      "body": "",
+      "dueDate": "",
+      "order": 6,
+      "updatedAt": "2026-05-01T02:44:10.478Z",
+      "sha": null
     }
   ],
   "subjectOrder": [],
-  "savedAt": "2026. 5. 1. 오전 11:44:01"
+  "savedAt": "2026. 5. 1. 오전 11:44:14"
 }
