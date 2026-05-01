@@ -95,20 +95,8 @@
       "sha": null,
       "subTopic": "",
       "dueDate": ""
-    },
-    {
-      "id": "2026-05-01T02-29-14",
-      "subject": "행정절차론",
-      "subTopic": "",
-      "topic": "",
-      "mnemonic": "",
-      "body": "",
-      "dueDate": "",
-      "order": 6,
-      "updatedAt": "2026-05-01T02:29:14.551Z",
-      "sha": null
     }
   ],
   "subjectOrder": [],
-  "savedAt": "2026. 5. 1. 오전 11:29:18"
+  "savedAt": "2026. 5. 1. 오전 11:29:20"
 }
