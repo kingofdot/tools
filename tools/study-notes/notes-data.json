@@ -203,8 +203,20 @@
       "order": 14,
       "updatedAt": "2026-05-01T06:08:00.414Z",
       "sha": null
+    },
+    {
+      "id": "2026-05-01T06-08-03",
+      "subject": "행정사실무법",
+      "subTopic": "",
+      "topic": "청구의 변경(제29조)",
+      "mnemonic": "",
+      "body": "의의",
+      "dueDate": "",
+      "order": 15,
+      "updatedAt": "2026-05-01T06:08:12.358Z",
+      "sha": null
     }
   ],
   "subjectOrder": [],
-  "savedAt": "2026. 5. 1. 오후 3:08:01"
+  "savedAt": "2026. 5. 1. 오후 3:08:17"
 }
