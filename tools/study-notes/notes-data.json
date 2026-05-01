@@ -107,8 +107,20 @@
       "order": 6,
       "updatedAt": "2026-05-01T04:39:21.952Z",
       "sha": null
+    },
+    {
+      "id": "2026-05-01T04-39-25",
+      "subject": "행정사실무법",
+      "subTopic": "행정심판",
+      "topic": "대상적격",
+      "mnemonic": "",
+      "body": "",
+      "dueDate": "",
+      "order": 7,
+      "updatedAt": "2026-05-01T04:39:34.175Z",
+      "sha": null
     }
   ],
   "subjectOrder": [],
-  "savedAt": "2026. 5. 1. 오후 1:39:23"
+  "savedAt": "2026. 5. 1. 오후 1:39:39"
 }
