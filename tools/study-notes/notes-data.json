@@ -191,8 +191,20 @@
       "order": 13,
       "updatedAt": "2026-05-01T06:03:39.045Z",
       "sha": null
+    },
+    {
+      "id": "2026-05-01T06-03-46",
+      "subject": "행정사실무법",
+      "subTopic": "",
+      "topic": "",
+      "mnemonic": "",
+      "body": "심판참가(제20조, 제21조)\n",
+      "dueDate": "",
+      "order": 14,
+      "updatedAt": "2026-05-01T06:04:09.536Z",
+      "sha": null
     }
   ],
   "subjectOrder": [],
-  "savedAt": "2026. 5. 1. 오후 3:03:43"
+  "savedAt": "2026. 5. 1. 오후 3:04:14"
 }
