@@ -119,8 +119,20 @@
       "order": 7,
       "updatedAt": "2026-05-01T05:04:23.997Z",
       "sha": null
+    },
+    {
+      "id": "2026-05-01T05-04-27",
+      "subject": "행정사실무법",
+      "subTopic": "",
+      "topic": "",
+      "mnemonic": "",
+      "body": "",
+      "dueDate": "",
+      "order": 8,
+      "updatedAt": "2026-05-01T05:04:27.959Z",
+      "sha": null
     }
   ],
   "subjectOrder": [],
-  "savedAt": "2026. 5. 1. 오후 2:04:24"
+  "savedAt": "2026. 5. 1. 오후 2:04:29"
 }
