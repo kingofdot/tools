@@ -263,8 +263,20 @@
       "order": 19,
       "updatedAt": "2026-05-01T06:55:25.460Z",
       "sha": null
+    },
+    {
+      "id": "2026-05-01T06-55-34",
+      "subject": "행정사실무법",
+      "subTopic": "",
+      "topic": "재결의 종류",
+      "mnemonic": "",
+      "body": "",
+      "dueDate": "",
+      "order": 20,
+      "updatedAt": "2026-05-01T06:55:38.017Z",
+      "sha": null
     }
   ],
   "subjectOrder": [],
-  "savedAt": "2026. 5. 1. 오후 3:55:25"
+  "savedAt": "2026. 5. 1. 오후 3:55:43"
 }
