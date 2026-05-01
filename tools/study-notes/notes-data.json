@@ -95,20 +95,8 @@
       "sha": null,
       "subTopic": "비송사건",
       "dueDate": ""
-    },
-    {
-      "id": "2026-05-01T02-29-41",
-      "subject": "행정절차론",
-      "subTopic": "행정심판",
-      "topic": "",
-      "mnemonic": "",
-      "body": "",
-      "dueDate": "",
-      "order": 7,
-      "updatedAt": "2026-05-01T02:29:41.196Z",
-      "sha": null
     }
   ],
   "subjectOrder": [],
-  "savedAt": "2026. 5. 1. 오전 11:30:10"
+  "savedAt": "2026. 5. 1. 오전 11:30:13"
 }
