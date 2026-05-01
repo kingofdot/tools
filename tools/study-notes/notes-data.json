@@ -251,8 +251,20 @@
       "order": 18,
       "updatedAt": "2026-05-01T06:49:33.475Z",
       "sha": null
+    },
+    {
+      "id": "2026-05-01T06-50-52",
+      "subject": "행정사실무법",
+      "subTopic": "행정심판",
+      "topic": "임시처분",
+      "mnemonic": "",
+      "body": "의의\n\t`",
+      "dueDate": "",
+      "order": 19,
+      "updatedAt": "2026-05-01T06:51:01.763Z",
+      "sha": null
     }
   ],
   "subjectOrder": [],
-  "savedAt": "2026. 5. 1. 오후 3:50:51"
+  "savedAt": "2026. 5. 1. 오후 3:51:06"
 }
