@@ -222,13 +222,13 @@
       "subTopic": "",
       "topic": "처분사유추가, 변경",
       "mnemonic": "",
-      "body": "의의",
+      "body": "의의\n\t`처분 당시에 존재하였으나",
       "dueDate": "",
       "order": 16,
-      "updatedAt": "2026-05-01T06:09:45.766Z",
+      "updatedAt": "2026-05-01T06:09:54.239Z",
       "sha": null
     }
   ],
   "subjectOrder": [],
-  "savedAt": "2026. 5. 1. 오후 3:09:50"
+  "savedAt": "2026. 5. 1. 오후 3:09:59"
 }
