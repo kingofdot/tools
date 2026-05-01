@@ -608,25 +608,37 @@ mark.search-hit {
 }
 
 /* 현재 편집 중인 줄 — textarea 커서 위치에 해당하는 미리보기 항목 */
-.item-line.editing {
-  background: linear-gradient(90deg, var(--accent-soft) 0%, transparent 90%);
-  border-left: 3px solid var(--accent);
-  padding-left: 10px;
-  margin-left: -13px;
+@keyframes editing-pulse {
+  0%, 100% { box-shadow: -4px 0 0 var(--accent), 0 0 0 0 rgba(180,71,46,0); }
+  50%      { box-shadow: -4px 0 0 var(--accent), 0 0 14px 2px rgba(180,71,46,.35); }
+}
+.preview .item-line.editing,
+.preview .item-line.no-marker.editing {
+  background: linear-gradient(90deg, rgba(180,71,46,.18) 0%, rgba(180,71,46,.06) 70%, transparent 100%) !important;
+  border-left: 4px solid var(--accent) !important;
+  padding-left: 12px !important;
+  margin-left: -16px !important;
   border-radius: 0 4px 4px 0;
   position: relative;
-  transition: background 0.18s, border-color 0.18s;
+  animation: editing-pulse 1.6s ease-in-out infinite;
 }
-.item-line.editing::after {
-  content: "✎";
+.preview .item-line.editing::after {
+  content: "✎ 편집 중";
   position: absolute;
-  right: 8px;
+  right: 10px;
   top: 50%;
   transform: translateY(-50%);
   color: var(--accent);
-  font-size: 14px;
-  opacity: 0.7;
+  font-family: var(--sans);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  background: var(--paper);
+  padding: 2px 8px;
+  border-radius: 10px;
+  border: 1px solid var(--accent);
   pointer-events: none;
+  white-space: nowrap;
 }
 
 /* ─── Body stack: 위(preview) ↕ 아래(textarea) — 각 패널 독립 스크롤 ─── */
@@ -642,7 +654,7 @@ mark.search-hit {
 .preview-pane {
   border: 1px solid var(--rule);
   border-radius: 3px;
-  padding: 20px 24px 35vh;        /* 하단 여백 — 마지막 줄도 가운데 근처에 위치 */
+  padding: 20px 24px 50vh;        /* 하단 여백 — 마지막 줄도 가운데에 위치하도록 넉넉히 */
   background: var(--paper);
   overflow-y: auto;
   scroll-behavior: smooth;
@@ -666,7 +678,7 @@ mark.search-hit {
   height: 100%;
   min-height: 0;
   border: 1px solid var(--rule); border-radius: 3px;
-  padding: 18px 20px 35vh;          /* 하단 여백 — 마지막 줄 입력해도 화면 가운데에 머물도록 */
+  padding: 18px 20px 50vh;          /* 하단 여백 — 마지막 줄 입력해도 화면 가운데에 머물도록 */
   font-size: 14px;
   font-family: var(--mono);
   color: var(--ink);

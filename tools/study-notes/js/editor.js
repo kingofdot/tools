@@ -26,18 +26,28 @@ function bindEditor() {
     markDirty();
     renderPreview();
     scheduleSave();
-    syncPreviewToCursor();
+    // 렌더 직후에 두 동기화 — textarea 자기 자신은 가운데로, 미리보기는 해당 줄로
+    requestAnimationFrame(() => {
+      centerTextareaCursor($body);
+      syncPreviewToCursor();
+    });
   });
 
   // 커서 위치 변동 시 위 미리보기에서 해당 줄로 스크롤 + 강조
   $body.addEventListener('keyup', (e) => {
-    // 텍스트 변경이 아닌 단순 커서 이동(방향키 등)
-    if (['ArrowUp','ArrowDown','ArrowLeft','ArrowRight','Home','End','PageUp','PageDown'].includes(e.key)) {
+    if (['ArrowUp','ArrowDown','ArrowLeft','ArrowRight','Home','End','PageUp','PageDown','Enter'].includes(e.key)) {
+      centerTextareaCursor($body);
       syncPreviewToCursor();
     }
   });
-  $body.addEventListener('click', syncPreviewToCursor);
-  $body.addEventListener('focus', syncPreviewToCursor);
+  $body.addEventListener('click', () => {
+    centerTextareaCursor($body);
+    syncPreviewToCursor();
+  });
+  $body.addEventListener('focus', () => {
+    centerTextareaCursor($body);
+    syncPreviewToCursor();
+  });
 
   // 메타 입력 5종 — Enter 누르면 다음으로 포커스 체인
   // topic → mnemonic → subject → subTopic → dueDate → 본문 textarea
@@ -112,6 +122,21 @@ function bindEditor() {
 
 // 호환용 (다른 곳에서 호출되는 경우 대비)
 function syncPreviewScroll() { syncPreviewToCursor(); }
+
+// textarea 의 cursor 가 항상 viewport 가운데(40%)에 위치하도록 textarea.scrollTop 조정
+function centerTextareaCursor(ta) {
+  if (!ta) ta = document.getElementById('bodyInput');
+  if (!ta || document.activeElement !== ta) return;
+  const cs = window.getComputedStyle(ta);
+  const lineHeight = parseFloat(cs.lineHeight) || (parseFloat(cs.fontSize) * 1.4);
+  const padTop = parseFloat(cs.paddingTop) || 0;
+  const upto = ta.value.slice(0, ta.selectionStart);
+  const cursorLine = (upto.match(/\n/g) || []).length;
+  const cursorY = padTop + cursorLine * lineHeight;
+  // 커서가 textarea 가시영역의 40% 위치에 오도록
+  const target = cursorY - ta.clientHeight * 0.4;
+  ta.scrollTop = Math.max(0, target);
+}
 
 // textarea 커서가 위치한 줄 번호와 같은 data-line 항목을 미리보기에서 찾아
 // 가운데로 스크롤 + 잠시 강조
