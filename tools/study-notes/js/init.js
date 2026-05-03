@@ -198,6 +198,10 @@ function bindGlobal() {
     currentId = notes[0].id;
   }
 
+  // 과목 고정 — 사용자 정의 순서가 있어도 4과목 강제
+  subjectOrder = [...FIXED_SUBJECTS];
+  saveSubjectOrder();
+
   bindEditor();
   bindSearch();
   bindGlobal();
@@ -205,4 +209,7 @@ function bindGlobal() {
 
   loadNoteIntoEditor(currentId);
   refreshList();
+
+  // 법령 API 패널 바인딩 (preview에 이벤트 위임)
+  if (window.LawApi) LawApi.bindLawApi();
 })();

@@ -6,13 +6,11 @@ let activeSubject = null;
 
 const TAB_VARS = ['--tab-1','--tab-2','--tab-3','--tab-4','--tab-5','--tab-6','--tab-7','--tab-8'];
 
-// subjectOrder 가 정의돼 있으면 그 순서 우선, 나머지는 알파벳 순으로 뒤에 붙임
+// 과목은 행정사 2026 4과목으로 고정
+const FIXED_SUBJECTS = ['민법', '행정절차론', '행정사실무법', '사무관리론'];
+
 function getSubjects() {
-  const present = [...new Set(notes.map(n => n.subject || '_미분류'))];
-  if (!subjectOrder || !subjectOrder.length) return present.sort();
-  const ordered = subjectOrder.filter(s => present.includes(s));
-  const rest = present.filter(s => !ordered.includes(s)).sort();
-  return [...ordered, ...rest];
+  return [...FIXED_SUBJECTS];
 }
 
 // 노트 중 한 과목 안에서 사용된 소과목 목록 (활성 과목 기준)
@@ -62,13 +60,13 @@ function refreshTabs() {
     const active = s === activeSubject ? 'active' : '';
     const colorVar = colorVarFor(i);
     return `
-      <button class="folder-tab ${active}" data-subject="${esc(s)}" data-idx="${i}" draggable="true"
-              style="--tab-color: var(${colorVar});" title="Alt+${i+1} · 드래그로 순서 변경">
+      <button class="folder-tab ${active}" data-subject="${esc(s)}" data-idx="${i}"
+              style="--tab-color: var(${colorVar});" title="Alt+${i+1}">
         <span class="tab-num">${String(i+1).padStart(2,'0')}</span>
         <span class="tab-label">${esc(label)}</span>
         <span class="tab-count">${countBySubject(s)}</span>
       </button>`;
-  }).join('') + `<button class="folder-tab-add" id="addSubjectBtn" title="과목 추가">＋</button>`;
+  }).join('');
   $tabs.innerHTML = html;
 
   $tabs.querySelectorAll('.folder-tab').forEach(el => {
@@ -80,23 +78,6 @@ function refreshTabs() {
       const list = notesInActive();
       if (list.length) loadNoteIntoEditor(list[0].id);
     });
-  });
-  bindTabDragSort($tabs);
-  document.getElementById('addSubjectBtn')?.addEventListener('click', () => {
-    const name = (prompt('새 과목 이름') || '').trim();
-    if (!name) return;
-    activeSubject = name;
-    const note = newNoteTemplate(name);
-    upsertNote(note);
-    // 새 과목은 마지막에 추가
-    if (!subjectOrder.includes(name)) {
-      subjectOrder = [...getSubjects().filter(s => s !== name), name];
-      saveSubjectOrder();
-    }
-    refreshTabs();
-    refreshList();
-    loadNoteIntoEditor(note.id);
-    document.getElementById('topicInput').focus();
   });
 
   refreshSubjectDatalist();
@@ -166,57 +147,6 @@ function refreshSubTopicTabs() {
     loadNoteIntoEditor(note.id);
     document.getElementById('topicInput').focus();
   });
-}
-
-// 폴더 탭 드래그 정렬
-function bindTabDragSort($tabs) {
-  let dragging = null;
-  $tabs.querySelectorAll('.folder-tab').forEach(el => {
-    el.addEventListener('dragstart', (e) => {
-      dragging = el;
-      el.classList.add('tab-dragging');
-      e.dataTransfer.effectAllowed = 'move';
-      try { e.dataTransfer.setData('text/plain', el.dataset.subject); } catch (_) {}
-    });
-    el.addEventListener('dragend', () => {
-      el.classList.remove('tab-dragging');
-      $tabs.querySelectorAll('.tab-drop-before, .tab-drop-after')
-        .forEach(x => x.classList.remove('tab-drop-before', 'tab-drop-after'));
-      dragging = null;
-    });
-    el.addEventListener('dragover', (e) => {
-      if (!dragging || dragging === el) return;
-      e.preventDefault();
-      const r = el.getBoundingClientRect();
-      const before = (e.clientX - r.left) < r.width / 2;
-      el.classList.toggle('tab-drop-before', before);
-      el.classList.toggle('tab-drop-after', !before);
-    });
-    el.addEventListener('dragleave', () => el.classList.remove('tab-drop-before', 'tab-drop-after'));
-    el.addEventListener('drop', (e) => {
-      e.preventDefault();
-      if (!dragging || dragging === el) return;
-      const r = el.getBoundingClientRect();
-      const before = (e.clientX - r.left) < r.width / 2;
-      const fromSub = dragging.dataset.subject;
-      const toSub   = el.dataset.subject;
-      reorderSubject(fromSub, toSub, before ? 'before' : 'after');
-      refreshTabs();
-      refreshList();
-    });
-  });
-}
-
-function reorderSubject(fromSub, toSub, position) {
-  // 현재 보이는 과목 순서를 기준으로 재배치 → subjectOrder 갱신
-  const cur = getSubjects();
-  const without = cur.filter(s => s !== fromSub);
-  const tIdx = without.indexOf(toSub);
-  if (tIdx < 0) return;
-  const insertAt = position === 'before' ? tIdx : tIdx + 1;
-  without.splice(insertAt, 0, fromSub);
-  subjectOrder = without;
-  saveSubjectOrder();
 }
 
 function refreshSubTopicDatalist() {
