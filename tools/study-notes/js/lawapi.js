@@ -44,7 +44,7 @@
   //   허용: "(행정사법 제5조)" / "행정심판법 제3조" / "행정사법 5조" / "행정사법 5조 2항"
   function lawNameFromBadge(text) {
     const t = String(text || '').replace(/^[\(\[]|[\)\]]$/g, '').trim();
-    const m = t.match(/([가-힣]{2,15}법)\s*제?\s*\d+\s*조/);
+    const m = t.match(/([가-힣]{1,14}법)\s*제?\s*\d+\s*조/);
     return m ? m[1] : null;
   }
 
