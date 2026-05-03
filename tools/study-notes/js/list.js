@@ -234,13 +234,10 @@ function renderNoteCard(n, i) {
                 : `D+${-diffDays}`;
     dueHtml = `<span class="note-card-due ${cls}" title="일정: ${esc(n.dueDate)}">📅 ${label}</span>`;
   }
+  const rowHtml = dueHtml ? `<div class="note-card-row">${dueHtml}</div>` : '';
   return `
     <li class="note-card ${active}" data-id="${esc(n.id)}" draggable="true">
-      <div class="note-card-row">
-        <span class="note-card-no">No. ${String(i).padStart(3,'0')}</span>
-        ${dueHtml}
-        <span class="note-card-date">${date}</span>
-      </div>
+      ${rowHtml}
       <div class="note-card-title">${esc(title)}</div>
       ${mn}
     </li>

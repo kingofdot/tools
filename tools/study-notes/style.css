@@ -1725,7 +1725,39 @@ body.edit-mode-off .body-stack {
 }
 body.edit-mode-off .split-handle-v,
 body.edit-mode-off .edit-pane { display: none !important; }
-#editModeBtn.off { background: var(--paper-alt); color: var(--ink-faint); }
+
+/* 편집모드 토글 버튼 — 눈에 잘 띄게 강조 */
+#editModeBtn {
+  background: var(--accent);
+  color: #fff;
+  font-weight: 700;
+  font-size: 13px;
+  letter-spacing: 0.04em;
+  padding: 6px 14px;
+  border: 2px solid var(--accent-dark);
+  border-radius: 4px;
+  box-shadow: 0 2px 0 var(--accent-dark), 0 4px 8px rgba(180, 71, 46, .25);
+  transition: transform .08s, box-shadow .08s, background .12s;
+}
+#editModeBtn:hover {
+  background: var(--accent-dark);
+  transform: translateY(-1px);
+  box-shadow: 0 3px 0 var(--accent-dark), 0 6px 12px rgba(180, 71, 46, .35);
+}
+#editModeBtn:active {
+  transform: translateY(1px);
+  box-shadow: 0 1px 0 var(--accent-dark), 0 2px 4px rgba(180, 71, 46, .2);
+}
+#editModeBtn.off {
+  background: var(--ink-faint);
+  border-color: var(--ink-soft);
+  box-shadow: 0 2px 0 var(--ink-soft), 0 4px 8px rgba(42, 36, 29, .2);
+  color: #fff;
+}
+#editModeBtn.off:hover {
+  background: var(--ink-soft);
+  box-shadow: 0 3px 0 var(--ink-soft), 0 6px 12px rgba(42, 36, 29, .3);
+}
 
 /* ═══════════════════════════════════════════════════════════════
    Law popup — "제N조" 클릭 시 화면 가운데 떠 있는 모달 팝업
