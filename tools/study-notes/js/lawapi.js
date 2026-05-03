@@ -48,18 +48,22 @@
     return m ? m[1] : null;
   }
 
-  // 다중 조항 추출 — "민사소송법 165조, 166조 1항" → [{raw, lawName}, ...]
-  // 단일 조항이거나 분리 안 되면 null 반환
+  // 다중 조항 추출
+  //   "민사소송법 165조, 166조 1항" → [{raw:'민사소송법 165조'}, {raw:'민사소송법 166조 1항'}]
+  //   "(제15조, 제16조)"            → [{raw:'제15조'}, {raw:'제16조'}]   ← 법명은 노트 컨텍스트로
+  // 단일 조항이거나 분리 안 되면 null
   function splitArticles(raw) {
     const text = String(raw || '').replace(/^[\(\[]|[\)\]]$/g, '').trim();
     const lawMatch = text.match(/^([가-힣]{1,14}법)\s+/);
-    if (!lawMatch) return null;
-    const lawName = lawMatch[1];
-    const tail = text.slice(lawMatch[0].length);
-    const parts = tail.split(/\s*[,，、]\s*/).map(s => s.trim()).filter(Boolean);
-    const valid = parts.filter(p => /^제?\s*\d+\s*조/.test(p));
+    const lawName  = lawMatch ? lawMatch[1] : null;
+    const tail     = lawMatch ? text.slice(lawMatch[0].length) : text;
+    const parts    = tail.split(/\s*[,，、]\s*/).map(s => s.trim()).filter(Boolean);
+    const valid    = parts.filter(p => /^제?\s*\d+\s*조/.test(p));
     if (valid.length < 2) return null;
-    return valid.map(p => ({ raw: `${lawName} ${p}`, lawName }));
+    return valid.map(p => ({
+      raw: lawName ? `${lawName} ${p}` : p,
+      lawName,
+    }));
   }
 
   function escHtml(s) {
