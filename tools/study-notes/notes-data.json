@@ -323,6 +323,18 @@
       "order": 25,
       "updatedAt": "2026-05-01T07:18:55.046Z",
       "sha": null
+    },
+    {
+      "id": "2026-05-03T06-44-17",
+      "subject": "민법",
+      "subTopic": "",
+      "topic": "123",
+      "mnemonic": "",
+      "body": "",
+      "dueDate": "",
+      "order": 1,
+      "updatedAt": "2026-05-03T06:44:19.884Z",
+      "sha": null
     }
   ],
   "subjectOrder": [
@@ -331,5 +343,5 @@
     "행정사실무법",
     "사무관리론"
   ],
-  "savedAt": "2026. 5. 3. 오후 3:44:16"
+  "savedAt": "2026. 5. 3. 오후 3:44:19"
 }
