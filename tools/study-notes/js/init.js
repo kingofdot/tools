@@ -78,6 +78,25 @@ function bindGlobal() {
     toast('삭제됨', 'success');
   });
 
+  // 편집모드 ON/OFF 토글 — OFF면 아래 편집창 숨기고 preview만
+  const EDIT_MODE_KEY = 'study-notes:editMode';
+  const $editBtn = document.getElementById('editModeBtn');
+  function applyEditMode(mode) {
+    const off = mode === 'off';
+    document.body.classList.toggle('edit-mode-off', off);
+    if ($editBtn) {
+      $editBtn.textContent = off ? '✎ 편집 OFF' : '✎ 편집 ON';
+      $editBtn.classList.toggle('off', off);
+      $editBtn.title = off ? '편집모드 OFF — 클릭해서 편집창 열기' : '편집모드 ON — 클릭해서 편집창 닫기';
+    }
+    localStorage.setItem(EDIT_MODE_KEY, mode);
+  }
+  applyEditMode(localStorage.getItem(EDIT_MODE_KEY) || 'on');
+  $editBtn?.addEventListener('click', () => {
+    const cur = localStorage.getItem(EDIT_MODE_KEY) || 'on';
+    applyEditMode(cur === 'on' ? 'off' : 'on');
+  });
+
   // 동기화
   document.getElementById('syncBtn').addEventListener('click', fullSync);
 

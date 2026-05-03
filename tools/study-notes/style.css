@@ -1719,6 +1719,14 @@ body.force-pc .body-stack { display: grid !important; }
 .quiz-stage[hidden],
 .quiz-host[hidden] { display: none !important; }
 
+/* 편집모드 OFF — preview만 전체 차지, edit-pane/split-handle 숨김 */
+body.edit-mode-off .body-stack {
+  grid-template-rows: minmax(0, 1fr) !important;
+}
+body.edit-mode-off .split-handle-v,
+body.edit-mode-off .edit-pane { display: none !important; }
+#editModeBtn.off { background: var(--paper-alt); color: var(--ink-faint); }
+
 /* ═══════════════════════════════════════════════════════════════
    Law popup — "제N조" 클릭 시 화면 가운데 떠 있는 모달 팝업
    ═══════════════════════════════════════════════════════════════ */
