@@ -48,29 +48,56 @@
     return m ? m[1] : null;
   }
 
-  // 다중 조항 추출 — 텍스트 안의 모든 조항 매치를 순서대로 수집
-  //   "민사소송법 165조, 166조"         → 165조(민사소송법), 166조(민사소송법, 직전 propagate)
-  //   "(제15조, 제16조)"                → 제15조(?), 제16조(?)            ← lawName 미지정
-  //   "(제7조 민사소송법 89조 준용)"    → 제7조(?), 89조(민사소송법)       ← 서로 다른 법
-  // 단일 조항이거나 분리 안 되면 null
-  const ARTICLE_RE = /(?:([가-힣]{1,14}법)\s+)?(제?\s*\d+\s*조(?:의\s*\d+)?(?:\s*제?\s*\d+\s*항)?(?:\s*제?\s*\d+\s*호)?)/g;
-  function splitArticles(raw) {
+  // ─── 다중 조항 파서 ──────────────────────────────────────
+  // 토큰 단위(법명/조/항/호)로 walk 하면서 조 단위로 그룹핑.
+  // 같은 조의 여러 항/호는 한 그룹에 모두 누적 → 한 화면에 표시.
+  //
+  //   "제17조 1항, 2항, 4항"                → 1그룹: {jo:17, hangs:[1,2,4]}
+  //   "(제17조 1항, 제18조 2항)"           → 2그룹
+  //   "(민사소송법 165조, 166조)"           → 2그룹 (둘 다 민사소송법)
+  //   "(제7조 민사소송법 89조 준용)"        → 2그룹 (다른 법)
+  //
+  // 결과: [{ law, jo, hangs:[], hos:[] }, ...]
+  const TOKEN_RE = /[가-힣]{1,14}법|제?\s*\d+\s*조(?:\s*의\s*\d+)?|제?\s*\d+\s*항|제?\s*\d+\s*호/g;
+  function parseRefs(raw) {
     const text = String(raw || '').replace(/^[\(\[]|[\)\]]$/g, '').trim();
-    const matches = [];
-    let lastLawName = null;
+    const out = [];
+    let curLaw = null;
+    let pending = null;
+    const flush = () => { if (pending) { out.push(pending); pending = null; } };
     let m;
-    ARTICLE_RE.lastIndex = 0;
-    while ((m = ARTICLE_RE.exec(text)) !== null) {
-      // 법명이 명시되면 갱신, 없으면 직전 명시 법명 propagate
-      if (m[1]) lastLawName = m[1];
-      const lawName = m[1] || lastLawName || null;
-      const articlePart = m[2].trim();
-      matches.push({
-        raw: lawName ? `${lawName} ${articlePart}` : articlePart,
-        lawName,
-      });
+    TOKEN_RE.lastIndex = 0;
+    while ((m = TOKEN_RE.exec(text)) !== null) {
+      const tok = m[0].replace(/\s+/g, '');
+      if (/법$/.test(tok)) {
+        // 법명만 만난 경우 — 다음 조에 적용. 이미 pending 이 있으면 그건 종료.
+        flush();
+        curLaw = tok;
+      } else if (/조(?:의\d+)?$/.test(tok)) {
+        flush();
+        const mj = tok.match(/(\d+)(?:의(\d+))?/);
+        const main   = String(parseInt(mj[1], 10)).padStart(4, '0');
+        const branch = mj[2] ? String(parseInt(mj[2], 10)).padStart(2, '0') : '00';
+        pending = { law: curLaw, jo: main + branch, hangs: [], hos: [] };
+      } else if (/항$/.test(tok)) {
+        const n = parseInt(tok.match(/\d+/)[0], 10);
+        if (!pending) continue;          // 조 컨텍스트 없으면 스킵
+        if (!pending.hangs.includes(n)) pending.hangs.push(n);
+      } else if (/호$/.test(tok)) {
+        const n = parseInt(tok.match(/\d+/)[0], 10);
+        if (!pending) continue;
+        if (!pending.hos.includes(n)) pending.hos.push(n);
+      }
     }
-    return matches.length >= 2 ? matches : null;
+    flush();
+    return out;
+  }
+
+  function arrayEq(a, b) {
+    a = a || []; b = b || [];
+    if (a.length !== b.length) return false;
+    for (let i = 0; i < a.length; i++) if (a[i] !== b[i]) return false;
+    return true;
   }
 
   function escHtml(s) {
@@ -112,11 +139,13 @@
     const main   = parseInt(jo.slice(0, 4), 10);
     const branch = parseInt(jo.slice(4, 6), 10);
     let s = `제${main}${branch ? `의${branch}` : ''}조`;
-    if (hang) s += ` 제${hang}항`;
-    if (ho)   s += ` 제${ho}호`;
+    const hangs = Array.isArray(hang) ? hang : (hang ? [hang] : []);
+    const hos   = Array.isArray(ho)   ? ho   : (ho   ? [ho]   : []);
+    if (hangs.length) s += ' ' + hangs.map(n => `제${n}항`).join(', ');
+    if (hos.length)   s += ' ' + hos.map(n => `제${n}호`).join(', ');
     return s;
   }
-  const joLabel = (jo) => buildLabel(jo, null, null);
+  const joLabel = (jo) => buildLabel(jo, [], []);
 
   // ─── URL 빌더 ────────────────────────────────────────────
   function buildSearchUrl(query) {
@@ -258,44 +287,44 @@
     return hangs[hang - 1] || null;
   }
 
-  // hang/ho에 해당하는 부분만 남긴 새 article 객체 반환
-  function pickSubArticle(article, hang, ho) {
-    if (!hang && !ho) return article;
-    const hangs = asArr(article['항']);
+  // hang/ho에 해당하는 부분만 남긴 새 article 객체 반환.
+  // hangIn/hoIn 은 number 또는 number[]. 배열이면 여러 항/호를 한 화면에 모두 포함.
+  function pickSubArticle(article, hangIn, hoIn) {
+    const hangs = Array.isArray(hangIn) ? hangIn : (hangIn ? [hangIn] : []);
+    const hos   = Array.isArray(hoIn)   ? hoIn   : (hoIn   ? [hoIn]   : []);
+    if (!hangs.length && !hos.length) return article;
 
-    // 항만 지정 → 해당 항 (그 안의 모든 호 포함)
-    if (hang && !ho) {
-      const found = findHang(hangs, hang);
-      if (!found) return article;
-      return { ...article, 조문내용: '', '항': [found] };
-    }
+    const hangArr = asArr(article['항']);
 
-    // 호만 지정 → 모든 항을 뒤져 호번호 매칭
-    if (!hang && ho) {
-      for (const h of hangs) {
-        const hos = asArr(h['호']);
-        const hoFound = hos.find(x => parseHangNo(x['호번호']) === ho);
-        if (hoFound) {
-          return {
-            ...article,
-            조문내용: '',
-            '항': [{ '호': [hoFound] }],
-          };
-        }
+    // 항 지정 (있을 수도, 호 동시일 수도)
+    if (hangs.length) {
+      const picked = hangs.map(n => findHang(hangArr, n)).filter(Boolean);
+      if (!picked.length) return article;
+
+      // 호도 함께 지정 → 각 항 안에서 해당 호만 필터
+      if (hos.length) {
+        const filtered = picked.map(h => {
+          const hosArr = asArr(h['호']);
+          const matched = hos
+            .map(n => hosArr.find(x => parseHangNo(x['호번호']) === n))
+            .filter(Boolean);
+          return { ...h, '호': matched };
+        });
+        return { ...article, 조문내용: '', '항': filtered };
       }
-      return article;
+      return { ...article, 조문내용: '', '항': picked };
     }
 
-    // 항+호 둘 다
-    const hangFound = findHang(hangs, hang);
-    if (!hangFound) return article;
-    const hos = asArr(hangFound['호']);
-    const hoFound = hos.find(x => parseHangNo(x['호번호']) === ho);
-    return {
-      ...article,
-      조문내용: '',
-      '항': [{ '호': hoFound ? [hoFound] : [] }],
-    };
+    // 호만 지정 — 전 항 통틀어 매칭
+    const matchedHos = [];
+    for (const h of hangArr) {
+      const hosArr = asArr(h['호']);
+      for (const n of hos) {
+        const x = hosArr.find(y => parseHangNo(y['호번호']) === n);
+        if (x && !matchedHos.includes(x)) matchedHos.push(x);
+      }
+    }
+    return { ...article, 조문내용: '', '항': [{ '호': matchedHos }] };
   }
 
   // 조문내용에서 머리 부분 "제N조(제목)" / "제N조의M(제목)" 제거 → 본문만
@@ -372,12 +401,12 @@
       if (!overlay.dataset.lawName || !overlay.dataset.jo) return;
       localStorage.removeItem(K_ART(overlay.dataset.lawName, overlay.dataset.jo));
       localStorage.removeItem(K_MST(overlay.dataset.lawName));
-      const hang = overlay.dataset.hang ? parseInt(overlay.dataset.hang, 10) : null;
-      const ho   = overlay.dataset.ho   ? parseInt(overlay.dataset.ho,   10) : null;
-      let sibs = [];
-      try { sibs = JSON.parse(overlay.dataset.siblings || '[]'); } catch (_) {}
+      let hangs = [], hos = [], sibs = [];
+      try { hangs = JSON.parse(overlay.dataset.hangs    || '[]'); } catch (_) {}
+      try { hos   = JSON.parse(overlay.dataset.hos      || '[]'); } catch (_) {}
+      try { sibs  = JSON.parse(overlay.dataset.siblings || '[]'); } catch (_) {}
       const orig = overlay.dataset.originalLaw || overlay.dataset.lawName;
-      openLaw(overlay.dataset.lawName, overlay.dataset.jo, hang, ho, { siblings: sibs, originalLaw: orig });
+      openLaw(overlay.dataset.lawName, overlay.dataset.jo, hangs, hos, { siblings: sibs, originalLaw: orig });
     });
     return overlay;
   }
@@ -409,31 +438,32 @@
       : '<div class="lp-empty">본문 없음</div>';
   }
 
-  async function openLaw(lawName, jo, hang = null, ho = null, options = {}) {
+  async function openLaw(lawName, jo, hangIn, hoIn, options = {}) {
+    const hangs = Array.isArray(hangIn) ? hangIn : (hangIn ? [hangIn] : []);
+    const hos   = Array.isArray(hoIn)   ? hoIn   : (hoIn   ? [hoIn]   : []);
     const siblings    = Array.isArray(options.siblings) ? options.siblings : [];
-    const originalLaw = options.originalLaw || lawName;   // 노트 컨텍스트의 기준 법
+    const originalLaw = options.originalLaw || lawName;
     const p = ensurePanel();
     p.hidden = false;
     p.dataset.lawName    = lawName;
     p.dataset.jo         = jo;
-    p.dataset.hang       = hang || '';
-    p.dataset.ho         = ho   || '';
+    p.dataset.hangs      = JSON.stringify(hangs);
+    p.dataset.hos        = JSON.stringify(hos);
     p.dataset.siblings   = JSON.stringify(siblings);
     p.dataset.originalLaw = originalLaw;
     document.body.classList.add('law-popup-open');
     document.getElementById('lawPanelLawName').textContent = lawName;
-    document.getElementById('lawPanelLabel').textContent   = buildLabel(jo, hang, ho);
+    document.getElementById('lawPanelLabel').textContent   = buildLabel(jo, hangs, hos);
     document.getElementById('lawPanelTitle').textContent   = '';
     document.getElementById('lawPanelBody').innerHTML      = '<div class="lp-loading">불러오는 중…</div>';
-    renderSiblings(siblings, { lawName, jo, hang, ho, originalLaw });
+    renderSiblings(siblings, { lawName, jo, hangs, hos, originalLaw });
     setStatus('');
 
     try {
       const { lawTitle, raw } = await fetchArticleRaw(lawName, jo);
-      const sub = pickSubArticle(raw, hang, ho);
+      const sub = pickSubArticle(raw, hangs, hos);
       const article = normalizeArticle(sub, lawTitle);
-      // 항/호 지정이 있으면 라벨에 반영
-      article.label = buildLabel(jo, hang, ho);
+      article.label = buildLabel(jo, hangs, hos);
       renderArticle(article);
       setStatus('완료', 'ok');
     } catch (err) {
@@ -452,43 +482,49 @@
     e.stopPropagation();
 
     const raw = tag.dataset.raw || tag.textContent || '';
-    const ctxLaw = lawNameForCurrent() || '(미지정)';     // 노트 컨텍스트 법
-    // 다중 조항이면 첫 조를 메인으로 띄우고 형제 조는 팝업 헤더 버튼으로 노출
-    const multi = splitArticles(raw);
-    const primary = (multi && multi.length) ? multi[0] : { raw, lawName: lawNameFromBadge(raw) };
-    const refs = toRefs(primary.raw) || { jo: '000100', hang: null, ho: null };
-    const law  = primary.lawName || lawNameFromBadge(primary.raw) || ctxLaw;
-    const siblings = (multi && multi.length > 1) ? multi : [];
-    console.log('[LawApi] click', { raw, primary, refs, law, siblings, ctxLaw });
-    openLaw(law, refs.jo, refs.hang, refs.ho, { siblings, originalLaw: ctxLaw });
+    const ctxLaw = lawNameForCurrent() || '(미지정)';
+    const groups = parseRefs(raw);
+
+    // 파싱 실패 → toRefs 단일 fallback
+    if (!groups.length) {
+      const refs = toRefs(raw) || { jo: '000100' };
+      const law  = lawNameFromBadge(raw) || ctxLaw;
+      console.log('[LawApi] click (fallback)', { raw, refs, law });
+      return openLaw(law, refs.jo, [], [], { siblings: [], originalLaw: ctxLaw });
+    }
+
+    const primary = groups[0];
+    const law = primary.law || ctxLaw;
+    const siblings = groups.length > 1 ? groups : [];
+    console.log('[LawApi] click', { raw, primary, siblings, ctxLaw });
+    openLaw(law, primary.jo, primary.hangs, primary.hos, { siblings, originalLaw: ctxLaw });
   }
 
   // ─── 형제 조항 버튼 렌더 (팝업 헤더) ──────────────────────
+  // siblings: parseRefs 결과인 group 배열 [{ law, jo, hangs, hos }, ...]
   function renderSiblings(siblings, current) {
     const $area = document.getElementById('lawPanelSiblings');
     if (!$area) return;
     if (!siblings || siblings.length < 2) { $area.innerHTML = ''; return; }
     const ctxLaw = current.originalLaw;
-    $area.innerHTML = siblings.map((s) => {
-      const refs   = toRefs(s.raw) || {};
-      const sibLaw = s.lawName || ctxLaw || current.lawName;
+    $area.innerHTML = siblings.map((g, idx) => {
+      const sibLaw = g.law || ctxLaw;
       const isActive =
         sibLaw === current.lawName &&
-        refs.jo === current.jo &&
-        (refs.hang || null) === (current.hang || null) &&
-        (refs.ho   || null) === (current.ho   || null);
-      // 노트 컨텍스트 법과 다른 법이면 라벨에 법명도 표시
+        g.jo === current.jo &&
+        arrayEq(g.hangs, current.hangs) &&
+        arrayEq(g.hos,   current.hos);
       const showLaw = sibLaw && sibLaw !== ctxLaw;
-      const lbl = (showLaw ? `${sibLaw} ` : '') + (buildLabel(refs.jo, refs.hang, refs.ho) || s.raw);
-      return `<button class="lp-sib-btn ${isActive ? 'active' : ''}" data-raw="${escHtml(s.raw)}" data-sib-law="${escHtml(sibLaw || '')}">${escHtml(lbl)}</button>`;
+      const lbl = (showLaw ? `${sibLaw} ` : '') + buildLabel(g.jo, g.hangs, g.hos);
+      return `<button class="lp-sib-btn ${isActive ? 'active' : ''}" data-idx="${idx}">${escHtml(lbl)}</button>`;
     }).join('');
     $area.querySelectorAll('.lp-sib-btn').forEach(btn => {
       btn.addEventListener('click', () => {
-        const r = btn.dataset.raw || '';
-        const refs = toRefs(r);
-        if (!refs) return;
-        const sibLaw = btn.dataset.sibLaw || ctxLaw || current.lawName;
-        openLaw(sibLaw, refs.jo, refs.hang, refs.ho, { siblings, originalLaw: ctxLaw });
+        const idx = parseInt(btn.dataset.idx, 10);
+        const g = siblings[idx];
+        if (!g) return;
+        const sibLaw = g.law || ctxLaw;
+        openLaw(sibLaw, g.jo, g.hangs, g.hos, { siblings, originalLaw: ctxLaw });
       });
     });
   }
