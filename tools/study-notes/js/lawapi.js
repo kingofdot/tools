@@ -52,22 +52,41 @@
       .replace(/"/g, '&quot;');
   }
 
-  // ─── "제N조[의M]" → JO 코드 (4자리 조 + 2자리 가지) ───────
-  function toJO(rawText) {
+  // ─── "제N조[의M] [제K항] [제L호]" → { jo, hang, ho } ──────
+  function toRefs(rawText) {
     const t = String(rawText || '').replace(/\s+/g, '');
-    const m = t.match(/제(\d+)조(?:의(\d+))?/);
-    if (!m) return null;
-    const main   = String(parseInt(m[1], 10)).padStart(4, '0');
-    const branch = m[2] ? String(parseInt(m[2], 10)).padStart(2, '0') : '00';
-    return main + branch;
+    const mJo = t.match(/제(\d+)조(?:의(\d+))?/);
+    if (!mJo) return null;
+    const main   = String(parseInt(mJo[1], 10)).padStart(4, '0');
+    const branch = mJo[2] ? String(parseInt(mJo[2], 10)).padStart(2, '0') : '00';
+    const jo = main + branch;
+
+    // 한자 숫자(①②…) 또는 아라비아 모두 처리. 항·호 둘 다 있으면 둘 다 추출
+    const mHang = t.match(/제(\d+)항/);
+    const mHo   = t.match(/제(\d+)호/);
+    return {
+      jo,
+      hang: mHang ? parseInt(mHang[1], 10) : null,
+      ho:   mHo   ? parseInt(mHo[1],   10) : null,
+    };
   }
 
-  function joLabel(jo) {
+  // 호환용 — 외부에서 toJO 부르는 곳이 있으면 그대로
+  function toJO(rawText) {
+    const r = toRefs(rawText);
+    return r ? r.jo : null;
+  }
+
+  function buildLabel(jo, hang, ho) {
     if (!jo || jo.length !== 6) return '';
     const main   = parseInt(jo.slice(0, 4), 10);
     const branch = parseInt(jo.slice(4, 6), 10);
-    return `제${main}${branch ? `의${branch}` : ''}조`;
+    let s = `제${main}${branch ? `의${branch}` : ''}조`;
+    if (hang) s += ` 제${hang}항`;
+    if (ho)   s += ` 제${ho}호`;
+    return s;
   }
+  const joLabel = (jo) => buildLabel(jo, null, null);
 
   // ─── URL 빌더 ────────────────────────────────────────────
   function buildSearchUrl(query) {
@@ -113,8 +132,8 @@
     return meta;
   }
 
-  // ─── 조문 fetch (XML → 정리 JSON → 한 조 추출) ────────────
-  async function fetchArticle(lawName, jo) {
+  // ─── 조문 fetch — raw 조 노드를 캐시 (필터는 표시 단계에서) ──
+  async function fetchArticleRaw(lawName, jo) {
     const cacheKey = K_ART(lawName, jo);
     const cached = localStorage.getItem(cacheKey);
     if (cached) {
@@ -127,13 +146,66 @@
     const root = doc.documentElement;
     const tree = LawParser.compactValue(LawParser.xmlElementToJson(root));
 
-    // 조문 노드 찾기 (재귀)
     const article = findFirstArticle(tree);
     if (!article) throw new Error(`${joLabel(jo)} 본문을 찾을 수 없음`);
 
-    const result = normalizeArticle(article, meta.title || lawName);
-    localStorage.setItem(cacheKey, JSON.stringify(result));
-    return result;
+    const payload = { lawTitle: meta.title || lawName, raw: article };
+    localStorage.setItem(cacheKey, JSON.stringify(payload));
+    return payload;
+  }
+
+  // 항/호 번호 매칭용 — "1." / "1" / "①" 모두 받아 정수로
+  const CIRCLED = '①②③④⑤⑥⑦⑧⑨⑩⑪⑫⑬⑭⑮⑯⑰⑱⑲⑳';
+  function parseHangNo(raw) {
+    const s = String(raw || '');
+    const c = CIRCLED.indexOf(s.trim()[0]);
+    if (c >= 0) return c + 1;
+    const m = s.match(/\d+/);
+    return m ? parseInt(m[0], 10) : null;
+  }
+
+  function asArr(v) {
+    return Array.isArray(v) ? v : (v ? [v] : []);
+  }
+
+  // hang/ho에 해당하는 부분만 남긴 새 article 객체 반환
+  function pickSubArticle(article, hang, ho) {
+    if (!hang && !ho) return article;
+    const hangs = asArr(article['항']);
+
+    // 항만 지정 (호 없음) → 해당 항 + 그 안의 모든 호 유지
+    if (hang && !ho) {
+      const found = hangs.find(h => parseHangNo(h['항번호']) === hang) || hangs[hang - 1];
+      if (!found) return article;
+      return { ...article, 조문내용: '', '항': [found] };
+    }
+
+    // ho만 지정 → 모든 항을 뒤져 호번호 매칭
+    if (!hang && ho) {
+      for (const h of hangs) {
+        const hos = asArr(h['호']);
+        const hoFound = hos.find(x => parseHangNo(x['호번호']) === ho);
+        if (hoFound) {
+          return {
+            ...article,
+            조문내용: '',
+            '항': [{ '항내용': '', '호': [hoFound] }],
+          };
+        }
+      }
+      return article;
+    }
+
+    // hang + ho 둘 다
+    const hangFound = hangs.find(h => parseHangNo(h['항번호']) === hang) || hangs[hang - 1];
+    if (!hangFound) return article;
+    const hos = asArr(hangFound['호']);
+    const hoFound = hos.find(x => parseHangNo(x['호번호']) === ho);
+    return {
+      ...article,
+      조문내용: '',
+      '항': [{ '항내용': '', '호': hoFound ? [hoFound] : [] }],
+    };
   }
 
   function findFirstArticle(node) {
@@ -212,7 +284,9 @@
       if (!overlay.dataset.lawName || !overlay.dataset.jo) return;
       localStorage.removeItem(K_ART(overlay.dataset.lawName, overlay.dataset.jo));
       localStorage.removeItem(K_MST(overlay.dataset.lawName));
-      openLaw(overlay.dataset.lawName, overlay.dataset.jo);
+      const hang = overlay.dataset.hang ? parseInt(overlay.dataset.hang, 10) : null;
+      const ho   = overlay.dataset.ho   ? parseInt(overlay.dataset.ho,   10) : null;
+      openLaw(overlay.dataset.lawName, overlay.dataset.jo, hang, ho);
     });
     return overlay;
   }
@@ -244,20 +318,26 @@
       : '<div class="lp-empty">본문 없음</div>';
   }
 
-  async function openLaw(lawName, jo) {
+  async function openLaw(lawName, jo, hang = null, ho = null) {
     const p = ensurePanel();
     p.hidden = false;
     p.dataset.lawName = lawName;
     p.dataset.jo      = jo;
+    p.dataset.hang    = hang || '';
+    p.dataset.ho      = ho   || '';
     document.body.classList.add('law-popup-open');
     document.getElementById('lawPanelLawName').textContent = lawName;
-    document.getElementById('lawPanelLabel').textContent   = joLabel(jo);
+    document.getElementById('lawPanelLabel').textContent   = buildLabel(jo, hang, ho);
     document.getElementById('lawPanelTitle').textContent   = '';
     document.getElementById('lawPanelBody').innerHTML      = '<div class="lp-loading">불러오는 중…</div>';
     setStatus('');
 
     try {
-      const article = await fetchArticle(lawName, jo);
+      const { lawTitle, raw } = await fetchArticleRaw(lawName, jo);
+      const sub = pickSubArticle(raw, hang, ho);
+      const article = normalizeArticle(sub, lawTitle);
+      // 항/호 지정이 있으면 라벨에 반영
+      article.label = buildLabel(jo, hang, ho);
       renderArticle(article);
       setStatus('완료', 'ok');
     } catch (err) {
@@ -276,14 +356,10 @@
     e.stopPropagation();
 
     const raw = tag.dataset.raw || tag.textContent || '';
-    console.log('[LawApi] click', { raw, currentId: typeof currentId !== 'undefined' ? currentId : null });
-    // 노트 컨텍스트(소과목 매핑) 우선 — 사용자가 정의한 매핑이 가장 신뢰됨
-    // 없으면 뱃지 텍스트에서 법령명 추출
+    const refs = toRefs(raw) || { jo: '000100', hang: null, ho: null };
+    console.log('[LawApi] click', { raw, refs, currentId: typeof currentId !== 'undefined' ? currentId : null });
     const law = lawNameForCurrent() || lawNameFromBadge(raw) || '(미지정)';
-    const jo  = toJO(raw) || '000100';   // 인식 실패 시 임시로 제1조
-
-    // 클릭이 닿았다는 사실을 즉시 사용자에게 보여주기 위해 무조건 팝업 표시
-    openLaw(law, jo);
+    openLaw(law, refs.jo, refs.hang, refs.ho);
   }
 
   function bindLawApi() {
