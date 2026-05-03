@@ -419,17 +419,39 @@
 
     const raw = tag.dataset.raw || tag.textContent || '';
     const refs = toRefs(raw) || { jo: '000100', hang: null, ho: null };
-    console.log('[LawApi] click', { raw, refs, currentId: typeof currentId !== 'undefined' ? currentId : null });
-    const law = lawNameForCurrent() || lawNameFromBadge(raw) || '(미지정)';
+    // 뱃지 안에 법명이 있으면 그걸 우선 — 노트 컨텍스트 매핑보다 직접 명시가 신뢰됨
+    const law = lawNameFromBadge(raw) || lawNameForCurrent() || '(미지정)';
+    console.log('[LawApi] click', { raw, refs, law });
     openLaw(law, refs.jo, refs.hang, refs.ho);
+  }
+
+  // ─── 우클릭 → 법령 링크 해제 ──────────────────────────────
+  function onPreviewContext(e) {
+    const tag = e.target.closest('.tag-law');
+    if (!tag) return;
+    e.preventDefault();
+    const raw = (tag.dataset.raw || tag.textContent || '').trim();
+    if (!raw) return;
+    if (!confirm(`"${raw}" 의 법령 링크를 해제할까요?\n(이 노트에서만 적용 — 같은 문구가 다시 나와도 일반 텍스트로 표시)`)) return;
+    if (typeof currentId === 'undefined' || !currentId) return;
+    const n = (typeof findNote === 'function') ? findNote(currentId) : null;
+    if (!n) return;
+    const set = new Set(n.lawUnlinks || []);
+    set.add(raw);
+    n.lawUnlinks = [...set];
+    if (typeof saveNotes === 'function') saveNotes();
+    if (typeof renderPreview === 'function') renderPreview();
+    if (typeof autoPush === 'function' && typeof settings !== 'undefined' && settings.ghAutoSync && settings.ghToken) autoPush();
+    if (typeof toast === 'function') toast(`"${raw}" 링크 해제됨`, 'info');
   }
 
   function bindLawApi() {
     const $preview = document.getElementById('preview');
     if ($preview && !$preview.dataset.lawBound) {
       $preview.addEventListener('click', onPreviewClick);
+      $preview.addEventListener('contextmenu', onPreviewContext);
       $preview.dataset.lawBound = '1';
-      console.log('[LawApi] preview click handler bound');
+      console.log('[LawApi] preview click + contextmenu handlers bound');
     } else if (!$preview) {
       console.warn('[LawApi] #preview not found — click handler NOT bound');
     }
