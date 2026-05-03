@@ -602,6 +602,16 @@ input, textarea, select { font-family: inherit; color: inherit; }
   cursor: pointer;
 }
 .tag-law:hover, .tag-case:hover { filter: brightness(.96); }
+
+/* 콤마로 이어지는 추가 조항 뱃지 — 첫 뱃지 옆에 작게 */
+.tag-law-extra {
+  font-size: 0.78em;
+  padding: 1px 6px;
+  background: var(--paper);
+  color: var(--law-ink);
+  border-color: rgba(44, 74, 107, .35);
+  margin-left: 1px;
+}
 mark.search-hit {
   background: var(--hit); color: var(--ink);
   padding: 0 2px; border-radius: 2px;

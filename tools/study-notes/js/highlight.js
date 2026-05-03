@@ -12,19 +12,26 @@ function escHtml(s) {
 // 우선순위 높은 것부터 (긴 매치 우선)
 const PATTERNS = [
   // ① 괄호 안에 "조"가 들어 있으면 그 괄호 안 전체를 한 덩어리로 하이라이트
-  //    (제48조), (민사소송법 제48조 제1항), (행정사법 5조 2항), (~법 N조N항)
+  //    (제48조), (민사소송법 제48조 제1항), (행정사법 5조 2항), (민사소송법 165조, 166조)
   {
     re: /\([^()]*\d+\s*조[^()]*\)/g,
     cls: 'tag-law',
     type: 'law',
   },
-  // ② "○○법 제N조 ..." — 법명 + "제" 있는 형태  (민법·세법 같은 1+법 포함)
+  // ② "○○법 N조[, N조]+" — 법명 + 콤마로 여러 조항 (제 있어도 없어도)
+  //    예: "민사소송법 165조, 166조" / "민법 제5조, 제6조 제1항"
+  {
+    re: /[가-힣]{1,14}법\s+제?\s*\d+\s*조(?:의\s*\d+)?(?:\s*제?\s*\d+\s*항)?(?:\s*제?\s*\d+\s*호)?(?:\s*[,，、]\s*제?\s*\d+\s*조(?:의\s*\d+)?(?:\s*제?\s*\d+\s*항)?(?:\s*제?\s*\d+\s*호)?)+/g,
+    cls: 'tag-law',
+    type: 'law-multi',
+  },
+  // ③ "○○법 제N조 ..." — 법명 + "제" 있는 형태  (민법·세법 같은 1+법 포함)
   {
     re: /[가-힣]{1,14}법\s+제\s*\d+\s*조(?:의\s*\d+)?(?:\s*제\s*\d+\s*항)?(?:\s*제\s*\d+\s*호)?/g,
     cls: 'tag-law',
     type: 'law',
   },
-  // ③ "○○법 N조N항" / "민법 5조 2항" — 법명 + "제" 없는 형태
+  // ④ "○○법 N조N항" / "민법 5조 2항" — 법명 + "제" 없는 형태
   {
     re: /[가-힣]{1,14}법\s+\d+\s*조(?:의\s*\d+)?(?:\s*\d+\s*항)?(?:\s*\d+\s*호)?/g,
     cls: 'tag-law',
@@ -81,9 +88,33 @@ function highlightInline(text) {
   const tokRe = new RegExp(`${SENT}T(\\d+)${SENT}`, 'g');
   html = html.replace(tokRe, (_, i) => {
     const t = tokens[+i];
+    // 여러 조항 (콤마 구분) → 첫 뱃지는 풀 텍스트, 두번째부터 조항만
+    if (t.type === 'law-multi') {
+      const parts = splitMultiArticles(t.raw);
+      if (parts && parts.length > 1) {
+        return parts.map((part, idx) => {
+          const display = idx === 0 ? part : part.replace(/^[가-힣]{1,14}법\s+/, '');
+          const extraCls = idx === 0 ? '' : ' tag-law-extra';
+          return `<span class="${t.cls}${extraCls}" data-type="law" data-raw="${escHtml(part)}">${escHtml(display.trim())}</span>`;
+        }).join(' ');
+      }
+    }
     return `<span class="${t.cls}" data-type="${t.type}" data-raw="${escHtml(t.raw)}">${escHtml(t.raw.trim())}</span>`;
   });
   return html;
+}
+
+// "민사소송법 165조, 166조 1항" → ["민사소송법 165조", "민사소송법 166조 1항"]
+function splitMultiArticles(raw) {
+  const text = String(raw || '').replace(/^[\(\[]|[\)\]]$/g, '').trim();
+  const lawMatch = text.match(/^([가-힣]{1,14}법)\s+/);
+  if (!lawMatch) return null;
+  const lawName = lawMatch[1];
+  const tail = text.slice(lawMatch[0].length);
+  const parts = tail.split(/\s*[,，、]\s*/).map(s => s.trim()).filter(Boolean);
+  if (parts.length < 2) return null;
+  return parts.filter(p => /^제?\s*\d+\s*조/.test(p))
+              .map(p => `${lawName} ${p}`);
 }
 
 // 검색 매치 강조 (이미 escape된 HTML에 적용)
