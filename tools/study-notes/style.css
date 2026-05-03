@@ -1726,6 +1726,18 @@ body.edit-mode-off .body-stack {
 body.edit-mode-off .split-handle-v,
 body.edit-mode-off .edit-pane { display: none !important; }
 
+/* 편집모드 OFF — "현재 편집 중" 강조도 숨김 (편집 안 하니 표시 의미 없음) */
+body.edit-mode-off .preview .item-line.editing,
+body.edit-mode-off .preview .item-line.no-marker.editing {
+  background: none !important;
+  border-left: none !important;
+  padding-left: 0 !important;
+  margin-left: 0 !important;
+  animation: none !important;
+  box-shadow: none !important;
+}
+body.edit-mode-off .preview .item-line.editing::after { content: none !important; }
+
 /* 편집모드 토글 버튼 — 눈에 잘 띄게 강조 */
 #editModeBtn {
   background: var(--accent);
