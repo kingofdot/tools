@@ -85,6 +85,15 @@ function highlightInline(text) {
     });
   }
   let html = escHtml(work);
+
+  // 꾸밈 마크업 — 법령 토큰 환원 전에 처리해서 뱃지 안에도 적용 가능
+  //   {text} → 볼드, /text/ → 밑줄, *text* → 형광펜
+  //   /,*는 양옆이 영숫자(URL/숫자)나 HTML 태그(< >)면 매칭 안 함
+  html = html
+    .replace(/\{([^{}\n]+)\}/g, '<strong class="hl-bold">$1</strong>')
+    .replace(/(?<![A-Za-z0-9_<>\/])\/([^\/\n<>]+?)\/(?![A-Za-z0-9_<>\/])/g, '<u class="hl-uline">$1</u>')
+    .replace(/(?<![A-Za-z0-9_<>])\*([^*\n<>]+?)\*(?![A-Za-z0-9_<>])/g, '<span class="hl-mark">$1</span>');
+
   const tokRe = new RegExp(`${SENT}T(\\d+)${SENT}`, 'g');
   html = html.replace(tokRe, (_, i) => {
     const t = tokens[+i];

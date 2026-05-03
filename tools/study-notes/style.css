@@ -617,6 +617,24 @@ mark.search-hit {
   padding: 0 2px; border-radius: 2px;
 }
 
+/* 인라인 꾸밈 — {볼드} /밑줄/ *형광펜* */
+.hl-bold {
+  font-weight: 800;
+  color: var(--ink);
+}
+.hl-uline {
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-decoration-color: var(--accent);
+  text-underline-offset: 3px;
+}
+.hl-mark {
+  background: linear-gradient(180deg, transparent 55%, var(--hit) 55%);
+  padding: 0 2px;
+  border-radius: 2px;
+  color: var(--ink);
+}
+
 /* 현재 편집 중인 줄 — textarea 커서 위치에 해당하는 미리보기 항목 */
 @keyframes editing-pulse {
   0%, 100% { box-shadow: -4px 0 0 var(--accent), 0 0 0 0 rgba(180,71,46,0); }
