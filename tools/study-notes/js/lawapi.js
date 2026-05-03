@@ -25,9 +25,9 @@
     },
   };
 
-  // 캐시 키
-  const K_MST = (lawName)       => `law:mst:${lawName}`;
-  const K_ART = (lawName, jo)   => `law:art:${lawName}:${jo}`;
+  // 캐시 키 — 스키마 바뀔 때마다 prefix bump (옛 캐시 자동 무시)
+  const K_MST = (lawName)       => `law:mst2:${lawName}`;
+  const K_ART = (lawName, jo)   => `law:art2:${lawName}:${jo}`;
 
   // ─── 노트 컨텍스트 → 법령명 ───────────────────────────────
   function lawNameForCurrent() {
@@ -132,37 +132,72 @@
     return meta;
   }
 
-  // ─── 조문 fetch — JSON 직접, raw 조 노드를 캐시 ─────────────
+  // ─── 조문 fetch — XML → LawParser → 조 노드 raw 캐시 ────────
   async function fetchArticleRaw(lawName, jo) {
     const cacheKey = K_ART(lawName, jo);
     const cached = localStorage.getItem(cacheKey);
     if (cached) {
-      try { return JSON.parse(cached); } catch (_) {}
+      try {
+        const v = JSON.parse(cached);
+        if (v && v.raw && (v.raw['조문번호'] !== undefined)) return v;
+      } catch (_) {}
     }
-    const meta = await ensureMst(lawName);
-    const data = await fetchJson(buildBodyUrl(meta, jo, 'JSON'));
-    const root  = data['법령'] || data;
-    const units = root['조문'] && root['조문']['조문단위'];
-    const arr   = Array.isArray(units) ? units : (units ? [units] : []);
 
-    // jo로 정확히 매칭 (전문/장 헤더 제외) → fallback: 첫 번째 "조문"
+    const meta = await ensureMst(lawName);
+    const xmlText = await fetchText(buildBodyUrl(meta, jo, 'XML'));
+    if (!xmlText.trim().startsWith('<')) {
+      throw new Error('잘못된 응답 형식 — OC 키를 확인하세요');
+    }
+    const doc = new DOMParser().parseFromString(xmlText, 'application/xml');
+    if (doc.querySelector('parsererror')) throw new Error('XML 파싱 오류');
+
+    const root = doc.documentElement;
+    const wrapped = {
+      [root.nodeName]: LawParser.compactValue(LawParser.xmlElementToJson(root)),
+    };
+
+    // 트리 어디에 있어도 조문단위를 찾아냄
+    function findUnits(node) {
+      if (!node || typeof node !== 'object') return null;
+      if (node['조문단위'] !== undefined) return node['조문단위'];
+      for (const v of Object.values(node)) {
+        const r = findUnits(v);
+        if (r) return r;
+      }
+      return null;
+    }
+    const units = findUnits(wrapped);
+    const arr = Array.isArray(units) ? units : (units ? [units] : []);
+    if (!arr.length) throw new Error('조문단위를 찾을 수 없음 (응답 구조 확인 필요)');
+
     const joMain   = String(parseInt(jo.slice(0, 4), 10));
     const joBranch = parseInt(jo.slice(4, 6), 10);
     const article =
-      arr.find(u =>
-        (u['조문여부'] || '') === '조문' &&
-        String(parseInt(u['조문번호'] || '0', 10)) === joMain &&
-        parseInt(u['조문가지번호'] || '0', 10) === joBranch
-      ) ||
-      arr.find(u => (u['조문여부'] || '') === '조문') ||
+      arr.find(u => u && (u['조문여부'] || '') === '조문' &&
+         String(parseInt(u['조문번호'] || '0', 10)) === joMain &&
+         parseInt(u['조문가지번호'] || '0', 10) === joBranch) ||
+      arr.find(u => u && String(parseInt(u['조문번호'] || '0', 10)) === joMain) ||
+      arr.find(u => u && (u['조문여부'] || '') === '조문') ||
       arr[0];
 
-    if (!article) throw new Error(`${joLabel(jo)} 본문을 찾을 수 없음`);
+    if (!article || article['조문번호'] === undefined) {
+      throw new Error(`${joLabel(jo)} 본문을 찾을 수 없음`);
+    }
 
-    const payload = {
-      lawTitle: (root['기본정보'] && root['기본정보']['법령명_한글']) || meta.title || lawName,
-      raw: article,
-    };
+    // 법령 제목 (응답에 있으면 우선)
+    function findTitle(node) {
+      if (!node || typeof node !== 'object') return null;
+      if (node['법령명_한글']) return String(node['법령명_한글']);
+      if (node['법령명한글']) return String(node['법령명한글']);
+      for (const v of Object.values(node)) {
+        const r = findTitle(v);
+        if (r) return r;
+      }
+      return null;
+    }
+    const lawTitle = findTitle(wrapped) || meta.title || lawName;
+
+    const payload = { lawTitle, raw: article };
     localStorage.setItem(cacheKey, JSON.stringify(payload));
     return payload;
   }
