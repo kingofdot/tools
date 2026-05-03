@@ -40,10 +40,11 @@
     return m[n.subTopic] || null;
   }
 
-  // 뱃지 텍스트에서 직접 법령명 추출: "(행정사법 제5조)" / "행정심판법 제3조" 등
+  // 뱃지 텍스트에서 직접 법령명 추출
+  //   허용: "(행정사법 제5조)" / "행정심판법 제3조" / "행정사법 5조" / "행정사법 5조 2항"
   function lawNameFromBadge(text) {
     const t = String(text || '').replace(/^[\(\[]|[\)\]]$/g, '').trim();
-    const m = t.match(/([가-힣]{2,15}법)\s*제\s*\d+\s*조/);
+    const m = t.match(/([가-힣]{2,15}법)\s*제?\s*\d+\s*조/);
     return m ? m[1] : null;
   }
 
@@ -53,18 +54,21 @@
       .replace(/"/g, '&quot;');
   }
 
-  // ─── "제N조[의M] [제K항] [제L호]" → { jo, hang, ho } ──────
+  // ─── "[제]N조[의M] [[제]K항] [[제]L호]" → { jo, hang, ho } ──
+  // "제5조 제2항", "5조2항", "행정사법5조", "제48조의2" 모두 처리
   function toRefs(rawText) {
+    // 우선 한자 법명/괄호는 떼어놓고 숫자+조/항/호만 추출
     const t = String(rawText || '').replace(/\s+/g, '');
-    const mJo = t.match(/제(\d+)조(?:의(\d+))?/);
+    const mJo = t.match(/제?(\d+)조(?:의(\d+))?/);
     if (!mJo) return null;
     const main   = String(parseInt(mJo[1], 10)).padStart(4, '0');
     const branch = mJo[2] ? String(parseInt(mJo[2], 10)).padStart(2, '0') : '00';
     const jo = main + branch;
 
-    // 한자 숫자(①②…) 또는 아라비아 모두 처리. 항·호 둘 다 있으면 둘 다 추출
-    const mHang = t.match(/제(\d+)항/);
-    const mHo   = t.match(/제(\d+)호/);
+    // 항/호: 조 뒤쪽 텍스트에서만 검색 (앞에 잘못된 숫자 잡지 않도록)
+    const tail  = t.slice(t.indexOf(mJo[0]) + mJo[0].length);
+    const mHang = tail.match(/제?(\d+)항/);
+    const mHo   = tail.match(/제?(\d+)호/);
     return {
       jo,
       hang: mHang ? parseInt(mHang[1], 10) : null,
