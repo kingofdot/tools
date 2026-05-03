@@ -95,7 +95,7 @@
     });
     return `https://www.law.go.kr/DRF/lawSearch.do?${p}`;
   }
-  function buildBodyUrl({ id, mst }, jo, fmt = 'XML') {
+  function buildBodyUrl({ id, mst }, jo, fmt = 'JSON') {
     const p = new URLSearchParams({ OC, target: 'eflaw', type: fmt });
     if (id) p.set('ID', id);
     else if (mst) p.set('MST', mst);
@@ -132,7 +132,7 @@
     return meta;
   }
 
-  // ─── 조문 fetch — raw 조 노드를 캐시 (필터는 표시 단계에서) ──
+  // ─── 조문 fetch — JSON 직접, raw 조 노드를 캐시 ─────────────
   async function fetchArticleRaw(lawName, jo) {
     const cacheKey = K_ART(lawName, jo);
     const cached = localStorage.getItem(cacheKey);
@@ -140,16 +140,29 @@
       try { return JSON.parse(cached); } catch (_) {}
     }
     const meta = await ensureMst(lawName);
-    const xmlText = await fetchText(buildBodyUrl(meta, jo, 'XML'));
-    const doc = new DOMParser().parseFromString(xmlText, 'application/xml');
-    if (doc.querySelector('parsererror')) throw new Error('XML 파싱 오류');
-    const root = doc.documentElement;
-    const tree = LawParser.compactValue(LawParser.xmlElementToJson(root));
+    const data = await fetchJson(buildBodyUrl(meta, jo, 'JSON'));
+    const root  = data['법령'] || data;
+    const units = root['조문'] && root['조문']['조문단위'];
+    const arr   = Array.isArray(units) ? units : (units ? [units] : []);
 
-    const article = findFirstArticle(tree);
+    // jo로 정확히 매칭 (전문/장 헤더 제외) → fallback: 첫 번째 "조문"
+    const joMain   = String(parseInt(jo.slice(0, 4), 10));
+    const joBranch = parseInt(jo.slice(4, 6), 10);
+    const article =
+      arr.find(u =>
+        (u['조문여부'] || '') === '조문' &&
+        String(parseInt(u['조문번호'] || '0', 10)) === joMain &&
+        parseInt(u['조문가지번호'] || '0', 10) === joBranch
+      ) ||
+      arr.find(u => (u['조문여부'] || '') === '조문') ||
+      arr[0];
+
     if (!article) throw new Error(`${joLabel(jo)} 본문을 찾을 수 없음`);
 
-    const payload = { lawTitle: meta.title || lawName, raw: article };
+    const payload = {
+      lawTitle: (root['기본정보'] && root['기본정보']['법령명_한글']) || meta.title || lawName,
+      raw: article,
+    };
     localStorage.setItem(cacheKey, JSON.stringify(payload));
     return payload;
   }
@@ -168,19 +181,31 @@
     return Array.isArray(v) ? v : (v ? [v] : []);
   }
 
+  // hang을 hangs 배열에서 찾기.
+  //  - 항번호("①" 등)가 있으면 매칭
+  //  - 항이 1개고 항번호가 없으면(제2조처럼 "항":{호:[...]} 형태) hang=1을 그것으로
+  //  - 그 외에는 인덱스 fallback
+  function findHang(hangs, hang) {
+    if (!hangs.length) return null;
+    const byNo = hangs.find(h => parseHangNo(h['항번호']) === hang);
+    if (byNo) return byNo;
+    if (hangs.length === 1 && !hangs[0]['항번호'] && hang === 1) return hangs[0];
+    return hangs[hang - 1] || null;
+  }
+
   // hang/ho에 해당하는 부분만 남긴 새 article 객체 반환
   function pickSubArticle(article, hang, ho) {
     if (!hang && !ho) return article;
     const hangs = asArr(article['항']);
 
-    // 항만 지정 (호 없음) → 해당 항 + 그 안의 모든 호 유지
+    // 항만 지정 → 해당 항 (그 안의 모든 호 포함)
     if (hang && !ho) {
-      const found = hangs.find(h => parseHangNo(h['항번호']) === hang) || hangs[hang - 1];
+      const found = findHang(hangs, hang);
       if (!found) return article;
       return { ...article, 조문내용: '', '항': [found] };
     }
 
-    // ho만 지정 → 모든 항을 뒤져 호번호 매칭
+    // 호만 지정 → 모든 항을 뒤져 호번호 매칭
     if (!hang && ho) {
       for (const h of hangs) {
         const hos = asArr(h['호']);
@@ -189,40 +214,30 @@
           return {
             ...article,
             조문내용: '',
-            '항': [{ '항내용': '', '호': [hoFound] }],
+            '항': [{ '호': [hoFound] }],
           };
         }
       }
       return article;
     }
 
-    // hang + ho 둘 다
-    const hangFound = hangs.find(h => parseHangNo(h['항번호']) === hang) || hangs[hang - 1];
+    // 항+호 둘 다
+    const hangFound = findHang(hangs, hang);
     if (!hangFound) return article;
     const hos = asArr(hangFound['호']);
     const hoFound = hos.find(x => parseHangNo(x['호번호']) === ho);
     return {
       ...article,
       조문내용: '',
-      '항': [{ '항내용': '', '호': hoFound ? [hoFound] : [] }],
+      '항': [{ '호': hoFound ? [hoFound] : [] }],
     };
   }
 
-  function findFirstArticle(node) {
-    if (!node || typeof node !== 'object') return null;
-    if (Array.isArray(node)) {
-      for (const v of node) {
-        const r = findFirstArticle(v);
-        if (r) return r;
-      }
-      return null;
-    }
-    if (node['조문번호'] || node['조문제목']) return node;
-    for (const v of Object.values(node)) {
-      const r = findFirstArticle(v);
-      if (r) return r;
-    }
-    return null;
+  // 조문내용에서 머리 부분 "제N조(제목)" / "제N조의M(제목)" 제거 → 본문만
+  function stripArticleHead(text) {
+    return String(text || '').trim()
+      .replace(/^제\s*\d+\s*조(?:의\s*\d+)?\s*(?:\([^)]*\))?\s*/, '')
+      .trim();
   }
 
   function normalizeArticle(a, lawTitle) {
@@ -231,23 +246,30 @@
     const title  = a['조문제목']     || '';
     const label  = num ? `제${num}${branch ? `의${branch}` : ''}조` : '';
 
-    // 항/호/목을 평탄화 — depth 포함
     const rows = [];
-    if (Array.isArray(a['항']) && a['항'].length) {
-      a['항'].forEach(항 => flattenHang(항, 0, rows));
-    } else {
-      const content = String(a['조문내용'] || '').trim();
-      content.split('\n').map(s => s.trim()).filter(Boolean)
-        .forEach(text => rows.push({ text, depth: 0 }));
-    }
-    return { lawTitle, label, title, rows };
-  }
 
-  function flattenHang(node, depth, out) {
-    const text = String(node['항내용'] || node['호내용'] || node['목내용'] || '').trim();
-    if (text) out.push({ text, depth });
-    (node['호'] || []).forEach(h => flattenHang(h, depth + 1, out));
-    (node['목'] || []).forEach(m => flattenHang(m, depth + 1, out));
+    // 1) 조문내용에서 머리 제거한 본문 (있으면)
+    const head = stripArticleHead(a['조문내용']);
+    if (head) rows.push({ text: head, depth: 0 });
+
+    // 2) 항 → 호 → 목
+    const hangs = asArr(a['항']);
+    for (const h of hangs) {
+      const ht = String(h['항내용'] || '').trim();
+      if (ht) rows.push({ text: ht, depth: 0 });
+      const hos = asArr(h['호']);
+      for (const ho of hos) {
+        const hot = String(ho['호내용'] || '').trim();
+        if (hot) rows.push({ text: hot, depth: 1 });
+        const moks = asArr(ho['목']);
+        for (const m of moks) {
+          const mt = String(m['목내용'] || '').trim();
+          if (mt) rows.push({ text: mt, depth: 2 });
+        }
+      }
+    }
+
+    return { lawTitle, label, title, rows };
   }
 
   // ─── 패널 렌더 ────────────────────────────────────────────
