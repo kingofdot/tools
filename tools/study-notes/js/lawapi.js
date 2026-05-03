@@ -48,6 +48,20 @@
     return m ? m[1] : null;
   }
 
+  // 다중 조항 추출 — "민사소송법 165조, 166조 1항" → [{raw, lawName}, ...]
+  // 단일 조항이거나 분리 안 되면 null 반환
+  function splitArticles(raw) {
+    const text = String(raw || '').replace(/^[\(\[]|[\)\]]$/g, '').trim();
+    const lawMatch = text.match(/^([가-힣]{1,14}법)\s+/);
+    if (!lawMatch) return null;
+    const lawName = lawMatch[1];
+    const tail = text.slice(lawMatch[0].length);
+    const parts = tail.split(/\s*[,，、]\s*/).map(s => s.trim()).filter(Boolean);
+    const valid = parts.filter(p => /^제?\s*\d+\s*조/.test(p));
+    if (valid.length < 2) return null;
+    return valid.map(p => ({ raw: `${lawName} ${p}`, lawName }));
+  }
+
   function escHtml(s) {
     return String(s ?? '')
       .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
@@ -326,6 +340,7 @@
           <div class="law-popup-meta">
             <span class="law-popup-lawname" id="lawPanelLawName">—</span>
             <span class="law-popup-label" id="lawPanelLabel">—</span>
+            <div class="law-popup-siblings" id="lawPanelSiblings"></div>
           </div>
           <button class="rail-btn" id="lawPanelClose" title="닫기 (ESC)">✕</button>
         </header>
@@ -348,7 +363,9 @@
       localStorage.removeItem(K_MST(overlay.dataset.lawName));
       const hang = overlay.dataset.hang ? parseInt(overlay.dataset.hang, 10) : null;
       const ho   = overlay.dataset.ho   ? parseInt(overlay.dataset.ho,   10) : null;
-      openLaw(overlay.dataset.lawName, overlay.dataset.jo, hang, ho);
+      let sibs = [];
+      try { sibs = JSON.parse(overlay.dataset.siblings || '[]'); } catch (_) {}
+      openLaw(overlay.dataset.lawName, overlay.dataset.jo, hang, ho, { siblings: sibs });
     });
     return overlay;
   }
@@ -380,18 +397,21 @@
       : '<div class="lp-empty">본문 없음</div>';
   }
 
-  async function openLaw(lawName, jo, hang = null, ho = null) {
+  async function openLaw(lawName, jo, hang = null, ho = null, options = {}) {
+    const siblings = Array.isArray(options.siblings) ? options.siblings : [];
     const p = ensurePanel();
     p.hidden = false;
     p.dataset.lawName = lawName;
     p.dataset.jo      = jo;
     p.dataset.hang    = hang || '';
     p.dataset.ho      = ho   || '';
+    p.dataset.siblings = JSON.stringify(siblings);
     document.body.classList.add('law-popup-open');
     document.getElementById('lawPanelLawName').textContent = lawName;
     document.getElementById('lawPanelLabel').textContent   = buildLabel(jo, hang, ho);
     document.getElementById('lawPanelTitle').textContent   = '';
     document.getElementById('lawPanelBody').innerHTML      = '<div class="lp-loading">불러오는 중…</div>';
+    renderSiblings(siblings, { lawName, jo, hang, ho });
     setStatus('');
 
     try {
@@ -418,11 +438,39 @@
     e.stopPropagation();
 
     const raw = tag.dataset.raw || tag.textContent || '';
-    const refs = toRefs(raw) || { jo: '000100', hang: null, ho: null };
-    // 뱃지 안에 법명이 있으면 그걸 우선 — 노트 컨텍스트 매핑보다 직접 명시가 신뢰됨
-    const law = lawNameFromBadge(raw) || lawNameForCurrent() || '(미지정)';
-    console.log('[LawApi] click', { raw, refs, law });
-    openLaw(law, refs.jo, refs.hang, refs.ho);
+    // 다중 조항이면 첫 조를 메인으로 띄우고 형제 조는 팝업 헤더 버튼으로 노출
+    const multi = splitArticles(raw);
+    const primaryRaw = (multi && multi.length) ? multi[0].raw : raw;
+    const refs = toRefs(primaryRaw) || { jo: '000100', hang: null, ho: null };
+    const law = lawNameFromBadge(primaryRaw) || lawNameForCurrent() || '(미지정)';
+    const siblings = multi && multi.length > 1 ? multi : [];
+    console.log('[LawApi] click', { raw, primaryRaw, refs, law, siblings });
+    openLaw(law, refs.jo, refs.hang, refs.ho, { siblings });
+  }
+
+  // ─── 형제 조항 버튼 렌더 (팝업 헤더) ──────────────────────
+  function renderSiblings(siblings, current) {
+    const $area = document.getElementById('lawPanelSiblings');
+    if (!$area) return;
+    if (!siblings || siblings.length < 2) { $area.innerHTML = ''; return; }
+    $area.innerHTML = siblings.map((s) => {
+      const refs = toRefs(s.raw) || {};
+      const lbl = buildLabel(refs.jo, refs.hang, refs.ho) || s.raw;
+      const isActive =
+        refs.jo === current.jo &&
+        (refs.hang || null) === (current.hang || null) &&
+        (refs.ho   || null) === (current.ho   || null);
+      return `<button class="lp-sib-btn ${isActive ? 'active' : ''}" data-raw="${escHtml(s.raw)}">${escHtml(lbl)}</button>`;
+    }).join('');
+    $area.querySelectorAll('.lp-sib-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const r = btn.dataset.raw || '';
+        const refs = toRefs(r);
+        if (!refs) return;
+        const law = lawNameFromBadge(r) || current.lawName;
+        openLaw(law, refs.jo, refs.hang, refs.ho, { siblings });
+      });
+    });
   }
 
   // ─── 우클릭 → 법령 링크 해제 ──────────────────────────────

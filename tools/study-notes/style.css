@@ -1839,6 +1839,36 @@ body.edit-mode-off .preview .item-line.editing::after { content: none !important
   white-space: nowrap;
 }
 
+/* 형제 조항 버튼 — 같은 뱃지의 다른 조 (예: 165조 클릭 시 166조 노출) */
+.law-popup-siblings {
+  display: flex; flex-wrap: wrap; gap: 4px;
+  margin-left: 4px;
+}
+.lp-sib-btn {
+  font-family: var(--mono);
+  font-size: 12px;
+  font-weight: 600;
+  padding: 2px 9px;
+  background: var(--paper);
+  color: var(--law-ink);
+  border: 1px solid var(--rule);
+  border-radius: 999px;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background .12s, color .12s, border-color .12s;
+}
+.lp-sib-btn:hover {
+  background: var(--accent-soft);
+  color: var(--accent-dark);
+  border-color: var(--accent);
+}
+.lp-sib-btn.active {
+  background: var(--accent);
+  color: #fff;
+  border-color: var(--accent-dark);
+  cursor: default;
+}
+
 .law-popup-title {
   padding: 14px 22px 8px;
   font-family: var(--serif);

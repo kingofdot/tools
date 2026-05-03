@@ -88,17 +88,7 @@ function highlightInline(text) {
   const tokRe = new RegExp(`${SENT}T(\\d+)${SENT}`, 'g');
   html = html.replace(tokRe, (_, i) => {
     const t = tokens[+i];
-    // 모든 law 뱃지에 다중 조항 분리 시도 — 괄호 () 안에 콤마로 묶인 경우도 포함
-    if (t.cls === 'tag-law') {
-      const parts = splitMultiArticles(t.raw);
-      if (parts && parts.length > 1) {
-        return parts.map((part, idx) => {
-          const display = idx === 0 ? part : part.replace(/^[가-힣]{1,14}법\s+/, '');
-          const extraCls = idx === 0 ? '' : ' tag-law-extra';
-          return `<span class="${t.cls}${extraCls}" data-type="law" data-raw="${escHtml(part)}">${escHtml(display.trim())}</span>`;
-        }).join(' ');
-      }
-    }
+    // 본문에서는 한 뱃지로 통째 표시. 다중 조항은 팝업 헤더 버튼으로 분기 (lawapi.js)
     return `<span class="${t.cls}" data-type="${t.type}" data-raw="${escHtml(t.raw)}">${escHtml(t.raw.trim())}</span>`;
   });
   return html;
