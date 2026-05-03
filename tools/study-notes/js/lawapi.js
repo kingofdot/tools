@@ -48,22 +48,29 @@
     return m ? m[1] : null;
   }
 
-  // 다중 조항 추출
-  //   "민사소송법 165조, 166조 1항" → [{raw:'민사소송법 165조'}, {raw:'민사소송법 166조 1항'}]
-  //   "(제15조, 제16조)"            → [{raw:'제15조'}, {raw:'제16조'}]   ← 법명은 노트 컨텍스트로
+  // 다중 조항 추출 — 텍스트 안의 모든 조항 매치를 순서대로 수집
+  //   "민사소송법 165조, 166조"         → 165조(민사소송법), 166조(민사소송법, 직전 propagate)
+  //   "(제15조, 제16조)"                → 제15조(?), 제16조(?)            ← lawName 미지정
+  //   "(제7조 민사소송법 89조 준용)"    → 제7조(?), 89조(민사소송법)       ← 서로 다른 법
   // 단일 조항이거나 분리 안 되면 null
+  const ARTICLE_RE = /(?:([가-힣]{1,14}법)\s+)?(제?\s*\d+\s*조(?:의\s*\d+)?(?:\s*제?\s*\d+\s*항)?(?:\s*제?\s*\d+\s*호)?)/g;
   function splitArticles(raw) {
     const text = String(raw || '').replace(/^[\(\[]|[\)\]]$/g, '').trim();
-    const lawMatch = text.match(/^([가-힣]{1,14}법)\s+/);
-    const lawName  = lawMatch ? lawMatch[1] : null;
-    const tail     = lawMatch ? text.slice(lawMatch[0].length) : text;
-    const parts    = tail.split(/\s*[,，、]\s*/).map(s => s.trim()).filter(Boolean);
-    const valid    = parts.filter(p => /^제?\s*\d+\s*조/.test(p));
-    if (valid.length < 2) return null;
-    return valid.map(p => ({
-      raw: lawName ? `${lawName} ${p}` : p,
-      lawName,
-    }));
+    const matches = [];
+    let lastLawName = null;
+    let m;
+    ARTICLE_RE.lastIndex = 0;
+    while ((m = ARTICLE_RE.exec(text)) !== null) {
+      // 법명이 명시되면 갱신, 없으면 직전 명시 법명 propagate
+      if (m[1]) lastLawName = m[1];
+      const lawName = m[1] || lastLawName || null;
+      const articlePart = m[2].trim();
+      matches.push({
+        raw: lawName ? `${lawName} ${articlePart}` : articlePart,
+        lawName,
+      });
+    }
+    return matches.length >= 2 ? matches : null;
   }
 
   function escHtml(s) {
@@ -369,7 +376,8 @@
       const ho   = overlay.dataset.ho   ? parseInt(overlay.dataset.ho,   10) : null;
       let sibs = [];
       try { sibs = JSON.parse(overlay.dataset.siblings || '[]'); } catch (_) {}
-      openLaw(overlay.dataset.lawName, overlay.dataset.jo, hang, ho, { siblings: sibs });
+      const orig = overlay.dataset.originalLaw || overlay.dataset.lawName;
+      openLaw(overlay.dataset.lawName, overlay.dataset.jo, hang, ho, { siblings: sibs, originalLaw: orig });
     });
     return overlay;
   }
@@ -402,20 +410,22 @@
   }
 
   async function openLaw(lawName, jo, hang = null, ho = null, options = {}) {
-    const siblings = Array.isArray(options.siblings) ? options.siblings : [];
+    const siblings    = Array.isArray(options.siblings) ? options.siblings : [];
+    const originalLaw = options.originalLaw || lawName;   // 노트 컨텍스트의 기준 법
     const p = ensurePanel();
     p.hidden = false;
-    p.dataset.lawName = lawName;
-    p.dataset.jo      = jo;
-    p.dataset.hang    = hang || '';
-    p.dataset.ho      = ho   || '';
-    p.dataset.siblings = JSON.stringify(siblings);
+    p.dataset.lawName    = lawName;
+    p.dataset.jo         = jo;
+    p.dataset.hang       = hang || '';
+    p.dataset.ho         = ho   || '';
+    p.dataset.siblings   = JSON.stringify(siblings);
+    p.dataset.originalLaw = originalLaw;
     document.body.classList.add('law-popup-open');
     document.getElementById('lawPanelLawName').textContent = lawName;
     document.getElementById('lawPanelLabel').textContent   = buildLabel(jo, hang, ho);
     document.getElementById('lawPanelTitle').textContent   = '';
     document.getElementById('lawPanelBody').innerHTML      = '<div class="lp-loading">불러오는 중…</div>';
-    renderSiblings(siblings, { lawName, jo, hang, ho });
+    renderSiblings(siblings, { lawName, jo, hang, ho, originalLaw });
     setStatus('');
 
     try {
@@ -442,14 +452,15 @@
     e.stopPropagation();
 
     const raw = tag.dataset.raw || tag.textContent || '';
+    const ctxLaw = lawNameForCurrent() || '(미지정)';     // 노트 컨텍스트 법
     // 다중 조항이면 첫 조를 메인으로 띄우고 형제 조는 팝업 헤더 버튼으로 노출
     const multi = splitArticles(raw);
-    const primaryRaw = (multi && multi.length) ? multi[0].raw : raw;
-    const refs = toRefs(primaryRaw) || { jo: '000100', hang: null, ho: null };
-    const law = lawNameFromBadge(primaryRaw) || lawNameForCurrent() || '(미지정)';
-    const siblings = multi && multi.length > 1 ? multi : [];
-    console.log('[LawApi] click', { raw, primaryRaw, refs, law, siblings });
-    openLaw(law, refs.jo, refs.hang, refs.ho, { siblings });
+    const primary = (multi && multi.length) ? multi[0] : { raw, lawName: lawNameFromBadge(raw) };
+    const refs = toRefs(primary.raw) || { jo: '000100', hang: null, ho: null };
+    const law  = primary.lawName || lawNameFromBadge(primary.raw) || ctxLaw;
+    const siblings = (multi && multi.length > 1) ? multi : [];
+    console.log('[LawApi] click', { raw, primary, refs, law, siblings, ctxLaw });
+    openLaw(law, refs.jo, refs.hang, refs.ho, { siblings, originalLaw: ctxLaw });
   }
 
   // ─── 형제 조항 버튼 렌더 (팝업 헤더) ──────────────────────
@@ -457,22 +468,27 @@
     const $area = document.getElementById('lawPanelSiblings');
     if (!$area) return;
     if (!siblings || siblings.length < 2) { $area.innerHTML = ''; return; }
+    const ctxLaw = current.originalLaw;
     $area.innerHTML = siblings.map((s) => {
-      const refs = toRefs(s.raw) || {};
-      const lbl = buildLabel(refs.jo, refs.hang, refs.ho) || s.raw;
+      const refs   = toRefs(s.raw) || {};
+      const sibLaw = s.lawName || ctxLaw || current.lawName;
       const isActive =
+        sibLaw === current.lawName &&
         refs.jo === current.jo &&
         (refs.hang || null) === (current.hang || null) &&
         (refs.ho   || null) === (current.ho   || null);
-      return `<button class="lp-sib-btn ${isActive ? 'active' : ''}" data-raw="${escHtml(s.raw)}">${escHtml(lbl)}</button>`;
+      // 노트 컨텍스트 법과 다른 법이면 라벨에 법명도 표시
+      const showLaw = sibLaw && sibLaw !== ctxLaw;
+      const lbl = (showLaw ? `${sibLaw} ` : '') + (buildLabel(refs.jo, refs.hang, refs.ho) || s.raw);
+      return `<button class="lp-sib-btn ${isActive ? 'active' : ''}" data-raw="${escHtml(s.raw)}" data-sib-law="${escHtml(sibLaw || '')}">${escHtml(lbl)}</button>`;
     }).join('');
     $area.querySelectorAll('.lp-sib-btn').forEach(btn => {
       btn.addEventListener('click', () => {
         const r = btn.dataset.raw || '';
         const refs = toRefs(r);
         if (!refs) return;
-        const law = lawNameFromBadge(r) || current.lawName;
-        openLaw(law, refs.jo, refs.hang, refs.ho, { siblings });
+        const sibLaw = btn.dataset.sibLaw || ctxLaw || current.lawName;
+        openLaw(sibLaw, refs.jo, refs.hang, refs.ho, { siblings, originalLaw: ctxLaw });
       });
     });
   }
