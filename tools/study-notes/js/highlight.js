@@ -86,13 +86,21 @@ function highlightInline(text) {
   }
   let html = escHtml(work);
 
-  // 꾸밈 마크업 — 법령 토큰 환원 전에 처리해서 뱃지 안에도 적용 가능
-  //   {text} → 볼드, /text/ → 밑줄, *text* → 형광펜
-  //   /,*는 양옆이 영숫자(URL/숫자)나 HTML 태그(< >)면 매칭 안 함
-  html = html
-    .replace(/\{([^{}\n]+)\}/g, '<strong class="hl-bold">$1</strong>')
-    .replace(/(?<![A-Za-z0-9_<>\/])\/([^\/\n<>]+?)\/(?![A-Za-z0-9_<>\/])/g, '<u class="hl-uline">$1</u>')
-    .replace(/(?<![A-Za-z0-9_<>])\*([^*\n<>]+?)\*(?![A-Za-z0-9_<>])/g, '<span class="hl-mark">$1</span>');
+  // 꾸밈 마크업 — {볼드} /밑줄/ *형광펜* (조합 가능: */{x}/* 등)
+  //   - lookbehind '<' / lookahead '>' 로 태그 내부 슬래시 차단
+  //   - 시작 직전이 '>' 거나 끝 직후가 '<' 인 건 허용 (이미 만들어진 태그 안쪽 매치를 위함)
+  //   - 부정문자 [^<>] 로 매치가 태그 경계를 침범하지 못하게
+  //   - 변경 없을 때까지 반복하여 중첩/조합 모두 처리 ({*x*}, */{x}/* 등)
+  // 처리 순서: *(외곽) → /(중간) → {}(내부) — 사용자 표기 "*/{...}/*" 가
+  // 형광펜>밑줄>볼드 순으로 중첩되도록. 변경 없을 때까지 반복 → 어떤 조합이든 처리.
+  let prev;
+  do {
+    prev = html;
+    html = html
+      .replace(/(?<![A-Za-z0-9_<])\*([^*\n<>]+?)\*(?![A-Za-z0-9_>])/g, '<span class="hl-mark">$1</span>')
+      .replace(/(?<![A-Za-z0-9_<\/])\/([^\/\n<>]+?)\/(?![A-Za-z0-9_>\/])/g, '<u class="hl-uline">$1</u>')
+      .replace(/\{([^{}\n]+)\}/g, '<strong class="hl-bold">$1</strong>');
+  } while (html !== prev);
 
   const tokRe = new RegExp(`${SENT}T(\\d+)${SENT}`, 'g');
   html = html.replace(tokRe, (_, i) => {
