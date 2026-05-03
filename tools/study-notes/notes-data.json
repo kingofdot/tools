@@ -323,22 +323,6 @@
       "order": 25,
       "updatedAt": "2026-05-01T07:18:55.046Z",
       "sha": null
-    },
-    {
-      "id": "2026-05-03T06-39-54",
-      "subject": "민법",
-      "subTopic": "",
-      "topic": "",
-      "mnemonic": "",
-      "body": "민법\n\t민법 제5조\n\t",
-      "dueDate": "",
-      "order": 1,
-      "updatedAt": "2026-05-03T06:44:08.624Z",
-      "sha": null,
-      "lawUnlinks": [
-        "(민법 제5조)",
-        "제5조"
-      ]
     }
   ],
   "subjectOrder": [
@@ -347,5 +331,5 @@
     "행정사실무법",
     "사무관리론"
   ],
-  "savedAt": "2026. 5. 3. 오후 3:44:13"
+  "savedAt": "2026. 5. 3. 오후 3:44:16"
 }
