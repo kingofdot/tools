@@ -88,8 +88,8 @@ function highlightInline(text) {
   const tokRe = new RegExp(`${SENT}T(\\d+)${SENT}`, 'g');
   html = html.replace(tokRe, (_, i) => {
     const t = tokens[+i];
-    // 여러 조항 (콤마 구분) → 첫 뱃지는 풀 텍스트, 두번째부터 조항만
-    if (t.type === 'law-multi') {
+    // 모든 law 뱃지에 다중 조항 분리 시도 — 괄호 () 안에 콤마로 묶인 경우도 포함
+    if (t.cls === 'tag-law') {
       const parts = splitMultiArticles(t.raw);
       if (parts && parts.length > 1) {
         return parts.map((part, idx) => {
