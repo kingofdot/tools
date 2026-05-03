@@ -16,6 +16,9 @@ function bindEditor() {
     } else if (e.key === 'Enter') {
       e.preventDefault();
       handleEnter($body);
+    } else if (e.key === 'Home' && !e.ctrlKey && !e.metaKey && !e.altKey) {
+      e.preventDefault();
+      handleHome($body, e.shiftKey);
     } else if ((e.ctrlKey || e.metaKey) && !e.shiftKey && !e.altKey && e.key === '/') {
       e.preventDefault();
       toggleBackticks($body);
@@ -220,6 +223,39 @@ function handleTab(ta, isShift) {
     }
   }
   ta.dispatchEvent(new Event('input'));
+}
+
+// Home 키: 들여쓰기 다음 본문 시작으로 이동 (= "문단의 가장 앞").
+//   이미 그 위치이면 진짜 줄 시작(col 0)으로 토글.
+//   Shift+Home 은 anchor 보존하고 선택 영역 확장.
+function handleHome(ta, isShift) {
+  const v = ta.value;
+  const start = ta.selectionStart, end = ta.selectionEnd;
+  const cursor = (ta.selectionDirection === 'backward') ? start : end;
+  const lineStart = v.lastIndexOf('\n', cursor - 1) + 1;
+  let i = lineStart;
+  while (i < v.length && (v[i] === '\t' || v[i] === ' ')) i++;
+  const indentEnd = i;
+  const target = (cursor === indentEnd) ? lineStart : indentEnd;
+
+  if (!isShift) {
+    ta.setSelectionRange(target, target);
+  } else {
+    // 선택 anchor: 현재 selectionDirection 으로부터 결정
+    if (start === end) {
+      // 선택 없는 상태 — anchor=현재 cursor, 새 head=target
+      if (target < cursor) ta.setSelectionRange(target, cursor, 'backward');
+      else                 ta.setSelectionRange(cursor, target, 'forward');
+    } else if (ta.selectionDirection === 'backward') {
+      ta.setSelectionRange(Math.min(target, end), end, 'backward');
+    } else {
+      if (target < start) ta.setSelectionRange(target, start, 'backward');
+      else                ta.setSelectionRange(start, target, 'forward');
+    }
+  }
+  // keyup 핸들러가 syncPreview/centerCursor 호출 — preventDefault 했으므로 수동 트리거
+  centerTextareaCursor(ta);
+  syncPreviewToCursor();
 }
 
 function handleEnter(ta) {
