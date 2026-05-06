@@ -35,3 +35,4 @@ const SHA_KEY       = 'study-notes:sha';
 const SUBJECT_ORDER_KEY = 'study-notes:subjectOrder';
 const EDIT_SPLIT_KEY    = 'study-notes:editSplit';
 const LAW_MAP_KEY       = 'study-notes:lawMap';
+const LAST_VIEW_KEY     = 'study-notes:lastView';   // { subject, subTopic, noteId }

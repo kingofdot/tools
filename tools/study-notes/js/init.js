@@ -193,6 +193,10 @@ function bindGlobal() {
   loadEditSplit();
   loadLawMap();
 
+  // 마지막 본 위치 복원 시도
+  const lastView = loadLastView() || {};
+  if (lastView.subTopic !== undefined) activeSubTopic = lastView.subTopic;
+
   // 아무것도 없으면 샘플 하나 삽입
   if (!notes.length) {
     const sample = newNoteTemplate();
@@ -215,7 +219,8 @@ function bindGlobal() {
     upsertNote(sample);
     currentId = sample.id;
   } else {
-    currentId = notes[0].id;
+    // lastView.noteId 가 여전히 살아있으면 그 노트로, 아니면 첫 노트
+    currentId = (lastView.noteId && findNote(lastView.noteId)) ? lastView.noteId : notes[0].id;
   }
 
   // 과목 고정 — 사용자 정의 순서가 있어도 4과목 강제

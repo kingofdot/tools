@@ -91,6 +91,25 @@ function setLawForSubTopic(subject, subTopic, lawName) {
   saveLawMap();
 }
 
+// ─── 마지막 보고 있던 위치 (과목/소과목/노트) ───────────────
+// 새로고침/재부팅 시 같은 화면으로 복원. 서버 동기화와 무관 — 클라이언트 전용.
+function loadLastView() {
+  try {
+    const raw = localStorage.getItem(LAST_VIEW_KEY);
+    return raw ? JSON.parse(raw) : null;
+  } catch (_) { return null; }
+}
+function saveLastView(view) {
+  try { localStorage.setItem(LAST_VIEW_KEY, JSON.stringify(view || {})); } catch (_) {}
+}
+function rememberView() {
+  saveLastView({
+    subject:  (typeof activeSubject  !== 'undefined') ? activeSubject  : null,
+    subTopic: (typeof activeSubTopic !== 'undefined') ? activeSubTopic : null,
+    noteId:   (typeof currentId      !== 'undefined') ? currentId      : null,
+  });
+}
+
 function saveNotes() {
   localStorage.setItem(NOTES_KEY, JSON.stringify(notes));
 }

@@ -77,6 +77,7 @@ function refreshTabs() {
       refreshList();
       const list = notesInActive();
       if (list.length) loadNoteIntoEditor(list[0].id);
+      else if (typeof rememberView === 'function') rememberView();
     });
   });
 
@@ -123,6 +124,7 @@ function refreshSubTopicTabs() {
     el.addEventListener('click', () => {
       const v = el.dataset.subtopic || '';
       activeSubTopic = v === '' ? null : v;
+      if (typeof rememberView === 'function') rememberView();
       refreshSubTopicTabs();
       refreshList();
       const list = notesInActive();

@@ -427,6 +427,7 @@ function loadNoteIntoEditor(id) {
   refreshSubTopicDatalist();
   dirty = false;
   setSyncState('synced');
+  if (typeof rememberView === 'function') rememberView();
 }
 
 // 모드 호환 shim — 다른 코드에서 호출해도 안전
