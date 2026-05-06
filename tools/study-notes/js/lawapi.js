@@ -16,15 +16,11 @@
 
   const OC = '123';
 
-  // 과목 → 소과목 → 법령명
-  const LAW_MAP = {
-    '행정사실무법': {
-      '행정사법':       '행정사법',
-      '행정심판':       '행정심판법',
-      '비송사건':       '비송사건절차법',
-      '비송사건절차법': '비송사건절차법',
-    },
-  };
+  // 과목 → 소과목 → 법령명 매핑은 storage.js 의 전역 lawMap 객체에 보관됨.
+  // (사용자가 노트 메타의 "기본 법령" 입력으로 자유롭게 편집 + GitHub 동기화)
+  function currentLawMap() {
+    return (typeof lawMap !== 'undefined' && lawMap && typeof lawMap === 'object') ? lawMap : {};
+  }
 
   // 캐시 키 — 스키마 바뀔 때마다 prefix bump (옛 캐시 자동 무시)
   const K_MST = (lawName)       => `law:mst2:${lawName}`;
@@ -35,7 +31,8 @@
     if (typeof currentId === 'undefined' || !currentId) return null;
     const n = (typeof findNote === 'function') ? findNote(currentId) : null;
     if (!n) return null;
-    const m = LAW_MAP[n.subject];
+    const map = currentLawMap();
+    const m = map[n.subject];
     if (!m) return null;
     return m[n.subTopic] || null;
   }
@@ -573,5 +570,5 @@
   }
 
   // ─── export ──────────────────────────────────────────────
-  window.LawApi = { bindLawApi, openLaw, lawNameForCurrent, toJO, LAW_MAP };
+  window.LawApi = { bindLawApi, openLaw, lawNameForCurrent, toJO, get LAW_MAP(){ return currentLawMap(); } };
 })();

@@ -6,6 +6,7 @@ async function pushAll() {
   const payload = {
     notes,
     subjectOrder,
+    lawMap,
     savedAt: new Date().toLocaleString('ko-KR'),
   };
   await ghPutAll(payload);
@@ -30,6 +31,10 @@ async function pullAll() {
       if (Array.isArray(data.subjectOrder)) {
         subjectOrder = data.subjectOrder;
         saveSubjectOrder();
+      }
+      if (data.lawMap && typeof data.lawMap === 'object' && !Array.isArray(data.lawMap)) {
+        lawMap = data.lawMap;
+        saveLawMap();
       }
       refreshList();
       if (currentId && findNote(currentId)) loadNoteIntoEditor(currentId);
@@ -71,6 +76,11 @@ async function fullSync() {
       if (Array.isArray(data.subjectOrder) && data.subjectOrder.length) {
         subjectOrder = data.subjectOrder;
         saveSubjectOrder();
+      }
+      // lawMap도 원격 우선 — 다른 기기에서 한 매핑이 즉시 반영
+      if (data.lawMap && typeof data.lawMap === 'object' && !Array.isArray(data.lawMap)) {
+        lawMap = data.lawMap;
+        saveLawMap();
       }
     }
     // 로컬 → 원격

@@ -25,8 +25,13 @@ let settings = {
 // 본문 패널 위/아래 분할 비율 (0~1, 위쪽 미리보기 영역 비율)
 let editSplit = 0.5;
 
+// 소과목 → 기본 법령 매핑. 구조: { [subject]: { [subTopic]: lawName } }
+// 사용자 편집 가능 (노트 메타의 "기본 법령" 입력) + GitHub 동기화 대상.
+let lawMap = {};
+
 const SETTINGS_KEY  = 'study-notes:settings';
 const NOTES_KEY     = 'study-notes:notes';
 const SHA_KEY       = 'study-notes:sha';
 const SUBJECT_ORDER_KEY = 'study-notes:subjectOrder';
 const EDIT_SPLIT_KEY    = 'study-notes:editSplit';
+const LAW_MAP_KEY       = 'study-notes:lawMap';

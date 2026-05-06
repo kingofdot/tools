@@ -48,6 +48,49 @@ function saveEditSplit() {
   localStorage.setItem(EDIT_SPLIT_KEY, String(editSplit));
 }
 
+// ─── 소과목 → 법령 매핑 ───────────────────────────────────
+const DEFAULT_LAW_MAP = {
+  '행정사실무법': {
+    '행정사법':       '행정사법',
+    '행정심판':       '행정심판법',
+    '비송사건':       '비송사건절차법',
+    '비송사건절차법': '비송사건절차법',
+  },
+};
+
+function loadLawMap() {
+  try {
+    const raw = localStorage.getItem(LAW_MAP_KEY);
+    lawMap = raw ? JSON.parse(raw) : null;
+  } catch (_) { lawMap = null; }
+  if (!lawMap || typeof lawMap !== 'object' || Array.isArray(lawMap)) lawMap = {};
+  // 첫 실행 시 기존 하드코딩 매핑을 시드 — 사용자가 자유롭게 덮어쓰거나 비울 수 있음
+  if (Object.keys(lawMap).length === 0) {
+    lawMap = JSON.parse(JSON.stringify(DEFAULT_LAW_MAP));
+    saveLawMap();
+  }
+}
+function saveLawMap() {
+  localStorage.setItem(LAW_MAP_KEY, JSON.stringify(lawMap));
+}
+function getLawForSubTopic(subject, subTopic) {
+  if (!subject || !subTopic) return null;
+  const m = lawMap[subject];
+  return (m && m[subTopic]) || null;
+}
+function setLawForSubTopic(subject, subTopic, lawName) {
+  if (!subject || !subTopic) return;
+  const v = String(lawName || '').trim();
+  if (!lawMap[subject]) lawMap[subject] = {};
+  if (v) {
+    lawMap[subject][subTopic] = v;
+  } else {
+    delete lawMap[subject][subTopic];
+    if (Object.keys(lawMap[subject]).length === 0) delete lawMap[subject];
+  }
+  saveLawMap();
+}
+
 function saveNotes() {
   localStorage.setItem(NOTES_KEY, JSON.stringify(notes));
 }

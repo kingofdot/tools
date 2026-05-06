@@ -191,6 +191,7 @@ function bindGlobal() {
   loadNotes();
   loadSubjectOrder();
   loadEditSplit();
+  loadLawMap();
 
   // 아무것도 없으면 샘플 하나 삽입
   if (!notes.length) {

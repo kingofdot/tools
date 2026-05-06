@@ -75,6 +75,30 @@ function bindEditor() {
   // 일정 변경 즉시 카드 갱신
   $dueDate.addEventListener('change', () => { markDirty(); scheduleSave(); refreshList(); });
 
+  // 기본 법령 입력 — 입력하는 순간 그 노트의 (subject, subTopic) 기준으로 lawMap 갱신
+  // 같은 소과목의 다른 노트를 열면 자동으로 같은 값이 채워짐
+  const $law = document.getElementById('lawNameInput');
+  if ($law) {
+    function commitLaw() {
+      if (!currentId) return;
+      const n = findNote(currentId);
+      if (!n) return;
+      const subj = (document.getElementById('subjectInput').value || '').trim();
+      const sub  = (document.getElementById('subTopicInput').value || '').trim();
+      if (!subj || !sub) return;            // 과목/소과목이 정해진 뒤에만 매핑
+      if (typeof setLawForSubTopic !== 'function') return;
+      setLawForSubTopic(subj, sub, $law.value);
+      if (settings.ghAutoSync && settings.ghToken) {
+        clearTimeout(_pushTimer);
+        _pushTimer = setTimeout(() => autoPush(), 5000);
+      }
+      // 같은 소과목으로 묶인 노트가 있다면 미리보기 갱신 (뱃지 매핑 즉시 반영)
+      if (typeof renderPreview === 'function') renderPreview();
+    }
+    $law.addEventListener('change', commitLaw);
+    $law.addEventListener('blur', commitLaw);
+  }
+
   // 소과목 변경 — 탭에도 바로 반영
   $subTopic.addEventListener('change', () => {
     if (!currentId) return;
@@ -393,6 +417,10 @@ function loadNoteIntoEditor(id) {
   document.getElementById('mnemonicInput').value = n.mnemonic || '';
   document.getElementById('bodyInput').value = n.body || '';
   document.getElementById('dueDateInput').value = n.dueDate || '';
+  const $law = document.getElementById('lawNameInput');
+  if ($law) $law.value = (typeof getLawForSubTopic === 'function')
+    ? (getLawForSubTopic(n.subject, n.subTopic) || '')
+    : '';
   activeSubject = n.subject || '_미분류';
   renderPreview();
   refreshList();
