@@ -148,6 +148,7 @@ function newNoteTemplate(subject) {
     mnemonic: '',
     body: '',
     dueDate: '',
+    importance: 0,            // 0~5 (★) 중요도
     order: nextOrderForSubject(subj),
     updatedAt: ts.toISOString(),
     sha: null,

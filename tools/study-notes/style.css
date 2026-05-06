@@ -1767,6 +1767,35 @@ body.edit-mode-off .preview .item-line.no-marker.editing {
 }
 body.edit-mode-off .preview .item-line.editing::after { content: none !important; }
 
+/* ─── 중요도 별점 위젯 (메타 영역) ─── */
+.meta-importance .star-row {
+  display: flex; align-items: center; gap: 2px;
+}
+.star-row .star {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 18px;
+  line-height: 1;
+  padding: 2px 3px;
+  color: var(--rule);
+  transition: color .12s, transform .08s;
+}
+.star-row .star:hover { color: var(--warn); transform: scale(1.1); }
+.star-row .star.on   { color: var(--warn); }
+.star-row .star.on:hover { color: var(--accent); }
+
+/* 노트 카드 별 표시 — 카드 row 안에 노란 별 N개 */
+.note-card-stars {
+  display: inline-flex;
+  font-size: 12px;
+  color: var(--warn);
+  letter-spacing: -1px;
+  margin-left: auto;
+  font-family: var(--mono);
+  filter: drop-shadow(0 0 1px rgba(201,122,44,.25));
+}
+
 /* 편집모드 토글 버튼 — 눈에 잘 띄게 강조 */
 #editModeBtn {
   background: var(--accent);

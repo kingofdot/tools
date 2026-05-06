@@ -236,7 +236,12 @@ function renderNoteCard(n, i) {
                 : `D+${-diffDays}`;
     dueHtml = `<span class="note-card-due ${cls}" title="일정: ${esc(n.dueDate)}">📅 ${label}</span>`;
   }
-  const rowHtml = dueHtml ? `<div class="note-card-row">${dueHtml}</div>` : '';
+  const importance = Math.max(0, Math.min(5, parseInt(n.importance, 10) || 0));
+  const starHtml = importance > 0
+    ? `<span class="note-card-stars" title="중요도 ${importance}">${'★'.repeat(importance)}</span>`
+    : '';
+  const metaInner = `${dueHtml}${starHtml}`;
+  const rowHtml = metaInner ? `<div class="note-card-row">${metaInner}</div>` : '';
   return `
     <li class="note-card ${active}" data-id="${esc(n.id)}" draggable="true">
       ${rowHtml}

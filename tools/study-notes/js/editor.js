@@ -75,6 +75,9 @@ function bindEditor() {
   // 일정 변경 즉시 카드 갱신
   $dueDate.addEventListener('change', () => { markDirty(); scheduleSave(); refreshList(); });
 
+  // 중요도 별점 클릭 바인딩
+  bindImportanceStars();
+
   // 기본 법령 입력 — 입력하는 순간 그 노트의 (subject, subTopic) 기준으로 lawMap 갱신
   // 같은 소과목의 다른 노트를 열면 자동으로 같은 값이 채워짐
   const $law = document.getElementById('lawNameInput');
@@ -404,6 +407,7 @@ function commitEdits() {
   n.mnemonic = document.getElementById('mnemonicInput').value.trim();
   n.body = document.getElementById('bodyInput').value;
   n.dueDate = document.getElementById('dueDateInput').value || '';
+  if (typeof n.importance !== 'number') n.importance = 0;
   n.updatedAt = new Date().toISOString();
 }
 
@@ -421,6 +425,7 @@ function loadNoteIntoEditor(id) {
   if ($law) $law.value = (typeof getLawForSubTopic === 'function')
     ? (getLawForSubTopic(n.subject, n.subTopic) || '')
     : '';
+  renderImportanceStars(n.importance || 0);
   activeSubject = n.subject || '_미분류';
   renderPreview();
   refreshList();
@@ -428,6 +433,37 @@ function loadNoteIntoEditor(id) {
   dirty = false;
   setSyncState('synced');
   if (typeof rememberView === 'function') rememberView();
+}
+
+// ─── 중요도 별점 위젯 ────────────────────────────────────
+function renderImportanceStars(value) {
+  const $row = document.getElementById('importanceStars');
+  if (!$row) return;
+  const v = Math.max(0, Math.min(5, parseInt(value, 10) || 0));
+  let h = '';
+  for (let i = 1; i <= 5; i++) {
+    h += `<button class="star ${i <= v ? 'on' : ''}" data-val="${i}" type="button" aria-label="중요도 ${i}">★</button>`;
+  }
+  $row.innerHTML = h;
+}
+function bindImportanceStars() {
+  const $row = document.getElementById('importanceStars');
+  if (!$row || $row.dataset.bound) return;
+  $row.dataset.bound = '1';
+  $row.addEventListener('click', (e) => {
+    const btn = e.target.closest('.star');
+    if (!btn || !currentId) return;
+    const n = findNote(currentId);
+    if (!n) return;
+    const v = parseInt(btn.dataset.val, 10) || 0;
+    // 같은 별을 다시 누르면 0 (취소). 다른 값은 그 값으로.
+    n.importance = (n.importance === v) ? 0 : v;
+    n.updatedAt = new Date().toISOString();
+    renderImportanceStars(n.importance);
+    markDirty();
+    scheduleSave();
+    refreshList();
+  });
 }
 
 // 모드 호환 shim — 다른 코드에서 호출해도 안전
