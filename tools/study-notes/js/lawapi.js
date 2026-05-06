@@ -37,12 +37,19 @@
     return m[n.subTopic] || null;
   }
 
-  // 뱃지 텍스트에서 직접 법령명 추출
-  //   허용: "(행정사법 제5조)" / "행정심판법 제3조" / "행정사법 5조" / "행정사법 5조 2항"
-  function lawNameFromBadge(text) {
+  // 뱃지 텍스트에서 직접 법령명 추출 — 시행령/시행규칙 suffix 도 함께 잡음
+  //   "(행정사법 제5조)" / "행정심판법 제3조" / "개인정보 보호법 시행령 1조"
+  // 반환: { law, suffix } 또는 null
+  function lawInfoFromBadge(text) {
     const t = String(text || '').replace(/^[\(\[]|[\)\]]$/g, '').trim();
-    const m = t.match(/([가-힣]{1,14}법)\s*제?\s*\d+\s*조/);
-    return m ? m[1] : null;
+    const m = t.match(/([가-힣]{1,14}법)(?:\s+(시행령|시행규칙))?\s*제?\s*\d+\s*조/);
+    if (!m) return null;
+    return { law: m[1], suffix: m[2] || null };
+  }
+  // 호환용 — 일부 호출처에서 lawName 만 필요할 때
+  function lawNameFromBadge(text) {
+    const info = lawInfoFromBadge(text);
+    return info ? (info.suffix ? `${info.law} ${info.suffix}` : info.law) : null;
   }
 
   // ─── 다중 조항 파서 ──────────────────────────────────────
@@ -55,30 +62,42 @@
   //   "(제7조 민사소송법 89조 준용)"        → 2그룹 (다른 법)
   //
   // 결과: [{ law, jo, hangs:[], hos:[] }, ...]
-  const TOKEN_RE = /[가-힣]{1,14}법|제?\s*\d+\s*조(?:\s*의\s*\d+)?|제?\s*\d+\s*항|제?\s*\d+\s*호/g;
+  // 토큰: 법명 / "시행령"|"시행규칙" / 조 / 항 / 호
+  const TOKEN_RE = /[가-힣]{1,14}법|시행령|시행규칙|제?\s*\d+\s*조(?:\s*의\s*\d+)?|제?\s*\d+\s*항|제?\s*\d+\s*호/g;
   function parseRefs(raw) {
     const text = String(raw || '').replace(/^[\(\[]|[\)\]]$/g, '').trim();
     const out = [];
     let curLaw = null;
+    let curSuffix = null;   // "시행령" | "시행규칙" | null  — 다음 조에 적용
     let pending = null;
     const flush = () => { if (pending) { out.push(pending); pending = null; } };
     let m;
     TOKEN_RE.lastIndex = 0;
     while ((m = TOKEN_RE.exec(text)) !== null) {
       const tok = m[0].replace(/\s+/g, '');
-      if (/법$/.test(tok)) {
-        // 법명만 만난 경우 — 다음 조에 적용. 이미 pending 이 있으면 그건 종료.
+      if (tok === '시행령' || tok === '시행규칙') {
+        // 다음 조에 적용될 접미사. 이전 pending 이 있으면 닫고 새 토큰부터.
+        flush();
+        curSuffix = tok;
+      } else if (/법$/.test(tok)) {
         flush();
         curLaw = tok;
+        curSuffix = null;     // 새 법명 만나면 접미사 초기화
       } else if (/조(?:의\d+)?$/.test(tok)) {
         flush();
         const mj = tok.match(/(\d+)(?:의(\d+))?/);
         const main   = String(parseInt(mj[1], 10)).padStart(4, '0');
         const branch = mj[2] ? String(parseInt(mj[2], 10)).padStart(2, '0') : '00';
-        pending = { law: curLaw, jo: main + branch, hangs: [], hos: [] };
+        pending = {
+          law:    curLaw,
+          suffix: curSuffix,    // null/시행령/시행규칙
+          jo:     main + branch,
+          hangs:  [],
+          hos:    [],
+        };
       } else if (/항$/.test(tok)) {
         const n = parseInt(tok.match(/\d+/)[0], 10);
-        if (!pending) continue;          // 조 컨텍스트 없으면 스킵
+        if (!pending) continue;
         if (!pending.hangs.includes(n)) pending.hangs.push(n);
       } else if (/호$/.test(tok)) {
         const n = parseInt(tok.match(/\d+/)[0], 10);
@@ -88,6 +107,13 @@
     }
     flush();
     return out;
+  }
+
+  // group → 실제 검색에 쓸 법령명. base + (시행령/시행규칙)
+  function resolveLawName(group, ctxLaw) {
+    const base = group.law || ctxLaw || '';
+    if (!base) return group.suffix || '(미지정)';
+    return group.suffix ? `${base} ${group.suffix}` : base;
   }
 
   function arrayEq(a, b) {
@@ -491,28 +517,34 @@
     }
 
     const primary = groups[0];
-    const law = primary.law || ctxLaw;
+    const law = resolveLawName(primary, ctxLaw);
     const siblings = groups.length > 1 ? groups : [];
-    console.log('[LawApi] click', { raw, primary, siblings, ctxLaw });
+    console.log('[LawApi] click', { raw, primary, siblings, ctxLaw, law });
     openLaw(law, primary.jo, primary.hangs, primary.hos, { siblings, originalLaw: ctxLaw });
   }
 
   // ─── 형제 조항 버튼 렌더 (팝업 헤더) ──────────────────────
-  // siblings: parseRefs 결과인 group 배열 [{ law, jo, hangs, hos }, ...]
+  // siblings: parseRefs 결과 group 배열 [{ law, suffix, jo, hangs, hos }, ...]
   function renderSiblings(siblings, current) {
     const $area = document.getElementById('lawPanelSiblings');
     if (!$area) return;
     if (!siblings || siblings.length < 2) { $area.innerHTML = ''; return; }
     const ctxLaw = current.originalLaw;
     $area.innerHTML = siblings.map((g, idx) => {
-      const sibLaw = g.law || ctxLaw;
+      const fullLaw = resolveLawName(g, ctxLaw);
       const isActive =
-        sibLaw === current.lawName &&
+        fullLaw === current.lawName &&
         g.jo === current.jo &&
         arrayEq(g.hangs, current.hangs) &&
         arrayEq(g.hos,   current.hos);
-      const showLaw = sibLaw && sibLaw !== ctxLaw;
-      const lbl = (showLaw ? `${sibLaw} ` : '') + buildLabel(g.jo, g.hangs, g.hos);
+      // 라벨 prefix:
+      //   같은 본법 + 시행령/시행규칙 → "시행령 제N조" (간결)
+      //   다른 법 → 법명 전체 prefix
+      let prefix = '';
+      const baseSame = !g.law || g.law === ctxLaw;
+      if (baseSame && g.suffix) prefix = `${g.suffix} `;
+      else if (!baseSame)       prefix = `${fullLaw} `;
+      const lbl = prefix + buildLabel(g.jo, g.hangs, g.hos);
       return `<button class="lp-sib-btn ${isActive ? 'active' : ''}" data-idx="${idx}">${escHtml(lbl)}</button>`;
     }).join('');
     $area.querySelectorAll('.lp-sib-btn').forEach(btn => {
@@ -520,7 +552,7 @@
         const idx = parseInt(btn.dataset.idx, 10);
         const g = siblings[idx];
         if (!g) return;
-        const sibLaw = g.law || ctxLaw;
+        const sibLaw = resolveLawName(g, ctxLaw);
         openLaw(sibLaw, g.jo, g.hangs, g.hos, { siblings, originalLaw: ctxLaw });
       });
     });
