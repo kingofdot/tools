@@ -2,7 +2,7 @@
 // 정적 자산을 캐시해 오프라인에서 앱 셸을 띄움.
 // 노트 데이터는 localStorage에 별도 보관.
 
-const CACHE = 'study-notes-v44';
+const CACHE = 'study-notes-v45';
 const ASSETS = [
   './',
   './index.html',

@@ -85,7 +85,8 @@
         curSuffix = null;     // 새 법명 만나면 접미사 초기화
       } else if (/조(?:의\d+)?$/.test(tok)) {
         flush();
-        const mj = tok.match(/(\d+)(?:의(\d+))?/);
+        // "제7조의2" 같은 가지조항 — \d+ 다음에 "조" 가 끼어 있으므로 정규식 보강
+        const mj = tok.match(/(\d+)\s*조(?:\s*의\s*(\d+))?/);
         const main   = String(parseInt(mj[1], 10)).padStart(4, '0');
         const branch = mj[2] ? String(parseInt(mj[2], 10)).padStart(2, '0') : '00';
         pending = {
