@@ -161,7 +161,8 @@
     if (!jo || jo.length !== 6) return '';
     const main   = parseInt(jo.slice(0, 4), 10);
     const branch = parseInt(jo.slice(4, 6), 10);
-    let s = `제${main}${branch ? `의${branch}` : ''}조`;
+    // 한국 법령 표기: "제7조의2" (조 다음에 가지) — "제7의2조" 아님
+    let s = `제${main}조${branch ? `의${branch}` : ''}`;
     const hangs = Array.isArray(hang) ? hang : (hang ? [hang] : []);
     const hos   = Array.isArray(ho)   ? ho   : (ho   ? [ho]   : []);
     if (hangs.length) s += ' ' + hangs.map(n => `제${n}항`).join(', ');
