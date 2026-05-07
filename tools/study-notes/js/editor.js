@@ -1,6 +1,21 @@
 // === EDITOR ===
 // 단일 화면 — 위쪽: 정리된 미리보기, 아래쪽: textarea 입력
 // 모드 토글 없음. textarea 입력 → 즉시 미리보기 갱신.
+// + WYSIWYG 단계 1: 미리보기에서 직접 편집 (contenteditable). textarea 는
+//   백업/디버그용으로 유지하며 raw text 의 source-of-truth.
+
+// IME(한글 조합) 안전 — composition 동안 contenteditable→textarea 동기화 보류
+let isComposingPreview = false;
+document.addEventListener('compositionstart', (e) => {
+  if (e.target && e.target.id === 'preview') isComposingPreview = true;
+}, true);
+document.addEventListener('compositionend', (e) => {
+  if (e.target && e.target.id === 'preview') {
+    isComposingPreview = false;
+    // 조합 끝난 직후 한 번 더 동기화 시도
+    setTimeout(schedulePreviewSync, 0);
+  }
+}, true);
 
 function bindEditor() {
   const $body = document.getElementById('bodyInput');
@@ -137,6 +152,9 @@ function bindEditor() {
 
   // 분할 핸들 (위/아래) 드래그
   bindSplitHandle();
+
+  // ─── WYSIWYG 단계 1: preview 직접 편집 ────────────────────
+  bindPreviewEditor();
 
   // Ctrl+/ — 본문 토글 (textarea 외부 포커스에서도)
   window.addEventListener('keydown', (e) => {
@@ -478,4 +496,90 @@ function setSyncState(state) {
   el.title = label;
   const $lbl = document.getElementById('syncStateLabel');
   if ($lbl) $lbl.textContent = label || '동기화됨';
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   WYSIWYG 단계 1 — 미리보기 직접 편집 (contenteditable)
+   ─────────────────────────────────────────────────────────────
+   핵심:
+   - preview 를 contenteditable=true 로
+   - 입력 시 디바운스로 DOM → raw text 추출 → bodyInput.value 갱신
+   - bodyInput 이 source-of-truth (백업·동기화 호환). renderPreview 는
+     사용자 편집 중에는 호출하지 않음(캐럿 보존).
+   - IME(한글) 조합 중에는 동기화 보류
+   - Tab/Enter/Backspace 는 임시로 preventDefault — 단계 2 에서 처리
+   ═══════════════════════════════════════════════════════════════ */
+
+let _previewSyncTimer = null;
+function schedulePreviewSync() {
+  clearTimeout(_previewSyncTimer);
+  _previewSyncTimer = setTimeout(syncPreviewToTextarea, 250);
+}
+
+function syncPreviewToTextarea() {
+  const $preview = document.getElementById('preview');
+  const $body    = document.getElementById('bodyInput');
+  if (!$preview || !$body) return;
+  if (isComposingPreview) return;
+  const raw = domToRawText($preview);
+  if (raw === $body.value) return;
+  $body.value = raw;
+  markDirty();
+  scheduleSave();
+}
+
+function bindPreviewEditor() {
+  const $preview = document.getElementById('preview');
+  if (!$preview) return;
+  $preview.setAttribute('contenteditable', 'true');
+  $preview.setAttribute('spellcheck', 'false');
+
+  $preview.addEventListener('input', () => {
+    if (isComposingPreview) return;
+    schedulePreviewSync();
+  });
+
+  // 단계 2 까지 임시: 구조 변경 키는 막아둠 (캐럿/구조 깨짐 방지)
+  $preview.addEventListener('keydown', (e) => {
+    if (e.key === 'Tab' || e.key === 'Enter') {
+      e.preventDefault();
+    }
+  });
+}
+
+// 미리보기 DOM 의 li[data-depth] 들을 순회해 raw text 재조립
+function domToRawText($preview) {
+  const items = $preview.querySelectorAll('li[data-depth]');
+  if (!items.length) return '';
+  const lines = [];
+  items.forEach(li => {
+    const depth = parseInt(li.dataset.depth, 10) || 0;
+    const itemLine = li.querySelector(':scope > .item-line');
+    if (!itemLine) return;
+    const noMarker = itemLine.classList.contains('no-marker');
+    const textEl = itemLine.querySelector('.item-text');
+    let text = textEl ? extractRawText(textEl) : '';
+    text = text.replace(/ /g, ' ').replace(/\s+$/, '');
+    lines.push('\t'.repeat(depth) + (noMarker ? '`' : '') + text);
+  });
+  return lines.join('\n');
+}
+
+// 텍스트 노드는 그대로, 법령/판례 뱃지(span[data-raw]) 는 data-raw 사용
+function extractRawText(el) {
+  let out = '';
+  for (const node of el.childNodes) {
+    if (node.nodeType === Node.TEXT_NODE) {
+      out += node.nodeValue || '';
+    } else if (node.nodeType === Node.ELEMENT_NODE) {
+      if (node.dataset && node.dataset.raw) {
+        out += node.dataset.raw;
+      } else if (node.tagName === 'BR') {
+        out += '\n';
+      } else {
+        out += extractRawText(node);
+      }
+    }
+  }
+  return out;
 }
