@@ -540,22 +540,10 @@ function bindPreviewEditor() {
     scheduleIdleRerender();   // 입력 멈추면 뱃지·번호 변환
   });
 
-  // 구조 변경 키 — raw text(bodyInput) 를 직접 편집한 뒤 renderPreview
+  // 단계 2 까지 임시: 구조 변경 키는 막아둠 (캐럿/구조 깨짐 방지)
   $preview.addEventListener('keydown', (e) => {
-    if (isComposingPreview) return;     // IME 조합 중에는 위임
-    if (e.key === 'Tab') {
+    if (e.key === 'Tab' || e.key === 'Enter') {
       e.preventDefault();
-      handlePreviewTab(e.shiftKey);
-      return;
-    }
-    if (e.key === 'Enter') {
-      e.preventDefault();
-      handlePreviewEnter();
-      return;
-    }
-    if (e.key === 'Backspace') {
-      handlePreviewBackspace(e);
-      return;
     }
   });
 
@@ -593,106 +581,6 @@ function _doIdleRerender() {
   syncPreviewToTextarea();
   renderPreview();
   if (snap) _restoreCaret($preview, snap);
-}
-
-/* ── 단계 2: 구조 변경 키 핸들러 (Tab / Enter / Backspace) ── */
-
-// 현재 캐럿이 어느 li 의 textEl 의 어느 글자 offset 에 있는지 + raw line 번호
-function _getCaretContext($preview) {
-  const sel = window.getSelection();
-  if (!sel || !sel.rangeCount) return null;
-  const r = sel.getRangeAt(0);
-  let liNode = r.startContainer;
-  while (liNode && liNode.nodeType !== 1) liNode = liNode.parentNode;
-  while (liNode && !(liNode.dataset && liNode.dataset.depth !== undefined)) {
-    liNode = liNode.parentNode;
-  }
-  if (!liNode) return null;
-  const lineIdx = parseInt(liNode.dataset.line, 10);
-  if (isNaN(lineIdx)) return null;
-  const textEl = liNode.querySelector(':scope > .item-line > .item-text');
-  let offset = 0;
-  if (textEl) {
-    const rng = document.createRange();
-    rng.selectNodeContents(textEl);
-    try { rng.setEnd(r.startContainer, r.startOffset); offset = rng.toString().length; }
-    catch (_) {}
-  }
-  const items = $preview.querySelectorAll('li[data-depth]');
-  const liIdx = Array.prototype.indexOf.call(items, liNode);
-  return { liNode, liIdx, lineIdx, offset, textEl };
-}
-
-function handlePreviewTab(shift) {
-  const $preview = document.getElementById('preview');
-  const $body    = document.getElementById('bodyInput');
-  const ctx = _getCaretContext($preview);
-  if (!ctx) return;
-  // 최신 동기화 보장
-  syncPreviewToTextarea();
-  const lines = $body.value.split('\n');
-  if (shift) {
-    if (lines[ctx.lineIdx]?.startsWith('\t')) {
-      lines[ctx.lineIdx] = lines[ctx.lineIdx].slice(1);
-    } else {
-      return;     // 더 줄일 게 없음
-    }
-  } else {
-    lines[ctx.lineIdx] = '\t' + (lines[ctx.lineIdx] || '');
-  }
-  $body.value = lines.join('\n');
-  markDirty();
-  scheduleSave();
-  renderPreview();
-  _restoreCaret($preview, { liIdx: ctx.liIdx, offset: ctx.offset });
-}
-
-function handlePreviewEnter() {
-  const $preview = document.getElementById('preview');
-  const $body    = document.getElementById('bodyInput');
-  const ctx = _getCaretContext($preview);
-  if (!ctx) return;
-  syncPreviewToTextarea();
-  const lines = $body.value.split('\n');
-  const old = lines[ctx.lineIdx] || '';
-  const m = old.match(/^(\t*)(`?)(.*)$/s);
-  const indent = m ? m[1] : '';
-  const backtick = m ? m[2] : '';
-  const text = m ? m[3] : old;
-  const off = Math.min(ctx.offset, text.length);
-  const before = text.slice(0, off);
-  const after  = text.slice(off);
-  lines[ctx.lineIdx] = indent + backtick + before;
-  // 새 줄은 들여쓰기 유지, 백틱은 떼어냄(원하면 사용자가 다시 ` 로 토글)
-  lines.splice(ctx.lineIdx + 1, 0, indent + after);
-  $body.value = lines.join('\n');
-  markDirty();
-  scheduleSave();
-  renderPreview();
-  _restoreCaret($preview, { liIdx: ctx.liIdx + 1, offset: 0 });
-}
-
-function handlePreviewBackspace(e) {
-  const $preview = document.getElementById('preview');
-  const ctx = _getCaretContext($preview);
-  if (!ctx) return;
-  // 텍스트가 남아 있거나 캐럿이 중간이면 기본 동작 위임
-  if (ctx.offset !== 0) return;
-  const textEl = ctx.textEl;
-  if (!textEl) return;
-  if ((textEl.textContent || '').length !== 0) return;
-  // 빈 li 의 맨 앞에서 Backspace — 그 라인 삭제 + 직전 li 끝으로 캐럿
-  if (ctx.liIdx === 0) return;       // 첫 li 면 기본 동작
-  e.preventDefault();
-  const $body = document.getElementById('bodyInput');
-  syncPreviewToTextarea();
-  const lines = $body.value.split('\n');
-  lines.splice(ctx.lineIdx, 1);
-  $body.value = lines.join('\n');
-  markDirty();
-  scheduleSave();
-  renderPreview();
-  _restoreCaret($preview, { liIdx: ctx.liIdx - 1, offset: Number.MAX_SAFE_INTEGER });
 }
 
 function _captureCaret($preview) {
