@@ -1,0 +1,335 @@
+{
+  "docHeader": "폐기물처리업 적합성확인 신청서",
+  "docFooter": "",
+  "levelConfig": [
+    {"format":"arabic","fontSize":18,"bold":true,"italic":false,"color":"#000000","align":"left","fontFamily":"맑은 고딕","underline":true,"underlineColor":"#000000","underlineSize":6,"separator":". ","allCaps":false,"spaceBefore":null,"spaceAfter":null},
+    {"format":"none","fontSize":15,"bold":true,"italic":false,"color":"#1f2937","align":"left","fontFamily":"맑은 고딕","underline":false,"underlineColor":"#000000","underlineSize":4,"separator":" ","allCaps":false,"spaceBefore":null,"spaceAfter":null},
+    {"format":"none","fontSize":13,"bold":true,"italic":false,"color":"#374151","align":"left","fontFamily":"맑은 고딕","underline":false,"underlineColor":"#000000","underlineSize":4,"separator":" ","allCaps":false,"spaceBefore":null,"spaceAfter":null},
+    {"format":"paren","fontSize":12,"bold":false,"italic":false,"color":"#374151","align":"left","fontFamily":"맑은 고딕","underline":false,"underlineColor":"#000000","underlineSize":4,"separator":" ","allCaps":false,"spaceBefore":null,"spaceAfter":null},
+    {"format":"circle","fontSize":12,"bold":false,"italic":false,"color":"#4b5563","align":"left","fontFamily":"맑은 고딕","underline":false,"underlineColor":"#000000","underlineSize":4,"separator":" ","allCaps":false,"spaceBefore":null,"spaceAfter":null},
+    {"format":"alpha","fontSize":12,"bold":false,"italic":false,"color":"#4b5563","align":"left","fontFamily":"맑은 고딕","underline":false,"underlineColor":"#000000","underlineSize":4,"separator":". ","allCaps":false,"spaceBefore":null,"spaceAfter":null}
+  ],
+  "blocks": [
+    {"id":"b001","type":"heading","parentId":null,"collapsed":false,"level":0,"text":"폐기물처리업 적합성확인 신청서","fontFamily":null,"fontSize":null,"bold":null,"color":null,"italic":null,"align":"center"},
+    {"id":"b002","type":"note","parentId":"b001","collapsed":false,"text":"제2쪽의 작성방법을 읽고 작성하시기 바라며, 색상이 어두운 칸은 신청인이 작성하지 않습니다."},
+    {"id":"b003","type":"table","parentId":"b001","collapsed":false,"rows":2,"cols":3,"headerRow":true,"cells":[
+      [{"v":"접수번호","align":"center"},{"v":"접수일시","align":"center"},{"v":"처리기간","align":"center"}],
+      [{"v":"","align":"center"},{"v":"","align":"center"},{"v":"90일","align":"center"}]
+    ]},
+    {"id":"b004","type":"heading","parentId":"b001","collapsed":false,"level":1,"text":"신청인","fontFamily":null,"fontSize":null,"bold":null,"color":null,"italic":null,"align":null},
+    {"id":"b005","type":"table","parentId":"b004","collapsed":false,"rows":5,"cols":2,"headerRow":false,"cells":[
+      [{"v":"① 상호(명칭)","align":"center"},{"v":"와요코리아","align":"left"}],
+      [{"v":"② 사업자등록번호","align":"center"},{"v":"139-04-72474","align":"left"}],
+      [{"v":"③ 성명(대표자)","align":"center"},{"v":"곽 봉 렬","align":"left"}],
+      [{"v":"④ 주민등록번호 또는 외국인등록번호","align":"center"},{"v":"560814-1637418","align":"left"}],
+      [{"v":"⑤ 주소","align":"center"},{"v":"인천광역시 서구 길무로177번길34(오류동434-231) (전화번호:032-565-8611)","align":"left"}]
+    ]},
+    {"id":"b006","type":"table","parentId":"b001","collapsed":false,"rows":4,"cols":2,"headerRow":false,"cells":[
+      [{"v":"⑥ 업종","align":"center"},{"v":"\"별 첨\"","align":"left"}],
+      [{"v":"⑦ 영업대상 폐기물","align":"center"},{"v":"\"별 첨\"","align":"left"}],
+      [{"v":"⑧ 허가증 (허가번호 / 허가일)","align":"center"},{"v":"\"별 첨\" / \"별 첨\"","align":"left"}],
+      [{"v":"적합성확인 유효기간","align":"center"},{"v":"\"별 첨\"","align":"left"}]
+    ]},
+    {"id":"b007","type":"text","parentId":"b001","collapsed":false,"text":"「폐기물관리법」 제25조의3 및 같은 법 시행규칙 제34조의10에 따라 폐기물처리업의 적합성확인을 신청합니다.","indent":0,"bold":false,"fontFamily":"맑은 고딕","fontSize":12,"color":"#111827"},
+    {"id":"b008","type":"text","parentId":"b001","collapsed":false,"text":"2026년       월       일","indent":0,"bold":false,"fontFamily":"맑은 고딕","fontSize":12,"color":"#111827"},
+    {"id":"b009","type":"text","parentId":"b001","collapsed":false,"text":"신청인 곽 봉 렬 (서명 또는 인)","indent":2,"bold":true,"fontFamily":"맑은 고딕","fontSize":13,"color":"#111827"},
+    {"id":"b010","type":"text","parentId":"b001","collapsed":false,"text":"서구청장  귀하","indent":0,"bold":true,"fontFamily":"맑은 고딕","fontSize":13,"color":"#111827"},
+    {"id":"b011","type":"note","parentId":"b001","collapsed":false,"text":"용지 사양: 210mm×297mm [백상지 80g/㎡]"},
+
+    {"id":"b012","type":"pagebreak","parentId":null,"collapsed":false},
+
+    {"id":"b013","type":"heading","parentId":null,"collapsed":false,"level":0,"text":"신청인 첨부서류","fontFamily":null,"fontSize":null,"bold":null,"color":null,"italic":null,"align":null},
+    {"id":"b014","type":"heading","parentId":"b013","collapsed":false,"level":1,"text":"1. 폐기물처리업(수집·운반업, 처분업, 재활용업) 공통","fontFamily":null,"fontSize":null,"bold":null,"color":null,"italic":null,"align":null},
+    {"id":"b015","type":"list","parentId":"b014","collapsed":false,"items":[
+      "가. 시설 및 장비 명세서",
+      "나. 기술능력의 보유 현황"
+    ]},
+    {"id":"b016","type":"heading","parentId":"b013","collapsed":false,"level":1,"text":"2. 폐기물 처분업","fontFamily":null,"fontSize":null,"bold":null,"color":null,"italic":null,"align":null},
+    {"id":"b017","type":"list","parentId":"b016","collapsed":false,"items":[
+      "가. 처분시설 설치명세서 및 그 도면",
+      "나. 처분대상 폐기물의 처분공정도",
+      "다. 신청 당시 보관시설의 현장사진",
+      "라. 적합성확인 직전년도의 연간 폐기물 반입량·처리량 및 연간 가동일수를 확인할 수 있는 서류"
+    ]},
+    {"id":"b018","type":"heading","parentId":"b013","collapsed":false,"level":1,"text":"3. 폐기물 재활용업","fontFamily":null,"fontSize":null,"bold":null,"color":null,"italic":null,"align":null},
+    {"id":"b019","type":"list","parentId":"b018","collapsed":false,"items":[
+      "가. 재활용시설 설치명세서 및 그 도면",
+      "나. 재활용대상 폐기물의 재활용공정도(음식물류 폐기물의 경우 물질수지도 포함, 시행규칙 별표 4의2 제4호의 매체접촉형 재활용은 발주자/토지소유자 동의서 포함)",
+      "다. 신청 당시 보관시설의 현장사진",
+      "라. 적합성확인 직전년도의 연간 폐기물 반입량·처리량 및 연간 가동일수를 확인할 수 있는 서류"
+    ]},
+
+    {"id":"b020","type":"heading","parentId":null,"collapsed":false,"level":0,"text":"수수료 / 담당 공무원 확인사항","fontFamily":null,"fontSize":null,"bold":null,"color":null,"italic":null,"align":null},
+    {"id":"b021","type":"text","parentId":"b020","collapsed":false,"text":"수수료: 없음\n담당 공무원 확인사항: 폐기물처리업 허가증","indent":0,"bold":false,"fontFamily":"맑은 고딕","fontSize":12,"color":"#111827"},
+
+    {"id":"b022","type":"heading","parentId":null,"collapsed":false,"level":0,"text":"행정정보 공동이용 동의서","fontFamily":null,"fontSize":null,"bold":null,"color":null,"italic":null,"align":null},
+    {"id":"b023","type":"text","parentId":"b022","collapsed":false,"text":"본인은 이 건 업무처리와 관련하여 담당 공무원이 「전자정부법」 제36조제1항에 따른 행정정보의 공동이용을 통하여 위의 담당 공무원 확인사항을 확인하는 것에 동의합니다.","indent":0,"bold":false,"fontFamily":"맑은 고딕","fontSize":12,"color":"#111827"},
+    {"id":"b024","type":"note","parentId":"b022","collapsed":false,"text":"동의하지 않는 경우에는 신청인이 직접 관련 서류를 제출해야 합니다."},
+    {"id":"b025","type":"text","parentId":"b022","collapsed":false,"text":"신청인  곽 봉 렬 (서명 또는 인)","indent":2,"bold":true,"fontFamily":"맑은 고딕","fontSize":12,"color":"#111827"},
+
+    {"id":"b026","type":"heading","parentId":null,"collapsed":false,"level":0,"text":"작성방법","fontFamily":null,"fontSize":null,"bold":null,"color":null,"italic":null,"align":null},
+    {"id":"b027","type":"list","parentId":"b026","collapsed":false,"items":[
+      "1. ⑥란은 재활용업, 중간처분업, 최종처분업 등으로 적되, 재활용 및 중간처분의 경우 괄호 안에 정제·일반소각·고온소각·열분해·파쇄·고형화·안정화 등의 방법을, 최종처분의 경우 괄호 안에 매립·해역배출 등을 명시합니다. 예) 중간재활용업(정제)",
+      "2. ⑧란은 허가증에 기재된 내용에 따라 적습니다. 2020년 5월 27일 이전에 법 제25조제3항에 따른 허가를 받은 자가 최초로 '적합성확인 유효기간'을 작성할 때에는 시작일을 '2020년 5월 27일'로 적습니다. (업종별 유효기간은 시행령 [별표 5의3] 참조)"
+    ]},
+
+    {"id":"b028","type":"heading","parentId":null,"collapsed":false,"level":0,"text":"처리절차","fontFamily":null,"fontSize":null,"bold":null,"color":null,"italic":null,"align":null},
+    {"id":"b029","type":"flowbox","parentId":"b028","collapsed":false,"items":[
+      {"title":"신청서 작성","sub":"신청인"},
+      {"title":"접수","sub":"처리기관"},
+      {"title":"검토","sub":""},
+      {"title":"실태조사","sub":""},
+      {"title":"결재","sub":""},
+      {"title":"허가증 수정 발급","sub":""}
+    ]},
+    {"id":"b030","type":"text","parentId":"b028","collapsed":false,"text":"제출인: 시·도지사, 유역(지방)환경청장","indent":0,"bold":false,"fontFamily":"맑은 고딕","fontSize":12,"color":"#111827"},
+
+    {"id":"b031","type":"pagebreak","parentId":null,"collapsed":false},
+
+    {"id":"b032","type":"heading","parentId":null,"collapsed":false,"level":0,"text":"목 차","fontFamily":null,"fontSize":null,"bold":null,"color":null,"italic":null,"align":"center"},
+    {"id":"b033","type":"heading","parentId":"b032","collapsed":false,"level":1,"text":"1. 폐기물처리업 공통 구비서류","fontFamily":null,"fontSize":null,"bold":null,"color":null,"italic":null,"align":null},
+    {"id":"b034","type":"list","parentId":"b033","collapsed":false,"items":[
+      "가) 폐기물처리업 적합성확인 신청서  → 상단 신청서 첨부 + 하단 \"별첨\" 내용 첨부",
+      "나) 폐기물처리업 허가증 (하단 첨부)",
+      "다) 행정정보 공동이용 사전 동의서 (하단 첨부)",
+      "라) 시설 및 장비명세서",
+      "마) 기술능력 보유현황"
+    ]},
+    {"id":"b035","type":"heading","parentId":"b032","collapsed":false,"level":1,"text":"2. 폐기물재활용업의 구비서류","fontFamily":null,"fontSize":null,"bold":null,"color":null,"italic":null,"align":null},
+    {"id":"b036","type":"list","parentId":"b035","collapsed":false,"items":[
+      "가) 재활용시설 설치명세서 및 그 도면",
+      "나) 재활용대상 폐기물의 재활용공정도",
+      "다) 보관시설의 현장사진",
+      "라) 2025년도 반입량·처리량·연간가동일수"
+    ]},
+
+    {"id":"b037","type":"pagebreak","parentId":null,"collapsed":false},
+
+    {"id":"b100","type":"heading","parentId":null,"collapsed":false,"level":0,"text":"1. 폐기물처리업 공통 구비서류","fontFamily":null,"fontSize":null,"bold":null,"color":null,"italic":null,"align":null},
+
+    {"id":"b101","type":"heading","parentId":"b100","collapsed":false,"level":1,"text":"가) 폐기물처리업 적합성확인 신청서 (상단 첨부)","fontFamily":null,"fontSize":null,"bold":null,"color":null,"italic":null,"align":null},
+    {"id":"b102","type":"heading","parentId":"b101","collapsed":false,"level":2,"text":"[별 첨]","fontFamily":null,"fontSize":null,"bold":null,"color":null,"italic":null,"align":null},
+    {"id":"b103","type":"table","parentId":"b101","collapsed":false,"rows":4,"cols":2,"headerRow":false,"cells":[
+      [{"v":"⑥ 업종","align":"center"},{"v":"폐기물종합재활용업","align":"left"}],
+      [{"v":"⑦ 영업대상 폐기물","align":"center"},{"v":"폐합성수지류(PE)(51-03-01), 그 밖의 폐합성고분자화합물(PE)(51-03-99)","align":"left"}],
+      [{"v":"⑧ 허가증 (허가번호 / 허가일)","align":"center"},{"v":"제2012-17호 / 2012.06.11","align":"left"}],
+      [{"v":"적합성확인 유효기간","align":"center"},{"v":"2012.06.11. ~ 2026.04.01.","align":"left"}]
+    ]},
+
+    {"id":"b104","type":"heading","parentId":"b100","collapsed":false,"level":1,"text":"나) 폐기물처리업 허가증 (하단 첨부)","fontFamily":null,"fontSize":null,"bold":null,"color":null,"italic":null,"align":null},
+    {"id":"b105","type":"image","parentId":"b104","collapsed":false,"label":"폐기물처리업 허가증 사본","height":260},
+
+    {"id":"b106","type":"heading","parentId":"b100","collapsed":false,"level":1,"text":"다) 행정정보 공동이용 사전 동의서 (하단 첨부)","fontFamily":null,"fontSize":null,"bold":null,"color":null,"italic":null,"align":null},
+    {"id":"b107","type":"image","parentId":"b106","collapsed":false,"label":"행정정보 공동이용 사전 동의서","height":260},
+
+    {"id":"b108","type":"heading","parentId":"b100","collapsed":false,"level":1,"text":"라) 시설 및 장비 명세서","fontFamily":null,"fontSize":null,"bold":null,"color":null,"italic":null,"align":null},
+    {"id":"b109","type":"table","parentId":"b108","collapsed":false,"rows":11,"cols":3,"headerRow":true,"cells":[
+      [{"v":"구분","align":"center"},{"v":"시설·장비명","align":"center"},{"v":"규격(능력)","align":"center"}],
+      [{"v":"폐기물 재활용시설","align":"center"},{"v":"분쇄시설(습식)","align":"left"},{"v":"30KW (0.5625톤/시간×1기×8시간/일=4.5톤/일)","align":"left"}],
+      [{"v":"","align":"center"},{"v":"탈수시설","align":"left"},{"v":"3.7KW (0.5625톤/시간×1기×8시간/일=4.5톤/일)","align":"left"}],
+      [{"v":"","align":"center"},{"v":"분쇄시설","align":"left"},{"v":"30KW (0.5625톤/시간×1기×8시간/일=4.5톤/일)","align":"left"}],
+      [{"v":"","align":"center"},{"v":"용융(압출)시설","align":"left"},{"v":"75KW (0.25톤/시간×1기×12시간/일=3톤/일)","align":"left"}],
+      [{"v":"","align":"center"},{"v":"용융(압출)시설","align":"left"},{"v":"55KW (0.167톤/시간×1기×12시간/일=2톤/일)","align":"left"}],
+      [{"v":"","align":"center"},{"v":"용융(압출)시설","align":"left"},{"v":"90KW (0.334톤/시간×1기×12시간/일=4톤/일)","align":"left"}],
+      [{"v":"","align":"center"},{"v":"절단시설","align":"left"},{"v":"15KW (0.5625톤/시간×1기×8시간/일=4.5톤/일)","align":"left"}],
+      [{"v":"부대시설","align":"center"},{"v":"절단시설","align":"left"},{"v":"5.5KW (0.25톤/시간×2기×12시간/일=6톤/일)","align":"left"}],
+      [{"v":"","align":"center"},{"v":"절단시설","align":"left"},{"v":"3.7KW (0.334톤/시간×1기×12시간/일=2톤/일)","align":"left"}],
+      [{"v":"","align":"center"},{"v":"","align":"left"},{"v":"","align":"left"}]
+    ]},
+
+    {"id":"b110","type":"heading","parentId":"b100","collapsed":false,"level":1,"text":"마) 기술능력 보유현황","fontFamily":null,"fontSize":null,"bold":null,"color":null,"italic":null,"align":null},
+    {"id":"b111","type":"text","parentId":"b110","collapsed":false,"text":"- 기술요원 임명","indent":0,"bold":true,"fontFamily":"맑은 고딕","fontSize":13,"color":"#111827"},
+    {"id":"b112","type":"table","parentId":"b110","collapsed":false,"rows":3,"cols":2,"headerRow":false,"cells":[
+      [{"v":"성    명","align":"center"},{"v":"곽 봉 렬","align":"left"}],
+      [{"v":"자격요건","align":"center"},{"v":"기술요원 임명","align":"left"}],
+      [{"v":"생년월일","align":"center"},{"v":"1956.08.14","align":"left"}]
+    ]},
+
+    {"id":"b113","type":"pagebreak","parentId":null,"collapsed":false},
+
+    {"id":"b200","type":"heading","parentId":null,"collapsed":false,"level":0,"text":"2. 폐기물재활용업의 구비서류","fontFamily":null,"fontSize":null,"bold":null,"color":null,"italic":null,"align":null},
+
+    {"id":"b201","type":"heading","parentId":"b200","collapsed":false,"level":1,"text":"가) 재활용시설 설치명세서 및 그 도면","fontFamily":null,"fontSize":null,"bold":null,"color":null,"italic":null,"align":null},
+
+    {"id":"b210","type":"heading","parentId":"b201","collapsed":false,"level":2,"text":"(1) 분쇄시설(습식) (30KW)","fontFamily":null,"fontSize":null,"bold":null,"color":null,"italic":null,"align":null},
+    {"id":"b211","type":"table","parentId":"b210","collapsed":false,"rows":14,"cols":2,"headerRow":false,"cells":[
+      [{"v":"품   명","align":"center"},{"v":"분쇄기(습식)","align":"left"}],
+      [{"v":"POWER","align":"center"},{"v":"30KW","align":"left"}],
+      [{"v":"DEMENSION","align":"center"},{"v":"1,500L × 1,300W × 1,500H","align":"left"}],
+      [{"v":"처리능력","align":"center"},{"v":"0.5625 TON/HOUR","align":"left"}],
+      [{"v":"회전칼날 SIZE","align":"center"},{"v":"스쿨상","align":"left"}],
+      [{"v":"고정칼날 SIZE","align":"center"},{"v":"90 × 30 × 20T - 2EA","align":"left"}],
+      [{"v":"감속비","align":"center"},{"v":"26:1 (1194RPM)","align":"left"}],
+      [{"v":"풀   리","align":"center"},{"v":"모터측: ø250 × 255T(C형 5열) / 몹제측: ø600 × 255T(C형 5열) / 휀: ø600 × 255T","align":"left"}],
+      [{"v":"V벨트","align":"center"},{"v":"C형 5열","align":"left"}],
+      [{"v":"회전칼날연마","align":"center"},{"v":"40HOUR 사용 후 1회 연마 (5일 1회)","align":"left"}],
+      [{"v":"고정칼날연마","align":"center"},{"v":"40HOUR 사용 후 1회 연마 (5일 1회)","align":"left"}],
+      [{"v":"분쇄방식","align":"center"},{"v":"분쇄(습식)","align":"left"}],
+      [{"v":"냉각수 PIPE 구경","align":"center"},{"v":"15A","align":"left"}],
+      [{"v":"냉각수 사용량","align":"center"},{"v":"TON/일 (8HOUR/일 기준)","align":"left"}]
+    ]},
+    {"id":"b212","type":"image","parentId":"b210","collapsed":false,"label":"[도 면] 분쇄시설(습식) 30KW","height":220},
+
+    {"id":"b220","type":"heading","parentId":"b201","collapsed":false,"level":2,"text":"(2) 탈수시설 (3.7KW)","fontFamily":null,"fontSize":null,"bold":null,"color":null,"italic":null,"align":null},
+    {"id":"b221","type":"table","parentId":"b220","collapsed":false,"rows":6,"cols":2,"headerRow":false,"cells":[
+      [{"v":"품   명","align":"center"},{"v":"탈수시설","align":"left"}],
+      [{"v":"형   식","align":"center"},{"v":"원형","align":"left"}],
+      [{"v":"규   격","align":"center"},{"v":"∅1,150 × 900H","align":"left"}],
+      [{"v":"재   질","align":"center"},{"v":"철판","align":"left"}],
+      [{"v":"동   력","align":"center"},{"v":"3.7KW","align":"left"}],
+      [{"v":"처리능력","align":"center"},{"v":"0.5625 톤/시간","align":"left"}]
+    ]},
+    {"id":"b222","type":"image","parentId":"b220","collapsed":false,"label":"[도 면] 탈수시설 3.7KW","height":220},
+
+    {"id":"b230","type":"heading","parentId":"b201","collapsed":false,"level":2,"text":"(3) 분쇄시설 (30KW)","fontFamily":null,"fontSize":null,"bold":null,"color":null,"italic":null,"align":null},
+    {"id":"b231","type":"table","parentId":"b230","collapsed":false,"rows":13,"cols":2,"headerRow":false,"cells":[
+      [{"v":"품   명","align":"center"},{"v":"분쇄기","align":"left"}],
+      [{"v":"POWER","align":"center"},{"v":"30KW","align":"left"}],
+      [{"v":"DEMENSION","align":"center"},{"v":"1,500L × 1,300W × 1,500H","align":"left"}],
+      [{"v":"처리능력","align":"center"},{"v":"0.5625 TON/HOUR","align":"left"}],
+      [{"v":"회전칼날 SIZE","align":"center"},{"v":"스쿨상","align":"left"}],
+      [{"v":"고정칼날 SIZE","align":"center"},{"v":"90 × 30 × 20T - 2EA","align":"left"}],
+      [{"v":"감속비","align":"center"},{"v":"26:1 (1194RPM)","align":"left"}],
+      [{"v":"풀   리","align":"center"},{"v":"모터측: ø250 × 255T(C형 5열) / 몹제측: ø600 × 255T(C형 5열) / 휀: ø600 × 255T","align":"left"}],
+      [{"v":"V벨트","align":"center"},{"v":"C형 5열","align":"left"}],
+      [{"v":"회전칼날연마","align":"center"},{"v":"40HOUR 사용 후 1회 연마 (5일 1회)","align":"left"}],
+      [{"v":"고정칼날연마","align":"center"},{"v":"40HOUR 사용 후 1회 연마 (5일 1회)","align":"left"}],
+      [{"v":"분쇄방식","align":"center"},{"v":"분쇄(건식)","align":"left"}],
+      [{"v":"","align":"center"},{"v":"","align":"left"}]
+    ]},
+    {"id":"b232","type":"image","parentId":"b230","collapsed":false,"label":"[도 면] 분쇄시설 30KW","height":220},
+
+    {"id":"b240","type":"heading","parentId":"b201","collapsed":false,"level":2,"text":"(4) 용융(압출)시설 (75KW)","fontFamily":null,"fontSize":null,"bold":null,"color":null,"italic":null,"align":null},
+    {"id":"b241","type":"table","parentId":"b240","collapsed":false,"rows":8,"cols":2,"headerRow":false,"cells":[
+      [{"v":"품   명","align":"center"},{"v":"용융(압출)기","align":"left"}],
+      [{"v":"POWER","align":"center"},{"v":"75KW","align":"left"}],
+      [{"v":"DEMENSION","align":"center"},{"v":"1,540W × 4,700L × 1,480H","align":"left"}],
+      [{"v":"처리능력","align":"center"},{"v":"0.25 톤/시간","align":"left"}],
+      [{"v":"히   타","align":"center"},{"v":"1.5kwh × 13set 직렬","align":"left"}],
+      [{"v":"실 린 더","align":"center"},{"v":"스쿨상: Ø125mm × 3,800mm","align":"left"}],
+      [{"v":"감속비 / 풀리","align":"center"},{"v":"1.5:1 / 모터측: C형 10줄","align":"left"}],
+      [{"v":"냉각수조","align":"center"},{"v":"450W × 2,400L × 300H = 0.32㎥","align":"left"}]
+    ]},
+    {"id":"b242","type":"image","parentId":"b240","collapsed":false,"label":"[도 면] 용융(압출)시설 75KW","height":220},
+
+    {"id":"b250","type":"heading","parentId":"b201","collapsed":false,"level":2,"text":"(5) 용융(압출)시설 (55KW)","fontFamily":null,"fontSize":null,"bold":null,"color":null,"italic":null,"align":null},
+    {"id":"b251","type":"table","parentId":"b250","collapsed":false,"rows":8,"cols":2,"headerRow":false,"cells":[
+      [{"v":"품   명","align":"center"},{"v":"용융(압출)기","align":"left"}],
+      [{"v":"POWER","align":"center"},{"v":"55KW","align":"left"}],
+      [{"v":"DEMENSION","align":"center"},{"v":"1,650W × 3,500L × 970H","align":"left"}],
+      [{"v":"처리능력","align":"center"},{"v":"0.167 톤/시간","align":"left"}],
+      [{"v":"히   타","align":"center"},{"v":"1.5kwh × 10set 직렬","align":"left"}],
+      [{"v":"실 린 더","align":"center"},{"v":"스쿨상: Ø100mm × 3,000mm","align":"left"}],
+      [{"v":"감속비 / 풀리","align":"center"},{"v":"1.5:1 / 모터측: C형 10줄","align":"left"}],
+      [{"v":"냉각수조","align":"center"},{"v":"550W × 2,400L × 300H = 0.40㎥","align":"left"}]
+    ]},
+    {"id":"b252","type":"image","parentId":"b250","collapsed":false,"label":"[도 면] 용융(압출)시설 55KW","height":220},
+
+    {"id":"b260","type":"heading","parentId":"b201","collapsed":false,"level":2,"text":"(6) 용융(압출)시설 (90KW)","fontFamily":null,"fontSize":null,"bold":null,"color":null,"italic":null,"align":null},
+    {"id":"b261","type":"table","parentId":"b260","collapsed":false,"rows":8,"cols":2,"headerRow":false,"cells":[
+      [{"v":"품   명","align":"center"},{"v":"용융(압출)기","align":"left"}],
+      [{"v":"POWER","align":"center"},{"v":"90KW","align":"left"}],
+      [{"v":"DEMENSION","align":"center"},{"v":"1,870W × 5,200L × 1,480H","align":"left"}],
+      [{"v":"처리능력","align":"center"},{"v":"0.334 톤/시간","align":"left"}],
+      [{"v":"히   타","align":"center"},{"v":"2kwh × 15set 직렬","align":"left"}],
+      [{"v":"실 린 더","align":"center"},{"v":"스쿨상: Ø150mm × 4,200mm","align":"left"}],
+      [{"v":"감속비 / 풀리","align":"center"},{"v":"1.5:1 / 모터측: C형 10줄","align":"left"}],
+      [{"v":"냉각수조","align":"center"},{"v":"-","align":"left"}]
+    ]},
+    {"id":"b262","type":"image","parentId":"b260","collapsed":false,"label":"[도 면] 용융(압출)시설 90KW","height":220},
+
+    {"id":"b270","type":"heading","parentId":"b201","collapsed":false,"level":2,"text":"(7) 절단시설 (15KW)","fontFamily":null,"fontSize":null,"bold":null,"color":null,"italic":null,"align":null},
+    {"id":"b271","type":"table","parentId":"b270","collapsed":false,"rows":7,"cols":2,"headerRow":false,"cells":[
+      [{"v":"품   명","align":"center"},{"v":"절단기","align":"left"}],
+      [{"v":"형   식","align":"center"},{"v":"칼날식","align":"left"}],
+      [{"v":"POWER","align":"center"},{"v":"15KW","align":"left"}],
+      [{"v":"DEMENSION","align":"center"},{"v":"2,100L × 900W × 2,800H","align":"left"}],
+      [{"v":"용   량","align":"center"},{"v":"0.5625 톤/시간","align":"left"}],
+      [{"v":"고정칼날","align":"center"},{"v":"40 × 10 × 30T - 2EA","align":"left"}],
+      [{"v":"회전도 / 회전수","align":"center"},{"v":"W600 × ø300 / 270RPM","align":"left"}]
+    ]},
+    {"id":"b272","type":"image","parentId":"b270","collapsed":false,"label":"[도 면] 절단시설 15KW","height":220},
+
+    {"id":"b280","type":"heading","parentId":"b201","collapsed":false,"level":2,"text":"(8) 절단시설 (5.5KW)","fontFamily":null,"fontSize":null,"bold":null,"color":null,"italic":null,"align":null},
+    {"id":"b281","type":"table","parentId":"b280","collapsed":false,"rows":7,"cols":2,"headerRow":false,"cells":[
+      [{"v":"품   명","align":"center"},{"v":"절단기","align":"left"}],
+      [{"v":"형   식","align":"center"},{"v":"칼날식","align":"left"}],
+      [{"v":"POWER","align":"center"},{"v":"5.5KW","align":"left"}],
+      [{"v":"DEMENSION","align":"center"},{"v":"750W × 750L × 900H","align":"left"}],
+      [{"v":"용   량","align":"center"},{"v":"0.167 톤/시간","align":"left"}],
+      [{"v":"고정칼날","align":"center"},{"v":"40 × 10 × 30T - 2EA","align":"left"}],
+      [{"v":"회전도 / 회전수","align":"center"},{"v":"W600 × ø300 / 270RPM","align":"left"}]
+    ]},
+    {"id":"b282","type":"image","parentId":"b280","collapsed":false,"label":"[도 면] 절단시설 5.5KW","height":220},
+
+    {"id":"b290","type":"heading","parentId":"b201","collapsed":false,"level":2,"text":"(9) 절단시설 (3.7KW)","fontFamily":null,"fontSize":null,"bold":null,"color":null,"italic":null,"align":null},
+    {"id":"b291","type":"table","parentId":"b290","collapsed":false,"rows":7,"cols":2,"headerRow":false,"cells":[
+      [{"v":"품   명","align":"center"},{"v":"절단기","align":"left"}],
+      [{"v":"형   식","align":"center"},{"v":"칼날식","align":"left"}],
+      [{"v":"POWER","align":"center"},{"v":"3.7KW","align":"left"}],
+      [{"v":"DEMENSION","align":"center"},{"v":"700W × 700L × 700H","align":"left"}],
+      [{"v":"용   량","align":"center"},{"v":"0.334 톤/시간","align":"left"}],
+      [{"v":"고정칼날","align":"center"},{"v":"40 × 10 × 30T - 2EA","align":"left"}],
+      [{"v":"회전도 / 회전수","align":"center"},{"v":"W600 × ø300 / 270RPM","align":"left"}]
+    ]},
+    {"id":"b292","type":"image","parentId":"b290","collapsed":false,"label":"[도 면] 절단시설 3.7KW","height":220},
+
+    {"id":"b300","type":"heading","parentId":"b200","collapsed":false,"level":1,"text":"나) 재활용 공정도","fontFamily":null,"fontSize":null,"bold":null,"color":null,"italic":null,"align":null},
+    {"id":"b301","type":"heading","parentId":"b300","collapsed":false,"level":2,"text":"1) 공정도","fontFamily":null,"fontSize":null,"bold":null,"color":null,"italic":null,"align":null},
+    {"id":"b302","type":"flowbox","parentId":"b301","collapsed":false,"items":[
+      {"title":"수집·운반 (원료입고)","sub":"폐합성수지(PE), 그 밖의 폐합성고분자화합물(PE)  9톤/일"},
+      {"title":"절    단","sub":"절단시설: 15KW × 1   (4.5톤/일)"},
+      {"title":"분    쇄 (습식 / 건식)","sub":"분쇄시설: 30KW × 2  + 용수(재이용수): 0.74㎥/일, 보충수: 0.01㎥/일"},
+      {"title":"세    척","sub":"세척시설: 1.1㎥ × 1   ↔ 물리적처리(침전)시설: 6㎥ (재이용)"},
+      {"title":"탈    수","sub":"탈수시설: 5HP × 1   (폐수 0.74㎥/일 → 위탁처리 (주)천일화학)"},
+      {"title":"용    융 (압출)","sub":"75KW (3.3kg/시, 0.05㎥) / 55KW (2.55kg/시, 0.02㎥) / 90KW (5.1kg/시, 0.07㎥)"},
+      {"title":"방지시설","sub":"여과집진(BAG FILTER 58㎥/분) / 흡착(A/C TOWER 40㎥/분, 58㎥/분)"},
+      {"title":"냉    각","sub":"냉각시설: 0.32㎥ × 1 / 0.40㎥ × 1 / 0.24㎥ × 1   (재이용수 1.10·2.20㎥/일, 보충수 0.01·0.02㎥/일)"},
+      {"title":"절    단","sub":"절단시설: 5.5KW × 2 / 3.7KW × 1"},
+      {"title":"이    송","sub":"송풍기 3.7KW × 3 + 냉각타워 1식 × 2"},
+      {"title":"저    장","sub":"저장시설: 1㎥ × 3   (냉각수 전량 재이용)"},
+      {"title":"포    장","sub":"500kg, 25kg 마대 (처리 후 발생폐기물 0.08톤/일 → 위탁처리)"},
+      {"title":"출    하","sub":"합성수지원료(성형원료) 8.92톤/일"}
+    ]},
+
+    {"id":"b303","type":"heading","parentId":"b300","collapsed":false,"level":2,"text":"(2) 공정설명","fontFamily":null,"fontSize":null,"bold":null,"color":null,"italic":null,"align":null},
+    {"id":"b304","type":"list","parentId":"b303","collapsed":false,"items":[
+      "① 원료 입고 : 폐합성고분자화합물(PE), 폐합성수지(PE)을 당사로 수집·운반하여 원료로 입고한다.",
+      "② 절   단 : 원료 중 일부를 절단한다.",
+      "③ 분   쇄 (습식·건식) : 입고된 원료에 물을 분무하며 적당한 크기로 조 분쇄한다 / 입고된 원료를 적당한 크기로 조 분쇄한다.",
+      "④ 세   척 : 분쇄물에 묻어있는 이물질 제거를 위해 물로 세척한다.",
+      "⑤ 탈   수 : 분쇄물에 묻어있는 물기를 제거한다.",
+      "⑥ 용   융 : 분쇄·세척·탈수된 원료를 용융(압출)시설에 투입해 일정한 모양으로 용융(압출)한다.",
+      "⑦ 냉   각 : 용융(압출)된 폐합성고분자화합물(PE)을 냉각수에 냉각시킨다.",
+      "⑧ 절   단 : 냉각 후 일정한 크기로 절단한다.",
+      "⑨ 포   장 : 절단된 합성수지원료를 500kg, 25kg의 마대에 수작업으로 포장한다.",
+      "⑩ 출   하 : 포장된 합성수지원료를 납품업체에 출하한다."
+    ]},
+
+    {"id":"b400","type":"heading","parentId":"b200","collapsed":false,"level":1,"text":"다) 보관시설 현장사진","fontFamily":null,"fontSize":null,"bold":null,"color":null,"italic":null,"align":null},
+    {"id":"b401","type":"text","parentId":"b400","collapsed":false,"text":"1) 폐합성수지 : 446.4㎥","indent":1,"bold":true,"fontFamily":"맑은 고딕","fontSize":13,"color":"#111827"},
+    {"id":"b402","type":"image","parentId":"b400","collapsed":false,"label":"폐합성수지 보관시설 현장사진 (446.4㎥)","height":260},
+
+    {"id":"b500","type":"heading","parentId":"b200","collapsed":false,"level":1,"text":"라) 2025년도 반입량·처리량·연간가동일수","fontFamily":null,"fontSize":null,"bold":null,"color":null,"italic":null,"align":null},
+    {"id":"b501","type":"text","parentId":"b500","collapsed":false,"text":"◎ 연간 가동일수 : 11일","indent":0,"bold":true,"fontFamily":"맑은 고딕","fontSize":13,"color":"#111827"},
+    {"id":"b502","type":"text","parentId":"b500","collapsed":false,"text":"◎ 폐합성수지류","indent":0,"bold":true,"fontFamily":"맑은 고딕","fontSize":13,"color":"#111827"},
+    {"id":"b503","type":"list","parentId":"b500","collapsed":false,"items":[
+      "1) 반입량 : 0톤",
+      "2) 처리량 : 0톤"
+    ]},
+    {"id":"b504","type":"note","parentId":"b500","collapsed":false,"text":"반입량 및 처리량 근거자료 : 올바로 2025년 실적보고"},
+    {"id":"b505","type":"note","parentId":"b500","collapsed":false,"text":"연간가동일수 근거자료 : 올바로 처리 관리대장"},
+
+    {"id":"b600","type":"pagebreak","parentId":null,"collapsed":false},
+
+    {"id":"b700","type":"heading","parentId":null,"collapsed":false,"level":0,"text":"첨 부 서 류","fontFamily":null,"fontSize":null,"bold":null,"color":null,"italic":null,"align":"center"},
+    {"id":"b701","type":"list","parentId":"b700","collapsed":false,"items":[
+      "1. 행정정보 공동이용 사전 동의서",
+      "2. 기본증명서(상세)",
+      "3. 올바로 2025년 실적보고",
+      "4. 올바로 처리 관리대장",
+      "5. 사업장배치도",
+      "6. 폐기물처리업 허가증"
+    ]}
+  ]
+}

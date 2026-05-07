@@ -350,7 +350,7 @@ function uid(){return "n"+(++uidC)+"_"+Math.random().toString(36).slice(2,5)}
 
 function mkBlock(type,extra={}){
   const b={id:uid(),type,parentId:null,collapsed:false,...extra};
-  if(type==="heading"){b.level=b.level??0;b.text=b.text??"";b.fontFamily=b.fontFamily??"Noto Sans KR";b.fontSize=b.fontSize??null;b.bold=b.bold??null;b.color=b.color??null}
+  if(type==="heading"){b.level=b.level??0;b.text=b.text??"";b.fontFamily=b.fontFamily??null;b.fontSize=b.fontSize??null;b.bold=b.bold??null;b.color=b.color??null;b.italic=b.italic??null;b.align=b.align??null}
   if(type==="text"){b.text=b.text??"";b.indent=b.indent??0;b.bold=b.bold??false;b.fontFamily=b.fontFamily??"Noto Sans KR";b.fontSize=b.fontSize??13;b.color=b.color??"#111827"}
   if(type==="table"){
     const r=b.rows||2,c=b.cols||3;
@@ -515,12 +515,27 @@ function renderEditor(b,nums){
   // 모든 input/textarea에 oninput→dataOnly (DOM 안 바꿈), onchange/onblur→safeRender
   switch(b.type){
     case "heading":{
+      const cfg=levelConfig[Math.min(b.level,levelConfig.length-1)];
       h+=`<div class="field-row"><span class="field-label">레벨</span>`;
       for(let lv=0;lv<levelConfig.length;lv++){
-        const cfg=levelConfig[lv];const fmt=getFmt(cfg.format);
-        h+=`<button class="pill ${b.level===lv?"on":""}" onclick="event.stopPropagation();setAndRender('${b.id}','level',${lv})">${fmt.label||cfg.format}</button>`;
+        const lcfg=levelConfig[lv];const fmt=getFmt(lcfg.format);
+        h+=`<button class="pill ${b.level===lv?"on":""}" onclick="event.stopPropagation();setAndRender('${b.id}','level',${lv})">${fmt.label||lcfg.format}</button>`;
       }
       h+=`</div>`;
+      // 스타일 오버라이드 (값이 null/empty 면 단락 체계 cfg 사용)
+      h+=`<div class="style-panel" onclick="event.stopPropagation()">
+        <span class="sp-lbl">크기</span><input type="number" min="8" max="40" value="${b.fontSize??''}" placeholder="${cfg.fontSize}" onchange="setAndRender('${b.id}','fontSize', this.value?+this.value:null)" style="width:46px">
+        <button class="pill ${b.bold===true?'on':''}" title="굵게 강제" onclick="event.stopPropagation();cycleHeadingTri('${b.id}','bold')">B${b.bold===true?'✓':b.bold===false?'✕':''}</button>
+        <button class="pill ${b.italic===true?'on':''}" title="이탤릭 강제" onclick="event.stopPropagation();cycleHeadingTri('${b.id}','italic')">I${b.italic===true?'✓':b.italic===false?'✕':''}</button>
+        <span class="sp-lbl">색</span><input type="color" value="${b.color||cfg.color||'#000000'}" onchange="setAndRender('${b.id}','color',this.value)" style="width:26px;height:20px;border:none;padding:0;cursor:pointer">
+        <button class="pill" title="색 초기화" onclick="event.stopPropagation();setAndRender('${b.id}','color',null)">↺색</button>
+        <span class="sp-lbl">정렬</span>
+        ${['left','center','right'].map(a=>`<button class="pill ${ (b.align||cfg.align||'left')===a?'on':''}" onclick="event.stopPropagation();setAndRender('${b.id}','align','${a}')">${a==='left'?'◁':a==='center'?'≡':'▷'}</button>`).join('')}
+        <span class="sp-lbl">글꼴</span><select onclick="event.stopPropagation()" onchange="setAndRender('${b.id}','fontFamily', this.value||null)">
+          <option value="">— cfg(${cfg.fontFamily||'기본'})</option>
+          ${["Noto Sans KR","맑은 고딕","나눔고딕","바탕","돋움","굴림"].map(f=>`<option ${b.fontFamily===f?"selected":""}>${f}</option>`).join("")}
+        </select>
+      </div>`;
       h+=`<input type="text" value="${esc(b.text)}" placeholder="단락 제목 입력..." onclick="event.stopPropagation()" oninput="dataOnly('${b.id}','text',this.value)" onblur="safeRender()">`;
       break;
     }
@@ -626,9 +641,17 @@ function pvBlock(b,nums,depth){
   switch(b.type){
     case "heading":{
       const n=nums[b.id]||"";const cfg=levelConfig[Math.min(b.level,levelConfig.length-1)];
-      const fs=b.fontSize||cfg.fontSize;const fw=(b.bold??cfg.bold)?700:400;const col=b.color||cfg.color;const ml=depth*14;
-      const bb=depth===0?"border-bottom:2px solid "+col+";padding-bottom:3px;":"";
-      h+=`<div style="font-size:${fs}px;font-weight:${fw};color:${col};margin:${16-depth*2}px 0 ${8-depth}px ${ml}px;${bb};font-family:${b.fontFamily||'Noto Sans KR'}">${esc(n)}${n?". ":""}${esc(b.text)||"(제목 없음)"}</div>`;
+      const fs=b.fontSize??cfg.fontSize;
+      const fw=(b.bold??cfg.bold)?700:400;
+      const col=b.color||cfg.color||"#000";
+      const it=(b.italic??cfg.italic)?'italic':'normal';
+      const al=b.align||cfg.align||'left';
+      const ff=b.fontFamily||cfg.fontFamily||'Noto Sans KR';
+      const ml=depth*14;
+      const ulSize=cfg.underlineSize||2;
+      const ulCol=cfg.underlineColor||col;
+      const bb=cfg.underline?`border-bottom:${ulSize}px solid ${ulCol};padding-bottom:3px;`:"";
+      h+=`<div style="font-size:${fs}px;font-weight:${fw};color:${col};font-style:${it};text-align:${al};margin:${16-depth*2}px 0 ${8-depth}px ${ml}px;${bb};font-family:${ff}">${esc(n)}${n?". ":""}${esc(b.text)||"(제목 없음)"}</div>`;
       break}
     case "text":h+=`<div style="font-size:${b.fontSize||13}px;color:${b.color||'#333'};margin:0 0 5px ${depth*14+b.indent*18}px;font-weight:${b.bold?700:400};white-space:pre-wrap;line-height:1.8;font-family:${b.fontFamily||'Noto Sans KR'}">${esc(b.text)}</div>`;break;
     case "table":
@@ -681,6 +704,13 @@ function toggleEdit(id){
 
 function setAndRender(id,key,val){const b=findB(id);if(b){b[key]=val;safeRender()}}
 function togField(id,key){const b=findB(id);if(b){b[key]=!b[key];safeRender()}}
+// 3-state: null(=cfg) → true → false → null
+function cycleHeadingTri(id,key){
+  const b=findB(id);if(!b)return;
+  const cur=b[key];
+  b[key]=cur===null?true:cur===true?false:null;
+  safeRender();
+}
 
 // 표
 function tCV(id,r,c,val){const b=findB(id);if(b){b.cells[r][c].v=val;if(!isComposing)renderPreview(computeNums())}}
@@ -806,7 +836,16 @@ function openSettings(){
         </select></div>
         <div><label style="font-size:9px">크기</label><input type="number" id="lc_fs_${i}" value="${cfg.fontSize}" min="8" max="40" style="width:45px"></div>
         <div><label style="font-size:9px">굵게</label><select id="lc_bold_${i}" style="font-size:11px"><option value="true" ${cfg.bold?"selected":""}>Y</option><option value="false" ${!cfg.bold?"selected":""}>N</option></select></div>
+        <div><label style="font-size:9px">이탤릭</label><select id="lc_it_${i}" style="font-size:11px"><option value="true" ${cfg.italic?"selected":""}>Y</option><option value="false" ${!cfg.italic?"selected":""}>N</option></select></div>
         <div><label style="font-size:9px">색상</label><input type="color" id="lc_col_${i}" value="${cfg.color}" style="width:28px;height:22px;border:none;cursor:pointer"></div>
+        <div><label style="font-size:9px">정렬</label><select id="lc_al_${i}" style="font-size:11px">
+          <option value="left" ${cfg.align==='left'?"selected":""}>왼쪽</option>
+          <option value="center" ${cfg.align==='center'?"selected":""}>가운데</option>
+          <option value="right" ${cfg.align==='right'?"selected":""}>오른쪽</option>
+        </select></div>
+        <div><label style="font-size:9px">글꼴</label><select id="lc_ff_${i}" style="font-size:11px">
+          ${["맑은 고딕","Noto Sans KR","나눔고딕","바탕","돋움","굴림"].map(f=>`<option ${cfg.fontFamily===f?"selected":""}>${f}</option>`).join("")}
+        </select></div>
         <div><label style="font-size:9px">하단줄</label><select id="lc_ul_${i}" style="font-size:11px"><option value="true" ${cfg.underline?"selected":""}>ON</option><option value="false" ${!cfg.underline?"selected":""}>OFF</option></select></div>
       </div></div>`;
   });
@@ -815,9 +854,15 @@ function openSettings(){
 }
 function closeSettings(){$("settingsModal").classList.add("hidden")}
 function saveSettings(){
-  levelConfig=levelConfig.map((_,i)=>({
-    format:$("lc_fmt_"+i)?.value||"arabic",fontSize:+($("lc_fs_"+i)?.value)||14,
-    bold:$("lc_bold_"+i)?.value==="true",color:$("lc_col_"+i)?.value||"#000",
+  levelConfig=levelConfig.map((prev,i)=>({
+    ...LC_DEF, ...prev,
+    format:$("lc_fmt_"+i)?.value||"arabic",
+    fontSize:+($("lc_fs_"+i)?.value)||14,
+    bold:$("lc_bold_"+i)?.value==="true",
+    italic:$("lc_it_"+i)?.value==="true",
+    color:$("lc_col_"+i)?.value||"#000",
+    align:$("lc_al_"+i)?.value||"left",
+    fontFamily:$("lc_ff_"+i)?.value||"맑은 고딕",
     underline:$("lc_ul_"+i)?.value==="true",
   }));closeSettings();render();
 }
@@ -841,61 +886,220 @@ async function _exportDocx(){
   const cellM={top:60,bottom:60,left:100,right:100};
   const hdrShade={fill:"D9E2F3",type:D.ShadingType.CLEAR};
   function aMap(a){return a==="center"?D.AlignmentType.CENTER:a==="right"?D.AlignmentType.RIGHT:D.AlignmentType.LEFT}
+  const stripHash=(c,d)=>String(c||d||"#000000").replace("#","");
+
+  // ─── 워드 명명 스타일 정의 ──────────────────────────────
+  // 각 heading 레벨 → "제목 1~6" (id: Heading1..6 — 워드 빌트인 ID 와 매칭),
+  // 본문 → "본문(BodyText)", 주석 → "주석(NoteText)", 목록 → "목록(ListItem)",
+  // 표 셀 → "표 본문(TableCell)" / "표 머리(TableHeader)".
+  // 워드의 스타일 갤러리에서 일괄 변경 가능하도록 quickFormat:true.
+  const headingStyles = levelConfig.map((cfg, i) => {
+    const lv = i + 1;
+    const ulCol = stripHash(cfg.underlineColor || cfg.color, "#000000");
+    return {
+      id: `Heading${lv}`,
+      name: `제목 ${lv}`,
+      basedOn: "Normal",
+      next: "BodyText",
+      quickFormat: true,
+      run: {
+        font: cfg.fontFamily || FONT,
+        size: (cfg.fontSize || 14) * 2,
+        bold: !!cfg.bold,
+        italics: !!cfg.italic,
+        color: stripHash(cfg.color, "#000000"),
+        allCaps: !!cfg.allCaps,
+      },
+      paragraph: {
+        alignment: aMap(cfg.align || "left"),
+        spacing: {
+          before: cfg.spaceBefore != null ? cfg.spaceBefore : Math.max(100, 280 - i * 30),
+          after:  cfg.spaceAfter  != null ? cfg.spaceAfter  : Math.max(40,  120 - i * 15),
+        },
+        ...(cfg.underline ? {
+          border: { bottom: { style: D.BorderStyle.SINGLE, size: cfg.underlineSize || 6, color: ulCol, space: 4 } }
+        } : {}),
+      },
+    };
+  });
+
+  const extraStyles = [
+    {
+      id: "BodyText", name: "본문", basedOn: "Normal", next: "BodyText", quickFormat: true,
+      run: { font: FONT, size: 26 },
+      paragraph: { spacing: { before: 40, after: 40, line: 360 } },
+    },
+    {
+      id: "NoteText", name: "주석", basedOn: "Normal", next: "BodyText", quickFormat: true,
+      run: { font: FONT, size: 16, italics: true, color: "666666" },
+      paragraph: { spacing: { before: 20, after: 20 } },
+    },
+    {
+      id: "ListItem", name: "목록 항목", basedOn: "Normal", next: "ListItem", quickFormat: true,
+      run: { font: FONT, size: 20 },
+      paragraph: { spacing: { before: 20, after: 20 } },
+    },
+    {
+      id: "TableCell", name: "표 본문", basedOn: "Normal", next: "TableCell",
+      run: { font: FONT, size: 18 },
+      paragraph: { spacing: { before: 0, after: 0 } },
+    },
+    {
+      id: "TableHeader", name: "표 머리", basedOn: "TableCell", next: "TableCell",
+      run: { font: FONT, size: 18, bold: true },
+      paragraph: { alignment: D.AlignmentType.CENTER, spacing: { before: 0, after: 0 } },
+    },
+    {
+      id: "FlowTitle", name: "공정명", basedOn: "Normal", next: "BodyText",
+      run: { font: FONT, size: 24, bold: true },
+      paragraph: { alignment: D.AlignmentType.CENTER, spacing: { before: 0, after: 0 } },
+    },
+    {
+      id: "FlowSub", name: "공정 설명", basedOn: "Normal", next: "BodyText",
+      run: { font: FONT, size: 18, color: "666666" },
+      paragraph: { alignment: D.AlignmentType.CENTER, spacing: { before: 0, after: 0 } },
+    },
+    {
+      id: "Caption", name: "캡션", basedOn: "Normal", next: "BodyText",
+      run: { font: FONT, size: 18, italics: true, color: "999999" },
+      paragraph: { alignment: D.AlignmentType.CENTER, spacing: { before: 80, after: 80 } },
+    },
+  ];
+
+  const paragraphStyles = [...headingStyles, ...extraStyles];
 
   const children=[];
   function proc(b,depth){
     switch(b.type){
       case "heading":{
-        const cfg=levelConfig[Math.min(b.level,levelConfig.length-1)];const n=nums[b.id]||"";
-        const text=n?(n+". "+b.text):b.text;const fs=(b.fontSize||cfg.fontSize)*2;const fw=b.bold??cfg.bold;
-        const col=(b.color||cfg.color||"#111").replace("#","");
-        children.push(new D.Paragraph({
-          children:[new D.TextRun({text,font:b.fontFamily||FONT,size:fs,bold:fw,color:col})],
-          spacing:{before:Math.max(100,280-depth*40),after:Math.max(40,120-depth*20)},
+        const cfg=levelConfig[Math.min(b.level,levelConfig.length-1)];
+        const n=nums[b.id]||"";
+        const sep=cfg.separator??". ";
+        const text=n?(n+sep+b.text):b.text;
+        // 인라인 오버라이드 (값이 명시된 경우만 run 에 적용 — null 이면 style 이 그대로 작동)
+        const runOpts={text};
+        if(b.fontFamily) runOpts.font=b.fontFamily;
+        if(b.fontSize) runOpts.size=b.fontSize*2;
+        if(b.bold!==null && b.bold!==undefined) runOpts.bold=b.bold===true;
+        if(b.italic!==null && b.italic!==undefined) runOpts.italics=b.italic===true;
+        if(b.color) runOpts.color=stripHash(b.color);
+        const styleId=`Heading${Math.min(b.level+1,headingStyles.length)}`;
+        const paraOpts={
+          style:styleId,
+          children:[new D.TextRun(runOpts)],
           indent:{left:depth*280},
-          ...(cfg.underline?{border:{bottom:{style:D.BorderStyle.SINGLE,size:6,color:col,space:4}}}:{}),
-        }));break}
+        };
+        if(b.align) paraOpts.alignment=aMap(b.align);
+        children.push(new D.Paragraph(paraOpts));
+        break;
+      }
       case "text":{
         (b.text||"").split("\n").forEach(line=>{
+          const runOpts={text:line};
+          if(b.fontFamily && b.fontFamily!=="Noto Sans KR") runOpts.font=b.fontFamily;
+          if(b.fontSize && b.fontSize!==13) runOpts.size=b.fontSize*2;
+          if(b.bold) runOpts.bold=true;
+          if(b.color && b.color!=="#111827") runOpts.color=stripHash(b.color);
           children.push(new D.Paragraph({
-            children:[new D.TextRun({text:line,font:b.fontFamily||FONT,size:(b.fontSize||13)*2,bold:b.bold,color:(b.color||"111827").replace("#","")})],
-            spacing:{before:40,after:40},indent:{left:depth*280+b.indent*240},
-          }))});break}
+            style:"BodyText",
+            children:[new D.TextRun(runOpts)],
+            indent:{left:depth*280+(b.indent||0)*240},
+          }));
+        });
+        break;
+      }
       case "table":{
         const cw=Math.floor(CW/b.cols);
         children.push(new D.Table({
           width:{size:CW,type:D.WidthType.DXA},columnWidths:Array(b.cols).fill(cw),
-          rows:b.cells.map((row,ri)=>new D.TableRow({children:row.map((cell,ci)=>new D.TableCell({
-            borders,width:{size:cw,type:D.WidthType.DXA},margins:cellM,verticalAlign:D.VerticalAlign.CENTER,
-            ...(ri===0&&b.headerRow?{shading:hdrShade}:{}),
-            children:[new D.Paragraph({children:[new D.TextRun({text:cell.v,font:FONT,size:18,bold:ri===0&&b.headerRow})],alignment:aMap(cell.align)})],
-          }))})),
-        }));break}
-      case "note":children.push(new D.Paragraph({children:[new D.TextRun({text:"※ "+b.text,font:FONT,size:16,color:"666666"})],spacing:{before:20,after:20},indent:{left:depth*280+200}}));break;
-      case "list":b.items.forEach(item=>{children.push(new D.Paragraph({children:[new D.TextRun({text:"• "+item,font:FONT,size:20})],spacing:{before:20,after:20},indent:{left:depth*280+360}}))});break;
-      case "flowbox":b.items.forEach((item,i)=>{
-        if(i>0)children.push(new D.Paragraph({children:[new D.TextRun({text:"▼",font:FONT,size:28,bold:true,color:"999999"})],alignment:D.AlignmentType.CENTER,spacing:{before:40,after:40}}));
-        children.push(new D.Table({width:{size:CW,type:D.WidthType.DXA},columnWidths:[CW],
-          rows:[new D.TableRow({children:[new D.TableCell({borders,width:{size:CW,type:D.WidthType.DXA},margins:{top:100,bottom:100,left:200,right:200},
-            children:[new D.Paragraph({children:[new D.TextRun({text:item.title||"",font:FONT,size:24,bold:true})],alignment:D.AlignmentType.CENTER}),
-            ...(item.sub?[new D.Paragraph({children:[new D.TextRun({text:item.sub,font:FONT,size:18,color:"666666"})],alignment:D.AlignmentType.CENTER})]:[])]})]})]}));
-      });break;
-      case "image":children.push(new D.Paragraph({children:[new D.TextRun({text:`[이미지: ${b.label}]`,font:FONT,size:18,color:"999999",italics:true})],alignment:D.AlignmentType.CENTER,spacing:{before:80,after:80}}));break;
-      case "pagebreak":children.push(new D.Paragraph({children:[new D.PageBreak()]}));break;
+          rows:b.cells.map((row,ri)=>new D.TableRow({children:row.map((cell)=>{
+            const isHdr=ri===0 && b.headerRow;
+            return new D.TableCell({
+              borders,width:{size:cw,type:D.WidthType.DXA},margins:cellM,verticalAlign:D.VerticalAlign.CENTER,
+              ...(isHdr?{shading:hdrShade}:{}),
+              children:[new D.Paragraph({
+                style:isHdr?"TableHeader":"TableCell",
+                children:[new D.TextRun({text:cell.v||""})],
+                alignment:aMap(cell.align),
+              })],
+            });
+          })})),
+        }));break;
+      }
+      case "note":
+        children.push(new D.Paragraph({
+          style:"NoteText",
+          children:[new D.TextRun({text:"※ "+(b.text||"")})],
+          indent:{left:depth*280+200},
+        }));break;
+      case "list":
+        b.items.forEach(item=>{
+          children.push(new D.Paragraph({
+            style:"ListItem",
+            children:[new D.TextRun({text:"• "+item})],
+            indent:{left:depth*280+360},
+          }));
+        });break;
+      case "flowbox":
+        b.items.forEach((item,i)=>{
+          if(i>0) children.push(new D.Paragraph({
+            children:[new D.TextRun({text:"▼",font:FONT,size:28,bold:true,color:"999999"})],
+            alignment:D.AlignmentType.CENTER,
+            spacing:{before:40,after:40},
+          }));
+          children.push(new D.Table({
+            width:{size:CW,type:D.WidthType.DXA},columnWidths:[CW],
+            rows:[new D.TableRow({children:[new D.TableCell({
+              borders,width:{size:CW,type:D.WidthType.DXA},
+              margins:{top:100,bottom:100,left:200,right:200},
+              children:[
+                new D.Paragraph({style:"FlowTitle",children:[new D.TextRun({text:item.title||""})]}),
+                ...(item.sub?[new D.Paragraph({style:"FlowSub",children:[new D.TextRun({text:item.sub})]})]:[]),
+              ],
+            })]})],
+          }));
+        });break;
+      case "image":
+        children.push(new D.Paragraph({
+          style:"Caption",
+          children:[new D.TextRun({text:`[이미지: ${b.label||""}]`})],
+        }));break;
+      case "pagebreak":
+        children.push(new D.Paragraph({children:[new D.PageBreak()]}));break;
     }
   }
   function walk(pid,depth){getChildren(pid).forEach(b=>{proc(b,depth);walk(b.id,depth+1)})}
   walk(null,0);
 
   const doc=new D.Document({
-    styles:{default:{document:{run:{font:FONT,size:20}}}},
-    sections:[{properties:{page:{size:{width:11906,height:16838},margin:{top:1200,right:1300,bottom:1200,left:1300}}},
-      headers:{default:new D.Header({children:[new D.Paragraph({children:docHeader?[new D.TextRun({text:docHeader,font:FONT,size:15,color:"999999",italics:true})]:[],alignment:D.AlignmentType.RIGHT,...(docHeader?{border:{bottom:{style:D.BorderStyle.SINGLE,size:1,color:"CCCCCC",space:4}}}:{})})]})},
-      footers:{default:new D.Footer({children:[new D.Paragraph({alignment:D.AlignmentType.CENTER,children:[...(docFooter?[new D.TextRun({text:docFooter+" ",font:FONT,size:16,color:"999999"})]:[]),new D.TextRun({text:"- ",font:FONT,size:16,color:"999999"}),new D.TextRun({children:[D.PageNumber.CURRENT],font:FONT,size:16,color:"999999"}),new D.TextRun({text:" -",font:FONT,size:16,color:"999999"})]})]})},
-      children}],
+    styles:{
+      default:{document:{run:{font:FONT,size:20}}},
+      paragraphStyles,
+    },
+    sections:[{
+      properties:{page:{size:{width:11906,height:16838},margin:{top:1200,right:1300,bottom:1200,left:1300}}},
+      headers:{default:new D.Header({children:[new D.Paragraph({
+        children:docHeader?[new D.TextRun({text:docHeader,font:FONT,size:15,color:"999999",italics:true})]:[],
+        alignment:D.AlignmentType.RIGHT,
+        ...(docHeader?{border:{bottom:{style:D.BorderStyle.SINGLE,size:1,color:"CCCCCC",space:4}}}:{}),
+      })]})},
+      footers:{default:new D.Footer({children:[new D.Paragraph({
+        alignment:D.AlignmentType.CENTER,
+        children:[
+          ...(docFooter?[new D.TextRun({text:docFooter+" ",font:FONT,size:16,color:"999999"})]:[]),
+          new D.TextRun({text:"- ",font:FONT,size:16,color:"999999"}),
+          new D.TextRun({children:[D.PageNumber.CURRENT],font:FONT,size:16,color:"999999"}),
+          new D.TextRun({text:" -",font:FONT,size:16,color:"999999"}),
+        ],
+      })]})},
+      children,
+    }],
   });
   const buffer=await D.Packer.toBlob(doc);
-  const a=document.createElement("a");a.href=URL.createObjectURL(buffer);a.download="폐기물수집운반업_허가신청서.docx";a.click();
+  const a=document.createElement("a");
+  a.href=URL.createObjectURL(buffer);
+  a.download=(hfSettings.filename||"문서")+".docx";
+  a.click();
 }
 
 /* ═══════════════════════════════════
