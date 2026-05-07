@@ -537,6 +537,7 @@ function bindPreviewEditor() {
   $preview.addEventListener('input', () => {
     if (isComposingPreview) return;
     schedulePreviewSync();
+    scheduleIdleRerender();   // 입력 멈추면 뱃지·번호 변환
   });
 
   // 단계 2 까지 임시: 구조 변경 키는 막아둠 (캐럿/구조 깨짐 방지)
@@ -545,6 +546,119 @@ function bindPreviewEditor() {
       e.preventDefault();
     }
   });
+
+  // 포커스 떠나면 즉시 정리(뱃지·번호 변환)
+  $preview.addEventListener('blur', () => {
+    if (isComposingPreview) return;
+    const $body = document.getElementById('bodyInput');
+    const raw = domToRawText($preview);
+    if (raw !== $body.value) {
+      $body.value = raw;
+      markDirty();
+      scheduleSave();
+    }
+    renderPreview();
+  }, true);
+}
+
+/* ── 캐럿 보존: 사용자 편집 중에 renderPreview() 를 호출해도 같은
+   li 의 같은 글자 위치로 캐럿을 되돌려놓는다.
+   단순화 가정: 단계 1 에서는 li 구조가 변하지 않음(Tab/Enter 막힘) ── */
+
+let _idleRerenderTimer = null;
+function scheduleIdleRerender() {
+  clearTimeout(_idleRerenderTimer);
+  _idleRerenderTimer = setTimeout(_doIdleRerender, 1000);
+}
+
+function _doIdleRerender() {
+  const $preview = document.getElementById('preview');
+  if (!$preview) return;
+  if (isComposingPreview) return;
+  if (document.activeElement !== $preview) return;
+  const snap = _captureCaret($preview);
+  // raw text 가 변경된 상태에서만 의미가 있으므로 한 번 동기화 보장
+  syncPreviewToTextarea();
+  renderPreview();
+  if (snap) _restoreCaret($preview, snap);
+}
+
+function _captureCaret($preview) {
+  const sel = window.getSelection();
+  if (!sel || !sel.rangeCount) return null;
+  const r = sel.getRangeAt(0);
+  let liNode = r.startContainer;
+  while (liNode && liNode.nodeType !== 1) liNode = liNode.parentNode;
+  while (liNode && !(liNode.dataset && liNode.dataset.depth !== undefined)) {
+    liNode = liNode.parentNode;
+  }
+  if (!liNode) return null;
+  const items = $preview.querySelectorAll('li[data-depth]');
+  const liIdx = Array.prototype.indexOf.call(items, liNode);
+  if (liIdx < 0) return null;
+  const textEl = liNode.querySelector(':scope > .item-line > .item-text');
+  if (!textEl) return null;
+  // textEl 시작부터 캐럿까지의 길이
+  const range = document.createRange();
+  range.selectNodeContents(textEl);
+  try { range.setEnd(r.startContainer, r.startOffset); }
+  catch (_) { return null; }
+  const offset = range.toString().length;
+  return { liIdx, offset };
+}
+
+function _restoreCaret($preview, snap) {
+  const items = $preview.querySelectorAll('li[data-depth]');
+  const li = items[snap.liIdx];
+  if (!li) return;
+  const textEl = li.querySelector(':scope > .item-line > .item-text');
+  if (!textEl) return;
+  let remaining = snap.offset;
+  let target = null;
+  let targetOffset = 0;
+
+  function walk(node) {
+    if (target !== null) return;
+    if (node.nodeType === Node.TEXT_NODE) {
+      const len = (node.nodeValue || '').length;
+      if (remaining <= len) {
+        target = node;
+        targetOffset = remaining;
+      } else {
+        remaining -= len;
+      }
+    } else if (node.nodeType === Node.ELEMENT_NODE) {
+      // 뱃지(span[data-raw]) 는 통째로 jump — 그 길이만큼 차감
+      if (node.dataset && node.dataset.raw) {
+        const len = (node.textContent || '').length;
+        if (remaining <= len) {
+          // 뱃지 직후로 캐럿
+          target = node;
+          targetOffset = 'after';
+        } else {
+          remaining -= len;
+        }
+      } else {
+        for (const child of node.childNodes) walk(child);
+      }
+    }
+  }
+  walk(textEl);
+
+  const sel = window.getSelection();
+  const r = document.createRange();
+  if (target && targetOffset === 'after') {
+    r.setStartAfter(target);
+    r.collapse(true);
+  } else if (target && target.nodeType === Node.TEXT_NODE) {
+    r.setStart(target, Math.min(targetOffset, (target.nodeValue || '').length));
+    r.collapse(true);
+  } else {
+    r.selectNodeContents(textEl);
+    r.collapse(false);
+  }
+  sel.removeAllRanges();
+  sel.addRange(r);
 }
 
 // 미리보기 DOM 의 li[data-depth] 들을 순회해 raw text 재조립
