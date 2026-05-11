@@ -498,6 +498,19 @@
       "order": 36,
       "updatedAt": "2026-05-11T13:10:18.182Z",
       "sha": null
+    },
+    {
+      "id": "2026-05-11T13-10-23",
+      "subject": "행정사실무법",
+      "subTopic": "행정심판",
+      "topic": "업무신고",
+      "mnemonic": "",
+      "body": "",
+      "dueDate": "",
+      "importance": 0,
+      "order": 37,
+      "updatedAt": "2026-05-11T13:10:31.691Z",
+      "sha": null
     }
   ],
   "subjectOrder": [
@@ -517,5 +530,5 @@
       "개인정보 보호법": "개인정보 보호법"
     }
   },
-  "savedAt": "2026. 5. 11. 오후 10:10:20"
+  "savedAt": "2026. 5. 11. 오후 10:10:31"
 }
