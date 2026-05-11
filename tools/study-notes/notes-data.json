@@ -522,7 +522,20 @@
       "dueDate": "",
       "importance": 0,
       "order": 38,
-      "updatedAt": "2026-05-11T14:21:53.681Z",
+      "updatedAt": "2026-05-11T14:21:54.382Z",
+      "sha": null
+    },
+    {
+      "id": "2026-05-11T14-21-58",
+      "subject": "행정사실무법",
+      "subTopic": "",
+      "topic": "",
+      "mnemonic": "",
+      "body": "",
+      "dueDate": "",
+      "importance": 0,
+      "order": 39,
+      "updatedAt": "2026-05-11T14:21:58.671Z",
       "sha": null
     }
   ],
@@ -543,5 +556,5 @@
       "개인정보 보호법": "개인정보 보호법"
     }
   },
-  "savedAt": "2026. 5. 11. 오후 11:21:54"
+  "savedAt": "2026. 5. 11. 오후 11:21:59"
 }
