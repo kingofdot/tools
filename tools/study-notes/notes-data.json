@@ -476,14 +476,14 @@
     {
       "id": "2026-05-11T12-50-31",
       "subject": "행정사실무법",
-      "subTopic": "",
-      "topic": "",
+      "subTopic": "행정사법",
+      "topic": "행정사의 업무",
       "mnemonic": "",
       "body": "",
       "dueDate": "",
-      "importance": 0,
+      "importance": 2,
       "order": 35,
-      "updatedAt": "2026-05-11T12:50:31.417Z",
+      "updatedAt": "2026-05-11T12:50:48.870Z",
       "sha": null
     }
   ],
@@ -504,5 +504,5 @@
       "개인정보 보호법": "개인정보 보호법"
     }
   },
-  "savedAt": "2026. 5. 11. 오후 9:50:32"
+  "savedAt": "2026. 5. 11. 오후 9:50:53"
 }
