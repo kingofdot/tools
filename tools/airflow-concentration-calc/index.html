@@ -132,6 +132,20 @@
   .mat-row .m-val { width: 86px; }
   .mat-row .m-unit { width: 78px; }
   .mat-empty { font-size: 10.5px; color: var(--muted); padding: 2px 0; }
+  .mat-block {
+    display: flex; flex-direction: column; gap: 5px;
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 7px; padding: 6px 7px;
+  }
+  .emis-wrap {
+    display: flex; flex-direction: column; gap: 4px;
+    margin-left: 4px; padding-left: 8px; border-left: 2px solid var(--border-2);
+  }
+  .emis-head { font-size: 9.5px; font-weight: 650; color: var(--muted); letter-spacing: 0.02em; }
+  .emis-row { display: flex; gap: 5px; align-items: center; }
+  .emis-row .e-sub { flex: 1; min-width: 70px; }
+  .emis-row .e-coef { width: 92px; }
+  .emis-add { align-self: flex-start; font-size: 10px; padding: 3px 8px; }
 
   /* ── 후드 행 ── */
   .hoods { display: flex; flex-direction: column; gap: 8px; }
@@ -155,11 +169,7 @@
   .fld .v-wrap { display: flex; gap: 4px; }
   .fld .v-wrap input { width: 66px; }
   .fld .v-wrap select { width: 64px; padding: 7px 4px; }
-  .hood .formula {
-    font-size: 10px; color: var(--muted); align-self: center;
-    background: var(--surface); border: 1px solid var(--border);
-    border-radius: 6px; padding: 4px 8px; white-space: nowrap;
-  }
+  .fld.pol > label { color: var(--accent-2); }
   .hood .qbox {
     margin-left: auto; text-align: right; align-self: center;
     display: flex; flex-direction: column; gap: 1px;
@@ -430,13 +440,22 @@ var state = {
   refCollapsed: true
 };
 
-function emptyHood() { return { shape: "slot", dims: {}, v: "", vUnit: "ms", t: "", outlet: "" }; }
-function emptyMat() { return { name: "", value: "", unit: "" }; }
+function emptyHood() { return { shape: "slot", dims: {}, v: "", vUnit: "ms", t: "", outlet: "", pollutants: {} }; }
+function emptyEmission() { return { substance: "", coefficient: "" }; }
+function emptyMat() { return { name: "", value: "", unit: "", emissions: [] }; }
 function emptyFacility() { return { name: "", materials: [], fuels: [], hoods: [emptyHood()] }; }
 
+function normEmissions(a) {
+  return Array.isArray(a) ? a.map(function (e) {
+    return { substance: (e && e.substance) || "", coefficient: (e && e.coefficient) || "" };
+  }) : [];
+}
 function normMats(a) {
   return Array.isArray(a) ? a.map(function (m) {
-    return { name: (m && m.name) || "", value: (m && m.value) || "", unit: (m && m.unit) || "" };
+    return {
+      name: (m && m.name) || "", value: (m && m.value) || "", unit: (m && m.unit) || "",
+      emissions: normEmissions(m && m.emissions)
+    };
   }) : [];
 }
 
@@ -466,7 +485,8 @@ function load() {
                   v: h.v || "",
                   vUnit: h.vUnit === "mm" ? "mm" : "ms",
                   t: h.t || "",
-                  outlet: h.outlet || ""
+                  outlet: h.outlet || "",
+                  pollutants: (h.pollutants && typeof h.pollutants === "object") ? h.pollutants : {}
                 };
               })
             };
@@ -509,6 +529,20 @@ function hoodQstd(h) {
   var denom = 273 + num(h.t);
   if (denom <= 0) return 0;
   return q * 273 / denom;
+}
+
+/* ── 배출시설의 원료·연료에서 배출물질명 수집 (중복 제거, 입력순) ── */
+function collectSubstances(fac) {
+  var seen = {}, out = [];
+  ["materials", "fuels"].forEach(function (kind) {
+    (fac[kind] || []).forEach(function (m) {
+      (m.emissions || []).forEach(function (e) {
+        var s = (e.substance || "").trim();
+        if (s && !seen[s]) { seen[s] = true; out.push(s); }
+      });
+    });
+  });
+  return out;
 }
 
 /* ── 런타임 참조 (가벼운 재계산용) ── */
@@ -608,6 +642,10 @@ function renderMatGroup(fac, kind, label) {
     listEl.appendChild(em);
   }
   arr.forEach(function (m, mi) {
+    if (!Array.isArray(m.emissions)) m.emissions = [];
+    var block = document.createElement("div");
+    block.className = "mat-block";
+
     var r = document.createElement("div");
     r.className = "mat-row";
     r.appendChild(mkInput("m-name", m.name, label + "명", function (v) { m.name = v; save(); }));
@@ -618,7 +656,34 @@ function renderMatGroup(fac, kind, label) {
     del.title = label + " 삭제";
     del.addEventListener("click", function () { arr.splice(mi, 1); save(); renderFacilities(); });
     r.appendChild(del);
-    listEl.appendChild(r);
+    block.appendChild(r);
+
+    /* 배출물질 / 배출계수 */
+    var ew = document.createElement("div");
+    ew.className = "emis-wrap";
+    var eh = document.createElement("div");
+    eh.className = "emis-head"; eh.textContent = "배출물질 / 배출계수";
+    ew.appendChild(eh);
+    m.emissions.forEach(function (em, ei) {
+      var er = document.createElement("div");
+      er.className = "emis-row";
+      var es = mkInput("e-sub", em.substance, "배출물질 (예: 먼지)", function (v) { em.substance = v; save(); });
+      es.addEventListener("change", function () { renderFacilities(); });   // 후드 동적 반영
+      er.appendChild(es);
+      er.appendChild(mkInput("e-coef", em.coefficient, "배출계수", function (v) { em.coefficient = v; save(); }));
+      var ed = document.createElement("button");
+      ed.className = "del-btn sm"; ed.type = "button"; ed.textContent = "×"; ed.title = "배출물질 삭제";
+      ed.addEventListener("click", function () { m.emissions.splice(ei, 1); save(); renderFacilities(); });
+      er.appendChild(ed);
+      ew.appendChild(er);
+    });
+    var ea = document.createElement("button");
+    ea.className = "btn emis-add"; ea.type = "button"; ea.textContent = "+ 배출물질";
+    ea.addEventListener("click", function () { m.emissions.push(emptyEmission()); save(); renderFacilities(); });
+    ew.appendChild(ea);
+    block.appendChild(ew);
+
+    listEl.appendChild(block);
   });
   group.appendChild(listEl);
   return group;
@@ -722,10 +787,20 @@ function renderHood(fac, fi, h, hi, facRef) {
   fT.appendChild(tIn);
   row.appendChild(fT);
 
-  /* 산식 표시 */
-  var form = document.createElement("span");
-  form.className = "formula"; form.textContent = sh.formula;
-  row.appendChild(form);
+  /* 원료·연료 배출물질 → 후드별 농도 입력 (동적) */
+  if (!h.pollutants || typeof h.pollutants !== "object") h.pollutants = {};
+  collectSubstances(fac).forEach(function (subName) {
+    var fp = document.createElement("div");
+    fp.className = "fld pol";
+    var lab = document.createElement("label");
+    lab.textContent = subName;
+    var inp = document.createElement("input");
+    inp.type = "number"; inp.step = "any"; inp.placeholder = "농도";
+    inp.value = (h.pollutants[subName] != null) ? h.pollutants[subName] : "";
+    inp.addEventListener("input", function () { h.pollutants[subName] = inp.value; save(); });
+    fp.appendChild(lab); fp.appendChild(inp);
+    row.appendChild(fp);
+  });
 
   /* 풍량 Q */
   var qbox = document.createElement("div");
