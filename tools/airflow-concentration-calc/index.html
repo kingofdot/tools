@@ -174,7 +174,7 @@
   .fld .v-wrap select { width: 43px; padding: 7px 4px; }
   .fld.pol > label { color: var(--accent-2); }
   .fld.pol .pol-val {
-    width: 84px; padding: 7px 9px; border: 1px solid var(--border);
+    width: 42px; padding: 7px 9px; border: 1px solid var(--border);
     border-radius: 7px; background: var(--surface-2);
     font-size: 12px; text-align: right; font-variant-numeric: tabular-nums;
     color: var(--accent-2); font-weight: 600; min-height: 31px;
@@ -844,7 +844,7 @@ function renderHood(fac, fi, h, hi, facRef) {
     var fp = document.createElement("div");
     fp.className = "fld pol";
     var lab = document.createElement("label");
-    lab.textContent = subName + " 농도";
+    lab.textContent = subName;
     var valBox = document.createElement("div");
     valBox.className = "pol-val";
     valBox.title = "(원료·연료 사용량 × 배출계수) ÷ (가동시간 × 60 × 표준풍량)";
