@@ -89,6 +89,26 @@
   }
   .del-btn:hover { border-color: var(--danger); color: var(--danger); }
   .del-btn.sm { width: 22px; height: 22px; font-size: 12px; }
+  .btn.danger { border-color: var(--danger); color: var(--danger); }
+  .btn.danger:hover { background: var(--danger); border-color: var(--danger); color: #fff; }
+
+  /* ── 확인 모달 ── */
+  .modal-overlay {
+    position: fixed; inset: 0; background: rgba(15,23,42,0.45);
+    display: flex; align-items: center; justify-content: center; z-index: 1000;
+  }
+  .modal {
+    background: var(--surface); border: 1px solid var(--border-2);
+    border-radius: var(--radius); box-shadow: 0 12px 40px rgba(15,23,42,0.25);
+    padding: 22px 24px; min-width: 320px; max-width: 90vw;
+  }
+  .modal-msg { font-size: 14px; font-weight: 600; color: var(--text); margin-bottom: 14px; }
+  .modal-skip {
+    display: flex; align-items: center; gap: 6px;
+    font-size: 12px; color: var(--text-dim); margin-bottom: 16px; cursor: pointer;
+  }
+  .modal-skip input { width: auto; cursor: pointer; }
+  .modal-btns { display: flex; gap: 8px; justify-content: flex-end; }
 
   /* ── 전체 설정 ── */
   .settings-row { display: flex; gap: 24px; flex-wrap: wrap; align-items: flex-end; }
@@ -306,6 +326,7 @@
     <div class="btn-row">
       <button class="btn accent" id="addFac">+ 배출시설 추가</button>
       <button class="btn ghost" id="clearAll">전체 비우기</button>
+      <button class="btn ghost" id="resetAll">초기화</button>
     </div>
   </div>
 
@@ -623,9 +644,11 @@ function renderFacilities() {
     facDel.className = "del-btn"; facDel.type = "button"; facDel.textContent = "×";
     facDel.title = "배출시설 삭제";
     facDel.addEventListener("click", function () {
-      state.facilities.splice(fi, 1);
-      if (state.facilities.length === 0) state.facilities.push(emptyFacility());
-      save(); renderFacilities();
+      showConfirm({ message: "배출시설을 삭제하시겠습니까?", skippable: true, onConfirm: function () {
+        state.facilities.splice(fi, 1);
+        if (state.facilities.length === 0) state.facilities.push(emptyFacility());
+        save(); renderFacilities();
+      } });
     });
     head.appendChild(idx); head.appendChild(nameIn); head.appendChild(opWrap); head.appendChild(facDel);
     box.appendChild(head);
@@ -702,7 +725,11 @@ function renderMatGroup(fac, kind, label) {
     var del = document.createElement("button");
     del.className = "del-btn sm"; del.type = "button"; del.textContent = "×";
     del.title = label + " 삭제";
-    del.addEventListener("click", function () { arr.splice(mi, 1); save(); renderFacilities(); });
+    del.addEventListener("click", function () {
+      showConfirm({ message: label + " 항목을 삭제하시겠습니까?", skippable: true, onConfirm: function () {
+        arr.splice(mi, 1); save(); renderFacilities();
+      } });
+    });
     r.appendChild(del);
     block.appendChild(r);
 
@@ -731,7 +758,11 @@ function renderMatGroup(fac, kind, label) {
       er.appendChild(phSel);
       var ed = document.createElement("button");
       ed.className = "del-btn sm"; ed.type = "button"; ed.textContent = "×"; ed.title = "배출물질 삭제";
-      ed.addEventListener("click", function () { m.emissions.splice(ei, 1); save(); renderFacilities(); });
+      ed.addEventListener("click", function () {
+        showConfirm({ message: "배출물질을 삭제하시겠습니까?", skippable: true, onConfirm: function () {
+          m.emissions.splice(ei, 1); save(); renderFacilities();
+        } });
+      });
       er.appendChild(ed);
       ew.appendChild(er);
     });
@@ -875,9 +906,11 @@ function renderHood(fac, fi, h, hi, facRef) {
   del.className = "del-btn"; del.type = "button"; del.textContent = "×";
   del.title = "후드 삭제";
   del.addEventListener("click", function () {
-    fac.hoods.splice(hi, 1);
-    if (fac.hoods.length === 0) fac.hoods.push(emptyHood());
-    save(); renderFacilities();
+    showConfirm({ message: "후드를 삭제하시겠습니까?", skippable: true, onConfirm: function () {
+      fac.hoods.splice(hi, 1);
+      if (fac.hoods.length === 0) fac.hoods.push(emptyHood());
+      save(); renderFacilities();
+    } });
   });
   row.appendChild(del);
 
@@ -1042,6 +1075,64 @@ function buildTable(cols, rows, valColIdx) {
 }
 
 /* ── 이벤트 ── */
+/* ── 삭제 확인 모달 ── */
+var SKIP_KEY = STORAGE_KEY + ".skipDelConfirm";
+function todayStr() {
+  var d = new Date();
+  return d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + d.getDate();
+}
+function delConfirmSuppressed() {
+  try { return localStorage.getItem(SKIP_KEY) === todayStr(); } catch (e) { return false; }
+}
+function suppressDelConfirm() {
+  try { localStorage.setItem(SKIP_KEY, todayStr()); } catch (e) {}
+}
+function showConfirm(opts) {
+  if (opts.skippable && delConfirmSuppressed()) { opts.onConfirm(); return; }
+
+  var overlay = document.createElement("div");
+  overlay.className = "modal-overlay";
+  var dlg = document.createElement("div");
+  dlg.className = "modal";
+
+  var msg = document.createElement("div");
+  msg.className = "modal-msg";
+  msg.textContent = opts.message;
+  dlg.appendChild(msg);
+
+  var skipChk = null;
+  if (opts.skippable) {
+    var skipWrap = document.createElement("label");
+    skipWrap.className = "modal-skip";
+    skipChk = document.createElement("input");
+    skipChk.type = "checkbox";
+    skipWrap.appendChild(skipChk);
+    skipWrap.appendChild(document.createTextNode(" 오늘 하루 이 확인 무시하기"));
+    dlg.appendChild(skipWrap);
+  }
+
+  var btns = document.createElement("div");
+  btns.className = "modal-btns";
+  var cancel = document.createElement("button");
+  cancel.className = "btn"; cancel.type = "button"; cancel.textContent = "취소";
+  var ok = document.createElement("button");
+  ok.className = "btn danger"; ok.type = "button"; ok.textContent = opts.okLabel || "삭제";
+  btns.appendChild(cancel); btns.appendChild(ok);
+  dlg.appendChild(btns);
+
+  overlay.appendChild(dlg);
+  document.body.appendChild(overlay);
+
+  function close() { if (overlay.parentNode) document.body.removeChild(overlay); }
+  cancel.addEventListener("click", close);
+  overlay.addEventListener("click", function (e) { if (e.target === overlay) close(); });
+  ok.addEventListener("click", function () {
+    if (opts.skippable && skipChk && skipChk.checked) suppressDelConfirm();
+    close();
+    opts.onConfirm();
+  });
+}
+
 function bind() {
   document.getElementById("decimalsSel").addEventListener("change", function (e) {
     var d = parseInt(e.target.value, 10);
@@ -1052,7 +1143,15 @@ function bind() {
     state.facilities.push(emptyFacility()); save(); renderFacilities();
   });
   document.getElementById("clearAll").addEventListener("click", function () {
-    state.facilities = [emptyFacility()]; save(); renderFacilities();
+    showConfirm({ message: "모든 배출시설을 비우시겠습니까?", skippable: true, onConfirm: function () {
+      state.facilities = [emptyFacility()]; save(); renderFacilities();
+    } });
+  });
+  document.getElementById("resetAll").addEventListener("click", function () {
+    showConfirm({ message: "모든 데이터를 초기화합니다. 되돌릴 수 없습니다. 계속할까요?", skippable: false, okLabel: "초기화", onConfirm: function () {
+      try { localStorage.removeItem(STORAGE_KEY); } catch (e) {}
+      location.reload();
+    } });
   });
   document.getElementById("refCollapse").addEventListener("click", function () {
     state.refCollapsed = !state.refCollapsed; save(); renderRef();
