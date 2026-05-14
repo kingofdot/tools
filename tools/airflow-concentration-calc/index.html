@@ -1,0 +1,701 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>풍량 및 농도 계산기</title>
+<meta name="tool-name" content="풍량 및 농도 계산기">
+<meta name="tool-tag" content="환경">
+<meta name="tool-description" content="배출시설별로 N개 후드의 배출가스량(풍량)을 산정합니다. 대기오염방지시설 설계실무편람(1999) 제1장 후드 형태별 산정식·포착속도표 내장.">
+
+<style>
+  :root {
+    --bg:         #f3f7fb;
+    --surface:    #ffffff;
+    --surface-2:  #f1f5f9;
+    --surface-3:  #e8eef5;
+    --border:     #e3e9f0;
+    --border-2:   #cbd5e1;
+    --text:       #1e293b;
+    --text-dim:   #475569;
+    --muted:      #94a3b8;
+    --accent:     #2563eb;
+    --accent-bg:  rgba(37,99,235,0.07);
+    --accent-2:   #1d4ed8;
+    --success:    #059669;
+    --success-2:  #047857;
+    --success-bg: rgba(5,150,105,0.08);
+    --warn:       #d97706;
+    --warn-bg:    rgba(217,119,6,0.10);
+    --danger:     #dc2626;
+    --radius:     10px;
+    --shadow:     0 1px 2px rgba(15,23,42,0.04), 0 2px 8px rgba(15,23,42,0.04);
+  }
+  *, *::before, *::after { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    padding: 28px 32px 64px;
+    font-family: -apple-system, BlinkMacSystemFont, "Inter", "Segoe UI", "Malgun Gothic", sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    font-size: 13px;
+    line-height: 1.45;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: 1080px; margin: 0 auto; }
+
+  /* ── 헤더 ── */
+  .page-head { margin-bottom: 22px; }
+  .page-head h1 {
+    font-size: 19px; font-weight: 700; margin: 0 0 5px; letter-spacing: -0.01em;
+    display: flex; align-items: center; gap: 9px;
+  }
+  .page-head h1 .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--accent); }
+  .page-head .desc { font-size: 12px; color: var(--text-dim); margin: 0; }
+
+  /* ── 카드 ── */
+  .card {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: var(--radius); padding: 18px 20px; margin-bottom: 16px;
+    box-shadow: var(--shadow);
+  }
+  .card-head { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; }
+  .card-head h2 { font-size: 13px; font-weight: 650; margin: 0; letter-spacing: -0.01em; }
+  .card-head .hint { font-size: 11px; color: var(--muted); margin-left: auto; }
+
+  /* ── 입력 요소 ── */
+  select, input[type="text"], input[type="number"] {
+    background: var(--surface); border: 1px solid var(--border-2);
+    color: var(--text); border-radius: 7px; padding: 7px 9px;
+    font-family: inherit; font-size: 12px; outline: none; transition: .12s;
+  }
+  select:focus, input:focus { border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-bg); }
+  input[type="number"] { text-align: right; font-variant-numeric: tabular-nums; }
+  input::placeholder { color: var(--muted); }
+
+  .btn {
+    background: var(--surface); border: 1px solid var(--border-2); color: var(--text);
+    font-family: inherit; font-size: 12px; font-weight: 550; padding: 7px 13px;
+    border-radius: 7px; cursor: pointer; transition: .12s;
+  }
+  .btn:hover { border-color: var(--accent); color: var(--accent-2); }
+  .btn.ghost { background: transparent; }
+  .btn.accent { background: var(--accent); border-color: var(--accent); color: #fff; }
+  .btn.accent:hover { background: var(--accent-2); color: #fff; }
+  .btn-row { margin-top: 12px; display: flex; gap: 8px; flex-wrap: wrap; }
+  .del-btn {
+    background: transparent; border: 1px solid var(--border-2); color: var(--muted);
+    width: 26px; height: 26px; border-radius: 6px; cursor: pointer; font-size: 14px;
+    line-height: 1; transition: .12s; flex-shrink: 0;
+  }
+  .del-btn:hover { border-color: var(--danger); color: var(--danger); }
+
+  /* ── 배출시설 카드 ── */
+  .facility {
+    border: 1px solid var(--border-2); border-left: 3px solid var(--accent);
+    border-radius: var(--radius); padding: 14px 16px; margin-bottom: 14px;
+    background: var(--surface);
+  }
+  .facility:last-of-type { margin-bottom: 0; }
+  .fac-head { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
+  .fac-head .fac-idx {
+    font-size: 11px; font-weight: 700; color: var(--accent-2);
+    background: var(--accent-bg); border-radius: 6px; padding: 4px 9px; white-space: nowrap;
+  }
+  .fac-head input.fac-name { flex: 1; font-weight: 550; }
+
+  /* ── 후드 행 ── */
+  .hoods { display: flex; flex-direction: column; gap: 8px; }
+  .hood {
+    display: flex; flex-wrap: wrap; align-items: flex-end; gap: 10px;
+    background: var(--surface-2); border: 1px solid var(--border);
+    border-radius: 8px; padding: 10px 12px;
+  }
+  .hood .hno {
+    font-size: 10.5px; font-weight: 650; color: var(--muted);
+    align-self: center; white-space: nowrap;
+  }
+  .fld { display: flex; flex-direction: column; gap: 4px; }
+  .fld > label {
+    font-size: 10px; color: var(--text-dim); font-weight: 600;
+    letter-spacing: 0.02em; white-space: nowrap;
+  }
+  .fld input { width: 84px; }
+  .fld .shape-sel { width: 168px; }
+  .fld .v-wrap { display: flex; gap: 4px; }
+  .fld .v-wrap input { width: 66px; }
+  .fld .v-wrap select { width: 64px; padding: 7px 4px; }
+  .hood .formula {
+    font-size: 10px; color: var(--muted); align-self: center;
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 6px; padding: 4px 8px; white-space: nowrap;
+  }
+  .hood .qbox {
+    margin-left: auto; text-align: right; align-self: center;
+    display: flex; flex-direction: column; gap: 1px;
+  }
+  .hood .qbox .qv {
+    font-size: 15px; font-weight: 700; color: var(--accent-2);
+    font-variant-numeric: tabular-nums;
+  }
+  .hood .qbox .qv .u { font-size: 10px; color: var(--muted); font-weight: 500; margin-left: 2px; }
+  .hood .qbox .qh { font-size: 10px; color: var(--muted); font-variant-numeric: tabular-nums; }
+
+  .fac-foot {
+    display: flex; align-items: center; gap: 10px; margin-top: 10px;
+    padding-top: 10px; border-top: 1px dashed var(--border-2);
+  }
+  .fac-foot .sub-lbl { font-size: 11px; color: var(--text-dim); font-weight: 600; }
+  .fac-foot .sub-val {
+    margin-left: auto; font-size: 14px; font-weight: 700; color: var(--text);
+    font-variant-numeric: tabular-nums;
+  }
+  .fac-foot .sub-val .u { font-size: 10px; color: var(--muted); font-weight: 500; margin-left: 2px; }
+
+  /* ── 합계 ── */
+  .grand-box {
+    background: var(--success-bg); border: 1px solid rgba(5,150,105,0.30);
+    border-radius: var(--radius); padding: 18px 22px;
+    display: flex; align-items: baseline; justify-content: space-between;
+    margin-bottom: 16px; box-shadow: var(--shadow); flex-wrap: wrap; gap: 8px;
+  }
+  .grand-box .lbl { font-size: 12px; color: var(--success-2); font-weight: 650; }
+  .grand-box .val {
+    font-size: 26px; font-weight: 700; color: var(--success-2);
+    font-variant-numeric: tabular-nums; letter-spacing: -0.01em;
+  }
+  .grand-box .val .u { font-size: 13px; color: var(--text-dim); font-weight: 500; margin-left: 4px; }
+  .grand-box .val .sub { font-size: 13px; color: var(--text-dim); font-weight: 500; margin-left: 12px; }
+
+  /* ── 안내 / 참고 ── */
+  .formula-note {
+    font-size: 11px; color: var(--text-dim); line-height: 1.7;
+    background: var(--surface-2); border: 1px solid var(--border);
+    border-radius: 8px; padding: 11px 14px;
+  }
+  .formula-note code {
+    color: var(--accent-2); background: var(--accent-bg);
+    padding: 1px 5px; border-radius: 4px; font-size: 10.5px;
+  }
+  .formula-note b { color: var(--text); }
+  .collapse-toggle {
+    cursor: pointer; user-select: none; color: var(--text-dim);
+    font-size: 11px; transition: .12s; margin-left: auto;
+  }
+  .collapse-toggle:hover { color: var(--text); }
+  .hidden { display: none !important; }
+
+  .ref-sec { margin-bottom: 16px; }
+  .ref-sec:last-child { margin-bottom: 0; }
+  .ref-sec h3 { font-size: 11.5px; font-weight: 650; color: var(--accent-2); margin: 0 0 7px; }
+  table.ref { width: 100%; border-collapse: collapse; font-size: 11px; }
+  table.ref th {
+    text-align: left; font-weight: 650; color: var(--text-dim);
+    padding: 6px 8px; border-bottom: 1px solid var(--border-2); background: var(--surface-2);
+  }
+  table.ref td {
+    padding: 5px 8px; border-bottom: 1px solid var(--border); color: var(--text-dim);
+    vertical-align: top;
+  }
+  table.ref td.v { font-variant-numeric: tabular-nums; color: var(--accent-2); font-weight: 600; white-space: nowrap; }
+  table.ref tr:hover td { background: var(--surface-2); }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="page-head">
+    <h1><span class="dot"></span>풍량 및 농도 계산기</h1>
+    <p class="desc">배출시설별 후드 배출가스량(풍량) 산정 · 대기오염방지시설 설계실무편람(대구지방환경관리청, 1999) 제1장 기준</p>
+  </header>
+
+  <!-- ── 배출시설·후드 ── -->
+  <div class="card">
+    <div class="card-head">
+      <h2>배출시설별 후드 풍량 산정</h2>
+      <span class="hint">치수 단위: m · 포착속도 V · 풍량 Q: ㎥/min</span>
+    </div>
+    <div id="facList"></div>
+    <div class="btn-row">
+      <button class="btn accent" id="addFac">+ 배출시설 추가</button>
+      <button class="btn ghost" id="clearAll">전체 비우기</button>
+    </div>
+  </div>
+
+  <!-- ── 합계 ── -->
+  <div class="grand-box">
+    <div class="lbl">전체 후드 풍량 합계</div>
+    <div class="val" id="grandVal">0<span class="u">㎥/min</span><span class="sub" id="grandHr">0 ㎥/hr</span></div>
+  </div>
+
+  <!-- ── 산식 안내 ── -->
+  <div class="card">
+    <div class="card-head"><h2>후드 형태별 산정식</h2></div>
+    <div class="formula-note" id="formulaList"></div>
+  </div>
+
+  <!-- ── 포착속도 참고표 ── -->
+  <div class="card">
+    <div class="card-head">
+      <h2>포착(제어)속도 참고표</h2>
+      <span class="collapse-toggle" id="refCollapse">펼치기 ▼</span>
+    </div>
+    <div id="refBody" class="hidden"></div>
+  </div>
+
+</div>
+
+<script>
+"use strict";
+
+/* ── 후드 형태별 산정식 (편람 제1장 표 II) ───────────────────────────
+   V 는 m/min 으로 환산하여 대입, Q 단위 ㎥/min */
+var SHAPES = [
+  { id: "slot",                 label: "슬롯트형",        dims: ["L", "X"],
+    formula: "Q = 3.7 · L · V · X",
+    calc: function (d, v) { return 3.7 * d.L * v * d.X; } },
+  { id: "flanged_slot",         label: "프랜지 슬롯트형", dims: ["L", "X"],
+    formula: "Q = 2.6 · L · V · X",
+    calc: function (d, v) { return 2.6 * d.L * v * d.X; } },
+  { id: "plain_opening",        label: "편평개구형",      dims: ["W", "L", "X"],
+    formula: "Q = V · (10X² + A),  A = W·L",
+    calc: function (d, v) { return v * (10 * d.X * d.X + d.W * d.L); } },
+  { id: "flanged_opening",      label: "프랜지개구형",    dims: ["W", "L", "X"],
+    formula: "Q = 0.75 · V · (10X² + A),  A = W·L",
+    calc: function (d, v) { return 0.75 * v * (10 * d.X * d.X + d.W * d.L); } },
+  { id: "plain_multiple_slot",  label: "복수스롯트형",    dims: ["W", "L", "X"],
+    formula: "Q = V · (10X² + A),  A = W·L",
+    calc: function (d, v) { return v * (10 * d.X * d.X + d.W * d.L); } },
+  { id: "flanged_multiple_slot",label: "프랜지복수개구형",dims: ["W", "L", "X"],
+    formula: "Q = 0.75 · V · (10X² + A),  A = W·L",
+    calc: function (d, v) { return 0.75 * v * (10 * d.X * d.X + d.W * d.L); } },
+  { id: "booth",                label: "밀폐형(부스)",    dims: ["W", "H"],
+    formula: "Q = V · A,  A = W·H",
+    calc: function (d, v) { return v * d.W * d.H; } },
+  { id: "canopy",               label: "천정형(캐노피)",  dims: ["P", "D"],
+    formula: "Q = 1.4 · P · V · D",
+    calc: function (d, v) { return 1.4 * d.P * v * d.D; } }
+];
+function shapeById(id) {
+  for (var i = 0; i < SHAPES.length; i++) if (SHAPES[i].id === id) return SHAPES[i];
+  return SHAPES[0];
+}
+var DIM_LABEL = {
+  L: "길이 L (m)", W: "폭 W (m)", X: "포집거리 X (m)",
+  H: "부스높이 H (m)", P: "오염원둘레 P (m)", D: "포집거리 D (m)"
+};
+
+/* ── 포착속도 참고표 (편람 표1-1 / 1-2 / 1-3) ── */
+var REF = {
+  table1_1: {
+    title: "표1-1 일반적으로 사용되는 포착속도의 개략치",
+    cols: ["배출상태", "공정 예", "포착속도 (m/sec)"],
+    rows: [
+      ["움직이지 않는 공기중 거의 속도 없는 상태", "용기 액면에서 발생하는 가스·증기·흄", "0.25~0.5"],
+      ["비교적 조용한 대기중 낮은 속도로 비산", "부스식 분무도장, 간헐 용기충진, 저속 컨베이어, 도금·용접·산세척", "0.5~1.0"],
+      ["빠른 공기이동 작업장에 활발히 비산", "부스식 분무·함침도장, 컨베이어 낙하구 분쇄, 파쇄기", "1.0~2.5"],
+      ["대단히 빠른 공기이동, 아주 빠른 속도로 비산", "연삭, 분무, 텀블링, 블라스트", "2.5~10.0"]
+    ]
+  },
+  table1_2: {
+    title: "표1-2 발생원과 후드형태에 따른 포착속도",
+    cols: ["발생원", "후드형태", "포착속도 (m/sec)", "포착점"],
+    rows: [
+      ["sand blast room", "포위박스형", "0.3~0.5", "개구면"],
+      ["sand blast table", "부스형", "1.0", "개구면"],
+      ["포장작업(종이포장대)", "부스형", "0.5", "개구면"],
+      ["포장작업(마대포장대)", "부스형", "1.0", "개구면"],
+      ["저장투입", "포위카바형", "0.8~1.0", "개구면"],
+      ["병세척", "부스형(건물)", "0.8~1.3", "개구면"],
+      ["콘베이어이송", "포위카바형", "0.8~1.0", "개구면"],
+      ["단조(수동)", "부스형(건물)", "1.0", "개구면"],
+      ["주물사스크린(회전)", "포위카바형", "1.0", "개구면"],
+      ["주물사스크린(진동)", "포위카바형", "2.0", "개구면"],
+      ["shake out", "부스형(chamber)", "1.0", "개구면"],
+      ["shake out (냉각된 주물)", "포집그리트형", "1.3", "격자면"],
+      ["shake out (뜨거운 주물)", "포집그리트형", "3.0", "격자면"],
+      ["Al용해로", "레시바캐노피형", "0.8", "개구면"],
+      ["동용해로", "레시바캐노피형", "1.0~1.3", "개구면"],
+      ["도가니로", "레시바캐노피형", "1.0", "개구면"],
+      ["전기로", "레시바캐노피형", "2.0", "개구면"],
+      ["용탕주입", "포집스롯트루바형", "2.0", "개구면"],
+      ["바켙엘리베이터", "포집박스형", "2.5", "개구면"],
+      ["디스크연마기", "포집그리트", "1.0~2.0", "격자면"],
+      ["평면연마기", "포집스롯트형", "7.5", "발생원"],
+      ["주방가스렌지", "레시바캐노피형", "0.5~0.8", "개구면"],
+      ["분무도장", "부스형(건물)", "0.5~1.0", "개구면"],
+      ["고무카렌다", "포집장방형", "0.5", "개구면"],
+      ["탈지탱크", "포집스롯트형", "0.3~0.5", "발생원"],
+      ["침적탱크", "부스형(chamber)", "0.8", "개구면"],
+      ["산세척탱크", "포집스롯트형", "0.4~0.5", "발생원"],
+      ["도금탱크", "포집스롯트형", "0.4~0.5", "발생원"],
+      ["탕세탱크", "레시바캐노피형", "0.4~0.5", "발생원"],
+      ["전기용접 (캐노피)", "레시바캐노피형", "0.5~1.0", "발생원"],
+      ["전기용접 (부스)", "부스형(건물)", "0.5", "개구면"],
+      ["혼합기", "포위카바형", "0.5~1.0", "개구면"]
+    ]
+  },
+  table1_3: {
+    title: "표1-3 제어풍속 (노동부고시 90-45호)",
+    groups: [
+      { sub: "유기용제에 대한 제어풍속", cols: ["후드형태", "제어풍속 (m/sec)"], rows: [
+        ["포위식 후드", "0.4"],
+        ["외부식 후드 (측방흡인형)", "0.5"],
+        ["외부식 후드 (하방흡인형)", "0.5"],
+        ["외부식 후드 (상방흡인형)", "1.0"]
+      ]},
+      { sub: "회전체 기계 관련 특정이외 먼지 발생원", cols: ["후드형태", "제어풍속 (m/sec)"], rows: [
+        ["포위식 후드", "0.7"],
+        ["외부식 후드 (측방흡인형)", "1.0"],
+        ["외부식 후드 (하방흡인형)", "1.0"],
+        ["외부식 후드 (상방흡인형)", "1.2"]
+      ]},
+      { sub: "회전체 기계 관련 특정 먼지 발생원", cols: ["설치방법", "제어풍속 (m/sec)"], rows: [
+        ["회전체 갖는 기계전체를 포위", "0.5"],
+        ["분진 비산방향을 후드 개구면으로 덮음", "5.0"],
+        ["회전체만을 싸는 방법", "5.0"]
+      ]}
+    ],
+    note: "표1-3 특정먼지 발생원 16개 작업장 유형별 제어풍속표는 분량이 커서 생략 — 편람 원본 p.20 참조."
+  }
+};
+
+var STORAGE_KEY = "airflow-concentration-calc.v1";
+
+/* ── 상태 ── */
+var state = {
+  facilities: [],   // [{ name, hoods: [{ shape, dims:{}, v, vUnit }] }]
+  refCollapsed: true
+};
+
+function emptyHood() { return { shape: "slot", dims: {}, v: "", vUnit: "ms" }; }
+function emptyFacility() { return { name: "", hoods: [emptyHood()] }; }
+
+/* ── 저장/복원 ── */
+function save() {
+  try { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); } catch (e) {}
+}
+function load() {
+  try {
+    var raw = localStorage.getItem(STORAGE_KEY);
+    if (raw) {
+      var s = JSON.parse(raw);
+      if (s && Array.isArray(s.facilities)) {
+        state.facilities = s.facilities.map(function (f) {
+          return {
+            name: f.name || "",
+            hoods: (Array.isArray(f.hoods) ? f.hoods : []).map(function (h) {
+              return {
+                shape: shapeById(h.shape).id,
+                dims: (h.dims && typeof h.dims === "object") ? h.dims : {},
+                v: h.v || "",
+                vUnit: h.vUnit === "mm" ? "mm" : "ms"
+              };
+            })
+          };
+        });
+        state.refCollapsed = s.refCollapsed !== false;
+      }
+    }
+  } catch (e) {}
+  if (state.facilities.length === 0) state.facilities = [emptyFacility()];
+  state.facilities.forEach(function (f) { if (f.hoods.length === 0) f.hoods.push(emptyHood()); });
+}
+
+/* ── 숫자 유틸 ── */
+function num(v) { var n = parseFloat(v); return isFinite(n) ? n : 0; }
+function fmt(n, dec) {
+  if (!isFinite(n)) n = 0;
+  var p = Math.pow(10, dec || 0);
+  return (Math.round(n * p) / p).toLocaleString("ko-KR");
+}
+
+/* ── 후드 풍량 계산 (㎥/min) ── */
+function hoodQ(h) {
+  var sh = shapeById(h.shape);
+  var vMin = num(h.v) * (h.vUnit === "ms" ? 60 : 1);   // m/sec → m/min
+  var d = {};
+  sh.dims.forEach(function (k) { d[k] = num(h.dims[k]); });
+  var q = sh.calc(d, vMin);
+  return isFinite(q) && q > 0 ? q : 0;
+}
+
+/* ── 런타임 참조 (가벼운 재계산용) ── */
+var refs = [];   // refs[fi] = { sub: el, hoods: [{ qv: el, qh: el }] }
+
+/* ── 렌더: 배출시설 목록 ── */
+function renderFacilities() {
+  var list = document.getElementById("facList");
+  list.innerHTML = "";
+  refs = [];
+
+  state.facilities.forEach(function (fac, fi) {
+    var facRef = { sub: null, hoods: [] };
+    refs.push(facRef);
+
+    var box = document.createElement("div");
+    box.className = "facility";
+
+    /* 시설 헤더 */
+    var head = document.createElement("div");
+    head.className = "fac-head";
+    var idx = document.createElement("span");
+    idx.className = "fac-idx"; idx.textContent = "배출시설 " + (fi + 1);
+    var nameIn = document.createElement("input");
+    nameIn.type = "text"; nameIn.className = "fac-name";
+    nameIn.placeholder = "배출시설 번호·명 (예: 배-1 건조시설)";
+    nameIn.value = fac.name;
+    nameIn.addEventListener("input", function () { fac.name = nameIn.value; save(); });
+    var facDel = document.createElement("button");
+    facDel.className = "del-btn"; facDel.type = "button"; facDel.textContent = "×";
+    facDel.title = "배출시설 삭제";
+    facDel.addEventListener("click", function () {
+      state.facilities.splice(fi, 1);
+      if (state.facilities.length === 0) state.facilities.push(emptyFacility());
+      save(); renderFacilities();
+    });
+    head.appendChild(idx); head.appendChild(nameIn); head.appendChild(facDel);
+    box.appendChild(head);
+
+    /* 후드 목록 */
+    var hoods = document.createElement("div");
+    hoods.className = "hoods";
+    fac.hoods.forEach(function (h, hi) {
+      hoods.appendChild(renderHood(fac, fi, h, hi, facRef));
+    });
+    box.appendChild(hoods);
+
+    /* 후드 추가 + 소계 */
+    var foot = document.createElement("div");
+    foot.className = "fac-foot";
+    var addHood = document.createElement("button");
+    addHood.className = "btn"; addHood.type = "button"; addHood.textContent = "+ 후드 추가";
+    addHood.addEventListener("click", function () {
+      fac.hoods.push(emptyHood()); save(); renderFacilities();
+    });
+    var subLbl = document.createElement("span");
+    subLbl.className = "sub-lbl"; subLbl.textContent = "시설 소계";
+    var subVal = document.createElement("span");
+    subVal.className = "sub-val";
+    facRef.sub = subVal;
+    foot.appendChild(addHood); foot.appendChild(subLbl); foot.appendChild(subVal);
+    box.appendChild(foot);
+
+    list.appendChild(box);
+  });
+
+  recalc();
+}
+
+/* ── 렌더: 후드 1개 ── */
+function renderHood(fac, fi, h, hi, facRef) {
+  var sh = shapeById(h.shape);
+  var hRef = { qv: null, qh: null };
+  facRef.hoods.push(hRef);
+
+  var row = document.createElement("div");
+  row.className = "hood";
+
+  /* 후드 번호 */
+  var hno = document.createElement("span");
+  hno.className = "hno"; hno.textContent = "후드 " + (hi + 1);
+  row.appendChild(hno);
+
+  /* 후드 형태 */
+  var fShape = document.createElement("div");
+  fShape.className = "fld";
+  fShape.innerHTML = '<label>후드 형태</label>';
+  var sel = document.createElement("select");
+  sel.className = "shape-sel";
+  SHAPES.forEach(function (s) {
+    var o = document.createElement("option");
+    o.value = s.id; o.textContent = s.label;
+    if (s.id === h.shape) o.selected = true;
+    sel.appendChild(o);
+  });
+  sel.addEventListener("change", function () {
+    h.shape = sel.value; h.dims = {};   // 형태 바뀌면 치수 초기화
+    save(); renderFacilities();
+  });
+  fShape.appendChild(sel);
+  row.appendChild(fShape);
+
+  /* 치수 입력 (형태별 동적) */
+  sh.dims.forEach(function (k) {
+    var f = document.createElement("div");
+    f.className = "fld";
+    var lab = document.createElement("label");
+    lab.textContent = DIM_LABEL[k];
+    var inp = document.createElement("input");
+    inp.type = "number"; inp.min = "0"; inp.step = "any"; inp.placeholder = "0";
+    inp.value = h.dims[k] != null ? h.dims[k] : "";
+    inp.addEventListener("input", function () { h.dims[k] = inp.value; save(); recalc(); });
+    f.appendChild(lab); f.appendChild(inp);
+    row.appendChild(f);
+  });
+
+  /* 포착속도 V */
+  var fV = document.createElement("div");
+  fV.className = "fld";
+  fV.innerHTML = '<label>포착속도 V</label>';
+  var vWrap = document.createElement("div");
+  vWrap.className = "v-wrap";
+  var vIn = document.createElement("input");
+  vIn.type = "number"; vIn.min = "0"; vIn.step = "any"; vIn.placeholder = "0";
+  vIn.value = h.v;
+  vIn.addEventListener("input", function () { h.v = vIn.value; save(); recalc(); });
+  var vUnit = document.createElement("select");
+  [["ms", "m/s"], ["mm", "m/min"]].forEach(function (u) {
+    var o = document.createElement("option");
+    o.value = u[0]; o.textContent = u[1];
+    if (u[0] === h.vUnit) o.selected = true;
+    vUnit.appendChild(o);
+  });
+  vUnit.addEventListener("change", function () { h.vUnit = vUnit.value; save(); recalc(); });
+  vWrap.appendChild(vIn); vWrap.appendChild(vUnit);
+  fV.appendChild(vWrap);
+  row.appendChild(fV);
+
+  /* 산식 표시 */
+  var form = document.createElement("span");
+  form.className = "formula"; form.textContent = sh.formula;
+  row.appendChild(form);
+
+  /* 풍량 Q */
+  var qbox = document.createElement("div");
+  qbox.className = "qbox";
+  var qv = document.createElement("div");
+  qv.className = "qv";
+  var qh = document.createElement("div");
+  qh.className = "qh";
+  hRef.qv = qv; hRef.qh = qh;
+  qbox.appendChild(qv); qbox.appendChild(qh);
+  row.appendChild(qbox);
+
+  /* 삭제 */
+  var del = document.createElement("button");
+  del.className = "del-btn"; del.type = "button"; del.textContent = "×";
+  del.title = "후드 삭제";
+  del.addEventListener("click", function () {
+    fac.hoods.splice(hi, 1);
+    if (fac.hoods.length === 0) fac.hoods.push(emptyHood());
+    save(); renderFacilities();
+  });
+  row.appendChild(del);
+
+  return row;
+}
+
+/* ── 가벼운 재계산: 입력칸 그대로 두고 풍량·소계·합계만 갱신 ── */
+function recalc() {
+  var grand = 0;
+  state.facilities.forEach(function (fac, fi) {
+    var facRef = refs[fi];
+    if (!facRef) return;
+    var subtotal = 0;
+    fac.hoods.forEach(function (h, hi) {
+      var q = hoodQ(h);
+      subtotal += q;
+      var hRef = facRef.hoods[hi];
+      if (hRef && hRef.qv) {
+        hRef.qv.innerHTML = fmt(q, 1) + '<span class="u">㎥/min</span>';
+        hRef.qh.textContent = fmt(q * 60, 0) + " ㎥/hr";
+      }
+    });
+    grand += subtotal;
+    if (facRef.sub) facRef.sub.innerHTML = fmt(subtotal, 1) + '<span class="u">㎥/min</span>';
+  });
+  document.getElementById("grandVal").innerHTML =
+    fmt(grand, 1) + '<span class="u">㎥/min</span><span class="sub">' + fmt(grand * 60, 0) + ' ㎥/hr</span>';
+}
+
+/* ── 렌더: 산식 안내 ── */
+function renderFormulaList() {
+  var box = document.getElementById("formulaList");
+  var html = "";
+  SHAPES.forEach(function (s) {
+    html += '<b>' + s.label + '</b> &nbsp;<code>' + s.formula + '</code><br>';
+  });
+  html += '<br>V 는 포착속도, 산정식에는 <b>m/min</b> 단위로 환산해 대입합니다 (m/s 입력 시 ×60 자동 변환). ' +
+          'Q 는 배출가스량(풍량), 단위 <b>㎥/min</b>. L·W·X·H·P·D 는 모두 <b>m</b> 단위. ' +
+          'A 는 후드 개구면적(㎡).';
+  box.innerHTML = html;
+}
+
+/* ── 렌더: 포착속도 참고표 ── */
+function renderRef() {
+  var box = document.getElementById("refBody");
+  box.innerHTML = "";
+
+  [REF.table1_1, REF.table1_2].forEach(function (t) {
+    var sec = document.createElement("div");
+    sec.className = "ref-sec";
+    var h3 = document.createElement("h3"); h3.textContent = t.title;
+    sec.appendChild(h3);
+    sec.appendChild(buildTable(t.cols, t.rows, t.cols.length - 1));
+    box.appendChild(sec);
+  });
+
+  var sec3 = document.createElement("div");
+  sec3.className = "ref-sec";
+  var h3 = document.createElement("h3"); h3.textContent = REF.table1_3.title;
+  sec3.appendChild(h3);
+  REF.table1_3.groups.forEach(function (g) {
+    var sub = document.createElement("div");
+    sub.style.cssText = "font-size:11px;color:var(--text-dim);font-weight:600;margin:8px 0 4px;";
+    sub.textContent = "· " + g.sub;
+    sec3.appendChild(sub);
+    sec3.appendChild(buildTable(g.cols, g.rows, g.cols.length - 1));
+  });
+  var note = document.createElement("div");
+  note.style.cssText = "font-size:10.5px;color:var(--muted);margin-top:8px;";
+  note.textContent = REF.table1_3.note;
+  sec3.appendChild(note);
+  box.appendChild(sec3);
+
+  box.classList.toggle("hidden", state.refCollapsed);
+  document.getElementById("refCollapse").textContent = state.refCollapsed ? "펼치기 ▼" : "접기 ▲";
+}
+function buildTable(cols, rows, valColIdx) {
+  var tbl = document.createElement("table");
+  tbl.className = "ref";
+  var thead = document.createElement("thead");
+  var htr = document.createElement("tr");
+  cols.forEach(function (c) { var th = document.createElement("th"); th.textContent = c; htr.appendChild(th); });
+  thead.appendChild(htr); tbl.appendChild(thead);
+  var tbody = document.createElement("tbody");
+  rows.forEach(function (r) {
+    var tr = document.createElement("tr");
+    r.forEach(function (cell, ci) {
+      var td = document.createElement("td");
+      td.textContent = cell;
+      if (ci === valColIdx) td.className = "v";
+      tr.appendChild(td);
+    });
+    tbody.appendChild(tr);
+  });
+  tbl.appendChild(tbody);
+  return tbl;
+}
+
+/* ── 이벤트 ── */
+function bind() {
+  document.getElementById("addFac").addEventListener("click", function () {
+    state.facilities.push(emptyFacility()); save(); renderFacilities();
+  });
+  document.getElementById("clearAll").addEventListener("click", function () {
+    state.facilities = [emptyFacility()]; save(); renderFacilities();
+  });
+  document.getElementById("refCollapse").addEventListener("click", function () {
+    state.refCollapsed = !state.refCollapsed; save(); renderRef();
+  });
+}
+
+/* ── 시작 ── */
+load();
+bind();
+renderFacilities();
+renderFormulaList();
+renderRef();
+</script>
+</body>
+</html>
