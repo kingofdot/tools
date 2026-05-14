@@ -73,6 +73,10 @@ const PATTERNS = [
 // PUA(Private Use Area) 한 글자를 토큰 구분자로 사용 — 본문에 절대 등장하지 않을 문자
 const SENT = '';
 
+// true 면 꾸밈 마크업({볼드} /밑줄/ *형광펜*)을 스타일 없이 일반 텍스트로만 렌더.
+// 시험 화면(quiz.js)에서 강조 표시를 숨기기 위해 사용.
+let hlPlainDeco = false;
+
 function highlightInline(text) {
   // 현재 노트의 lawUnlinks — 우클릭으로 해제된 표현은 일반 텍스트로
   const unlinks = (function () {
@@ -109,10 +113,18 @@ function highlightInline(text) {
   let prev;
   do {
     prev = html;
-    html = html
-      .replace(/(?<![A-Za-z0-9_<])\*([^*\n<>]+?)\*(?![A-Za-z0-9_>])/g, '<span class="hl-mark">$1</span>')
-      .replace(/(?<![A-Za-z0-9_<\/])\/([^\/\n<>]+?)\/(?![A-Za-z0-9_>\/])/g, '<u class="hl-uline">$1</u>')
-      .replace(/\{([^{}\n]+)\}/g, '<strong class="hl-bold">$1</strong>');
+    if (hlPlainDeco) {
+      // 시험 화면: 마크업 기호만 제거하고 강조 스타일은 적용하지 않음
+      html = html
+        .replace(/(?<![A-Za-z0-9_<])\*([^*\n<>]+?)\*(?![A-Za-z0-9_>])/g, '$1')
+        .replace(/(?<![A-Za-z0-9_<\/])\/([^\/\n<>]+?)\/(?![A-Za-z0-9_>\/])/g, '$1')
+        .replace(/\{([^{}\n]+)\}/g, '$1');
+    } else {
+      html = html
+        .replace(/(?<![A-Za-z0-9_<])\*([^*\n<>]+?)\*(?![A-Za-z0-9_>])/g, '<span class="hl-mark">$1</span>')
+        .replace(/(?<![A-Za-z0-9_<\/])\/([^\/\n<>]+?)\/(?![A-Za-z0-9_>\/])/g, '<u class="hl-uline">$1</u>')
+        .replace(/\{([^{}\n]+)\}/g, '<strong class="hl-bold">$1</strong>');
+    }
   } while (html !== prev);
 
   const tokRe = new RegExp(`${SENT}T(\\d+)${SENT}`, 'g');

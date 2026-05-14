@@ -8,20 +8,26 @@
 
 const QUIZ_PARTICLES = [
   '입니다','이며','이고','이다',
+  '에서의','으로써','되므로','하는','되는','받을',
   '처럼','마다','부터','까지','에서','으로','한테','에게','같이','조차','보다',
   '은','는','이','가','을','를','의','에','로','와','과','도','만','께','뿐'
 ];
 // stem non-greedy — '민법으로'가 '민법'+'으로' 로 정상 매칭
+// 긴 항목('에서의','으로써','하는' 등)을 앞에 둬서 '에서'/'으로'/'는' 보다 먼저 매칭
 const PARTICLE_RE = new RegExp(
   '([가-힣A-Za-z][가-힣A-Za-z0-9]+?)(' + QUIZ_PARTICLES.join('|') + ')(?=[\\s.,!?)\\]\\}　]|$)',
   'g'
 );
+// 빈칸으로 만들지 않을 어미·관용 표현 — 이 표현과 겹치는 조사 후보는 버린다
+// (예: 있다는, 때에는, 하므로, 띠므로 → 앞 음절을 명사로 오인식하므로 제외)
+const QUIZ_NO_BLANK_RE = /하므로|띠므로|있다는|때에는/g;
 // 법조항 — (제○조), (제○조 제○항), (제○조 제○항 제○호), (제○조의2) 등
 const LAW_RE = /\(\s*제\s*\d+조(?:의\s*\d+)?(?:\s*제\s*\d+항)?(?:\s*제\s*\d+호)?\s*\)/g;
 // 판례번호 — 95다14190, 2004다8210, 2018두12345 등 (한 글자 한자식 + 양쪽 비숫자 경계)
 const CASE_BODY_RE = /(\d{2,4}(?:다|두|모|마|사|드|아|허|누|회|기|배)\d{2,})/g;
 
 let quizState = null;
+let lastQuizRange = null;   // 마지막으로 시작한 시험 범위 { subject, subTopic } — '다시풀기'용
 // {
 //   notes: [{ noteId, subject, subTopic, topic, lines: [{raw, blanks: [...]}], totalBlanks, displayNo }],
 //   idx,
@@ -54,6 +60,11 @@ function bindQuiz() {
   document.getElementById('quizRestartBtn')?.addEventListener('click', () => {
     quizState = null;
     openQuizSetup();
+  });
+  document.getElementById('quizRetryBtn')?.addEventListener('click', () => {
+    // 같은 범위로 다시 출제 (노트·빈칸 라벨 재셔플)
+    if (lastQuizRange) startQuiz(lastQuizRange.subject, lastQuizRange.subTopic);
+    else { quizState = null; openQuizSetup(); }
   });
 
   // 시험 모드 활성화 동안 ESC 처리 (입력 중일 때도)
@@ -138,16 +149,27 @@ function closeQuiz() {
 function extractBlanks(line) {
   const blanks = [];
 
+  // 0) 빈칸 제외 구간 — 어미·관용 표현(하므로/띠므로/있다는/때에는)
+  const blockRanges = [];
+  QUIZ_NO_BLANK_RE.lastIndex = 0;
+  let bm;
+  while ((bm = QUIZ_NO_BLANK_RE.exec(line)) !== null) {
+    blockRanges.push([bm.index, bm.index + bm[0].length]);
+  }
+  const inBlock = (s, e) => blockRanges.some(([bs, be]) => s < be && e > bs);
+
   // 1) 조사 앞 단어
   PARTICLE_RE.lastIndex = 0;
   let m;
   while ((m = PARTICLE_RE.exec(line)) !== null) {
+    // 어미·관용 표현과 겹치면 빈칸 제외
+    if (inBlock(m.index, m.index + m[1].length + m[2].length)) continue;
     blanks.push({
       type: 'word',
       start: m.index,
       end: m.index + m[1].length,
       answer: m[1],
-      hint: m[2],          // 조사 (오른쪽 힌트로 노출)
+      hint: m[2],          // 조사 (채점용으로만 보관 — 우측 입력란엔 노출 안 함)
     });
   }
 
@@ -241,6 +263,8 @@ function startQuiz(subject, subTopic) {
     return;
   }
 
+  lastQuizRange = { subject, subTopic };
+
   // 노트마다 랜덤 번호 부여 (1..N 순열)
   const labels = Array.from({ length: built.length }, (_, i) => i + 1);
   for (let i = labels.length - 1; i > 0; i--) {
@@ -289,7 +313,7 @@ function showNote() {
       <span class="quiz-input-label">#${b.label}</span>
       <input type="text" class="quiz-input-field" data-label="${b.label}" autocomplete="off"
              placeholder="빈칸의 답">
-      <span class="quiz-input-hint quiz-hint-${b.type}">${esc(b.hint || '')}</span>
+      ${b.type === 'word' ? '' : `<span class="quiz-input-hint quiz-hint-${b.type}">${esc(b.hint || '')}</span>`}
     </li>
   `).join('');
 
@@ -332,10 +356,13 @@ function renderQuizNoteHtml(q) {
   });
 
   // 2) 기존 parser → numberTree → renderTree → highlightInline 통과
+  //    시험 화면에서는 꾸밈 마크업(굵게·형광펜·밑줄)을 숨김 — hlPlainDeco 플래그
   let html = '';
   if (typeof parseBody === 'function' && typeof renderTree === 'function' && typeof numberTree === 'function') {
     const tree = numberTree(parseBody(body));
+    if (typeof hlPlainDeco !== 'undefined') hlPlainDeco = true;
     html = renderTree(tree);
+    if (typeof hlPlainDeco !== 'undefined') hlPlainDeco = false;
   } else {
     // fallback (이론상 도달 안함)
     html = `<pre>${esc(body)}</pre>`;
