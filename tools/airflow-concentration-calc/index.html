@@ -170,6 +170,16 @@
   .fld .v-wrap input { width: 66px; }
   .fld .v-wrap select { width: 64px; padding: 7px 4px; }
   .fld.pol > label { color: var(--accent-2); }
+  .fld.pol .pol-val {
+    width: 84px; padding: 7px 9px; border: 1px solid var(--border);
+    border-radius: 7px; background: var(--surface-2);
+    font-size: 12px; text-align: right; font-variant-numeric: tabular-nums;
+    color: var(--accent-2); font-weight: 600; min-height: 31px;
+  }
+  .fac-ophours { display: flex; align-items: center; gap: 6px; white-space: nowrap; }
+  .fac-ophours label { font-size: 11px; color: var(--text-dim); font-weight: 600; }
+  .fac-ophours input { width: 72px; }
+  .fac-ophours .u { font-size: 10.5px; color: var(--muted); }
   .hood .qbox {
     margin-left: auto; text-align: right; align-self: center;
     display: flex; flex-direction: column; gap: 1px;
@@ -443,7 +453,7 @@ var state = {
 function emptyHood() { return { shape: "slot", dims: {}, v: "", vUnit: "ms", t: "", outlet: "", pollutants: {} }; }
 function emptyEmission() { return { substance: "", coefficient: "" }; }
 function emptyMat() { return { name: "", value: "", unit: "", emissions: [] }; }
-function emptyFacility() { return { name: "", materials: [], fuels: [], hoods: [emptyHood()] }; }
+function emptyFacility() { return { name: "", operatingHours: "", materials: [], fuels: [], hoods: [emptyHood()] }; }
 
 function normEmissions(a) {
   return Array.isArray(a) ? a.map(function (e) {
@@ -476,6 +486,7 @@ function load() {
           state.facilities = s.facilities.map(function (f) {
             return {
               name: f.name || "",
+              operatingHours: f.operatingHours || "",
               materials: normMats(f.materials),
               fuels: normMats(f.fuels),
               hoods: (Array.isArray(f.hoods) ? f.hoods : []).map(function (h) {
@@ -545,6 +556,21 @@ function collectSubstances(fac) {
   return out;
 }
 
+/* ── 배출물질별 분자값 = Σ(원료·연료 사용량 × 해당 물질 배출계수) ── */
+function substanceNumerator(fac, subName) {
+  var sum = 0;
+  ["materials", "fuels"].forEach(function (kind) {
+    (fac[kind] || []).forEach(function (m) {
+      var usage = num(m.value);
+      if (!usage) return;
+      (m.emissions || []).forEach(function (e) {
+        if ((e.substance || "").trim() === subName) sum += usage * num(e.coefficient);
+      });
+    });
+  });
+  return sum;
+}
+
 /* ── 런타임 참조 (가벼운 재계산용) ── */
 var refs = [];   // refs[fi] = { sub: el, hoods: [{ qv: el, qh: el }] }
 
@@ -571,6 +597,15 @@ function renderFacilities() {
     nameIn.placeholder = "배출시설 번호·명 (예: 배-1 건조시설)";
     nameIn.value = fac.name;
     nameIn.addEventListener("input", function () { fac.name = nameIn.value; save(); });
+    var opWrap = document.createElement("div");
+    opWrap.className = "fac-ophours";
+    var opLab = document.createElement("label"); opLab.textContent = "가동시간";
+    var opIn = document.createElement("input");
+    opIn.type = "number"; opIn.min = "0"; opIn.step = "any"; opIn.placeholder = "0";
+    opIn.value = fac.operatingHours || "";
+    opIn.addEventListener("input", function () { fac.operatingHours = opIn.value; save(); recalc(); });
+    var opU = document.createElement("span"); opU.className = "u"; opU.textContent = "hr";
+    opWrap.appendChild(opLab); opWrap.appendChild(opIn); opWrap.appendChild(opU);
     var facDel = document.createElement("button");
     facDel.className = "del-btn"; facDel.type = "button"; facDel.textContent = "×";
     facDel.title = "배출시설 삭제";
@@ -579,7 +614,7 @@ function renderFacilities() {
       if (state.facilities.length === 0) state.facilities.push(emptyFacility());
       save(); renderFacilities();
     });
-    head.appendChild(idx); head.appendChild(nameIn); head.appendChild(facDel);
+    head.appendChild(idx); head.appendChild(nameIn); head.appendChild(opWrap); head.appendChild(facDel);
     box.appendChild(head);
 
     /* 원료·연료 */
@@ -649,7 +684,7 @@ function renderMatGroup(fac, kind, label) {
     var r = document.createElement("div");
     r.className = "mat-row";
     r.appendChild(mkInput("m-name", m.name, label + "명", function (v) { m.name = v; save(); }));
-    r.appendChild(mkInput("m-val", m.value, "사용량", function (v) { m.value = v; save(); }));
+    r.appendChild(mkInput("m-val", m.value, "사용량", function (v) { m.value = v; save(); recalc(); }));
     r.appendChild(mkInput("m-unit", m.unit, "단위", function (v) { m.unit = v; save(); }));
     var del = document.createElement("button");
     del.className = "del-btn sm"; del.type = "button"; del.textContent = "×";
@@ -670,7 +705,7 @@ function renderMatGroup(fac, kind, label) {
       var es = mkInput("e-sub", em.substance, "배출물질 (예: 먼지)", function (v) { em.substance = v; save(); });
       es.addEventListener("change", function () { renderFacilities(); });   // 후드 동적 반영
       er.appendChild(es);
-      er.appendChild(mkInput("e-coef", em.coefficient, "배출계수", function (v) { em.coefficient = v; save(); }));
+      er.appendChild(mkInput("e-coef", em.coefficient, "배출계수", function (v) { em.coefficient = v; save(); recalc(); }));
       var ed = document.createElement("button");
       ed.className = "del-btn sm"; ed.type = "button"; ed.textContent = "×"; ed.title = "배출물질 삭제";
       ed.addEventListener("click", function () { m.emissions.splice(ei, 1); save(); renderFacilities(); });
@@ -698,7 +733,7 @@ function mkInput(cls, val, ph, onIn) {
 /* ── 렌더: 후드 1개 ── */
 function renderHood(fac, fi, h, hi, facRef) {
   var sh = shapeById(h.shape);
-  var hRef = { qv: null, qh: null };
+  var hRef = { qv: null, qh: null, pols: [] };
   facRef.hoods.push(hRef);
 
   var row = document.createElement("div");
@@ -787,19 +822,18 @@ function renderHood(fac, fi, h, hi, facRef) {
   fT.appendChild(tIn);
   row.appendChild(fT);
 
-  /* 원료·연료 배출물질 → 후드별 농도 입력 (동적) */
-  if (!h.pollutants || typeof h.pollutants !== "object") h.pollutants = {};
+  /* 원료·연료 배출물질 → 후드별 농도 (자동 계산 표시) */
   collectSubstances(fac).forEach(function (subName) {
     var fp = document.createElement("div");
     fp.className = "fld pol";
     var lab = document.createElement("label");
-    lab.textContent = subName;
-    var inp = document.createElement("input");
-    inp.type = "number"; inp.step = "any"; inp.placeholder = "농도";
-    inp.value = (h.pollutants[subName] != null) ? h.pollutants[subName] : "";
-    inp.addEventListener("input", function () { h.pollutants[subName] = inp.value; save(); });
-    fp.appendChild(lab); fp.appendChild(inp);
+    lab.textContent = subName + " 농도";
+    var valBox = document.createElement("div");
+    valBox.className = "pol-val";
+    valBox.title = "(원료·연료 사용량 × 배출계수) ÷ (가동시간 × 60 × 표준풍량)";
+    fp.appendChild(lab); fp.appendChild(valBox);
     row.appendChild(fp);
+    hRef.pols.push({ sub: subName, el: valBox });
   });
 
   /* 풍량 Q */
@@ -840,6 +874,13 @@ function recalc() {
       if (hRef && hRef.qv) {
         hRef.qv.innerHTML = fmt(q) + '<span class="u">㎥/min</span>';
         hRef.qh.textContent = "표준 " + fmt(qs) + " S㎥/min";
+      }
+      if (hRef && hRef.pols) {
+        var opMin = num(fac.operatingHours) * 60;
+        hRef.pols.forEach(function (p) {
+          var denom = opMin * qs;   // 가동시간 × 60 × 표준풍량
+          p.el.textContent = denom > 0 ? fmt(substanceNumerator(fac, p.sub) / denom) : "—";
+        });
       }
       var key = (h.outlet || "").trim() || "(미지정)";
       if (!outlets[key]) { outlets[key] = { q: 0, std: 0, qt: 0 }; order.push(key); }
@@ -914,7 +955,10 @@ function renderFormulaList() {
           'A 는 후드 개구면적(㎡).' +
           '<br><b>표준풍량</b> &nbsp;<code>Qs = Q × 273 / (273 + T)</code> &nbsp;— 온도 T(℃) 기준 0℃ 표준상태 환산, 단위 <b>S㎥/min</b>.' +
           '<br><b>배출구</b> — 후드별로 배출시설→방지시설 경로를 구분합니다. 한 배출시설의 후드가 서로 다른 배출구로 나갈 수 있으며, ' +
-          '전체 후드를 배출구 기준으로 합산한 결과가 「배출구별 집계」 섹션에 표시됩니다 (온도는 풍량 가중평균).';
+          '전체 후드를 배출구 기준으로 합산한 결과가 「배출구별 집계」 섹션에 표시됩니다 (온도는 풍량 가중평균).' +
+          '<br><b>오염물질 농도</b> &nbsp;<code>농도 = Σ(원료·연료 사용량 × 배출계수) ÷ (가동시간 × 60 × 표준풍량)</code>' +
+          ' &nbsp;— 원료·연료에 배출물질·배출계수를 입력하면 각 후드의 농도가 자동 계산됩니다. 원료 사용량은 배출시설 전체 양을 각 후드가 그대로 사용하며, ' +
+          '가동시간(hr)은 배출시설 단위로 입력합니다. 단위는 입력값에 따릅니다.';
   box.innerHTML = html;
 }
 
