@@ -145,6 +145,7 @@
   .emis-row { display: flex; gap: 5px; align-items: center; }
   .emis-row .e-sub { flex: 1; min-width: 70px; }
   .emis-row .e-coef { width: 92px; }
+  .emis-row .e-phase { width: 78px; padding: 7px 5px; }
   .emis-add { align-self: flex-start; font-size: 10px; padding: 3px 8px; }
 
   /* ── 후드 행 ── */
@@ -364,8 +365,8 @@ function shapeById(id) {
   return SHAPES[0];
 }
 var DIM_LABEL = {
-  L: "길이 L (m)", W: "폭 W (m)", X: "포집거리 X (m)",
-  H: "부스높이 H (m)", P: "오염원둘레 P (m)", D: "포집거리 D (m)"
+  L: "길이 (m)", W: "폭 (m)", X: "포집거리 (m)",
+  H: "부스높이 (m)", P: "오염원둘레 (m)", D: "포집거리 (m)"
 };
 
 /* ── 포착속도 참고표 (편람 표1-1 / 1-2 / 1-3) ── */
@@ -453,13 +454,17 @@ var state = {
 };
 
 function emptyHood() { return { shape: "slot", dims: {}, v: "", vUnit: "ms", t: "", outlet: "", pollutants: {} }; }
-function emptyEmission() { return { substance: "", coefficient: "" }; }
+function emptyEmission() { return { substance: "", coefficient: "", phase: "가스상" }; }
 function emptyMat() { return { name: "", value: "", unit: "", emissions: [] }; }
 function emptyFacility() { return { name: "", operatingHours: "", materials: [], fuels: [], hoods: [emptyHood()] }; }
 
 function normEmissions(a) {
   return Array.isArray(a) ? a.map(function (e) {
-    return { substance: (e && e.substance) || "", coefficient: (e && e.coefficient) || "" };
+    return {
+      substance: (e && e.substance) || "",
+      coefficient: (e && e.coefficient) || "",
+      phase: (e && e.phase === "입자상") ? "입자상" : "가스상"
+    };
   }) : [];
 }
 function normMats(a) {
@@ -699,7 +704,7 @@ function renderMatGroup(fac, kind, label) {
     var ew = document.createElement("div");
     ew.className = "emis-wrap";
     var eh = document.createElement("div");
-    eh.className = "emis-head"; eh.textContent = "배출물질 / 배출계수";
+    eh.className = "emis-head"; eh.textContent = "배출물질 / 배출계수 / 성상";
     ew.appendChild(eh);
     m.emissions.forEach(function (em, ei) {
       var er = document.createElement("div");
@@ -708,6 +713,16 @@ function renderMatGroup(fac, kind, label) {
       es.addEventListener("change", function () { renderFacilities(); });   // 후드 동적 반영
       er.appendChild(es);
       er.appendChild(mkInput("e-coef", em.coefficient, "배출계수", function (v) { em.coefficient = v; save(); recalc(); }));
+      var phSel = document.createElement("select");
+      phSel.className = "e-phase";
+      ["가스상", "입자상"].forEach(function (opt) {
+        var o = document.createElement("option");
+        o.value = opt; o.textContent = opt;
+        if (opt === em.phase) o.selected = true;
+        phSel.appendChild(o);
+      });
+      phSel.addEventListener("change", function () { em.phase = phSel.value; save(); });
+      er.appendChild(phSel);
       var ed = document.createElement("button");
       ed.className = "del-btn sm"; ed.type = "button"; ed.textContent = "×"; ed.title = "배출물질 삭제";
       ed.addEventListener("click", function () { m.emissions.splice(ei, 1); save(); renderFacilities(); });
@@ -794,7 +809,7 @@ function renderHood(fac, fi, h, hi, facRef) {
   /* 포착속도 V */
   var fV = document.createElement("div");
   fV.className = "fld";
-  fV.innerHTML = '<label>포착속도 V</label>';
+  fV.innerHTML = '<label>포착속도</label>';
   var vWrap = document.createElement("div");
   vWrap.className = "v-wrap";
   var vIn = document.createElement("input");
@@ -816,7 +831,7 @@ function renderHood(fac, fi, h, hi, facRef) {
   /* 온도 T */
   var fT = document.createElement("div");
   fT.className = "fld";
-  fT.innerHTML = '<label>온도 T (℃)</label>';
+  fT.innerHTML = '<label>온도</label>';
   var tIn = document.createElement("input");
   tIn.type = "number"; tIn.className = "temp-in"; tIn.step = "any"; tIn.placeholder = "0";
   tIn.value = h.t;
