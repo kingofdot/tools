@@ -60,9 +60,7 @@
   }
   .card-head { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; }
   .card-head h2 { font-size: 13px; font-weight: 650; margin: 0; letter-spacing: -0.01em; }
-  .card-head .hint { font-size: 11px; color: var(--muted); margin-left: 12px; }
-  .dec-ctl { display: flex; align-items: center; gap: 6px; margin-left: auto; }
-  .dec-ctl label { font-size: 11px; color: var(--text-dim); font-weight: 600; white-space: nowrap; }
+  .card-head .hint { font-size: 11px; color: var(--muted); margin-left: auto; }
 
   /* ── 입력 요소 ── */
   select, input[type="text"], input[type="number"] {
@@ -73,7 +71,6 @@
   select:focus, input:focus { border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-bg); }
   input[type="number"] { text-align: right; font-variant-numeric: tabular-nums; }
   input::placeholder { color: var(--muted); }
-  .dec-ctl select { padding: 5px 7px; }
 
   .btn {
     background: var(--surface); border: 1px solid var(--border-2); color: var(--text);
@@ -91,6 +88,17 @@
     line-height: 1; transition: .12s; flex-shrink: 0;
   }
   .del-btn:hover { border-color: var(--danger); color: var(--danger); }
+  .del-btn.sm { width: 22px; height: 22px; font-size: 12px; }
+
+  /* ── 전체 설정 ── */
+  .settings-row { display: flex; gap: 24px; flex-wrap: wrap; align-items: flex-end; }
+  .set-fld { display: flex; flex-direction: column; gap: 5px; }
+  .set-fld label {
+    font-size: 10px; color: var(--text-dim); font-weight: 600;
+    letter-spacing: 0.03em; text-transform: uppercase;
+  }
+  .set-fld select { width: 110px; }
+  .set-fld .note { font-size: 10.5px; color: var(--muted); }
 
   /* ── 배출시설 카드 ── */
   .facility {
@@ -106,37 +114,24 @@
   }
   .fac-head input.fac-name { flex: 1; font-weight: 550; }
 
-  /* ── 원료 / 연료 ── */
-  .fac-io {
-    display: flex; gap: 18px; flex-wrap: wrap; margin-bottom: 12px;
-    padding: 10px 12px; background: var(--surface-2);
-    border: 1px solid var(--border); border-radius: 8px;
+  /* ── 원료·연료 ── */
+  .fac-mats { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 12px; }
+  .mat-group {
+    flex: 1; min-width: 300px;
+    background: var(--surface-2); border: 1px solid var(--border);
+    border-radius: 8px; padding: 10px 12px;
   }
-  .io-group { display: flex; flex-direction: column; gap: 6px; min-width: 300px; flex: 1; }
-  .io-label { font-size: 11px; font-weight: 700; color: var(--accent-2); }
-  .io-rows { display: flex; flex-direction: column; gap: 5px; }
-  .io-row { display: flex; gap: 5px; align-items: center; }
-  .io-row .io-name { flex: 1; min-width: 80px; }
-  .io-row .io-val { width: 88px; }
-  .io-row .io-unit { width: 64px; }
-  .io-row .del-btn { width: 22px; height: 22px; font-size: 12px; }
-  .io-empty { font-size: 11px; color: var(--muted); padding: 2px 0; }
-  .io-add { align-self: flex-start; padding: 4px 9px; font-size: 11px; }
-  .mat-block {
-    display: flex; flex-direction: column; gap: 6px;
-    border: 1px solid var(--border); border-radius: 7px;
-    padding: 7px 8px; background: var(--surface);
+  .mat-group-head {
+    display: flex; align-items: center; gap: 8px; margin-bottom: 8px;
+    font-size: 11px; font-weight: 650; color: var(--text-dim);
   }
-  .emis-wrap {
-    display: flex; flex-direction: column; gap: 4px;
-    padding-left: 10px; margin-left: 2px; border-left: 2px solid var(--border-2);
-  }
-  .emis-head { font-size: 10px; font-weight: 650; color: var(--text-dim); }
-  .emis-row { display: flex; gap: 5px; align-items: center; }
-  .emis-row .emis-sub { flex: 1; min-width: 80px; }
-  .emis-row .emis-coef { width: 104px; }
-  .emis-row .del-btn { width: 22px; height: 22px; font-size: 12px; }
-  .emis-add { align-self: flex-start; padding: 3px 8px; font-size: 10.5px; }
+  .mat-group-head .add-mat { margin-left: auto; font-size: 10.5px; padding: 4px 10px; }
+  .mat-list { display: flex; flex-direction: column; gap: 6px; }
+  .mat-row { display: flex; gap: 6px; align-items: center; }
+  .mat-row .m-name { flex: 1; min-width: 70px; }
+  .mat-row .m-val { width: 86px; }
+  .mat-row .m-unit { width: 78px; }
+  .mat-empty { font-size: 10.5px; color: var(--muted); padding: 2px 0; }
 
   /* ── 후드 행 ── */
   .hoods { display: flex; flex-direction: column; gap: 8px; }
@@ -188,23 +183,27 @@
   .fac-foot .sub-val .u { font-size: 10px; color: var(--muted); font-weight: 500; margin-left: 2px; }
   .fac-foot .sub-val .sep { color: var(--border-2); margin: 0 8px; }
 
-  /* ── 배출구 집계 ── */
-  table.agg { width: 100%; border-collapse: collapse; font-size: 12px; }
-  table.agg th {
-    text-align: left; font-weight: 650; color: var(--text-dim);
-    padding: 8px 10px; border-bottom: 1px solid var(--border-2); background: var(--surface-2);
+  /* ── 배출구별 집계 ── */
+  table.outlet-tbl { width: 100%; border-collapse: collapse; font-size: 12px; }
+  table.outlet-tbl th {
+    text-align: right; font-size: 10.5px; font-weight: 650; color: var(--text-dim);
+    text-transform: uppercase; letter-spacing: 0.03em;
+    padding: 8px 10px; border-bottom: 1px solid var(--border-2); white-space: nowrap;
   }
-  table.agg th.r { text-align: right; }
-  table.agg td { padding: 7px 10px; border-bottom: 1px solid var(--border); color: var(--text-dim); }
-  table.agg td.v { text-align: right; font-variant-numeric: tabular-nums; color: var(--text); font-weight: 600; }
-  table.agg td.nm { color: var(--text); font-weight: 550; }
-  table.agg tr:hover td { background: var(--surface-2); }
-  table.agg tr.agg-total td {
-    font-weight: 700; color: var(--success-2); background: var(--success-bg);
-    border-bottom: none;
+  table.outlet-tbl th:first-child { text-align: left; }
+  table.outlet-tbl td {
+    padding: 9px 10px; border-bottom: 1px solid var(--border);
+    text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap;
   }
-  table.agg tr.agg-total:hover td { background: var(--success-bg); }
-  table.agg td.empty { color: var(--muted); text-align: center; padding: 18px; }
+  table.outlet-tbl td:first-child { text-align: left; font-weight: 600; color: var(--text); }
+  table.outlet-tbl tbody tr:hover td { background: var(--surface-2); }
+  table.outlet-tbl .u { font-size: 10px; color: var(--muted); font-weight: 500; margin-left: 2px; }
+  table.outlet-tbl tfoot td {
+    font-weight: 700; color: var(--accent-2);
+    border-top: 2px solid var(--border-2); border-bottom: 0;
+    background: var(--accent-bg);
+  }
+  .outlet-empty { font-size: 11px; color: var(--muted); padding: 6px 2px; }
 
   /* ── 안내 / 참고 ── */
   .formula-note {
@@ -245,23 +244,34 @@
 
   <header class="page-head">
     <h1><span class="dot"></span>풍량 및 농도 계산기</h1>
-    <p class="desc">배출시설별 후드 배출가스량(풍량)·표준풍량 산정 및 배출구별 집계 · 대기오염방지시설 설계실무편람(대구지방환경관리청, 1999) 제1장 기준</p>
+    <p class="desc">배출시설별 후드 배출가스량(풍량) 산정 · 대기오염방지시설 설계실무편람(대구지방환경관리청, 1999) 제1장 기준</p>
   </header>
+
+  <!-- ── 전체 설정 ── -->
+  <div class="card">
+    <div class="card-head"><h2>전체 설정</h2></div>
+    <div class="settings-row">
+      <div class="set-fld">
+        <label>소수 자릿수</label>
+        <select id="decimalsSel">
+          <option value="0">0 자리</option>
+          <option value="1">1 자리</option>
+          <option value="2">2 자리</option>
+          <option value="3">3 자리</option>
+          <option value="4">4 자리</option>
+        </select>
+      </div>
+      <div class="set-fld">
+        <span class="note">모든 풍량·표준풍량·온도 표시에 적용됩니다.</span>
+      </div>
+    </div>
+  </div>
 
   <!-- ── 배출시설·후드 ── -->
   <div class="card">
     <div class="card-head">
       <h2>배출시설별 후드 풍량 산정</h2>
-      <span class="hint">치수 단위: m · 포착속도 V · 풍량 Q: ㎥/min · 표준풍량 Qs: S㎥/min</span>
-      <div class="dec-ctl">
-        <label>소수점 자릿수</label>
-        <select id="decSel">
-          <option value="0">0</option>
-          <option value="1">1</option>
-          <option value="2">2</option>
-          <option value="3">3</option>
-        </select>
-      </div>
+      <span class="hint">치수 단위: m · 풍량 Q: ㎥/min · 표준풍량 Qs: S㎥/min</span>
     </div>
     <div id="facList"></div>
     <div class="btn-row">
@@ -274,19 +284,9 @@
   <div class="card">
     <div class="card-head">
       <h2>배출구별 집계</h2>
-      <span class="hint">온도는 풍량 가중평균 · 배출시설→방지시설 경로(배출구) 단위 합산</span>
+      <span class="hint">전체 후드를 배출구 기준으로 합산 · 온도는 풍량 가중평균</span>
     </div>
-    <table class="agg">
-      <thead>
-        <tr>
-          <th>배출구</th>
-          <th class="r">풍량 (㎥/min)</th>
-          <th class="r">표준풍량 (S㎥/min)</th>
-          <th class="r">온도 (℃)</th>
-        </tr>
-      </thead>
-      <tbody id="outletBody"></tbody>
-    </table>
+    <div id="outletSection"></div>
   </div>
 
   <!-- ── 산식 안내 ── -->
@@ -421,41 +421,28 @@ var REF = {
   }
 };
 
-var STORAGE_KEY = "airflow-concentration-calc.v2";
+var STORAGE_KEY = "airflow-concentration-calc.v1";
 
 /* ── 상태 ── */
 var state = {
   decimals: 1,
-  facilities: [],   // [{ name, materials:[{name,value,unit}], fuels:[...], hoods:[{shape,dims,v,vUnit,t,outlet}] }]
+  facilities: [],   // [{ name, materials:[], fuels:[], hoods:[{shape,dims,v,vUnit,t,outlet}] }]
   refCollapsed: true
 };
 
 function emptyHood() { return { shape: "slot", dims: {}, v: "", vUnit: "ms", t: "", outlet: "" }; }
-function emptyEmission() { return { substance: "", coefficient: "" }; }
-function emptyIO() { return { name: "", value: "", unit: "" }; }
-function emptyMaterial() { return { name: "", value: "", unit: "", emissions: [emptyEmission()] }; }
-function emptyFacility() {
-  return { name: "", materials: [emptyMaterial()], fuels: [emptyIO()], hoods: [emptyHood()] };
+function emptyMat() { return { name: "", value: "", unit: "" }; }
+function emptyFacility() { return { name: "", materials: [], fuels: [], hoods: [emptyHood()] }; }
+
+function normMats(a) {
+  return Array.isArray(a) ? a.map(function (m) {
+    return { name: (m && m.name) || "", value: (m && m.value) || "", unit: (m && m.unit) || "" };
+  }) : [];
 }
 
 /* ── 저장/복원 ── */
 function save() {
   try { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); } catch (e) {}
-}
-function mapIO(arr) {
-  return (Array.isArray(arr) ? arr : []).map(function (x) {
-    return { name: (x && x.name) || "", value: (x && x.value) || "", unit: (x && x.unit) || "" };
-  });
-}
-function mapMaterials(arr) {
-  return (Array.isArray(arr) ? arr : []).map(function (x) {
-    return {
-      name: (x && x.name) || "", value: (x && x.value) || "", unit: (x && x.unit) || "",
-      emissions: (Array.isArray(x && x.emissions) ? x.emissions : []).map(function (e) {
-        return { substance: (e && e.substance) || "", coefficient: (e && e.coefficient) || "" };
-      })
-    };
-  });
 }
 function load() {
   try {
@@ -463,17 +450,16 @@ function load() {
     if (raw) {
       var s = JSON.parse(raw);
       if (s && typeof s === "object") {
-        if (s.decimals != null && isFinite(parseInt(s.decimals, 10))) {
-          state.decimals = Math.max(0, Math.min(3, parseInt(s.decimals, 10)));
-        }
+        var d = parseInt(s.decimals, 10);
+        state.decimals = (isFinite(d) && d >= 0 && d <= 6) ? d : 1;
         state.refCollapsed = s.refCollapsed !== false;
         if (Array.isArray(s.facilities)) {
           state.facilities = s.facilities.map(function (f) {
             return {
-              name: (f && f.name) || "",
-              materials: mapMaterials(f && f.materials),
-              fuels: mapIO(f && f.fuels),
-              hoods: (Array.isArray(f && f.hoods) ? f.hoods : []).map(function (h) {
+              name: f.name || "",
+              materials: normMats(f.materials),
+              fuels: normMats(f.fuels),
+              hoods: (Array.isArray(f.hoods) ? f.hoods : []).map(function (h) {
                 return {
                   shape: shapeById(h.shape).id,
                   dims: (h.dims && typeof h.dims === "object") ? h.dims : {},
@@ -497,7 +483,9 @@ function load() {
 function num(v) { var n = parseFloat(v); return isFinite(n) ? n : 0; }
 function fmt(n) {
   if (!isFinite(n)) n = 0;
-  return n.toLocaleString("ko-KR", { minimumFractionDigits: 0, maximumFractionDigits: state.decimals });
+  var dec = (state.decimals != null) ? state.decimals : 1;
+  var p = Math.pow(10, dec);
+  return (Math.round(n * p) / p).toLocaleString("ko-KR", { maximumFractionDigits: dec });
 }
 function escapeHtml(s) {
   return String(s).replace(/[&<>"]/g, function (c) {
@@ -505,7 +493,7 @@ function escapeHtml(s) {
   });
 }
 
-/* ── 후드 풍량 (㎥/min) ── */
+/* ── 후드 풍량 계산 (㎥/min) ── */
 function hoodQ(h) {
   var sh = shapeById(h.shape);
   var vMin = num(h.v) * (h.vUnit === "ms" ? 60 : 1);   // m/sec → m/min
@@ -514,6 +502,7 @@ function hoodQ(h) {
   var q = sh.calc(d, vMin);
   return isFinite(q) && q > 0 ? q : 0;
 }
+
 /* ── 표준풍량 (0℃ 표준상태 환산, S㎥/min) — Qs = Q × 273/(273+T) ── */
 function hoodQstd(h) {
   var q = hoodQ(h);
@@ -523,7 +512,7 @@ function hoodQstd(h) {
 }
 
 /* ── 런타임 참조 (가벼운 재계산용) ── */
-var refs = [];   // refs[fi] = { sub: el, hoods: [{ qv, qh }] }
+var refs = [];   // refs[fi] = { sub: el, hoods: [{ qv: el, qh: el }] }
 
 /* ── 렌더: 배출시설 목록 ── */
 function renderFacilities() {
@@ -559,12 +548,12 @@ function renderFacilities() {
     head.appendChild(idx); head.appendChild(nameIn); head.appendChild(facDel);
     box.appendChild(head);
 
-    /* 원료 / 연료 */
-    var io = document.createElement("div");
-    io.className = "fac-io";
-    io.appendChild(renderIOGroup(fac, fi, "materials", "원료", "예: 도료", true));
-    io.appendChild(renderIOGroup(fac, fi, "fuels", "연료", "예: LNG", false));
-    box.appendChild(io);
+    /* 원료·연료 */
+    var mats = document.createElement("div");
+    mats.className = "fac-mats";
+    mats.appendChild(renderMatGroup(fac, "materials", "원료"));
+    mats.appendChild(renderMatGroup(fac, "fuels", "연료"));
+    box.appendChild(mats);
 
     /* 후드 목록 */
     var hoods = document.createElement("div");
@@ -597,121 +586,48 @@ function renderFacilities() {
 }
 
 /* ── 렌더: 원료/연료 그룹 ── */
-function renderIOGroup(fac, fi, key, label, ph, withEmissions) {
+function renderMatGroup(fac, kind, label) {
+  var arr = fac[kind];
   var group = document.createElement("div");
-  group.className = "io-group";
+  group.className = "mat-group";
 
-  var lab = document.createElement("span");
-  lab.className = "io-label"; lab.textContent = label;
-  group.appendChild(lab);
-
-  var rows = document.createElement("div");
-  rows.className = "io-rows";
-  var arr = fac[key];
-  if (arr.length === 0) {
-    var empty = document.createElement("div");
-    empty.className = "io-empty"; empty.textContent = "항목 없음";
-    rows.appendChild(empty);
-  }
-  arr.forEach(function (item, ii) {
-    rows.appendChild(withEmissions
-      ? renderMaterialBlock(item, ii, arr, ph)
-      : renderIORow(item, ii, arr, ph));
-  });
-  group.appendChild(rows);
-
+  var ghead = document.createElement("div");
+  ghead.className = "mat-group-head";
+  ghead.appendChild(document.createTextNode(label));
   var add = document.createElement("button");
-  add.className = "btn io-add"; add.type = "button"; add.textContent = "+ " + label + " 추가";
-  add.addEventListener("click", function () {
-    arr.push(withEmissions ? emptyMaterial() : emptyIO()); save(); renderFacilities();
-  });
-  group.appendChild(add);
+  add.className = "btn add-mat"; add.type = "button"; add.textContent = "+ 추가";
+  add.addEventListener("click", function () { arr.push(emptyMat()); save(); renderFacilities(); });
+  ghead.appendChild(add);
+  group.appendChild(ghead);
 
+  var listEl = document.createElement("div");
+  listEl.className = "mat-list";
+  if (arr.length === 0) {
+    var em = document.createElement("div");
+    em.className = "mat-empty"; em.textContent = label + " 항목 없음";
+    listEl.appendChild(em);
+  }
+  arr.forEach(function (m, mi) {
+    var r = document.createElement("div");
+    r.className = "mat-row";
+    r.appendChild(mkInput("m-name", m.name, label + "명", function (v) { m.name = v; save(); }));
+    r.appendChild(mkInput("m-val", m.value, "사용량", function (v) { m.value = v; save(); }));
+    r.appendChild(mkInput("m-unit", m.unit, "단위", function (v) { m.unit = v; save(); }));
+    var del = document.createElement("button");
+    del.className = "del-btn sm"; del.type = "button"; del.textContent = "×";
+    del.title = label + " 삭제";
+    del.addEventListener("click", function () { arr.splice(mi, 1); save(); renderFacilities(); });
+    r.appendChild(del);
+    listEl.appendChild(r);
+  });
+  group.appendChild(listEl);
   return group;
 }
-
-/* 명칭·사용량·단위 한 줄 (원료/연료 공통) */
-function renderIORow(item, ii, arr, ph) {
-  var row = document.createElement("div");
-  row.className = "io-row";
-
-  var nm = document.createElement("input");
-  nm.type = "text"; nm.className = "io-name"; nm.placeholder = ph;
-  nm.value = item.name;
-  nm.addEventListener("input", function () { item.name = nm.value; save(); });
-
-  var val = document.createElement("input");
-  val.type = "number"; val.className = "io-val"; val.placeholder = "사용량"; val.step = "any";
-  val.value = item.value;
-  val.addEventListener("input", function () { item.value = val.value; save(); });
-
-  var un = document.createElement("input");
-  un.type = "text"; un.className = "io-unit"; un.placeholder = "단위";
-  un.value = item.unit;
-  un.addEventListener("input", function () { item.unit = un.value; save(); });
-
-  var del = document.createElement("button");
-  del.className = "del-btn"; del.type = "button"; del.textContent = "×"; del.title = "삭제";
-  del.addEventListener("click", function () {
-    arr.splice(ii, 1); save(); renderFacilities();
-  });
-
-  row.appendChild(nm); row.appendChild(val); row.appendChild(un); row.appendChild(del);
-  return row;
-}
-
-/* 원료 1개 = 명칭 줄 + 배출물질/배출계수 N개 */
-function renderMaterialBlock(item, ii, arr, ph) {
-  var block = document.createElement("div");
-  block.className = "mat-block";
-
-  block.appendChild(renderIORow(item, ii, arr, ph));
-
-  if (!Array.isArray(item.emissions)) item.emissions = [];
-  var ewrap = document.createElement("div");
-  ewrap.className = "emis-wrap";
-  var ehead = document.createElement("div");
-  ehead.className = "emis-head"; ehead.textContent = "배출물질 / 배출계수";
-  ewrap.appendChild(ehead);
-
-  if (item.emissions.length === 0) {
-    var ee = document.createElement("div");
-    ee.className = "io-empty"; ee.textContent = "배출물질 없음";
-    ewrap.appendChild(ee);
-  }
-  item.emissions.forEach(function (em, ei) {
-    var er = document.createElement("div");
-    er.className = "emis-row";
-
-    var sub = document.createElement("input");
-    sub.type = "text"; sub.className = "emis-sub"; sub.placeholder = "배출물질 (예: THC)";
-    sub.value = em.substance;
-    sub.addEventListener("input", function () { em.substance = sub.value; save(); });
-
-    var coef = document.createElement("input");
-    coef.type = "text"; coef.className = "emis-coef"; coef.placeholder = "배출계수";
-    coef.value = em.coefficient;
-    coef.addEventListener("input", function () { em.coefficient = coef.value; save(); });
-
-    var edel = document.createElement("button");
-    edel.className = "del-btn"; edel.type = "button"; edel.textContent = "×"; edel.title = "배출물질 삭제";
-    edel.addEventListener("click", function () {
-      item.emissions.splice(ei, 1); save(); renderFacilities();
-    });
-
-    er.appendChild(sub); er.appendChild(coef); er.appendChild(edel);
-    ewrap.appendChild(er);
-  });
-
-  var eadd = document.createElement("button");
-  eadd.className = "btn emis-add"; eadd.type = "button"; eadd.textContent = "+ 배출물질 추가";
-  eadd.addEventListener("click", function () {
-    item.emissions.push(emptyEmission()); save(); renderFacilities();
-  });
-  ewrap.appendChild(eadd);
-  block.appendChild(ewrap);
-
-  return block;
+function mkInput(cls, val, ph, onIn) {
+  var i = document.createElement("input");
+  i.type = "text"; i.className = cls; i.value = val || ""; i.placeholder = ph;
+  i.addEventListener("input", function () { onIn(i.value); });
+  return i;
 }
 
 /* ── 렌더: 후드 1개 ── */
@@ -811,7 +727,7 @@ function renderHood(fac, fi, h, hi, facRef) {
   form.className = "formula"; form.textContent = sh.formula;
   row.appendChild(form);
 
-  /* 풍량 Q / 표준풍량 Qs */
+  /* 풍량 Q */
   var qbox = document.createElement("div");
   qbox.className = "qbox";
   var qv = document.createElement("div");
@@ -836,63 +752,79 @@ function renderHood(fac, fi, h, hi, facRef) {
   return row;
 }
 
-/* ── 가벼운 재계산: 입력칸 그대로 두고 풍량·소계·배출구집계만 갱신 ── */
+/* ── 가벼운 재계산: 입력칸 그대로 두고 풍량·소계·집계만 갱신 ── */
 function recalc() {
-  var outlets = {}, order = [];
+  var outlets = {}, order = [];   // 배출구명 → { q, std, qt }
   state.facilities.forEach(function (fac, fi) {
     var facRef = refs[fi];
-    if (!facRef) return;
-    var subQ = 0, subS = 0;
+    var subtotal = 0, subStd = 0;
     fac.hoods.forEach(function (h, hi) {
-      var q = hoodQ(h);
-      var qs = hoodQstd(h);
-      subQ += q; subS += qs;
-      var hRef = facRef.hoods[hi];
+      var q = hoodQ(h), qs = hoodQstd(h);
+      subtotal += q; subStd += qs;
+      var hRef = facRef && facRef.hoods[hi];
       if (hRef && hRef.qv) {
         hRef.qv.innerHTML = fmt(q) + '<span class="u">㎥/min</span>';
         hRef.qh.textContent = "표준 " + fmt(qs) + " S㎥/min";
       }
       var key = (h.outlet || "").trim() || "(미지정)";
-      if (!outlets[key]) { outlets[key] = { q: 0, s: 0, qt: 0 }; order.push(key); }
+      if (!outlets[key]) { outlets[key] = { q: 0, std: 0, qt: 0 }; order.push(key); }
       outlets[key].q += q;
-      outlets[key].s += qs;
+      outlets[key].std += qs;
       outlets[key].qt += q * num(h.t);
     });
-    if (facRef.sub) {
-      facRef.sub.innerHTML =
-        '풍량 ' + fmt(subQ) + '<span class="u">㎥/min</span>' +
-        '<span class="sep">|</span>표준 ' + fmt(subS) + '<span class="u">S㎥/min</span>';
-    }
+    if (facRef && facRef.sub) facRef.sub.innerHTML =
+      '풍량 ' + fmt(subtotal) + '<span class="u">㎥/min</span><span class="sep">|</span>표준 ' +
+      fmt(subStd) + '<span class="u">S㎥/min</span>';
   });
+  renderOutletSection(outlets, order);
+}
 
-  /* 배출구별 집계 테이블 */
-  var tb = document.getElementById("outletBody");
-  tb.innerHTML = "";
+/* ── 렌더: 배출구별 집계 섹션 ── */
+function renderOutletSection(outlets, order) {
+  var box = document.getElementById("outletSection");
+  box.innerHTML = "";
+
   if (order.length === 0) {
-    tb.innerHTML = '<tr><td colspan="4" class="empty">후드를 입력하면 배출구별 집계가 표시됩니다.</td></tr>';
+    var e = document.createElement("div");
+    e.className = "outlet-empty";
+    e.textContent = "후드를 추가하고 배출구를 입력하면 배출구별 집계가 표시됩니다.";
+    box.appendChild(e);
     return;
   }
-  var totQ = 0, totS = 0, totQT = 0;
+
+  var tbl = document.createElement("table");
+  tbl.className = "outlet-tbl";
+  tbl.innerHTML =
+    '<thead><tr><th>배출구</th><th>풍량</th><th>표준풍량</th><th>온도</th></tr></thead>';
+
+  var tbody = document.createElement("tbody");
+  var tQ = 0, tS = 0, tQT = 0;
   order.forEach(function (k) {
     var o = outlets[k];
     var temp = o.q > 0 ? o.qt / o.q : 0;
-    totQ += o.q; totS += o.s; totQT += o.qt;
+    tQ += o.q; tS += o.std; tQT += o.qt;
     var tr = document.createElement("tr");
     tr.innerHTML =
-      '<td class="nm">' + escapeHtml(k) + '</td>' +
-      '<td class="v">' + fmt(o.q) + '</td>' +
-      '<td class="v">' + fmt(o.s) + '</td>' +
-      '<td class="v">' + fmt(temp) + '</td>';
-    tb.appendChild(tr);
+      '<td>' + escapeHtml(k) + '</td>' +
+      '<td>' + fmt(o.q) + '<span class="u">㎥/min</span></td>' +
+      '<td>' + fmt(o.std) + '<span class="u">S㎥/min</span></td>' +
+      '<td>' + fmt(temp) + '<span class="u">℃</span></td>';
+    tbody.appendChild(tr);
   });
-  var trt = document.createElement("tr");
-  trt.className = "agg-total";
-  trt.innerHTML =
+  tbl.appendChild(tbody);
+
+  var overallTemp = tQ > 0 ? tQT / tQ : 0;
+  var tfoot = document.createElement("tfoot");
+  var ftr = document.createElement("tr");
+  ftr.innerHTML =
     '<td>합계</td>' +
-    '<td class="v">' + fmt(totQ) + '</td>' +
-    '<td class="v">' + fmt(totS) + '</td>' +
-    '<td class="v">' + fmt(totQ > 0 ? totQT / totQ : 0) + '</td>';
-  tb.appendChild(trt);
+    '<td>' + fmt(tQ) + '<span class="u">㎥/min</span></td>' +
+    '<td>' + fmt(tS) + '<span class="u">S㎥/min</span></td>' +
+    '<td>' + fmt(overallTemp) + '<span class="u">℃</span></td>';
+  tfoot.appendChild(ftr);
+  tbl.appendChild(tfoot);
+
+  box.appendChild(tbl);
 }
 
 /* ── 렌더: 산식 안내 ── */
@@ -902,10 +834,12 @@ function renderFormulaList() {
   SHAPES.forEach(function (s) {
     html += '<b>' + s.label + '</b> &nbsp;<code>' + s.formula + '</code><br>';
   });
-  html += '<br><b>표준풍량</b> &nbsp;<code>Qs = Q × 273 / (273 + T)</code> &nbsp;— 온도 T(℃) 기준 0℃ 표준상태 환산, 단위 S㎥/min.';
-  html += '<br><b>배출구</b> — 후드별로 배출시설→방지시설 경로를 구분합니다. 한 배출시설의 후드가 서로 다른 배출구로 나갈 수 있어, 배출구별 집계를 별도 섹션으로 표시합니다 (온도는 풍량 가중평균).';
-  html += '<br><br>V 는 포착속도, 산정식에는 <b>m/min</b> 단위로 환산해 대입합니다 (m/s 입력 시 ×60 자동 변환). ' +
-          'Q 는 배출가스량(풍량), 단위 <b>㎥/min</b>. L·W·X·H·P·D 는 모두 <b>m</b> 단위. A 는 후드 개구면적(㎡).';
+  html += '<br>V 는 포착속도, 산정식에는 <b>m/min</b> 단위로 환산해 대입합니다 (m/s 입력 시 ×60 자동 변환). ' +
+          'Q 는 배출가스량(풍량), 단위 <b>㎥/min</b>. L·W·X·H·P·D 는 모두 <b>m</b> 단위. ' +
+          'A 는 후드 개구면적(㎡).' +
+          '<br><b>표준풍량</b> &nbsp;<code>Qs = Q × 273 / (273 + T)</code> &nbsp;— 온도 T(℃) 기준 0℃ 표준상태 환산, 단위 <b>S㎥/min</b>.' +
+          '<br><b>배출구</b> — 후드별로 배출시설→방지시설 경로를 구분합니다. 한 배출시설의 후드가 서로 다른 배출구로 나갈 수 있으며, ' +
+          '전체 후드를 배출구 기준으로 합산한 결과가 「배출구별 집계」 섹션에 표시됩니다 (온도는 풍량 가중평균).';
   box.innerHTML = html;
 }
 
@@ -967,10 +901,9 @@ function buildTable(cols, rows, valColIdx) {
 
 /* ── 이벤트 ── */
 function bind() {
-  var decSel = document.getElementById("decSel");
-  decSel.value = String(state.decimals);
-  decSel.addEventListener("change", function () {
-    state.decimals = parseInt(decSel.value, 10) || 0;
+  document.getElementById("decimalsSel").addEventListener("change", function (e) {
+    var d = parseInt(e.target.value, 10);
+    state.decimals = isFinite(d) ? d : 1;
     save(); recalc();
   });
   document.getElementById("addFac").addEventListener("click", function () {
@@ -986,6 +919,7 @@ function bind() {
 
 /* ── 시작 ── */
 load();
+document.getElementById("decimalsSel").value = String(state.decimals);
 bind();
 renderFacilities();
 renderFormulaList();
