@@ -164,11 +164,13 @@
     letter-spacing: 0.02em; white-space: nowrap;
   }
   .fld input { width: 84px; }
-  .fld .shape-sel { width: 168px; }
-  .fld .outlet-in { width: 124px; }
+  .fld .shape-sel { width: 84px; }
+  .fld .outlet-in { width: 41px; }
+  .fld .dim-in { width: 56px; }
+  .fld .temp-in { width: 42px; }
   .fld .v-wrap { display: flex; gap: 4px; }
   .fld .v-wrap input { width: 66px; }
-  .fld .v-wrap select { width: 64px; padding: 7px 4px; }
+  .fld .v-wrap select { width: 43px; padding: 7px 4px; }
   .fld.pol > label { color: var(--accent-2); }
   .fld.pol .pol-val {
     width: 84px; padding: 7px 9px; border: 1px solid var(--border);
@@ -782,7 +784,7 @@ function renderHood(fac, fi, h, hi, facRef) {
     var lab = document.createElement("label");
     lab.textContent = DIM_LABEL[k];
     var inp = document.createElement("input");
-    inp.type = "number"; inp.min = "0"; inp.step = "any"; inp.placeholder = "0";
+    inp.type = "number"; inp.className = "dim-in"; inp.min = "0"; inp.step = "any"; inp.placeholder = "0";
     inp.value = h.dims[k] != null ? h.dims[k] : "";
     inp.addEventListener("input", function () { h.dims[k] = inp.value; save(); recalc(); });
     f.appendChild(lab); f.appendChild(inp);
@@ -816,7 +818,7 @@ function renderHood(fac, fi, h, hi, facRef) {
   fT.className = "fld";
   fT.innerHTML = '<label>온도 T (℃)</label>';
   var tIn = document.createElement("input");
-  tIn.type = "number"; tIn.step = "any"; tIn.placeholder = "0";
+  tIn.type = "number"; tIn.className = "temp-in"; tIn.step = "any"; tIn.placeholder = "0";
   tIn.value = h.t;
   tIn.addEventListener("input", function () { h.t = tIn.value; save(); recalc(); });
   fT.appendChild(tIn);
