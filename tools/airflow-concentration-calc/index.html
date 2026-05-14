@@ -545,6 +545,20 @@ function collectSubstances(fac) {
   return out;
 }
 
+/* ── 배출시설의 원료·연료에서 배출물질명 수집 (중복 제거, 입력순) ── */
+function collectSubstances(fac) {
+  var seen = {}, out = [];
+  ["materials", "fuels"].forEach(function (kind) {
+    (fac[kind] || []).forEach(function (m) {
+      (m.emissions || []).forEach(function (e) {
+        var s = (e.substance || "").trim();
+        if (s && !seen[s]) { seen[s] = true; out.push(s); }
+      });
+    });
+  });
+  return out;
+}
+
 /* ── 런타임 참조 (가벼운 재계산용) ── */
 var refs = [];   // refs[fi] = { sub: el, hoods: [{ qv: el, qh: el }] }
 
