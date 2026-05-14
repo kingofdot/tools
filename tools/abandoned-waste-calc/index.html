@@ -241,8 +241,9 @@
         <thead>
           <tr>
             <th class="l">폐기물 종류</th>
+            <th class="l">단가 적용 폐기물</th>
             <th>허용보관량 (t)</th>
-            <th>처리단가 (원/t)</th>
+            <th>처리단가 (원/톤)</th>
             <th>보증액</th>
             <th></th>
           </tr>
@@ -266,7 +267,7 @@
   <div class="card">
     <div class="card-head"><h2>산정 기준</h2></div>
     <div class="formula-note">
-      <b>보증액</b> = <code>허용보관량(t) × 처리단가(원/t) × 계수</code><br>
+      <b>보증액</b> = <code>허용보관량(톤) × 처리단가(원/톤) × 계수</code><br>
       <b>총 이행보증금액</b> = <code>모든 행 보증액 합계</code><br>
       <b>계수</b> — 일반 폐기물처리업자·신고자 <code>2배</code> · 건설폐기물 수집·운반/중간처리업자 <code>1.5배</code> (사업자 구분 선택 시 자동, 수정 가능)<br>
       <b>처리단가</b> — 폐기물 종류를 드롭다운에서 선택하면 고시 기준단가가 자동 입력됩니다. 별표에 없는 폐기물은 <b>「기타 (직접 입력)」</b>을 선택해 종류·단가를 직접 입력하세요.
@@ -444,14 +445,14 @@ function load() {
         state.coef = isFinite(parseFloat(s.coef)) ? parseFloat(s.coef) : COEF_DEFAULT[state.biz];
         state.refCollapsed = s.refCollapsed !== false;
         state.rows = Array.isArray(s.rows) ? s.rows.map(function (r) {
-          return { type: r.type || "", allowed: r.allowed || "", price: r.price || "", custom: !!r.custom };
+          return { name: r.name || "", type: r.type || "", allowed: r.allowed || "", price: r.price || "", custom: !!r.custom };
         }) : [];
       }
     }
   } catch (e) {}
   if (state.rows.length === 0) state.rows = [emptyRow()];
 }
-function emptyRow() { return { type: "", allowed: "", price: "", custom: false }; }
+function emptyRow() { return { name: "", type: "", allowed: "", price: "", custom: false }; }
 
 /* ── 고시 버전 결정 ── */
 function activeGosiVer() {
@@ -500,7 +501,18 @@ function renderCalc() {
 
     var tr = document.createElement("tr");
 
-    /* 0. 폐기물 종류 */
+    /* 0. 폐기물 종류 (자유 입력) */
+    var tdName = document.createElement("td");
+    tdName.style.textAlign = "left";
+    var inName = document.createElement("input");
+    inName.type = "text"; inName.className = "type-in";
+    inName.placeholder = "폐기물 종류 (자유 입력)";
+    inName.value = r.name || "";
+    inName.addEventListener("input", function () { r.name = inName.value; save(); });
+    tdName.appendChild(inName);
+    tr.appendChild(tdName);
+
+    /* 1. 단가 적용 폐기물 */
     var tdType = document.createElement("td");
     tdType.style.textAlign = "left";
     var inner = document.createElement("div");
@@ -545,7 +557,7 @@ function renderCalc() {
         }
         var op = document.createElement("option");
         op.value = String(i);
-        op.textContent = o.label + "  ·  " + won(o.price) + "원/t";
+        op.textContent = o.label + "  ·  " + won(o.price) + "원/톤";
         if (o.label === r.type) { op.selected = true; found = true; }
         groups[o.group].appendChild(op);
       });
@@ -573,21 +585,21 @@ function renderCalc() {
     tdType.appendChild(inner);
     tr.appendChild(tdType);
 
-    /* 1. 허용보관량 */
+    /* 2. 허용보관량 */
     tr.appendChild(numCell(r, "allowed", "0"));
 
-    /* 2. 처리단가 */
+    /* 3. 처리단가 */
     var priceCell = numCell(r, "price", "0");
     priceInput = priceCell.querySelector("input");
     tr.appendChild(priceCell);
 
-    /* 3. 보증액 */
+    /* 4. 보증액 */
     var tdSum = document.createElement("td");
     tdSum.className = "rowsum";
     tdSum.textContent = won(amount);
     tr.appendChild(tdSum);
 
-    /* 4. 삭제 */
+    /* 5. 삭제 */
     var tdDel = document.createElement("td");
     var del = document.createElement("button");
     del.className = "del-btn"; del.type = "button"; del.textContent = "×"; del.title = "행 삭제";
@@ -624,7 +636,7 @@ function recalc() {
     var amount = computeRow(r);
     total += amount;
     var tr = rows[idx];
-    if (tr) tr.children[3].textContent = won(amount);   // 0:종류 1:허용 2:단가 3:보증액 4:삭제
+    if (tr) tr.children[4].textContent = won(amount);   // 0:종류 1:단가적용폐기물 2:허용 3:단가 4:보증액 5:삭제
   });
   document.getElementById("totGrand").innerHTML = won(total) + '<span class="unit">원</span>';
 }
@@ -669,7 +681,7 @@ function refItem(name, price) {
   var d = document.createElement("div");
   d.className = "ref-item";
   var nm = document.createElement("span"); nm.className = "nm"; nm.textContent = name; nm.title = name;
-  var pr = document.createElement("span"); pr.className = "pr"; pr.textContent = won(price) + " 원/t";
+  var pr = document.createElement("span"); pr.className = "pr"; pr.textContent = won(price) + " 원/톤";
   d.appendChild(nm); d.appendChild(pr);
   return d;
 }
