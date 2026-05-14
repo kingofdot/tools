@@ -5,7 +5,7 @@
 <title>방치폐기물 금액 산정</title>
 <meta name="tool-name" content="방치폐기물 금액 산정">
 <meta name="tool-tag" content="환경">
-<meta name="tool-description" content="폐기물관리법·건설폐기물법에 따른 방치폐기물 처리이행보증 금액을 폐기물 종류별로 산정합니다. 연도별 고시 기준단가 자동 적용(2027년 분기), 기준단가표 직접 편집·저장.">
+<meta name="tool-description" content="폐기물관리법·건설폐기물법에 따른 방치폐기물 처리이행보증 금액을 폐기물 종류별로 산정합니다. 고시 기준단가 내장(2027년 자동 적용), 폐기물 종류 드롭다운 선택 시 처리단가 자동 입력.">
 
 <style>
   :root {
@@ -22,7 +22,6 @@
     --accent-bg: rgba(59,130,246,0.10);
     --accent-2:  #60a5fa;
     --success:   #10b981;
-    --success-bg:rgba(16,185,129,0.10);
     --warn:      #f59e0b;
     --warn-bg:   rgba(245,158,11,0.10);
     --danger:    #ef4444;
@@ -39,7 +38,7 @@
     line-height: 1.45;
     -webkit-font-smoothing: antialiased;
   }
-  .wrap { max-width: 1180px; margin: 0 auto; }
+  .wrap { max-width: 1080px; margin: 0 auto; }
 
   /* ── 헤더 ── */
   .page-head { margin-bottom: 22px; }
@@ -62,9 +61,7 @@
     display: flex; align-items: center; gap: 10px;
     margin-bottom: 14px;
   }
-  .card-head h2 {
-    font-size: 13px; font-weight: 650; margin: 0; letter-spacing: -0.01em;
-  }
+  .card-head h2 { font-size: 13px; font-weight: 650; margin: 0; letter-spacing: -0.01em; }
   .card-head .hint { font-size: 11px; color: var(--muted); margin-left: auto; }
 
   /* ── 설정 바 ── */
@@ -94,6 +91,7 @@
   select:focus, input:focus { border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-bg); }
   input[type="number"] { text-align: right; font-variant-numeric: tabular-nums; }
   input::placeholder { color: var(--muted); }
+  .coef-in { width: 90px; }
 
   .gosi-badge {
     display: inline-flex; align-items: center; gap: 7px;
@@ -118,13 +116,17 @@
     text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap;
   }
   tbody tr:hover { background: var(--surface-2); }
-  tbody td input { width: 100%; }
-  tbody td .type-in { min-width: 150px; }
-  tbody td .num-in { width: 108px; }
+  tbody td input, tbody td select { width: 100%; }
+  tbody td .type-sel, tbody td .type-in { min-width: 280px; }
+  tbody td .num-in { width: 130px; }
   td.calc { color: var(--text-dim); padding-right: 12px; }
-  td.calc.over { color: var(--warn); }
-  td.rowsum { color: var(--text); font-weight: 650; padding-right: 12px; }
-  td.over-qty { color: var(--warn); padding-right: 12px; }
+  td.rowsum { color: var(--text); font-weight: 650; padding-right: 12px; font-size: 13px; }
+  .custom-toggle {
+    background: transparent; border: 0; color: var(--muted); cursor: pointer;
+    font-size: 10.5px; padding: 2px 4px; font-family: inherit; white-space: nowrap;
+  }
+  .custom-toggle:hover { color: var(--accent-2); }
+  .type-cell-inner { display: flex; align-items: center; gap: 4px; }
   .del-btn {
     background: transparent; border: 1px solid var(--border-2); color: var(--muted);
     width: 24px; height: 24px; border-radius: 6px; cursor: pointer; font-size: 13px;
@@ -142,54 +144,52 @@
   .btn-row { margin-top: 12px; display: flex; gap: 8px; }
 
   /* ── 합계 ── */
-  .totals {
-    display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px;
-    background: var(--border); border-radius: var(--radius); overflow: hidden;
+  .grand-box {
+    background: var(--accent-bg); border: 1px solid var(--border-2);
+    border-radius: var(--radius); padding: 18px 22px;
+    display: flex; align-items: baseline; justify-content: space-between;
+    margin-bottom: 16px;
   }
-  .tot-cell { background: var(--surface); padding: 16px 18px; }
-  .tot-cell .lbl { font-size: 11px; color: var(--text-dim); font-weight: 600; margin-bottom: 6px; }
-  .tot-cell .val {
-    font-size: 17px; font-weight: 700; font-variant-numeric: tabular-nums;
-    letter-spacing: -0.01em;
+  .grand-box .lbl { font-size: 12px; color: var(--accent-2); font-weight: 650; }
+  .grand-box .val {
+    font-size: 26px; font-weight: 700; color: var(--accent-2);
+    font-variant-numeric: tabular-nums; letter-spacing: -0.01em;
   }
-  .tot-cell .val .unit { font-size: 11px; color: var(--muted); font-weight: 500; margin-left: 3px; }
-  .tot-cell.grand { background: var(--accent-bg); }
-  .tot-cell.grand .lbl { color: var(--accent-2); }
-  .tot-cell.grand .val { font-size: 22px; color: var(--accent-2); }
-
-  /* ── 기준단가표 패널 ── */
-  .price-panel { }
-  .price-tabs { display: flex; gap: 4px; margin-bottom: 12px; }
-  .price-tabs button {
-    background: var(--surface-2); border: 1px solid var(--border); color: var(--text-dim);
-    font-family: inherit; font-size: 11.5px; font-weight: 600; padding: 6px 13px;
-    border-radius: 7px; cursor: pointer; transition: .12s;
-  }
-  .price-tabs button.on { background: var(--accent); border-color: var(--accent); color: #fff; }
-  .price-tabs button .active-tag {
-    font-size: 9.5px; background: var(--success); color: #fff;
-    padding: 1px 5px; border-radius: 4px; margin-left: 6px; vertical-align: middle;
-  }
-  .price-list { display: flex; flex-direction: column; gap: 6px; }
-  .price-row { display: flex; gap: 8px; align-items: center; }
-  .price-row .type-in { flex: 1; }
-  .price-row .num-in { width: 150px; }
+  .grand-box .val .unit { font-size: 13px; color: var(--text-dim); font-weight: 500; margin-left: 4px; }
 
   .formula-note {
     font-size: 11px; color: var(--muted); line-height: 1.7;
     background: var(--surface-2); border: 1px solid var(--border);
-    border-radius: 8px; padding: 11px 14px; margin-top: 4px;
+    border-radius: 8px; padding: 11px 14px;
   }
   .formula-note code {
     color: var(--accent-2); background: var(--accent-bg);
     padding: 1px 5px; border-radius: 4px; font-size: 10.5px;
   }
+  .formula-note b { color: var(--text-dim); }
+
   .collapse-toggle {
     cursor: pointer; user-select: none; color: var(--text-dim);
-    font-size: 11px; transition: .12s;
+    font-size: 11px; transition: .12s; margin-left: auto;
   }
   .collapse-toggle:hover { color: var(--text); }
   .hidden { display: none !important; }
+
+  /* ── 단가표 참고 ── */
+  .ref-sec { margin-bottom: 14px; }
+  .ref-sec:last-child { margin-bottom: 0; }
+  .ref-sec h3 {
+    font-size: 11px; font-weight: 650; color: var(--accent-2); margin: 0 0 6px;
+  }
+  .ref-grid {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 2px 18px;
+  }
+  .ref-item {
+    display: flex; justify-content: space-between; gap: 10px;
+    font-size: 11px; padding: 3px 0; border-bottom: 1px dotted var(--border);
+  }
+  .ref-item .nm { color: var(--text-dim); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .ref-item .pr { color: var(--text); font-variant-numeric: tabular-nums; flex-shrink: 0; }
 </style>
 </head>
 <body>
@@ -197,7 +197,7 @@
 
   <header class="page-head">
     <h1><span class="dot"></span>방치폐기물 금액 산정</h1>
-    <p class="desc">방치폐기물 처리이행보증 금액 산정 · 폐기물관리법 제40조 / 건설폐기물법 제42조~제46조</p>
+    <p class="desc">방치폐기물 처리이행보증 금액 산정 · 폐기물관리법 제40조 / 건설폐기물법 제42조~제46조 · 허가받은 허용보관량 기준</p>
   </header>
 
   <!-- ── 설정 ── -->
@@ -210,6 +210,10 @@
           <button data-biz="general" class="on">일반 폐기물처리업자·신고자</button>
           <button data-biz="construction">건설폐기물 수집·운반/중간처리업자</button>
         </div>
+      </div>
+      <div class="field">
+        <label>계수 (배수)</label>
+        <input type="number" class="coef-in" id="coefInput" min="0" step="any">
       </div>
       <div class="field">
         <label>적용 고시 기준단가</label>
@@ -230,7 +234,7 @@
   <div class="card">
     <div class="card-head">
       <h2>폐기물 종류별 산정</h2>
-      <span class="hint">허용보관량·실제보관량 단위: 톤(t) · 처리단가 단위: 원/톤</span>
+      <span class="hint">허용보관량 단위: 톤(t) · 처리단가 단위: 원/톤</span>
     </div>
     <div class="tbl-scroll">
       <table id="calcTable">
@@ -238,12 +242,8 @@
           <tr>
             <th class="l">폐기물 종류</th>
             <th>허용보관량 (t)</th>
-            <th>실제보관량 (t)</th>
-            <th>초과보관량 (t)</th>
             <th>처리단가 (원/t)</th>
-            <th>이내분 보증액</th>
-            <th>초과분 보증액</th>
-            <th>행 합계</th>
+            <th>보증액</th>
             <th></th>
           </tr>
         </thead>
@@ -257,52 +257,29 @@
   </div>
 
   <!-- ── 합계 ── -->
-  <div class="totals">
-    <div class="tot-cell">
-      <div class="lbl">허용보관량 이내분 합계</div>
-      <div class="val" id="totWithin">0<span class="unit">원</span></div>
-    </div>
-    <div class="tot-cell">
-      <div class="lbl">초과보관량 분 합계</div>
-      <div class="val" id="totOver">0<span class="unit">원</span></div>
-    </div>
-    <div class="tot-cell grand">
-      <div class="lbl">총 이행보증금액</div>
-      <div class="val" id="totGrand">0<span class="unit">원</span></div>
-    </div>
-  </div>
-
-  <!-- ── 기준단가표 ── -->
-  <div class="card price-panel" style="margin-top:16px;">
-    <div class="card-head">
-      <h2>고시 기준단가표</h2>
-      <span class="collapse-toggle hint" id="priceCollapse">접기 ▲</span>
-    </div>
-    <div id="priceBody">
-      <div class="price-tabs" id="priceTabs">
-        <button data-ver="2027" class="on">2027년 고시</button>
-        <button data-ver="prev">2027년 이전 고시</button>
-      </div>
-      <div class="price-list" id="priceList"></div>
-      <div class="btn-row">
-        <button class="btn" id="addPrice">+ 단가 항목 추가</button>
-      </div>
-      <div class="formula-note">
-        폐기물 종류명이 위 산정 테이블의 종류와 일치하면 처리단가가 자동으로 채워집니다(수정 가능).
-        실제 기후에너지환경부 고시 단가를 연도별 탭에 입력해 두세요. 입력값은 브라우저에 자동 저장됩니다.
-      </div>
-    </div>
+  <div class="grand-box">
+    <div class="lbl">총 이행보증금액</div>
+    <div class="val" id="totGrand">0<span class="unit">원</span></div>
   </div>
 
   <!-- ── 산식 안내 ── -->
   <div class="card">
     <div class="card-head"><h2>산정 기준</h2></div>
     <div class="formula-note">
-      <b style="color:var(--text-dim)">초과보관량</b> = <code>실제보관량 − 허용보관량</code> (음수면 0)<br>
-      <b style="color:var(--text-dim)">일반 폐기물처리업자·신고자</b> — 이내분 = <code>허용보관량 × 처리단가 × 2</code> · 초과분 = <code>초과보관량 × 처리단가 × 5</code><br>
-      <b style="color:var(--text-dim)">건설폐기물 수집·운반/중간처리업자</b> — 이내분 = <code>허용보관량 × 처리단가 × 1.5</code> · 초과분 = <code>초과보관량 × 처리단가 × 3</code><br>
-      <b style="color:var(--text-dim)">총 이행보증금액</b> = <code>이내분 합계 + 초과분 합계</code>
+      <b>보증액</b> = <code>허용보관량(t) × 처리단가(원/t) × 계수</code><br>
+      <b>총 이행보증금액</b> = <code>모든 행 보증액 합계</code><br>
+      <b>계수</b> — 일반 폐기물처리업자·신고자 <code>2배</code> · 건설폐기물 수집·운반/중간처리업자 <code>1.5배</code> (사업자 구분 선택 시 자동, 수정 가능)<br>
+      <b>처리단가</b> — 폐기물 종류를 드롭다운에서 선택하면 고시 기준단가가 자동 입력됩니다. 별표에 없는 폐기물은 <b>「기타 (직접 입력)」</b>을 선택해 종류·단가를 직접 입력하세요.
     </div>
+  </div>
+
+  <!-- ── 고시 단가표 참고 ── -->
+  <div class="card">
+    <div class="card-head">
+      <h2>고시 기준단가표 <span id="refVerLabel" style="color:var(--muted);font-weight:500;"></span></h2>
+      <span class="collapse-toggle" id="refCollapse">펼치기 ▼</span>
+    </div>
+    <div id="refBody" class="hidden"></div>
   </div>
 
 </div>
@@ -310,22 +287,146 @@
 <script>
 "use strict";
 
-/* ── 상수 ── */
-var GOSI_THRESHOLD_YEAR = 2027;            // 이 연도 이상이면 2027년 고시 적용
-var MULT = {
-  general:      { within: 2,   over: 5 },
-  construction: { within: 1.5, over: 3 },
+/* ── 고시 기준단가 (기후에너지환경부 고시 별표 내장) ────────────────────
+   PRICE_DATA[버전] = [ { biz: 적용사업자, items: [ {name,price} | {name,subs:[{name,price}]} ] } ] */
+var PRICE_DATA = {
+  "2027": [
+    { biz: "수집·운반업자 / 중간·최종·종합처분업자", items: [
+      { name: "폐유, 폐유기용제(비할로겐족), 폐합성수지, 폐합성고무", price: 316000 },
+      { name: "폐유기용제(할로겐족)", price: 636000 },
+      { name: "폐페인트 및 폐락카", price: 487000 },
+      { name: "폐농약, 폐유독물", price: 560000 },
+      { name: "폐석면", price: 822000 },
+      { name: "폴리클로리네이티드비페닐 함유 폐기물", price: 1571000 },
+      { name: "폐산, 폐알칼리", price: 487000 },
+      { name: "폐광재(지정폐기물)", price: 210000 },
+      { name: "소각대상 오니류, 기타 소각대상 사업장일반폐기물", price: 317000 },
+      { name: "매립대상 사업장일반폐기물", price: 199000 },
+      { name: "기타 매립대상 지정폐기물", price: 210000 },
+      { name: "건설폐기물", price: 77000 },
+      { name: "의료폐기물", price: 1541000 }
+    ]},
+    { biz: "중간·최종·종합재활용업자", items: [
+      { name: "동물성잔재물", price: 254000 },
+      { name: "식물성잔재물", price: 190000 },
+      { name: "폐유기용제", subs: [ { name: "할로겐족", price: 487000 }, { name: "기타", price: 316000 } ] },
+      { name: "폐윤활유", price: 104000 },
+      { name: "폐축전지", price: 113000 },
+      { name: "태양광 폐패널", price: 113000 },
+      { name: "조명폐기물(폐형광등, 폐발광다이오드조명)", price: 91000 },
+      { name: "폐드럼", price: 16000 },
+      { name: "폐산, 폐알칼리", price: 487000 },
+      { name: "무기성 (폐수처리)오니", price: 67000 },
+      { name: "유기성 (폐수처리)오니", price: 190000 },
+      { name: "폐유리, 폐목재중 톱밥", price: 62000 },
+      { name: "폐전선(폐광케이블 포함)", price: 330000 },
+      { name: "폐오일필터", price: 65000 },
+      { name: "폐타이어", price: 103000 },
+      { name: "폐플라스틱 용기", price: 74000 },
+      { name: "폐규조토, 폐점토", price: 74000 },
+      { name: "폐페인트", price: 435000 },
+      { name: "광재", subs: [ { name: "일반", price: 199000 }, { name: "지정", price: 210000 } ] },
+      { name: "분진", subs: [ { name: "일반", price: 199000 }, { name: "지정", price: 210000 } ] },
+      { name: "폐합성수지", price: 287000 },
+      { name: "폐합성섬유", price: 82000 },
+      { name: "폐식용유", price: 62000 },
+      { name: "폐비철금속류(폐아연, 폐구리, 폐알루미늄)", price: 67000 },
+      { name: "폐유(폐윤활유가 혼합된 경우 포함)", price: 316000 },
+      { name: "소각잔재물, 연소재", subs: [ { name: "일반", price: 199000 }, { name: "지정", price: 210000 } ] },
+      { name: "폐내화물, 도자기편류", price: 65000 },
+      { name: "폐촉매", price: 76000 },
+      { name: "폐합성고무", price: 128000 },
+      { name: "철강슬래그", price: 62000 },
+      { name: "폐주물사, 폐사", price: 71000 },
+      { name: "폐흡수재, 폐흡착재", price: 62000 },
+      { name: "폐섬유류", price: 78000 },
+      { name: "폐가죽류", subs: [ { name: "가죽스크랩", price: 93000 }, { name: "피혁가공잔재물", price: 194000 } ] },
+      { name: "폐석회, 폐석고", price: 62000 },
+      { name: "폐목재", price: 87000 },
+      { name: "음식물류폐기물", price: 148000 },
+      { name: "의료폐기물", price: 1541000 }
+    ]},
+    { biz: "폐기물 처리신고자", items: [
+      { name: "음식물류폐기물", price: 148000 },
+      { name: "동물성잔재물", price: 254000 },
+      { name: "식물성잔재물", price: 190000 },
+      { name: "유기성오니", price: 190000 }
+    ]}
+  ],
+  "prev": [
+    { biz: "수집·운반업자 / 중간·최종·종합처분업자", items: [
+      { name: "폐유, 폐유기용제(비할로겐족), 폐합성수지, 폐합성고무", price: 297000 },
+      { name: "폐유기용제(할로겐족)", price: 607000 },
+      { name: "폐페인트 및 폐락카", price: 462000 },
+      { name: "폐농약, 폐유독물", price: 644000 },
+      { name: "폐석면", price: 645000 },
+      { name: "폴리클로리네이티드비페닐 함유 폐기물", price: 1514000 },
+      { name: "폐산, 폐알칼리", price: 462000 },
+      { name: "폐광재(지정폐기물)", price: 152000 },
+      { name: "소각대상 오니류, 기타 소각대상 사업장일반폐기물", price: 299000 },
+      { name: "매립대상 사업장일반폐기물", price: 146000 },
+      { name: "기타 매립대상 지정폐기물", price: 152000 },
+      { name: "건설폐기물", price: 62000 },
+      { name: "의료폐기물", price: 1397000 }
+    ]},
+    { biz: "중간·최종·종합재활용업자", items: [
+      { name: "동물성잔재물", price: 237000 },
+      { name: "식물성잔재물", price: 176000 },
+      { name: "폐유기용제", subs: [ { name: "할로겐족", price: 462000 }, { name: "기타", price: 297000 } ] },
+      { name: "폐윤활유", price: 95000 },
+      { name: "폐축전지", price: 102000 },
+      { name: "폐드럼", price: 19000 },
+      { name: "폐산, 폐알칼리", price: 462000 },
+      { name: "무기성 (폐수처리)오니", price: 58000 },
+      { name: "유기성 (폐수처리)오니", price: 176000 },
+      { name: "폐유리, 폐목재중 톱밥", price: 52000 },
+      { name: "폐전선", price: 238000 },
+      { name: "폐오일필터", price: 55000 },
+      { name: "폐타이어", price: 92000 },
+      { name: "폐플라스틱 용기", price: 62000 },
+      { name: "폐규조토, 폐점토", price: 63000 },
+      { name: "폐페인트", price: 389000 },
+      { name: "광재", subs: [ { name: "일반", price: 146000 }, { name: "지정", price: 152000 } ] },
+      { name: "분진", subs: [ { name: "일반", price: 146000 }, { name: "지정", price: 152000 } ] },
+      { name: "폐합성수지", price: 269000 },
+      { name: "폐합성섬유", price: 70000 },
+      { name: "폐식용유", price: 51000 },
+      { name: "폐아연", price: 56000 },
+      { name: "폐유(폐윤활유가 혼합된 경우 포함)", price: 297000 },
+      { name: "소각잔재물, 연소재", subs: [ { name: "일반", price: 146000 }, { name: "지정", price: 152000 } ] },
+      { name: "폐내화물, 도자기편류", price: 54000 },
+      { name: "폐촉매", price: 61000 },
+      { name: "폐합성고무", price: 114000 },
+      { name: "철강슬래그", price: 52000 },
+      { name: "폐주물사, 폐사", price: 59000 },
+      { name: "폐흡수재, 폐흡착재", price: 52000 },
+      { name: "폐섬유류", price: 66000 },
+      { name: "폐가죽류", subs: [ { name: "가죽스크랩", price: 81000 }, { name: "피혁가공잔재물", price: 178000 } ] },
+      { name: "폐석회, 폐석고", price: 52000 },
+      { name: "폐목재", price: 75000 },
+      { name: "음식물류폐기물", price: 147000 },
+      { name: "의료폐기물", price: 1397000 }
+    ]},
+    { biz: "폐기물 처리신고자", items: [
+      { name: "음식물류폐기물", price: 147000 },
+      { name: "동물성잔재물", price: 237000 },
+      { name: "식물성잔재물", price: 176000 },
+      { name: "유기성오니", price: 176000 }
+    ]}
+  ]
 };
-var STORAGE_KEY = "abandoned-waste-calc.v1";
+
+var GOSI_THRESHOLD_YEAR = 2027;   // 이 연도 이상이면 2027년 고시 적용
+var COEF_DEFAULT = { general: 2, construction: 1.5 };
+var STORAGE_KEY = "abandoned-waste-calc.v2";
 
 /* ── 상태 ── */
 var state = {
   biz: "general",
-  gosi: "auto",                            // auto | 2027 | prev
-  priceTab: "2027",
-  priceCollapsed: false,
-  rows: [],                                // {type, allowed, actual, price}
-  priceTables: { "2027": [], "prev": [] }, // [{type, price}]
+  gosi: "auto",                   // auto | 2027 | prev
+  coef: 2,
+  refCollapsed: true,
+  rows: [],                       // { type, allowed, price, custom }
 };
 
 /* ── 저장/복원 ── */
@@ -338,137 +439,158 @@ function load() {
     if (raw) {
       var s = JSON.parse(raw);
       if (s && typeof s === "object") {
-        state.biz = s.biz || "general";
-        state.gosi = s.gosi || "auto";
-        state.priceTab = s.priceTab || "2027";
-        state.priceCollapsed = !!s.priceCollapsed;
-        state.rows = Array.isArray(s.rows) ? s.rows : [];
-        state.priceTables = {
-          "2027": (s.priceTables && Array.isArray(s.priceTables["2027"])) ? s.priceTables["2027"] : [],
-          "prev": (s.priceTables && Array.isArray(s.priceTables["prev"])) ? s.priceTables["prev"] : [],
-        };
+        state.biz = s.biz === "construction" ? "construction" : "general";
+        state.gosi = (s.gosi === "2027" || s.gosi === "prev") ? s.gosi : "auto";
+        state.coef = isFinite(parseFloat(s.coef)) ? parseFloat(s.coef) : COEF_DEFAULT[state.biz];
+        state.refCollapsed = s.refCollapsed !== false;
+        state.rows = Array.isArray(s.rows) ? s.rows.map(function (r) {
+          return { type: r.type || "", allowed: r.allowed || "", price: r.price || "", custom: !!r.custom };
+        }) : [];
       }
     }
   } catch (e) {}
   if (state.rows.length === 0) state.rows = [emptyRow()];
 }
-function emptyRow() { return { type: "", allowed: "", actual: "", price: "" }; }
+function emptyRow() { return { type: "", allowed: "", price: "", custom: false }; }
 
 /* ── 고시 버전 결정 ── */
 function activeGosiVer() {
   if (state.gosi === "2027") return "2027";
   if (state.gosi === "prev") return "prev";
-  // auto — 오늘 날짜 기준
-  var y = new Date().getFullYear();
-  return y >= GOSI_THRESHOLD_YEAR ? "2027" : "prev";
+  return new Date().getFullYear() >= GOSI_THRESHOLD_YEAR ? "2027" : "prev";
 }
 function gosiLabel(ver) { return ver === "2027" ? "2027년 고시 기준단가" : "2027년 이전 고시 기준단가"; }
 
-/* ── 숫자 유틸 ── */
-function num(v) { var n = parseFloat(v); return isFinite(n) ? n : 0; }
-function won(n) {
-  if (!isFinite(n)) n = 0;
-  return Math.round(n).toLocaleString("ko-KR");
-}
-function ton(n) {
-  if (!isFinite(n)) n = 0;
-  return (Math.round(n * 1000) / 1000).toLocaleString("ko-KR");
+/* ── 활성 버전의 폐기물 옵션 평탄화 ── */
+function flatOptions() {
+  var out = [];   // { group, label, price }
+  PRICE_DATA[activeGosiVer()].forEach(function (sec) {
+    sec.items.forEach(function (it) {
+      if (it.subs) {
+        it.subs.forEach(function (s) {
+          out.push({ group: sec.biz, label: it.name + " (" + s.name + ")", price: s.price });
+        });
+      } else {
+        out.push({ group: sec.biz, label: it.name, price: it.price });
+      }
+    });
+  });
+  return out;
 }
 
-/* ── 활성 단가표에서 종류별 단가 조회 ── */
-function lookupPrice(type) {
-  if (!type) return null;
-  var tbl = state.priceTables[activeGosiVer()] || [];
-  for (var i = 0; i < tbl.length; i++) {
-    if (tbl[i].type && tbl[i].type.trim() === type.trim()) {
-      var p = num(tbl[i].price);
-      return p > 0 ? p : null;
-    }
-  }
-  return null;
-}
+/* ── 숫자 유틸 ── */
+function num(v) { var n = parseFloat(v); return isFinite(n) ? n : 0; }
+function won(n) { if (!isFinite(n)) n = 0; return Math.round(n).toLocaleString("ko-KR"); }
 
 /* ── 행 계산 ── */
 function computeRow(r) {
-  var allowed = num(r.allowed);
-  var actual = num(r.actual);
-  var price = num(r.price);
-  var over = Math.max(0, actual - allowed);
-  var m = MULT[state.biz];
-  var within = allowed * price * m.within;
-  var overAmt = over * price * m.over;
-  return { over: over, within: within, overAmt: overAmt, rowsum: within + overAmt };
+  return num(r.allowed) * num(r.price) * num(state.coef);
 }
 
 /* ── 렌더: 산정 테이블 ── */
 function renderCalc() {
   var body = document.getElementById("calcBody");
   body.innerHTML = "";
-  var totW = 0, totO = 0;
+  var opts = flatOptions();
+  var total = 0;
 
   state.rows.forEach(function (r, idx) {
-    var c = computeRow(r);
-    totW += c.within; totO += c.overAmt;
+    var amount = computeRow(r);
+    total += amount;
 
     var tr = document.createElement("tr");
 
-    // 허용보관량 / 실제보관량 / 처리단가 셀 미리 생성 (자동완성 시 단가칸 갱신 위해 참조 보관)
-    var allowedCell = numCell(r, "allowed", "0");
-    var actualCell = numCell(r, "actual", "0");
-    var priceCell = numCell(r, "price", "0");
-    var priceInput = priceCell.querySelector("input");
-
-    // 폐기물 종류
+    /* 0. 폐기물 종류 */
     var tdType = document.createElement("td");
     tdType.style.textAlign = "left";
-    var inType = document.createElement("input");
-    inType.type = "text"; inType.className = "type-in";
-    inType.placeholder = "예: 폐합성수지류";
-    inType.value = r.type;
-    inType.setAttribute("list", "priceTypeList");
-    inType.addEventListener("input", function () {
-      r.type = inType.value;
-      var p = lookupPrice(r.type);
-      if (p != null) { r.price = p; priceInput.value = p; }   // 일치하면 단가 자동 채움
-      save(); recalc();
-    });
-    tdType.appendChild(inType);
+    var inner = document.createElement("div");
+    inner.className = "type-cell-inner";
+
+    var priceInput;   // 종류 선택 시 단가 자동입력 대상 (아래에서 채움)
+
+    if (r.custom) {
+      // 직접 입력 모드
+      var inText = document.createElement("input");
+      inText.type = "text"; inText.className = "type-in";
+      inText.placeholder = "폐기물 종류 직접 입력";
+      inText.value = r.type;
+      inText.addEventListener("input", function () { r.type = inText.value; save(); });
+      inner.appendChild(inText);
+
+      var back = document.createElement("button");
+      back.className = "custom-toggle"; back.type = "button";
+      back.textContent = "목록▾";
+      back.title = "드롭다운으로 전환";
+      back.addEventListener("click", function () {
+        r.custom = false; r.type = ""; r.price = ""; save(); renderCalc();
+      });
+      inner.appendChild(back);
+    } else {
+      // 드롭다운 모드
+      var sel = document.createElement("select");
+      sel.className = "type-sel";
+
+      var ph = document.createElement("option");
+      ph.value = ""; ph.textContent = "— 폐기물 종류 선택 —";
+      sel.appendChild(ph);
+
+      // 저장된 종류가 현 버전 목록에 없으면 표시용 옵션 추가
+      var found = false;
+      var groups = {};
+      opts.forEach(function (o, i) {
+        if (!groups[o.group]) {
+          groups[o.group] = document.createElement("optgroup");
+          groups[o.group].label = o.group;
+          sel.appendChild(groups[o.group]);
+        }
+        var op = document.createElement("option");
+        op.value = String(i);
+        op.textContent = o.label + "  ·  " + won(o.price) + "원/t";
+        if (o.label === r.type) { op.selected = true; found = true; }
+        groups[o.group].appendChild(op);
+      });
+      if (r.type && !found) {
+        var orphan = document.createElement("option");
+        orphan.value = "__keep__"; orphan.textContent = r.type + "  (현재 고시 목록에 없음)";
+        orphan.selected = true;
+        sel.insertBefore(orphan, sel.children[1]);
+      }
+
+      var customOpt = document.createElement("option");
+      customOpt.value = "__custom__"; customOpt.textContent = "＋ 기타 (직접 입력)";
+      sel.appendChild(customOpt);
+
+      sel.addEventListener("change", function () {
+        var v = sel.value;
+        if (v === "__custom__") { r.custom = true; r.type = ""; r.price = ""; save(); renderCalc(); return; }
+        if (v === "__keep__" || v === "") { return; }
+        var o = opts[parseInt(v, 10)];
+        if (o) { r.type = o.label; r.price = o.price; if (priceInput) priceInput.value = o.price; }
+        save(); recalc();
+      });
+      inner.appendChild(sel);
+    }
+    tdType.appendChild(inner);
     tr.appendChild(tdType);
 
-    tr.appendChild(allowedCell);
-    tr.appendChild(actualCell);
+    /* 1. 허용보관량 */
+    tr.appendChild(numCell(r, "allowed", "0"));
 
-    // 초과보관량 (자동)
-    var tdOver = document.createElement("td");
-    tdOver.className = "over-qty";
-    tdOver.textContent = ton(c.over);
-    tdOver.style.color = c.over > 0 ? "var(--warn)" : "var(--muted)";
-    tr.appendChild(tdOver);
-
+    /* 2. 처리단가 */
+    var priceCell = numCell(r, "price", "0");
+    priceInput = priceCell.querySelector("input");
     tr.appendChild(priceCell);
 
-    // 이내분
-    var tdW = document.createElement("td");
-    tdW.className = "calc";
-    tdW.textContent = won(c.within);
-    tr.appendChild(tdW);
-
-    // 초과분
-    var tdO = document.createElement("td");
-    tdO.className = "calc" + (c.overAmt > 0 ? " over" : "");
-    tdO.textContent = won(c.overAmt);
-    tr.appendChild(tdO);
-
-    // 행 합계
+    /* 3. 보증액 */
     var tdSum = document.createElement("td");
     tdSum.className = "rowsum";
-    tdSum.textContent = won(c.rowsum);
+    tdSum.textContent = won(amount);
     tr.appendChild(tdSum);
 
-    // 삭제
+    /* 4. 삭제 */
     var tdDel = document.createElement("td");
     var del = document.createElement("button");
-    del.className = "del-btn"; del.textContent = "×"; del.title = "행 삭제";
+    del.className = "del-btn"; del.type = "button"; del.textContent = "×"; del.title = "행 삭제";
     del.addEventListener("click", function () {
       state.rows.splice(idx, 1);
       if (state.rows.length === 0) state.rows.push(emptyRow());
@@ -480,9 +602,7 @@ function renderCalc() {
     body.appendChild(tr);
   });
 
-  document.getElementById("totWithin").innerHTML = won(totW) + '<span class="unit">원</span>';
-  document.getElementById("totOver").innerHTML = won(totO) + '<span class="unit">원</span>';
-  document.getElementById("totGrand").innerHTML = won(totW + totO) + '<span class="unit">원</span>';
+  document.getElementById("totGrand").innerHTML = won(total) + '<span class="unit">원</span>';
 }
 
 function numCell(r, key, ph) {
@@ -491,92 +611,22 @@ function numCell(r, key, ph) {
   inp.type = "number"; inp.className = "num-in"; inp.placeholder = ph;
   inp.min = "0"; inp.step = "any";
   inp.value = r[key];
-  inp.addEventListener("input", function () {
-    r[key] = inp.value;
-    save(); recalc();
-  });
+  inp.addEventListener("input", function () { r[key] = inp.value; save(); recalc(); });
   td.appendChild(inp);
   return td;
 }
 
-/* ── 가벼운 재계산: 입력칸은 그대로 두고 계산 셀·합계만 갱신 ── */
+/* ── 가벼운 재계산: 입력칸은 그대로 두고 보증액·합계만 갱신 ── */
 function recalc() {
   var rows = document.querySelectorAll("#calcBody tr");
-  var totW = 0, totO = 0;
+  var total = 0;
   state.rows.forEach(function (r, idx) {
-    var c = computeRow(r);
-    totW += c.within; totO += c.overAmt;
+    var amount = computeRow(r);
+    total += amount;
     var tr = rows[idx];
-    if (!tr) return;
-    var tds = tr.children;
-    // 0:종류 1:허용 2:실제 3:초과량 4:단가 5:이내분 6:초과분 7:행합계 8:삭제
-    tds[3].textContent = ton(c.over);
-    tds[3].style.color = c.over > 0 ? "var(--warn)" : "var(--muted)";
-    tds[5].textContent = won(c.within);
-    tds[6].textContent = won(c.overAmt);
-    tds[6].className = "calc" + (c.overAmt > 0 ? " over" : "");
-    tds[7].textContent = won(c.rowsum);
+    if (tr) tr.children[3].textContent = won(amount);   // 0:종류 1:허용 2:단가 3:보증액 4:삭제
   });
-  document.getElementById("totWithin").innerHTML = won(totW) + '<span class="unit">원</span>';
-  document.getElementById("totOver").innerHTML = won(totO) + '<span class="unit">원</span>';
-  document.getElementById("totGrand").innerHTML = won(totW + totO) + '<span class="unit">원</span>';
-}
-
-/* ── 렌더: 기준단가표 ── */
-function renderPrices() {
-  var ver = state.priceTab;
-  var list = document.getElementById("priceList");
-  list.innerHTML = "";
-  var tbl = state.priceTables[ver];
-
-  tbl.forEach(function (p, idx) {
-    var row = document.createElement("div");
-    row.className = "price-row";
-
-    var inType = document.createElement("input");
-    inType.type = "text"; inType.className = "type-in";
-    inType.placeholder = "폐기물 종류명";
-    inType.value = p.type;
-    inType.addEventListener("input", function () { p.type = inType.value; save(); syncDatalist(); renderCalc(); });
-
-    var inPrice = document.createElement("input");
-    inPrice.type = "number"; inPrice.className = "num-in";
-    inPrice.placeholder = "처리단가 (원/t)"; inPrice.min = "0"; inPrice.step = "any";
-    inPrice.value = p.price;
-    inPrice.addEventListener("input", function () { p.price = inPrice.value; save(); renderCalc(); });
-
-    var del = document.createElement("button");
-    del.className = "del-btn"; del.textContent = "×"; del.title = "항목 삭제";
-    del.addEventListener("click", function () {
-      tbl.splice(idx, 1); save(); renderPrices(); syncDatalist(); renderCalc();
-    });
-
-    row.appendChild(inType); row.appendChild(inPrice); row.appendChild(del);
-    list.appendChild(row);
-  });
-
-  // 탭 활성 표시 + 현재 자동적용 탭 태그
-  var act = activeGosiVer();
-  document.querySelectorAll("#priceTabs button").forEach(function (b) {
-    var v = b.getAttribute("data-ver");
-    b.classList.toggle("on", v === ver);
-    var tag = b.querySelector(".active-tag");
-    if (v === act && state.gosi === "auto") {
-      if (!tag) { tag = document.createElement("span"); tag.className = "active-tag"; tag.textContent = "현재 적용"; b.appendChild(tag); }
-    } else if (tag) { tag.remove(); }
-  });
-}
-
-/* ── 종류 자동완성 datalist ── */
-function syncDatalist() {
-  var dl = document.getElementById("priceTypeList");
-  if (!dl) { dl = document.createElement("datalist"); dl.id = "priceTypeList"; document.body.appendChild(dl); }
-  dl.innerHTML = "";
-  var tbl = state.priceTables[activeGosiVer()] || [];
-  var seen = {};
-  tbl.forEach(function (p) {
-    if (p.type && !seen[p.type]) { seen[p.type] = 1; var o = document.createElement("option"); o.value = p.type; dl.appendChild(o); }
-  });
+  document.getElementById("totGrand").innerHTML = won(total) + '<span class="unit">원</span>';
 }
 
 /* ── 배지 ── */
@@ -588,33 +638,72 @@ function renderBadge() {
   badge.innerHTML = mode + "<b>" + gosiLabel(ver) + "</b>";
 }
 
-/* ── 세그먼트 동기화 ── */
-function syncSegs() {
+/* ── 단가표 참고 렌더 ── */
+function renderRef() {
+  var ver = activeGosiVer();
+  document.getElementById("refVerLabel").textContent = "· " + gosiLabel(ver);
+  var box = document.getElementById("refBody");
+  box.innerHTML = "";
+  PRICE_DATA[ver].forEach(function (sec) {
+    var wrap = document.createElement("div");
+    wrap.className = "ref-sec";
+    var h = document.createElement("h3");
+    h.textContent = sec.biz;
+    wrap.appendChild(h);
+    var grid = document.createElement("div");
+    grid.className = "ref-grid";
+    sec.items.forEach(function (it) {
+      if (it.subs) {
+        it.subs.forEach(function (s) { grid.appendChild(refItem(it.name + " (" + s.name + ")", s.price)); });
+      } else {
+        grid.appendChild(refItem(it.name, it.price));
+      }
+    });
+    wrap.appendChild(grid);
+    box.appendChild(wrap);
+  });
+  box.classList.toggle("hidden", state.refCollapsed);
+  document.getElementById("refCollapse").textContent = state.refCollapsed ? "펼치기 ▼" : "접기 ▲";
+}
+function refItem(name, price) {
+  var d = document.createElement("div");
+  d.className = "ref-item";
+  var nm = document.createElement("span"); nm.className = "nm"; nm.textContent = name; nm.title = name;
+  var pr = document.createElement("span"); pr.className = "pr"; pr.textContent = won(price) + " 원/t";
+  d.appendChild(nm); d.appendChild(pr);
+  return d;
+}
+
+/* ── 세그먼트·계수 동기화 ── */
+function syncControls() {
   document.querySelectorAll("#bizSeg button").forEach(function (b) {
     b.classList.toggle("on", b.getAttribute("data-biz") === state.biz);
   });
   document.querySelectorAll("#gosiSeg button").forEach(function (b) {
     b.classList.toggle("on", b.getAttribute("data-gosi") === state.gosi);
   });
+  document.getElementById("coefInput").value = state.coef;
 }
 
 /* ── 전체 렌더 ── */
 function renderAll() {
-  syncSegs();
+  syncControls();
   renderBadge();
-  syncDatalist();
   renderCalc();
-  renderPrices();
-  var pb = document.getElementById("priceBody");
-  pb.classList.toggle("hidden", state.priceCollapsed);
-  document.getElementById("priceCollapse").textContent = state.priceCollapsed ? "펼치기 ▼" : "접기 ▲";
+  renderRef();
 }
 
 /* ── 이벤트 ── */
 function bind() {
   document.getElementById("bizSeg").addEventListener("click", function (e) {
     var b = e.target.closest("button"); if (!b) return;
-    state.biz = b.getAttribute("data-biz"); save(); renderAll();
+    state.biz = b.getAttribute("data-biz");
+    state.coef = COEF_DEFAULT[state.biz];   // 사업자 구분 변경 시 계수 기본값 자동 세팅
+    save(); renderAll();
+  });
+  document.getElementById("coefInput").addEventListener("input", function (e) {
+    state.coef = e.target.value === "" ? "" : parseFloat(e.target.value);
+    save(); recalc();
   });
   document.getElementById("gosiSeg").addEventListener("click", function (e) {
     var b = e.target.closest("button"); if (!b) return;
@@ -626,16 +715,8 @@ function bind() {
   document.getElementById("clearRows").addEventListener("click", function () {
     state.rows = [emptyRow()]; save(); renderCalc();
   });
-  document.getElementById("priceTabs").addEventListener("click", function (e) {
-    var b = e.target.closest("button"); if (!b) return;
-    state.priceTab = b.getAttribute("data-ver"); save(); renderPrices();
-  });
-  document.getElementById("addPrice").addEventListener("click", function () {
-    state.priceTables[state.priceTab].push({ type: "", price: "" });
-    save(); renderPrices();
-  });
-  document.getElementById("priceCollapse").addEventListener("click", function () {
-    state.priceCollapsed = !state.priceCollapsed; save(); renderAll();
+  document.getElementById("refCollapse").addEventListener("click", function () {
+    state.refCollapsed = !state.refCollapsed; save(); renderRef();
   });
 }
 
