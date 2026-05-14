@@ -9,23 +9,26 @@
 
 <style>
   :root {
-    --bg:        #0a0a0c;
-    --surface:   #141418;
-    --surface-2: #1c1c22;
-    --surface-3: #232329;
-    --border:    #2a2a33;
-    --border-2:  #3a3a45;
-    --text:      #e7e7ea;
-    --text-dim:  #a1a1aa;
-    --muted:     #6b6b74;
-    --accent:    #3b82f6;
-    --accent-bg: rgba(59,130,246,0.10);
-    --accent-2:  #60a5fa;
-    --success:   #10b981;
-    --warn:      #f59e0b;
-    --warn-bg:   rgba(245,158,11,0.10);
-    --danger:    #ef4444;
-    --radius:    10px;
+    --bg:         #f3f7fb;
+    --surface:    #ffffff;
+    --surface-2:  #f1f5f9;
+    --surface-3:  #e8eef5;
+    --border:     #e3e9f0;
+    --border-2:   #cbd5e1;
+    --text:       #1e293b;
+    --text-dim:   #475569;
+    --muted:      #94a3b8;
+    --accent:     #2563eb;
+    --accent-bg:  rgba(37,99,235,0.07);
+    --accent-2:   #1d4ed8;
+    --success:    #059669;
+    --success-2:  #047857;
+    --success-bg: rgba(5,150,105,0.08);
+    --warn:       #d97706;
+    --warn-bg:    rgba(217,119,6,0.10);
+    --danger:     #dc2626;
+    --radius:     10px;
+    --shadow:     0 1px 2px rgba(15,23,42,0.04), 0 2px 8px rgba(15,23,42,0.04);
   }
   *, *::before, *::after { box-sizing: border-box; }
   html, body { margin: 0; padding: 0; }
@@ -56,6 +59,7 @@
     border-radius: var(--radius);
     padding: 18px 20px;
     margin-bottom: 16px;
+    box-shadow: var(--shadow);
   }
   .card-head {
     display: flex; align-items: center; gap: 10px;
@@ -145,14 +149,14 @@
 
   /* ── 합계 ── */
   .grand-box {
-    background: var(--accent-bg); border: 1px solid var(--border-2);
+    background: var(--success-bg); border: 1px solid rgba(5,150,105,0.30);
     border-radius: var(--radius); padding: 18px 22px;
     display: flex; align-items: baseline; justify-content: space-between;
-    margin-bottom: 16px;
+    margin-bottom: 16px; box-shadow: var(--shadow);
   }
-  .grand-box .lbl { font-size: 12px; color: var(--accent-2); font-weight: 650; }
+  .grand-box .lbl { font-size: 12px; color: var(--success-2); font-weight: 650; }
   .grand-box .val {
-    font-size: 26px; font-weight: 700; color: var(--accent-2);
+    font-size: 26px; font-weight: 700; color: var(--success-2);
     font-variant-numeric: tabular-nums; letter-spacing: -0.01em;
   }
   .grand-box .val .unit { font-size: 13px; color: var(--text-dim); font-weight: 500; margin-left: 4px; }
