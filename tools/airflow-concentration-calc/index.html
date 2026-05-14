@@ -174,7 +174,8 @@
   .fld .v-wrap select { width: 43px; padding: 7px 4px; }
   .fld.pol > label { color: var(--accent-2); }
   .fld.pol .pol-val {
-    width: 50px; padding: 7px 9px; border: 1px solid var(--border);
+    width: fit-content; min-width: 24px; max-width: 160px;
+    padding: 7px 9px; border: 1px solid var(--border);
     border-radius: 7px; background: var(--surface-2);
     font-size: 12px; text-align: right; font-variant-numeric: tabular-nums;
     color: var(--accent-2); font-weight: 600; min-height: 31px;
@@ -282,6 +283,11 @@
           <option value="2">2 자리</option>
           <option value="3">3 자리</option>
           <option value="4">4 자리</option>
+          <option value="5">5 자리</option>
+          <option value="6">6 자리</option>
+          <option value="7">7 자리</option>
+          <option value="8">8 자리</option>
+          <option value="9">9 자리</option>
         </select>
       </div>
       <div class="set-fld">
@@ -487,7 +493,7 @@ function load() {
       var s = JSON.parse(raw);
       if (s && typeof s === "object") {
         var d = parseInt(s.decimals, 10);
-        state.decimals = (isFinite(d) && d >= 0 && d <= 6) ? d : 1;
+        state.decimals = (isFinite(d) && d >= 0 && d <= 9) ? d : 1;
         state.refCollapsed = s.refCollapsed !== false;
         if (Array.isArray(s.facilities)) {
           state.facilities = s.facilities.map(function (f) {
