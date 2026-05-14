@@ -122,6 +122,21 @@
   .io-row .del-btn { width: 22px; height: 22px; font-size: 12px; }
   .io-empty { font-size: 11px; color: var(--muted); padding: 2px 0; }
   .io-add { align-self: flex-start; padding: 4px 9px; font-size: 11px; }
+  .mat-block {
+    display: flex; flex-direction: column; gap: 6px;
+    border: 1px solid var(--border); border-radius: 7px;
+    padding: 7px 8px; background: var(--surface);
+  }
+  .emis-wrap {
+    display: flex; flex-direction: column; gap: 4px;
+    padding-left: 10px; margin-left: 2px; border-left: 2px solid var(--border-2);
+  }
+  .emis-head { font-size: 10px; font-weight: 650; color: var(--text-dim); }
+  .emis-row { display: flex; gap: 5px; align-items: center; }
+  .emis-row .emis-sub { flex: 1; min-width: 80px; }
+  .emis-row .emis-coef { width: 104px; }
+  .emis-row .del-btn { width: 22px; height: 22px; font-size: 12px; }
+  .emis-add { align-self: flex-start; padding: 3px 8px; font-size: 10.5px; }
 
   /* ── 후드 행 ── */
   .hoods { display: flex; flex-direction: column; gap: 8px; }
@@ -416,9 +431,11 @@ var state = {
 };
 
 function emptyHood() { return { shape: "slot", dims: {}, v: "", vUnit: "ms", t: "", outlet: "" }; }
+function emptyEmission() { return { substance: "", coefficient: "" }; }
 function emptyIO() { return { name: "", value: "", unit: "" }; }
+function emptyMaterial() { return { name: "", value: "", unit: "", emissions: [emptyEmission()] }; }
 function emptyFacility() {
-  return { name: "", materials: [emptyIO()], fuels: [emptyIO()], hoods: [emptyHood()] };
+  return { name: "", materials: [emptyMaterial()], fuels: [emptyIO()], hoods: [emptyHood()] };
 }
 
 /* ── 저장/복원 ── */
@@ -428,6 +445,16 @@ function save() {
 function mapIO(arr) {
   return (Array.isArray(arr) ? arr : []).map(function (x) {
     return { name: (x && x.name) || "", value: (x && x.value) || "", unit: (x && x.unit) || "" };
+  });
+}
+function mapMaterials(arr) {
+  return (Array.isArray(arr) ? arr : []).map(function (x) {
+    return {
+      name: (x && x.name) || "", value: (x && x.value) || "", unit: (x && x.unit) || "",
+      emissions: (Array.isArray(x && x.emissions) ? x.emissions : []).map(function (e) {
+        return { substance: (e && e.substance) || "", coefficient: (e && e.coefficient) || "" };
+      })
+    };
   });
 }
 function load() {
@@ -444,7 +471,7 @@ function load() {
           state.facilities = s.facilities.map(function (f) {
             return {
               name: (f && f.name) || "",
-              materials: mapIO(f && f.materials),
+              materials: mapMaterials(f && f.materials),
               fuels: mapIO(f && f.fuels),
               hoods: (Array.isArray(f && f.hoods) ? f.hoods : []).map(function (h) {
                 return {
@@ -535,8 +562,8 @@ function renderFacilities() {
     /* 원료 / 연료 */
     var io = document.createElement("div");
     io.className = "fac-io";
-    io.appendChild(renderIOGroup(fac, fi, "materials", "원료", "예: 도료"));
-    io.appendChild(renderIOGroup(fac, fi, "fuels", "연료", "예: LNG"));
+    io.appendChild(renderIOGroup(fac, fi, "materials", "원료", "예: 도료", true));
+    io.appendChild(renderIOGroup(fac, fi, "fuels", "연료", "예: LNG", false));
     box.appendChild(io);
 
     /* 후드 목록 */
@@ -570,7 +597,7 @@ function renderFacilities() {
 }
 
 /* ── 렌더: 원료/연료 그룹 ── */
-function renderIOGroup(fac, fi, key, label, ph) {
+function renderIOGroup(fac, fi, key, label, ph, withEmissions) {
   var group = document.createElement("div");
   group.className = "io-group";
 
@@ -587,43 +614,104 @@ function renderIOGroup(fac, fi, key, label, ph) {
     rows.appendChild(empty);
   }
   arr.forEach(function (item, ii) {
-    var row = document.createElement("div");
-    row.className = "io-row";
-
-    var nm = document.createElement("input");
-    nm.type = "text"; nm.className = "io-name"; nm.placeholder = ph;
-    nm.value = item.name;
-    nm.addEventListener("input", function () { item.name = nm.value; save(); });
-
-    var val = document.createElement("input");
-    val.type = "number"; val.className = "io-val"; val.placeholder = "사용량"; val.step = "any";
-    val.value = item.value;
-    val.addEventListener("input", function () { item.value = val.value; save(); });
-
-    var un = document.createElement("input");
-    un.type = "text"; un.className = "io-unit"; un.placeholder = "단위";
-    un.value = item.unit;
-    un.addEventListener("input", function () { item.unit = un.value; save(); });
-
-    var del = document.createElement("button");
-    del.className = "del-btn"; del.type = "button"; del.textContent = "×"; del.title = "삭제";
-    del.addEventListener("click", function () {
-      arr.splice(ii, 1); save(); renderFacilities();
-    });
-
-    row.appendChild(nm); row.appendChild(val); row.appendChild(un); row.appendChild(del);
-    rows.appendChild(row);
+    rows.appendChild(withEmissions
+      ? renderMaterialBlock(item, ii, arr, ph)
+      : renderIORow(item, ii, arr, ph));
   });
   group.appendChild(rows);
 
   var add = document.createElement("button");
   add.className = "btn io-add"; add.type = "button"; add.textContent = "+ " + label + " 추가";
   add.addEventListener("click", function () {
-    arr.push(emptyIO()); save(); renderFacilities();
+    arr.push(withEmissions ? emptyMaterial() : emptyIO()); save(); renderFacilities();
   });
   group.appendChild(add);
 
   return group;
+}
+
+/* 명칭·사용량·단위 한 줄 (원료/연료 공통) */
+function renderIORow(item, ii, arr, ph) {
+  var row = document.createElement("div");
+  row.className = "io-row";
+
+  var nm = document.createElement("input");
+  nm.type = "text"; nm.className = "io-name"; nm.placeholder = ph;
+  nm.value = item.name;
+  nm.addEventListener("input", function () { item.name = nm.value; save(); });
+
+  var val = document.createElement("input");
+  val.type = "number"; val.className = "io-val"; val.placeholder = "사용량"; val.step = "any";
+  val.value = item.value;
+  val.addEventListener("input", function () { item.value = val.value; save(); });
+
+  var un = document.createElement("input");
+  un.type = "text"; un.className = "io-unit"; un.placeholder = "단위";
+  un.value = item.unit;
+  un.addEventListener("input", function () { item.unit = un.value; save(); });
+
+  var del = document.createElement("button");
+  del.className = "del-btn"; del.type = "button"; del.textContent = "×"; del.title = "삭제";
+  del.addEventListener("click", function () {
+    arr.splice(ii, 1); save(); renderFacilities();
+  });
+
+  row.appendChild(nm); row.appendChild(val); row.appendChild(un); row.appendChild(del);
+  return row;
+}
+
+/* 원료 1개 = 명칭 줄 + 배출물질/배출계수 N개 */
+function renderMaterialBlock(item, ii, arr, ph) {
+  var block = document.createElement("div");
+  block.className = "mat-block";
+
+  block.appendChild(renderIORow(item, ii, arr, ph));
+
+  if (!Array.isArray(item.emissions)) item.emissions = [];
+  var ewrap = document.createElement("div");
+  ewrap.className = "emis-wrap";
+  var ehead = document.createElement("div");
+  ehead.className = "emis-head"; ehead.textContent = "배출물질 / 배출계수";
+  ewrap.appendChild(ehead);
+
+  if (item.emissions.length === 0) {
+    var ee = document.createElement("div");
+    ee.className = "io-empty"; ee.textContent = "배출물질 없음";
+    ewrap.appendChild(ee);
+  }
+  item.emissions.forEach(function (em, ei) {
+    var er = document.createElement("div");
+    er.className = "emis-row";
+
+    var sub = document.createElement("input");
+    sub.type = "text"; sub.className = "emis-sub"; sub.placeholder = "배출물질 (예: THC)";
+    sub.value = em.substance;
+    sub.addEventListener("input", function () { em.substance = sub.value; save(); });
+
+    var coef = document.createElement("input");
+    coef.type = "text"; coef.className = "emis-coef"; coef.placeholder = "배출계수";
+    coef.value = em.coefficient;
+    coef.addEventListener("input", function () { em.coefficient = coef.value; save(); });
+
+    var edel = document.createElement("button");
+    edel.className = "del-btn"; edel.type = "button"; edel.textContent = "×"; edel.title = "배출물질 삭제";
+    edel.addEventListener("click", function () {
+      item.emissions.splice(ei, 1); save(); renderFacilities();
+    });
+
+    er.appendChild(sub); er.appendChild(coef); er.appendChild(edel);
+    ewrap.appendChild(er);
+  });
+
+  var eadd = document.createElement("button");
+  eadd.className = "btn emis-add"; eadd.type = "button"; eadd.textContent = "+ 배출물질 추가";
+  eadd.addEventListener("click", function () {
+    item.emissions.push(emptyEmission()); save(); renderFacilities();
+  });
+  ewrap.appendChild(eadd);
+  block.appendChild(ewrap);
+
+  return block;
 }
 
 /* ── 렌더: 후드 1개 ── */
