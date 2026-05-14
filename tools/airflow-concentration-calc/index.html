@@ -121,6 +121,7 @@
   }
   .fld input { width: 84px; }
   .fld .shape-sel { width: 168px; }
+  .fld .outlet-in { width: 124px; }
   .fld .v-wrap { display: flex; gap: 4px; }
   .fld .v-wrap input { width: 66px; }
   .fld .v-wrap select { width: 64px; padding: 7px 4px; }
@@ -141,15 +142,26 @@
   .hood .qbox .qh { font-size: 10px; color: var(--muted); font-variant-numeric: tabular-nums; }
 
   .fac-foot {
-    display: flex; align-items: center; gap: 10px; margin-top: 10px;
-    padding-top: 10px; border-top: 1px dashed var(--border-2);
+    margin-top: 10px; padding-top: 10px; border-top: 1px dashed var(--border-2);
+    display: flex; flex-direction: column; gap: 8px;
   }
+  .fac-foot-top { display: flex; align-items: center; gap: 10px; }
   .fac-foot .sub-lbl { font-size: 11px; color: var(--text-dim); font-weight: 600; }
   .fac-foot .sub-val {
-    margin-left: auto; font-size: 14px; font-weight: 700; color: var(--text);
+    font-size: 13.5px; font-weight: 700; color: var(--text);
     font-variant-numeric: tabular-nums;
   }
+  .fac-foot .sub-val.first { margin-left: auto; }
   .fac-foot .sub-val .u { font-size: 10px; color: var(--muted); font-weight: 500; margin-left: 2px; }
+  .fac-foot .sub-val .sep { color: var(--border-2); margin: 0 8px; }
+  .outlet-bd { display: flex; flex-wrap: wrap; gap: 6px; }
+  .outlet-chip {
+    font-size: 10.5px; background: var(--surface-2); border: 1px solid var(--border);
+    border-radius: 6px; padding: 4px 9px; color: var(--text-dim);
+    font-variant-numeric: tabular-nums;
+  }
+  .outlet-chip b { color: var(--accent-2); font-weight: 650; }
+  .outlet-chip .ostd { color: var(--muted); }
 
   /* ── 합계 ── */
   .grand-box {
@@ -367,7 +379,7 @@ var state = {
   refCollapsed: true
 };
 
-function emptyHood() { return { shape: "slot", dims: {}, v: "", vUnit: "ms" }; }
+function emptyHood() { return { shape: "slot", dims: {}, v: "", vUnit: "ms", t: "", outlet: "" }; }
 function emptyFacility() { return { name: "", hoods: [emptyHood()] }; }
 
 /* ── 저장/복원 ── */
@@ -388,7 +400,9 @@ function load() {
                 shape: shapeById(h.shape).id,
                 dims: (h.dims && typeof h.dims === "object") ? h.dims : {},
                 v: h.v || "",
-                vUnit: h.vUnit === "mm" ? "mm" : "ms"
+                vUnit: h.vUnit === "mm" ? "mm" : "ms",
+                t: h.t || "",
+                outlet: h.outlet || ""
               };
             })
           };
@@ -419,6 +433,14 @@ function hoodQ(h) {
   return isFinite(q) && q > 0 ? q : 0;
 }
 
+/* ── 표준가스량 (0℃ 표준상태 환산, ㎥/min) — Qs = Q × 273/(273+T) ── */
+function hoodQstd(h) {
+  var q = hoodQ(h);
+  var denom = 273 + num(h.t);
+  if (denom <= 0) return 0;
+  return q * 273 / denom;
+}
+
 /* ── 런타임 참조 (가벼운 재계산용) ── */
 var refs = [];   // refs[fi] = { sub: el, hoods: [{ qv: el, qh: el }] }
 
@@ -429,7 +451,7 @@ function renderFacilities() {
   refs = [];
 
   state.facilities.forEach(function (fac, fi) {
-    var facRef = { sub: null, hoods: [] };
+    var facRef = { sub: null, outletEl: null, hoods: [] };
     refs.push(facRef);
 
     var box = document.createElement("div");
@@ -464,9 +486,12 @@ function renderFacilities() {
     });
     box.appendChild(hoods);
 
-    /* 후드 추가 + 소계 */
+    /* 후드 추가 + 배출구별 소계 + 시설 소계 */
     var foot = document.createElement("div");
     foot.className = "fac-foot";
+
+    var footTop = document.createElement("div");
+    footTop.className = "fac-foot-top";
     var addHood = document.createElement("button");
     addHood.className = "btn"; addHood.type = "button"; addHood.textContent = "+ 후드 추가";
     addHood.addEventListener("click", function () {
@@ -475,9 +500,16 @@ function renderFacilities() {
     var subLbl = document.createElement("span");
     subLbl.className = "sub-lbl"; subLbl.textContent = "시설 소계";
     var subVal = document.createElement("span");
-    subVal.className = "sub-val";
+    subVal.className = "sub-val first";
     facRef.sub = subVal;
-    foot.appendChild(addHood); foot.appendChild(subLbl); foot.appendChild(subVal);
+    footTop.appendChild(addHood); footTop.appendChild(subLbl); footTop.appendChild(subVal);
+    foot.appendChild(footTop);
+
+    var outletEl = document.createElement("div");
+    outletEl.className = "outlet-bd";
+    facRef.outletEl = outletEl;
+    foot.appendChild(outletEl);
+
     box.appendChild(foot);
 
     list.appendChild(box);
@@ -499,6 +531,18 @@ function renderHood(fac, fi, h, hi, facRef) {
   var hno = document.createElement("span");
   hno.className = "hno"; hno.textContent = "후드 " + (hi + 1);
   row.appendChild(hno);
+
+  /* 배출구 (배출시설 → 방지시설 구분) */
+  var fOut = document.createElement("div");
+  fOut.className = "fld";
+  fOut.innerHTML = '<label>배출구</label>';
+  var outIn = document.createElement("input");
+  outIn.type = "text"; outIn.className = "outlet-in";
+  outIn.placeholder = "예: 배출구-1";
+  outIn.value = h.outlet;
+  outIn.addEventListener("input", function () { h.outlet = outIn.value; save(); recalc(); });
+  fOut.appendChild(outIn);
+  row.appendChild(fOut);
 
   /* 후드 형태 */
   var fShape = document.createElement("div");
@@ -555,6 +599,17 @@ function renderHood(fac, fi, h, hi, facRef) {
   fV.appendChild(vWrap);
   row.appendChild(fV);
 
+  /* 온도 T */
+  var fT = document.createElement("div");
+  fT.className = "fld";
+  fT.innerHTML = '<label>온도 T (℃)</label>';
+  var tIn = document.createElement("input");
+  tIn.type = "number"; tIn.step = "any"; tIn.placeholder = "0";
+  tIn.value = h.t;
+  tIn.addEventListener("input", function () { h.t = tIn.value; save(); recalc(); });
+  fT.appendChild(tIn);
+  row.appendChild(fT);
+
   /* 산식 표시 */
   var form = document.createElement("span");
   form.className = "formula"; form.textContent = sh.formula;
@@ -587,25 +642,42 @@ function renderHood(fac, fi, h, hi, facRef) {
 
 /* ── 가벼운 재계산: 입력칸 그대로 두고 풍량·소계·합계만 갱신 ── */
 function recalc() {
-  var grand = 0;
+  var grand = 0, grandStd = 0;
   state.facilities.forEach(function (fac, fi) {
     var facRef = refs[fi];
     if (!facRef) return;
-    var subtotal = 0;
+    var subtotal = 0, subStd = 0;
+    var outlets = {}, outletOrder = [];   // 배출구명 → {q, std}
     fac.hoods.forEach(function (h, hi) {
       var q = hoodQ(h);
-      subtotal += q;
+      var qs = hoodQstd(h);
+      subtotal += q; subStd += qs;
+      var key = (h.outlet || "").trim() || "(미지정)";
+      if (!outlets[key]) { outlets[key] = { q: 0, std: 0 }; outletOrder.push(key); }
+      outlets[key].q += q; outlets[key].std += qs;
       var hRef = facRef.hoods[hi];
       if (hRef && hRef.qv) {
         hRef.qv.innerHTML = fmt(q, 1) + '<span class="u">㎥/min</span>';
-        hRef.qh.textContent = fmt(q * 60, 0) + " ㎥/hr";
+        hRef.qh.textContent = "표준 " + fmt(qs, 1) + " ㎥/min";
       }
     });
-    grand += subtotal;
-    if (facRef.sub) facRef.sub.innerHTML = fmt(subtotal, 1) + '<span class="u">㎥/min</span>';
+    grand += subtotal; grandStd += subStd;
+    if (facRef.sub) facRef.sub.innerHTML =
+      '풍량 ' + fmt(subtotal, 1) + '<span class="u">㎥/min</span><span class="sep">|</span>표준 ' +
+      fmt(subStd, 1) + '<span class="u">㎥/min</span>';
+    if (facRef.outletEl) {
+      facRef.outletEl.innerHTML = "";
+      outletOrder.forEach(function (k) {
+        var chip = document.createElement("span");
+        chip.className = "outlet-chip";
+        chip.innerHTML = k + ' &nbsp;<b>' + fmt(outlets[k].q, 1) + '</b> ㎥/min ' +
+                         '<span class="ostd">(표준 ' + fmt(outlets[k].std, 1) + ')</span>';
+        facRef.outletEl.appendChild(chip);
+      });
+    }
   });
   document.getElementById("grandVal").innerHTML =
-    fmt(grand, 1) + '<span class="u">㎥/min</span><span class="sub">' + fmt(grand * 60, 0) + ' ㎥/hr</span>';
+    fmt(grand, 1) + '<span class="u">㎥/min</span><span class="sub">표준 ' + fmt(grandStd, 1) + ' ㎥/min</span>';
 }
 
 /* ── 렌더: 산식 안내 ── */
@@ -617,7 +689,9 @@ function renderFormulaList() {
   });
   html += '<br>V 는 포착속도, 산정식에는 <b>m/min</b> 단위로 환산해 대입합니다 (m/s 입력 시 ×60 자동 변환). ' +
           'Q 는 배출가스량(풍량), 단위 <b>㎥/min</b>. L·W·X·H·P·D 는 모두 <b>m</b> 단위. ' +
-          'A 는 후드 개구면적(㎡).';
+          'A 는 후드 개구면적(㎡).' +
+          '<br><b>표준가스량</b> &nbsp;<code>Qs = Q × 273 / (273 + T)</code> &nbsp;— 온도 T(℃) 기준 0℃ 표준상태 환산.' +
+          '<br><b>배출구</b> — 후드별로 배출시설→방지시설 경로를 구분합니다. 한 배출시설의 후드가 서로 다른 배출구로 나갈 수 있어, 배출구별 소계를 별도 표시합니다.';
   box.innerHTML = html;
 }
 
