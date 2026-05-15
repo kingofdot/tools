@@ -151,7 +151,14 @@
     padding-right: 18px;
   }
   table.xl .w-mode { min-width: 60px; }
-  table.xl .w-dim { min-width: 60px; }
+  table.xl thead th.w-dim, table.xl tbody td.w-dim { width: 64px; min-width: 64px; max-width: 64px; padding-left: 3px; padding-right: 3px; }
+  table.xl thead th.w-calc, table.xl tbody td.w-calc { width: 72px; min-width: 72px; max-width: 72px; padding-left: 3px; padding-right: 3px; }
+  table.xl tbody td.w-dim input { padding-left: 3px; padding-right: 3px; font-size: 11px; min-width: 0; }
+  table.xl tbody td.calc-cell {
+    background: #fffbeb; color: #92400e; font-weight: 700;
+    font-variant-numeric: tabular-nums; text-align: right;
+    font-size: 11px; padding: 6px 6px;
+  }
   table.xl .w-act { min-width: 54px; }
   /* 시설 고정 너비 — 헤더 글자에 맞춤 */
   table.xl thead th.w-fac-narrow,
@@ -313,41 +320,78 @@ function shapeById(id) {
   return SHAPES[0];
 }
 
-/* 고정 제원 컬럼 — 후드형태/모양에 따라 활성 키 결정 */
-var DIM_COLUMNS = ["L", "W", "H", "X", "A_D"];
-var DIM_LABEL = {
-  L: "길이", W: "폭", H: "높이", X: "포집거리", A_D: "직경"
-};
+/* 통일된 제원 컬럼 (입력 5 + 계산 2) */
+var DIM_DISPLAY = [
+  { key: "가로",     label: "가로",       unit: "m",  kind: "input" },
+  { key: "세로",     label: "세로",       unit: "m",  kind: "input" },
+  { key: "직경",     label: "직경",       unit: "m",  kind: "input" },
+  { key: "거리",     label: "거리 (X)",   unit: "m",  kind: "input" },
+  { key: "포집거리", label: "포집거리 (D)", unit: "m",  kind: "input" },
+  { key: "둘레",     label: "둘레 (P)",   unit: "m",  kind: "calc" },
+  { key: "면적",     label: "면적 (A)",   unit: "m²", kind: "calc" }
+];
 
-/* 후드형태 + 모양 → 활성 dim 키 (명시적 매핑) */
-var ACTIVE_DIMS_MAP = {
-  "slot|rect":                 ["L","X"],
-  "slot|circ":                 ["L","X"],
-  "flanged_slot|rect":         ["L","X"],
-  "flanged_slot|circ":         ["L","X"],
-  "plain_opening|rect":        ["W","L","X"],
-  "plain_opening|circ":        ["A_D","X"],
-  "flanged_opening|rect":      ["W","L","X"],
-  "flanged_opening|circ":      ["A_D","X"],
-  "plain_multiple_slot|rect":  ["W","L","X"],
-  "plain_multiple_slot|circ":  ["W","L","X"],
-  "flanged_multiple_slot|rect":["W","L","X"],
-  "flanged_multiple_slot|circ":["W","L","X"],
-  "booth|rect":                ["W","H"],
-  "booth|circ":                ["A_D"],
-  "canopy|rect":               ["W","H","X"],
-  "canopy|circ":               ["A_D","X"]
+/* 후드형태 + 모양 → {표시키: 내부 dim 키} */
+var DISPLAY_TO_INTERNAL = {
+  "slot|rect":                 { "가로": "L", "거리": "X" },
+  "slot|circ":                 { "가로": "L", "거리": "X" },
+  "flanged_slot|rect":         { "가로": "L", "거리": "X" },
+  "flanged_slot|circ":         { "가로": "L", "거리": "X" },
+  "plain_opening|rect":        { "가로": "W", "세로": "L", "거리": "X" },
+  "plain_opening|circ":        { "직경": "A_D", "거리": "X" },
+  "flanged_opening|rect":      { "가로": "W", "세로": "L", "거리": "X" },
+  "flanged_opening|circ":      { "직경": "A_D", "거리": "X" },
+  "plain_multiple_slot|rect":  { "가로": "W", "세로": "L", "거리": "X" },
+  "plain_multiple_slot|circ":  { "가로": "W", "세로": "L", "거리": "X" },
+  "flanged_multiple_slot|rect":{ "가로": "W", "세로": "L", "거리": "X" },
+  "flanged_multiple_slot|circ":{ "가로": "W", "세로": "L", "거리": "X" },
+  "booth|rect":                { "가로": "W", "세로": "H" },
+  "booth|circ":                { "직경": "A_D" },
+  "canopy|rect":               { "가로": "W", "세로": "H", "포집거리": "X" },
+  "canopy|circ":               { "직경": "A_D", "포집거리": "X" }
 };
-function activeDimsFor(h) {
+function displayMapFor(h) {
   var shapeId = (h && h.shape) || "slot";
   var src = (h && h.srcShape === "circ") ? "circ" : "rect";
-  var key = shapeId + "|" + src;
-  return (ACTIVE_DIMS_MAP[key] || ACTIVE_DIMS_MAP["slot|rect"]).slice();
+  return DISPLAY_TO_INTERNAL[shapeId + "|" + src] || {};
 }
 
-/* 항상 모든 dim 컬럼 표시 — 후드형태 바뀌어도 좌측 컬럼 위치 고정 */
-function visibleDimKeys() {
-  return DIM_COLUMNS.slice();
+/* 둘레 (P): 캐노피만 의미. 사각 P=2(W+H), 원 P=π·D */
+function calcPerimeter(h) {
+  if (!h || h.shape !== "canopy") return null;
+  if (h.srcShape === "circ") {
+    var d = num(h.dims.A_D);
+    return d > 0 ? Math.PI * d : null;
+  }
+  var w = num(h.dims.W), ht = num(h.dims.H);
+  if (w > 0 && ht > 0) return 2 * (w + ht);
+  return null;
+}
+/* 면적 (A): booth, opening 계열. 사각 A=가로·세로, 원 A=π·D²/4 */
+function calcArea(h) {
+  if (!h) return null;
+  var sh = h.shape;
+  var isCirc = h.srcShape === "circ";
+  if (sh === "booth") {
+    if (isCirc) {
+      var d = num(h.dims.A_D);
+      return d > 0 ? Math.PI * d * d / 4 : null;
+    }
+    var w = num(h.dims.W), ht = num(h.dims.H);
+    if (w > 0 && ht > 0) return w * ht;
+    return null;
+  }
+  if (sh === "plain_opening" || sh === "flanged_opening" ||
+      sh === "plain_multiple_slot" || sh === "flanged_multiple_slot") {
+    if (isCirc && (sh === "plain_opening" || sh === "flanged_opening")) {
+      var dia = num(h.dims.A_D);
+      return dia > 0 ? Math.PI * dia * dia / 4 : null;
+    }
+    var w2 = num(h.dims.W), L = num(h.dims.L);
+    if (w2 > 0 && L > 0) return w2 * L;
+    return null;
+  }
+  return null;
 }
 
 /* ── 상태 ── */
@@ -473,14 +517,13 @@ function airClassRank(t) {
 }
 
 /* ── 헤더 렌더 ── */
-function renderHead(visKeys) {
-  visKeys = visKeys || visibleDimKeys();
+function renderHead() {
   var top = document.getElementById("headTop");
   var bot = document.getElementById("headBottom");
-  /* 상단: 섹션 헤더 (후드 colspan = 4고정 + dim수 + V) */
+  /* 상단: 섹션 헤더 (후드 colspan = 4고정 + DIM_DISPLAY + V) */
   var topHtml =
     '<th class="sec-fac" colspan="6">배출시설</th>' +
-    '<th class="sec-hood" colspan="' + (4 + visKeys.length + 1) + '">후드</th>' +
+    '<th class="sec-hood" colspan="' + (4 + DIM_DISPLAY.length + 1) + '">후드</th>' +
     '<th class="col-result" rowspan="2">먼지농도<br><span style="font-size:10px;font-weight:400">(mg/S㎥)</span></th>' +
     '<th rowspan="2">×</th>';
   top.innerHTML = topHtml;
@@ -498,8 +541,9 @@ function renderHead(visKeys) {
     '<th class="sec-hood w-shape">후드형태</th>',
     '<th class="sec-hood w-mode">모양</th>'
   ];
-  visKeys.forEach(function (k) {
-    cols.push('<th class="sec-hood w-dim">' + escapeHtml(DIM_LABEL[k]) + '<br><span style="font-size:10px;font-weight:400">(m)</span></th>');
+  DIM_DISPLAY.forEach(function (d) {
+    var cls = "sec-hood w-dim" + (d.kind === "calc" ? " w-calc" : "");
+    cols.push('<th class="' + cls + '">' + escapeHtml(d.label) + '<br><span style="font-size:10px;font-weight:400">(' + d.unit + ')</span></th>');
   });
   cols.push('<th class="sec-hood w-num">V<br><span style="font-size:10px;font-weight:400">(m/s)</span></th>');
   bot.innerHTML = cols.join("");
@@ -509,8 +553,7 @@ function renderHead(visKeys) {
 function renderBody() {
   var body = document.getElementById("xlBody");
   body.innerHTML = "";
-  var visKeys = visibleDimKeys();
-  renderHead(visKeys);
+  renderHead();
   state.facilities.forEach(function (fac, fi) {
     var nH = fac.hoods.length || 1;
     fac.hoods.forEach(function (h, hi) {
@@ -553,14 +596,25 @@ function renderBody() {
       } else {
         html += '<td class="hood disabled"></td>';
       }
-      /* 제원 컬럼 — 보이는 키만 */
-      var actDims = activeDimsFor(h);
-      visKeys.forEach(function (k) {
-        var on = actDims.indexOf(k) !== -1;
-        if (on) {
-          html += '<td class="hood"><input type="number" data-dim="' + k + '" min="0" step="any" placeholder="0" value="' + escapeHtml(h.dims[k] != null ? h.dims[k] : "") + '"></td>';
+      /* 제원 컬럼 — 통일 7컬럼 (입력 5 + 계산 2) */
+      var dispMap = displayMapFor(h);
+      DIM_DISPLAY.forEach(function (d) {
+        if (d.kind === "input") {
+          var internalKey = dispMap[d.key];
+          if (internalKey) {
+            html += '<td class="hood w-dim"><input type="number" data-dim="' + internalKey + '" min="0" step="any" placeholder="0" value="' + escapeHtml(h.dims[internalKey] != null ? h.dims[internalKey] : "") + '"></td>';
+          } else {
+            html += '<td class="hood w-dim disabled"></td>';
+          }
         } else {
-          html += '<td class="hood disabled"></td>';
+          /* calc cell */
+          var val = (d.key === "둘레") ? calcPerimeter(h) : calcArea(h);
+          var attr = 'data-calc="' + (d.key === "둘레" ? 'perimeter' : 'area') + '"';
+          if (val != null) {
+            html += '<td class="hood w-calc calc-cell" ' + attr + '>' + fmt(val) + '</td>';
+          } else {
+            html += '<td class="hood w-calc disabled" ' + attr + '></td>';
+          }
         }
       });
       /* V */
@@ -710,6 +764,29 @@ function updateRowResults() {
       var ok = c != null && c > 0;
       concCell.textContent = ok ? fmt(c) : "—";
       concCell.classList.toggle("zero", !ok);
+    }
+    /* 둘레/면적 계산 셀 */
+    var pCell = tr.querySelector('td[data-calc="perimeter"]');
+    if (pCell) {
+      var p = calcPerimeter(h);
+      if (p != null) {
+        pCell.className = "hood w-calc calc-cell";
+        pCell.textContent = fmt(p);
+      } else {
+        pCell.className = "hood w-calc disabled";
+        pCell.textContent = "";
+      }
+    }
+    var aCell = tr.querySelector('td[data-calc="area"]');
+    if (aCell) {
+      var a = calcArea(h);
+      if (a != null) {
+        aCell.className = "hood w-calc calc-cell";
+        aCell.textContent = fmt(a);
+      } else {
+        aCell.className = "hood w-calc disabled";
+        aCell.textContent = "";
+      }
     }
   });
   /* method1: 시설 내 다른 후드 농도도 영향 받으므로 시설 단위로 한 번 더 갱신 */
