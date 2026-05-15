@@ -1337,13 +1337,25 @@ function renderHood(fac, fi, h, hi, facRef) {
   fOut.appendChild(outIn);
   row.appendChild(fOut);
 
+  /* 온도 T (배출구 옆) */
+  var fT = document.createElement("div");
+  fT.className = "fld";
+  fT.innerHTML = '<label>온도 (℃)</label>';
+  var tIn = document.createElement("input");
+  tIn.type = "number"; tIn.className = "temp-in"; tIn.step = "any"; tIn.placeholder = "0";
+  tIn.value = h.t;
+  tIn.dataset.guide = "5";
+  tIn.addEventListener("input", function () { h.t = tIn.value; save(); recalc(); });
+  fT.appendChild(tIn);
+  row.appendChild(fT);
+
   /* 후드 형태 */
   var fShape = document.createElement("div");
   fShape.className = "fld";
   fShape.innerHTML = '<label>후드 형태</label>';
   var sel = document.createElement("select");
   sel.className = "shape-sel";
-  sel.dataset.guide = "5";
+  sel.dataset.guide = "6";
   SHAPES.forEach(function (s) {
     var o = document.createElement("option");
     o.value = s.id; o.textContent = s.label;
@@ -1454,17 +1466,6 @@ function renderHood(fac, fi, h, hi, facRef) {
   vWrap.appendChild(vIn); vWrap.appendChild(vUnit);
   fV.appendChild(vWrap);
   row.appendChild(fV);
-
-  /* 온도 T */
-  var fT = document.createElement("div");
-  fT.className = "fld";
-  fT.innerHTML = '<label>온도 (℃)</label>';
-  var tIn = document.createElement("input");
-  tIn.type = "number"; tIn.className = "temp-in"; tIn.step = "any"; tIn.placeholder = "0";
-  tIn.value = h.t;
-  tIn.addEventListener("input", function () { h.t = tIn.value; save(); recalc(); });
-  fT.appendChild(tIn);
-  row.appendChild(fT);
 
   /* 배출물질 농도 (방식 2에서만 표시) */
   if (state.concMethod !== "method1") {
@@ -2082,11 +2083,13 @@ var GUIDE_STEPS = [
     getTarget: function() { return document.querySelector(".fac-ophours input"); } },
   { label: "③ 연간가동일",       desc: "연간 가동일수(일/yr)를 입력하세요. (예: 300일/년)",
     getTarget: function() { return document.querySelector(".fac-opdays input"); } },
-  { label: "④ 원료/연료명",      desc: "원료/연료명·사용량·단위(ton/kg/g/㎥)를 입력하고, 배출물질·배출계수·단위(예: kg/ton)를 추가하세요.",
+  { label: "④ 원료/연료명·사용량", desc: "원료/연료명과 사용량·단위(ton/kg/g/㎥)를 입력하고, 배출물질·배출계수·단위(예: kg/ton)를 추가하세요.",
     getTarget: function() { return document.querySelector(".m-name"); } },
   { label: "⑤ 배출구",           desc: "각 후드가 연결될 배출구를 입력하세요. (예: 배출구-1)",
     getTarget: function() { return document.querySelector(".outlet-in"); } },
-  { label: "⑥ 후드 고르기",      desc: "오염원에 맞는 후드 형태를 선택하세요. 형태마다 필요한 치수가 달라집니다.",
+  { label: "⑥ 온도",             desc: "배출가스 온도(℃)를 입력하세요. 표준풍량(Qs) 환산에 사용됩니다.",
+    getTarget: function() { return document.querySelector(".temp-in"); } },
+  { label: "⑦ 후드 형태 선택",   desc: "오염원에 맞는 후드 형태를 선택하세요. 형태마다 필요한 치수가 달라집니다.",
     getTarget: function() { return document.querySelector(".shape-sel"); } }
 ];
 
