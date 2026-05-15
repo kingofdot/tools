@@ -33,5 +33,19 @@
         "tag":  "Magic",
         "description":  "스킬과 마법 계열 정의를 다루는 포지형 HTML 툴",
         "path":  "./tools/magic-builder/"
+    },
+    {
+        "slug":  "layout-designer",
+        "name":  "공장 배치도 편집기",
+        "tag":  "CAD",
+        "description":  "선·사각형·원·해치·지시선·치수 등으로 공장/사업장 배치도를 그리고 고해상도 PNG로 내보내는 HTML 툴",
+        "path":  "./tools/layout-designer/"
+    },
+    {
+        "slug":  "airflow-concentration-xl",
+        "name":  "풍량 및 농도 계산기 (엑셀)",
+        "tag":  "환경",
+        "description":  "배출시설/후드를 엑셀처럼 한 행씩 입력해 먼지 발생량(톤/년)과 농도(mg/S㎥)를 계산. 시설 행이 후드 행들을 rowspan으로 머금는 구조.",
+        "path":  "./tools/airflow-concentration-xl/"
     }
 ]
