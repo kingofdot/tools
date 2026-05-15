@@ -40,7 +40,9 @@
     font-size: 13px;
     line-height: 1.45;
     -webkit-font-smoothing: antialiased;
+    transition: padding-bottom .2s;
   }
+  body.guide-active { padding-bottom: 80px; }
   .wrap { max-width: 1080px; margin: 0 auto; }
 
   /* ── 헤더 ── */
@@ -72,6 +74,7 @@
   input[type="number"] { text-align: right; font-variant-numeric: tabular-nums; }
   input::placeholder { color: var(--muted); }
 
+  /* ── 버튼 ── */
   .btn {
     background: var(--surface); border: 1px solid var(--border-2); color: var(--text);
     font-family: inherit; font-size: 12px; font-weight: 550; padding: 7px 13px;
@@ -81,7 +84,16 @@
   .btn.ghost { background: transparent; }
   .btn.accent { background: var(--accent); border-color: var(--accent); color: #fff; }
   .btn.accent:hover { background: var(--accent-2); color: #fff; }
-  .btn-row { margin-top: 12px; display: flex; gap: 8px; flex-wrap: wrap; }
+  .btn.success { background: var(--success); border-color: var(--success); color: #fff; }
+  .btn.success:hover { background: var(--success-2); color: #fff; }
+  .btn.warning { background: var(--warn); border-color: var(--warn); color: #fff; }
+  .btn.warning:hover { background: #b45309; color: #fff; }
+  .btn.danger { border-color: var(--danger); color: var(--danger); }
+  .btn.danger:hover { background: var(--danger); border-color: var(--danger); color: #fff; }
+  .btn.filled-danger { background: var(--danger); border-color: var(--danger); color: #fff; }
+  .btn.filled-danger:hover { background: #b91c1c; color: #fff; }
+  .btn.xs { padding: 4px 9px; font-size: 11px; }
+  .btn-row { margin-top: 12px; display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
   .del-btn {
     background: transparent; border: 1px solid var(--border-2); color: var(--muted);
     width: 26px; height: 26px; border-radius: 6px; cursor: pointer; font-size: 14px;
@@ -89,8 +101,6 @@
   }
   .del-btn:hover { border-color: var(--danger); color: var(--danger); }
   .del-btn.sm { width: 22px; height: 22px; font-size: 12px; }
-  .btn.danger { border-color: var(--danger); color: var(--danger); }
-  .btn.danger:hover { background: var(--danger); border-color: var(--danger); color: #fff; }
 
   /* ── 확인 모달 ── */
   .modal-overlay {
@@ -122,17 +132,18 @@
 
   /* ── 배출시설 카드 ── */
   .facility {
-    border: 1px solid var(--border-2); border-left: 3px solid var(--accent);
+    border: 2px solid var(--accent);
     border-radius: var(--radius); padding: 14px 16px; margin-bottom: 14px;
     background: var(--surface);
   }
   .facility:last-of-type { margin-bottom: 0; }
-  .fac-head { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
+  .fac-head { display: flex; align-items: center; gap: 8px; margin-bottom: 12px; flex-wrap: wrap; }
   .fac-head .fac-idx {
     font-size: 11px; font-weight: 700; color: var(--accent-2);
     background: var(--accent-bg); border-radius: 6px; padding: 4px 9px; white-space: nowrap;
   }
-  .fac-head input.fac-name { flex: 1; font-weight: 550; }
+  .fac-head input.fac-name { flex: 1; font-weight: 550; min-width: 120px; }
+  .fac-order-btns { display: flex; gap: 3px; flex-shrink: 0; }
 
   /* ── 원료·연료 ── */
   .fac-mats { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 12px; }
@@ -183,11 +194,11 @@
   .fld > label {
     font-size: 10px; color: var(--text-dim); font-weight: 600;
     letter-spacing: 0.02em; white-space: nowrap;
+    text-align: center;
   }
   .fld input { width: 84px; }
   .fld .shape-sel { width: 84px; }
   .fld .outlet-in { width: 41px; }
-  .fld .dim-in { width: 56px; }
   .fld .temp-in { width: 42px; }
   .fld .v-wrap { display: flex; gap: 4px; }
   .fld .v-wrap input { width: 66px; }
@@ -204,16 +215,38 @@
   .fac-ophours label { font-size: 11px; color: var(--text-dim); font-weight: 600; }
   .fac-ophours input { width: 72px; }
   .fac-ophours .u { font-size: 10.5px; color: var(--muted); }
+
+  /* ── 치수 스텝 버튼 ── */
+  .dim-step-wrap { display: flex; align-items: center; gap: 2px; }
+  .dim-step-wrap .dim-in { width: 50px; text-align: center; padding: 7px 4px; }
+  .step-btn {
+    width: 24px; height: 31px;
+    background: var(--surface-3); border: 1px solid var(--border-2);
+    border-radius: 5px; cursor: pointer; font-size: 15px; font-weight: 700;
+    color: var(--text-dim); line-height: 1; transition: .12s;
+    display: flex; align-items: center; justify-content: center; padding: 0;
+    flex-shrink: 0;
+  }
+  .step-btn:hover { background: var(--accent); border-color: var(--accent); color: #fff; }
+
+  /* ── 풍량 표시 (우측) ── */
   .hood .qbox {
     margin-left: auto; text-align: right; align-self: center;
-    display: flex; flex-direction: column; gap: 1px;
+    display: flex; flex-direction: column; gap: 3px;
   }
   .hood .qbox .qv {
     font-size: 15px; font-weight: 700; color: var(--accent-2);
     font-variant-numeric: tabular-nums;
   }
-  .hood .qbox .qv .u { font-size: 10px; color: var(--muted); font-weight: 500; margin-left: 2px; }
-  .hood .qbox .qh { font-size: 10px; color: var(--muted); font-variant-numeric: tabular-nums; }
+  .hood .qbox .qh {
+    font-size: 15px; font-weight: 700; color: var(--accent-2);
+    font-variant-numeric: tabular-nums;
+  }
+  .hood .qbox .ql {
+    font-size: 11px; color: var(--muted); font-weight: 600;
+    margin-right: 3px; font-style: italic;
+  }
+  .hood .qbox .u { font-size: 10px; color: var(--muted); font-weight: 500; margin-left: 2px; }
 
   .fac-foot {
     margin-top: 10px; padding-top: 10px; border-top: 1px dashed var(--border-2);
@@ -281,6 +314,50 @@
   }
   table.ref td.v { font-variant-numeric: tabular-nums; color: var(--accent-2); font-weight: 600; white-space: nowrap; }
   table.ref tr:hover td { background: var(--surface-2); }
+
+  /* ── 입력 안내 하이라이터 ── */
+  @keyframes guide-pulse {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(37,99,235,0.55); }
+    50%       { box-shadow: 0 0 0 10px rgba(37,99,235,0); }
+  }
+  .guide-highlight {
+    outline: 3px solid #3b82f6 !important;
+    outline-offset: 3px;
+    animation: guide-pulse 1.4s ease-in-out infinite;
+    border-radius: 7px;
+    position: relative;
+    z-index: 10;
+  }
+
+  /* ── 안내 바 (하단 고정) ── */
+  .guide-bar {
+    position: fixed; bottom: 0; left: 0; right: 0; z-index: 500;
+    background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 100%);
+    color: #fff; padding: 10px 24px;
+    display: flex; align-items: center; gap: 14px; flex-wrap: wrap;
+    box-shadow: 0 -4px 24px rgba(15,23,42,0.25);
+  }
+  .guide-bar .g-info { flex: 1; min-width: 200px; }
+  .guide-bar .g-step-lbl {
+    font-size: 10px; font-weight: 700; opacity: 0.7;
+    text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 2px;
+  }
+  .guide-bar .g-desc { font-size: 13px; font-weight: 500; line-height: 1.35; }
+  .guide-bar .g-progress {
+    font-size: 11px; opacity: 0.65; white-space: nowrap; font-variant-numeric: tabular-nums;
+  }
+  .guide-bar .g-nav { display: flex; gap: 6px; align-items: center; }
+  .g-btn {
+    background: rgba(255,255,255,0.18); border: 1px solid rgba(255,255,255,0.35);
+    color: #fff; padding: 6px 13px; border-radius: 6px;
+    font-family: inherit; font-size: 12px; font-weight: 600; cursor: pointer; transition: .12s;
+  }
+  .g-btn:hover:not(:disabled) { background: rgba(255,255,255,0.32); }
+  .g-btn:disabled { opacity: 0.35; cursor: default; }
+  .g-btn.primary { background: rgba(255,255,255,0.92); color: #1d4ed8; font-weight: 700; }
+  .g-btn.primary:hover { background: #fff; }
+  .g-btn.off { background: transparent; border-color: rgba(255,255,255,0.18); font-size: 11px; opacity: 0.75; }
+  .g-btn.off:hover { opacity: 1; }
 </style>
 </head>
 <body>
@@ -313,6 +390,9 @@
       <div class="set-fld">
         <span class="note">모든 풍량·표준풍량·온도 표시에 적용됩니다.</span>
       </div>
+      <div class="set-fld" style="margin-left:auto;">
+        <button class="btn" id="guideToggleBtn" style="white-space:nowrap;">💡 입력 안내</button>
+      </div>
     </div>
   </div>
 
@@ -325,8 +405,8 @@
     <div id="facList"></div>
     <div class="btn-row">
       <button class="btn accent" id="addFac">+ 배출시설 추가</button>
-      <button class="btn ghost" id="clearAll">전체 비우기</button>
-      <button class="btn ghost" id="resetAll">초기화</button>
+      <button class="btn warning" id="clearAll">전체 비우기</button>
+      <button class="btn filled-danger" id="resetAll">초기화</button>
     </div>
   </div>
 
@@ -356,11 +436,24 @@
 
 </div>
 
+<!-- ── 안내 바 ── -->
+<div id="guideBar" class="guide-bar hidden">
+  <div class="g-info">
+    <div class="g-step-lbl" id="gStepLbl"></div>
+    <div class="g-desc" id="gStepDesc"></div>
+  </div>
+  <div class="g-progress" id="gProgress"></div>
+  <div class="g-nav">
+    <button class="g-btn" id="gPrev">← 이전</button>
+    <button class="g-btn primary" id="gNext">다음 →</button>
+    <button class="g-btn off" id="gOff">안내 끄기</button>
+  </div>
+</div>
+
 <script>
 "use strict";
 
-/* ── 후드 형태별 산정식 (편람 제1장 표 II) ───────────────────────────
-   V 는 m/min 으로 환산하여 대입, Q 단위 ㎥/min */
+/* ── 후드 형태별 산정식 ── */
 var SHAPES = [
   { id: "slot",                 label: "슬롯트형",        dims: ["L", "X"],
     formula: "Q = 3.7 · L · V · X",
@@ -396,7 +489,7 @@ var DIM_LABEL = {
   H: "부스높이 (m)", P: "오염원둘레 (m)", D: "포집거리 (m)"
 };
 
-/* ── 포착속도 참고표 (편람 표1-1 / 1-2 / 1-3) ── */
+/* ── 포착속도 참고표 ── */
 var REF = {
   table1_1: {
     title: "표1-1 일반적으로 사용되는 포착속도의 개략치",
@@ -412,59 +505,39 @@ var REF = {
     title: "표1-2 발생원과 후드형태에 따른 포착속도",
     cols: ["발생원", "후드형태", "포착속도 (m/sec)", "포착점"],
     rows: [
-      ["sand blast room", "포위박스형", "0.3~0.5", "개구면"],
-      ["sand blast table", "부스형", "1.0", "개구면"],
-      ["포장작업(종이포장대)", "부스형", "0.5", "개구면"],
-      ["포장작업(마대포장대)", "부스형", "1.0", "개구면"],
-      ["저장투입", "포위카바형", "0.8~1.0", "개구면"],
-      ["병세척", "부스형(건물)", "0.8~1.3", "개구면"],
-      ["콘베이어이송", "포위카바형", "0.8~1.0", "개구면"],
-      ["단조(수동)", "부스형(건물)", "1.0", "개구면"],
-      ["주물사스크린(회전)", "포위카바형", "1.0", "개구면"],
-      ["주물사스크린(진동)", "포위카바형", "2.0", "개구면"],
-      ["shake out", "부스형(chamber)", "1.0", "개구면"],
-      ["shake out (냉각된 주물)", "포집그리트형", "1.3", "격자면"],
-      ["shake out (뜨거운 주물)", "포집그리트형", "3.0", "격자면"],
-      ["Al용해로", "레시바캐노피형", "0.8", "개구면"],
-      ["동용해로", "레시바캐노피형", "1.0~1.3", "개구면"],
-      ["도가니로", "레시바캐노피형", "1.0", "개구면"],
-      ["전기로", "레시바캐노피형", "2.0", "개구면"],
-      ["용탕주입", "포집스롯트루바형", "2.0", "개구면"],
-      ["바켙엘리베이터", "포집박스형", "2.5", "개구면"],
-      ["디스크연마기", "포집그리트", "1.0~2.0", "격자면"],
-      ["평면연마기", "포집스롯트형", "7.5", "발생원"],
-      ["주방가스렌지", "레시바캐노피형", "0.5~0.8", "개구면"],
-      ["분무도장", "부스형(건물)", "0.5~1.0", "개구면"],
-      ["고무카렌다", "포집장방형", "0.5", "개구면"],
-      ["탈지탱크", "포집스롯트형", "0.3~0.5", "발생원"],
-      ["침적탱크", "부스형(chamber)", "0.8", "개구면"],
-      ["산세척탱크", "포집스롯트형", "0.4~0.5", "발생원"],
-      ["도금탱크", "포집스롯트형", "0.4~0.5", "발생원"],
-      ["탕세탱크", "레시바캐노피형", "0.4~0.5", "발생원"],
-      ["전기용접 (캐노피)", "레시바캐노피형", "0.5~1.0", "발생원"],
-      ["전기용접 (부스)", "부스형(건물)", "0.5", "개구면"],
-      ["혼합기", "포위카바형", "0.5~1.0", "개구면"]
+      ["sand blast room","포위박스형","0.3~0.5","개구면"],["sand blast table","부스형","1.0","개구면"],
+      ["포장작업(종이포장대)","부스형","0.5","개구면"],["포장작업(마대포장대)","부스형","1.0","개구면"],
+      ["저장투입","포위카바형","0.8~1.0","개구면"],["병세척","부스형(건물)","0.8~1.3","개구면"],
+      ["콘베이어이송","포위카바형","0.8~1.0","개구면"],["단조(수동)","부스형(건물)","1.0","개구면"],
+      ["주물사스크린(회전)","포위카바형","1.0","개구면"],["주물사스크린(진동)","포위카바형","2.0","개구면"],
+      ["shake out","부스형(chamber)","1.0","개구면"],["shake out (냉각된 주물)","포집그리트형","1.3","격자면"],
+      ["shake out (뜨거운 주물)","포집그리트형","3.0","격자면"],["Al용해로","레시바캐노피형","0.8","개구면"],
+      ["동용해로","레시바캐노피형","1.0~1.3","개구면"],["도가니로","레시바캐노피형","1.0","개구면"],
+      ["전기로","레시바캐노피형","2.0","개구면"],["용탕주입","포집스롯트루바형","2.0","개구면"],
+      ["바켙엘리베이터","포집박스형","2.5","개구면"],["디스크연마기","포집그리트","1.0~2.0","격자면"],
+      ["평면연마기","포집스롯트형","7.5","발생원"],["주방가스렌지","레시바캐노피형","0.5~0.8","개구면"],
+      ["분무도장","부스형(건물)","0.5~1.0","개구면"],["고무카렌다","포집장방형","0.5","개구면"],
+      ["탈지탱크","포집스롯트형","0.3~0.5","발생원"],["침적탱크","부스형(chamber)","0.8","개구면"],
+      ["산세척탱크","포집스롯트형","0.4~0.5","발생원"],["도금탱크","포집스롯트형","0.4~0.5","발생원"],
+      ["탕세탱크","레시바캐노피형","0.4~0.5","발생원"],["전기용접 (캐노피)","레시바캐노피형","0.5~1.0","발생원"],
+      ["전기용접 (부스)","부스형(건물)","0.5","개구면"],["혼합기","포위카바형","0.5~1.0","개구면"]
     ]
   },
   table1_3: {
     title: "표1-3 제어풍속 (노동부고시 90-45호)",
     groups: [
       { sub: "유기용제에 대한 제어풍속", cols: ["후드형태", "제어풍속 (m/sec)"], rows: [
-        ["포위식 후드", "0.4"],
-        ["외부식 후드 (측방흡인형)", "0.5"],
-        ["외부식 후드 (하방흡인형)", "0.5"],
-        ["외부식 후드 (상방흡인형)", "1.0"]
+        ["포위식 후드","0.4"],["외부식 후드 (측방흡인형)","0.5"],
+        ["외부식 후드 (하방흡인형)","0.5"],["외부식 후드 (상방흡인형)","1.0"]
       ]},
       { sub: "회전체 기계 관련 특정이외 먼지 발생원", cols: ["후드형태", "제어풍속 (m/sec)"], rows: [
-        ["포위식 후드", "0.7"],
-        ["외부식 후드 (측방흡인형)", "1.0"],
-        ["외부식 후드 (하방흡인형)", "1.0"],
-        ["외부식 후드 (상방흡인형)", "1.2"]
+        ["포위식 후드","0.7"],["외부식 후드 (측방흡인형)","1.0"],
+        ["외부식 후드 (하방흡인형)","1.0"],["외부식 후드 (상방흡인형)","1.2"]
       ]},
       { sub: "회전체 기계 관련 특정 먼지 발생원", cols: ["설치방법", "제어풍속 (m/sec)"], rows: [
-        ["회전체 갖는 기계전체를 포위", "0.5"],
-        ["분진 비산방향을 후드 개구면으로 덮음", "5.0"],
-        ["회전체만을 싸는 방법", "5.0"]
+        ["회전체 갖는 기계전체를 포위","0.5"],
+        ["분진 비산방향을 후드 개구면으로 덮음","5.0"],
+        ["회전체만을 싸는 방법","5.0"]
       ]}
     ],
     note: "표1-3 특정먼지 발생원 16개 작업장 유형별 제어풍속표는 분량이 커서 생략 — 편람 원본 p.20 참조."
@@ -472,11 +545,12 @@ var REF = {
 };
 
 var STORAGE_KEY = "airflow-concentration-calc.v1";
+var GUIDE_STORAGE_KEY = STORAGE_KEY + ".guide";
 
 /* ── 상태 ── */
 var state = {
   decimals: 1,
-  facilities: [],   // [{ name, materials:[], fuels:[], hoods:[{shape,dims,v,vUnit,t,outlet}] }]
+  facilities: [],
   refCollapsed: true
 };
 
@@ -487,26 +561,17 @@ function emptyFacility() { return { name: "", operatingHours: "", materials: [],
 
 function normEmissions(a) {
   return Array.isArray(a) ? a.map(function (e) {
-    return {
-      substance: (e && e.substance) || "",
-      coefficient: (e && e.coefficient) || "",
-      phase: (e && e.phase === "입자상") ? "입자상" : "가스상"
-    };
+    return { substance: (e && e.substance) || "", coefficient: (e && e.coefficient) || "", phase: (e && e.phase === "입자상") ? "입자상" : "가스상" };
   }) : [];
 }
 function normMats(a) {
   return Array.isArray(a) ? a.map(function (m) {
-    return {
-      name: (m && m.name) || "", value: (m && m.value) || "", unit: (m && m.unit) || "",
-      emissions: normEmissions(m && m.emissions)
-    };
+    return { name: (m && m.name) || "", value: (m && m.value) || "", unit: (m && m.unit) || "", emissions: normEmissions(m && m.emissions) };
   }) : [];
 }
 
 /* ── 저장/복원 ── */
-function save() {
-  try { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); } catch (e) {}
-}
+function save() { try { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); } catch (e) {} }
 function load() {
   try {
     var raw = localStorage.getItem(STORAGE_KEY);
@@ -519,20 +584,12 @@ function load() {
         if (Array.isArray(s.facilities)) {
           state.facilities = s.facilities.map(function (f) {
             return {
-              name: f.name || "",
-              operatingHours: f.operatingHours || "",
-              materials: normMats(f.materials),
-              fuels: normMats(f.fuels),
+              name: f.name || "", operatingHours: f.operatingHours || "",
+              materials: normMats(f.materials), fuels: normMats(f.fuels),
               hoods: (Array.isArray(f.hoods) ? f.hoods : []).map(function (h) {
-                return {
-                  shape: shapeById(h.shape).id,
-                  dims: (h.dims && typeof h.dims === "object") ? h.dims : {},
-                  v: h.v || "",
-                  vUnit: h.vUnit === "mm" ? "mm" : "ms",
-                  t: h.t || "",
-                  outlet: h.outlet || "",
-                  pollutants: (h.pollutants && typeof h.pollutants === "object") ? h.pollutants : {}
-                };
+                return { shape: shapeById(h.shape).id, dims: (h.dims && typeof h.dims === "object") ? h.dims : {},
+                  v: h.v || "", vUnit: h.vUnit === "mm" ? "mm" : "ms", t: h.t || "", outlet: h.outlet || "",
+                  pollutants: (h.pollutants && typeof h.pollutants === "object") ? h.pollutants : {} };
               })
             };
           });
@@ -553,22 +610,18 @@ function fmt(n) {
   return (Math.round(n * p) / p).toLocaleString("ko-KR", { maximumFractionDigits: dec });
 }
 function escapeHtml(s) {
-  return String(s).replace(/[&<>"]/g, function (c) {
-    return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c];
-  });
+  return String(s).replace(/[&<>"]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; });
 }
 
-/* ── 후드 풍량 계산 (㎥/min) ── */
+/* ── 후드 풍량 계산 ── */
 function hoodQ(h) {
   var sh = shapeById(h.shape);
-  var vMin = num(h.v) * (h.vUnit === "ms" ? 60 : 1);   // m/sec → m/min
+  var vMin = num(h.v) * (h.vUnit === "ms" ? 60 : 1);
   var d = {};
   sh.dims.forEach(function (k) { d[k] = num(h.dims[k]); });
   var q = sh.calc(d, vMin);
   return isFinite(q) && q > 0 ? q : 0;
 }
-
-/* ── 표준풍량 (0℃ 표준상태 환산, S㎥/min) — Qs = Q × 273/(273+T) ── */
 function hoodQstd(h) {
   var q = hoodQ(h);
   var denom = 273 + num(h.t);
@@ -576,7 +629,7 @@ function hoodQstd(h) {
   return q * 273 / denom;
 }
 
-/* ── 배출시설의 원료·연료에서 배출물질명 수집 (중복 제거, 입력순) ── */
+/* ── 배출물질 유틸 ── */
 function collectSubstances(fac) {
   var seen = {}, out = [];
   ["materials", "fuels"].forEach(function (kind) {
@@ -589,8 +642,6 @@ function collectSubstances(fac) {
   });
   return out;
 }
-
-/* ── 배출물질별 분자값 = Σ(원료·연료 사용량 × 해당 물질 배출계수) ── */
 function substanceNumerator(fac, subName) {
   var sum = 0;
   ["materials", "fuels"].forEach(function (kind) {
@@ -605,8 +656,8 @@ function substanceNumerator(fac, subName) {
   return sum;
 }
 
-/* ── 런타임 참조 (가벼운 재계산용) ── */
-var refs = [];   // refs[fi] = { sub: el, hoods: [{ qv: el, qh: el }] }
+/* ── 런타임 참조 ── */
+var refs = [];
 
 /* ── 렌더: 배출시설 목록 ── */
 function renderFacilities() {
@@ -624,13 +675,16 @@ function renderFacilities() {
     /* 시설 헤더 */
     var head = document.createElement("div");
     head.className = "fac-head";
+
     var idx = document.createElement("span");
     idx.className = "fac-idx"; idx.textContent = "배출시설 " + (fi + 1);
+
     var nameIn = document.createElement("input");
     nameIn.type = "text"; nameIn.className = "fac-name";
     nameIn.placeholder = "배출시설 번호·명 (예: 배-1 건조시설)";
     nameIn.value = fac.name;
     nameIn.addEventListener("input", function () { fac.name = nameIn.value; save(); });
+
     var opWrap = document.createElement("div");
     opWrap.className = "fac-ophours";
     var opLab = document.createElement("label"); opLab.textContent = "가동시간";
@@ -640,17 +694,49 @@ function renderFacilities() {
     opIn.addEventListener("input", function () { fac.operatingHours = opIn.value; save(); recalc(); });
     var opU = document.createElement("span"); opU.className = "u"; opU.textContent = "hr";
     opWrap.appendChild(opLab); opWrap.appendChild(opIn); opWrap.appendChild(opU);
+
+    /* 위/아래 이동 버튼 */
+    var orderBtns = document.createElement("div");
+    orderBtns.className = "fac-order-btns";
+    if (fi > 0) {
+      var upBtn = document.createElement("button");
+      upBtn.type = "button"; upBtn.className = "btn xs"; upBtn.textContent = "↑"; upBtn.title = "위로 이동";
+      upBtn.addEventListener("click", (function(i) { return function() {
+        var tmp = state.facilities[i - 1];
+        state.facilities[i - 1] = state.facilities[i];
+        state.facilities[i] = tmp;
+        save(); renderFacilities();
+      }; })(fi));
+      orderBtns.appendChild(upBtn);
+    }
+    if (fi < state.facilities.length - 1) {
+      var dnBtn = document.createElement("button");
+      dnBtn.type = "button"; dnBtn.className = "btn xs"; dnBtn.textContent = "↓"; dnBtn.title = "아래로 이동";
+      dnBtn.addEventListener("click", (function(i) { return function() {
+        var tmp = state.facilities[i + 1];
+        state.facilities[i + 1] = state.facilities[i];
+        state.facilities[i] = tmp;
+        save(); renderFacilities();
+      }; })(fi));
+      orderBtns.appendChild(dnBtn);
+    }
+
     var facDel = document.createElement("button");
     facDel.className = "del-btn"; facDel.type = "button"; facDel.textContent = "×";
     facDel.title = "배출시설 삭제";
-    facDel.addEventListener("click", function () {
+    facDel.addEventListener("click", (function(i) { return function () {
       showConfirm({ message: "배출시설을 삭제하시겠습니까?", skippable: true, onConfirm: function () {
-        state.facilities.splice(fi, 1);
+        state.facilities.splice(i, 1);
         if (state.facilities.length === 0) state.facilities.push(emptyFacility());
         save(); renderFacilities();
       } });
-    });
-    head.appendChild(idx); head.appendChild(nameIn); head.appendChild(opWrap); head.appendChild(facDel);
+    }; })(fi));
+
+    head.appendChild(idx);
+    head.appendChild(nameIn);
+    head.appendChild(opWrap);
+    head.appendChild(orderBtns);
+    head.appendChild(facDel);
     box.appendChild(head);
 
     /* 원료·연료 */
@@ -672,10 +758,8 @@ function renderFacilities() {
     var foot = document.createElement("div");
     foot.className = "fac-foot";
     var addHood = document.createElement("button");
-    addHood.className = "btn"; addHood.type = "button"; addHood.textContent = "+ 후드 추가";
-    addHood.addEventListener("click", function () {
-      fac.hoods.push(emptyHood()); save(); renderFacilities();
-    });
+    addHood.className = "btn success"; addHood.type = "button"; addHood.textContent = "+ 후드 추가";
+    addHood.addEventListener("click", function () { fac.hoods.push(emptyHood()); save(); renderFacilities(); });
     var subLbl = document.createElement("span");
     subLbl.className = "sub-lbl"; subLbl.textContent = "시설 소계";
     var subVal = document.createElement("span");
@@ -700,7 +784,7 @@ function renderMatGroup(fac, kind, label) {
   ghead.className = "mat-group-head";
   ghead.appendChild(document.createTextNode(label));
   var add = document.createElement("button");
-  add.className = "btn add-mat"; add.type = "button"; add.textContent = "+ 추가";
+  add.className = "btn success add-mat"; add.type = "button"; add.textContent = "+ 추가";
   add.addEventListener("click", function () { arr.push(emptyMat()); save(); renderFacilities(); });
   ghead.appendChild(add);
   group.appendChild(ghead);
@@ -723,17 +807,15 @@ function renderMatGroup(fac, kind, label) {
     r.appendChild(mkInput("m-val", m.value, "사용량", function (v) { m.value = v; save(); recalc(); }));
     r.appendChild(mkInput("m-unit", m.unit, "단위", function (v) { m.unit = v; save(); }));
     var del = document.createElement("button");
-    del.className = "del-btn sm"; del.type = "button"; del.textContent = "×";
-    del.title = label + " 삭제";
-    del.addEventListener("click", function () {
+    del.className = "del-btn sm"; del.type = "button"; del.textContent = "×"; del.title = label + " 삭제";
+    del.addEventListener("click", (function(idx) { return function () {
       showConfirm({ message: label + " 항목을 삭제하시겠습니까?", skippable: true, onConfirm: function () {
-        arr.splice(mi, 1); save(); renderFacilities();
+        arr.splice(idx, 1); save(); renderFacilities();
       } });
-    });
+    }; })(mi));
     r.appendChild(del);
     block.appendChild(r);
 
-    /* 배출물질 / 배출계수 */
     var ew = document.createElement("div");
     ew.className = "emis-wrap";
     var eh = document.createElement("div");
@@ -743,7 +825,7 @@ function renderMatGroup(fac, kind, label) {
       var er = document.createElement("div");
       er.className = "emis-row";
       var es = mkInput("e-sub", em.substance, "배출물질 (예: 먼지)", function (v) { em.substance = v; save(); });
-      es.addEventListener("change", function () { renderFacilities(); });   // 후드 동적 반영
+      es.addEventListener("change", function () { renderFacilities(); });
       er.appendChild(es);
       er.appendChild(mkInput("e-coef", em.coefficient, "배출계수", function (v) { em.coefficient = v; save(); recalc(); }));
       var phSel = document.createElement("select");
@@ -758,16 +840,16 @@ function renderMatGroup(fac, kind, label) {
       er.appendChild(phSel);
       var ed = document.createElement("button");
       ed.className = "del-btn sm"; ed.type = "button"; ed.textContent = "×"; ed.title = "배출물질 삭제";
-      ed.addEventListener("click", function () {
+      ed.addEventListener("click", (function(idx) { return function () {
         showConfirm({ message: "배출물질을 삭제하시겠습니까?", skippable: true, onConfirm: function () {
-          m.emissions.splice(ei, 1); save(); renderFacilities();
+          m.emissions.splice(idx, 1); save(); renderFacilities();
         } });
-      });
+      }; })(ei));
       er.appendChild(ed);
       ew.appendChild(er);
     });
     var ea = document.createElement("button");
-    ea.className = "btn emis-add"; ea.type = "button"; ea.textContent = "+ 배출물질";
+    ea.className = "btn success emis-add"; ea.type = "button"; ea.textContent = "+ 배출물질";
     ea.addEventListener("click", function () { m.emissions.push(emptyEmission()); save(); renderFacilities(); });
     ew.appendChild(ea);
     block.appendChild(ew);
@@ -793,19 +875,17 @@ function renderHood(fac, fi, h, hi, facRef) {
   var row = document.createElement("div");
   row.className = "hood";
 
-  /* 후드 번호 */
   var hno = document.createElement("span");
   hno.className = "hno"; hno.textContent = "후드 " + (hi + 1);
   row.appendChild(hno);
 
-  /* 배출구 (배출시설 → 방지시설 구분) */
+  /* 배출구 */
   var fOut = document.createElement("div");
   fOut.className = "fld";
   fOut.innerHTML = '<label>배출구</label>';
   var outIn = document.createElement("input");
   outIn.type = "text"; outIn.className = "outlet-in";
-  outIn.placeholder = "예: 배출구-1";
-  outIn.value = h.outlet;
+  outIn.placeholder = "예: 배출구-1"; outIn.value = h.outlet;
   outIn.addEventListener("input", function () { h.outlet = outIn.value; save(); recalc(); });
   fOut.appendChild(outIn);
   row.appendChild(fOut);
@@ -822,24 +902,46 @@ function renderHood(fac, fi, h, hi, facRef) {
     if (s.id === h.shape) o.selected = true;
     sel.appendChild(o);
   });
-  sel.addEventListener("change", function () {
-    h.shape = sel.value; h.dims = {};   // 형태 바뀌면 치수 초기화
-    save(); renderFacilities();
-  });
+  sel.addEventListener("change", function () { h.shape = sel.value; h.dims = {}; save(); renderFacilities(); });
   fShape.appendChild(sel);
   row.appendChild(fShape);
 
-  /* 치수 입력 (형태별 동적) */
+  /* 치수 입력 (+0.1 / -0.1 스텝 버튼) */
   sh.dims.forEach(function (k) {
     var f = document.createElement("div");
     f.className = "fld";
     var lab = document.createElement("label");
     lab.textContent = DIM_LABEL[k];
+
+    var stepWrap = document.createElement("div");
+    stepWrap.className = "dim-step-wrap";
+
+    var btnM = document.createElement("button");
+    btnM.type = "button"; btnM.className = "step-btn"; btnM.textContent = "−";
+    btnM.title = "-0.1";
+
     var inp = document.createElement("input");
-    inp.type = "number"; inp.className = "dim-in"; inp.min = "0"; inp.step = "any"; inp.placeholder = "0";
+    inp.type = "number"; inp.className = "dim-in"; inp.min = "0"; inp.step = "0.1"; inp.placeholder = "0";
     inp.value = h.dims[k] != null ? h.dims[k] : "";
     inp.addEventListener("input", function () { h.dims[k] = inp.value; save(); recalc(); });
-    f.appendChild(lab); f.appendChild(inp);
+
+    var btnP = document.createElement("button");
+    btnP.type = "button"; btnP.className = "step-btn"; btnP.textContent = "+";
+    btnP.title = "+0.1";
+
+    btnM.addEventListener("click", (function(key, input) { return function () {
+      var v = parseFloat(input.value) || 0;
+      var nv = Math.max(0, Math.round((v - 0.1) * 100) / 100);
+      input.value = nv; h.dims[key] = String(nv); save(); recalc();
+    }; })(k, inp));
+    btnP.addEventListener("click", (function(key, input) { return function () {
+      var v = parseFloat(input.value) || 0;
+      var nv = Math.round((v + 0.1) * 100) / 100;
+      input.value = nv; h.dims[key] = String(nv); save(); recalc();
+    }; })(k, inp));
+
+    stepWrap.appendChild(btnM); stepWrap.appendChild(inp); stepWrap.appendChild(btnP);
+    f.appendChild(lab); f.appendChild(stepWrap);
     row.appendChild(f);
   });
 
@@ -868,7 +970,7 @@ function renderHood(fac, fi, h, hi, facRef) {
   /* 온도 T */
   var fT = document.createElement("div");
   fT.className = "fld";
-  fT.innerHTML = '<label>온도</label>';
+  fT.innerHTML = '<label>온도 (℃)</label>';
   var tIn = document.createElement("input");
   tIn.type = "number"; tIn.className = "temp-in"; tIn.step = "any"; tIn.placeholder = "0";
   tIn.value = h.t;
@@ -876,12 +978,11 @@ function renderHood(fac, fi, h, hi, facRef) {
   fT.appendChild(tIn);
   row.appendChild(fT);
 
-  /* 원료·연료 배출물질 → 후드별 농도 (자동 계산 표시) */
+  /* 배출물질 농도 */
   collectSubstances(fac).forEach(function (subName) {
     var fp = document.createElement("div");
     fp.className = "fld pol";
-    var lab = document.createElement("label");
-    lab.textContent = subName;
+    var lab = document.createElement("label"); lab.textContent = subName;
     var valBox = document.createElement("div");
     valBox.className = "pol-val";
     valBox.title = "(원료·연료 사용량 × 배출계수) ÷ (가동시간 × 60 × 표준풍량)";
@@ -890,36 +991,33 @@ function renderHood(fac, fi, h, hi, facRef) {
     hRef.pols.push({ sub: subName, el: valBox });
   });
 
-  /* 풍량 Q */
+  /* 풍량 Q / Qs */
   var qbox = document.createElement("div");
   qbox.className = "qbox";
-  var qv = document.createElement("div");
-  qv.className = "qv";
-  var qh = document.createElement("div");
-  qh.className = "qh";
+  var qv = document.createElement("div"); qv.className = "qv";
+  var qh = document.createElement("div"); qh.className = "qh";
   hRef.qv = qv; hRef.qh = qh;
   qbox.appendChild(qv); qbox.appendChild(qh);
   row.appendChild(qbox);
 
   /* 삭제 */
   var del = document.createElement("button");
-  del.className = "del-btn"; del.type = "button"; del.textContent = "×";
-  del.title = "후드 삭제";
-  del.addEventListener("click", function () {
+  del.className = "del-btn"; del.type = "button"; del.textContent = "×"; del.title = "후드 삭제";
+  del.addEventListener("click", (function(i) { return function () {
     showConfirm({ message: "후드를 삭제하시겠습니까?", skippable: true, onConfirm: function () {
-      fac.hoods.splice(hi, 1);
+      fac.hoods.splice(i, 1);
       if (fac.hoods.length === 0) fac.hoods.push(emptyHood());
       save(); renderFacilities();
     } });
-  });
+  }; })(hi));
   row.appendChild(del);
 
   return row;
 }
 
-/* ── 가벼운 재계산: 입력칸 그대로 두고 풍량·소계·집계만 갱신 ── */
+/* ── 재계산 ── */
 function recalc() {
-  var outlets = {}, order = [];   // 배출구명 → { q, std, qt }
+  var outlets = {}, order = [];
   state.facilities.forEach(function (fac, fi) {
     var facRef = refs[fi];
     var subtotal = 0, subStd = 0;
@@ -928,13 +1026,13 @@ function recalc() {
       subtotal += q; subStd += qs;
       var hRef = facRef && facRef.hoods[hi];
       if (hRef && hRef.qv) {
-        hRef.qv.innerHTML = fmt(q) + '<span class="u">㎥/min</span>';
-        hRef.qh.textContent = "표준 " + fmt(qs) + " S㎥/min";
+        hRef.qv.innerHTML = '<span class="ql">Q</span> : ' + fmt(q) + '<span class="u">㎥/min</span>';
+        hRef.qh.innerHTML = '<span class="ql">Qs</span> : ' + fmt(qs) + '<span class="u">S㎥/min</span>';
       }
       if (hRef && hRef.pols) {
         var opMin = num(fac.operatingHours) * 60;
         hRef.pols.forEach(function (p) {
-          var denom = opMin * qs;   // 가동시간 × 60 × 표준풍량
+          var denom = opMin * qs;
           p.el.textContent = denom > 0 ? fmt(substanceNumerator(fac, p.sub) / denom) : "—";
         });
       }
@@ -951,24 +1049,19 @@ function recalc() {
   renderOutletSection(outlets, order);
 }
 
-/* ── 렌더: 배출구별 집계 섹션 ── */
+/* ── 배출구별 집계 ── */
 function renderOutletSection(outlets, order) {
   var box = document.getElementById("outletSection");
   box.innerHTML = "";
-
   if (order.length === 0) {
     var e = document.createElement("div");
     e.className = "outlet-empty";
     e.textContent = "후드를 추가하고 배출구를 입력하면 배출구별 집계가 표시됩니다.";
-    box.appendChild(e);
-    return;
+    box.appendChild(e); return;
   }
-
   var tbl = document.createElement("table");
   tbl.className = "outlet-tbl";
-  tbl.innerHTML =
-    '<thead><tr><th>배출구</th><th>풍량</th><th>표준풍량</th><th>온도</th></tr></thead>';
-
+  tbl.innerHTML = '<thead><tr><th>배출구</th><th>풍량</th><th>표준풍량</th><th>온도</th></tr></thead>';
   var tbody = document.createElement("tbody");
   var tQ = 0, tS = 0, tQT = 0;
   order.forEach(function (k) {
@@ -984,7 +1077,6 @@ function renderOutletSection(outlets, order) {
     tbody.appendChild(tr);
   });
   tbl.appendChild(tbody);
-
   var overallTemp = tQ > 0 ? tQT / tQ : 0;
   var tfoot = document.createElement("tfoot");
   var ftr = document.createElement("tr");
@@ -993,151 +1085,164 @@ function renderOutletSection(outlets, order) {
     '<td>' + fmt(tQ) + '<span class="u">㎥/min</span></td>' +
     '<td>' + fmt(tS) + '<span class="u">S㎥/min</span></td>' +
     '<td>' + fmt(overallTemp) + '<span class="u">℃</span></td>';
-  tfoot.appendChild(ftr);
-  tbl.appendChild(tfoot);
-
+  tfoot.appendChild(ftr); tbl.appendChild(tfoot);
   box.appendChild(tbl);
 }
 
-/* ── 렌더: 산식 안내 ── */
+/* ── 산식 안내 ── */
 function renderFormulaList() {
   var box = document.getElementById("formulaList");
   var html = "";
-  SHAPES.forEach(function (s) {
-    html += '<b>' + s.label + '</b> &nbsp;<code>' + s.formula + '</code><br>';
-  });
+  SHAPES.forEach(function (s) { html += '<b>' + s.label + '</b> &nbsp;<code>' + s.formula + '</code><br>'; });
   html += '<br>V 는 포착속도, 산정식에는 <b>m/min</b> 단위로 환산해 대입합니다 (m/s 입력 시 ×60 자동 변환). ' +
-          'Q 는 배출가스량(풍량), 단위 <b>㎥/min</b>. L·W·X·H·P·D 는 모두 <b>m</b> 단위. ' +
-          'A 는 후드 개구면적(㎡).' +
+          'Q 는 배출가스량(풍량), 단위 <b>㎥/min</b>. L·W·X·H·P·D 는 모두 <b>m</b> 단위. A 는 후드 개구면적(㎡).' +
           '<br><b>표준풍량</b> &nbsp;<code>Qs = Q × 273 / (273 + T)</code> &nbsp;— 온도 T(℃) 기준 0℃ 표준상태 환산, 단위 <b>S㎥/min</b>.' +
-          '<br><b>배출구</b> — 후드별로 배출시설→방지시설 경로를 구분합니다. 한 배출시설의 후드가 서로 다른 배출구로 나갈 수 있으며, ' +
-          '전체 후드를 배출구 기준으로 합산한 결과가 「배출구별 집계」 섹션에 표시됩니다 (온도는 풍량 가중평균).' +
-          '<br><b>오염물질 농도</b> &nbsp;<code>농도 = Σ(원료·연료 사용량 × 배출계수) ÷ (가동시간 × 60 × 표준풍량)</code>' +
-          ' &nbsp;— 원료·연료에 배출물질·배출계수를 입력하면 각 후드의 농도가 자동 계산됩니다. 원료 사용량은 배출시설 전체 양을 각 후드가 그대로 사용하며, ' +
-          '가동시간(hr)은 배출시설 단위로 입력합니다. 단위는 입력값에 따릅니다.';
+          '<br><b>배출구</b> — 후드별로 배출시설→방지시설 경로를 구분합니다. ' +
+          '<br><b>오염물질 농도</b> &nbsp;<code>농도 = Σ(원료·연료 사용량 × 배출계수) ÷ (가동시간 × 60 × 표준풍량)</code>';
   box.innerHTML = html;
 }
 
-/* ── 렌더: 포착속도 참고표 ── */
+/* ── 포착속도 참고표 ── */
 function renderRef() {
   var box = document.getElementById("refBody");
   box.innerHTML = "";
-
   [REF.table1_1, REF.table1_2].forEach(function (t) {
-    var sec = document.createElement("div");
-    sec.className = "ref-sec";
+    var sec = document.createElement("div"); sec.className = "ref-sec";
     var h3 = document.createElement("h3"); h3.textContent = t.title;
-    sec.appendChild(h3);
-    sec.appendChild(buildTable(t.cols, t.rows, t.cols.length - 1));
+    sec.appendChild(h3); sec.appendChild(buildTable(t.cols, t.rows, t.cols.length - 1));
     box.appendChild(sec);
   });
-
-  var sec3 = document.createElement("div");
-  sec3.className = "ref-sec";
-  var h3 = document.createElement("h3"); h3.textContent = REF.table1_3.title;
-  sec3.appendChild(h3);
+  var sec3 = document.createElement("div"); sec3.className = "ref-sec";
+  var h3b = document.createElement("h3"); h3b.textContent = REF.table1_3.title;
+  sec3.appendChild(h3b);
   REF.table1_3.groups.forEach(function (g) {
     var sub = document.createElement("div");
     sub.style.cssText = "font-size:11px;color:var(--text-dim);font-weight:600;margin:8px 0 4px;";
-    sub.textContent = "· " + g.sub;
-    sec3.appendChild(sub);
+    sub.textContent = "· " + g.sub; sec3.appendChild(sub);
     sec3.appendChild(buildTable(g.cols, g.rows, g.cols.length - 1));
   });
   var note = document.createElement("div");
   note.style.cssText = "font-size:10.5px;color:var(--muted);margin-top:8px;";
-  note.textContent = REF.table1_3.note;
-  sec3.appendChild(note);
+  note.textContent = REF.table1_3.note; sec3.appendChild(note);
   box.appendChild(sec3);
-
   box.classList.toggle("hidden", state.refCollapsed);
   document.getElementById("refCollapse").textContent = state.refCollapsed ? "펼치기 ▼" : "접기 ▲";
 }
 function buildTable(cols, rows, valColIdx) {
-  var tbl = document.createElement("table");
-  tbl.className = "ref";
-  var thead = document.createElement("thead");
-  var htr = document.createElement("tr");
+  var tbl = document.createElement("table"); tbl.className = "ref";
+  var thead = document.createElement("thead"); var htr = document.createElement("tr");
   cols.forEach(function (c) { var th = document.createElement("th"); th.textContent = c; htr.appendChild(th); });
   thead.appendChild(htr); tbl.appendChild(thead);
   var tbody = document.createElement("tbody");
   rows.forEach(function (r) {
     var tr = document.createElement("tr");
     r.forEach(function (cell, ci) {
-      var td = document.createElement("td");
-      td.textContent = cell;
-      if (ci === valColIdx) td.className = "v";
-      tr.appendChild(td);
+      var td = document.createElement("td"); td.textContent = cell;
+      if (ci === valColIdx) td.className = "v"; tr.appendChild(td);
     });
     tbody.appendChild(tr);
   });
-  tbl.appendChild(tbody);
-  return tbl;
+  tbl.appendChild(tbody); return tbl;
 }
 
-/* ── 이벤트 ── */
-/* ── 삭제 확인 모달 ── */
+/* ── 확인 모달 ── */
 var SKIP_KEY = STORAGE_KEY + ".skipDelConfirm";
-function todayStr() {
-  var d = new Date();
-  return d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + d.getDate();
-}
-function delConfirmSuppressed() {
-  try { return localStorage.getItem(SKIP_KEY) === todayStr(); } catch (e) { return false; }
-}
-function suppressDelConfirm() {
-  try { localStorage.setItem(SKIP_KEY, todayStr()); } catch (e) {}
-}
+function todayStr() { var d = new Date(); return d.getFullYear() + "-" + (d.getMonth()+1) + "-" + d.getDate(); }
+function delConfirmSuppressed() { try { return localStorage.getItem(SKIP_KEY) === todayStr(); } catch(e) { return false; } }
+function suppressDelConfirm() { try { localStorage.setItem(SKIP_KEY, todayStr()); } catch(e) {} }
 function showConfirm(opts) {
   if (opts.skippable && delConfirmSuppressed()) { opts.onConfirm(); return; }
-
-  var overlay = document.createElement("div");
-  overlay.className = "modal-overlay";
-  var dlg = document.createElement("div");
-  dlg.className = "modal";
-
-  var msg = document.createElement("div");
-  msg.className = "modal-msg";
-  msg.textContent = opts.message;
+  var overlay = document.createElement("div"); overlay.className = "modal-overlay";
+  var dlg = document.createElement("div"); dlg.className = "modal";
+  var msg = document.createElement("div"); msg.className = "modal-msg"; msg.textContent = opts.message;
   dlg.appendChild(msg);
-
   var skipChk = null;
   if (opts.skippable) {
-    var skipWrap = document.createElement("label");
-    skipWrap.className = "modal-skip";
-    skipChk = document.createElement("input");
-    skipChk.type = "checkbox";
+    var skipWrap = document.createElement("label"); skipWrap.className = "modal-skip";
+    skipChk = document.createElement("input"); skipChk.type = "checkbox";
     skipWrap.appendChild(skipChk);
     skipWrap.appendChild(document.createTextNode(" 오늘 하루 이 확인 무시하기"));
     dlg.appendChild(skipWrap);
   }
-
-  var btns = document.createElement("div");
-  btns.className = "modal-btns";
-  var cancel = document.createElement("button");
-  cancel.className = "btn"; cancel.type = "button"; cancel.textContent = "취소";
-  var ok = document.createElement("button");
-  ok.className = "btn danger"; ok.type = "button"; ok.textContent = opts.okLabel || "삭제";
-  btns.appendChild(cancel); btns.appendChild(ok);
-  dlg.appendChild(btns);
-
-  overlay.appendChild(dlg);
-  document.body.appendChild(overlay);
-
+  var btns = document.createElement("div"); btns.className = "modal-btns";
+  var cancel = document.createElement("button"); cancel.className = "btn"; cancel.type = "button"; cancel.textContent = "취소";
+  var ok = document.createElement("button"); ok.className = "btn danger"; ok.type = "button"; ok.textContent = opts.okLabel || "삭제";
+  btns.appendChild(cancel); btns.appendChild(ok); dlg.appendChild(btns);
+  overlay.appendChild(dlg); document.body.appendChild(overlay);
   function close() { if (overlay.parentNode) document.body.removeChild(overlay); }
   cancel.addEventListener("click", close);
   overlay.addEventListener("click", function (e) { if (e.target === overlay) close(); });
   ok.addEventListener("click", function () {
     if (opts.skippable && skipChk && skipChk.checked) suppressDelConfirm();
-    close();
-    opts.onConfirm();
+    close(); opts.onConfirm();
   });
 }
 
+/* ── 입력 안내 시스템 ── */
+var guideStep = 0;
+var GUIDE_STEPS = [
+  { label: "① 배출시설 이름",    desc: "배출시설 번호·이름을 입력하세요. (예: 배-1 건조시설)",
+    getTarget: function() { return document.querySelector(".fac-name"); } },
+  { label: "② 가동시간",         desc: "배출시설의 연간 가동시간(hr)을 입력하세요.",
+    getTarget: function() { return document.querySelector(".fac-ophours input"); } },
+  { label: "③ 원료",             desc: "+ 추가를 눌러 원료명·사용량·단위를 입력하고, 배출물질과 배출계수를 추가하세요.",
+    getTarget: function() { var gs = document.querySelectorAll(".mat-group"); return gs[0] || null; } },
+  { label: "④ 연료",             desc: "+ 추가를 눌러 연료명·사용량·단위를 입력하고, 배출물질과 배출계수를 추가하세요.",
+    getTarget: function() { var gs = document.querySelectorAll(".mat-group"); return gs[1] || null; } },
+  { label: "⑤ 배출구",           desc: "각 후드가 연결될 배출구를 입력하세요. (예: 배출구-1)",
+    getTarget: function() { return document.querySelector(".outlet-in"); } },
+  { label: "⑥ 후드 형태",        desc: "오염원에 맞는 후드 형태를 선택하세요. 형태마다 필요한 치수가 달라집니다.",
+    getTarget: function() { return document.querySelector(".shape-sel"); } },
+  { label: "⑦ 치수 및 포착속도", desc: "후드 치수(m)와 포착속도를 입력하면 우측에 풍량(Q)·표준풍량(Qs)이 자동 계산됩니다.",
+    getTarget: function() { return document.querySelector(".dim-in"); } }
+];
+
+function guideIsEnabled() {
+  try { return localStorage.getItem(GUIDE_STORAGE_KEY) !== "off"; } catch(e) { return true; }
+}
+function guideSetEnabled(on) {
+  try { localStorage.setItem(GUIDE_STORAGE_KEY, on ? "on" : "off"); } catch(e) {}
+}
+function clearGuideHighlight() {
+  var els = document.querySelectorAll(".guide-highlight");
+  for (var i = 0; i < els.length; i++) els[i].classList.remove("guide-highlight");
+}
+function applyGuideStep(idx) {
+  clearGuideHighlight();
+  guideStep = idx;
+  var step = GUIDE_STEPS[idx];
+  var target = step.getTarget();
+  if (target) {
+    target.classList.add("guide-highlight");
+    setTimeout(function() { target.scrollIntoView({ behavior: "smooth", block: "center" }); }, 80);
+  }
+  document.getElementById("gStepLbl").textContent = step.label;
+  document.getElementById("gStepDesc").textContent = step.desc;
+  document.getElementById("gProgress").textContent = (idx + 1) + " / " + GUIDE_STEPS.length;
+  document.getElementById("gPrev").disabled = idx === 0;
+  document.getElementById("gNext").textContent = idx === GUIDE_STEPS.length - 1 ? "✓ 완료" : "다음 →";
+}
+function showGuide() {
+  document.getElementById("guideBar").classList.remove("hidden");
+  document.body.classList.add("guide-active");
+  applyGuideStep(guideStep);
+  guideSetEnabled(true);
+  document.getElementById("guideToggleBtn").textContent = "💡 안내 끄기";
+}
+function hideGuide() {
+  document.getElementById("guideBar").classList.add("hidden");
+  document.body.classList.remove("guide-active");
+  clearGuideHighlight();
+  guideSetEnabled(false);
+  guideStep = 0;
+  document.getElementById("guideToggleBtn").textContent = "💡 입력 안내";
+}
+
+/* ── 이벤트 바인딩 ── */
 function bind() {
   document.getElementById("decimalsSel").addEventListener("change", function (e) {
     var d = parseInt(e.target.value, 10);
-    state.decimals = isFinite(d) ? d : 1;
-    save(); recalc();
+    state.decimals = isFinite(d) ? d : 1; save(); recalc();
   });
   document.getElementById("addFac").addEventListener("click", function () {
     state.facilities.push(emptyFacility()); save(); renderFacilities();
@@ -1149,13 +1254,24 @@ function bind() {
   });
   document.getElementById("resetAll").addEventListener("click", function () {
     showConfirm({ message: "모든 데이터를 초기화합니다. 되돌릴 수 없습니다. 계속할까요?", skippable: false, okLabel: "초기화", onConfirm: function () {
-      try { localStorage.removeItem(STORAGE_KEY); } catch (e) {}
+      try { localStorage.removeItem(STORAGE_KEY); } catch(e) {}
       location.reload();
     } });
   });
   document.getElementById("refCollapse").addEventListener("click", function () {
     state.refCollapsed = !state.refCollapsed; save(); renderRef();
   });
+  document.getElementById("guideToggleBtn").addEventListener("click", function () {
+    if (guideIsEnabled()) hideGuide(); else { guideStep = 0; showGuide(); }
+  });
+  document.getElementById("gPrev").addEventListener("click", function () {
+    if (guideStep > 0) applyGuideStep(guideStep - 1);
+  });
+  document.getElementById("gNext").addEventListener("click", function () {
+    if (guideStep < GUIDE_STEPS.length - 1) applyGuideStep(guideStep + 1);
+    else hideGuide();
+  });
+  document.getElementById("gOff").addEventListener("click", hideGuide);
 }
 
 /* ── 시작 ── */
@@ -1165,6 +1281,8 @@ bind();
 renderFacilities();
 renderFormulaList();
 renderRef();
+if (guideIsEnabled()) showGuide();
+else document.getElementById("guideToggleBtn").textContent = "💡 입력 안내";
 </script>
 </body>
 </html>
