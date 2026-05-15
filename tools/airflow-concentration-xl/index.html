@@ -139,7 +139,10 @@
   /* 셀 너비 */
   table.xl .w-name { min-width: 130px; }
   table.xl .w-num { min-width: 70px; }
-  table.xl .w-outlet { min-width: 90px; }
+  table.xl thead th.w-outlet, table.xl tbody td.w-outlet { width: 64px; min-width: 64px; max-width: 64px; padding-left: 4px; padding-right: 4px; }
+  table.xl thead th.w-temp,   table.xl tbody td.w-temp   { width: 50px; min-width: 50px; max-width: 50px; padding-left: 3px; padding-right: 3px; }
+  table.xl tbody td.w-outlet input,
+  table.xl tbody td.w-temp input { padding-left: 3px; padding-right: 3px; font-size: 11px; min-width: 0; }
   table.xl .w-shape { min-width: 100px; }
   table.xl .w-mode { min-width: 60px; }
   table.xl .w-dim { min-width: 60px; }
@@ -293,9 +296,11 @@ var SHAPES = [
     formula: "Q = V · A",
     calc: function (d, v) { return v * d.W * d.H; },
     circCalc: function (d, v) { return v * Math.PI * d.A_D * d.A_D / 4; } },
-  { id: "canopy", label: "천정형(캐노피)", dims: ["P", "D"],
-    formula: "Q = 1.4 · P · V · D,  P=2(W+H) 사각 / πD 원",
-    calc: function (d, v) { return 1.4 * d.P * v * d.D; } }
+  { id: "canopy", label: "천정형(캐노피)", dims: ["W", "H", "X"],
+    canBeRound: true, circDims: ["A_D", "X"],
+    formula: "Q = 1.4 · P · V · X,  P=2(W+H) 사각 / πD 원",
+    calc:     function (d, v) { return 1.4 * (2 * (d.W + d.H)) * v * d.X; },
+    circCalc: function (d, v) { return 1.4 * (Math.PI * d.A_D) * v * d.X; } }
 ];
 function shapeById(id) {
   for (var i = 0; i < SHAPES.length; i++) if (SHAPES[i].id === id) return SHAPES[i];
@@ -303,11 +308,9 @@ function shapeById(id) {
 }
 
 /* 고정 제원 컬럼 — 후드형태/모양에 따라 활성 키 결정 */
-var DIM_COLUMNS = ["L", "W", "H", "X", "P_W", "P_H", "P_D", "A_D", "D"];
+var DIM_COLUMNS = ["L", "W", "H", "X", "A_D"];
 var DIM_LABEL = {
-  L: "길이", W: "폭", H: "높이", X: "포집거리",
-  P_W: "오염원 가로", P_H: "오염원 세로", P_D: "오염원 직경",
-  A_D: "개구 직경", D: "포집거리 (캐노피)"
+  L: "길이", W: "폭", H: "높이", X: "포집거리", A_D: "직경"
 };
 
 /* 후드형태 + 모양 → 활성 dim 키 (명시적 매핑) */
@@ -326,8 +329,8 @@ var ACTIVE_DIMS_MAP = {
   "flanged_multiple_slot|circ":["W","L","X"],
   "booth|rect":                ["W","H"],
   "booth|circ":                ["A_D"],
-  "canopy|rect":               ["P_W","P_H","D"],
-  "canopy|circ":               ["P_D","D"]
+  "canopy|rect":               ["W","H","X"],
+  "canopy|circ":               ["A_D","X"]
 };
 function activeDimsFor(h) {
   var shapeId = (h && h.shape) || "slot";
@@ -391,11 +394,18 @@ function load() {
               operatingDays: f.operatingDays || "", usage: f.usage || "",
               coefficient: f.coefficient || "",
               hoods: (Array.isArray(f.hoods) ? f.hoods : []).map(function (h) {
+                var dims = (h.dims && typeof h.dims === "object") ? h.dims : {};
+                /* 구버전 키 마이그레이션: P_W→W, P_H→H, P_D→A_D, D→X */
+                if (dims.P_W != null && dims.W == null) { dims.W = dims.P_W; }
+                if (dims.P_H != null && dims.H == null) { dims.H = dims.P_H; }
+                if (dims.P_D != null && dims.A_D == null) { dims.A_D = dims.P_D; }
+                if (dims.D   != null && dims.X == null) { dims.X = dims.D; }
+                delete dims.P_W; delete dims.P_H; delete dims.P_D; delete dims.D;
                 return {
                   outlet: h.outlet || "", t: h.t || "",
                   shape: shapeById(h.shape).id,
                   srcShape: h.srcShape === "circ" ? "circ" : "rect",
-                  dims: (h.dims && typeof h.dims === "object") ? h.dims : {},
+                  dims: dims,
                   v: h.v || ""
                 };
               })
@@ -414,13 +424,6 @@ function hoodQ(h) {
   var sh = shapeById(h.shape);
   var vMin = num(h.v) * 60; /* m/s → m/min */
   if (vMin <= 0) return 0;
-  if (sh.id === "canopy") {
-    var dC = { D: num(h.dims.D) };
-    if (h.srcShape === "circ") dC.P = Math.PI * num(h.dims.P_D);
-    else dC.P = 2 * (num(h.dims.P_W) + num(h.dims.P_H));
-    var q = sh.calc(dC, vMin);
-    return isFinite(q) && q > 0 ? q : 0;
-  }
   if (sh.canBeRound && h.srcShape === "circ" && sh.circCalc) {
     var dc = {};
     sh.circDims.forEach(function (k) { dc[k] = num(h.dims[k]); });
@@ -491,7 +494,7 @@ function renderHead(visKeys) {
     '<th class="sec-fac w-fac-narrow w-coef">배출계수<br><span style="font-size:10px;font-weight:400">(kg/ton)</span></th>',
     '<th class="col-result w-fac-narrow w-emit">먼지발생량<br><span style="font-size:10px;font-weight:400">(톤/년)</span></th>',
     '<th class="sec-hood w-outlet">배출구</th>',
-    '<th class="sec-hood w-num">온도<br><span style="font-size:10px;font-weight:400">(℃)</span></th>',
+    '<th class="sec-hood w-temp">온도<br><span style="font-size:10px;font-weight:400">(℃)</span></th>',
     '<th class="sec-hood w-shape">후드형태</th>',
     '<th class="sec-hood w-mode">모양</th>'
   ];
@@ -531,8 +534,8 @@ function renderBody() {
                 (amt > 0 ? fmt(amt) : '—') + '</td>';
       }
       /* 후드 셀 */
-      html += '<td class="hood"><input type="text" data-h="outlet" placeholder="배출구-1" value="' + escapeHtml(h.outlet) + '"></td>';
-      html += '<td class="hood"><input type="number" data-h="t" step="any" placeholder="20" value="' + escapeHtml(h.t) + '"></td>';
+      html += '<td class="hood w-outlet"><input type="text" data-h="outlet" placeholder="배1" value="' + escapeHtml(h.outlet) + '"></td>';
+      html += '<td class="hood w-temp"><input type="number" data-h="t" step="any" placeholder="20" value="' + escapeHtml(h.t) + '"></td>';
       /* 후드형태 */
       html += '<td class="hood"><select data-h="shape">';
       SHAPES.forEach(function (s) {
