@@ -891,6 +891,17 @@ var MASS_TO_KG  = { "ton": 1000, "kg": 1, "g": 1e-3, "mg": 1e-6 };
 var EF_NUM_TO_MG  = { "kg": 1e6,  "g": 1e3,  "mg": 1 };
 var EF_NUM_TO_TON = { "kg": 1e-3, "g": 1e-6, "mg": 1e-9 };
 
+/* ── 발생량산정 자동 체크 키워드 (대소문자 무시, 부분일치) ── */
+var AUTO_GEN_PATTERNS = ["먼지", "no2", "so2", "질소산화물", "황산화물", "삭스", "녹스"];
+function shouldAutoGenCalc(substance) {
+  var s = (substance || "").trim().toLowerCase();
+  if (!s) return false;
+  for (var i = 0; i < AUTO_GEN_PATTERNS.length; i++) {
+    if (s.indexOf(AUTO_GEN_PATTERNS[i]) !== -1) return true;
+  }
+  return false;
+}
+
 /* usageUnit → efDenUnit 변환계수 (같은 차원이어야 함) */
 function usageDenomConv(usageUnit, efDenUnit) {
   if (usageUnit === efDenUnit) return 1;
@@ -1174,7 +1185,10 @@ function renderItemGroup(fac, label) {
       var er = document.createElement("div");
       er.className = "emis-row";
       var es = mkInput("e-sub", em.substance, "배출물질 (예: 먼지)", function (v) { em.substance = v; save(); });
-      es.addEventListener("change", function () { renderFacilities(); });
+      es.addEventListener("change", function () {
+        if (shouldAutoGenCalc(em.substance) && !em.genCalc) { em.genCalc = true; save(); }
+        renderFacilities();
+      });
       er.appendChild(es);
       er.appendChild(mkInput("e-coef", em.coefficient, "배출계수", function (v) { em.coefficient = v; save(); recalc(); }));
       /* 배출계수 단위: [분자] / [분모] */
@@ -1207,16 +1221,16 @@ function renderItemGroup(fac, label) {
         var mwIn = mkInput("e-mw", em.mw, "분자량", function (v) { em.mw = v; save(); recalc(); });
         er.appendChild(mwIn);
       }
-      /* 발생량산정 토글 버튼 */
+      /* 오염물질발생량산정 토글 버튼 */
       var gcBtn = document.createElement("button");
       gcBtn.type = "button";
       gcBtn.className = "btn xs e-gencalc-btn" + (em.genCalc ? " active" : "");
-      gcBtn.textContent = em.genCalc ? "발생량 ✓" : "발생량";
-      gcBtn.title = "발생량 산정에 포함";
+      gcBtn.textContent = em.genCalc ? "오염물질발생량산정 ✓" : "오염물질발생량산정";
+      gcBtn.title = "오염물질 발생량 산정에 포함";
       gcBtn.addEventListener("click", function () {
         em.genCalc = !em.genCalc;
         gcBtn.classList.toggle("active", em.genCalc);
-        gcBtn.textContent = em.genCalc ? "발생량 ✓" : "발생량";
+        gcBtn.textContent = em.genCalc ? "오염물질발생량산정 ✓" : "오염물질발생량산정";
         save(); recalc();
       });
       er.appendChild(gcBtn);
