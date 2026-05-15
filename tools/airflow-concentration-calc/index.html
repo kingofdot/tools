@@ -178,9 +178,11 @@
   .oct-head { font-weight: 650; color: var(--text-dim); font-size: 10.5px;
     text-transform: uppercase; letter-spacing: 0.03em; margin-bottom: 4px; }
   .oct-row { border-top: 1px solid var(--border); padding: 3px 0; }
-  .oct-outlet { width: 110px; flex-shrink: 0; color: var(--text-dim); }
-  .oct-sub { flex: 1; text-align: right; padding-right: 4px; }
-  .oct-val { flex: 1; text-align: right; padding-right: 4px; font-variant-numeric: tabular-nums; }
+  .oct-outlet { width: 80px; flex-shrink: 0; color: var(--text-dim); }
+  .oct-sub { flex: 1; min-width: 60px; text-align: right; padding-right: 6px; }
+  .oct-val { flex: 1; min-width: 60px; text-align: right; padding-right: 6px;
+    font-variant-numeric: tabular-nums; }
+  .oct-val .u { font-size: 9.5px; color: var(--muted); margin-left: 1px; }
 
   /* ── 배출시설 카드 ── */
   .facility {
@@ -248,13 +250,11 @@
     letter-spacing: 0.02em; white-space: nowrap;
     text-align: center;
   }
-  .fld input { width: 84px; }
+  .fld input { field-sizing: content; min-width: 40px; max-width: 130px; width: auto; }
   .fld .shape-sel { width: auto; max-width: 160px; }
-  .fld .outlet-in { width: 41px; }
-  .fld .temp-in { width: 42px; }
+  .fld .outlet-in { min-width: 52px; }
   .fld .v-wrap { display: flex; gap: 4px; }
-  .fld .v-wrap input { width: 66px; }
-  .fld .v-wrap select { width: 43px; padding: 7px 4px; }
+  .fld .v-wrap select { width: auto; padding: 7px 4px; }
   .fld.pol > label { color: var(--accent-2); }
   .fld.pol .pol-val {
     width: fit-content; min-width: 24px; max-width: 160px;
@@ -269,7 +269,7 @@
   .fac-ophours .u { font-size: 10.5px; color: var(--muted); }
 
   /* ── 치수 입력 ── */
-  .fld .dim-in { width: 64px; }
+  .fld .dim-in { min-width: 44px; }
 
   /* ── 풍량 표시 (우측) ── */
   .hood .qbox {
@@ -1017,7 +1017,8 @@ function renderHood(fac, fi, h, hi, facRef) {
   var vWrap = document.createElement("div");
   vWrap.className = "v-wrap";
   var vIn = document.createElement("input");
-  vIn.type = "number"; vIn.min = "0"; vIn.step = "any"; vIn.placeholder = "0";
+  vIn.type = "number"; vIn.min = "0"; vIn.placeholder = "0";
+  vIn.step = h.vUnit === "mm" ? "1" : "any";
   vIn.value = h.v;
   vIn.addEventListener("input", function () { h.v = vIn.value; save(); recalc(); });
   var vUnit = document.createElement("select");
@@ -1027,7 +1028,11 @@ function renderHood(fac, fi, h, hi, facRef) {
     if (u[0] === h.vUnit) o.selected = true;
     vUnit.appendChild(o);
   });
-  vUnit.addEventListener("change", function () { h.vUnit = vUnit.value; save(); recalc(); });
+  vUnit.addEventListener("change", function () {
+    h.vUnit = vUnit.value;
+    vIn.step = vUnit.value === "mm" ? "1" : "any";
+    save(); recalc();
+  });
   vWrap.appendChild(vIn); vWrap.appendChild(vUnit);
   fV.appendChild(vWrap);
   row.appendChild(fV);
@@ -1128,16 +1133,23 @@ function recalc() {
       if (outletOrder.length === 0) {
         facRef.outletConcWrap.innerHTML = "";
       } else {
-        var html = '<div class="oct-head"><span class="oct-outlet">배출구</span><span class="oct-sub">온도</span>';
+        var html = '<div class="oct-head"><span class="oct-outlet">배출구</span>' +
+          '<span class="oct-sub">풍량</span><span class="oct-sub">표준풍량</span>' +
+          '<span class="oct-sub">온도</span>';
         subs.forEach(function (s) { html += '<span class="oct-sub">' + escapeHtml(s) + '</span>'; });
         html += '</div>';
         outletOrder.forEach(function (key) {
           var hoods = outletGroups[key];
-          var sumQT = 0, sumQ_t = 0;
-          hoods.forEach(function (hd) { sumQT += hd.q * hd.t; sumQ_t += hd.q; });
+          var sumQ_o = 0, sumQs_o = 0, sumQT = 0, sumQ_t = 0;
+          hoods.forEach(function (hd) {
+            sumQ_o += hd.q; sumQs_o += hd.qs;
+            sumQT += hd.q * hd.t; sumQ_t += hd.q;
+          });
           var temp = sumQ_t > 0 ? sumQT / sumQ_t : null;
           html += '<div class="oct-row"><span class="oct-outlet">' + escapeHtml(key) + '</span>';
-          html += '<span class="oct-val">' + (temp !== null ? fmt(temp) + ' ℃' : '—') + '</span>';
+          html += '<span class="oct-val">' + fmt(sumQ_o) + '<span class="u">㎥/min</span></span>';
+          html += '<span class="oct-val">' + fmt(sumQs_o) + '<span class="u">S㎥/min</span></span>';
+          html += '<span class="oct-val">' + (temp !== null ? fmt(temp) + '<span class="u">℃</span>' : '—') + '</span>';
           subs.forEach(function (s) {
             var numerator = substanceNumerator(fac, s);
             var conc = null;
