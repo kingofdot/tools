@@ -267,6 +267,24 @@
   .fac-ophours label { font-size: 11px; color: var(--text-dim); font-weight: 600; }
   .fac-ophours input { width: 72px; }
   .fac-ophours .u { font-size: 10.5px; color: var(--muted); }
+  .fac-opdays { display: flex; align-items: center; gap: 6px; white-space: nowrap; }
+  .fac-opdays label { font-size: 11px; color: var(--text-dim); font-weight: 600; }
+  .fac-opdays input { width: 60px; }
+  .fac-opdays .u { font-size: 10.5px; color: var(--muted); }
+  /* 먼지발생량 박스 */
+  .fac-dust-box {
+    display: flex; flex-direction: column; gap: 2px;
+    background: var(--surface-2); border: 1px solid var(--border);
+    border-radius: 7px; padding: 5px 10px; min-width: 96px;
+  }
+  .fac-dust-lbl { font-size: 10px; color: var(--text-dim); font-weight: 700; margin-bottom: 1px; }
+  .fac-dust-line { display: flex; gap: 5px; align-items: baseline; white-space: nowrap; font-size: 11px; }
+  .fac-dust-line .dl-sub { color: var(--text-dim); font-size: 10px; min-width: 28px; }
+  .fac-dust-line .dl-val { font-weight: 700; color: var(--success); font-variant-numeric: tabular-nums; }
+  .fac-dust-line .dl-nd { color: var(--muted); font-weight: 400; }
+  /* 발생량 합계 테이블 */
+  table.dust-total-tbl th { text-align: center; background: var(--success-bg); color: var(--success-2); }
+  table.dust-total-tbl td { text-align: center; font-weight: 700; font-size: 13px; color: var(--success-2); padding: 12px 20px; }
 
   /* ── 치수 입력 ── */
   .fld .dim-in { min-width: 44px; }
@@ -545,6 +563,15 @@
     <div id="summaryTable"></div>
   </div>
 
+  <!-- ── 발생량 합계 ── -->
+  <div class="card">
+    <div class="card-head">
+      <h2>대기오염물질 발생량 합계</h2>
+      <span class="hint">먼지·NO₂·SO₂ 연간 발생량 합산 (톤/년) — 발생량 = 원료사용량 × 배출계수 × 연간가동일 × 10⁻³</span>
+    </div>
+    <div id="dustTotalSection"></div>
+  </div>
+
   <!-- ── 산식 안내 ── -->
   <div class="card">
     <div class="card-head">
@@ -695,7 +722,7 @@ var state = {
 function emptyHood() { return { shape: "slot", dims: {}, srcShape: "rect", v: "", vUnit: "ms", t: "", outlet: "", pollutants: {} }; }
 function emptyEmission() { return { substance: "", coefficient: "", phase: "가스상" }; }
 function emptyMat() { return { name: "", value: "", unit: "", emissions: [] }; }
-function emptyFacility() { return { name: "", operatingHours: "", materials: [], fuels: [], hoods: [emptyHood()] }; }
+function emptyFacility() { return { name: "", operatingHours: "", operatingDays: "", materials: [], fuels: [], hoods: [emptyHood()] }; }
 
 function normEmissions(a) {
   return Array.isArray(a) ? a.map(function (e) {
@@ -724,7 +751,7 @@ function load() {
         if (Array.isArray(s.facilities)) {
           state.facilities = s.facilities.map(function (f) {
             return {
-              name: f.name || "", operatingHours: f.operatingHours || "",
+              name: f.name || "", operatingHours: f.operatingHours || "", operatingDays: f.operatingDays || "",
               materials: normMats(f.materials), fuels: normMats(f.fuels),
               hoods: (Array.isArray(f.hoods) ? f.hoods : []).map(function (h) {
                 return { shape: shapeById(h.shape).id, dims: (h.dims && typeof h.dims === "object") ? h.dims : {},
@@ -821,7 +848,7 @@ function renderFacilities() {
   refs = [];
 
   state.facilities.forEach(function (fac, fi) {
-    var facRef = { hoods: [], outletConcWrap: null };
+    var facRef = { hoods: [], outletConcWrap: null, dustBox: null };
     refs.push(facRef);
 
     var box = document.createElement("div");
@@ -851,6 +878,25 @@ function renderFacilities() {
     opIn.addEventListener("input", function () { fac.operatingHours = opIn.value; save(); recalc(); });
     var opU = document.createElement("span"); opU.className = "u"; opU.textContent = "hr";
     opWrap.appendChild(opLab); opWrap.appendChild(opIn); opWrap.appendChild(opU);
+
+    /* 연간가동일 */
+    var daysWrap = document.createElement("div");
+    daysWrap.className = "fac-opdays";
+    var daysLab = document.createElement("label"); daysLab.textContent = "연간가동일";
+    var daysIn = document.createElement("input");
+    daysIn.type = "number"; daysIn.min = "0"; daysIn.step = "1"; daysIn.placeholder = "0";
+    daysIn.value = fac.operatingDays || "";
+    daysIn.addEventListener("input", function () { fac.operatingDays = daysIn.value; save(); recalc(); });
+    var daysU = document.createElement("span"); daysU.className = "u"; daysU.textContent = "일/yr";
+    daysWrap.appendChild(daysLab); daysWrap.appendChild(daysIn); daysWrap.appendChild(daysU);
+
+    /* 먼지발생량 표시 박스 */
+    var dustBox = document.createElement("div");
+    dustBox.className = "fac-dust-box";
+    var dustLbl = document.createElement("div");
+    dustLbl.className = "fac-dust-lbl"; dustLbl.textContent = "먼지발생량";
+    dustBox.appendChild(dustLbl);
+    facRef.dustBox = dustBox;
 
     /* 위/아래 이동 버튼 */
     var orderBtns = document.createElement("div");
@@ -891,7 +937,9 @@ function renderFacilities() {
 
     head.appendChild(idx);
     head.appendChild(nameIn);
+    head.appendChild(dustBox);
     head.appendChild(opWrap);
+    head.appendChild(daysWrap);
     head.appendChild(orderBtns);
     head.appendChild(facDel);
     box.appendChild(head);
@@ -1329,6 +1377,61 @@ function recalc() {
   var subNames = Object.keys(allSubsMap);
   renderOutletSection(outlets, order, outletWConcs, subNames);
   renderSummaryTable(outlets, order, outletWConcs, subNames);
+
+  /* 먼지발생량 계산 (먼지·NO2·SO2) */
+  var dustTotals = { "먼지": 0, "NO2": 0, "SO2": 0 };
+  state.facilities.forEach(function (fac, fi) {
+    var opDays = num(fac.operatingDays);
+    var facRef = refs[fi];
+    var facDustMap = {};
+    DUST_SUBS.forEach(function (s) {
+      var n = substanceNumerator(fac, s);
+      var v = (n > 0 && opDays > 0) ? n * opDays * 1e-3 : null;
+      facDustMap[s] = v;
+      if (v !== null) dustTotals[s] += v;
+    });
+    if (facRef && facRef.dustBox) {
+      /* 라벨 이후 기존 라인 제거 후 재구성 */
+      var box = facRef.dustBox;
+      while (box.children.length > 1) box.removeChild(box.lastChild);
+      DUST_SUBS.forEach(function (s) {
+        var v = facDustMap[s];
+        var line = document.createElement("div");
+        line.className = "fac-dust-line";
+        line.innerHTML = '<span class="dl-sub">' + escapeHtml(s) + '</span>' +
+          (v !== null
+            ? '<span class="dl-val">' + fmt(v) + '<span class="u"> 톤/년</span></span>'
+            : '<span class="dl-nd">—</span>');
+        box.appendChild(line);
+      });
+    }
+  });
+  renderDustTotal(dustTotals);
+}
+
+/* ── 대기오염물질 발생량 합계 ── */
+var DUST_SUBS = ["먼지", "NO2", "SO2"];
+function renderDustTotal(dustTotals) {
+  var box = document.getElementById("dustTotalSection");
+  if (!box) return;
+  var hasAny = DUST_SUBS.some(function (s) { return dustTotals[s] > 0; });
+  if (!hasAny) {
+    box.innerHTML = '<div class="outlet-empty">원료·연료에 먼지·NO2·SO2 배출계수를 입력하고 연간가동일을 입력하면 발생량이 표시됩니다.</div>';
+    return;
+  }
+  var tbl = document.createElement("table");
+  tbl.className = "outlet-tbl dust-total-tbl";
+  var hh = '<thead><tr>';
+  DUST_SUBS.forEach(function (s) { hh += '<th>' + escapeHtml(s) + '</th>'; });
+  hh += '</tr></thead><tbody><tr>';
+  DUST_SUBS.forEach(function (s) {
+    var v = dustTotals[s];
+    hh += '<td>' + (v > 0 ? fmt(v) + '<span class="u"> 톤/년</span>' : '<span class="conc-nd">—</span>') + '</td>';
+  });
+  hh += '</tr></tbody>';
+  tbl.innerHTML = hh;
+  box.innerHTML = "";
+  box.appendChild(tbl);
 }
 
 /* ── 배출구별 집계 ── */
