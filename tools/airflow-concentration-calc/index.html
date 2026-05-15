@@ -1100,37 +1100,41 @@ function recalc() {
       }
     }
   });
-  /* 배출구별 오염물질 농도 집계
-     질량유량 = 시설별 오염물질 발생량(numerator) / 가동시간(분)
-     배출구농도 = 해당배출구에 연결된 시설들의 질량유량 합계 / 배출구 표준풍량 */
-  var allSubsMap = {}, outletMassRates = {};
+  /* 배출구별 집계용 가중평균 누산: outletWConcs[배출구][물질] = { sumWQ, sumQ } */
+  var allSubsMap = {}, outletWConcs = {};
   state.facilities.forEach(function (fac) {
     var opMin = num(fac.operatingHours) * 60;
-    /* 이 시설의 후드가 연결된 배출구 목록 (중복 없이) */
-    var facOutlets = {};
+    var facOutletHoods = {};
     fac.hoods.forEach(function (h) {
       var key = (h.outlet || "").trim() || "(미지정)";
-      facOutlets[key] = true;
+      if (!facOutletHoods[key]) facOutletHoods[key] = [];
+      facOutletHoods[key].push({ q: hoodQ(h), qs: hoodQstd(h) });
     });
     collectSubstances(fac).forEach(function (sub) {
       allSubsMap[sub] = true;
       var numerator = substanceNumerator(fac, sub);
-      Object.keys(facOutlets).forEach(function (key) {
-        if (!outletMassRates[key]) outletMassRates[key] = {};
-        var rate = opMin > 0 ? numerator / opMin : 0;
-        outletMassRates[key][sub] = (outletMassRates[key][sub] || 0) + rate;
+      Object.keys(facOutletHoods).forEach(function (key) {
+        if (!outletWConcs[key]) outletWConcs[key] = {};
+        if (!outletWConcs[key][sub]) outletWConcs[key][sub] = { sumWQ: 0, sumQ: 0 };
+        facOutletHoods[key].forEach(function (hd) {
+          if (hd.qs > 0 && opMin > 0) {
+            var hc = numerator / (opMin * hd.qs);
+            outletWConcs[key][sub].sumWQ += hc * hd.q;
+            outletWConcs[key][sub].sumQ  += hd.q;
+          }
+        });
       });
     });
   });
   var subNames = Object.keys(allSubsMap);
-  renderOutletSection(outlets, order, outletMassRates, subNames);
+  renderOutletSection(outlets, order, outletWConcs, subNames);
 }
 
 /* ── 배출구별 집계 ── */
-function renderOutletSection(outlets, order, outletMassRates, subNames) {
+function renderOutletSection(outlets, order, outletWConcs, subNames) {
   var box = document.getElementById("outletSection");
   box.innerHTML = "";
-  outletMassRates = outletMassRates || {};
+  outletWConcs = outletWConcs || {};
   subNames = subNames || [];
 
   if (order.length === 0) {
@@ -1165,11 +1169,10 @@ function renderOutletSection(outlets, order, outletMassRates, subNames) {
       '<td>' + fmt(o.std) + '<span class="u">S㎥/min</span></td>' +
       '<td>' + fmt(temp) + '<span class="u">℃</span></td>';
 
-    /* 오염물질 농도 = 질량유량 / 배출구 표준풍량 */
+    /* 오염물질 농도 — 가중평균 */
     subNames.forEach(function (s) {
-      var rates = outletMassRates[k] || {};
-      var massRate = rates[s] || 0;
-      var conc = (massRate > 0 && o.std > 0) ? massRate / o.std : null;
+      var wc = (outletWConcs[k] || {})[s];
+      var conc = (wc && wc.sumQ > 0) ? wc.sumWQ / wc.sumQ : null;
       html += '<td class="conc-td">' +
         (conc !== null ? '<span class="conc-val">' + fmt(conc) + '</span>' : '<span class="conc-nd">—</span>') +
         '</td>';
@@ -1191,21 +1194,15 @@ function renderOutletSection(outlets, order, outletMassRates, subNames) {
     '<td>' + fmt(tS) + '<span class="u">S㎥/min</span></td>' +
     '<td>' + fmt(overallTemp) + '<span class="u">℃</span></td>';
 
-  /* 합계행 농도: 전체 질량유량 합 / 전체 표준풍량
-     (시설별 중복 집계 방지: 시설 단위로 누산) */
+  /* 합계행 농도 — 전체 후드의 Q 가중평균 (배출구별 sumWQ·sumQ 누산) */
   if (subNames.length > 0) {
-    var facTotalMass = {};  /* { sub: totalMassRate } */
-    state.facilities.forEach(function (fac) {
-      var opMin = num(fac.operatingHours) * 60;
-      collectSubstances(fac).forEach(function (sub) {
-        if (opMin > 0) {
-          facTotalMass[sub] = (facTotalMass[sub] || 0) + substanceNumerator(fac, sub) / opMin;
-        }
-      });
-    });
     subNames.forEach(function (s) {
-      var totalMassRate = facTotalMass[s] || 0;
-      var overallConc = (totalMassRate > 0 && tS > 0) ? totalMassRate / tS : null;
+      var totalSumWQ = 0, totalSumQ = 0;
+      order.forEach(function (k) {
+        var wc = (outletWConcs[k] || {})[s];
+        if (wc) { totalSumWQ += wc.sumWQ; totalSumQ += wc.sumQ; }
+      });
+      var overallConc = totalSumQ > 0 ? totalSumWQ / totalSumQ : null;
       fhtml += '<td class="conc-td">' +
         (overallConc !== null ? '<span class="conc-val">' + fmt(overallConc) + '</span>' : '<span class="conc-nd">—</span>') +
         '</td>';
@@ -1220,7 +1217,7 @@ function renderOutletSection(outlets, order, outletMassRates, subNames) {
   if (subNames.length > 0) {
     var note = document.createElement("div");
     note.style.cssText = "font-size:10.5px;color:var(--muted);margin-top:7px;";
-    note.textContent = "농도 = Σ(사용량 × 배출계수) ÷ (가동시간 × 60분 × 표준풍량) — 단위는 배출계수 단위에 따라 결정됩니다.";
+    note.textContent = "농도 = 후드별 농도(= 발생량 ÷ 가동시간×60×Qs)를 풍량(Q) 기준 가중평균 — 단위는 배출계수 단위에 따라 결정됩니다.";
     box.appendChild(note);
   }
 }
