@@ -1088,6 +1088,16 @@ function renderFacilities() {
       orderBtns.appendChild(dnBtn);
     }
 
+    /* 시설 복사 */
+    var facCopy = document.createElement("button");
+    facCopy.type = "button"; facCopy.className = "btn xs"; facCopy.textContent = "⎘"; facCopy.title = "배출시설 복사";
+    facCopy.addEventListener("click", (function(i) { return function () {
+      var clone = JSON.parse(JSON.stringify(state.facilities[i]));
+      clone.name = (clone.name || "") + " (복사본)";
+      state.facilities.splice(i + 1, 0, clone);
+      save(); renderFacilities();
+    }; })(fi));
+
     var facDel = document.createElement("button");
     facDel.className = "del-btn"; facDel.type = "button"; facDel.textContent = "×";
     facDel.title = "배출시설 삭제";
@@ -1105,6 +1115,7 @@ function renderFacilities() {
     head.appendChild(opWrap);
     head.appendChild(daysWrap);
     head.appendChild(orderBtns);
+    head.appendChild(facCopy);
     head.appendChild(facDel);
     box.appendChild(head);
 
@@ -1458,6 +1469,16 @@ function renderHood(fac, fi, h, hi, facRef) {
   hRef.qv = qv; hRef.qh = qh;
   qbox.appendChild(qv); qbox.appendChild(qh);
   row.appendChild(qbox);
+
+  /* 복사 */
+  var copy = document.createElement("button");
+  copy.type = "button"; copy.className = "btn xs"; copy.textContent = "⎘"; copy.title = "후드 복사";
+  copy.addEventListener("click", (function(i) { return function () {
+    var clone = JSON.parse(JSON.stringify(fac.hoods[i]));
+    fac.hoods.splice(i + 1, 0, clone);
+    save(); renderFacilities();
+  }; })(hi));
+  row.appendChild(copy);
 
   /* 삭제 */
   var del = document.createElement("button");
