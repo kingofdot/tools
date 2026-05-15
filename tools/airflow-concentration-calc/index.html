@@ -530,11 +530,15 @@ var SHAPES = [
     formula: "Q = 2.6 · L · V · X",
     calc: function (d, v) { return 2.6 * d.L * v * d.X; } },
   { id: "plain_opening",        label: "편평개구형",      dims: ["W", "L", "X"],
+    canBeRound: true, circDims: ["A_D", "X"],
     formula: "Q = V · (10X² + A),  A = W·L",
-    calc: function (d, v) { return v * (10 * d.X * d.X + d.W * d.L); } },
+    calc: function (d, v) { return v * (10 * d.X * d.X + d.W * d.L); },
+    circCalc: function (d, v) { return v * (10 * d.X * d.X + Math.PI * d.A_D * d.A_D / 4); } },
   { id: "flanged_opening",      label: "프랜지개구형",    dims: ["W", "L", "X"],
+    canBeRound: true, circDims: ["A_D", "X"],
     formula: "Q = 0.75 · V · (10X² + A),  A = W·L",
-    calc: function (d, v) { return 0.75 * v * (10 * d.X * d.X + d.W * d.L); } },
+    calc: function (d, v) { return 0.75 * v * (10 * d.X * d.X + d.W * d.L); },
+    circCalc: function (d, v) { return 0.75 * v * (10 * d.X * d.X + Math.PI * d.A_D * d.A_D / 4); } },
   { id: "plain_multiple_slot",  label: "복수스롯트형",    dims: ["W", "L", "X"],
     formula: "Q = V · (10X² + A),  A = W·L",
     calc: function (d, v) { return v * (10 * d.X * d.X + d.W * d.L); } },
@@ -542,8 +546,10 @@ var SHAPES = [
     formula: "Q = 0.75 · V · (10X² + A),  A = W·L",
     calc: function (d, v) { return 0.75 * v * (10 * d.X * d.X + d.W * d.L); } },
   { id: "booth",                label: "밀폐형(부스)",    dims: ["W", "H"],
+    canBeRound: true, circDims: ["A_D"],
     formula: "Q = V · A,  A = W·H",
-    calc: function (d, v) { return v * d.W * d.H; } },
+    calc: function (d, v) { return v * d.W * d.H; },
+    circCalc: function (d, v) { return v * Math.PI * d.A_D * d.A_D / 4; } },
   { id: "canopy",               label: "천정형(캐노피)",  dims: ["P", "D"],
     formula: "Q = 1.4 · P · V · D",
     calc: function (d, v) { return 1.4 * d.P * v * d.D; } }
@@ -554,7 +560,8 @@ function shapeById(id) {
 }
 var DIM_LABEL = {
   L: "길이 (m)", W: "폭 (m)", X: "포집거리 (m)",
-  H: "부스높이 (m)", P: "오염원둘레 (m)", D: "포집거리 (m)"
+  H: "부스높이 (m)", P: "오염원둘레 (m)", D: "포집거리 (m)",
+  A_D: "직경 (m)"
 };
 
 /* ── 포착속도 참고표 ── */
@@ -688,6 +695,12 @@ function escapeHtml(s) {
 function hoodQ(h) {
   var sh = shapeById(h.shape);
   var vMin = num(h.v) * (h.vUnit === "ms" ? 60 : 1);
+  if (sh.canBeRound && h.srcShape === "circ" && sh.circCalc) {
+    var dc = {};
+    sh.circDims.forEach(function (k) { dc[k] = num(h.dims[k]); });
+    var qc = sh.circCalc(dc, vMin);
+    return isFinite(qc) && qc > 0 ? qc : 0;
+  }
   var d = {};
   sh.dims.forEach(function (k) {
     if (k === "P") {
@@ -984,12 +997,34 @@ function renderHood(fac, fi, h, hi, facRef) {
     if (s.id === h.shape) o.selected = true;
     sel.appendChild(o);
   });
-  sel.addEventListener("change", function () { h.shape = sel.value; h.dims = {}; save(); renderFacilities(); });
+  sel.addEventListener("change", function () { h.shape = sel.value; h.dims = {}; h.srcShape = "rect"; save(); renderFacilities(); });
   fShape.appendChild(sel);
   row.appendChild(fShape);
 
   /* 치수 입력 */
-  sh.dims.forEach(function (k) {
+  /* canBeRound 후드: 모양 선택 드롭다운 먼저 */
+  if (sh.canBeRound) {
+    if (!h.srcShape) h.srcShape = "rect";
+    var fSrcR = document.createElement("div"); fSrcR.className = "fld";
+    var srcLabR = document.createElement("label"); srcLabR.textContent = "모양";
+    var srcSelR = document.createElement("select");
+    [["rect", "사각"], ["circ", "원"]].forEach(function (opt) {
+      var o = document.createElement("option");
+      o.value = opt[0]; o.textContent = opt[1];
+      if (opt[0] === h.srcShape) o.selected = true;
+      srcSelR.appendChild(o);
+    });
+    srcSelR.addEventListener("change", function () {
+      h.srcShape = srcSelR.value;
+      delete h.dims.A_D;
+      save(); renderFacilities();
+    });
+    fSrcR.appendChild(srcLabR); fSrcR.appendChild(srcSelR);
+    row.appendChild(fSrcR);
+  }
+  /* 사각/원에 따른 활성 차원 목록 */
+  var activeDims = (sh.canBeRound && h.srcShape === "circ") ? sh.circDims : sh.dims;
+  activeDims.forEach(function (k) {
     if (k === "P") {
       /* 오염원 형태 선택 (사각/원) */
       if (!h.srcShape) h.srcShape = "rect";
