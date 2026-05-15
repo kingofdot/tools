@@ -121,7 +121,20 @@
   table.xl input:disabled, table.xl select:disabled {
     background: var(--disabled-bg); color: var(--muted); cursor: not-allowed;
   }
-  table.xl td.disabled { background: repeating-linear-gradient(45deg, transparent, transparent 4px, #f1f5f9 4px, #f1f5f9 8px); }
+  table.xl tbody td.hood.disabled,
+  table.xl tbody td.disabled {
+    background: repeating-linear-gradient(45deg, #e2e8f0, #e2e8f0 4px, #f1f5f9 4px, #f1f5f9 8px) !important;
+    position: relative;
+  }
+  table.xl tbody td.disabled::before {
+    content: "—";
+    color: #cbd5e1;
+    font-size: 12px;
+    font-weight: 700;
+    display: block;
+    text-align: center;
+    line-height: 32px;
+  }
 
   /* 셀 너비 */
   table.xl .w-name { min-width: 130px; }
@@ -131,6 +144,19 @@
   table.xl .w-mode { min-width: 60px; }
   table.xl .w-dim { min-width: 60px; }
   table.xl .w-act { min-width: 54px; }
+  /* 시설 고정 너비 — 헤더 글자에 맞춤 */
+  table.xl thead th.w-fac-narrow,
+  table.xl tbody td.w-fac-narrow {
+    padding-left: 4px; padding-right: 4px;
+  }
+  table.xl thead th.w-fac-narrow { font-size: 10.5px; line-height: 1.3; }
+  table.xl tbody td.w-fac-narrow input { padding-left: 3px; padding-right: 3px; font-size: 11px; }
+  /* 컬럼별 너비 */
+  table.xl thead th.w-time,  table.xl tbody td.w-time  { width: 56px; min-width: 56px; max-width: 56px; }
+  table.xl thead th.w-days,  table.xl tbody td.w-days  { width: 64px; min-width: 64px; max-width: 64px; }
+  table.xl thead th.w-usage, table.xl tbody td.w-usage { width: 58px; min-width: 58px; max-width: 58px; }
+  table.xl thead th.w-coef,  table.xl tbody td.w-coef  { width: 62px; min-width: 62px; max-width: 62px; }
+  table.xl thead th.w-emit,  table.xl tbody td.w-emit  { width: 72px; min-width: 72px; max-width: 72px; }
 
   /* 액션 셀 */
   table.xl td.act { padding: 3px 4px; white-space: nowrap; }
@@ -284,13 +310,41 @@ var DIM_LABEL = {
   A_D: "개구 직경", D: "포집거리 (캐노피)"
 };
 
+/* 후드형태 + 모양 → 활성 dim 키 (명시적 매핑) */
+var ACTIVE_DIMS_MAP = {
+  "slot|rect":                 ["L","X"],
+  "slot|circ":                 ["L","X"],
+  "flanged_slot|rect":         ["L","X"],
+  "flanged_slot|circ":         ["L","X"],
+  "plain_opening|rect":        ["W","L","X"],
+  "plain_opening|circ":        ["A_D","X"],
+  "flanged_opening|rect":      ["W","L","X"],
+  "flanged_opening|circ":      ["A_D","X"],
+  "plain_multiple_slot|rect":  ["W","L","X"],
+  "plain_multiple_slot|circ":  ["W","L","X"],
+  "flanged_multiple_slot|rect":["W","L","X"],
+  "flanged_multiple_slot|circ":["W","L","X"],
+  "booth|rect":                ["W","H"],
+  "booth|circ":                ["A_D"],
+  "canopy|rect":               ["P_W","P_H","D"],
+  "canopy|circ":               ["P_D","D"]
+};
 function activeDimsFor(h) {
-  var sh = shapeById(h.shape);
-  var isRound = (sh.canBeRound && h.srcShape === "circ");
-  if (sh.id === "canopy") {
-    return h.srcShape === "circ" ? ["P_D", "D"] : ["P_W", "P_H", "D"];
-  }
-  return isRound ? sh.circDims.slice() : sh.dims.slice();
+  var shapeId = (h && h.shape) || "slot";
+  var src = (h && h.srcShape === "circ") ? "circ" : "rect";
+  var key = shapeId + "|" + src;
+  return (ACTIVE_DIMS_MAP[key] || ACTIVE_DIMS_MAP["slot|rect"]).slice();
+}
+
+/* 현재 입력된 후드들이 실제 사용하는 dim 키 목록 (DIM_COLUMNS 순서 유지) */
+function visibleDimKeys() {
+  var seen = {};
+  state.facilities.forEach(function (fac) {
+    (fac.hoods || []).forEach(function (h) {
+      activeDimsFor(h).forEach(function (k) { seen[k] = true; });
+    });
+  });
+  return DIM_COLUMNS.filter(function (k) { return seen[k]; });
 }
 
 /* ── 상태 ── */
@@ -416,33 +470,32 @@ function airClassRank(t) {
 }
 
 /* ── 헤더 렌더 ── */
-function renderHead() {
+function renderHead(visKeys) {
+  visKeys = visKeys || visibleDimKeys();
   var top = document.getElementById("headTop");
   var bot = document.getElementById("headBottom");
-  /* 상단: 섹션 헤더 */
+  /* 상단: 섹션 헤더 (후드 colspan = 4고정 + dim수 + V) */
   var topHtml =
     '<th class="sec-fac" colspan="6">배출시설</th>' +
-    '<th class="sec-hood" colspan="' + (4 + DIM_COLUMNS.length + 1) + '">후드</th>' +
+    '<th class="sec-hood" colspan="' + (4 + visKeys.length + 1) + '">후드</th>' +
     '<th class="col-result" rowspan="2">먼지농도<br><span style="font-size:10px;font-weight:400">(mg/S㎥)</span></th>' +
     '<th rowspan="2">×</th>';
   top.innerHTML = topHtml;
 
   /* 하단: 컬럼 라벨 */
   var cols = [
-    /* 시설 6개 */
     '<th class="sec-fac w-name">시설명</th>',
-    '<th class="sec-fac w-num">가동시간<br><span style="font-size:10px;font-weight:400">(hr/일)</span></th>',
-    '<th class="sec-fac w-num">연간가동일<br><span style="font-size:10px;font-weight:400">(일/년)</span></th>',
-    '<th class="sec-fac w-num">사용량<br><span style="font-size:10px;font-weight:400">(ton/일)</span></th>',
-    '<th class="sec-fac w-num">배출계수<br><span style="font-size:10px;font-weight:400">(kg/ton)</span></th>',
-    '<th class="col-result w-num">먼지발생량<br><span style="font-size:10px;font-weight:400">(톤/년)</span></th>',
-    /* 후드 */
+    '<th class="sec-fac w-fac-narrow w-time">가동시간<br><span style="font-size:10px;font-weight:400">(hr/일)</span></th>',
+    '<th class="sec-fac w-fac-narrow w-days">연간가동일<br><span style="font-size:10px;font-weight:400">(일/년)</span></th>',
+    '<th class="sec-fac w-fac-narrow w-usage">사용량<br><span style="font-size:10px;font-weight:400">(ton/일)</span></th>',
+    '<th class="sec-fac w-fac-narrow w-coef">배출계수<br><span style="font-size:10px;font-weight:400">(kg/ton)</span></th>',
+    '<th class="col-result w-fac-narrow w-emit">먼지발생량<br><span style="font-size:10px;font-weight:400">(톤/년)</span></th>',
     '<th class="sec-hood w-outlet">배출구</th>',
     '<th class="sec-hood w-num">온도<br><span style="font-size:10px;font-weight:400">(℃)</span></th>',
     '<th class="sec-hood w-shape">후드형태</th>',
     '<th class="sec-hood w-mode">모양</th>'
   ];
-  DIM_COLUMNS.forEach(function (k) {
+  visKeys.forEach(function (k) {
     cols.push('<th class="sec-hood w-dim">' + escapeHtml(DIM_LABEL[k]) + '<br><span style="font-size:10px;font-weight:400">(m)</span></th>');
   });
   cols.push('<th class="sec-hood w-num">V<br><span style="font-size:10px;font-weight:400">(m/s)</span></th>');
@@ -453,6 +506,8 @@ function renderHead() {
 function renderBody() {
   var body = document.getElementById("xlBody");
   body.innerHTML = "";
+  var visKeys = visibleDimKeys();
+  renderHead(visKeys);
   state.facilities.forEach(function (fac, fi) {
     var nH = fac.hoods.length || 1;
     fac.hoods.forEach(function (h, hi) {
@@ -463,16 +518,16 @@ function renderBody() {
       if (hi === 0) {
         html += '<td class="fac" rowspan="' + nH + '">' +
                 '<input type="text" data-f="name" placeholder="배-1 건조시설" value="' + escapeHtml(fac.name) + '"></td>';
-        html += '<td class="fac" rowspan="' + nH + '">' +
+        html += '<td class="fac w-fac-narrow w-time" rowspan="' + nH + '">' +
                 '<input type="number" data-f="operatingHours" min="0" step="any" placeholder="8" value="' + escapeHtml(fac.operatingHours) + '"></td>';
-        html += '<td class="fac" rowspan="' + nH + '">' +
+        html += '<td class="fac w-fac-narrow w-days" rowspan="' + nH + '">' +
                 '<input type="number" data-f="operatingDays" min="0" step="1" placeholder="300" value="' + escapeHtml(fac.operatingDays) + '"></td>';
-        html += '<td class="fac" rowspan="' + nH + '">' +
+        html += '<td class="fac w-fac-narrow w-usage" rowspan="' + nH + '">' +
                 '<input type="number" data-f="usage" min="0" step="any" placeholder="2.4" value="' + escapeHtml(fac.usage) + '"></td>';
-        html += '<td class="fac" rowspan="' + nH + '">' +
+        html += '<td class="fac w-fac-narrow w-coef" rowspan="' + nH + '">' +
                 '<input type="number" data-f="coefficient" min="0" step="any" placeholder="0.31" value="' + escapeHtml(fac.coefficient) + '"></td>';
         var amt = facPollutantTon(fac);
-        html += '<td class="result' + (amt > 0 ? '' : ' zero') + '" rowspan="' + nH + '" data-result="amt">' +
+        html += '<td class="result w-fac-narrow w-emit' + (amt > 0 ? '' : ' zero') + '" rowspan="' + nH + '" data-result="amt">' +
                 (amt > 0 ? fmt(amt) : '—') + '</td>';
       }
       /* 후드 셀 */
@@ -495,9 +550,9 @@ function renderBody() {
       } else {
         html += '<td class="hood disabled">—</td>';
       }
-      /* 제원 컬럼 */
+      /* 제원 컬럼 — 보이는 키만 */
       var actDims = activeDimsFor(h);
-      DIM_COLUMNS.forEach(function (k) {
+      visKeys.forEach(function (k) {
         var on = actDims.indexOf(k) !== -1;
         if (on) {
           html += '<td class="hood"><input type="number" data-dim="' + k + '" min="0" step="any" placeholder="0" value="' + escapeHtml(h.dims[k] != null ? h.dims[k] : "") + '"></td>';
@@ -702,7 +757,6 @@ try {
   load();
   document.getElementById("decimalsSel").value = String(state.decimals);
   document.getElementById("methodSel").value = state.concMethod;
-  renderHead();
   renderBody();
   renderFormulaList();
   bindControls();
