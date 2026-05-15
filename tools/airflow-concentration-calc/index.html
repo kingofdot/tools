@@ -762,37 +762,34 @@ var state = {
 };
 
 function emptyHood() { return { shape: "slot", dims: {}, srcShape: "rect", v: "", vUnit: "ms", t: "", outlet: "", pollutants: {} }; }
-function emptyEmission(kind) {
-  var isFuel = kind === "fuels";
+function emptyEmission() {
   return { substance: "", coefficient: "",
-    efNumUnit: isFuel ? "g" : "kg", efDenUnit: isFuel ? "㎥" : "ton",
+    efNumUnit: "kg", efDenUnit: "ton",
     unit: "mg/S㎥", mw: "", genCalc: false };
 }
-function emptyMat(kind) {
-  return { name: "", value: "", unit: kind === "fuels" ? "㎥" : "ton", emissions: [] };
+function emptyItem() {
+  return { name: "", value: "", unit: "ton", emissions: [] };
 }
-function emptyFacility() { return { name: "", operatingHours: "", operatingDays: "", materials: [], fuels: [], hoods: [emptyHood()] }; }
+function emptyFacility() { return { name: "", operatingHours: "", operatingDays: "", items: [], hoods: [emptyHood()] }; }
 
-function normEmissions(a, kind) {
-  var isFuel = kind === "fuels";
+function normEmissions(a) {
   return Array.isArray(a) ? a.map(function (e) {
     return {
       substance: (e && e.substance) || "",
       coefficient: (e && e.coefficient) || "",
-      efNumUnit: (e && e.efNumUnit) || (isFuel ? "g" : "kg"),
-      efDenUnit: (e && e.efDenUnit) || (isFuel ? "㎥" : "ton"),
+      efNumUnit: (e && e.efNumUnit) || "kg",
+      efDenUnit: (e && e.efDenUnit) || "ton",
       unit: (e && (e.unit === "ppm" || e.unit === "mg/S㎥")) ? e.unit : "mg/S㎥",
       mw: (e && e.mw) || "",
       genCalc: !!(e && e.genCalc)
     };
   }) : [];
 }
-function normMats(a, kind) {
-  var isFuel = kind === "fuels";
+function normItems(a) {
   return Array.isArray(a) ? a.map(function (m) {
     return { name: (m && m.name) || "", value: (m && m.value) || "",
-      unit: (m && m.unit) || (isFuel ? "㎥" : "ton"),
-      emissions: normEmissions(m && m.emissions, kind) };
+      unit: (m && m.unit) || "ton",
+      emissions: normEmissions(m && m.emissions) };
   }) : [];
 }
 
@@ -813,7 +810,13 @@ function load() {
           state.facilities = s.facilities.map(function (f) {
             return {
               name: f.name || "", operatingHours: f.operatingHours || "", operatingDays: f.operatingDays || "",
-              materials: normMats(f.materials, "materials"), fuels: normMats(f.fuels, "fuels"),
+              items: (function () {
+                /* 신규: f.items / 구버전: f.materials + f.fuels 병합 */
+                if (Array.isArray(f.items)) return normItems(f.items);
+                var merged = [].concat(Array.isArray(f.materials) ? f.materials : [],
+                                       Array.isArray(f.fuels) ? f.fuels : []);
+                return normItems(merged);
+              })(),
               hoods: (Array.isArray(f.hoods) ? f.hoods : []).map(function (h) {
                 return { shape: shapeById(h.shape).id, dims: (h.dims && typeof h.dims === "object") ? h.dims : {},
                   srcShape: h.srcShape === "circ" ? "circ" : "rect",
@@ -875,12 +878,10 @@ function hoodQstd(h) {
 /* ── 배출물질 유틸 ── */
 function collectSubstances(fac) {
   var seen = {}, out = [];
-  ["materials", "fuels"].forEach(function (kind) {
-    (fac[kind] || []).forEach(function (m) {
-      (m.emissions || []).forEach(function (e) {
-        var s = (e.substance || "").trim();
-        if (s && !seen[s]) { seen[s] = true; out.push(s); }
-      });
+  (fac.items || []).forEach(function (m) {
+    (m.emissions || []).forEach(function (e) {
+      var s = (e.substance || "").trim();
+      if (s && !seen[s]) { seen[s] = true; out.push(s); }
     });
   });
   return out;
@@ -898,26 +899,22 @@ function usageDenomConv(usageUnit, efDenUnit) {
   return null; // 차원 불일치 (예: ㎥ vs kg)
 }
 
-/* 물질별 mg/day 산정 (농도 계산 분자) */
+/* 물질별 mg/day 산정 (농도 계산 분자) — 모든 항목 per-day 기준 */
 function substanceNumeratorMgDay(fac, subName) {
-  var opHours = num(fac.operatingHours);
   var total = 0;
-  ["materials", "fuels"].forEach(function (kind) {
-    var isFuel = kind === "fuels";
-    (fac[kind] || []).forEach(function (m) {
-      var usage = num(m.value);
-      if (!usage) return;
-      var mUnit  = m.unit || (isFuel ? "㎥" : "ton");
-      (m.emissions || []).forEach(function (e) {
-        if ((e.substance || "").trim() !== subName) return;
-        var efNum  = e.efNumUnit || (isFuel ? "g" : "kg");
-        var efDen  = e.efDenUnit || mUnit;
-        var coef   = num(e.coefficient);
-        var conv   = usageDenomConv(mUnit, efDen);
-        var toMg   = EF_NUM_TO_MG[efNum];
-        if (conv === null || !toMg) return;
-        total += usage * conv * coef * toMg * (isFuel ? opHours : 1);
-      });
+  (fac.items || []).forEach(function (m) {
+    var usage = num(m.value);
+    if (!usage) return;
+    var mUnit = m.unit || "ton";
+    (m.emissions || []).forEach(function (e) {
+      if ((e.substance || "").trim() !== subName) return;
+      var efNum = e.efNumUnit || "kg";
+      var efDen = e.efDenUnit || mUnit;
+      var coef  = num(e.coefficient);
+      var conv  = usageDenomConv(mUnit, efDen);
+      var toMg  = EF_NUM_TO_MG[efNum];
+      if (conv === null || !toMg) return;
+      total += usage * conv * coef * toMg;
     });
   });
   return total; /* mg/day */
@@ -926,14 +923,12 @@ function substanceNumeratorMgDay(fac, subName) {
 /* 물질의 표시 단위(mg/S㎥ or ppm)와 분자량 조회 */
 function getSubstanceInfo(fac, subName) {
   var unit = "mg/S㎥", mw = 0;
-  ["materials", "fuels"].forEach(function (kind) {
-    (fac[kind] || []).forEach(function (m) {
-      (m.emissions || []).forEach(function (e) {
-        if ((e.substance || "").trim() !== subName) return;
-        if (e.unit) unit = e.unit;
-        var mwv = num(e.mw);
-        if (mwv > 0) mw = mwv;
-      });
+  (fac.items || []).forEach(function (m) {
+    (m.emissions || []).forEach(function (e) {
+      if ((e.substance || "").trim() !== subName) return;
+      if (e.unit) unit = e.unit;
+      var mwv = num(e.mw);
+      if (mwv > 0) mw = mwv;
     });
   });
   return { unit: unit, mw: mw };
@@ -953,41 +948,24 @@ function fmtConc(concMgSm3, info) {
   return fmt(concMgSm3) + " mg/S㎥";
 }
 
-function substanceNumerator(fac, subName) {
-  var sum = 0;
-  ["materials", "fuels"].forEach(function (kind) {
-    (fac[kind] || []).forEach(function (m) {
-      var usage = num(m.value);
-      if (!usage) return;
-      (m.emissions || []).forEach(function (e) {
-        if ((e.substance || "").trim() === subName) sum += usage * num(e.coefficient);
-      });
-    });
-  });
-  return sum;
-}
-/* 오염물질 발생량 합계 (톤/년) — genCalc 체크된 항목만, 단위 자동 환산 */
+/* 오염물질 발생량 합계 (톤/년) — genCalc 체크된 항목만, 단위 자동 환산 (per-day 기준) */
 function pollutantAmountTotal(fac) {
   var opDays = num(fac.operatingDays);
-  var opHours = num(fac.operatingHours);
   if (opDays <= 0) return 0;
   var total = 0;
-  ["materials", "fuels"].forEach(function (kind) {
-    var isFuel = kind === "fuels";
-    (fac[kind] || []).forEach(function (m) {
-      var usage = num(m.value);
-      if (!usage) return;
-      var mUnit = m.unit || (isFuel ? "㎥" : "ton");
-      (m.emissions || []).forEach(function (e) {
-        if (!e.genCalc) return;
-        var efNum  = e.efNumUnit || (isFuel ? "g" : "kg");
-        var efDen  = e.efDenUnit || mUnit;
-        var coef   = num(e.coefficient);
-        var conv   = usageDenomConv(mUnit, efDen);
-        var toTon  = EF_NUM_TO_TON[efNum];
-        if (conv === null || !toTon) return;
-        total += usage * conv * coef * toTon * opDays * (isFuel ? opHours : 1);
-      });
+  (fac.items || []).forEach(function (m) {
+    var usage = num(m.value);
+    if (!usage) return;
+    var mUnit = m.unit || "ton";
+    (m.emissions || []).forEach(function (e) {
+      if (!e.genCalc) return;
+      var efNum = e.efNumUnit || "kg";
+      var efDen = e.efDenUnit || mUnit;
+      var coef  = num(e.coefficient);
+      var conv  = usageDenomConv(mUnit, efDen);
+      var toTon = EF_NUM_TO_TON[efNum];
+      if (conv === null || !toTon) return;
+      total += usage * conv * coef * toTon * opDays;
     });
   });
   return total;
@@ -1105,8 +1083,7 @@ function renderFacilities() {
     /* 원료·연료 */
     var mats = document.createElement("div");
     mats.className = "fac-mats";
-    var mg1 = renderMatGroup(fac, "materials", "원료"); mg1.dataset.guide = "2"; mats.appendChild(mg1);
-    var mg2 = renderMatGroup(fac, "fuels", "연료");    mg2.dataset.guide = "3"; mats.appendChild(mg2);
+    var mg1 = renderItemGroup(fac, "원료 및 연료"); mg1.dataset.guide = "2"; mats.appendChild(mg1);
     box.appendChild(mats);
 
     /* 후드 목록 */
@@ -1136,9 +1113,9 @@ function renderFacilities() {
   recalc();
 }
 
-/* ── 렌더: 원료/연료 그룹 ── */
-function renderMatGroup(fac, kind, label) {
-  var arr = fac[kind];
+/* ── 렌더: 원료 및 연료 그룹 ── */
+function renderItemGroup(fac, label) {
+  var arr = fac.items;
   var group = document.createElement("div");
   group.className = "mat-group";
 
@@ -1147,7 +1124,7 @@ function renderMatGroup(fac, kind, label) {
   ghead.appendChild(document.createTextNode(label));
   var add = document.createElement("button");
   add.className = "btn success add-mat"; add.type = "button"; add.textContent = "+ 추가";
-  add.addEventListener("click", function () { arr.push(emptyMat(kind)); save(); renderFacilities(); });
+  add.addEventListener("click", function () { arr.push(emptyItem()); save(); renderFacilities(); });
   ghead.appendChild(add);
   group.appendChild(ghead);
 
@@ -1155,7 +1132,7 @@ function renderMatGroup(fac, kind, label) {
   listEl.className = "mat-list";
   if (arr.length === 0) {
     var em = document.createElement("div");
-    em.className = "mat-empty"; em.textContent = label + " 항목 없음";
+    em.className = "mat-empty"; em.textContent = "항목 없음";
     listEl.appendChild(em);
   }
   arr.forEach(function (m, mi) {
@@ -1165,13 +1142,13 @@ function renderMatGroup(fac, kind, label) {
 
     var r = document.createElement("div");
     r.className = "mat-row";
-    r.appendChild(mkInput("m-name", m.name, label + "명", function (v) { m.name = v; save(); }));
+    r.appendChild(mkInput("m-name", m.name, "원료/연료명", function (v) { m.name = v; save(); }));
     r.appendChild(mkInput("m-val", m.value, "사용량", function (v) { m.value = v; save(); recalc(); }));
     /* 사용량 단위 드롭다운 */
     var mUnitSel = document.createElement("select");
     mUnitSel.className = "m-unit-sel";
     var mUnits = ["ton", "kg", "g", "㎥"];
-    var mDef = m.unit || (kind === "fuels" ? "㎥" : "ton");
+    var mDef = m.unit || "ton";
     mUnits.forEach(function (u) {
       var o = document.createElement("option"); o.value = u; o.textContent = u;
       if (u === mDef) o.selected = true; mUnitSel.appendChild(o);
@@ -1179,9 +1156,9 @@ function renderMatGroup(fac, kind, label) {
     mUnitSel.addEventListener("change", function () { m.unit = mUnitSel.value; save(); recalc(); });
     r.appendChild(mUnitSel);
     var del = document.createElement("button");
-    del.className = "del-btn sm"; del.type = "button"; del.textContent = "×"; del.title = label + " 삭제";
+    del.className = "del-btn sm"; del.type = "button"; del.textContent = "×"; del.title = "항목 삭제";
     del.addEventListener("click", (function(idx) { return function () {
-      showConfirm({ message: label + " 항목을 삭제하시겠습니까?", skippable: true, onConfirm: function () {
+      showConfirm({ message: "항목을 삭제하시겠습니까?", skippable: true, onConfirm: function () {
         arr.splice(idx, 1); save(); renderFacilities();
       } });
     }; })(mi));
@@ -1255,7 +1232,7 @@ function renderMatGroup(fac, kind, label) {
     });
     var ea = document.createElement("button");
     ea.className = "btn success emis-add"; ea.type = "button"; ea.textContent = "+ 배출물질";
-    ea.addEventListener("click", function () { m.emissions.push(emptyEmission(kind)); save(); renderFacilities(); });
+    ea.addEventListener("click", function () { m.emissions.push(emptyEmission()); save(); renderFacilities(); });
     ew.appendChild(ea);
     block.appendChild(ew);
 
@@ -1435,7 +1412,7 @@ function renderHood(fac, fi, h, hi, facRef) {
       var lab = document.createElement("label"); lab.textContent = subName;
       var valBox = document.createElement("div");
       valBox.className = "pol-val";
-      valBox.title = "(원료·연료 사용량 × 배출계수) ÷ (가동시간 × 60 × 표준풍량)";
+      valBox.title = "(사용량 × 배출계수 × 단위환산) ÷ (가동시간 × 60 × 표준풍량)";
       fp.appendChild(lab); fp.appendChild(valBox);
       row.appendChild(fp);
       hRef.pols.push({ sub: subName, el: valBox });
@@ -1617,43 +1594,44 @@ function renderDustTotal(grandTotal) {
 /* ── 산출식 팝업 ── */
 function buildDustPopupHtml(fac) {
   var opDays = num(fac.operatingDays);
-  var opHours = num(fac.operatingHours);
   var grandTotal = 0;
   var html = '<div class="gcp-title">산출식 · ' + escapeHtml(fac.name || '(이름 없음)') + '</div>';
   var hasAny = false;
 
-  function renderGroup(kind, kindLabel) {
-    (fac[kind] || []).forEach(function (m) {
-      var usage = num(m.value);
-      var genEms = (m.emissions || []).filter(function (e) { return e.genCalc; });
-      if (!usage || genEms.length === 0) return;
-      html += '<div class="gcp-group">';
-      html += '<div class="gcp-mat">[' + kindLabel + '] ' + escapeHtml(m.name || '—') +
-              ' <span class="gcp-dim">사용량 ' + escapeHtml(m.value) + ' ' + escapeHtml(m.unit || '') + '</span></div>';
-      genEms.forEach(function (e) {
-        var coef = num(e.coefficient);
-        var v, formula;
-        if (kind === "materials") {
-          v = usage * coef * opDays * 1e-3;
-          formula = escapeHtml(m.value) + ' × ' + escapeHtml(e.coefficient) + ' × ' + escapeHtml(fac.operatingDays || '?') + ' × 10⁻³';
-        } else {
-          v = coef * usage * opHours * opDays * 1e-6;
-          formula = escapeHtml(e.coefficient) + ' × ' + escapeHtml(m.value) + ' × ' + escapeHtml(fac.operatingHours || '?') + ' × ' + escapeHtml(fac.operatingDays || '?') + ' × 10⁻⁶';
-        }
-        grandTotal += v;
-        hasAny = true;
-        html += '<div class="gcp-row">' +
-          '<span class="gcp-sub">' + escapeHtml(e.substance || '—') + '</span>' +
-          '<span class="gcp-formula">' + formula + '</span>' +
-          '<span class="gcp-eq">= ' + fmt(v) + ' 톤/년</span>' +
-          '</div>';
-      });
-      html += '</div>';
+  (fac.items || []).forEach(function (m) {
+    var usage = num(m.value);
+    var genEms = (m.emissions || []).filter(function (e) { return e.genCalc; });
+    if (!usage || genEms.length === 0) return;
+    var mUnit = m.unit || "ton";
+    html += '<div class="gcp-group">';
+    html += '<div class="gcp-mat">' + escapeHtml(m.name || '—') +
+            ' <span class="gcp-dim">사용량 ' + escapeHtml(m.value) + ' ' + escapeHtml(mUnit) + '</span></div>';
+    genEms.forEach(function (e) {
+      var efNum = e.efNumUnit || "kg";
+      var efDen = e.efDenUnit || mUnit;
+      var coef  = num(e.coefficient);
+      var conv  = usageDenomConv(mUnit, efDen);
+      var toTon = EF_NUM_TO_TON[efNum];
+      var v = 0, formula;
+      if (conv !== null && toTon) {
+        v = usage * conv * coef * toTon * opDays;
+        var convStr = (conv === 1) ? "" : (" × " + conv);
+        formula = escapeHtml(m.value) + convStr + ' × ' + escapeHtml(e.coefficient) +
+                  ' × ' + escapeHtml(fac.operatingDays || '?') +
+                  ' × ' + toTon.toExponential() + ' (' + efNum + '→ton)';
+      } else {
+        formula = '<span style="color:#dc2626">단위 불일치 (' + escapeHtml(mUnit) + ' / ' + escapeHtml(efDen) + ')</span>';
+      }
+      grandTotal += v;
+      hasAny = true;
+      html += '<div class="gcp-row">' +
+        '<span class="gcp-sub">' + escapeHtml(e.substance || '—') + '</span>' +
+        '<span class="gcp-formula">' + formula + '</span>' +
+        '<span class="gcp-eq">= ' + fmt(v) + ' 톤/년</span>' +
+        '</div>';
     });
-  }
-
-  renderGroup("materials", "원료");
-  renderGroup("fuels", "연료");
+    html += '</div>';
+  });
 
   if (!hasAny) {
     html += '<div class="gcp-empty">발생량산정 체크된 배출계수 항목이 없습니다.</div>';
@@ -2019,15 +1997,13 @@ var GUIDE_STEPS = [
     getTarget: function() { return document.querySelector(".fac-name"); } },
   { label: "② 가동시간",         desc: "배출시설의 연간 가동시간(hr)을 입력하세요.",
     getTarget: function() { return document.querySelector(".fac-ophours input"); } },
-  { label: "③ 원료",             desc: "+ 추가를 눌러 원료명·사용량·단위를 입력하고, 배출물질과 배출계수를 추가하세요.",
-    getTarget: function() { var gs = document.querySelectorAll(".mat-group"); return gs[0] || null; } },
-  { label: "④ 연료",             desc: "+ 추가를 눌러 연료명·사용량·단위를 입력하고, 배출물질과 배출계수를 추가하세요.",
-    getTarget: function() { var gs = document.querySelectorAll(".mat-group"); return gs[1] || null; } },
-  { label: "⑤ 배출구",           desc: "각 후드가 연결될 배출구를 입력하세요. (예: 배출구-1)",
+  { label: "③ 원료 및 연료",     desc: "+ 추가를 눌러 원료/연료명·사용량·단위(ton/kg/g/㎥)를 입력하고, 배출물질·배출계수·단위(예: kg/ton)를 추가하세요.",
+    getTarget: function() { return document.querySelector(".mat-group"); } },
+  { label: "④ 배출구",           desc: "각 후드가 연결될 배출구를 입력하세요. (예: 배출구-1)",
     getTarget: function() { return document.querySelector(".outlet-in"); } },
-  { label: "⑥ 후드 형태",        desc: "오염원에 맞는 후드 형태를 선택하세요. 형태마다 필요한 치수가 달라집니다.",
+  { label: "⑤ 후드 형태",        desc: "오염원에 맞는 후드 형태를 선택하세요. 형태마다 필요한 치수가 달라집니다.",
     getTarget: function() { return document.querySelector(".shape-sel"); } },
-  { label: "⑦ 치수 및 포착속도", desc: "후드 치수(m)와 포착속도를 입력하면 우측에 풍량(Q)·표준풍량(Qs)이 자동 계산됩니다.",
+  { label: "⑥ 치수 및 포착속도", desc: "후드 치수(m)와 포착속도를 입력하면 우측에 풍량(Q)·표준풍량(Qs)이 자동 계산됩니다.",
     getTarget: function() { return document.querySelector(".dim-in"); } }
 ];
 
