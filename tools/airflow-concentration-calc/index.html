@@ -297,8 +297,23 @@
   .fac-dust-line .dl-unit { font-size: 10px; color: var(--muted); font-weight: 400; }
   .fac-dust-line .dl-nd { color: var(--muted); font-weight: 400; }
   /* 발생량 합계 */
-  .dust-grand { font-size: 22px; font-weight: 700; color: var(--success-2); font-variant-numeric: tabular-nums; padding: 8px 2px; }
+  .dust-grand { font-size: 22px; font-weight: 700; color: var(--success-2); font-variant-numeric: tabular-nums; padding: 8px 2px; display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap; }
   .dust-grand .u { font-size: 13px; color: var(--muted); font-weight: 500; margin-left: 4px; }
+  .dust-grand .dust-class {
+    background: var(--accent); color: #fff; border-radius: 8px;
+    padding: 4px 12px; font-size: 14px; font-weight: 700; letter-spacing: 0.02em;
+  }
+  .dust-class-table {
+    display: flex; gap: 8px; flex-wrap: wrap; margin-top: 8px;
+    font-size: 11px; color: var(--text-dim);
+  }
+  .dust-class-table span {
+    padding: 3px 8px; background: var(--surface-2); border: 1px solid var(--border);
+    border-radius: 6px; font-variant-numeric: tabular-nums; white-space: nowrap;
+  }
+  .dust-class-table span.cur {
+    background: var(--accent-bg); border-color: var(--accent); color: var(--accent-2); font-weight: 700;
+  }
   /* 산출식 팝업 */
   #gencalcPopup {
     display: none; position: absolute; z-index: 9999;
@@ -1597,6 +1612,13 @@ function recalc() {
 }
 
 /* ── 대기오염물질 발생량 합계 ── */
+function airClassRank(tonPerYear) {
+  if (tonPerYear < 2)  return 5;
+  if (tonPerYear < 10) return 4;
+  if (tonPerYear < 20) return 3;
+  if (tonPerYear < 80) return 2;
+  return 1;
+}
 function renderDustTotal(grandTotal) {
   var box = document.getElementById("dustTotalSection");
   if (!box) return;
@@ -1604,7 +1626,17 @@ function renderDustTotal(grandTotal) {
     box.innerHTML = '<div class="outlet-empty">배출계수 행에서 "발생량산정" 체크 후 연간가동일을 입력하면 합계가 표시됩니다.</div>';
     return;
   }
-  box.innerHTML = '<div class="dust-grand">' + fmt(grandTotal) + '<span class="u"> 톤/년</span></div>';
+  var rank = airClassRank(grandTotal);
+  box.innerHTML =
+    '<div class="dust-grand">' + fmt(grandTotal) + '<span class="u"> 톤/년</span>' +
+    '<span class="dust-class">대기 ' + rank + '종</span></div>' +
+    '<div class="dust-class-table">' +
+      '<span' + (rank === 5 ? ' class="cur"' : '') + '>5종: &lt;&nbsp;2</span>' +
+      '<span' + (rank === 4 ? ' class="cur"' : '') + '>4종: 2~10</span>' +
+      '<span' + (rank === 3 ? ' class="cur"' : '') + '>3종: 10~20</span>' +
+      '<span' + (rank === 2 ? ' class="cur"' : '') + '>2종: 20~80</span>' +
+      '<span' + (rank === 1 ? ' class="cur"' : '') + '>1종: ≥&nbsp;80</span>' +
+    '</div>';
 }
 
 /* ── 산출식 팝업 ── */
