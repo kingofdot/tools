@@ -319,6 +319,8 @@
   }
   .gcp-sub { color: var(--text-dim); font-size: 11px; min-width: 36px; flex-shrink: 0; }
   .gcp-formula { color: var(--text); flex: 1; font-size: 11px; }
+  .gcp-formula .gcp-u { color: var(--muted); font-size: 10px; margin-left: 1px; }
+  .gcp-formula .gcp-conv { color: var(--text-dim); font-style: italic; }
   .gcp-eq { font-weight: 700; color: var(--success-2); white-space: nowrap; font-size: 11px; }
   .gcp-total {
     font-size: 13px; font-weight: 700; color: var(--success-2);
@@ -1629,12 +1631,16 @@ function buildDustPopupHtml(fac) {
       var v = 0, formula;
       if (conv !== null && toTon) {
         v = usage * conv * coef * toTon * opDays;
-        var convStr = (conv === 1) ? "" : (" × " + conv);
-        formula = escapeHtml(m.value) + convStr + ' × ' + escapeHtml(e.coefficient) +
-                  ' × ' + escapeHtml(fac.operatingDays || '?') +
-                  ' × ' + toTon.toExponential() + ' (' + efNum + '→ton)';
+        var u = function (s) { return '<span class="gcp-u">' + escapeHtml(s) + '</span>'; };
+        var convStr = (conv === 1) ? "" :
+          (' × <span class="gcp-conv">' + conv + ' ' + u(efDen + '/' + mUnit) + '</span>');
+        formula = escapeHtml(m.value) + ' ' + u(mUnit) +
+                  convStr +
+                  ' × ' + escapeHtml(e.coefficient) + ' ' + u(efNum + '/' + efDen) +
+                  ' × ' + escapeHtml(fac.operatingDays || '?') + ' ' + u('일/년') +
+                  ' × ' + toTon.toExponential() + ' ' + u('톤/' + efNum);
       } else {
-        formula = '<span style="color:#dc2626">단위 불일치 (' + escapeHtml(mUnit) + ' / ' + escapeHtml(efDen) + ')</span>';
+        formula = '<span style="color:#dc2626">단위 불일치 (' + escapeHtml(mUnit) + ' vs ' + escapeHtml(efDen) + ')</span>';
       }
       grandTotal += v;
       hasAny = true;
