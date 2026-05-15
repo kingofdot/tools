@@ -227,16 +227,23 @@
     margin-left: 4px; padding-left: 8px; border-left: 2px solid var(--border-2);
   }
   .emis-head { font-size: 9.5px; font-weight: 650; color: var(--muted); letter-spacing: 0.02em; }
-  .emis-row { display: flex; gap: 5px; align-items: center; }
+  .emis-row { display: flex; gap: 5px; align-items: center; flex-wrap: wrap; }
   .emis-row .e-sub { flex: 1; min-width: 70px; }
-  .emis-row .e-coef { width: 92px; }
-  .emis-row .e-phase { width: 78px; padding: 7px 5px; }
-  .emis-row .e-gencalc {
-    display: flex; align-items: center; gap: 4px; white-space: nowrap;
-    font-size: 10.5px; color: var(--text-dim); cursor: pointer; flex-shrink: 0;
+  .emis-row .e-coef { width: 80px; }
+  .emis-row .e-ef-num { width: 52px; padding: 7px 4px; font-size: 11px; }
+  .emis-row .e-ef-sep { font-size: 12px; color: var(--muted); flex-shrink: 0; }
+  .emis-row .e-ef-den { width: 52px; padding: 7px 4px; font-size: 11px; }
+  .emis-row .e-unit { width: 82px; padding: 7px 4px; font-size: 11px; }
+  .emis-row .e-mw { width: 58px; }
+  .emis-row .e-gencalc-btn {
+    font-size: 10px; padding: 4px 8px; border-color: var(--border-2); color: var(--text-dim);
+    background: var(--surface); white-space: nowrap;
   }
-  .emis-row .e-gencalc input[type="checkbox"] { width: 13px; height: 13px; cursor: pointer; accent-color: var(--success); }
+  .emis-row .e-gencalc-btn.active {
+    background: var(--success-bg); border-color: var(--success); color: var(--success-2); font-weight: 700;
+  }
   .emis-add { align-self: flex-start; font-size: 10px; padding: 3px 8px; }
+  .m-unit-sel { width: 60px; padding: 7px 4px; font-size: 11px; }
 
   /* ── 후드 행 ── */
   .hoods { display: flex; flex-direction: column; gap: 8px; }
@@ -755,18 +762,37 @@ var state = {
 };
 
 function emptyHood() { return { shape: "slot", dims: {}, srcShape: "rect", v: "", vUnit: "ms", t: "", outlet: "", pollutants: {} }; }
-function emptyEmission() { return { substance: "", coefficient: "", phase: "가스상", genCalc: false }; }
-function emptyMat() { return { name: "", value: "", unit: "", emissions: [] }; }
+function emptyEmission(kind) {
+  var isFuel = kind === "fuels";
+  return { substance: "", coefficient: "",
+    efNumUnit: isFuel ? "g" : "kg", efDenUnit: isFuel ? "㎥" : "ton",
+    unit: "mg/S㎥", mw: "", genCalc: false };
+}
+function emptyMat(kind) {
+  return { name: "", value: "", unit: kind === "fuels" ? "㎥" : "ton", emissions: [] };
+}
 function emptyFacility() { return { name: "", operatingHours: "", operatingDays: "", materials: [], fuels: [], hoods: [emptyHood()] }; }
 
-function normEmissions(a) {
+function normEmissions(a, kind) {
+  var isFuel = kind === "fuels";
   return Array.isArray(a) ? a.map(function (e) {
-    return { substance: (e && e.substance) || "", coefficient: (e && e.coefficient) || "", phase: (e && e.phase === "입자상") ? "입자상" : "가스상", genCalc: !!(e && e.genCalc) };
+    return {
+      substance: (e && e.substance) || "",
+      coefficient: (e && e.coefficient) || "",
+      efNumUnit: (e && e.efNumUnit) || (isFuel ? "g" : "kg"),
+      efDenUnit: (e && e.efDenUnit) || (isFuel ? "㎥" : "ton"),
+      unit: (e && (e.unit === "ppm" || e.unit === "mg/S㎥")) ? e.unit : "mg/S㎥",
+      mw: (e && e.mw) || "",
+      genCalc: !!(e && e.genCalc)
+    };
   }) : [];
 }
-function normMats(a) {
+function normMats(a, kind) {
+  var isFuel = kind === "fuels";
   return Array.isArray(a) ? a.map(function (m) {
-    return { name: (m && m.name) || "", value: (m && m.value) || "", unit: (m && m.unit) || "", emissions: normEmissions(m && m.emissions) };
+    return { name: (m && m.name) || "", value: (m && m.value) || "",
+      unit: (m && m.unit) || (isFuel ? "㎥" : "ton"),
+      emissions: normEmissions(m && m.emissions, kind) };
   }) : [];
 }
 
@@ -787,7 +813,7 @@ function load() {
           state.facilities = s.facilities.map(function (f) {
             return {
               name: f.name || "", operatingHours: f.operatingHours || "", operatingDays: f.operatingDays || "",
-              materials: normMats(f.materials), fuels: normMats(f.fuels),
+              materials: normMats(f.materials, "materials"), fuels: normMats(f.fuels, "fuels"),
               hoods: (Array.isArray(f.hoods) ? f.hoods : []).map(function (h) {
                 return { shape: shapeById(h.shape).id, dims: (h.dims && typeof h.dims === "object") ? h.dims : {},
                   srcShape: h.srcShape === "circ" ? "circ" : "rect",
@@ -859,6 +885,74 @@ function collectSubstances(fac) {
   });
   return out;
 }
+/* ── 단위 환산 상수 ── */
+var MASS_TO_KG  = { "ton": 1000, "kg": 1, "g": 1e-3, "mg": 1e-6 };
+var EF_NUM_TO_MG  = { "kg": 1e6,  "g": 1e3,  "mg": 1 };
+var EF_NUM_TO_TON = { "kg": 1e-3, "g": 1e-6, "mg": 1e-9 };
+
+/* usageUnit → efDenUnit 변환계수 (같은 차원이어야 함) */
+function usageDenomConv(usageUnit, efDenUnit) {
+  if (usageUnit === efDenUnit) return 1;
+  var uk = MASS_TO_KG[usageUnit], dk = MASS_TO_KG[efDenUnit];
+  if (uk !== undefined && dk !== undefined && uk !== null && dk !== null) return uk / dk;
+  return null; // 차원 불일치 (예: ㎥ vs kg)
+}
+
+/* 물질별 mg/day 산정 (농도 계산 분자) */
+function substanceNumeratorMgDay(fac, subName) {
+  var opHours = num(fac.operatingHours);
+  var total = 0;
+  ["materials", "fuels"].forEach(function (kind) {
+    var isFuel = kind === "fuels";
+    (fac[kind] || []).forEach(function (m) {
+      var usage = num(m.value);
+      if (!usage) return;
+      var mUnit  = m.unit || (isFuel ? "㎥" : "ton");
+      (m.emissions || []).forEach(function (e) {
+        if ((e.substance || "").trim() !== subName) return;
+        var efNum  = e.efNumUnit || (isFuel ? "g" : "kg");
+        var efDen  = e.efDenUnit || mUnit;
+        var coef   = num(e.coefficient);
+        var conv   = usageDenomConv(mUnit, efDen);
+        var toMg   = EF_NUM_TO_MG[efNum];
+        if (conv === null || !toMg) return;
+        total += usage * conv * coef * toMg * (isFuel ? opHours : 1);
+      });
+    });
+  });
+  return total; /* mg/day */
+}
+
+/* 물질의 표시 단위(mg/S㎥ or ppm)와 분자량 조회 */
+function getSubstanceInfo(fac, subName) {
+  var unit = "mg/S㎥", mw = 0;
+  ["materials", "fuels"].forEach(function (kind) {
+    (fac[kind] || []).forEach(function (m) {
+      (m.emissions || []).forEach(function (e) {
+        if ((e.substance || "").trim() !== subName) return;
+        if (e.unit) unit = e.unit;
+        var mwv = num(e.mw);
+        if (mwv > 0) mw = mwv;
+      });
+    });
+  });
+  return { unit: unit, mw: mw };
+}
+
+/* mg/S㎥ → ppm 변환 (STP 기준) */
+function mgSm3ToPpm(conc, mw) {
+  return mw > 0 ? conc * 22.4 / mw : null;
+}
+
+/* 농도값 포맷 (단위 포함) */
+function fmtConc(concMgSm3, info) {
+  if (concMgSm3 === null || concMgSm3 === undefined) return null;
+  if (info && info.unit === "ppm" && info.mw > 0) {
+    return fmt(mgSm3ToPpm(concMgSm3, info.mw)) + " ppm";
+  }
+  return fmt(concMgSm3) + " mg/S㎥";
+}
+
 function substanceNumerator(fac, subName) {
   var sum = 0;
   ["materials", "fuels"].forEach(function (kind) {
@@ -872,32 +966,30 @@ function substanceNumerator(fac, subName) {
   });
   return sum;
 }
-/* 오염물질 발생량 합계 (톤/년) — genCalc 체크된 항목만 합산
-   원료: 사용량(톤/일) × 배출계수(kg/톤) × 연간가동일 × 10⁻³
-   연료: 배출계수(g/㎥) × 사용량(㎥/hr) × 가동시간(hr/일) × 연간가동일 × 10⁻⁶ */
+/* 오염물질 발생량 합계 (톤/년) — genCalc 체크된 항목만, 단위 자동 환산 */
 function pollutantAmountTotal(fac) {
   var opDays = num(fac.operatingDays);
   var opHours = num(fac.operatingHours);
   if (opDays <= 0) return 0;
   var total = 0;
-  /* 원료 */
-  (fac.materials || []).forEach(function (m) {
-    var usage = num(m.value);
-    if (!usage) return;
-    (m.emissions || []).forEach(function (e) {
-      if (e.genCalc) total += usage * num(e.coefficient) * opDays * 1e-3;
-    });
-  });
-  /* 연료 */
-  if (opHours > 0) {
-    (fac.fuels || []).forEach(function (m) {
+  ["materials", "fuels"].forEach(function (kind) {
+    var isFuel = kind === "fuels";
+    (fac[kind] || []).forEach(function (m) {
       var usage = num(m.value);
       if (!usage) return;
+      var mUnit = m.unit || (isFuel ? "㎥" : "ton");
       (m.emissions || []).forEach(function (e) {
-        if (e.genCalc) total += num(e.coefficient) * usage * opHours * opDays * 1e-6;
+        if (!e.genCalc) return;
+        var efNum  = e.efNumUnit || (isFuel ? "g" : "kg");
+        var efDen  = e.efDenUnit || mUnit;
+        var coef   = num(e.coefficient);
+        var conv   = usageDenomConv(mUnit, efDen);
+        var toTon  = EF_NUM_TO_TON[efNum];
+        if (conv === null || !toTon) return;
+        total += usage * conv * coef * toTon * opDays * (isFuel ? opHours : 1);
       });
     });
-  }
+  });
   return total;
 }
 
@@ -1055,7 +1147,7 @@ function renderMatGroup(fac, kind, label) {
   ghead.appendChild(document.createTextNode(label));
   var add = document.createElement("button");
   add.className = "btn success add-mat"; add.type = "button"; add.textContent = "+ 추가";
-  add.addEventListener("click", function () { arr.push(emptyMat()); save(); renderFacilities(); });
+  add.addEventListener("click", function () { arr.push(emptyMat(kind)); save(); renderFacilities(); });
   ghead.appendChild(add);
   group.appendChild(ghead);
 
@@ -1075,7 +1167,17 @@ function renderMatGroup(fac, kind, label) {
     r.className = "mat-row";
     r.appendChild(mkInput("m-name", m.name, label + "명", function (v) { m.name = v; save(); }));
     r.appendChild(mkInput("m-val", m.value, "사용량", function (v) { m.value = v; save(); recalc(); }));
-    r.appendChild(mkInput("m-unit", m.unit, "단위", function (v) { m.unit = v; save(); }));
+    /* 사용량 단위 드롭다운 */
+    var mUnitSel = document.createElement("select");
+    mUnitSel.className = "m-unit-sel";
+    var mUnits = ["ton", "kg", "g", "㎥"];
+    var mDef = m.unit || (kind === "fuels" ? "㎥" : "ton");
+    mUnits.forEach(function (u) {
+      var o = document.createElement("option"); o.value = u; o.textContent = u;
+      if (u === mDef) o.selected = true; mUnitSel.appendChild(o);
+    });
+    mUnitSel.addEventListener("change", function () { m.unit = mUnitSel.value; save(); recalc(); });
+    r.appendChild(mUnitSel);
     var del = document.createElement("button");
     del.className = "del-btn sm"; del.type = "button"; del.textContent = "×"; del.title = label + " 삭제";
     del.addEventListener("click", (function(idx) { return function () {
@@ -1089,7 +1191,7 @@ function renderMatGroup(fac, kind, label) {
     var ew = document.createElement("div");
     ew.className = "emis-wrap";
     var eh = document.createElement("div");
-    eh.className = "emis-head"; eh.textContent = "배출물질 / 배출계수 / 성상";
+    eh.className = "emis-head"; eh.textContent = "배출물질 / 배출계수 / 단위(분자/분모) / 농도단위";
     ew.appendChild(eh);
     m.emissions.forEach(function (em, ei) {
       var er = document.createElement("div");
@@ -1098,25 +1200,49 @@ function renderMatGroup(fac, kind, label) {
       es.addEventListener("change", function () { renderFacilities(); });
       er.appendChild(es);
       er.appendChild(mkInput("e-coef", em.coefficient, "배출계수", function (v) { em.coefficient = v; save(); recalc(); }));
-      var phSel = document.createElement("select");
-      phSel.className = "e-phase";
-      ["가스상", "입자상"].forEach(function (opt) {
-        var o = document.createElement("option");
-        o.value = opt; o.textContent = opt;
-        if (opt === em.phase) o.selected = true;
-        phSel.appendChild(o);
+      /* 배출계수 단위: [분자] / [분모] */
+      var efNumSel = document.createElement("select"); efNumSel.className = "e-ef-num";
+      ["kg", "g", "mg"].forEach(function (u) {
+        var o = document.createElement("option"); o.value = u; o.textContent = u;
+        if (u === (em.efNumUnit || "kg")) o.selected = true; efNumSel.appendChild(o);
       });
-      phSel.addEventListener("change", function () { em.phase = phSel.value; save(); });
-      er.appendChild(phSel);
-      /* 발생량산정 체크박스 */
-      var gcWrap = document.createElement("label");
-      gcWrap.className = "e-gencalc";
-      var gcChk = document.createElement("input");
-      gcChk.type = "checkbox"; gcChk.checked = !!em.genCalc;
-      gcChk.addEventListener("change", function () { em.genCalc = gcChk.checked; save(); recalc(); });
-      gcWrap.appendChild(gcChk);
-      gcWrap.appendChild(document.createTextNode("발생량산정"));
-      er.appendChild(gcWrap);
+      efNumSel.addEventListener("change", function () { em.efNumUnit = efNumSel.value; save(); recalc(); });
+      er.appendChild(efNumSel);
+      var efSep = document.createElement("span"); efSep.className = "e-ef-sep"; efSep.textContent = "/";
+      er.appendChild(efSep);
+      var efDenSel = document.createElement("select"); efDenSel.className = "e-ef-den";
+      ["ton", "kg", "g", "㎥"].forEach(function (u) {
+        var o = document.createElement("option"); o.value = u; o.textContent = u;
+        if (u === (em.efDenUnit || "ton")) o.selected = true; efDenSel.appendChild(o);
+      });
+      efDenSel.addEventListener("change", function () { em.efDenUnit = efDenSel.value; save(); recalc(); });
+      er.appendChild(efDenSel);
+      /* 농도 단위 */
+      var unitSel = document.createElement("select"); unitSel.className = "e-unit";
+      ["mg/S㎥", "ppm"].forEach(function (u) {
+        var o = document.createElement("option"); o.value = u; o.textContent = u;
+        if (u === (em.unit || "mg/S㎥")) o.selected = true; unitSel.appendChild(o);
+      });
+      unitSel.addEventListener("change", function () { em.unit = unitSel.value; save(); renderFacilities(); });
+      er.appendChild(unitSel);
+      /* 분자량 (ppm 선택 시만 표시) */
+      if ((em.unit || "mg/S㎥") === "ppm") {
+        var mwIn = mkInput("e-mw", em.mw, "분자량", function (v) { em.mw = v; save(); recalc(); });
+        er.appendChild(mwIn);
+      }
+      /* 발생량산정 토글 버튼 */
+      var gcBtn = document.createElement("button");
+      gcBtn.type = "button";
+      gcBtn.className = "btn xs e-gencalc-btn" + (em.genCalc ? " active" : "");
+      gcBtn.textContent = em.genCalc ? "발생량 ✓" : "발생량";
+      gcBtn.title = "발생량 산정에 포함";
+      gcBtn.addEventListener("click", function () {
+        em.genCalc = !em.genCalc;
+        gcBtn.classList.toggle("active", em.genCalc);
+        gcBtn.textContent = em.genCalc ? "발생량 ✓" : "발생량";
+        save(); recalc();
+      });
+      er.appendChild(gcBtn);
       var ed = document.createElement("button");
       ed.className = "del-btn sm"; ed.type = "button"; ed.textContent = "×"; ed.title = "배출물질 삭제";
       ed.addEventListener("click", (function(idx) { return function () {
@@ -1129,7 +1255,7 @@ function renderMatGroup(fac, kind, label) {
     });
     var ea = document.createElement("button");
     ea.className = "btn success emis-add"; ea.type = "button"; ea.textContent = "+ 배출물질";
-    ea.addEventListener("click", function () { m.emissions.push(emptyEmission()); save(); renderFacilities(); });
+    ea.addEventListener("click", function () { m.emissions.push(emptyEmission(kind)); save(); renderFacilities(); });
     ew.appendChild(ea);
     block.appendChild(ew);
 
@@ -1355,10 +1481,13 @@ function recalc() {
         hRef.qh.innerHTML = '<span class="ql">Qs</span> : ' + fmt(qs) + '<span class="u">S㎥/min</span>';
       }
       if (hRef && hRef.pols) {
-        var opMin = num(fac.operatingHours) * 60;
+        var opMin2 = num(fac.operatingHours) * 60;
         hRef.pols.forEach(function (p) {
-          var denom = opMin * qs;
-          p.el.textContent = denom > 0 ? fmt(substanceNumerator(fac, p.sub) / denom) : "—";
+          var denom = opMin2 * qs;
+          if (denom <= 0) { p.el.textContent = "—"; return; }
+          var conc = substanceNumeratorMgDay(fac, p.sub) / denom;
+          var info = getSubstanceInfo(fac, p.sub);
+          p.el.textContent = fmtConc(conc, info);
         });
       }
       var key = (h.outlet || "").trim() || "(미지정)";
@@ -1400,22 +1529,23 @@ function recalc() {
           html += '<span class="oct-val">' + fmt(sumQs_o) + '<span class="u">S㎥/min</span></span>';
           html += '<span class="oct-val">' + (temp !== null ? fmt(temp) + '<span class="u">℃</span>' : '—') + '</span>';
           subs.forEach(function (s) {
-            var numerator = substanceNumerator(fac, s);
+            var mgDay = substanceNumeratorMgDay(fac, s);
             var conc = null;
             if (state.concMethod === "method1") {
               var sumQs = hoods.reduce(function (a, hd) { return a + hd.qs; }, 0);
-              if (numerator > 0 && opMin > 0 && sumQs > 0) conc = numerator / (opMin * sumQs);
+              if (mgDay > 0 && opMin > 0 && sumQs > 0) conc = mgDay / (opMin * sumQs);
             } else {
               var sumWQ = 0, sumQ = 0;
               hoods.forEach(function (hd) {
                 if (hd.qs > 0 && opMin > 0) {
-                  var hc = numerator / (opMin * hd.qs);
+                  var hc = mgDay / (opMin * hd.qs);
                   sumWQ += hc * hd.q; sumQ += hd.q;
                 }
               });
               if (sumQ > 0) conc = sumWQ / sumQ;
             }
-            html += '<span class="oct-val">' + (conc !== null ? fmt(conc) : '—') + '</span>';
+            var info = getSubstanceInfo(fac, s);
+            html += '<span class="oct-val">' + (conc !== null ? fmtConc(conc, info) : '—') + '</span>';
           });
           html += '</div>';
         });
@@ -1435,13 +1565,13 @@ function recalc() {
     });
     collectSubstances(fac).forEach(function (sub) {
       allSubsMap[sub] = true;
-      var numerator = substanceNumerator(fac, sub);
+      var mgDay = substanceNumeratorMgDay(fac, sub);
       Object.keys(facOutletHoods).forEach(function (key) {
         if (!outletWConcs[key]) outletWConcs[key] = {};
         if (!outletWConcs[key][sub]) outletWConcs[key][sub] = { sumWQ: 0, sumQ: 0 };
         facOutletHoods[key].forEach(function (hd) {
           if (hd.qs > 0 && opMin > 0) {
-            var hc = numerator / (opMin * hd.qs);
+            var hc = mgDay / (opMin * hd.qs); /* mg/S㎥ */
             outletWConcs[key][sub].sumWQ += hc * hd.q;
             outletWConcs[key][sub].sumQ  += hd.q;
           }
@@ -1667,7 +1797,7 @@ function renderSummaryTable(outlets, order, outletWConcs, subNames) {
   if (order.length === 0) return;
 
   /* 스택 셀 HTML: 풍량/표준풍량/온도/농도들을 세로로 쌓아서 표시 */
-  function makeStackCell(q, qs, temp, concMap) {
+  function makeStackCell(q, qs, temp, concMap, facForInfo) {
     var h = '<div class="sc">';
     h += '<div class="sc-row"><span class="sc-lbl">풍량:</span><span class="sc-val">' +
          fmt(q) + '<span class="u">㎥/min</span></span></div>';
@@ -1678,11 +1808,11 @@ function renderSummaryTable(outlets, order, outletWConcs, subNames) {
          '</span></div>';
     subNames.forEach(function (s) {
       var c = (concMap || {})[s];
-      h += '<div class="sc-row sc-conc"><span class="sc-lbl">' + escapeHtml(s) + ':</span><span class="sc-val">' +
-           (c !== null && c !== undefined
-             ? '<span class="conc-val">' + fmt(c) + '</span>'
-             : '<span class="conc-nd">—</span>') +
-           '</span></div>';
+      var info = (facForInfo) ? getSubstanceInfo(facForInfo, s) : null;
+      var valHtml = (c !== null && c !== undefined)
+        ? '<span class="conc-val">' + (info ? fmtConc(c, info) : fmt(c)) + '</span>'
+        : '<span class="conc-nd">—</span>';
+      h += '<div class="sc-row sc-conc"><span class="sc-lbl">' + escapeHtml(s) + ':</span><span class="sc-val">' + valHtml + '</span></div>';
     });
     h += '</div>';
     return h;
@@ -1722,7 +1852,7 @@ function renderSummaryTable(outlets, order, outletWConcs, subNames) {
       var wc = (outletWConcs[k] || {})[s];
       outletConcMap[s] = (wc && wc.sumQ > 0) ? wc.sumWQ / wc.sumQ : null;
     });
-    var outletDataHtml = makeStackCell(o.q, o.std, outletTemp, outletConcMap);
+    var outletDataHtml = makeStackCell(o.q, o.std, outletTemp, outletConcMap, null);
     var rowCount = Math.max(facs.length, 1);
 
     if (facs.length === 0) {
@@ -1751,22 +1881,22 @@ function renderSummaryTable(outlets, order, outletWConcs, subNames) {
       var facConcMap = {};
       subNames.forEach(function (s) {
         if (subs.indexOf(s) === -1) { facConcMap[s] = null; return; }
-        var numerator = substanceNumerator(fac, s);
-        if (numerator <= 0 || opMin <= 0) { facConcMap[s] = null; return; }
+        var mgDay = substanceNumeratorMgDay(fac, s);
+        if (mgDay <= 0 || opMin <= 0) { facConcMap[s] = null; return; }
         var conc = null;
         if (state.concMethod === "method1") {
-          if (facQs > 0) conc = numerator / (opMin * facQs);
+          if (facQs > 0) conc = mgDay / (opMin * facQs);
         } else {
           var sumWQ = 0, sumQc = 0;
           hoodsHere.forEach(function (h) {
             var qs = hoodQstd(h); var q = hoodQ(h);
-            if (qs > 0) { var hc = numerator / (opMin * qs); sumWQ += hc * q; sumQc += q; }
+            if (qs > 0) { var hc = mgDay / (opMin * qs); sumWQ += hc * q; sumQc += q; }
           });
           if (sumQc > 0) conc = sumWQ / sumQc;
         }
         facConcMap[s] = conc;
       });
-      var facDataHtml = makeStackCell(facQ, facQs, facTemp, facConcMap);
+      var facDataHtml = makeStackCell(facQ, facQs, facTemp, facConcMap, fac);
 
       var tr = document.createElement("tr");
       var html = '<td class="sdt-fac">' + escapeHtml(fac.name || '(이름 없음)') + '</td>';
