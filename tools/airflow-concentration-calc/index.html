@@ -789,7 +789,7 @@ function emptyEmission() {
     unit: "mg/S㎥", mw: "", genCalc: false };
 }
 function emptyItem() {
-  return { name: "", value: "", unit: "ton", emissions: [] };
+  return { name: "", value: "", unit: "ton", emissions: [emptyEmission()] };
 }
 function emptyFacility() { return { name: "", operatingHours: "", operatingDays: "", items: [emptyItem()], hoods: [emptyHood()] }; }
 
@@ -854,6 +854,9 @@ function load() {
   state.facilities.forEach(function (f) {
     if (f.hoods.length === 0) f.hoods.push(emptyHood());
     if (f.items.length === 0) f.items.push(emptyItem());
+    f.items.forEach(function (it) {
+      if (!Array.isArray(it.emissions) || it.emissions.length === 0) it.emissions = [emptyEmission()];
+    });
   });
 }
 
@@ -1227,12 +1230,15 @@ function renderItemGroup(fac, label) {
       var er = document.createElement("div");
       er.className = "emis-row";
       var es = mkInput("e-sub", em.substance, "배출물질 (예: 먼지)", function (v) { em.substance = v; save(); });
+      es.dataset.guide = "5";
       es.addEventListener("change", function () {
         if (shouldAutoGenCalc(em.substance) && !em.genCalc) { em.genCalc = true; save(); }
         renderFacilities();
       });
       er.appendChild(es);
-      er.appendChild(mkInput("e-coef", em.coefficient, "배출계수", function (v) { em.coefficient = v; save(); recalc(); }));
+      var eCoef = mkInput("e-coef", em.coefficient, "배출계수", function (v) { em.coefficient = v; save(); recalc(); });
+      eCoef.dataset.guide = "6";
+      er.appendChild(eCoef);
       /* 배출계수 단위: [분자] / [분모] */
       var efNumSel = document.createElement("select"); efNumSel.className = "e-ef-num";
       ["kg", "g", "mg"].forEach(function (u) {
@@ -1266,6 +1272,7 @@ function renderItemGroup(fac, label) {
       /* 오염물질발생량산정 토글 버튼 */
       var gcBtn = document.createElement("button");
       gcBtn.type = "button";
+      gcBtn.dataset.guide = "7";
       gcBtn.className = "btn xs e-gencalc-btn" + (em.genCalc ? " active" : "");
       gcBtn.textContent = em.genCalc ? "오염물질발생량산정 ✓" : "오염물질발생량산정";
       gcBtn.title = "오염물질 발생량 산정에 포함";
@@ -1276,14 +1283,19 @@ function renderItemGroup(fac, label) {
         save(); recalc();
       });
       er.appendChild(gcBtn);
-      var ed = document.createElement("button");
-      ed.className = "del-btn sm"; ed.type = "button"; ed.textContent = "×"; ed.title = "배출물질 삭제";
-      ed.addEventListener("click", (function(idx) { return function () {
-        showConfirm({ message: "배출물질을 삭제하시겠습니까?", skippable: true, onConfirm: function () {
-          m.emissions.splice(idx, 1); save(); renderFacilities();
-        } });
-      }; })(ei));
-      er.appendChild(ed);
+      /* 배출물질 삭제 — 마지막 1개는 삭제 불가 */
+      if (m.emissions.length > 1) {
+        var ed = document.createElement("button");
+        ed.className = "del-btn sm"; ed.type = "button"; ed.textContent = "×"; ed.title = "배출물질 삭제";
+        ed.addEventListener("click", (function(idx) { return function () {
+          showConfirm({ message: "배출물질을 삭제하시겠습니까?", skippable: true, onConfirm: function () {
+            m.emissions.splice(idx, 1);
+            if (m.emissions.length === 0) m.emissions.push(emptyEmission());
+            save(); renderFacilities();
+          } });
+        }; })(ei));
+        er.appendChild(ed);
+      }
       ew.appendChild(er);
     });
     var ea = document.createElement("button");
@@ -1336,7 +1348,7 @@ function renderHood(fac, fi, h, hi, facRef) {
   var outIn = document.createElement("input");
   outIn.type = "text"; outIn.className = "outlet-in";
   outIn.placeholder = "예: 배출구-1"; outIn.value = h.outlet;
-  outIn.dataset.guide = "5";
+  outIn.dataset.guide = "8";
   outIn.addEventListener("input", function () { h.outlet = outIn.value; save(); recalc(); });
   fOut.appendChild(outIn);
   row.appendChild(fOut);
@@ -1348,7 +1360,7 @@ function renderHood(fac, fi, h, hi, facRef) {
   var tIn = document.createElement("input");
   tIn.type = "number"; tIn.className = "temp-in"; tIn.step = "any"; tIn.placeholder = "0";
   tIn.value = h.t;
-  tIn.dataset.guide = "6";
+  tIn.dataset.guide = "9";
   tIn.addEventListener("input", function () { h.t = tIn.value; save(); recalc(); });
   fT.appendChild(tIn);
   row.appendChild(fT);
@@ -1359,7 +1371,7 @@ function renderHood(fac, fi, h, hi, facRef) {
   fShape.innerHTML = '<label>후드 형태</label>';
   var sel = document.createElement("select");
   sel.className = "shape-sel";
-  sel.dataset.guide = "7";
+  sel.dataset.guide = "10";
   SHAPES.forEach(function (s) {
     var o = document.createElement("option");
     o.value = s.id; o.textContent = s.label;
@@ -2089,13 +2101,19 @@ var GUIDE_STEPS = [
     getTarget: function() { return document.querySelector(".fac-opdays input"); } },
   { label: "④ 원료/연료명",      desc: "원료 또는 연료의 이름을 입력하세요. (예: 석회석, LNG)",
     getTarget: function() { return document.querySelector(".m-name"); } },
-  { label: "⑤ 사용량",           desc: "사용량과 단위(ton/kg/g/㎥)를 입력하고, 배출물질·배출계수·단위(예: kg/ton)를 추가하세요.",
+  { label: "⑤ 사용량",           desc: "사용량과 단위(ton/kg/g/㎥)를 입력하세요. (사용량은 일일 기준)",
     getTarget: function() { return document.querySelector(".m-val"); } },
-  { label: "⑥ 배출구",           desc: "각 후드가 연결될 배출구를 입력하세요. (예: 배출구-1)",
+  { label: "⑥ 배출물질",         desc: "배출물질 이름을 입력하세요. 먼지·NO2·SO2·질소산화물·황산화물·삭스·녹스 키워드는 발생량산정이 자동 체크됩니다.",
+    getTarget: function() { return document.querySelector(".e-sub"); } },
+  { label: "⑦ 배출계수",         desc: "배출계수 값과 단위(분자/분모, 예: kg/ton 또는 g/㎥)를 입력하세요.",
+    getTarget: function() { return document.querySelector(".e-coef"); } },
+  { label: "⑧ 오염물질발생량산정", desc: "이 배출물질을 연간 발생량 합계(톤/년)에 포함할지 토글합니다. 자동 체크되지 않은 경우 직접 클릭하세요.",
+    getTarget: function() { return document.querySelector(".e-gencalc-btn"); } },
+  { label: "⑨ 배출구",           desc: "각 후드가 연결될 배출구를 입력하세요. (예: 배출구-1)",
     getTarget: function() { return document.querySelector(".outlet-in"); } },
-  { label: "⑦ 온도",             desc: "배출가스 온도(℃)를 입력하세요. 표준풍량(Qs) 환산에 사용됩니다.",
+  { label: "⑩ 온도",             desc: "배출가스 온도(℃)를 입력하세요. 표준풍량(Qs) 환산에 사용됩니다.",
     getTarget: function() { return document.querySelector(".temp-in"); } },
-  { label: "⑧ 후드 형태 선택",   desc: "오염원에 맞는 후드 형태를 선택하세요. 형태마다 필요한 치수가 달라집니다.",
+  { label: "⑪ 후드 형태 선택",   desc: "오염원에 맞는 후드 형태를 선택하세요. 형태마다 필요한 치수가 달라집니다.",
     getTarget: function() { return document.querySelector(".shape-sel"); } }
 ];
 
