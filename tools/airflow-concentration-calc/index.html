@@ -270,6 +270,7 @@
 
   /* ── 치수 입력 ── */
   .fld .dim-in { min-width: 44px; }
+  .src-shape-btns { display: flex; gap: 4px; }
 
   /* ── 풍량 표시 (우측) ── */
   .hood .qbox {
@@ -622,7 +623,7 @@ var state = {
   refCollapsed: true
 };
 
-function emptyHood() { return { shape: "slot", dims: {}, v: "", vUnit: "ms", t: "", outlet: "", pollutants: {} }; }
+function emptyHood() { return { shape: "slot", dims: {}, srcShape: "rect", v: "", vUnit: "ms", t: "", outlet: "", pollutants: {} }; }
 function emptyEmission() { return { substance: "", coefficient: "", phase: "가스상" }; }
 function emptyMat() { return { name: "", value: "", unit: "", emissions: [] }; }
 function emptyFacility() { return { name: "", operatingHours: "", materials: [], fuels: [], hoods: [emptyHood()] }; }
@@ -657,6 +658,7 @@ function load() {
               materials: normMats(f.materials), fuels: normMats(f.fuels),
               hoods: (Array.isArray(f.hoods) ? f.hoods : []).map(function (h) {
                 return { shape: shapeById(h.shape).id, dims: (h.dims && typeof h.dims === "object") ? h.dims : {},
+                  srcShape: h.srcShape === "circ" ? "circ" : "rect",
                   v: h.v || "", vUnit: h.vUnit === "mm" ? "mm" : "ms", t: h.t || "", outlet: h.outlet || "",
                   pollutants: (h.pollutants && typeof h.pollutants === "object") ? h.pollutants : {} };
               })
@@ -687,7 +689,15 @@ function hoodQ(h) {
   var sh = shapeById(h.shape);
   var vMin = num(h.v) * (h.vUnit === "ms" ? 60 : 1);
   var d = {};
-  sh.dims.forEach(function (k) { d[k] = num(h.dims[k]); });
+  sh.dims.forEach(function (k) {
+    if (k === "P") {
+      d.P = (h.srcShape === "circ")
+        ? Math.PI * num(h.dims.P_D)
+        : 2 * (num(h.dims.P_W) + num(h.dims.P_H));
+    } else {
+      d[k] = num(h.dims[k]);
+    }
+  });
   var q = sh.calc(d, vMin);
   return isFinite(q) && q > 0 ? q : 0;
 }
@@ -980,6 +990,46 @@ function renderHood(fac, fi, h, hi, facRef) {
 
   /* 치수 입력 */
   sh.dims.forEach(function (k) {
+    if (k === "P") {
+      /* 오염원 형태 선택 (사각/원) */
+      if (!h.srcShape) h.srcShape = "rect";
+      var fSrc = document.createElement("div");
+      fSrc.className = "fld";
+      var srcLab = document.createElement("label"); srcLab.textContent = "오염원 형태";
+      var srcBtns = document.createElement("div"); srcBtns.className = "src-shape-btns";
+      ["rect", "circ"].forEach(function (ss) {
+        var btn = document.createElement("button");
+        btn.type = "button";
+        btn.className = "btn xs" + (h.srcShape === ss ? " accent" : "");
+        btn.textContent = ss === "rect" ? "사각" : "원";
+        btn.addEventListener("click", function () {
+          h.srcShape = ss;
+          delete h.dims.P_W; delete h.dims.P_H; delete h.dims.P_D;
+          save(); renderFacilities();
+        });
+        srcBtns.appendChild(btn);
+      });
+      fSrc.appendChild(srcLab); fSrc.appendChild(srcBtns);
+      row.appendChild(fSrc);
+
+      /* 형태별 치수 입력 */
+      var subKeys = h.srcShape === "circ"
+        ? [{ key: "P_D", label: "직경 (m)" }]
+        : [{ key: "P_W", label: "가로 (m)" }, { key: "P_H", label: "세로 (m)" }];
+      subKeys.forEach(function (sd) {
+        var sf = document.createElement("div"); sf.className = "fld";
+        var slab = document.createElement("label"); slab.textContent = sd.label;
+        var sinp = document.createElement("input");
+        sinp.type = "number"; sinp.className = "dim-in"; sinp.min = "0"; sinp.step = "0.1"; sinp.placeholder = "0";
+        sinp.value = h.dims[sd.key] != null ? h.dims[sd.key] : "";
+        sinp.dataset.guide = "6";
+        sinp.addEventListener("input", function () { h.dims[sd.key] = sinp.value; save(); recalc(); });
+        sf.appendChild(slab); sf.appendChild(sinp);
+        row.appendChild(sf);
+      });
+      return;
+    }
+    /* 일반 치수 */
     var f = document.createElement("div");
     f.className = "fld";
     var lab = document.createElement("label");
@@ -1281,7 +1331,8 @@ function renderFormulaList() {
   var html = "";
   SHAPES.forEach(function (s) { html += '<b>' + s.label + '</b> &nbsp;<code>' + s.formula + '</code><br>'; });
   html += '<br>V 는 포착속도, 산정식에는 <b>m/min</b> 단위로 환산해 대입합니다 (m/s 입력 시 ×60 자동 변환). ' +
-          'Q 는 배출가스량(풍량), 단위 <b>㎥/min</b>. L·W·X·H·P·D 는 모두 <b>m</b> 단위. A 는 후드 개구면적(㎡).' +
+          'Q 는 배출가스량(풍량), 단위 <b>㎥/min</b>. L·W·X·H·D 는 모두 <b>m</b> 단위. A 는 후드 개구면적(㎡).' +
+          '<br><b>오염원둘레 P</b> — 사각 오염원: <code>P = 2×(가로+세로)</code>, 원형 오염원: <code>P = π×직경</code>' +
           '<br><b>표준풍량</b> &nbsp;<code>Qs = Q × 273 / (273 + T)</code> &nbsp;— 온도 T(℃) 기준 0℃ 표준상태 환산, 단위 <b>S㎥/min</b>.' +
           '<br><b>배출구</b> — 후드별로 배출시설→방지시설 경로를 구분합니다. ' +
           '<br><b>오염물질 농도</b> &nbsp;<code>농도 = Σ(원료·연료 사용량 × 배출계수) ÷ (가동시간 × 60 × 표준풍량)</code>';
