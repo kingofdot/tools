@@ -2177,15 +2177,30 @@ function bind() {
 }
 
 /* ── 시작 ── */
-load();
-document.getElementById("decimalsSel").value = String(state.decimals);
-bind();
-initMethodSel();
-renderFacilities();
-renderFormulaList();
-renderRef();
-if (guideIsEnabled()) showGuide();
-else document.getElementById("guideToggleBtn").textContent = "💡 입력 안내";
+try {
+  load();
+} catch (err) {
+  console.error("load() failed, resetting state:", err);
+  try { localStorage.removeItem(STORAGE_KEY); } catch (e2) {}
+  state.facilities = [emptyFacility()];
+}
+try {
+  document.getElementById("decimalsSel").value = String(state.decimals);
+  bind();
+  initMethodSel();
+  renderFacilities();
+  renderFormulaList();
+  renderRef();
+  if (guideIsEnabled()) showGuide();
+  else document.getElementById("guideToggleBtn").textContent = "💡 입력 안내";
+} catch (err) {
+  console.error("Init failed:", err, err && err.stack);
+  document.body.insertAdjacentHTML("afterbegin",
+    '<div style="padding:14px 18px;margin:12px;background:#fef2f2;border:1px solid #fecaca;border-radius:8px;color:#991b1b;font-family:sans-serif;font-size:13px;line-height:1.6">'
+    + '<b>초기화 오류</b><br>' + escapeHtml(String((err && err.message) || err))
+    + '<br><small style="color:#7f1d1d">저장된 데이터가 손상되었을 수 있습니다. 콘솔에서 <code>localStorage.removeItem("' + STORAGE_KEY + '")</code> 후 새로고침해 보세요.</small>'
+    + '</div>');
+}
 </script>
 
 <div id="gencalcPopup"></div>
