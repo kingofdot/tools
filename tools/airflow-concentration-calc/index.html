@@ -270,7 +270,7 @@
 
   /* ── 치수 입력 ── */
   .fld .dim-in { min-width: 44px; }
-  .src-shape-btns { display: flex; gap: 4px; }
+
 
   /* ── 풍량 표시 (우측) ── */
   .hood .qbox {
@@ -995,21 +995,20 @@ function renderHood(fac, fi, h, hi, facRef) {
       if (!h.srcShape) h.srcShape = "rect";
       var fSrc = document.createElement("div");
       fSrc.className = "fld";
-      var srcLab = document.createElement("label"); srcLab.textContent = "오염원 형태";
-      var srcBtns = document.createElement("div"); srcBtns.className = "src-shape-btns";
-      ["rect", "circ"].forEach(function (ss) {
-        var btn = document.createElement("button");
-        btn.type = "button";
-        btn.className = "btn xs" + (h.srcShape === ss ? " accent" : "");
-        btn.textContent = ss === "rect" ? "사각" : "원";
-        btn.addEventListener("click", function () {
-          h.srcShape = ss;
-          delete h.dims.P_W; delete h.dims.P_H; delete h.dims.P_D;
-          save(); renderFacilities();
-        });
-        srcBtns.appendChild(btn);
+      var srcLab = document.createElement("label"); srcLab.textContent = "모양";
+      var srcSel = document.createElement("select");
+      [["rect", "사각"], ["circ", "원"]].forEach(function (opt) {
+        var o = document.createElement("option");
+        o.value = opt[0]; o.textContent = opt[1];
+        if (opt[0] === h.srcShape) o.selected = true;
+        srcSel.appendChild(o);
       });
-      fSrc.appendChild(srcLab); fSrc.appendChild(srcBtns);
+      srcSel.addEventListener("change", function () {
+        h.srcShape = srcSel.value;
+        delete h.dims.P_W; delete h.dims.P_H; delete h.dims.P_D;
+        save(); renderFacilities();
+      });
+      fSrc.appendChild(srcLab); fSrc.appendChild(srcSel);
       row.appendChild(fSrc);
 
       /* 형태별 치수 입력 */
