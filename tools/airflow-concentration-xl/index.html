@@ -514,7 +514,10 @@ function renderBody() {
       /* 액션 */
       var actHtml = '<button class="btn xs" data-act="hood-add">+ 후드</button>';
       if (nH > 1) actHtml += '<button class="btn xs danger" data-act="hood-del">×</button>';
-      if (hi === 0) actHtml += '<button class="btn xs danger" data-act="fac-del">× 시설</button>';
+      if (hi === 0) {
+        actHtml += '<button class="btn xs" data-act="fac-copy" title="배출시설 복사">⎘</button>';
+        actHtml += '<button class="btn xs danger" data-act="fac-del">× 시설</button>';
+      }
       html += '<td class="act">' + actHtml + '</td>';
       tr.innerHTML = html;
       body.appendChild(tr);
@@ -616,6 +619,11 @@ function bindRowEvents() {
       if (!confirm("배출시설을 삭제하시겠습니까?")) return;
       state.facilities.splice(fi, 1);
       if (state.facilities.length === 0) state.facilities.push(emptyFacility());
+      save(); renderBody();
+    } else if (btn.dataset.act === "fac-copy") {
+      var clone = JSON.parse(JSON.stringify(fac));
+      clone.name = (clone.name || "") + " (복사본)";
+      state.facilities.splice(fi + 1, 0, clone);
       save(); renderBody();
     }
   });
