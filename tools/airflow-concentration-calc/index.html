@@ -276,21 +276,50 @@
   .fac-opdays label { font-size: 11px; color: var(--text-dim); font-weight: 600; }
   .fac-opdays input { width: 60px; }
   .fac-opdays .u { font-size: 10.5px; color: var(--muted); }
-  /* 먼지발생량 박스 */
+  /* 오염물질발생량 박스 */
   .fac-dust-box {
     display: flex; flex-direction: column; gap: 2px;
     background: var(--surface-2); border: 1px solid var(--border);
     border-radius: 7px; padding: 5px 10px; min-width: 96px;
+    cursor: pointer; user-select: none; transition: .12s;
   }
+  .fac-dust-box:hover { border-color: var(--success); background: var(--success-bg); }
   .fac-dust-lbl { font-size: 10px; color: var(--text-dim); font-weight: 700; margin-bottom: 1px; }
   .fac-dust-line { display: flex; gap: 5px; align-items: baseline; white-space: nowrap; font-size: 11px; }
-  .fac-dust-line .dl-sub { color: var(--text-dim); font-size: 10px; min-width: 28px; }
   .fac-dust-line .dl-val { font-weight: 700; color: var(--success); font-variant-numeric: tabular-nums; }
+  .fac-dust-line .dl-unit { font-size: 10px; color: var(--muted); font-weight: 400; }
   .fac-dust-line .dl-nd { color: var(--muted); font-weight: 400; }
   /* 발생량 합계 */
   .dust-grand { font-size: 22px; font-weight: 700; color: var(--success-2); font-variant-numeric: tabular-nums; padding: 8px 2px; }
   .dust-grand .u { font-size: 13px; color: var(--muted); font-weight: 500; margin-left: 4px; }
-  .fac-dust-line .dl-unit { font-size: 10px; color: var(--muted); font-weight: 400; }
+  /* 산출식 팝업 */
+  #gencalcPopup {
+    display: none; position: absolute; z-index: 9999;
+    background: var(--surface); border: 1px solid var(--border-2);
+    border-radius: 10px; padding: 14px 16px; min-width: 320px; max-width: 520px;
+    box-shadow: 0 4px 24px rgba(15,23,42,.14); font-size: 12px;
+  }
+  .gcp-title {
+    font-size: 12px; font-weight: 700; color: var(--text); margin-bottom: 10px;
+    padding-bottom: 7px; border-bottom: 1px solid var(--border);
+  }
+  .gcp-group { margin-bottom: 9px; }
+  .gcp-mat { font-size: 11px; font-weight: 700; color: var(--accent-2); margin-bottom: 4px; }
+  .gcp-mat .gcp-dim { font-weight: 400; color: var(--muted); font-size: 10.5px; margin-left: 4px; }
+  .gcp-row {
+    display: flex; align-items: baseline; gap: 6px;
+    padding: 2px 0 2px 10px; font-variant-numeric: tabular-nums;
+  }
+  .gcp-sub { color: var(--text-dim); font-size: 11px; min-width: 36px; flex-shrink: 0; }
+  .gcp-formula { color: var(--text); flex: 1; font-size: 11px; }
+  .gcp-eq { font-weight: 700; color: var(--success-2); white-space: nowrap; font-size: 11px; }
+  .gcp-total {
+    font-size: 13px; font-weight: 700; color: var(--success-2);
+    border-top: 1px solid var(--border); padding-top: 7px; margin-top: 4px;
+    font-variant-numeric: tabular-nums;
+  }
+  .gcp-total .u { font-size: 11px; color: var(--muted); font-weight: 400; margin-left: 3px; }
+  .gcp-empty { color: var(--muted); font-size: 11px; }
 
   /* ── 치수 입력 ── */
   .fld .dim-in { min-width: 44px; }
@@ -928,8 +957,11 @@ function renderFacilities() {
     var dustBox = document.createElement("div");
     dustBox.className = "fac-dust-box";
     var dustLbl = document.createElement("div");
-    dustLbl.className = "fac-dust-lbl"; dustLbl.textContent = "오염물질발생량";
+    dustLbl.className = "fac-dust-lbl"; dustLbl.textContent = "오염물질발생량 ▸";
     dustBox.appendChild(dustLbl);
+    dustBox.addEventListener("click", (function (f) {
+      return function (e) { showDustPopup(f, dustBox, e); };
+    })(fac));
     facRef.dustBox = dustBox;
 
     /* 위/아래 이동 버튼 */
@@ -1452,6 +1484,87 @@ function renderDustTotal(grandTotal) {
   box.innerHTML = '<div class="dust-grand">' + fmt(grandTotal) + '<span class="u"> 톤/년</span></div>';
 }
 
+/* ── 산출식 팝업 ── */
+function buildDustPopupHtml(fac) {
+  var opDays = num(fac.operatingDays);
+  var opHours = num(fac.operatingHours);
+  var grandTotal = 0;
+  var html = '<div class="gcp-title">산출식 · ' + escapeHtml(fac.name || '(이름 없음)') + '</div>';
+  var hasAny = false;
+
+  function renderGroup(kind, kindLabel) {
+    (fac[kind] || []).forEach(function (m) {
+      var usage = num(m.value);
+      var genEms = (m.emissions || []).filter(function (e) { return e.genCalc; });
+      if (!usage || genEms.length === 0) return;
+      html += '<div class="gcp-group">';
+      html += '<div class="gcp-mat">[' + kindLabel + '] ' + escapeHtml(m.name || '—') +
+              ' <span class="gcp-dim">사용량 ' + escapeHtml(m.value) + ' ' + escapeHtml(m.unit || '') + '</span></div>';
+      genEms.forEach(function (e) {
+        var coef = num(e.coefficient);
+        var v, formula;
+        if (kind === "materials") {
+          v = usage * coef * opDays * 1e-3;
+          formula = escapeHtml(m.value) + ' × ' + escapeHtml(e.coefficient) + ' × ' + escapeHtml(fac.operatingDays || '?') + ' × 10⁻³';
+        } else {
+          v = coef * usage * opHours * opDays * 1e-6;
+          formula = escapeHtml(e.coefficient) + ' × ' + escapeHtml(m.value) + ' × ' + escapeHtml(fac.operatingHours || '?') + ' × ' + escapeHtml(fac.operatingDays || '?') + ' × 10⁻⁶';
+        }
+        grandTotal += v;
+        hasAny = true;
+        html += '<div class="gcp-row">' +
+          '<span class="gcp-sub">' + escapeHtml(e.substance || '—') + '</span>' +
+          '<span class="gcp-formula">' + formula + '</span>' +
+          '<span class="gcp-eq">= ' + fmt(v) + ' 톤/년</span>' +
+          '</div>';
+      });
+      html += '</div>';
+    });
+  }
+
+  renderGroup("materials", "원료");
+  renderGroup("fuels", "연료");
+
+  if (!hasAny) {
+    html += '<div class="gcp-empty">발생량산정 체크된 배출계수 항목이 없습니다.</div>';
+  } else {
+    html += '<div class="gcp-total">합계 ' + fmt(grandTotal) + '<span class="u"> 톤/년</span></div>';
+  }
+  return html;
+}
+
+(function () {
+  var popup = null;
+  function getPopup() { return popup || (popup = document.getElementById("gencalcPopup")); }
+
+  window.showDustPopup = function (fac, anchorEl, e) {
+    e.stopPropagation();
+    var p = getPopup();
+    p.innerHTML = buildDustPopupHtml(fac);
+    p.style.display = "block";
+    var rect = anchorEl.getBoundingClientRect();
+    var top = rect.bottom + window.scrollY + 6;
+    var left = rect.left + window.scrollX;
+    p.style.top = top + "px";
+    p.style.left = left + "px";
+    /* 화면 오른쪽 넘침 보정 */
+    requestAnimationFrame(function () {
+      var pr = p.getBoundingClientRect();
+      if (pr.right > window.innerWidth - 12) {
+        p.style.left = Math.max(8, window.innerWidth - pr.width - 12 + window.scrollX) + "px";
+      }
+    });
+  };
+
+  window.closeDustPopup = function () {
+    var p = getPopup();
+    if (p) p.style.display = "none";
+  };
+
+  document.addEventListener("click", function () { closeDustPopup(); });
+  document.addEventListener("keydown", function (e) { if (e.key === "Escape") closeDustPopup(); });
+})();
+
 /* ── 배출구별 집계 ── */
 function renderOutletSection(outlets, order, outletWConcs, subNames) {
   var box = document.getElementById("outletSection");
@@ -1944,5 +2057,7 @@ renderRef();
 if (guideIsEnabled()) showGuide();
 else document.getElementById("guideToggleBtn").textContent = "💡 입력 안내";
 </script>
+
+<div id="gencalcPopup"></div>
 </body>
 </html>
