@@ -567,7 +567,7 @@
   <div class="card">
     <div class="card-head">
       <h2>대기오염물질 발생량 합계</h2>
-      <span class="hint">먼지·NO₂·SO₂ 연간 발생량 합산 (톤/년) — 발생량 = 원료사용량 × 배출계수 × 연간가동일 × 10⁻³</span>
+      <span class="hint">먼지·NO₂·SO₂ 연간 발생량 합산 (톤/년) — 원료: 사용량(톤/일)×배출계수(kg/톤)×가동일×10⁻³ / 연료: 배출계수(g/㎥)×사용량(㎥/hr)×가동시간×가동일×10⁻⁶</span>
     </div>
     <div id="dustTotalSection"></div>
   </div>
@@ -837,6 +837,34 @@ function substanceNumerator(fac, subName) {
   });
   return sum;
 }
+/* 오염물질 발생량 (톤/년)
+   원료: 사용량(톤/일) × 배출계수(kg/톤) × 연간가동일 × 10⁻³
+   연료: 배출계수(g/㎥) × 사용량(㎥/hr) × 가동시간(hr/일) × 연간가동일 × 10⁻⁶ */
+function pollutantAmount(fac, subName) {
+  var opDays = num(fac.operatingDays);
+  var opHours = num(fac.operatingHours);
+  if (opDays <= 0) return 0;
+  var total = 0;
+  /* 원료 */
+  (fac.materials || []).forEach(function (m) {
+    var usage = num(m.value);
+    if (!usage) return;
+    (m.emissions || []).forEach(function (e) {
+      if ((e.substance || "").trim() === subName) total += usage * num(e.coefficient) * opDays * 1e-3;
+    });
+  });
+  /* 연료 */
+  if (opHours > 0) {
+    (fac.fuels || []).forEach(function (m) {
+      var usage = num(m.value);
+      if (!usage) return;
+      (m.emissions || []).forEach(function (e) {
+        if ((e.substance || "").trim() === subName) total += num(e.coefficient) * usage * opHours * opDays * 1e-6;
+      });
+    });
+  }
+  return total;
+}
 
 /* ── 런타임 참조 ── */
 var refs = [];
@@ -894,7 +922,7 @@ function renderFacilities() {
     var dustBox = document.createElement("div");
     dustBox.className = "fac-dust-box";
     var dustLbl = document.createElement("div");
-    dustLbl.className = "fac-dust-lbl"; dustLbl.textContent = "먼지발생량";
+    dustLbl.className = "fac-dust-lbl"; dustLbl.textContent = "오염물질발생량";
     dustBox.appendChild(dustLbl);
     facRef.dustBox = dustBox;
 
@@ -1378,17 +1406,15 @@ function recalc() {
   renderOutletSection(outlets, order, outletWConcs, subNames);
   renderSummaryTable(outlets, order, outletWConcs, subNames);
 
-  /* 먼지발생량 계산 (먼지·NO2·SO2) */
+  /* 오염물질 발생량 계산 (먼지·NO2·SO2) */
   var dustTotals = { "먼지": 0, "NO2": 0, "SO2": 0 };
   state.facilities.forEach(function (fac, fi) {
-    var opDays = num(fac.operatingDays);
     var facRef = refs[fi];
     var facDustMap = {};
     DUST_SUBS.forEach(function (s) {
-      var n = substanceNumerator(fac, s);
-      var v = (n > 0 && opDays > 0) ? n * opDays * 1e-3 : null;
-      facDustMap[s] = v;
-      if (v !== null) dustTotals[s] += v;
+      var v = pollutantAmount(fac, s);
+      facDustMap[s] = v > 0 ? v : null;
+      if (v > 0) dustTotals[s] += v;
     });
     if (facRef && facRef.dustBox) {
       /* 라벨 이후 기존 라인 제거 후 재구성 */
