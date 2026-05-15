@@ -290,17 +290,7 @@
   }
   .hood .qbox .u { font-size: 10px; color: var(--muted); font-weight: 500; margin-left: 2px; }
 
-  .fac-foot {
-    margin-top: 10px; padding-top: 10px; border-top: 1px dashed var(--border-2);
-    display: flex; align-items: center; gap: 10px;
-  }
-  .fac-foot .sub-lbl { font-size: 11px; color: var(--text-dim); font-weight: 600; }
-  .fac-foot .sub-val {
-    margin-left: auto; font-size: 13.5px; font-weight: 700; color: var(--text);
-    font-variant-numeric: tabular-nums;
-  }
-  .fac-foot .sub-val .u { font-size: 10px; color: var(--muted); font-weight: 500; margin-left: 2px; }
-  .fac-foot .sub-val .sep { color: var(--border-2); margin: 0 8px; }
+
 
   /* ── 배출구별 집계 ── */
   table.outlet-tbl { width: 100%; border-collapse: collapse; font-size: 12px; }
@@ -745,7 +735,7 @@ function renderFacilities() {
   refs = [];
 
   state.facilities.forEach(function (fac, fi) {
-    var facRef = { sub: null, hoods: [], outletConcWrap: null };
+    var facRef = { hoods: [], outletConcWrap: null };
     refs.push(facRef);
 
     var box = document.createElement("div");
@@ -835,26 +825,19 @@ function renderFacilities() {
     });
     box.appendChild(hoods);
 
-    /* 후드 추가 + 시설 소계 */
-    var foot = document.createElement("div");
-    foot.className = "fac-foot";
-    var addHood = document.createElement("button");
-    addHood.className = "btn success"; addHood.type = "button"; addHood.textContent = "+ 후드 추가";
-    addHood.addEventListener("click", function () { fac.hoods.push(emptyHood()); save(); renderFacilities(); });
-    var subLbl = document.createElement("span");
-    subLbl.className = "sub-lbl"; subLbl.textContent = "시설 소계";
-    var subVal = document.createElement("span");
-    subVal.className = "sub-val";
-    facRef.sub = subVal;
-    foot.appendChild(addHood); foot.appendChild(subLbl); foot.appendChild(subVal);
-    box.appendChild(foot);
-
     /* 배출구별 농도 (시설 내) */
     var ocWrap = document.createElement("div");
     ocWrap.className = "fac-outlet-concs";
     facRef.outletConcWrap = ocWrap;
     box.appendChild(ocWrap);
 
+    /* 후드 추가 (최하단) */
+    var addHood = document.createElement("button");
+    addHood.className = "btn success"; addHood.type = "button"; addHood.textContent = "+ 후드 추가";
+    addHood.style.marginTop = "10px";
+    addHood.addEventListener("click", function () { fac.hoods.push(emptyHood()); save(); renderFacilities(); });
+
+    box.appendChild(addHood);
     list.appendChild(box);
   });
 
@@ -1114,10 +1097,6 @@ function recalc() {
       outlets[key].std += qs;
       outlets[key].qt += q * num(h.t);
     });
-    if (facRef && facRef.sub) facRef.sub.innerHTML =
-      '풍량 ' + fmt(subtotal) + '<span class="u">㎥/min</span><span class="sep">|</span>표준 ' +
-      fmt(subStd) + '<span class="u">S㎥/min</span>';
-
     /* 시설 내 배출구별 농도 */
     if (facRef && facRef.outletConcWrap) {
       var opMin = num(fac.operatingHours) * 60;
