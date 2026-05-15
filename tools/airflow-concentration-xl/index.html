@@ -557,7 +557,7 @@ function renderBody() {
                 '<option value="circ"' + (h.srcShape === "circ" ? ' selected' : '') + '>원</option>' +
                 '</select></td>';
       } else {
-        html += '<td class="hood disabled">—</td>';
+        html += '<td class="hood disabled"></td>';
       }
       /* 제원 컬럼 — 보이는 키만 */
       var actDims = activeDimsFor(h);
