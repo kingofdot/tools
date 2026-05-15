@@ -314,6 +314,13 @@
     background: var(--accent-bg);
   }
   .outlet-empty { font-size: 11px; color: var(--muted); padding: 6px 2px; }
+  /* 일괄 집계표 */
+  table.outlet-tbl tr.sum-section td {
+    background: var(--surface-3); color: var(--text-dim);
+    font-size: 10.5px; font-weight: 700; text-align: left;
+    letter-spacing: 0.04em; text-transform: uppercase; padding: 5px 10px;
+    border-bottom: 2px solid var(--border-2);
+  }
   table.outlet-tbl th.conc-th {
     color: var(--accent-2); background: var(--accent-bg);
     white-space: nowrap;
@@ -487,9 +494,21 @@
     <div id="outletSection"></div>
   </div>
 
+  <!-- ── 일괄 집계표 ── -->
+  <div class="card">
+    <div class="card-head">
+      <h2>일괄 집계표</h2>
+      <span class="hint">배출시설·배출구 풍량·농도 종합</span>
+    </div>
+    <div id="summaryTable"></div>
+  </div>
+
   <!-- ── 산식 안내 ── -->
   <div class="card">
-    <div class="card-head"><h2>후드 형태별 산정식</h2></div>
+    <div class="card-head">
+      <h2>후드 형태별 산정식</h2>
+      <span class="collapse-toggle" id="formulaCollapse">펼치기 ▼</span>
+    </div>
     <div class="formula-note" id="formulaList"></div>
   </div>
 
@@ -627,7 +646,8 @@ var state = {
   decimals: 1,
   concMethod: "method2",
   facilities: [],
-  refCollapsed: true
+  refCollapsed: true,
+  formulaCollapsed: true
 };
 
 function emptyHood() { return { shape: "slot", dims: {}, srcShape: "rect", v: "", vUnit: "ms", t: "", outlet: "", pollutants: {} }; }
@@ -658,6 +678,7 @@ function load() {
         state.decimals = (isFinite(d) && d >= 0 && d <= 9) ? d : 1;
         state.concMethod = s.concMethod === "method1" ? "method1" : "method2";
         state.refCollapsed = s.refCollapsed !== false;
+        state.formulaCollapsed = s.formulaCollapsed !== false;
         if (Array.isArray(s.facilities)) {
           state.facilities = s.facilities.map(function (f) {
             return {
@@ -1265,6 +1286,7 @@ function recalc() {
   });
   var subNames = Object.keys(allSubsMap);
   renderOutletSection(outlets, order, outletWConcs, subNames);
+  renderSummaryTable(outlets, order, outletWConcs, subNames);
 }
 
 /* ── 배출구별 집계 ── */
@@ -1359,6 +1381,103 @@ function renderOutletSection(outlets, order, outletWConcs, subNames) {
   }
 }
 
+/* ── 일괄 집계표 ── */
+function renderSummaryTable(outlets, order, outletWConcs, subNames) {
+  var box = document.getElementById("summaryTable");
+  box.innerHTML = "";
+  outletWConcs = outletWConcs || {};
+  subNames = subNames || [];
+  var cols = 2 + 3 + subNames.length; /* 구분+이름+Q+Qs+T+농도들 */
+
+  var tbl = document.createElement("table");
+  tbl.className = "outlet-tbl";
+
+  /* 헤더 */
+  var hh = '<thead><tr><th style="text-align:left">구분</th><th style="text-align:left">이름</th>' +
+    '<th>풍량</th><th>표준풍량</th><th>온도</th>';
+  subNames.forEach(function (s) { hh += '<th class="conc-th">' + escapeHtml(s) + ' 농도</th>'; });
+  hh += '</tr></thead>';
+  tbl.innerHTML = hh;
+
+  var tbody = document.createElement("tbody");
+
+  function concTd(c) {
+    return '<td class="conc-td">' + (c !== null && c !== undefined
+      ? '<span class="conc-val">' + fmt(c) + '</span>'
+      : '<span class="conc-nd">—</span>') + '</td>';
+  }
+  function qTd(v, u) {
+    return '<td>' + fmt(v) + '<span class="u">' + u + '</span></td>';
+  }
+  function sectionRow(label) {
+    var tr = document.createElement("tr"); tr.className = "sum-section";
+    var td = document.createElement("td"); td.colSpan = cols; td.textContent = label;
+    tr.appendChild(td); return tr;
+  }
+
+  /* ─ 배출시설별 ─ */
+  tbody.appendChild(sectionRow("배출시설별"));
+  state.facilities.forEach(function (fac) {
+    var totalQ = 0, totalQs = 0, sumQT = 0;
+    fac.hoods.forEach(function (h) {
+      var q = hoodQ(h); var qs = hoodQstd(h);
+      totalQ += q; totalQs += qs; sumQT += q * num(h.t);
+    });
+    var temp = totalQ > 0 ? sumQT / totalQ : null;
+    var opMin = num(fac.operatingHours) * 60;
+
+    var html = '<td style="text-align:left;color:var(--text-dim);font-size:10.5px">배출시설</td>';
+    html += '<td style="text-align:left;font-weight:600">' + escapeHtml(fac.name || '(이름 없음)') + '</td>';
+    html += qTd(totalQ, '㎥/min') + qTd(totalQs, 'S㎥/min');
+    html += '<td>' + (temp !== null ? fmt(temp) + '<span class="u">℃</span>' : '—') + '</td>';
+    subNames.forEach(function (s) {
+      var subs = collectSubstances(fac);
+      var numerator = substanceNumerator(fac, s);
+      var conc = null;
+      if (subs.indexOf(s) === -1) { html += concTd(null); return; }
+      if (state.concMethod === "method1") {
+        if (numerator > 0 && opMin > 0 && totalQs > 0) conc = numerator / (opMin * totalQs);
+      } else {
+        var sumWQ = 0, sumQc = 0;
+        fac.hoods.forEach(function (h) {
+          var qs = hoodQstd(h); var q = hoodQ(h);
+          if (qs > 0 && opMin > 0) { var hc = numerator / (opMin * qs); sumWQ += hc * q; sumQc += q; }
+        });
+        if (sumQc > 0) conc = sumWQ / sumQc;
+      }
+      html += concTd(conc);
+    });
+    var tr = document.createElement("tr"); tr.innerHTML = html; tbody.appendChild(tr);
+  });
+
+  /* ─ 배출구별 ─ */
+  if (order.length > 0) {
+    tbody.appendChild(sectionRow("배출구별"));
+    order.forEach(function (k) {
+      var o = outlets[k];
+      var temp = o.q > 0 ? o.qt / o.q : null;
+      var html = '<td style="text-align:left;color:var(--text-dim);font-size:10.5px">배출구</td>';
+      html += '<td style="text-align:left;font-weight:600">' + escapeHtml(k) + '</td>';
+      html += qTd(o.q, '㎥/min') + qTd(o.std, 'S㎥/min');
+      html += '<td>' + (temp !== null ? fmt(temp) + '<span class="u">℃</span>' : '—') + '</td>';
+      subNames.forEach(function (s) {
+        var wc = (outletWConcs[k] || {})[s];
+        html += concTd(wc && wc.sumQ > 0 ? wc.sumWQ / wc.sumQ : null);
+      });
+      var tr = document.createElement("tr"); tr.innerHTML = html; tbody.appendChild(tr);
+    });
+  }
+
+  tbl.appendChild(tbody);
+  box.appendChild(tbl);
+  if (subNames.length > 0) {
+    var note = document.createElement("div");
+    note.style.cssText = "font-size:10.5px;color:var(--muted);margin-top:7px;";
+    note.textContent = "농도 단위는 배출계수 단위에 따라 결정됩니다.";
+    box.appendChild(note);
+  }
+}
+
 /* ── 산식 안내 ── */
 function renderFormulaList() {
   var box = document.getElementById("formulaList");
@@ -1371,6 +1490,8 @@ function renderFormulaList() {
           '<br><b>배출구</b> — 후드별로 배출시설→방지시설 경로를 구분합니다. ' +
           '<br><b>오염물질 농도</b> &nbsp;<code>농도 = Σ(원료·연료 사용량 × 배출계수) ÷ (가동시간 × 60 × 표준풍량)</code>';
   box.innerHTML = html;
+  box.classList.toggle("hidden", state.formulaCollapsed);
+  document.getElementById("formulaCollapse").textContent = state.formulaCollapsed ? "펼치기 ▼" : "접기 ▲";
 }
 
 /* ── 포착속도 참고표 ── */
@@ -1581,6 +1702,9 @@ function bind() {
   });
   document.getElementById("refCollapse").addEventListener("click", function () {
     state.refCollapsed = !state.refCollapsed; save(); renderRef();
+  });
+  document.getElementById("formulaCollapse").addEventListener("click", function () {
+    state.formulaCollapsed = !state.formulaCollapsed; save(); renderFormulaList();
   });
   document.getElementById("guideToggleBtn").addEventListener("click", function () {
     if (guideIsEnabled()) hideGuide(); else { guideStep = 0; showGuide(); }
