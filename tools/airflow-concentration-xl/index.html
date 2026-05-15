@@ -143,7 +143,13 @@
   table.xl thead th.w-temp,   table.xl tbody td.w-temp   { width: 50px; min-width: 50px; max-width: 50px; padding-left: 3px; padding-right: 3px; }
   table.xl tbody td.w-outlet input,
   table.xl tbody td.w-temp input { padding-left: 3px; padding-right: 3px; font-size: 11px; min-width: 0; }
-  table.xl .w-shape { min-width: 100px; }
+  table.xl thead th.w-shape, table.xl tbody td.w-shape {
+    width: 124px; min-width: 124px; max-width: 124px;
+  }
+  table.xl tbody td.w-shape select {
+    white-space: nowrap; text-overflow: ellipsis; overflow: hidden;
+    padding-right: 18px;
+  }
   table.xl .w-mode { min-width: 60px; }
   table.xl .w-dim { min-width: 60px; }
   table.xl .w-act { min-width: 54px; }
@@ -537,7 +543,7 @@ function renderBody() {
       html += '<td class="hood w-outlet"><input type="text" data-h="outlet" placeholder="배1" value="' + escapeHtml(h.outlet) + '"></td>';
       html += '<td class="hood w-temp"><input type="number" data-h="t" step="any" placeholder="20" value="' + escapeHtml(h.t) + '"></td>';
       /* 후드형태 */
-      html += '<td class="hood"><select data-h="shape">';
+      html += '<td class="hood w-shape"><select data-h="shape">';
       SHAPES.forEach(function (s) {
         html += '<option value="' + s.id + '"' + (s.id === h.shape ? ' selected' : '') + '>' + escapeHtml(s.label) + '</option>';
       });
