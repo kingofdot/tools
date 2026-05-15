@@ -197,7 +197,7 @@
     text-align: center;
   }
   .fld input { width: 84px; }
-  .fld .shape-sel { width: 84px; }
+  .fld .shape-sel { width: auto; max-width: 160px; }
   .fld .outlet-in { width: 41px; }
   .fld .temp-in { width: 42px; }
   .fld .v-wrap { display: flex; gap: 4px; }
@@ -216,18 +216,8 @@
   .fac-ophours input { width: 72px; }
   .fac-ophours .u { font-size: 10.5px; color: var(--muted); }
 
-  /* ── 치수 스텝 버튼 ── */
-  .dim-step-wrap { display: flex; align-items: center; gap: 2px; }
-  .dim-step-wrap .dim-in { width: 50px; text-align: center; padding: 7px 4px; }
-  .step-btn {
-    width: 24px; height: 31px;
-    background: var(--surface-3); border: 1px solid var(--border-2);
-    border-radius: 5px; cursor: pointer; font-size: 15px; font-weight: 700;
-    color: var(--text-dim); line-height: 1; transition: .12s;
-    display: flex; align-items: center; justify-content: center; padding: 0;
-    flex-shrink: 0;
-  }
-  .step-btn:hover { background: var(--accent); border-color: var(--accent); color: #fff; }
+  /* ── 치수 입력 ── */
+  .fld .dim-in { width: 64px; }
 
   /* ── 풍량 표시 (우측) ── */
   .hood .qbox {
@@ -683,6 +673,7 @@ function renderFacilities() {
     nameIn.type = "text"; nameIn.className = "fac-name";
     nameIn.placeholder = "배출시설 번호·명 (예: 배-1 건조시설)";
     nameIn.value = fac.name;
+    nameIn.dataset.guide = "0";
     nameIn.addEventListener("input", function () { fac.name = nameIn.value; save(); });
 
     var opWrap = document.createElement("div");
@@ -691,6 +682,7 @@ function renderFacilities() {
     var opIn = document.createElement("input");
     opIn.type = "number"; opIn.min = "0"; opIn.step = "any"; opIn.placeholder = "0";
     opIn.value = fac.operatingHours || "";
+    opIn.dataset.guide = "1";
     opIn.addEventListener("input", function () { fac.operatingHours = opIn.value; save(); recalc(); });
     var opU = document.createElement("span"); opU.className = "u"; opU.textContent = "hr";
     opWrap.appendChild(opLab); opWrap.appendChild(opIn); opWrap.appendChild(opU);
@@ -742,8 +734,8 @@ function renderFacilities() {
     /* 원료·연료 */
     var mats = document.createElement("div");
     mats.className = "fac-mats";
-    mats.appendChild(renderMatGroup(fac, "materials", "원료"));
-    mats.appendChild(renderMatGroup(fac, "fuels", "연료"));
+    var mg1 = renderMatGroup(fac, "materials", "원료"); mg1.dataset.guide = "2"; mats.appendChild(mg1);
+    var mg2 = renderMatGroup(fac, "fuels", "연료");    mg2.dataset.guide = "3"; mats.appendChild(mg2);
     box.appendChild(mats);
 
     /* 후드 목록 */
@@ -886,6 +878,7 @@ function renderHood(fac, fi, h, hi, facRef) {
   var outIn = document.createElement("input");
   outIn.type = "text"; outIn.className = "outlet-in";
   outIn.placeholder = "예: 배출구-1"; outIn.value = h.outlet;
+  outIn.dataset.guide = "4";
   outIn.addEventListener("input", function () { h.outlet = outIn.value; save(); recalc(); });
   fOut.appendChild(outIn);
   row.appendChild(fOut);
@@ -896,6 +889,7 @@ function renderHood(fac, fi, h, hi, facRef) {
   fShape.innerHTML = '<label>후드 형태</label>';
   var sel = document.createElement("select");
   sel.className = "shape-sel";
+  sel.dataset.guide = "5";
   SHAPES.forEach(function (s) {
     var o = document.createElement("option");
     o.value = s.id; o.textContent = s.label;
@@ -906,42 +900,18 @@ function renderHood(fac, fi, h, hi, facRef) {
   fShape.appendChild(sel);
   row.appendChild(fShape);
 
-  /* 치수 입력 (+0.1 / -0.1 스텝 버튼) */
+  /* 치수 입력 */
   sh.dims.forEach(function (k) {
     var f = document.createElement("div");
     f.className = "fld";
     var lab = document.createElement("label");
     lab.textContent = DIM_LABEL[k];
-
-    var stepWrap = document.createElement("div");
-    stepWrap.className = "dim-step-wrap";
-
-    var btnM = document.createElement("button");
-    btnM.type = "button"; btnM.className = "step-btn"; btnM.textContent = "−";
-    btnM.title = "-0.1";
-
     var inp = document.createElement("input");
     inp.type = "number"; inp.className = "dim-in"; inp.min = "0"; inp.step = "0.1"; inp.placeholder = "0";
     inp.value = h.dims[k] != null ? h.dims[k] : "";
+    inp.dataset.guide = "6";
     inp.addEventListener("input", function () { h.dims[k] = inp.value; save(); recalc(); });
-
-    var btnP = document.createElement("button");
-    btnP.type = "button"; btnP.className = "step-btn"; btnP.textContent = "+";
-    btnP.title = "+0.1";
-
-    btnM.addEventListener("click", (function(key, input) { return function () {
-      var v = parseFloat(input.value) || 0;
-      var nv = Math.max(0, Math.round((v - 0.1) * 100) / 100);
-      input.value = nv; h.dims[key] = String(nv); save(); recalc();
-    }; })(k, inp));
-    btnP.addEventListener("click", (function(key, input) { return function () {
-      var v = parseFloat(input.value) || 0;
-      var nv = Math.round((v + 0.1) * 100) / 100;
-      input.value = nv; h.dims[key] = String(nv); save(); recalc();
-    }; })(k, inp));
-
-    stepWrap.appendChild(btnM); stepWrap.appendChild(inp); stepWrap.appendChild(btnP);
-    f.appendChild(lab); f.appendChild(stepWrap);
+    f.appendChild(lab); f.appendChild(inp);
     row.appendChild(f);
   });
 
@@ -1207,14 +1177,16 @@ function clearGuideHighlight() {
   var els = document.querySelectorAll(".guide-highlight");
   for (var i = 0; i < els.length; i++) els[i].classList.remove("guide-highlight");
 }
-function applyGuideStep(idx) {
+function applyGuideStep(idx, scroll) {
   clearGuideHighlight();
   guideStep = idx;
   var step = GUIDE_STEPS[idx];
   var target = step.getTarget();
   if (target) {
     target.classList.add("guide-highlight");
-    setTimeout(function() { target.scrollIntoView({ behavior: "smooth", block: "center" }); }, 80);
+    if (scroll !== false) {
+      setTimeout(function() { target.scrollIntoView({ behavior: "smooth", block: "center" }); }, 80);
+    }
   }
   document.getElementById("gStepLbl").textContent = step.label;
   document.getElementById("gStepDesc").textContent = step.desc;
@@ -1272,6 +1244,21 @@ function bind() {
     else hideGuide();
   });
   document.getElementById("gOff").addEventListener("click", hideGuide);
+
+  /* 포커스 이동 시 안내 자동 이동 */
+  document.addEventListener("focusin", function(e) {
+    if (!guideIsEnabled()) return;
+    var el = e.target;
+    var g = el.dataset && el.dataset.guide;
+    if (!g) {
+      var anc = el.closest && el.closest("[data-guide]");
+      if (anc) g = anc.dataset.guide;
+    }
+    if (g !== undefined && g !== "") {
+      var idx = parseInt(g, 10);
+      if (isFinite(idx) && idx !== guideStep) applyGuideStep(idx, false);
+    }
+  });
 }
 
 /* ── 시작 ── */
