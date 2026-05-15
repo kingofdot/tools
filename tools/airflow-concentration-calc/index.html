@@ -314,7 +314,7 @@
     background: var(--accent-bg);
   }
   .outlet-empty { font-size: 11px; color: var(--muted); padding: 6px 2px; }
-  /* 일괄 집계표 */
+  /* 배출구 집계표 기존 */
   table.outlet-tbl tr.sum-section td {
     background: var(--surface-3); color: var(--text-dim);
     font-size: 10.5px; font-weight: 700; text-align: left;
@@ -331,6 +331,48 @@
     font-variant-numeric: tabular-nums;
   }
   .conc-nd { color: var(--muted); }
+
+  /* ── 일괄 집계표 (문서형) ── */
+  table.summary-doc-tbl {
+    width: 100%; border-collapse: collapse; font-size: 12px;
+    border: 1.5px solid var(--border-2);
+  }
+  table.summary-doc-tbl th {
+    background: var(--surface-3); font-size: 11.5px; font-weight: 700;
+    color: var(--text); text-align: center; padding: 9px 12px;
+    border: 1px solid var(--border-2); white-space: nowrap;
+    letter-spacing: -0.01em;
+  }
+  table.summary-doc-tbl td {
+    border: 1px solid var(--border-2); padding: 0; vertical-align: middle;
+  }
+  table.summary-doc-tbl td.sdt-fac {
+    text-align: center; font-weight: 600; padding: 10px 12px;
+    color: var(--text); font-size: 12px; white-space: nowrap;
+  }
+  table.summary-doc-tbl td.sdt-out {
+    text-align: center; font-weight: 600; padding: 10px 12px;
+    color: var(--text); font-size: 12px; white-space: nowrap;
+    background: var(--surface-2);
+  }
+  table.summary-doc-tbl td.sdt-data { padding: 6px 10px; }
+  table.summary-doc-tbl td.sdt-nd { color: var(--muted); font-size: 11px; text-align: center; padding: 10px 12px; }
+  /* 스택 셀 */
+  .sc { display: flex; flex-direction: column; gap: 3px; }
+  .sc-row {
+    display: flex; align-items: baseline; gap: 6px;
+    font-variant-numeric: tabular-nums; font-size: 11.5px;
+    padding: 1px 0;
+  }
+  .sc-lbl {
+    color: var(--text-dim); font-size: 10.5px; white-space: nowrap;
+    min-width: 56px; flex-shrink: 0;
+  }
+  .sc-val { font-weight: 600; color: var(--text); }
+  .sc-val .u { font-size: 10px; color: var(--muted); font-weight: 500; margin-left: 2px; }
+  .sc-row.sc-conc .sc-lbl { color: var(--accent-2); }
+  .sc-row.sc-conc .sc-val { color: var(--accent-2); }
+  .sc-row.sc-conc .conc-nd { color: var(--muted); font-weight: 400; }
 
   /* ── 안내 / 참고 ── */
   .formula-note {
@@ -1381,92 +1423,128 @@ function renderOutletSection(outlets, order, outletWConcs, subNames) {
   }
 }
 
-/* ── 일괄 집계표 ── */
+/* ── 일괄 집계표 (문서형) ── */
 function renderSummaryTable(outlets, order, outletWConcs, subNames) {
   var box = document.getElementById("summaryTable");
   box.innerHTML = "";
   outletWConcs = outletWConcs || {};
   subNames = subNames || [];
-  var cols = 2 + 3 + subNames.length; /* 구분+이름+Q+Qs+T+농도들 */
+
+  if (order.length === 0) return;
+
+  /* 스택 셀 HTML: 풍량/표준풍량/온도/농도들을 세로로 쌓아서 표시 */
+  function makeStackCell(q, qs, temp, concMap) {
+    var h = '<div class="sc">';
+    h += '<div class="sc-row"><span class="sc-lbl">풍량:</span><span class="sc-val">' +
+         fmt(q) + '<span class="u">㎥/min</span></span></div>';
+    h += '<div class="sc-row"><span class="sc-lbl">표준풍량:</span><span class="sc-val">' +
+         fmt(qs) + '<span class="u">S㎥/min</span></span></div>';
+    h += '<div class="sc-row"><span class="sc-lbl">온도:</span><span class="sc-val">' +
+         (temp !== null ? fmt(temp) + '<span class="u">℃</span>' : '<span class="conc-nd">—</span>') +
+         '</span></div>';
+    subNames.forEach(function (s) {
+      var c = (concMap || {})[s];
+      h += '<div class="sc-row sc-conc"><span class="sc-lbl">' + escapeHtml(s) + ':</span><span class="sc-val">' +
+           (c !== null && c !== undefined
+             ? '<span class="conc-val">' + fmt(c) + '</span>'
+             : '<span class="conc-nd">—</span>') +
+           '</span></div>';
+    });
+    h += '</div>';
+    return h;
+  }
+
+  /* 배출구별 시설 목록 구성 (order 순서 유지) */
+  var outletFacMap = {};
+  order.forEach(function (k) { outletFacMap[k] = []; });
+  state.facilities.forEach(function (fac) {
+    var visited = {};
+    fac.hoods.forEach(function (h) {
+      var ok = (h.outlet || "").trim() || "(미지정)";
+      if (outletFacMap[ok] && !visited[ok]) {
+        visited[ok] = true;
+        outletFacMap[ok].push(fac);
+      }
+    });
+  });
 
   var tbl = document.createElement("table");
-  tbl.className = "outlet-tbl";
-
-  /* 헤더 */
-  var hh = '<thead><tr><th style="text-align:left">구분</th><th style="text-align:left">이름</th>' +
-    '<th>풍량</th><th>표준풍량</th><th>온도</th>';
-  subNames.forEach(function (s) { hh += '<th class="conc-th">' + escapeHtml(s) + ' 농도</th>'; });
-  hh += '</tr></thead>';
-  tbl.innerHTML = hh;
+  tbl.className = "outlet-tbl summary-doc-tbl";
+  tbl.innerHTML = '<thead><tr>' +
+    '<th>배출시설명</th><th>풍량 및 농도</th>' +
+    '<th>배출구</th><th>풍량 및 농도</th>' +
+    '</tr></thead>';
 
   var tbody = document.createElement("tbody");
 
-  function concTd(c) {
-    return '<td class="conc-td">' + (c !== null && c !== undefined
-      ? '<span class="conc-val">' + fmt(c) + '</span>'
-      : '<span class="conc-nd">—</span>') + '</td>';
-  }
-  function qTd(v, u) {
-    return '<td>' + fmt(v) + '<span class="u">' + u + '</span></td>';
-  }
-  function sectionRow(label) {
-    var tr = document.createElement("tr"); tr.className = "sum-section";
-    var td = document.createElement("td"); td.colSpan = cols; td.textContent = label;
-    tr.appendChild(td); return tr;
-  }
+  order.forEach(function (k) {
+    var facs = outletFacMap[k] || [];
+    var o = outlets[k];
+    var outletTemp = o.q > 0 ? o.qt / o.q : null;
 
-  /* ─ 배출시설별 ─ */
-  tbody.appendChild(sectionRow("배출시설별"));
-  state.facilities.forEach(function (fac) {
-    var totalQ = 0, totalQs = 0, sumQT = 0;
-    fac.hoods.forEach(function (h) {
-      var q = hoodQ(h); var qs = hoodQstd(h);
-      totalQ += q; totalQs += qs; sumQT += q * num(h.t);
-    });
-    var temp = totalQ > 0 ? sumQT / totalQ : null;
-    var opMin = num(fac.operatingHours) * 60;
-
-    var html = '<td style="text-align:left;color:var(--text-dim);font-size:10.5px">배출시설</td>';
-    html += '<td style="text-align:left;font-weight:600">' + escapeHtml(fac.name || '(이름 없음)') + '</td>';
-    html += qTd(totalQ, '㎥/min') + qTd(totalQs, 'S㎥/min');
-    html += '<td>' + (temp !== null ? fmt(temp) + '<span class="u">℃</span>' : '—') + '</td>';
+    /* 배출구 농도 맵 */
+    var outletConcMap = {};
     subNames.forEach(function (s) {
-      var subs = collectSubstances(fac);
-      var numerator = substanceNumerator(fac, s);
-      var conc = null;
-      if (subs.indexOf(s) === -1) { html += concTd(null); return; }
-      if (state.concMethod === "method1") {
-        if (numerator > 0 && opMin > 0 && totalQs > 0) conc = numerator / (opMin * totalQs);
-      } else {
-        var sumWQ = 0, sumQc = 0;
-        fac.hoods.forEach(function (h) {
-          var qs = hoodQstd(h); var q = hoodQ(h);
-          if (qs > 0 && opMin > 0) { var hc = numerator / (opMin * qs); sumWQ += hc * q; sumQc += q; }
-        });
-        if (sumQc > 0) conc = sumWQ / sumQc;
-      }
-      html += concTd(conc);
+      var wc = (outletWConcs[k] || {})[s];
+      outletConcMap[s] = (wc && wc.sumQ > 0) ? wc.sumWQ / wc.sumQ : null;
     });
-    var tr = document.createElement("tr"); tr.innerHTML = html; tbody.appendChild(tr);
-  });
+    var outletDataHtml = makeStackCell(o.q, o.std, outletTemp, outletConcMap);
+    var rowCount = Math.max(facs.length, 1);
 
-  /* ─ 배출구별 ─ */
-  if (order.length > 0) {
-    tbody.appendChild(sectionRow("배출구별"));
-    order.forEach(function (k) {
-      var o = outlets[k];
-      var temp = o.q > 0 ? o.qt / o.q : null;
-      var html = '<td style="text-align:left;color:var(--text-dim);font-size:10.5px">배출구</td>';
-      html += '<td style="text-align:left;font-weight:600">' + escapeHtml(k) + '</td>';
-      html += qTd(o.q, '㎥/min') + qTd(o.std, 'S㎥/min');
-      html += '<td>' + (temp !== null ? fmt(temp) + '<span class="u">℃</span>' : '—') + '</td>';
-      subNames.forEach(function (s) {
-        var wc = (outletWConcs[k] || {})[s];
-        html += concTd(wc && wc.sumQ > 0 ? wc.sumWQ / wc.sumQ : null);
+    if (facs.length === 0) {
+      var tr = document.createElement("tr");
+      tr.innerHTML = '<td class="sdt-fac sdt-nd">—</td><td class="sdt-data"></td>' +
+        '<td class="sdt-out">' + escapeHtml(k) + '</td>' +
+        '<td class="sdt-data">' + outletDataHtml + '</td>';
+      tbody.appendChild(tr);
+      return;
+    }
+
+    facs.forEach(function (fac, fi) {
+      /* 이 배출구로 연결된 후드들만 필터 */
+      var hoodsHere = fac.hoods.filter(function (h) {
+        return ((h.outlet || "").trim() || "(미지정)") === k;
       });
-      var tr = document.createElement("tr"); tr.innerHTML = html; tbody.appendChild(tr);
+      var facQ = 0, facQs = 0, sumQT = 0;
+      hoodsHere.forEach(function (h) {
+        var q = hoodQ(h); var qs = hoodQstd(h);
+        facQ += q; facQs += qs; sumQT += q * num(h.t);
+      });
+      var facTemp = facQ > 0 ? sumQT / facQ : null;
+
+      var opMin = num(fac.operatingHours) * 60;
+      var subs = collectSubstances(fac);
+      var facConcMap = {};
+      subNames.forEach(function (s) {
+        if (subs.indexOf(s) === -1) { facConcMap[s] = null; return; }
+        var numerator = substanceNumerator(fac, s);
+        if (numerator <= 0 || opMin <= 0) { facConcMap[s] = null; return; }
+        var conc = null;
+        if (state.concMethod === "method1") {
+          if (facQs > 0) conc = numerator / (opMin * facQs);
+        } else {
+          var sumWQ = 0, sumQc = 0;
+          hoodsHere.forEach(function (h) {
+            var qs = hoodQstd(h); var q = hoodQ(h);
+            if (qs > 0) { var hc = numerator / (opMin * qs); sumWQ += hc * q; sumQc += q; }
+          });
+          if (sumQc > 0) conc = sumWQ / sumQc;
+        }
+        facConcMap[s] = conc;
+      });
+      var facDataHtml = makeStackCell(facQ, facQs, facTemp, facConcMap);
+
+      var tr = document.createElement("tr");
+      var html = '<td class="sdt-fac">' + escapeHtml(fac.name || '(이름 없음)') + '</td>';
+      html += '<td class="sdt-data">' + facDataHtml + '</td>';
+      if (fi === 0) {
+        html += '<td class="sdt-out" rowspan="' + rowCount + '">' + escapeHtml(k) + '</td>';
+        html += '<td class="sdt-data" rowspan="' + rowCount + '">' + outletDataHtml + '</td>';
+      }
+      tr.innerHTML = html;
+      tbody.appendChild(tr);
     });
-  }
+  });
 
   tbl.appendChild(tbody);
   box.appendChild(tbl);
