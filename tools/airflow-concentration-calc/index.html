@@ -253,8 +253,11 @@
     border-radius: 8px; padding: 10px 12px;
   }
   .hood .hno {
-    font-size: 10.5px; font-weight: 650; color: var(--muted);
-    align-self: center; white-space: nowrap;
+    font-size: 10.5px; font-weight: 650; color: var(--muted); white-space: nowrap;
+  }
+  .hood .hno-box {
+    display: flex; align-items: center; gap: 6px;
+    align-self: center; flex-shrink: 0;
   }
   .fld { display: flex; flex-direction: column; gap: 4px; }
   .fld > label {
@@ -787,7 +790,7 @@ function emptyEmission() {
 function emptyItem() {
   return { name: "", value: "", unit: "ton", emissions: [] };
 }
-function emptyFacility() { return { name: "", operatingHours: "", operatingDays: "", items: [], hoods: [emptyHood()] }; }
+function emptyFacility() { return { name: "", operatingHours: "", operatingDays: "", items: [emptyItem()], hoods: [emptyHood()] }; }
 
 function normEmissions(a) {
   return Array.isArray(a) ? a.map(function (e) {
@@ -847,7 +850,10 @@ function load() {
     }
   } catch (e) {}
   if (state.facilities.length === 0) state.facilities = [emptyFacility()];
-  state.facilities.forEach(function (f) { if (f.hoods.length === 0) f.hoods.push(emptyHood()); });
+  state.facilities.forEach(function (f) {
+    if (f.hoods.length === 0) f.hoods.push(emptyHood());
+    if (f.items.length === 0) f.items.push(emptyItem());
+  });
 }
 
 /* ── 숫자 유틸 ── */
@@ -1047,6 +1053,7 @@ function renderFacilities() {
     var daysIn = document.createElement("input");
     daysIn.type = "number"; daysIn.min = "0"; daysIn.step = "1"; daysIn.placeholder = "0";
     daysIn.value = fac.operatingDays || "";
+    daysIn.dataset.guide = "2";
     daysIn.addEventListener("input", function () { fac.operatingDays = daysIn.value; save(); recalc(); });
     var daysU = document.createElement("span"); daysU.className = "u"; daysU.textContent = "일/yr";
     daysWrap.appendChild(daysLab); daysWrap.appendChild(daysIn); daysWrap.appendChild(daysU);
@@ -1090,7 +1097,7 @@ function renderFacilities() {
 
     /* 시설 복사 */
     var facCopy = document.createElement("button");
-    facCopy.type = "button"; facCopy.className = "btn xs"; facCopy.textContent = "⎘"; facCopy.title = "배출시설 복사";
+    facCopy.type = "button"; facCopy.className = "btn xs"; facCopy.textContent = "⎘ 복사"; facCopy.title = "배출시설 복사";
     facCopy.addEventListener("click", (function(i) { return function () {
       var clone = JSON.parse(JSON.stringify(state.facilities[i]));
       clone.name = (clone.name || "") + " (복사본)";
@@ -1102,7 +1109,7 @@ function renderFacilities() {
     facDel.className = "del-btn"; facDel.type = "button"; facDel.textContent = "×";
     facDel.title = "배출시설 삭제";
     facDel.addEventListener("click", (function(i) { return function () {
-      showConfirm({ message: "배출시설을 삭제하시겠습니까?", skippable: true, onConfirm: function () {
+      showConfirm({ message: "배출시설을 삭제하시겠습니까?", onConfirm: function () {
         state.facilities.splice(i, 1);
         if (state.facilities.length === 0) state.facilities.push(emptyFacility());
         save(); renderFacilities();
@@ -1122,7 +1129,7 @@ function renderFacilities() {
     /* 원료·연료 */
     var mats = document.createElement("div");
     mats.className = "fac-mats";
-    var mg1 = renderItemGroup(fac, "원료 및 연료"); mg1.dataset.guide = "2"; mats.appendChild(mg1);
+    var mg1 = renderItemGroup(fac, "원료 및 연료"); mg1.dataset.guide = "3"; mats.appendChild(mg1);
     box.appendChild(mats);
 
     /* 후드 목록 */
@@ -1198,7 +1205,9 @@ function renderItemGroup(fac, label) {
     del.className = "del-btn sm"; del.type = "button"; del.textContent = "×"; del.title = "항목 삭제";
     del.addEventListener("click", (function(idx) { return function () {
       showConfirm({ message: "항목을 삭제하시겠습니까?", skippable: true, onConfirm: function () {
-        arr.splice(idx, 1); save(); renderFacilities();
+        arr.splice(idx, 1);
+        if (arr.length === 0) arr.push(emptyItem());
+        save(); renderFacilities();
       } });
     }; })(mi));
     r.appendChild(del);
@@ -1299,9 +1308,21 @@ function renderHood(fac, fi, h, hi, facRef) {
   var row = document.createElement("div");
   row.className = "hood";
 
+  var hnoBox = document.createElement("div");
+  hnoBox.className = "hno-box";
   var hno = document.createElement("span");
   hno.className = "hno"; hno.textContent = "후드 " + (hi + 1);
-  row.appendChild(hno);
+  hnoBox.appendChild(hno);
+  /* 복사 (후드 번호 옆) */
+  var copy = document.createElement("button");
+  copy.type = "button"; copy.className = "btn xs"; copy.textContent = "⎘ 복사"; copy.title = "후드 복사";
+  copy.addEventListener("click", (function(i) { return function () {
+    var clone = JSON.parse(JSON.stringify(fac.hoods[i]));
+    fac.hoods.splice(i + 1, 0, clone);
+    save(); renderFacilities();
+  }; })(hi));
+  hnoBox.appendChild(copy);
+  row.appendChild(hnoBox);
 
   /* 배출구 */
   var fOut = document.createElement("div");
@@ -1387,7 +1408,6 @@ function renderHood(fac, fi, h, hi, facRef) {
         var sinp = document.createElement("input");
         sinp.type = "number"; sinp.className = "dim-in"; sinp.min = "0"; sinp.step = "0.1"; sinp.placeholder = "0";
         sinp.value = h.dims[sd.key] != null ? h.dims[sd.key] : "";
-        sinp.dataset.guide = "6";
         sinp.addEventListener("input", function () { h.dims[sd.key] = sinp.value; save(); recalc(); });
         sf.appendChild(slab); sf.appendChild(sinp);
         row.appendChild(sf);
@@ -1402,7 +1422,6 @@ function renderHood(fac, fi, h, hi, facRef) {
     var inp = document.createElement("input");
     inp.type = "number"; inp.className = "dim-in"; inp.min = "0"; inp.step = "0.1"; inp.placeholder = "0";
     inp.value = h.dims[k] != null ? h.dims[k] : "";
-    inp.dataset.guide = "6";
     inp.addEventListener("input", function () { h.dims[k] = inp.value; save(); recalc(); });
     f.appendChild(lab); f.appendChild(inp);
     row.appendChild(f);
@@ -1469,16 +1488,6 @@ function renderHood(fac, fi, h, hi, facRef) {
   hRef.qv = qv; hRef.qh = qh;
   qbox.appendChild(qv); qbox.appendChild(qh);
   row.appendChild(qbox);
-
-  /* 복사 */
-  var copy = document.createElement("button");
-  copy.type = "button"; copy.className = "btn xs"; copy.textContent = "⎘"; copy.title = "후드 복사";
-  copy.addEventListener("click", (function(i) { return function () {
-    var clone = JSON.parse(JSON.stringify(fac.hoods[i]));
-    fac.hoods.splice(i + 1, 0, clone);
-    save(); renderFacilities();
-  }; })(hi));
-  row.appendChild(copy);
 
   /* 삭제 */
   var del = document.createElement("button");
@@ -2066,18 +2075,18 @@ function showConfirm(opts) {
 /* ── 입력 안내 시스템 ── */
 var guideStep = 0;
 var GUIDE_STEPS = [
-  { label: "① 배출시설 이름",    desc: "배출시설 번호·이름을 입력하세요. (예: 배-1 건조시설)",
+  { label: "① 배출시설명",       desc: "배출시설 번호·이름을 입력하세요. (예: 배-1 건조시설)",
     getTarget: function() { return document.querySelector(".fac-name"); } },
-  { label: "② 가동시간",         desc: "배출시설의 연간 가동시간(hr)을 입력하세요.",
+  { label: "② 가동시간",         desc: "배출시설의 1일 가동시간(hr/일)을 입력하세요.",
     getTarget: function() { return document.querySelector(".fac-ophours input"); } },
-  { label: "③ 원료 및 연료",     desc: "+ 추가를 눌러 원료/연료명·사용량·단위(ton/kg/g/㎥)를 입력하고, 배출물질·배출계수·단위(예: kg/ton)를 추가하세요.",
-    getTarget: function() { return document.querySelector(".mat-group"); } },
-  { label: "④ 배출구",           desc: "각 후드가 연결될 배출구를 입력하세요. (예: 배출구-1)",
+  { label: "③ 연간가동일",       desc: "연간 가동일수(일/yr)를 입력하세요. (예: 300일/년)",
+    getTarget: function() { return document.querySelector(".fac-opdays input"); } },
+  { label: "④ 원료/연료명",      desc: "원료/연료명·사용량·단위(ton/kg/g/㎥)를 입력하고, 배출물질·배출계수·단위(예: kg/ton)를 추가하세요.",
+    getTarget: function() { return document.querySelector(".m-name"); } },
+  { label: "⑤ 배출구",           desc: "각 후드가 연결될 배출구를 입력하세요. (예: 배출구-1)",
     getTarget: function() { return document.querySelector(".outlet-in"); } },
-  { label: "⑤ 후드 형태",        desc: "오염원에 맞는 후드 형태를 선택하세요. 형태마다 필요한 치수가 달라집니다.",
-    getTarget: function() { return document.querySelector(".shape-sel"); } },
-  { label: "⑥ 치수 및 포착속도", desc: "후드 치수(m)와 포착속도를 입력하면 우측에 풍량(Q)·표준풍량(Qs)이 자동 계산됩니다.",
-    getTarget: function() { return document.querySelector(".dim-in"); } }
+  { label: "⑥ 후드 고르기",      desc: "오염원에 맞는 후드 형태를 선택하세요. 형태마다 필요한 치수가 달라집니다.",
+    getTarget: function() { return document.querySelector(".shape-sel"); } }
 ];
 
 function guideIsEnabled() {
