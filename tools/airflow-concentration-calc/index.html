@@ -231,6 +231,11 @@
   .emis-row .e-sub { flex: 1; min-width: 70px; }
   .emis-row .e-coef { width: 92px; }
   .emis-row .e-phase { width: 78px; padding: 7px 5px; }
+  .emis-row .e-gencalc {
+    display: flex; align-items: center; gap: 4px; white-space: nowrap;
+    font-size: 10.5px; color: var(--text-dim); cursor: pointer; flex-shrink: 0;
+  }
+  .emis-row .e-gencalc input[type="checkbox"] { width: 13px; height: 13px; cursor: pointer; accent-color: var(--success); }
   .emis-add { align-self: flex-start; font-size: 10px; padding: 3px 8px; }
 
   /* ── 후드 행 ── */
@@ -282,9 +287,10 @@
   .fac-dust-line .dl-sub { color: var(--text-dim); font-size: 10px; min-width: 28px; }
   .fac-dust-line .dl-val { font-weight: 700; color: var(--success); font-variant-numeric: tabular-nums; }
   .fac-dust-line .dl-nd { color: var(--muted); font-weight: 400; }
-  /* 발생량 합계 테이블 */
-  table.dust-total-tbl th { text-align: center; background: var(--success-bg); color: var(--success-2); }
-  table.dust-total-tbl td { text-align: center; font-weight: 700; font-size: 13px; color: var(--success-2); padding: 12px 20px; }
+  /* 발생량 합계 */
+  .dust-grand { font-size: 22px; font-weight: 700; color: var(--success-2); font-variant-numeric: tabular-nums; padding: 8px 2px; }
+  .dust-grand .u { font-size: 13px; color: var(--muted); font-weight: 500; margin-left: 4px; }
+  .fac-dust-line .dl-unit { font-size: 10px; color: var(--muted); font-weight: 400; }
 
   /* ── 치수 입력 ── */
   .fld .dim-in { min-width: 44px; }
@@ -567,7 +573,7 @@
   <div class="card">
     <div class="card-head">
       <h2>대기오염물질 발생량 합계</h2>
-      <span class="hint">먼지·NO₂·SO₂ 연간 발생량 합산 (톤/년) — 원료: 사용량(톤/일)×배출계수(kg/톤)×가동일×10⁻³ / 연료: 배출계수(g/㎥)×사용량(㎥/hr)×가동시간×가동일×10⁻⁶</span>
+      <span class="hint">"발생량산정" 체크된 배출계수 항목의 연간 발생량 합계 (톤/년)</span>
     </div>
     <div id="dustTotalSection"></div>
   </div>
@@ -720,13 +726,13 @@ var state = {
 };
 
 function emptyHood() { return { shape: "slot", dims: {}, srcShape: "rect", v: "", vUnit: "ms", t: "", outlet: "", pollutants: {} }; }
-function emptyEmission() { return { substance: "", coefficient: "", phase: "가스상" }; }
+function emptyEmission() { return { substance: "", coefficient: "", phase: "가스상", genCalc: false }; }
 function emptyMat() { return { name: "", value: "", unit: "", emissions: [] }; }
 function emptyFacility() { return { name: "", operatingHours: "", operatingDays: "", materials: [], fuels: [], hoods: [emptyHood()] }; }
 
 function normEmissions(a) {
   return Array.isArray(a) ? a.map(function (e) {
-    return { substance: (e && e.substance) || "", coefficient: (e && e.coefficient) || "", phase: (e && e.phase === "입자상") ? "입자상" : "가스상" };
+    return { substance: (e && e.substance) || "", coefficient: (e && e.coefficient) || "", phase: (e && e.phase === "입자상") ? "입자상" : "가스상", genCalc: !!(e && e.genCalc) };
   }) : [];
 }
 function normMats(a) {
@@ -837,10 +843,10 @@ function substanceNumerator(fac, subName) {
   });
   return sum;
 }
-/* 오염물질 발생량 (톤/년)
+/* 오염물질 발생량 합계 (톤/년) — genCalc 체크된 항목만 합산
    원료: 사용량(톤/일) × 배출계수(kg/톤) × 연간가동일 × 10⁻³
    연료: 배출계수(g/㎥) × 사용량(㎥/hr) × 가동시간(hr/일) × 연간가동일 × 10⁻⁶ */
-function pollutantAmount(fac, subName) {
+function pollutantAmountTotal(fac) {
   var opDays = num(fac.operatingDays);
   var opHours = num(fac.operatingHours);
   if (opDays <= 0) return 0;
@@ -850,7 +856,7 @@ function pollutantAmount(fac, subName) {
     var usage = num(m.value);
     if (!usage) return;
     (m.emissions || []).forEach(function (e) {
-      if ((e.substance || "").trim() === subName) total += usage * num(e.coefficient) * opDays * 1e-3;
+      if (e.genCalc) total += usage * num(e.coefficient) * opDays * 1e-3;
     });
   });
   /* 연료 */
@@ -859,7 +865,7 @@ function pollutantAmount(fac, subName) {
       var usage = num(m.value);
       if (!usage) return;
       (m.emissions || []).forEach(function (e) {
-        if ((e.substance || "").trim() === subName) total += num(e.coefficient) * usage * opHours * opDays * 1e-6;
+        if (e.genCalc) total += num(e.coefficient) * usage * opHours * opDays * 1e-6;
       });
     });
   }
@@ -1070,6 +1076,15 @@ function renderMatGroup(fac, kind, label) {
       });
       phSel.addEventListener("change", function () { em.phase = phSel.value; save(); });
       er.appendChild(phSel);
+      /* 발생량산정 체크박스 */
+      var gcWrap = document.createElement("label");
+      gcWrap.className = "e-gencalc";
+      var gcChk = document.createElement("input");
+      gcChk.type = "checkbox"; gcChk.checked = !!em.genCalc;
+      gcChk.addEventListener("change", function () { em.genCalc = gcChk.checked; save(); recalc(); });
+      gcWrap.appendChild(gcChk);
+      gcWrap.appendChild(document.createTextNode("발생량산정"));
+      er.appendChild(gcWrap);
       var ed = document.createElement("button");
       ed.className = "del-btn sm"; ed.type = "button"; ed.textContent = "×"; ed.title = "배출물질 삭제";
       ed.addEventListener("click", (function(idx) { return function () {
@@ -1406,58 +1421,35 @@ function recalc() {
   renderOutletSection(outlets, order, outletWConcs, subNames);
   renderSummaryTable(outlets, order, outletWConcs, subNames);
 
-  /* 오염물질 발생량 계산 (먼지·NO2·SO2) */
-  var dustTotals = { "먼지": 0, "NO2": 0, "SO2": 0 };
+  /* 오염물질 발생량 계산 (genCalc 체크 항목 합산) */
+  var grandTotal = 0;
   state.facilities.forEach(function (fac, fi) {
     var facRef = refs[fi];
-    var facDustMap = {};
-    DUST_SUBS.forEach(function (s) {
-      var v = pollutantAmount(fac, s);
-      facDustMap[s] = v > 0 ? v : null;
-      if (v > 0) dustTotals[s] += v;
-    });
+    var v = pollutantAmountTotal(fac);
+    grandTotal += v;
     if (facRef && facRef.dustBox) {
-      /* 라벨 이후 기존 라인 제거 후 재구성 */
       var box = facRef.dustBox;
       while (box.children.length > 1) box.removeChild(box.lastChild);
-      DUST_SUBS.forEach(function (s) {
-        var v = facDustMap[s];
-        var line = document.createElement("div");
-        line.className = "fac-dust-line";
-        line.innerHTML = '<span class="dl-sub">' + escapeHtml(s) + '</span>' +
-          (v !== null
-            ? '<span class="dl-val">' + fmt(v) + '<span class="u"> 톤/년</span></span>'
-            : '<span class="dl-nd">—</span>');
-        box.appendChild(line);
-      });
+      var line = document.createElement("div");
+      line.className = "fac-dust-line";
+      line.innerHTML = v > 0
+        ? '<span class="dl-val">' + fmt(v) + '</span><span class="dl-unit"> 톤/년</span>'
+        : '<span class="dl-nd">—</span>';
+      box.appendChild(line);
     }
   });
-  renderDustTotal(dustTotals);
+  renderDustTotal(grandTotal);
 }
 
 /* ── 대기오염물질 발생량 합계 ── */
-var DUST_SUBS = ["먼지", "NO2", "SO2"];
-function renderDustTotal(dustTotals) {
+function renderDustTotal(grandTotal) {
   var box = document.getElementById("dustTotalSection");
   if (!box) return;
-  var hasAny = DUST_SUBS.some(function (s) { return dustTotals[s] > 0; });
-  if (!hasAny) {
-    box.innerHTML = '<div class="outlet-empty">원료·연료에 먼지·NO2·SO2 배출계수를 입력하고 연간가동일을 입력하면 발생량이 표시됩니다.</div>';
+  if (grandTotal <= 0) {
+    box.innerHTML = '<div class="outlet-empty">배출계수 행에서 "발생량산정" 체크 후 연간가동일을 입력하면 합계가 표시됩니다.</div>';
     return;
   }
-  var tbl = document.createElement("table");
-  tbl.className = "outlet-tbl dust-total-tbl";
-  var hh = '<thead><tr>';
-  DUST_SUBS.forEach(function (s) { hh += '<th>' + escapeHtml(s) + '</th>'; });
-  hh += '</tr></thead><tbody><tr>';
-  DUST_SUBS.forEach(function (s) {
-    var v = dustTotals[s];
-    hh += '<td>' + (v > 0 ? fmt(v) + '<span class="u"> 톤/년</span>' : '<span class="conc-nd">—</span>') + '</td>';
-  });
-  hh += '</tr></tbody>';
-  tbl.innerHTML = hh;
-  box.innerHTML = "";
-  box.appendChild(tbl);
+  box.innerHTML = '<div class="dust-grand">' + fmt(grandTotal) + '<span class="u"> 톤/년</span></div>';
 }
 
 /* ── 배출구별 집계 ── */
