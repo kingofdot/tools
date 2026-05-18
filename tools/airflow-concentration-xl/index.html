@@ -344,14 +344,6 @@
 
   <div class="card summary-card">
     <div class="card-head">
-      <h2>배출구별 집계</h2>
-      <span class="hint">전체 시설 합산 · 농도는 Q 가중평균</span>
-    </div>
-    <div id="outletSummary"></div>
-  </div>
-
-  <div class="card summary-card">
-    <div class="card-head">
       <h2>배출시설 × 배출구 집계</h2>
       <span class="hint">시설 내 배출구 합계 + 시설 소계</span>
     </div>
@@ -746,7 +738,6 @@ function renderBody() {
     });
   });
   renderDustTotal();
-  renderOutletSummary();
   renderFacOutletSummary();
 }
 
@@ -810,37 +801,6 @@ function _outletRowHtml(label, agg, isFoot) {
     '</tr>';
 }
 
-function renderOutletSummary() {
-  var box = document.getElementById("outletSummary");
-  if (!box) return;
-  var outlets = {};
-  var order = [];
-  state.facilities.forEach(function (fac) {
-    var facSumQs = 0;
-    fac.hoods.forEach(function (h) { facSumQs += hoodQstd(h); });
-    fac.hoods.forEach(function (h) {
-      var key = (h.outlet || "").trim() || "(미지정)";
-      if (!outlets[key]) { outlets[key] = _outletAggBase(); order.push(key); }
-      _accumOutlet(outlets[key], fac, h, facSumQs);
-    });
-  });
-  if (order.length === 0) {
-    box.innerHTML = '<div class="empty-msg">후드와 배출구를 입력하면 집계가 표시됩니다.</div>';
-    return;
-  }
-  var html = '<table class="summary-tbl"><thead><tr>' +
-    '<th>배출구</th><th>풍량 (Q)</th><th>표준풍량 (Qs)</th><th>평균온도</th><th>먼지농도</th>' +
-    '</tr></thead><tbody>';
-  var total = _outletAggBase();
-  order.forEach(function (k) {
-    var a = outlets[k];
-    html += _outletRowHtml(k, a, false);
-    total.q += a.q; total.qs += a.qs; total.qt += a.qt;
-    total.wConc += a.wConc; total.wQ += a.wQ;
-  });
-  html += '</tbody><tfoot>' + _outletRowHtml("전체 합계", total, true) + '</tfoot></table>';
-  box.innerHTML = html;
-}
 
 /* ── 배출시설 × 배출구 집계 (문서형 4컬럼) ── */
 function _stackCellHtml(q, qs, temp, conc) {
@@ -1088,7 +1048,6 @@ function updateRowResults() {
     });
   }
   renderDustTotal();
-  renderOutletSummary();
   renderFacOutletSummary();
 }
 
