@@ -157,7 +157,15 @@
     width: 68px; min-width: 68px; max-width: 68px;
     padding-left: 3px; padding-right: 3px;
   }
+  table.xl thead th.w-flow, table.xl tbody td.w-flow {
+    width: 80px; min-width: 80px; max-width: 80px;
+    padding-left: 3px; padding-right: 3px;
+  }
+  table.xl tbody td.w-flow { text-align: right; font-variant-numeric: tabular-nums; font-weight: 700; }
   table.xl tbody td.w-v input { padding-left: 3px; padding-right: 3px; font-size: 11px; min-width: 0; }
+
+  /* 집계 카드 — 가운데로 좁힘 */
+  .card.summary-card { max-width: 980px; margin-left: auto; margin-right: auto; }
   table.xl tbody td.w-dim input { padding-left: 3px; padding-right: 3px; font-size: 11px; min-width: 0; }
   table.xl tbody td.calc-cell {
     background: #fffbeb; color: #92400e; font-weight: 700;
@@ -325,7 +333,7 @@
     </table>
   </div>
 
-  <div class="card">
+  <div class="card summary-card">
     <div class="card-head">
       <h2>대기오염물질 발생량 합계</h2>
       <span class="hint">먼지 연간 발생량 합계 (톤/년)</span>
@@ -333,7 +341,7 @@
     <div id="dustTotal"></div>
   </div>
 
-  <div class="card">
+  <div class="card summary-card">
     <div class="card-head">
       <h2>배출구별 집계</h2>
       <span class="hint">전체 시설 합산 · 농도는 Q 가중평균</span>
@@ -341,7 +349,7 @@
     <div id="outletSummary"></div>
   </div>
 
-  <div class="card">
+  <div class="card summary-card">
     <div class="card-head">
       <h2>배출시설 × 배출구 집계</h2>
       <span class="hint">시설 내 배출구 합계 + 시설 소계</span>
@@ -601,10 +609,10 @@ function airClassRank(t) {
 function renderHead() {
   var top = document.getElementById("headTop");
   var bot = document.getElementById("headBottom");
-  /* 상단: 섹션 헤더 (후드 colspan = 4고정 + DIM_DISPLAY + V) */
+  /* 상단: 섹션 헤더 (후드 colspan = 4고정 + DIM_DISPLAY + V + 풍량 + 표준풍량) */
   var topHtml =
     '<th class="sec-fac" colspan="7">배출시설</th>' +
-    '<th class="sec-hood" colspan="' + (4 + DIM_DISPLAY.length + 1) + '">후드</th>' +
+    '<th class="sec-hood" colspan="' + (4 + DIM_DISPLAY.length + 3) + '">후드</th>' +
     '<th class="col-result" rowspan="2">먼지농도<br><span style="font-size:10px;font-weight:400">(mg/S㎥)</span></th>' +
     '<th rowspan="2">액션</th>';
   top.innerHTML = topHtml;
@@ -628,6 +636,8 @@ function renderHead() {
     cols.push('<th class="' + cls + '">' + escapeHtml(d.label) + '<br><span style="font-size:10px;font-weight:400">(' + d.unit + ')</span></th>');
   });
   cols.push('<th class="sec-hood w-v">V<br><span style="font-size:10px;font-weight:400">(m/s)</span></th>');
+  cols.push('<th class="sec-hood w-flow">풍량 (Q)<br><span style="font-size:10px;font-weight:400">(㎥/min)</span></th>');
+  cols.push('<th class="sec-hood w-flow">표준풍량 (Qs)<br><span style="font-size:10px;font-weight:400">(S㎥/min)</span></th>');
   bot.innerHTML = cols.join("");
 }
 
@@ -708,6 +718,10 @@ function renderBody() {
       });
       /* V */
       html += '<td class="hood w-v"><input type="number" data-h="v" min="0" step="any" placeholder="1.0" value="' + escapeHtml(h.v) + '"></td>';
+      /* 풍량(Q) / 표준풍량(Qs) — 계산값 */
+      var qVal = hoodQ(h), qsVal = hoodQstd(h);
+      html += '<td class="hood w-flow calc-cell" data-calc="q">' + (qVal > 0 ? fmt(qVal) : '—') + '</td>';
+      html += '<td class="hood w-flow calc-cell" data-calc="qs">' + (qsVal > 0 ? fmt(qsVal) : '—') + '</td>';
       /* 먼지농도 */
       var c = hoodConc(fac, h);
       html += '<td class="result' + (c != null && c > 0 ? '' : ' zero') + '" data-result="conc">' +
@@ -1015,6 +1029,11 @@ function updateRowResults() {
       concCell.textContent = ok ? fmt(c) : "—";
       concCell.classList.toggle("zero", !ok);
     }
+    /* 풍량/표준풍량 계산 셀 */
+    var qCell  = tr.querySelector('td[data-calc="q"]');
+    var qsCell = tr.querySelector('td[data-calc="qs"]');
+    if (qCell)  { var qv  = hoodQ(h);    qCell.textContent  = qv > 0 ? fmt(qv) : "—"; }
+    if (qsCell) { var qsv = hoodQstd(h); qsCell.textContent = qsv > 0 ? fmt(qsv) : "—"; }
     /* 둘레/면적 계산 셀 */
     var pCell = tr.querySelector('td[data-calc="perimeter"]');
     if (pCell) {
