@@ -183,16 +183,16 @@
   table.xl td.act { padding: 3px 4px; white-space: nowrap; }
   table.xl td.act .btn { padding: 2px 6px; font-size: 10px; }
   table.xl td.act .btn + .btn { margin-left: 3px; }
-  /* 시설 액션 셀 (좌측, rowspan) */
+  /* 시설 액션 셀 (좌측, rowspan) — 가로 나열 */
   table.xl thead th.w-fac-act, table.xl tbody td.w-fac-act {
-    width: 76px; min-width: 76px; max-width: 76px;
-    padding: 4px 4px; background: var(--fac-bg);
+    width: 170px; min-width: 170px; max-width: 170px;
+    padding: 4px 6px; background: var(--fac-bg);
   }
   table.xl tbody td.w-fac-act .fac-act-box {
-    display: flex; flex-direction: column; gap: 3px; align-items: stretch;
+    display: flex; flex-direction: row; gap: 3px; align-items: center; justify-content: center;
   }
   table.xl tbody td.w-fac-act .btn {
-    padding: 3px 6px; font-size: 10px; width: 100%;
+    padding: 4px 7px; font-size: 10.5px; white-space: nowrap;
   }
 
   /* 합계 카드 */
