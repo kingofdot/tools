@@ -104,8 +104,9 @@
 
   table.xl tbody td.fac { background: var(--fac-bg); }
   table.xl tbody td.hood { background: var(--surface); }
-  table.xl tbody td.result { background: #fffbeb; font-weight: 700; color: #92400e; padding: 6px 8px; min-width: 80px; }
+  table.xl tbody td.result { background: #fffbeb; font-weight: 700; color: #92400e; padding: 6px 8px; min-width: 80px; text-align: right; font-variant-numeric: tabular-nums; }
   table.xl tbody td.result.zero { color: var(--muted); font-weight: 400; }
+  table.xl tbody td.result[rowspan] { background: #fef3c7; border-left: 2px solid #f59e0b; }
 
   /* 셀 내부 입력 */
   table.xl input[type="text"], table.xl input[type="number"], table.xl select {
@@ -314,8 +315,8 @@
     <div class="group">
       <label>농도 계산방식</label>
       <select id="methodSel">
-        <option value="method1">방식 1 (시설 총 Qs)</option>
-        <option value="method2" selected>방식 2 (후드별 농도, Q 가중)</option>
+        <option value="method1">방식 1 — 시설 단일 농도 (Σ Qs 합계)</option>
+        <option value="method2" selected>방식 2 — 후드별 농도 (Qsᵢ)</option>
       </select>
     </div>
     <div class="spacer"></div>
@@ -722,10 +723,20 @@ function renderBody() {
       var qVal = hoodQ(h), qsVal = hoodQstd(h);
       html += '<td class="hood w-flow calc-cell" data-calc="q">' + (qVal > 0 ? fmt(qVal) : '—') + '</td>';
       html += '<td class="hood w-flow calc-cell" data-calc="qs">' + (qsVal > 0 ? fmt(qsVal) : '—') + '</td>';
-      /* 먼지농도 */
-      var c = hoodConc(fac, h);
-      html += '<td class="result' + (c != null && c > 0 ? '' : ' zero') + '" data-result="conc">' +
-              (c != null && c > 0 ? fmt(c) : '—') + '</td>';
+      /* 먼지농도 — method1: 시설 단일 농도 (rowspan), method2: 후드별 */
+      if (state.concMethod === "method1") {
+        if (hi === 0) {
+          var fc = hoodConc(fac, fac.hoods[0]);
+          var fcOk = fc != null && fc > 0;
+          html += '<td class="result' + (fcOk ? '' : ' zero') + '" rowspan="' + nH + '" data-result="conc">' +
+                  (fcOk ? fmt(fc) : '—') + '</td>';
+        }
+        /* hi > 0 행은 rowspan 으로 점유 — 셀 생략 */
+      } else {
+        var c = hoodConc(fac, h);
+        html += '<td class="result' + (c != null && c > 0 ? '' : ' zero') + '" data-result="conc">' +
+                (c != null && c > 0 ? fmt(c) : '—') + '</td>';
+      }
       /* 후드 액션 (우측): 복사 + 삭제(2개 이상일 때) */
       var actHtml = '<button class="btn xs" data-act="hood-copy" title="후드 복사">⎘</button>';
       if (nH > 1) actHtml += '<button class="btn xs danger" data-act="hood-del" title="후드 삭제">×</button>';
@@ -1021,10 +1032,11 @@ function updateRowResults() {
         amtCell.classList.toggle("zero", !(amt > 0));
       }
     }
-    /* 농도 */
+    /* 농도 — method1 은 hi=0 셀만 존재 (시설 단일 농도) */
     var concCell = tr.querySelector('td[data-result="conc"]');
     if (concCell) {
-      var c = hoodConc(fac, h);
+      var refHood = (state.concMethod === "method1") ? fac.hoods[0] : h;
+      var c = hoodConc(fac, refHood);
       var ok = c != null && c > 0;
       concCell.textContent = ok ? fmt(c) : "—";
       concCell.classList.toggle("zero", !ok);
