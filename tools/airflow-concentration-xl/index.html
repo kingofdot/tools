@@ -152,10 +152,12 @@
   }
   table.xl .w-mode { min-width: 60px; }
   table.xl thead th.w-dim, table.xl tbody td.w-dim,
-  table.xl thead th.w-calc, table.xl tbody td.w-calc {
+  table.xl thead th.w-calc, table.xl tbody td.w-calc,
+  table.xl thead th.w-v, table.xl tbody td.w-v {
     width: 68px; min-width: 68px; max-width: 68px;
     padding-left: 3px; padding-right: 3px;
   }
+  table.xl tbody td.w-v input { padding-left: 3px; padding-right: 3px; font-size: 11px; min-width: 0; }
   table.xl tbody td.w-dim input { padding-left: 3px; padding-right: 3px; font-size: 11px; min-width: 0; }
   table.xl tbody td.calc-cell {
     background: #fffbeb; color: #92400e; font-weight: 700;
@@ -613,7 +615,7 @@ function renderHead() {
     var cls = "sec-hood w-dim" + (d.kind === "calc" ? " w-calc" : "");
     cols.push('<th class="' + cls + '">' + escapeHtml(d.label) + '<br><span style="font-size:10px;font-weight:400">(' + d.unit + ')</span></th>');
   });
-  cols.push('<th class="sec-hood w-num">V<br><span style="font-size:10px;font-weight:400">(m/s)</span></th>');
+  cols.push('<th class="sec-hood w-v">V<br><span style="font-size:10px;font-weight:400">(m/s)</span></th>');
   bot.innerHTML = cols.join("");
 }
 
@@ -686,7 +688,7 @@ function renderBody() {
         }
       });
       /* V */
-      html += '<td class="hood"><input type="number" data-h="v" min="0" step="any" placeholder="1.0" value="' + escapeHtml(h.v) + '"></td>';
+      html += '<td class="hood w-v"><input type="number" data-h="v" min="0" step="any" placeholder="1.0" value="' + escapeHtml(h.v) + '"></td>';
       /* 먼지농도 */
       var c = hoodConc(fac, h);
       html += '<td class="result' + (c != null && c > 0 ? '' : ' zero') + '" data-result="conc">' +
