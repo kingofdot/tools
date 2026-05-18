@@ -188,6 +188,20 @@
   .card-head { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
   .card-head h2 { font-size: 13px; font-weight: 650; margin: 0; }
   .card-head .hint { font-size: 11px; color: var(--muted); margin-left: auto; }
+
+  /* 배출구별/시설×배출구 집계 표 */
+  table.summary-tbl { width: 100%; border-collapse: collapse; font-size: 11.5px; font-variant-numeric: tabular-nums; }
+  table.summary-tbl th, table.summary-tbl td {
+    border: 1px solid var(--border); padding: 6px 8px; text-align: right;
+  }
+  table.summary-tbl th { background: var(--surface-3); color: var(--text-dim); font-weight: 700; text-align: center; }
+  table.summary-tbl td.lbl { text-align: left; font-weight: 600; color: var(--text); }
+  table.summary-tbl tfoot td, table.summary-tbl tr.subtotal td {
+    background: var(--accent-bg); color: var(--accent-2); font-weight: 700;
+  }
+  table.summary-tbl td.u { font-size: 10px; color: var(--muted); font-weight: 500; }
+  table.summary-tbl .nd { color: var(--muted); font-weight: 400; }
+  table.summary-tbl td.fac-name { background: var(--fac-bg); font-weight: 700; color: var(--accent-2); text-align: left; }
   .dust-grand {
     font-size: 22px; font-weight: 700; color: var(--success-2);
     display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap;
@@ -266,6 +280,22 @@
       <span class="hint">먼지 연간 발생량 합계 (톤/년)</span>
     </div>
     <div id="dustTotal"></div>
+  </div>
+
+  <div class="card">
+    <div class="card-head">
+      <h2>배출구별 집계</h2>
+      <span class="hint">전체 시설 합산 · 농도는 Q 가중평균</span>
+    </div>
+    <div id="outletSummary"></div>
+  </div>
+
+  <div class="card">
+    <div class="card-head">
+      <h2>배출시설 × 배출구 집계</h2>
+      <span class="hint">시설 내 배출구 합계 + 시설 소계</span>
+    </div>
+    <div id="facOutletSummary"></div>
   </div>
 
   <div class="card">
@@ -636,6 +666,8 @@ function renderBody() {
     });
   });
   renderDustTotal();
+  renderOutletSummary();
+  renderFacOutletSummary();
 }
 
 /* ── 합계 카드 ── */
@@ -658,6 +690,134 @@ function renderDustTotal() {
       '<span' + (rank === 2 ? ' class="cur"' : '') + '>2종: 20~80</span>' +
       '<span' + (rank === 1 ? ' class="cur"' : '') + '>1종: ≥&nbsp;80</span>' +
     '</div>';
+}
+
+/* ── 배출구별 집계 (전 시설 합산) ── */
+function _hoodConcForAgg(fac, h, facSumQs) {
+  var mgDay = facMgDay(fac);
+  var opMin = num(fac.operatingHours) * 60;
+  if (mgDay <= 0 || opMin <= 0) return null;
+  if (state.concMethod === "method1") {
+    if (facSumQs <= 0) return null;
+    return mgDay / (opMin * facSumQs);
+  }
+  var qs = hoodQstd(h);
+  if (qs <= 0) return null;
+  return mgDay / (opMin * qs);
+}
+function _outletAggBase() {
+  /* { key: { q, qs, qt, wConc, wQ } } */
+  return { q: 0, qs: 0, qt: 0, wConc: 0, wQ: 0 };
+}
+function _accumOutlet(agg, fac, h, facSumQs) {
+  var q = hoodQ(h), qs = hoodQstd(h), t = num(h.t);
+  agg.q  += q;
+  agg.qs += qs;
+  agg.qt += q * t;
+  var conc = _hoodConcForAgg(fac, h, facSumQs);
+  if (conc !== null && q > 0) { agg.wConc += conc * q; agg.wQ += q; }
+}
+function _outletRowHtml(label, agg, isFoot) {
+  var avgT = agg.q > 0 ? agg.qt / agg.q : null;
+  var conc = agg.wQ > 0 ? agg.wConc / agg.wQ : null;
+  var cls = isFoot ? ' class="subtotal"' : '';
+  return '<tr' + cls + '>' +
+    '<td class="lbl">' + escapeHtml(label) + '</td>' +
+    '<td>' + fmt(agg.q)  + '<span class="u"> ㎥/min</span></td>' +
+    '<td>' + fmt(agg.qs) + '<span class="u"> S㎥/min</span></td>' +
+    '<td>' + (avgT !== null ? fmt(avgT) + '<span class="u"> ℃</span>' : '<span class="nd">—</span>') + '</td>' +
+    '<td>' + (conc !== null ? fmt(conc) + '<span class="u"> mg/S㎥</span>' : '<span class="nd">—</span>') + '</td>' +
+    '</tr>';
+}
+
+function renderOutletSummary() {
+  var box = document.getElementById("outletSummary");
+  if (!box) return;
+  var outlets = {};
+  var order = [];
+  state.facilities.forEach(function (fac) {
+    var facSumQs = 0;
+    fac.hoods.forEach(function (h) { facSumQs += hoodQstd(h); });
+    fac.hoods.forEach(function (h) {
+      var key = (h.outlet || "").trim() || "(미지정)";
+      if (!outlets[key]) { outlets[key] = _outletAggBase(); order.push(key); }
+      _accumOutlet(outlets[key], fac, h, facSumQs);
+    });
+  });
+  if (order.length === 0) {
+    box.innerHTML = '<div class="empty-msg">후드와 배출구를 입력하면 집계가 표시됩니다.</div>';
+    return;
+  }
+  var html = '<table class="summary-tbl"><thead><tr>' +
+    '<th>배출구</th><th>풍량 (Q)</th><th>표준풍량 (Qs)</th><th>평균온도</th><th>먼지농도</th>' +
+    '</tr></thead><tbody>';
+  var total = _outletAggBase();
+  order.forEach(function (k) {
+    var a = outlets[k];
+    html += _outletRowHtml(k, a, false);
+    total.q += a.q; total.qs += a.qs; total.qt += a.qt;
+    total.wConc += a.wConc; total.wQ += a.wQ;
+  });
+  html += '</tbody><tfoot>' + _outletRowHtml("전체 합계", total, true) + '</tfoot></table>';
+  box.innerHTML = html;
+}
+
+/* ── 배출시설 × 배출구 집계 ── */
+function renderFacOutletSummary() {
+  var box = document.getElementById("facOutletSummary");
+  if (!box) return;
+  var hasAny = state.facilities.some(function (f) { return f.hoods && f.hoods.length > 0; });
+  if (!hasAny) { box.innerHTML = '<div class="empty-msg">시설/후드를 입력하면 집계가 표시됩니다.</div>'; return; }
+  var html = '<table class="summary-tbl"><thead><tr>' +
+    '<th>배출시설</th><th>배출구</th><th>풍량 (Q)</th><th>표준풍량 (Qs)</th><th>평균온도</th><th>먼지농도</th>' +
+    '</tr></thead><tbody>';
+  var grand = _outletAggBase();
+  state.facilities.forEach(function (fac) {
+    var facName = fac.name || "(이름 없음)";
+    var facSumQs = 0;
+    fac.hoods.forEach(function (h) { facSumQs += hoodQstd(h); });
+    /* 시설 내 배출구별 그룹 */
+    var groups = {};
+    var order = [];
+    fac.hoods.forEach(function (h) {
+      var key = (h.outlet || "").trim() || "(미지정)";
+      if (!groups[key]) { groups[key] = _outletAggBase(); order.push(key); }
+      _accumOutlet(groups[key], fac, h, facSumQs);
+    });
+    var facTotal = _outletAggBase();
+    order.forEach(function (k, idx) {
+      var a = groups[k];
+      var first = idx === 0;
+      html += '<tr>';
+      if (first) html += '<td class="fac-name" rowspan="' + (order.length + 1) + '">' + escapeHtml(facName) + '</td>';
+      html += '<td class="lbl">' + escapeHtml(k) + '</td>' +
+        '<td>' + fmt(a.q)  + '<span class="u"> ㎥/min</span></td>' +
+        '<td>' + fmt(a.qs) + '<span class="u"> S㎥/min</span></td>' +
+        '<td>' + (a.q > 0 ? fmt(a.qt / a.q) + '<span class="u"> ℃</span>' : '<span class="nd">—</span>') + '</td>' +
+        '<td>' + (a.wQ > 0 ? fmt(a.wConc / a.wQ) + '<span class="u"> mg/S㎥</span>' : '<span class="nd">—</span>') + '</td>' +
+        '</tr>';
+      facTotal.q += a.q; facTotal.qs += a.qs; facTotal.qt += a.qt;
+      facTotal.wConc += a.wConc; facTotal.wQ += a.wQ;
+    });
+    /* 시설 소계 */
+    html += '<tr class="subtotal">' +
+      '<td class="lbl">시설 소계</td>' +
+      '<td>' + fmt(facTotal.q)  + '<span class="u"> ㎥/min</span></td>' +
+      '<td>' + fmt(facTotal.qs) + '<span class="u"> S㎥/min</span></td>' +
+      '<td>' + (facTotal.q > 0 ? fmt(facTotal.qt / facTotal.q) + '<span class="u"> ℃</span>' : '<span class="nd">—</span>') + '</td>' +
+      '<td>' + (facTotal.wQ > 0 ? fmt(facTotal.wConc / facTotal.wQ) + '<span class="u"> mg/S㎥</span>' : '<span class="nd">—</span>') + '</td>' +
+      '</tr>';
+    grand.q += facTotal.q; grand.qs += facTotal.qs; grand.qt += facTotal.qt;
+    grand.wConc += facTotal.wConc; grand.wQ += facTotal.wQ;
+  });
+  html += '</tbody><tfoot><tr class="subtotal">' +
+    '<td class="lbl" colspan="2">전체 합계</td>' +
+    '<td>' + fmt(grand.q)  + '<span class="u"> ㎥/min</span></td>' +
+    '<td>' + fmt(grand.qs) + '<span class="u"> S㎥/min</span></td>' +
+    '<td>' + (grand.q > 0 ? fmt(grand.qt / grand.q) + '<span class="u"> ℃</span>' : '<span class="nd">—</span>') + '</td>' +
+    '<td>' + (grand.wQ > 0 ? fmt(grand.wConc / grand.wQ) + '<span class="u"> mg/S㎥</span>' : '<span class="nd">—</span>') + '</td>' +
+    '</tr></tfoot></table>';
+  box.innerHTML = html;
 }
 
 /* ── 산식 안내 ── */
@@ -807,6 +967,8 @@ function updateRowResults() {
     });
   }
   renderDustTotal();
+  renderOutletSummary();
+  renderFacOutletSummary();
 }
 
 /* ── 컨트롤 바인딩 ── */
