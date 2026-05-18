@@ -50,6 +50,7 @@ function bindQuiz() {
   document.getElementById('quizCheckBtn')?.addEventListener('click', checkAllAnswers);
   document.getElementById('quizNextBtn')?.addEventListener('click', nextNote);
   document.getElementById('quizSkipBtn')?.addEventListener('click', skipNote);
+  document.getElementById('quizRetryNoteBtn')?.addEventListener('click', retryNote);
   document.getElementById('quizExitBtn')?.addEventListener('click', closeQuiz);
   document.getElementById('quizExitBtn2')?.addEventListener('click', closeQuiz);
   document.getElementById('quizBackToSetupBtn')?.addEventListener('click', () => {
@@ -333,6 +334,7 @@ function showNote() {
 
   document.getElementById('quizCheckBtn').hidden = false;
   document.getElementById('quizNextBtn').hidden = true;
+  document.getElementById('quizRetryNoteBtn').hidden = true;
   document.getElementById('quizFeedback').textContent = '';
   document.getElementById('quizFeedback').className = 'quiz-feedback';
   setTimeout(() => $fields[0]?.focus(), 0);
@@ -473,7 +475,20 @@ function checkAllAnswers() {
 
   document.getElementById('quizCheckBtn').hidden = true;
   document.getElementById('quizNextBtn').hidden = false;
+  document.getElementById('quizRetryNoteBtn').hidden = false;
   setTimeout(() => document.getElementById('quizNextBtn').focus(), 0);
+}
+
+// 같은 노트로 다시 풀기 — 방금 채점한 결과는 history에서 제거
+function retryNote() {
+  if (!quizState || !quizState.answeredCurrent) return;
+  quizState.history.pop();
+  // 누적 점수 표시 갱신
+  const totalSoFar = quizState.history.reduce((s, h) => s + h.correctCount, 0);
+  const sumBlanks  = quizState.history.reduce((s, h) => s + h.totalBlanks, 0);
+  const $score = document.getElementById('quizScore');
+  if ($score) $score.textContent = sumBlanks ? `누적 ${totalSoFar}/${sumBlanks}` : '시작';
+  showNote();   // 깨끗한 입력란·칩으로 재렌더
 }
 
 function nextNote() {
