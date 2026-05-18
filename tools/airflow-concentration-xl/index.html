@@ -62,6 +62,45 @@
     font-family: inherit;
   }
   .controls select:focus, .controls input:focus { border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-bg); }
+
+  /* 농도 계산방식 커스텀 드롭다운 (원본 도구 참조) */
+  .cmethod-sel { position: relative; width: 240px; }
+  .cmethod-head {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 6px 9px; border: 1px solid var(--border-2); border-radius: 6px;
+    cursor: pointer; background: var(--surface); font-size: 12px;
+    user-select: none; transition: .12s;
+  }
+  .cmethod-head:hover, .cmethod-head.open {
+    border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-bg);
+  }
+  .cmethod-arrow { color: var(--muted); font-size: 10px; margin-left: 6px; }
+  .cmethod-list {
+    display: none; position: absolute; top: calc(100% + 4px); left: 0;
+    background: var(--surface); border: 1px solid var(--border-2);
+    border-radius: 7px; box-shadow: 0 4px 16px rgba(15,23,42,0.13);
+    z-index: 100; min-width: 100%; overflow: visible;
+  }
+  .cmethod-list.open { display: block; }
+  .cmethod-opt {
+    position: relative; padding: 8px 12px; cursor: pointer;
+    font-size: 12px; border-radius: 6px; transition: .1s; white-space: nowrap;
+  }
+  .cmethod-opt:hover { background: var(--accent-bg); color: var(--accent-2); }
+  .cmethod-opt.active { font-weight: 650; color: var(--accent); }
+  .cmethod-tip {
+    display: none; position: absolute; left: calc(100% + 8px); top: 0;
+    background: #1e293b; color: #e2e8f0; padding: 11px 15px; border-radius: 9px;
+    font-size: 11.5px; line-height: 1.7; white-space: nowrap;
+    box-shadow: 0 6px 20px rgba(15,23,42,0.22); z-index: 200; pointer-events: none;
+  }
+  .cmethod-opt:hover .cmethod-tip { display: block; }
+  .cmethod-tip b { color: #93c5fd; display: block; margin-bottom: 4px; }
+  .cmethod-tip code {
+    background: rgba(255,255,255,0.1); border-radius: 4px; padding: 1px 5px;
+    font-family: "Consolas", "Monaco", monospace; font-size: 11px;
+  }
+  .cmethod-tip .tip-note { color: #94a3b8; font-size: 10.5px; margin-top: 5px; }
   .controls .spacer { flex: 1; }
 
   .btn {
@@ -301,7 +340,6 @@
 <div class="wrap">
   <div class="page-head">
     <h1><span class="dot"></span>풍량 및 농도 계산기 (엑셀)</h1>
-    <p class="desc">먼지 단일 / 한 행씩 입력 — 시설은 후드 행을 rowspan으로 머금음</p>
   </div>
 
   <div class="controls">
@@ -314,10 +352,31 @@
     </div>
     <div class="group">
       <label>농도 계산방식</label>
-      <select id="methodSel">
-        <option value="method1">방식 1 — 시설 단일 농도 (Σ Qs 합계)</option>
-        <option value="method2" selected>방식 2 — 후드별 농도 (Qsᵢ)</option>
-      </select>
+      <div class="cmethod-sel" id="concMethodSel">
+        <div class="cmethod-head" id="concMethodHead">
+          <span id="concMethodLabel"></span>
+          <span class="cmethod-arrow">▾</span>
+        </div>
+        <div class="cmethod-list" id="concMethodList">
+          <div class="cmethod-opt" data-value="method2">
+            <span class="cmethod-text">방식 2 — 후드별 농도 (Qsᵢ)</span>
+            <div class="cmethod-tip">
+              <b>후드별 농도를 풍량(Q)으로 가중평균</b>
+              후드별 &nbsp;<code>Cᵢ = 발생량 ÷ (가동시간×60×Qsᵢ)</code><br>
+              배출구 &nbsp;<code>C = Σ(Cᵢ×Qᵢ) ÷ Σ Qᵢ</code>
+              <div class="tip-note">※ 후드별 농도 셀이 행마다 표시됨</div>
+            </div>
+          </div>
+          <div class="cmethod-opt" data-value="method1">
+            <span class="cmethod-text">방식 1 — 시설 단일 농도 (Σ Qs 합계)</span>
+            <div class="cmethod-tip">
+              <b>배출시설 전체 Qs 합으로 나눔</b>
+              <code>C = 발생량 ÷ (가동시간×60×Σ Qs<sub>시설</sub>)</code>
+              <div class="tip-note">※ 시설당 단일 농도 셀 (rowspan)</div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
     <div class="spacer"></div>
     <button class="btn success" id="addFac">+ 배출시설 추가</button>
@@ -1056,10 +1115,38 @@ function bindControls() {
   document.getElementById("decimalsSel").addEventListener("change", function () {
     state.decimals = parseInt(this.value, 10) || 0; save(); renderBody();
   });
-  document.getElementById("methodSel").addEventListener("change", function () {
-    state.concMethod = this.value === "method1" ? "method1" : "method2";
-    save(); renderBody();
-  });
+  /* 농도 계산방식 커스텀 드롭다운 */
+  (function () {
+    var sel  = document.getElementById("concMethodSel");
+    var head = document.getElementById("concMethodHead");
+    var list = document.getElementById("concMethodList");
+    var lab  = document.getElementById("concMethodLabel");
+    function setLabel() {
+      var opt = list.querySelector('.cmethod-opt[data-value="' + state.concMethod + '"]');
+      lab.textContent = opt ? opt.querySelector(".cmethod-text").textContent : "";
+      list.querySelectorAll(".cmethod-opt").forEach(function (o) {
+        o.classList.toggle("active", o.dataset.value === state.concMethod);
+      });
+    }
+    head.addEventListener("click", function (e) {
+      e.stopPropagation();
+      list.classList.toggle("open");
+      head.classList.toggle("open");
+    });
+    document.addEventListener("click", function () {
+      list.classList.remove("open"); head.classList.remove("open");
+    });
+    list.querySelectorAll(".cmethod-opt").forEach(function (opt) {
+      opt.addEventListener("click", function (e) {
+        e.stopPropagation();
+        state.concMethod = opt.dataset.value === "method1" ? "method1" : "method2";
+        save(); setLabel();
+        list.classList.remove("open"); head.classList.remove("open");
+        renderBody();
+      });
+    });
+    setLabel();
+  })();
   document.getElementById("addFac").addEventListener("click", function () {
     state.facilities.push(emptyFacility()); save(); renderBody();
   });
@@ -1078,7 +1165,7 @@ function bindControls() {
 try {
   load();
   document.getElementById("decimalsSel").value = String(state.decimals);
-  document.getElementById("methodSel").value = state.concMethod;
+  /* 농도 방식 드롭다운 라벨은 bindControls에서 setLabel로 설정 */
   renderBody();
   renderFormulaList();
   bindControls();
