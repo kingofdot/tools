@@ -183,6 +183,17 @@
   table.xl td.act { padding: 3px 4px; white-space: nowrap; }
   table.xl td.act .btn { padding: 2px 6px; font-size: 10px; }
   table.xl td.act .btn + .btn { margin-left: 3px; }
+  /* 시설 액션 셀 (좌측, rowspan) */
+  table.xl thead th.w-fac-act, table.xl tbody td.w-fac-act {
+    width: 76px; min-width: 76px; max-width: 76px;
+    padding: 4px 4px; background: var(--fac-bg);
+  }
+  table.xl tbody td.w-fac-act .fac-act-box {
+    display: flex; flex-direction: column; gap: 3px; align-items: stretch;
+  }
+  table.xl tbody td.w-fac-act .btn {
+    padding: 3px 6px; font-size: 10px; width: 100%;
+  }
 
   /* 합계 카드 */
   .card {
@@ -592,14 +603,15 @@ function renderHead() {
   var bot = document.getElementById("headBottom");
   /* 상단: 섹션 헤더 (후드 colspan = 4고정 + DIM_DISPLAY + V) */
   var topHtml =
-    '<th class="sec-fac" colspan="6">배출시설</th>' +
+    '<th class="sec-fac" colspan="7">배출시설</th>' +
     '<th class="sec-hood" colspan="' + (4 + DIM_DISPLAY.length + 1) + '">후드</th>' +
     '<th class="col-result" rowspan="2">먼지농도<br><span style="font-size:10px;font-weight:400">(mg/S㎥)</span></th>' +
-    '<th rowspan="2">×</th>';
+    '<th rowspan="2">액션</th>';
   top.innerHTML = topHtml;
 
   /* 하단: 컬럼 라벨 */
   var cols = [
+    '<th class="sec-fac w-fac-act">시설 액션</th>',
     '<th class="sec-fac w-name">시설명</th>',
     '<th class="sec-fac w-fac-narrow w-time">가동시간<br><span style="font-size:10px;font-weight:400">(hr/일)</span></th>',
     '<th class="sec-fac w-fac-narrow w-days">연간가동일<br><span style="font-size:10px;font-weight:400">(일/년)</span></th>',
@@ -632,6 +644,13 @@ function renderBody() {
       var html = "";
       /* 첫 후드 행에서만 시설 셀 (rowspan) */
       if (hi === 0) {
+        /* 시설 액션 셀 (좌측): + 후드, 시설 복사, 시설 삭제 */
+        html += '<td class="fac w-fac-act" rowspan="' + nH + '">' +
+                '<div class="fac-act-box">' +
+                '<button class="btn xs success" data-act="hood-add" title="후드 추가">+ 후드</button>' +
+                '<button class="btn xs" data-act="fac-copy" title="시설 복사">⎘ 복사</button>' +
+                '<button class="btn xs danger" data-act="fac-del" title="시설 삭제">× 삭제</button>' +
+                '</div></td>';
         html += '<td class="fac" rowspan="' + nH + '">' +
                 '<input type="text" data-f="name" placeholder="배-1 건조시설" value="' + escapeHtml(fac.name) + '"></td>';
         html += '<td class="fac w-fac-narrow w-time" rowspan="' + nH + '">' +
@@ -693,13 +712,9 @@ function renderBody() {
       var c = hoodConc(fac, h);
       html += '<td class="result' + (c != null && c > 0 ? '' : ' zero') + '" data-result="conc">' +
               (c != null && c > 0 ? fmt(c) : '—') + '</td>';
-      /* 액션 */
-      var actHtml = '<button class="btn xs" data-act="hood-add">+ 후드</button>';
-      if (nH > 1) actHtml += '<button class="btn xs danger" data-act="hood-del">×</button>';
-      if (hi === 0) {
-        actHtml += '<button class="btn xs" data-act="fac-copy" title="배출시설 복사">⎘</button>';
-        actHtml += '<button class="btn xs danger" data-act="fac-del">× 시설</button>';
-      }
+      /* 후드 액션 (우측): 복사 + 삭제(2개 이상일 때) */
+      var actHtml = '<button class="btn xs" data-act="hood-copy" title="후드 복사">⎘</button>';
+      if (nH > 1) actHtml += '<button class="btn xs danger" data-act="hood-del" title="후드 삭제">×</button>';
       html += '<td class="act">' + actHtml + '</td>';
       tr.innerHTML = html;
       body.appendChild(tr);
@@ -951,7 +966,11 @@ function bindRowEvents() {
     var fi = +tr.dataset.fi, hi = +tr.dataset.hi;
     var fac = state.facilities[fi]; if (!fac) return;
     if (btn.dataset.act === "hood-add") {
-      fac.hoods.splice(hi + 1, 0, emptyHood());
+      /* 시설 액션의 + 후드: 시설 끝에 추가 */
+      fac.hoods.push(emptyHood());
+      save(); renderBody();
+    } else if (btn.dataset.act === "hood-copy") {
+      fac.hoods.splice(hi + 1, 0, JSON.parse(JSON.stringify(fac.hoods[hi])));
       save(); renderBody();
     } else if (btn.dataset.act === "hood-del") {
       if (fac.hoods.length > 1) {
