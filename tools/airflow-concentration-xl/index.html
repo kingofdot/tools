@@ -202,6 +202,41 @@
   table.summary-tbl td.u { font-size: 10px; color: var(--muted); font-weight: 500; }
   table.summary-tbl .nd { color: var(--muted); font-weight: 400; }
   table.summary-tbl td.fac-name { background: var(--fac-bg); font-weight: 700; color: var(--accent-2); text-align: left; }
+
+  /* 일괄 집계표 (문서형) — 4컬럼: 시설/시설데이터/배출구/배출구데이터 */
+  table.summary-doc-tbl {
+    width: 100%; border-collapse: collapse; font-size: 12px;
+    border: 1.5px solid var(--border-2);
+  }
+  table.summary-doc-tbl th {
+    background: var(--surface-3); font-size: 11.5px; font-weight: 700;
+    color: var(--text); text-align: center; padding: 9px 12px;
+    border: 1px solid var(--border-2); white-space: nowrap;
+  }
+  table.summary-doc-tbl td { border: 1px solid var(--border-2); padding: 0; vertical-align: middle; }
+  table.summary-doc-tbl td.sdt-fac {
+    text-align: center; font-weight: 600; padding: 10px 12px;
+    color: var(--text); font-size: 12px; white-space: nowrap; background: var(--fac-bg);
+  }
+  table.summary-doc-tbl td.sdt-out {
+    text-align: center; font-weight: 600; padding: 10px 12px;
+    color: var(--text); font-size: 12px; white-space: nowrap;
+    background: var(--surface-2);
+  }
+  table.summary-doc-tbl td.sdt-data { padding: 6px 10px; }
+  table.summary-doc-tbl td.sdt-nd { color: var(--muted); font-size: 11px; text-align: center; padding: 10px 12px; }
+  /* 스택 셀 — 풍량/표준풍량/온도/농도 세로 배치 */
+  .sc { display: flex; flex-direction: column; gap: 3px; }
+  .sc-row {
+    display: flex; align-items: baseline; gap: 6px;
+    font-variant-numeric: tabular-nums; font-size: 11.5px; padding: 1px 0;
+  }
+  .sc-lbl { color: var(--text-dim); font-size: 10.5px; white-space: nowrap; min-width: 56px; flex-shrink: 0; }
+  .sc-val { font-weight: 600; color: var(--text); }
+  .sc-val .u { font-size: 10px; color: var(--muted); font-weight: 500; margin-left: 2px; }
+  .sc-row.sc-conc .sc-lbl { color: var(--accent-2); }
+  .sc-row.sc-conc .sc-val { color: var(--accent-2); }
+  .sc-row.sc-conc .nd { color: var(--muted); font-weight: 400; }
   .dust-grand {
     font-size: 22px; font-weight: 700; color: var(--success-2);
     display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap;
@@ -762,61 +797,92 @@ function renderOutletSummary() {
   box.innerHTML = html;
 }
 
-/* ── 배출시설 × 배출구 집계 ── */
+/* ── 배출시설 × 배출구 집계 (문서형 4컬럼) ── */
+function _stackCellHtml(q, qs, temp, conc) {
+  var h = '<div class="sc">';
+  h += '<div class="sc-row"><span class="sc-lbl">풍량:</span><span class="sc-val">' +
+       fmt(q) + '<span class="u">㎥/min</span></span></div>';
+  h += '<div class="sc-row"><span class="sc-lbl">표준풍량:</span><span class="sc-val">' +
+       fmt(qs) + '<span class="u">S㎥/min</span></span></div>';
+  h += '<div class="sc-row"><span class="sc-lbl">온도:</span><span class="sc-val">' +
+       (temp !== null ? fmt(temp) + '<span class="u">℃</span>' : '<span class="nd">—</span>') +
+       '</span></div>';
+  h += '<div class="sc-row sc-conc"><span class="sc-lbl">먼지농도:</span><span class="sc-val">' +
+       (conc !== null ? fmt(conc) + '<span class="u">mg/S㎥</span>' : '<span class="nd">—</span>') +
+       '</span></div>';
+  h += '</div>';
+  return h;
+}
 function renderFacOutletSummary() {
   var box = document.getElementById("facOutletSummary");
   if (!box) return;
   var hasAny = state.facilities.some(function (f) { return f.hoods && f.hoods.length > 0; });
   if (!hasAny) { box.innerHTML = '<div class="empty-msg">시설/후드를 입력하면 집계가 표시됩니다.</div>'; return; }
-  var html = '<table class="summary-tbl"><thead><tr>' +
-    '<th>배출시설</th><th>배출구</th><th>풍량 (Q)</th><th>표준풍량 (Qs)</th><th>평균온도</th><th>먼지농도</th>' +
-    '</tr></thead><tbody>';
-  var grand = _outletAggBase();
+
+  /* 배출구 순서 (입력 순) + 배출구별 시설 목록 */
+  var outletOrder = [];
+  var outletAgg = {};          /* 배출구 전체 집계 (시설 무관) */
+  var outletFacMap = {};       /* 배출구 → [fac, fac, ...] */
   state.facilities.forEach(function (fac) {
-    var facName = fac.name || "(이름 없음)";
     var facSumQs = 0;
     fac.hoods.forEach(function (h) { facSumQs += hoodQstd(h); });
-    /* 시설 내 배출구별 그룹 */
-    var groups = {};
-    var order = [];
+    var visited = {};
     fac.hoods.forEach(function (h) {
       var key = (h.outlet || "").trim() || "(미지정)";
-      if (!groups[key]) { groups[key] = _outletAggBase(); order.push(key); }
-      _accumOutlet(groups[key], fac, h, facSumQs);
+      if (!outletAgg[key]) { outletAgg[key] = _outletAggBase(); outletOrder.push(key); outletFacMap[key] = []; }
+      _accumOutlet(outletAgg[key], fac, h, facSumQs);
+      if (!visited[key]) { visited[key] = true; outletFacMap[key].push(fac); }
     });
-    var facTotal = _outletAggBase();
-    order.forEach(function (k, idx) {
-      var a = groups[k];
-      var first = idx === 0;
-      html += '<tr>';
-      if (first) html += '<td class="fac-name" rowspan="' + (order.length + 1) + '">' + escapeHtml(facName) + '</td>';
-      html += '<td class="lbl">' + escapeHtml(k) + '</td>' +
-        '<td>' + fmt(a.q)  + '<span class="u"> ㎥/min</span></td>' +
-        '<td>' + fmt(a.qs) + '<span class="u"> S㎥/min</span></td>' +
-        '<td>' + (a.q > 0 ? fmt(a.qt / a.q) + '<span class="u"> ℃</span>' : '<span class="nd">—</span>') + '</td>' +
-        '<td>' + (a.wQ > 0 ? fmt(a.wConc / a.wQ) + '<span class="u"> mg/S㎥</span>' : '<span class="nd">—</span>') + '</td>' +
-        '</tr>';
-      facTotal.q += a.q; facTotal.qs += a.qs; facTotal.qt += a.qt;
-      facTotal.wConc += a.wConc; facTotal.wQ += a.wQ;
-    });
-    /* 시설 소계 */
-    html += '<tr class="subtotal">' +
-      '<td class="lbl">시설 소계</td>' +
-      '<td>' + fmt(facTotal.q)  + '<span class="u"> ㎥/min</span></td>' +
-      '<td>' + fmt(facTotal.qs) + '<span class="u"> S㎥/min</span></td>' +
-      '<td>' + (facTotal.q > 0 ? fmt(facTotal.qt / facTotal.q) + '<span class="u"> ℃</span>' : '<span class="nd">—</span>') + '</td>' +
-      '<td>' + (facTotal.wQ > 0 ? fmt(facTotal.wConc / facTotal.wQ) + '<span class="u"> mg/S㎥</span>' : '<span class="nd">—</span>') + '</td>' +
-      '</tr>';
-    grand.q += facTotal.q; grand.qs += facTotal.qs; grand.qt += facTotal.qt;
-    grand.wConc += facTotal.wConc; grand.wQ += facTotal.wQ;
   });
-  html += '</tbody><tfoot><tr class="subtotal">' +
-    '<td class="lbl" colspan="2">전체 합계</td>' +
-    '<td>' + fmt(grand.q)  + '<span class="u"> ㎥/min</span></td>' +
-    '<td>' + fmt(grand.qs) + '<span class="u"> S㎥/min</span></td>' +
-    '<td>' + (grand.q > 0 ? fmt(grand.qt / grand.q) + '<span class="u"> ℃</span>' : '<span class="nd">—</span>') + '</td>' +
-    '<td>' + (grand.wQ > 0 ? fmt(grand.wConc / grand.wQ) + '<span class="u"> mg/S㎥</span>' : '<span class="nd">—</span>') + '</td>' +
-    '</tr></tfoot></table>';
+
+  if (outletOrder.length === 0) { box.innerHTML = '<div class="empty-msg">시설/후드/배출구를 입력하면 집계가 표시됩니다.</div>'; return; }
+
+  var html = '<table class="summary-doc-tbl"><thead><tr>' +
+    '<th>배출시설명</th><th>풍량 및 농도</th>' +
+    '<th>배출구</th><th>풍량 및 농도</th>' +
+    '</tr></thead><tbody>';
+
+  outletOrder.forEach(function (k) {
+    var facs = outletFacMap[k];
+    var o = outletAgg[k];
+    var outletTemp = o.q > 0 ? o.qt / o.q : null;
+    var outletConc = o.wQ > 0 ? o.wConc / o.wQ : null;
+    var outletDataHtml = _stackCellHtml(o.q, o.qs, outletTemp, outletConc);
+    var rowCount = Math.max(facs.length, 1);
+
+    if (facs.length === 0) {
+      html += '<tr>' +
+        '<td class="sdt-fac sdt-nd">—</td><td class="sdt-data"></td>' +
+        '<td class="sdt-out">' + escapeHtml(k) + '</td>' +
+        '<td class="sdt-data">' + outletDataHtml + '</td>' +
+        '</tr>';
+      return;
+    }
+
+    facs.forEach(function (fac, fi) {
+      /* 이 배출구로 연결된 fac의 후드들만 */
+      var hoodsHere = fac.hoods.filter(function (h) {
+        return ((h.outlet || "").trim() || "(미지정)") === k;
+      });
+      var facSumQs = 0;
+      fac.hoods.forEach(function (h) { facSumQs += hoodQstd(h); });
+      var facAgg = _outletAggBase();
+      hoodsHere.forEach(function (h) { _accumOutlet(facAgg, fac, h, facSumQs); });
+      var facTemp = facAgg.q > 0 ? facAgg.qt / facAgg.q : null;
+      var facConc = facAgg.wQ > 0 ? facAgg.wConc / facAgg.wQ : null;
+      var facDataHtml = _stackCellHtml(facAgg.q, facAgg.qs, facTemp, facConc);
+
+      var tr = '<tr><td class="sdt-fac">' + escapeHtml(fac.name || '(이름 없음)') + '</td>' +
+               '<td class="sdt-data">' + facDataHtml + '</td>';
+      if (fi === 0) {
+        tr += '<td class="sdt-out" rowspan="' + rowCount + '">' + escapeHtml(k) + '</td>' +
+              '<td class="sdt-data" rowspan="' + rowCount + '">' + outletDataHtml + '</td>';
+      }
+      tr += '</tr>';
+      html += tr;
+    });
+  });
+  html += '</tbody></table>';
   box.innerHTML = html;
 }
 
