@@ -47,5 +47,12 @@
         "tag":  "환경",
         "description":  "배출시설/후드를 엑셀처럼 한 행씩 입력해 먼지 발생량(톤/년)과 농도(mg/S㎥)를 계산. 시설 행이 후드 행들을 rowspan으로 머금는 구조.",
         "path":  "./tools/airflow-concentration-xl/"
+    },
+    {
+        "slug":  "waste-change-selector",
+        "name":  "폐기물처리업 변경사항 선택",
+        "tag":  "환경",
+        "description":  "폐기물처리업 처리업 코드와 변경허가/변경신고 구분에 따라 해당하는 변경사항 항목을 골라 선택합니다. 폐기물관리법 시행규칙(시행 2026-03-26) 기준.",
+        "path":  "./tools/waste-change-selector/"
     }
 ]
