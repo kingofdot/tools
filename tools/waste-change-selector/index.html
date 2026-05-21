@@ -149,23 +149,13 @@
 <div class="wrap">
   <div class="page-head">
     <h1><span class="dot"></span>폐기물처리업 변경사항 선택</h1>
-    <p class="desc">처리업 종류와 변경허가/변경신고 구분에 따라 해당되는 변경사항을 선택합니다.</p>
+    <p class="desc">폐기물 수집·운반업의 변경허가/변경신고 해당 변경사항을 선택합니다.</p>
   </div>
 
-  <!-- 1. 처리업 선택 -->
+  <!-- 1. 변경구분 + 항목 -->
   <div class="card">
     <div class="card-head">
       <span class="card-num">1</span>
-      <h2>처리업 선택</h2>
-      <span class="hint">사업장의 폐기물처리업 종류를 고르세요</span>
-    </div>
-    <div class="biz-grid" id="bizGrid"></div>
-  </div>
-
-  <!-- 2. 변경구분 + 항목 -->
-  <div class="card">
-    <div class="card-head">
-      <span class="card-num">2</span>
       <h2>변경사항 선택</h2>
       <span class="hint" id="itemHint"></span>
     </div>
@@ -173,10 +163,10 @@
     <div class="item-list" id="itemList"></div>
   </div>
 
-  <!-- 3. 선택 요약 -->
+  <!-- 2. 선택 요약 -->
   <div class="card">
     <div class="card-head">
-      <span class="card-num">3</span>
+      <span class="card-num">2</span>
       <h2>선택 요약</h2>
     </div>
     <div id="summary"></div>
@@ -247,8 +237,9 @@ var DATA = {
 /* ── 상태 ── */
 var STORAGE_KEY = "waste-change-selector.v1";
 var BIZ = DATA._meta.bizType_코드;
-var BIZ_ORDER = ["TR", "ID", "FD", "IR", "FR", "CR"];
-var state = { bizType: "", tab: "전체", selected: {} };
+/* 수집·운반업(TR) 전용 — 처리업 코드 고정 */
+var FIXED_BIZ = "TR";
+var state = { bizType: FIXED_BIZ, tab: "전체", selected: {} };
 
 function save(){ try{ localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); }catch(e){} }
 function load(){
@@ -257,11 +248,11 @@ function load(){
     if(!raw) return;
     var s = JSON.parse(raw);
     if(s && typeof s === "object"){
-      if(BIZ[s.bizType]) state.bizType = s.bizType;
       if(["전체","변경허가","변경신고"].indexOf(s.tab) !== -1) state.tab = s.tab;
       if(s.selected && typeof s.selected === "object") state.selected = s.selected;
     }
   }catch(e){}
+  state.bizType = FIXED_BIZ;
 }
 function escapeHtml(s){
   return String(s==null?"":s).replace(/[&<>"]/g,function(c){
@@ -288,22 +279,6 @@ function itemById(id){
 }
 
 /* ── 렌더 ── */
-function renderBiz(){
-  var grid = document.getElementById("bizGrid");
-  grid.innerHTML = "";
-  BIZ_ORDER.forEach(function(code){
-    var btn = document.createElement("button");
-    btn.className = "biz-btn" + (state.bizType === code ? " active" : "");
-    btn.innerHTML = '<span class="code">' + escapeHtml(code) + '</span>' +
-                    '<span>' + escapeHtml(BIZ[code]) + '</span>';
-    btn.addEventListener("click", function(){
-      state.bizType = (state.bizType === code) ? "" : code;
-      save(); renderAll();
-    });
-    grid.appendChild(btn);
-  });
-}
-
 function renderTabs(){
   var box = document.getElementById("tabs");
   box.innerHTML = "";
@@ -415,7 +390,6 @@ function idxOf(id){
 }
 
 function renderAll(){
-  renderBiz();
   renderTabs();
   renderItems();
   renderSummary();
