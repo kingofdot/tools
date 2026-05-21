@@ -89,7 +89,27 @@
     display:flex; gap:11px; align-items:flex-start;
   }
   .item:hover{border-color:var(--border-2); background:var(--surface-2);}
-  .item.checked{border-color:var(--accent); background:var(--accent-bg);}
+  .item.checked{border-color:var(--accent); background:var(--accent-bg); flex-wrap:wrap;}
+
+  /* 변경전/후 입력칸 */
+  .change-fields{
+    flex-basis:100%; width:100%; margin-top:10px; padding-top:10px;
+    border-top:1px dashed var(--border-2);
+    display:flex; flex-direction:column; gap:7px; cursor:default;
+  }
+  .cf-row{display:flex; gap:8px; align-items:flex-start;}
+  .cf-row label{
+    font-size:10.5px; font-weight:700; width:46px; flex-shrink:0;
+    padding-top:6px; text-align:center; border-radius:5px; padding-bottom:6px;
+  }
+  .cf-before label{color:var(--danger); background:rgba(220,38,38,.08);}
+  .cf-after label{color:var(--success-2); background:var(--success-bg);}
+  .cf-row textarea{
+    flex:1; border:1px solid var(--border-2); border-radius:6px;
+    padding:6px 8px; font-family:inherit; font-size:11.5px; line-height:1.5;
+    resize:vertical; color:var(--text); background:var(--surface); outline:none;
+  }
+  .cf-row textarea:focus{border-color:var(--accent); box-shadow:0 0 0 3px var(--accent-bg);}
   .item .chk{
     width:18px; height:18px; border:1.5px solid var(--border-2); border-radius:5px;
     flex-shrink:0; margin-top:1px; display:flex; align-items:center; justify-content:center;
@@ -119,11 +139,26 @@
   .sum-count{font-size:22px; font-weight:700; color:var(--accent-2);}
   .sum-count .u{font-size:13px; color:var(--muted); font-weight:500; margin-left:3px;}
   .sum-list{display:flex; flex-direction:column; gap:6px;}
-  .sum-item{
-    display:flex; gap:8px; align-items:flex-start; font-size:11.5px;
-    padding:7px 10px; background:var(--surface-2); border:1px solid var(--border);
-    border-radius:7px;
+  .sum-item-wrap{
+    background:var(--surface-2); border:1px solid var(--border); border-radius:7px;
+    overflow:hidden;
   }
+  .sum-item{
+    display:flex; gap:8px; align-items:flex-start; font-size:11.5px; padding:7px 10px;
+  }
+  .sum-ba{
+    padding:7px 10px 8px; border-top:1px dashed var(--border-2);
+    display:flex; flex-direction:column; gap:4px; background:var(--surface);
+  }
+  .sum-ba-row{display:flex; gap:7px; align-items:flex-start; font-size:11px;}
+  .sum-ba-row .t{
+    font-size:10px; font-weight:700; width:42px; flex-shrink:0; text-align:center;
+    border-radius:4px; padding:2px 0;
+  }
+  .sum-ba-row .t.b{color:var(--danger); background:rgba(220,38,38,.08);}
+  .sum-ba-row .t.a{color:var(--success-2); background:var(--success-bg);}
+  .sum-ba-row .v{flex:1; color:var(--text); white-space:pre-wrap; word-break:break-word;}
+  .sum-ba-row .v .nd{color:var(--muted);}
   .sum-item .jo{color:var(--muted); font-weight:600; white-space:nowrap; font-size:10.5px;}
   .sum-item .lbl{flex:1; color:var(--text); font-weight:600;}
   .sum-item .x{
@@ -249,7 +284,15 @@ function load(){
     var s = JSON.parse(raw);
     if(s && typeof s === "object"){
       if(["전체","변경허가","변경신고"].indexOf(s.tab) !== -1) state.tab = s.tab;
-      if(s.selected && typeof s.selected === "object") state.selected = s.selected;
+      if(s.selected && typeof s.selected === "object"){
+        state.selected = {};
+        Object.keys(s.selected).forEach(function(id){
+          var v = s.selected[id];
+          if(v === true) state.selected[id] = { before:"", after:"" };
+          else if(v && typeof v === "object")
+            state.selected[id] = { before: v.before || "", after: v.after || "" };
+        });
+      }
     }
   }catch(e){}
   state.bizType = FIXED_BIZ;
@@ -315,7 +358,8 @@ function renderItems(){
     return;
   }
   items.forEach(function(it){
-    var checked = !!state.selected[it.id];
+    var sel = state.selected[it.id];
+    var checked = !!sel;
     var row = document.createElement("div");
     row.className = "item" + (checked ? " checked" : "");
 
@@ -343,11 +387,33 @@ function renderItems(){
         (meta ? '<div class="meta">' + meta + '</div>' : '') +
       '</div>';
 
-    row.addEventListener("click", function(){
+    /* 체크/해제 — chk·item-body 영역 클릭만 */
+    function toggle(){
       if(state.selected[it.id]) delete state.selected[it.id];
-      else state.selected[it.id] = true;
+      else state.selected[it.id] = { before:"", after:"" };
       save(); renderItems(); renderSummary();
-    });
+    }
+    row.querySelector(".chk").addEventListener("click", toggle);
+    row.querySelector(".item-body").addEventListener("click", toggle);
+
+    /* 체크 시 변경전/후 입력칸 */
+    if(checked){
+      var cf = document.createElement("div");
+      cf.className = "change-fields";
+      cf.innerHTML =
+        '<div class="cf-row cf-before"><label>변경 전</label>' +
+        '<textarea rows="2" placeholder="현재 내용"></textarea></div>' +
+        '<div class="cf-row cf-after"><label>변경 후</label>' +
+        '<textarea rows="2" placeholder="변경할 내용"></textarea></div>';
+      var taB = cf.querySelector(".cf-before textarea");
+      var taA = cf.querySelector(".cf-after textarea");
+      taB.value = sel.before || "";
+      taA.value = sel.after || "";
+      taB.addEventListener("input", function(){ sel.before = taB.value; save(); });
+      taA.addEventListener("input", function(){ sel.after = taA.value; save(); });
+      cf.addEventListener("click", function(e){ e.stopPropagation(); });
+      row.appendChild(cf);
+    }
     box.appendChild(row);
   });
 }
@@ -367,12 +433,24 @@ function renderSummary(){
              '<span class="u">건 선택</span></span></div><div class="sum-list">';
   ids.forEach(function(id){
     var it = itemById(id);
+    var sel = state.selected[id] || {};
     var badgeCls = it.changeType === "변경허가" ? "perm" : "noti";
-    html += '<div class="sum-item">' +
-      '<span class="badge ' + badgeCls + '">' + escapeHtml(it.changeType) + '</span>' +
-      '<span class="jo">' + escapeHtml(it.조항) + '</span>' +
-      '<span class="lbl">' + escapeHtml(it.label) + '</span>' +
-      '<span class="x" data-id="' + escapeHtml(it.id) + '" title="제거">✕</span>' +
+    var ba = "";
+    if((sel.before || "").trim() || (sel.after || "").trim()){
+      ba = '<div class="sum-ba">' +
+        '<div class="sum-ba-row"><span class="t b">변경 전</span><span class="v">' +
+          (escapeHtml(sel.before) || '<span class="nd">—</span>') + '</span></div>' +
+        '<div class="sum-ba-row"><span class="t a">변경 후</span><span class="v">' +
+          (escapeHtml(sel.after) || '<span class="nd">—</span>') + '</span></div>' +
+        '</div>';
+    }
+    html += '<div class="sum-item-wrap">' +
+      '<div class="sum-item">' +
+        '<span class="badge ' + badgeCls + '">' + escapeHtml(it.changeType) + '</span>' +
+        '<span class="jo">' + escapeHtml(it.조항) + '</span>' +
+        '<span class="lbl">' + escapeHtml(it.label) + '</span>' +
+        '<span class="x" data-id="' + escapeHtml(it.id) + '" title="제거">✕</span>' +
+      '</div>' + ba +
       '</div>';
   });
   html += '</div>';
@@ -404,11 +482,14 @@ function selectionText(){
   lines.push("");
   ids.forEach(function(id){
     var it = itemById(id);
+    var sel = state.selected[id] || {};
     var line = "- [" + it.changeType + "] " + it.조항 + " " + it.label;
     if(it.신고시점) line += " (" + it.신고시점 + ")";
     lines.push(line);
     if(it.조건) lines.push("    · 조건: " + it.조건);
     if(it.비고) lines.push("    · 비고: " + it.비고);
+    if((sel.before || "").trim()) lines.push("    · 변경 전: " + sel.before.trim());
+    if((sel.after  || "").trim()) lines.push("    · 변경 후: " + sel.after.trim());
   });
   return lines.join("\n");
 }
