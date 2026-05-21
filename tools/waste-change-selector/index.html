@@ -369,7 +369,8 @@ function renderItems(){
     if(it.신고시점){
       top += '<span class="badge time">' + escapeHtml(it.신고시점) + '</span>';
     }
-    top += '<span class="jo">' + escapeHtml(it.조항) + '</span></div>';
+    top += '<span class="jo" title="' + escapeHtml(it.조항) + '">' +
+           escapeHtml(formatJo(it.조항)) + '</span></div>';
 
     var meta = "";
     if(it.조건){
@@ -447,7 +448,7 @@ function renderSummary(){
     html += '<div class="sum-item-wrap">' +
       '<div class="sum-item">' +
         '<span class="badge ' + badgeCls + '">' + escapeHtml(it.changeType) + '</span>' +
-        '<span class="jo">' + escapeHtml(it.조항) + '</span>' +
+        '<span class="jo" title="' + escapeHtml(it.조항) + '">' + escapeHtml(formatJo(it.조항)) + '</span>' +
         '<span class="lbl">' + escapeHtml(it.label) + '</span>' +
         '<span class="x" data-id="' + escapeHtml(it.id) + '" title="제거">✕</span>' +
       '</div>' + ba +
@@ -467,6 +468,24 @@ function idxOf(id){
   return 999;
 }
 
+/* 조항 문자열 → 몇조 몇항 몇호 몇목 정식 표기 */
+/* 예: "시행규칙 제29조①1.가." → "폐기물관리법 시행규칙 제29조 제1항 제1호 가목" */
+var MOK_CHARS = "가나다라마바사아자차카타파하";
+function formatJo(raw){
+  if(!raw) return "";
+  var out = [];
+  if(raw.indexOf("시행규칙") !== -1) out.push("폐기물관리법 시행규칙");
+  var joM = raw.match(/제(\d+)조/);
+  if(joM) out.push("제" + joM[1] + "조");
+  var hangM = raw.match(/[①-⑳]/);  /* ①~⑳ */
+  if(hangM) out.push("제" + (hangM[0].charCodeAt(0) - 0x2460 + 1) + "항");
+  var hoM = raw.match(/[①-⑳](\d+)\./);
+  if(hoM) out.push("제" + hoM[1] + "호");
+  var mokM = raw.match(/([가-힣])\.\s*$/);
+  if(mokM && MOK_CHARS.indexOf(mokM[1]) !== -1) out.push(mokM[1] + "목");
+  return out.length ? out.join(" ") : raw;
+}
+
 function renderAll(){
   renderTabs();
   renderItems();
@@ -483,7 +502,7 @@ function selectionText(){
   ids.forEach(function(id){
     var it = itemById(id);
     var sel = state.selected[id] || {};
-    var line = "- [" + it.changeType + "] " + it.조항 + " " + it.label;
+    var line = "- [" + it.changeType + "] " + formatJo(it.조항) + " " + it.label;
     if(it.신고시점) line += " (" + it.신고시점 + ")";
     lines.push(line);
     if(it.조건) lines.push("    · 조건: " + it.조건);
