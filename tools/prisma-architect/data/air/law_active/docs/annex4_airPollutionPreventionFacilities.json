@@ -1,0 +1,29 @@
+{
+  "별표번호": "4",
+  "별표가지번호": "00",
+  "별표제목": "대기오염방지시설",
+  "법령명": "대기환경보전법 시행규칙",
+  "관련조문": "제6조",
+  "개정일": "2025-10-01",
+  "별표내용": [
+    { "depth": 0, "type": "number", "marker": "1.", "text": "중력집진시설", "tags": null },
+    { "depth": 0, "type": "number", "marker": "2.", "text": "관성력집진시설", "tags": null },
+    { "depth": 0, "type": "number", "marker": "3.", "text": "원심력집진시설", "tags": null },
+    { "depth": 0, "type": "number", "marker": "4.", "text": "세정집진시설", "tags": null },
+    { "depth": 0, "type": "number", "marker": "5.", "text": "여과집진시설", "tags": null },
+    { "depth": 0, "type": "number", "marker": "6.", "text": "전기집진시설", "tags": null },
+    { "depth": 0, "type": "number", "marker": "7.", "text": "음파집진시설", "tags": null },
+    { "depth": 0, "type": "number", "marker": "8.", "text": "흡수에 의한 시설", "tags": null },
+    { "depth": 0, "type": "number", "marker": "9.", "text": "흡착에 의한 시설", "tags": null },
+    { "depth": 0, "type": "number", "marker": "10.", "text": "직접연소에 의한 시설", "tags": null },
+    { "depth": 0, "type": "number", "marker": "11.", "text": "촉매반응을 이용하는 시설", "tags": null },
+    { "depth": 0, "type": "number", "marker": "12.", "text": "응축에 의한 시설", "tags": null },
+    { "depth": 0, "type": "number", "marker": "13.", "text": "산화ㆍ환원에 의한 시설", "tags": null },
+    { "depth": 0, "type": "number", "marker": "14.", "text": "미생물을 이용한 처리시설", "tags": null },
+    { "depth": 0, "type": "number", "marker": "15.", "text": "연소조절에 의한 시설", "tags": null },
+    { "depth": 0, "type": "number", "marker": "16.", "text": "위 제1호부터 제15호까지의 시설과 같은 방지효율 또는 그 이상의 방지효율을 가진 시설로서 기후에너지환경부장관이 인정하는 시설", "tags": null }
+  ],
+  "비고": [
+    "방지시설에는 대기오염물질을 포집하기 위한 장치(후드), 오염물질이 통과하는 관로(덕트), 오염물질을 이송하기 위한 송풍기 및 각종 펌프 등 방지시설에 딸린 기계ㆍ기구류(예비용을 포함한다) 등을 포함한다."
+  ]
+}

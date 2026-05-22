@@ -1,0 +1,253 @@
+{
+  "별표번호": "1",
+  "별표가지번호": "00",
+  "별표제목": "기타수질오염원",
+  "법령명": "물환경보전법 시행규칙",
+  "관련조문": "제2조",
+  "개정일": "2024-11-07",
+  "_meta": {
+    "_note": "lookup 사용 케이스: 사용자가 자기 시설의 면적/물사용량 등을 입력하면 어느 카테고리에 속하는지 자동 판정. criteria.conditions[] 로 정규화. drainsTo 필드는 공공하수/개인하수처리시설 유입 여부에 따라 다른 임계값 적용시 사용.",
+    "metrics": {
+      "area":             "면적 (m²)",
+      "volume":           "용적/용량 (m³)",
+      "dailyWaterUsage":  "1일 물사용량 (m³/day)",
+      "dailyWastewater":  "1일 폐수발생량 (m³/day)",
+      "count":            "갯수 (대, 홀)",
+      "license":          "면허/허가 대상 여부 (문자열)"
+    }
+  },
+  "기타수질오염원": [
+    {
+      "facilityCode": "1.",
+      "name": "수산물 양식시설",
+      "subFacilities": [
+        {
+          "code": "가.",
+          "name": "가두리양식업시설",
+          "fullText": "「양식산업발전법 시행령」 제9조제8항제2호에 따른 가두리양식업시설",
+          "criteria": {
+            "logic": "AND",
+            "conditions": [
+              { "metric": "license", "operator": "==", "value": "면허대상", "qualifier": "면허대상 모두" }
+            ]
+          },
+          "criteriaText": "면허대상 모두"
+        },
+        {
+          "code": "나.",
+          "name": "육상수조식해수양식업시설",
+          "fullText": "「양식산업발전법 시행령」 제29조제1항제1호에 따른 육상수조식해수양식업시설",
+          "criteria": {
+            "logic": "AND",
+            "conditions": [
+              { "metric": "area", "operator": ">=", "value": 500, "unit": "m²", "qualifier": "수조면적 합계" }
+            ]
+          },
+          "criteriaText": "수조면적의 합계가 500제곱미터 이상일 것"
+        },
+        {
+          "code": "다.",
+          "name": "육상수조식내수양식업시설",
+          "fullText": "「양식산업발전법 시행령」 제29조제2항제1호에 따른 육상수조식내수양식업시설",
+          "criteria": {
+            "logic": "AND",
+            "conditions": [
+              { "metric": "area", "operator": ">=", "value": 500, "unit": "m²", "qualifier": "수조면적 합계" }
+            ]
+          },
+          "criteriaText": "수조면적의 합계가 500제곱미터 이상일 것"
+        }
+      ]
+    },
+    {
+      "facilityCode": "2.",
+      "name": "골프장",
+      "fullText": "「체육시설의 설치·이용에 관한 법률 시행령」 별표 1에 따른 골프장",
+      "criteria": {
+        "logic": "OR",
+        "conditions": [
+          { "metric": "area", "operator": ">=", "value": 30000, "unit": "m²" },
+          { "metric": "count", "operator": ">=", "value": 3, "unit": "홀" }
+        ]
+      },
+      "criteriaText": "면적이 3만 제곱미터 이상이거나 3홀 이상일 것",
+      "exclusion": "법 제53조제1항에 따라 비점오염원으로 설치 신고대상인 골프장은 제외"
+    },
+    {
+      "facilityCode": "3.",
+      "name": "운수장비 정비 또는 폐차장 시설",
+      "subFacilities": [
+        {
+          "code": "가.",
+          "name": "운수장비 정비시설",
+          "fullText": "동력으로 움직이는 모든 기계류·기구류·장비류의 정비를 목적으로 사용하는 시설",
+          "criteria": {
+            "logic": "AND",
+            "conditions": [
+              { "metric": "area", "operator": ">=", "value": 200, "unit": "m²", "qualifier": "검사장 면적 포함" }
+            ]
+          },
+          "criteriaText": "면적이 200제곱미터 이상(검사장 면적을 포함한다)일 것"
+        },
+        {
+          "code": "나.",
+          "name": "자동차 폐차장시설",
+          "criteria": {
+            "logic": "AND",
+            "conditions": [
+              { "metric": "area", "operator": ">=", "value": 1500, "unit": "m²" }
+            ]
+          },
+          "criteriaText": "면적이 1천 500제곱미터 이상일 것"
+        }
+      ]
+    },
+    {
+      "facilityCode": "4.",
+      "name": "농축수산물 단순가공시설",
+      "subFacilities": [
+        {
+          "code": "가.",
+          "name": "조류 알 물세척 시설",
+          "fullText": "조류의 알을 물세척만 하는 시설",
+          "criteria": {
+            "logic": "OR",
+            "conditions": [
+              { "metric": "dailyWaterUsage", "operator": ">=", "value": 5, "unit": "m³/day", "qualifier": "기본" },
+              { "metric": "dailyWaterUsage", "operator": ">=", "value": 20, "unit": "m³/day", "qualifier": "공공하수처리시설 또는 개인하수처리시설 유입 시" }
+            ]
+          },
+          "criteriaText": "물사용량이 1일 5세제곱미터 이상(공공하수처리시설 및 개인하수처리시설에 유입하는 경우에는 1일 20세제곱미터 이상)일 것"
+        },
+        {
+          "code": "나.",
+          "name": "1차 농산물 물세척 시설",
+          "fullText": "1차 농산물을 물세척만 하는 시설",
+          "criteria": {
+            "logic": "OR",
+            "conditions": [
+              { "metric": "dailyWaterUsage", "operator": ">=", "value": 5, "unit": "m³/day", "qualifier": "기본" },
+              { "metric": "dailyWaterUsage", "operator": ">=", "value": 20, "unit": "m³/day", "qualifier": "공공하수처리시설 또는 개인하수처리시설 유입 시" }
+            ]
+          },
+          "criteriaText": "물사용량이 1일 5세제곱미터 이상(공공하수처리시설 및 개인하수처리시설에 유입하는 경우에는 1일 20세제곱미터 이상)일 것"
+        },
+        {
+          "code": "다.",
+          "name": "농산물 소금절임 시설",
+          "fullText": "농산물의 보관·수송 등을 위하여 소금으로 절임만 하는 시설",
+          "criteria": {
+            "logic": "OR",
+            "conditions": [
+              { "metric": "volume", "operator": ">=", "value": 10, "unit": "m³", "qualifier": "기본 (용량)" },
+              { "metric": "dailyWaterUsage", "operator": ">=", "value": 20, "unit": "m³/day", "qualifier": "공공하수처리시설 또는 개인하수처리시설 유입 시" }
+            ]
+          },
+          "criteriaText": "용량이 10세제곱미터 이상(공공하수처리시설 및 개인하수처리시설에 유입하는 경우에는 1일 20세제곱미터 이상)일 것"
+        },
+        {
+          "code": "라.",
+          "name": "수산물 직접 바다배출 물세척 시설",
+          "fullText": "고정된 배수관을 통하여 바다로 직접 배출하는 시설(양식어민이 직접 양식한 굴의 껍질을 제거하고 물세척을 하는 시설을 포함한다)로서 수산물을 포획 또는 채취한 상태 그대로 물세척만 하거나 삶은 제품을 구입하여 물세척만 하는 시설",
+          "criteria": {
+            "logic": "OR",
+            "conditions": [
+              { "metric": "dailyWaterUsage", "operator": ">=", "value": 5, "unit": "m³/day", "qualifier": "기본" },
+              { "metric": "dailyWaterUsage", "operator": ">=", "value": 20, "unit": "m³/day", "qualifier": "농축수산물 단순가공시설이 바다에 붙어있는 경우" }
+            ]
+          },
+          "criteriaText": "물사용량이 1일 5세제곱미터 이상(농축수산물 단순가공시설이 바다에 붙어 있는 경우에는 물사용량이 1일 20세제곱미터 이상)일 것"
+        }
+      ]
+    },
+    {
+      "facilityCode": "5.",
+      "name": "사진 처리 또는 X-Ray 시설",
+      "subFacilities": [
+        {
+          "code": "가.",
+          "name": "무인자동식 현상·인화·정착시설",
+          "criteria": {
+            "logic": "AND",
+            "conditions": [
+              { "metric": "count", "operator": ">=", "value": 1, "unit": "대" }
+            ]
+          },
+          "criteriaText": "1대 이상일 것"
+        },
+        {
+          "code": "나.",
+          "name": "사진처리시설(X-Ray 포함, 폐수 전량 위탁처리)",
+          "fullText": "한국표준산업분류 733 사진촬영 및 처리업의 사진처리시설(X-Ray시설을 포함한다) 중에서 폐수를 전량 위탁처리하는 시설",
+          "ksicCodes": ["733"],
+          "criteria": {
+            "logic": "AND",
+            "conditions": [
+              { "metric": "count", "operator": ">=", "value": 1, "unit": "대" }
+            ]
+          },
+          "criteriaText": "1대 이상일 것"
+        }
+      ]
+    },
+    {
+      "facilityCode": "6.",
+      "name": "금은판매점의 세공시설이나 안경원",
+      "subFacilities": [
+        {
+          "code": "가.",
+          "name": "금은판매점 세공시설 (폐수 전량 위탁처리)",
+          "fullText": "금은판매점의 세공시설(「국토의 계획 및 이용에 관한 법률 시행령」 제30조에 따른 준주거지역 및 상업지역에서 금은을 세공하여 금은판매점에 제공하는 시설을 포함한다)에서 발생되는 폐수를 전량 위탁처리하는 시설",
+          "criteria": {
+            "logic": "AND",
+            "conditions": [
+              { "metric": "dailyWastewater", "operator": ">=", "value": 0.01, "unit": "m³/day" }
+            ]
+          },
+          "criteriaText": "폐수발생량이 1일 0.01세제곱미터 이상일 것"
+        },
+        {
+          "code": "나.",
+          "name": "안경원 렌즈 제작 시설",
+          "criteria": {
+            "logic": "AND",
+            "conditions": [
+              { "metric": "count", "operator": ">=", "value": 1, "unit": "대" }
+            ]
+          },
+          "criteriaText": "1대 이상일 것"
+        }
+      ]
+    },
+    {
+      "facilityCode": "7.",
+      "name": "복합물류터미널 시설",
+      "fullText": "화물의 운송, 보관, 하역과 관련된 작업을 하는 시설",
+      "criteria": {
+        "logic": "AND",
+        "conditions": [
+          { "metric": "area", "operator": ">=", "value": 200000, "unit": "m²" }
+        ]
+      },
+      "criteriaText": "면적이 20만 제곱미터 이상일 것"
+    },
+    {
+      "facilityCode": "8.",
+      "name": "거점소독시설",
+      "fullText": "조류인플루엔자 등의 방역을 위하여 축산 관련 차량의 소독을 실시하는 시설",
+      "criteria": {
+        "logic": "AND",
+        "conditions": [
+          { "metric": "area", "operator": ">=", "value": 15, "unit": "m²" }
+        ]
+      },
+      "criteriaText": "면적이 15제곱미터 이상일 것",
+      "_note": "「가축전염병 예방법」 제3조제1항에 따른 가축전염병 예방 및 관리대책에 따른 거점소독시설 및 같은 조 제5항에 따라 농림축산식품부장관이 고시한 방역기준에 따른 거점소독시설"
+    }
+  ],
+  "비고": [
+    "제1호나목 및 다목에 해당되는 시설 중 증발과 누수로 인하여 줄어드는 물을 보충하여 양식하는 양식장, 전복양식장은 제외한다.",
+    "제8호의 거점소독시설은 「가축전염병 예방법」 제3조제1항에 따른 가축전염병 예방 및 관리대책에 따른 거점소독시설 및 같은 조 제5항에 따라 농림축산식품부장관이 고시한 방역기준에 따른 거점소독시설을 말한다.",
+    "「환경영향평가법 시행령」 별표 3 제1호아목에 해당되어 비점오염원 설치 신고 대상이 되는 사업은 기타수질오염원 신고대상에서 제외한다."
+  ]
+}

@@ -1,0 +1,2031 @@
+{
+  "별표번호": "13",
+  "별표가지번호": "00",
+  "별표제목": "수질오염물질의 배출허용기준",
+  "법령명": "물환경보전법 시행규칙",
+  "관련조문": "제34조",
+  "개정일": "2025-10-01",
+  "적용범위": "본 데이터는 현행 기준만 채택 — 가목은 '2020년 1월 1일부터 적용', 나목은 '2021년 1월 1일부터 적용' 기준만 수록 (이전 시기 기준은 수록하지 않음)",
+  "_meta": {
+    "지역구분": [
+      "청정지역",
+      "가지역",
+      "나지역",
+      "특례지역"
+    ],
+    "operator": "기본값 <= (~ 이하). 단, 수소이온농도(pH)는 범위(5.8~8.6) 형태",
+    "limit_타입": {
+      "constant": "{type:'constant',   value, unit, operator}",
+      "range": "{type:'range',      min, max, unit}  // 예: pH 5.8~8.6",
+      "qualifier": "{type:'qualifier',  qualifier, unit}  // 예: 불검출",
+      "facilityOverride": "특정 시설은 다른 기준 적용 — 비고 참조"
+    },
+    "_basisInferred": "limit 의 numeric 값은 표상 '이하' 표기를 항상 operator '<=' 로 정규화"
+  },
+  "지역구분_정의": [
+    {
+      "name": "청정지역",
+      "marker": "1)",
+      "description": "「환경정책기본법 시행령」 별표 1 제3호에 따른 수질 및 수생태계 환경기준 매우 좋음(Ⅰa)등급 정도의 수질을 보전하여야 한다고 인정되는 수역의 수질에 영향을 미치는 지역으로서 기후에너지환경부장관이 정하여 고시하는 지역"
+    },
+    {
+      "name": "가지역",
+      "marker": "2)",
+      "description": "수질 및 수생태계 환경기준 좋음(Ⅰb), 약간 좋음(Ⅱ)등급 정도의 수질을 보전하여야 한다고 인정되는 수역의 수질에 영향을 미치는 지역으로서 기후에너지환경부장관이 정하여 고시하는 지역"
+    },
+    {
+      "name": "나지역",
+      "marker": "3)",
+      "description": "수질 및 수생태계 환경기준 보통(Ⅲ), 약간 나쁨(Ⅳ), 나쁨(Ⅴ) 등급 정도의 수질을 보전하여야 한다고 인정되는 수역의 수질에 영향을 미치는 지역으로서 기후에너지환경부장관이 정하여 고시하는 지역"
+    },
+    {
+      "name": "특례지역",
+      "marker": "4)",
+      "description": "공공폐수처리구역 및 시장·군수가 「산업입지 및 개발에 관한 법률」 제8조에 따라 지정하는 농공단지"
+    }
+  ],
+  "공통기준_비고": [
+    "「자연공원법」 제2조제1호에 따른 자연공원의 공원구역 및 「수도법」 제7조에 따라 지정·공고된 상수원보호구역은 제2호에 따른 항목별 배출허용기준을 적용할 때에는 청정지역으로 본다.",
+    "정상가동 중인 공공하수처리시설에 배수설비를 연결하여 처리하고 있는 폐수배출시설에 제2호에 따른 항목별 배출허용기준(나목의 항목은 해당 공공하수처리시설에서 처리하는 수질오염물질 항목만 해당한다)을 적용할 때에는 나지역의 기준을 적용한다."
+  ],
+  "항목별_배출허용기준": {
+    "가목": {
+      "title": "생물화학적산소요구량·총유기탄소량·부유물질량",
+      "marker": "가",
+      "적용시기": "2020-01-01부터 (현행)",
+      "currentSection": "2)",
+      "_note": "1) 2019-12-31까지 적용된 기준은 본 데이터에서 제외. 1)에서는 '화학적 산소 요구량(COD)' 였으나 2)부터 '총유기탄소량(TOC)' 으로 변경됨.",
+      "regimes": [
+        {
+          "size": "1일 폐수배출량 2천 세제곱미터 이상",
+          "rows": [
+            {
+              "지역": "청정지역",
+              "pollutant": "생물화학적산소요구량",
+              "limit": 30,
+              "operator": "<=",
+              "unit": "mg/L"
+            },
+            {
+              "지역": "청정지역",
+              "pollutant": "총유기탄소량",
+              "limit": 25,
+              "operator": "<=",
+              "unit": "mg/L"
+            },
+            {
+              "지역": "청정지역",
+              "pollutant": "부유물질량",
+              "limit": 30,
+              "operator": "<=",
+              "unit": "mg/L"
+            },
+            {
+              "지역": "가지역",
+              "pollutant": "생물화학적산소요구량",
+              "limit": 60,
+              "operator": "<=",
+              "unit": "mg/L"
+            },
+            {
+              "지역": "가지역",
+              "pollutant": "총유기탄소량",
+              "limit": 40,
+              "operator": "<=",
+              "unit": "mg/L"
+            },
+            {
+              "지역": "가지역",
+              "pollutant": "부유물질량",
+              "limit": 60,
+              "operator": "<=",
+              "unit": "mg/L"
+            },
+            {
+              "지역": "나지역",
+              "pollutant": "생물화학적산소요구량",
+              "limit": 80,
+              "operator": "<=",
+              "unit": "mg/L"
+            },
+            {
+              "지역": "나지역",
+              "pollutant": "총유기탄소량",
+              "limit": 50,
+              "operator": "<=",
+              "unit": "mg/L"
+            },
+            {
+              "지역": "나지역",
+              "pollutant": "부유물질량",
+              "limit": 80,
+              "operator": "<=",
+              "unit": "mg/L"
+            },
+            {
+              "지역": "특례지역",
+              "pollutant": "생물화학적산소요구량",
+              "limit": 30,
+              "operator": "<=",
+              "unit": "mg/L"
+            },
+            {
+              "지역": "특례지역",
+              "pollutant": "총유기탄소량",
+              "limit": 25,
+              "operator": "<=",
+              "unit": "mg/L"
+            },
+            {
+              "지역": "특례지역",
+              "pollutant": "부유물질량",
+              "limit": 30,
+              "operator": "<=",
+              "unit": "mg/L"
+            }
+          ]
+        },
+        {
+          "size": "1일 폐수배출량 2천 세제곱미터 미만",
+          "rows": [
+            {
+              "지역": "청정지역",
+              "pollutant": "생물화학적산소요구량",
+              "limit": 40,
+              "operator": "<=",
+              "unit": "mg/L"
+            },
+            {
+              "지역": "청정지역",
+              "pollutant": "총유기탄소량",
+              "limit": 30,
+              "operator": "<=",
+              "unit": "mg/L"
+            },
+            {
+              "지역": "청정지역",
+              "pollutant": "부유물질량",
+              "limit": 40,
+              "operator": "<=",
+              "unit": "mg/L"
+            },
+            {
+              "지역": "가지역",
+              "pollutant": "생물화학적산소요구량",
+              "limit": 80,
+              "operator": "<=",
+              "unit": "mg/L"
+            },
+            {
+              "지역": "가지역",
+              "pollutant": "총유기탄소량",
+              "limit": 50,
+              "operator": "<=",
+              "unit": "mg/L"
+            },
+            {
+              "지역": "가지역",
+              "pollutant": "부유물질량",
+              "limit": 80,
+              "operator": "<=",
+              "unit": "mg/L"
+            },
+            {
+              "지역": "나지역",
+              "pollutant": "생물화학적산소요구량",
+              "limit": 120,
+              "operator": "<=",
+              "unit": "mg/L"
+            },
+            {
+              "지역": "나지역",
+              "pollutant": "총유기탄소량",
+              "limit": 75,
+              "operator": "<=",
+              "unit": "mg/L"
+            },
+            {
+              "지역": "나지역",
+              "pollutant": "부유물질량",
+              "limit": 120,
+              "operator": "<=",
+              "unit": "mg/L"
+            },
+            {
+              "지역": "특례지역",
+              "pollutant": "생물화학적산소요구량",
+              "limit": 30,
+              "operator": "<=",
+              "unit": "mg/L"
+            },
+            {
+              "지역": "특례지역",
+              "pollutant": "총유기탄소량",
+              "limit": 25,
+              "operator": "<=",
+              "unit": "mg/L"
+            },
+            {
+              "지역": "특례지역",
+              "pollutant": "부유물질량",
+              "limit": 30,
+              "operator": "<=",
+              "unit": "mg/L"
+            }
+          ]
+        }
+      ],
+      "비고": [
+        "하수처리구역에서 「하수도법」 제28조에 따라 공공하수도관리청의 허가를 받아 폐수를 공공하수도에 유입시키지 않고 공공수역으로 배출하는 폐수배출시설 및 「하수도법」 제27조제1항을 위반하여 배수설비를 설치하지 않고 폐수를 공공수역으로 배출하는 사업장에 대한 배출허용기준은 공공하수처리시설의 방류수 수질기준을 적용한다.",
+        "「국토의 계획 및 이용에 관한 법률」 제6조제2호에 따른 관리지역에서의 「건축법 시행령」 별표 1 제17호에 따른 공장에 대한 배출허용기준은 특례지역의 기준을 적용한다.",
+        "특례지역(공공폐수처리구역의 경우로 한정한다) 내 폐수배출시설에서 발생한 폐수를 공공폐수처리시설에 유입하지 않고 공공수역으로 배출하는 사업장에 대한 배출허용기준은 공공폐수처리시설의 방류수 수질기준을 적용한다."
+      ]
+    },
+    "나목": {
+      "title": "페놀류 등 수질오염물질",
+      "marker": "나",
+      "적용시기": "2021-01-01부터 (현행)",
+      "currentSection": "9)",
+      "_note": "1)~8) 시기별 legacy 기준은 본 데이터에서 제외. 9) 현행 기준만 수록.",
+      "rows": [
+        {
+          "pollutant": "수소이온농도",
+          "지역": "청정지역",
+          "type": "range",
+          "min": 5.8,
+          "max": 8.6
+        },
+        {
+          "pollutant": "수소이온농도",
+          "지역": "가지역",
+          "type": "range",
+          "min": 5.8,
+          "max": 8.6
+        },
+        {
+          "pollutant": "수소이온농도",
+          "지역": "나지역",
+          "type": "range",
+          "min": 5.8,
+          "max": 8.6
+        },
+        {
+          "pollutant": "수소이온농도",
+          "지역": "특례지역",
+          "type": "range",
+          "min": 5.8,
+          "max": 8.6
+        },
+        {
+          "pollutant": "노말헥산추출물질함유량 - 광유류",
+          "지역": "청정지역",
+          "type": "constant",
+          "limit": 1,
+          "operator": "<=",
+          "unit": "mg/L"
+        },
+        {
+          "pollutant": "노말헥산추출물질함유량 - 광유류",
+          "지역": "가지역",
+          "type": "constant",
+          "limit": 5,
+          "operator": "<=",
+          "unit": "mg/L"
+        },
+        {
+          "pollutant": "노말헥산추출물질함유량 - 광유류",
+          "지역": "나지역",
+          "type": "constant",
+          "limit": 5,
+          "operator": "<=",
+          "unit": "mg/L"
+        },
+        {
+          "pollutant": "노말헥산추출물질함유량 - 광유류",
+          "지역": "특례지역",
+          "type": "constant",
+          "limit": 5,
+          "operator": "<=",
+          "unit": "mg/L"
+        },
+        {
+          "pollutant": "노말헥산추출물질함유량 - 동식물유지류",
+          "지역": "청정지역",
+          "type": "constant",
+          "limit": 5,
+          "operator": "<=",
+          "unit": "mg/L"
+        },
+        {
+          "pollutant": "노말헥산추출물질함유량 - 동식물유지류",
+          "지역": "가지역",
+          "type": "constant",
+          "limit": 30,
+          "operator": "<=",
+          "unit": "mg/L"
+        },
+        {
+          "pollutant": "노말헥산추출물질함유량 - 동식물유지류",
+          "지역": "나지역",
+          "type": "constant",
+          "limit": 30,
+          "operator": "<=",
+          "unit": "mg/L"
+        },
+        {
+          "pollutant": "노말헥산추출물질함유량 - 동식물유지류",
+          "지역": "특례지역",
+          "type": "constant",
+          "limit": 30,
+          "operator": "<=",
+          "unit": "mg/L"
+        },
+        {
+          "pollutant": "페놀류함유량",
+          "지역": "청정지역",
+          "type": "constant",
+          "limit": 1,
+          "operator": "<=",
+          "unit": "mg/L"
+        },
+        {
+          "pollutant": "페놀류함유량",
+          "지역": "가지역",
+          "type": "constant",
+          "limit": 3,
+          "operator": "<=",
+          "unit": "mg/L"
+        },
+        {
+          "pollutant": "페놀류함유량",
+          "지역": "나지역",
+          "type": "constant",
+          "limit": 3,
+          "operator": "<=",
+          "unit": "mg/L"
+        },
+        {
+          "pollutant": "페놀류함유량",
+          "지역": "특례지역",
+          "type": "constant",
+          "limit": 5,
+          "operator": "<=",
+          "unit": "mg/L"
+        },
+        {
+          "pollutant": "페놀",
+          "지역": "청정지역",
+          "type": "constant",
+          "limit": 0.1,
+          "operator": "<=",
+          "unit": "mg/L"
+        },
+        {
+          "pollutant": "페놀",
+          "지역": "가지역",
+          "type": "constant",
+          "limit": 1,
+          "operator": "<=",
+          "unit": "mg/L"
+        },
+        {
+          "pollutant": "페놀",
+          "지역": "나지역",
+          "type": "constant",
+          "limit": 1,
+          "operator": "<=",
+          "unit": "mg/L"
+        },
+        {
+          "pollutant": "페놀",
+          "지역": "특례지역",
+          "type": "constant",
+          "limit": 1,
+          "operator": "<=",
+          "unit": "mg/L"
+        },
+        {
+          "pollutant": "펜타클로로페놀",
+          "지역": "청정지역",
+          "type": "constant",
+          "limit": 0.001,
+          "operator": "<=",
+          "unit": "mg/L"
+        },
+        {
+          "pollutant": "펜타클로로페놀",
+          "지역": "가지역",
+          "type": "constant",
+          "limit": 0.01,
+          "operator": "<=",
+          "unit": "mg/L"
+        },
+        {
+          "pollutant": "펜타클로로페놀",
+          "지역": "나지역",
+          "type": "constant",
+          "limit": 0.01,
+          "operator": "<=",
+          "unit": "mg/L"
+        },
+        {
+          "pollutant": "펜타클로로페놀",
+          "지역": "특례지역",
+          "type": "constant",
+          "limit": 0.01,
+          "operator": "<=",
+          "unit": "mg/L"
+        },
+        {
+          "pollutant": "시안함유량",
+          "지역": "청정지역",
+          "type": "constant",
+          "limit": 0.2,
+          "operator": "<=",
+          "unit": "mg/L"
+        },
+        {
+          "pollutant": "시안함유량",
+          "지역": "가지역",
+          "type": "constant",
+          "limit": 1,
+          "operator": "<=",
+          "unit": "mg/L"
+        },
+        {
+          "pollutant": "시안함유량",
+          "지역": "나지역",
+          "type": "constant",
+          "limit": 1,
+          "operator": "<=",
+          "unit": "mg/L"
+        },
+        {
+          "pollutant": "시안함유량",
+          "지역": "특례지역",
+          "type": "constant",
+          "limit": 1,
+          "operator": "<=",
+          "unit": "mg/L"
+        },
+        {
+          "pollutant": "크롬함유량",
+          "지역": "청정지역",
+          "type": "constant",
+          "limit": 0.5,
+          "operator": "<=",
+          "unit": "mg/L"
+        },
+        {
+          "pollutant": "크롬함유량",
+          "지역": "가지역",
+          "type": "constant",
+          "limit": 2,
+          "operator": "<=",
+          "unit": "mg/L"
+        },
+        {
+          "pollutant": "크롬함유량",
+          "지역": "나지역",
+          "type": "constant",
+          "limit": 2,
+          "operator": "<=",
+          "unit": "mg/L"
+        },
+        {
+          "pollutant": "크롬함유량",
+          "지역": "특례지역",
+          "type": "constant",
+          "limit": 2,
+          "operator": "<=",
+          "unit": "mg/L"
+        },
+        {
+          "pollutant": "용해성철함유량",
+          "지역": "청정지역",
+          "type": "constant",
+          "limit": 2,
+          "operator": "<=",
+          "unit": "mg/L"
+        },
+        {
+          "pollutant": "용해성철함유량",
+          "지역": "가지역",
+          "type": "constant",
+          "limit": 10,
+          "operator": "<=",
+          "unit": "mg/L"
+        },
+        {
+          "pollutant": "용해성철함유량",
+          "지역": "나지역",
+          "type": "constant",
+          "limit": 10,
+          "operator": "<=",
+          "unit": "mg/L"
+        },
+        {
+          "pollutant": "용해성철함유량",
+          "지역": "특례지역",
+          "type": "constant",
+          "limit": 10,
+          "operator": "<=",
+          "unit": "mg/L"
+        },
+        {
+          "pollutant": "아연함유량",
+          "지역": "청정지역",
+          "type": "constant",
+          "limit": 1,
+          "operator": "<=",
+          "unit": "mg/L"
+        },
+        {
+          "pollutant": "아연함유량",
+          "지역": "가지역",
+          "type": "constant",
+          "limit": 5,
+          "operator": "<=",
+          "unit": "mg/L"
+        },
+        {
+          "pollutant": "아연함유량",
+          "지역": "나지역",
+          "type": "constant",
+          "limit": 5,
+          "operator": "<=",
+          "unit": "mg/L"
+        },
+        {
+          "pollutant": "아연함유량",
+          "지역": "특례지역",
+          "type": "constant",
+          "limit": 5,
+          "operator": "<=",
+          "unit": "mg/L"
+        },
+        {
+          "pollutant": "구리(동)함유량",
+          "지역": "청정지역",
+          "type": "constant",
+          "limit": 1,
+          "operator": "<=",
+          "unit": "mg/L"
+        },
+        {
+          "pollutant": "구리(동)함유량",
+          "지역": "가지역",
+          "type": "constant",
+          "limit": 3,
+          "operator": "<=",
+          "unit": "mg/L"
+        },
+        {
+          "pollutant": "구리(동)함유량",
+          "지역": "나지역",
+          "type": "constant",
+          "limit": 3,
+          "operator": "<=",
+          "unit": "mg/L"
+        },
+        {
+          "pollutant": "구리(동)함유량",
+          "지역": "특례지역",
+          "type": "constant",
+          "limit": 3,
+          "operator": "<=",
+          "unit": "mg/L"
+        },
+        {
+          "pollutant": "카드뮴함유량",
+          "지역": "청정지역",
+          "type": "constant",
+          "limit": 0.02,
+          "operator": "<=",
+          "unit": "mg/L"
+        },
+        {
+          "pollutant": "카드뮴함유량",
+          "지역": "가지역",
+          "type": "constant",
+          "limit": 0.1,
+          "operator": "<=",
+          "unit": "mg/L"
+        },
+        {
+          "pollutant": "카드뮴함유량",
+          "지역": "나지역",
+          "type": "constant",
+          "limit": 0.1,
+          "operator": "<=",
+          "unit": "mg/L"
+        },
+        {
+          "pollutant": "카드뮴함유량",
+          "지역": "특례지역",
+          "type": "constant",
+          "limit": 0.1,
+          "operator": "<=",
+          "unit": "mg/L"
+        },
+        {
+          "pollutant": "수은함유량",
+          "지역": "청정지역",
+          "type": "constant",
+          "limit": 0.001,
+          "operator": "<=",
+          "unit": "mg/L"
+        },
+        {
+          "pollutant": "수은함유량",
+          "지역": "가지역",
+          "type": "constant",
+          "limit": 0.005,
+          "operator": "<=",
+          "unit": "mg/L"
+        },
+        {
+          "pollutant": "수은함유량",
+          "지역": "나지역",
+          "type": "constant",
+          "limit": 0.005,
+          "operator": "<=",
+          "unit": "mg/L"
+        },
+        {
+          "pollutant": "수은함유량",
+          "지역": "특례지역",
+          "type": "constant",
+          "limit": 0.005,
+          "operator": "<=",
+          "unit": "mg/L"
+        },
+        {
+          "pollutant": "유기인함유량",
+          "지역": "청정지역",
+          "type": "constant",
+          "limit": 0.2,
+          "operator": "<=",
+          "unit": "mg/L"
+        },
+        {
+          "pollutant": "유기인함유량",
+          "지역": "가지역",
+          "type": "constant",
+          "limit": 1,
+          "operator": "<=",
+          "unit": "mg/L"
+        },
+        {
+          "pollutant": "유기인함유량",
+          "지역": "나지역",
+          "type": "constant",
+          "limit": 1,
+          "operator": "<=",
+          "unit": "mg/L"
+        },
+        {
+          "pollutant": "유기인함유량",
+          "지역": "특례지역",
+          "type": "constant",
+          "limit": 1,
+          "operator": "<=",
+          "unit": "mg/L"
+        },
+        {
+          "pollutant": "비소함유량",
+          "지역": "청정지역",
+          "type": "constant",
+          "limit": 0.05,
+          "operator": "<=",
+          "unit": "mg/L"
+        },
+        {
+          "pollutant": "비소함유량",
+          "지역": "가지역",
+          "type": "constant",
+          "limit": 0.25,
+          "operator": "<=",
+          "unit": "mg/L"
+        },
+        {
+          "pollutant": "비소함유량",
+          "지역": "나지역",
+          "type": "constant",
+          "limit": 0.25,
+          "operator": "<=",
+          "unit": "mg/L"
+        },
+        {
+          "pollutant": "비소함유량",
+          "지역": "특례지역",
+          "type": "constant",
+          "limit": 0.25,
+          "operator": "<=",
+          "unit": "mg/L"
+        },
+        {
+          "pollutant": "납함유량",
+          "지역": "청정지역",
+          "type": "constant",
+          "limit": 0.1,
+          "operator": "<=",
+          "unit": "mg/L"
+        },
+        {
+          "pollutant": "납함유량",
+          "지역": "가지역",
+          "type": "constant",
+          "limit": 0.5,
+          "operator": "<=",
+          "unit": "mg/L"
+        },
+        {
+          "pollutant": "납함유량",
+          "지역": "나지역",
+          "type": "constant",
+          "limit": 0.5,
+          "operator": "<=",
+          "unit": "mg/L"
+        },
+        {
+          "pollutant": "납함유량",
+          "지역": "특례지역",
+          "type": "constant",
+          "limit": 0.5,
+          "operator": "<=",
+          "unit": "mg/L"
+        },
+        {
+          "pollutant": "6가크롬함유량",
+          "지역": "청정지역",
+          "type": "constant",
+          "limit": 0.1,
+          "operator": "<=",
+          "unit": "mg/L"
+        },
+        {
+          "pollutant": "6가크롬함유량",
+          "지역": "가지역",
+          "type": "constant",
+          "limit": 0.5,
+          "operator": "<=",
+          "unit": "mg/L"
+        },
+        {
+          "pollutant": "6가크롬함유량",
+          "지역": "나지역",
+          "type": "constant",
+          "limit": 0.5,
+          "operator": "<=",
+          "unit": "mg/L"
+        },
+        {
+          "pollutant": "6가크롬함유량",
+          "지역": "특례지역",
+          "type": "constant",
+          "limit": 0.5,
+          "operator": "<=",
+          "unit": "mg/L"
+        },
+        {
+          "pollutant": "용해성망간함유량",
+          "지역": "청정지역",
+          "type": "constant",
+          "limit": 2,
+          "operator": "<=",
+          "unit": "mg/L"
+        },
+        {
+          "pollutant": "용해성망간함유량",
+          "지역": "가지역",
+          "type": "constant",
+          "limit": 10,
+          "operator": "<=",
+          "unit": "mg/L"
+        },
+        {
+          "pollutant": "용해성망간함유량",
+          "지역": "나지역",
+          "type": "constant",
+          "limit": 10,
+          "operator": "<=",
+          "unit": "mg/L"
+        },
+        {
+          "pollutant": "용해성망간함유량",
+          "지역": "특례지역",
+          "type": "constant",
+          "limit": 10,
+          "operator": "<=",
+          "unit": "mg/L"
+        },
+        {
+          "pollutant": "플로오르(불소)함유량",
+          "지역": "청정지역",
+          "type": "constant",
+          "limit": 3,
+          "operator": "<=",
+          "unit": "mg/L"
+        },
+        {
+          "pollutant": "플로오르(불소)함유량",
+          "지역": "가지역",
+          "type": "constant",
+          "limit": 15,
+          "operator": "<=",
+          "unit": "mg/L"
+        },
+        {
+          "pollutant": "플로오르(불소)함유량",
+          "지역": "나지역",
+          "type": "constant",
+          "limit": 15,
+          "operator": "<=",
+          "unit": "mg/L"
+        },
+        {
+          "pollutant": "플로오르(불소)함유량",
+          "지역": "특례지역",
+          "type": "constant",
+          "limit": 15,
+          "operator": "<=",
+          "unit": "mg/L"
+        },
+        {
+          "pollutant": "PCB함유량",
+          "지역": "청정지역",
+          "type": "qualifier",
+          "qualifier": "불검출",
+          "unit": "mg/L"
+        },
+        {
+          "pollutant": "PCB함유량",
+          "지역": "가지역",
+          "type": "constant",
+          "limit": 0.003,
+          "operator": "<=",
+          "unit": "mg/L"
+        },
+        {
+          "pollutant": "PCB함유량",
+          "지역": "나지역",
+          "type": "constant",
+          "limit": 0.003,
+          "operator": "<=",
+          "unit": "mg/L"
+        },
+        {
+          "pollutant": "PCB함유량",
+          "지역": "특례지역",
+          "type": "constant",
+          "limit": 0.003,
+          "operator": "<=",
+          "unit": "mg/L"
+        },
+        {
+          "pollutant": "총대장균군(총대장균군수)",
+          "지역": "청정지역",
+          "type": "constant",
+          "limit": 100,
+          "operator": "<=",
+          "unit": "/㎖"
+        },
+        {
+          "pollutant": "총대장균군(총대장균군수)",
+          "지역": "가지역",
+          "type": "constant",
+          "limit": 3000,
+          "operator": "<=",
+          "unit": "/㎖"
+        },
+        {
+          "pollutant": "총대장균군(총대장균군수)",
+          "지역": "나지역",
+          "type": "constant",
+          "limit": 3000,
+          "operator": "<=",
+          "unit": "/㎖"
+        },
+        {
+          "pollutant": "총대장균군(총대장균군수)",
+          "지역": "특례지역",
+          "type": "constant",
+          "limit": 3000,
+          "operator": "<=",
+          "unit": "/㎖"
+        },
+        {
+          "pollutant": "색도",
+          "지역": "청정지역",
+          "type": "constant",
+          "limit": 200,
+          "operator": "<=",
+          "unit": "도"
+        },
+        {
+          "pollutant": "색도",
+          "지역": "가지역",
+          "type": "constant",
+          "limit": 300,
+          "operator": "<=",
+          "unit": "도"
+        },
+        {
+          "pollutant": "색도",
+          "지역": "나지역",
+          "type": "constant",
+          "limit": 400,
+          "operator": "<=",
+          "unit": "도"
+        },
+        {
+          "pollutant": "색도",
+          "지역": "특례지역",
+          "type": "constant",
+          "limit": 400,
+          "operator": "<=",
+          "unit": "도"
+        },
+        {
+          "pollutant": "온도",
+          "지역": "청정지역",
+          "type": "constant",
+          "limit": 40,
+          "operator": "<=",
+          "unit": "℃"
+        },
+        {
+          "pollutant": "온도",
+          "지역": "가지역",
+          "type": "constant",
+          "limit": 40,
+          "operator": "<=",
+          "unit": "℃"
+        },
+        {
+          "pollutant": "온도",
+          "지역": "나지역",
+          "type": "constant",
+          "limit": 40,
+          "operator": "<=",
+          "unit": "℃"
+        },
+        {
+          "pollutant": "온도",
+          "지역": "특례지역",
+          "type": "constant",
+          "limit": 40,
+          "operator": "<=",
+          "unit": "℃"
+        },
+        {
+          "pollutant": "총질소",
+          "지역": "청정지역",
+          "type": "constant",
+          "limit": 30,
+          "operator": "<=",
+          "unit": "mg/L"
+        },
+        {
+          "pollutant": "총질소",
+          "지역": "가지역",
+          "type": "constant",
+          "limit": 60,
+          "operator": "<=",
+          "unit": "mg/L"
+        },
+        {
+          "pollutant": "총질소",
+          "지역": "나지역",
+          "type": "constant",
+          "limit": 60,
+          "operator": "<=",
+          "unit": "mg/L"
+        },
+        {
+          "pollutant": "총질소",
+          "지역": "특례지역",
+          "type": "constant",
+          "limit": 60,
+          "operator": "<=",
+          "unit": "mg/L"
+        },
+        {
+          "pollutant": "총인",
+          "지역": "청정지역",
+          "type": "constant",
+          "limit": 4,
+          "operator": "<=",
+          "unit": "mg/L"
+        },
+        {
+          "pollutant": "총인",
+          "지역": "가지역",
+          "type": "constant",
+          "limit": 8,
+          "operator": "<=",
+          "unit": "mg/L"
+        },
+        {
+          "pollutant": "총인",
+          "지역": "나지역",
+          "type": "constant",
+          "limit": 8,
+          "operator": "<=",
+          "unit": "mg/L"
+        },
+        {
+          "pollutant": "총인",
+          "지역": "특례지역",
+          "type": "constant",
+          "limit": 8,
+          "operator": "<=",
+          "unit": "mg/L"
+        },
+        {
+          "pollutant": "트리클로로에틸렌",
+          "지역": "청정지역",
+          "type": "constant",
+          "limit": 0.06,
+          "operator": "<=",
+          "unit": "mg/L"
+        },
+        {
+          "pollutant": "트리클로로에틸렌",
+          "지역": "가지역",
+          "type": "constant",
+          "limit": 0.3,
+          "operator": "<=",
+          "unit": "mg/L"
+        },
+        {
+          "pollutant": "트리클로로에틸렌",
+          "지역": "나지역",
+          "type": "constant",
+          "limit": 0.3,
+          "operator": "<=",
+          "unit": "mg/L"
+        },
+        {
+          "pollutant": "트리클로로에틸렌",
+          "지역": "특례지역",
+          "type": "constant",
+          "limit": 0.3,
+          "operator": "<=",
+          "unit": "mg/L"
+        },
+        {
+          "pollutant": "테트라클로로에틸렌",
+          "지역": "청정지역",
+          "type": "constant",
+          "limit": 0.02,
+          "operator": "<=",
+          "unit": "mg/L"
+        },
+        {
+          "pollutant": "테트라클로로에틸렌",
+          "지역": "가지역",
+          "type": "constant",
+          "limit": 0.1,
+          "operator": "<=",
+          "unit": "mg/L"
+        },
+        {
+          "pollutant": "테트라클로로에틸렌",
+          "지역": "나지역",
+          "type": "constant",
+          "limit": 0.1,
+          "operator": "<=",
+          "unit": "mg/L"
+        },
+        {
+          "pollutant": "테트라클로로에틸렌",
+          "지역": "특례지역",
+          "type": "constant",
+          "limit": 0.1,
+          "operator": "<=",
+          "unit": "mg/L"
+        },
+        {
+          "pollutant": "음이온계면활성제",
+          "지역": "청정지역",
+          "type": "constant",
+          "limit": 3,
+          "operator": "<=",
+          "unit": "mg/L"
+        },
+        {
+          "pollutant": "음이온계면활성제",
+          "지역": "가지역",
+          "type": "constant",
+          "limit": 5,
+          "operator": "<=",
+          "unit": "mg/L"
+        },
+        {
+          "pollutant": "음이온계면활성제",
+          "지역": "나지역",
+          "type": "constant",
+          "limit": 5,
+          "operator": "<=",
+          "unit": "mg/L"
+        },
+        {
+          "pollutant": "음이온계면활성제",
+          "지역": "특례지역",
+          "type": "constant",
+          "limit": 5,
+          "operator": "<=",
+          "unit": "mg/L"
+        },
+        {
+          "pollutant": "벤젠",
+          "지역": "청정지역",
+          "type": "constant",
+          "limit": 0.01,
+          "operator": "<=",
+          "unit": "mg/L"
+        },
+        {
+          "pollutant": "벤젠",
+          "지역": "가지역",
+          "type": "constant",
+          "limit": 0.1,
+          "operator": "<=",
+          "unit": "mg/L"
+        },
+        {
+          "pollutant": "벤젠",
+          "지역": "나지역",
+          "type": "constant",
+          "limit": 0.1,
+          "operator": "<=",
+          "unit": "mg/L"
+        },
+        {
+          "pollutant": "벤젠",
+          "지역": "특례지역",
+          "type": "constant",
+          "limit": 0.1,
+          "operator": "<=",
+          "unit": "mg/L"
+        },
+        {
+          "pollutant": "디클로로메탄",
+          "지역": "청정지역",
+          "type": "constant",
+          "limit": 0.02,
+          "operator": "<=",
+          "unit": "mg/L"
+        },
+        {
+          "pollutant": "디클로로메탄",
+          "지역": "가지역",
+          "type": "constant",
+          "limit": 0.2,
+          "operator": "<=",
+          "unit": "mg/L"
+        },
+        {
+          "pollutant": "디클로로메탄",
+          "지역": "나지역",
+          "type": "constant",
+          "limit": 0.2,
+          "operator": "<=",
+          "unit": "mg/L"
+        },
+        {
+          "pollutant": "디클로로메탄",
+          "지역": "특례지역",
+          "type": "constant",
+          "limit": 0.2,
+          "operator": "<=",
+          "unit": "mg/L"
+        },
+        {
+          "pollutant": "생태독성",
+          "지역": "청정지역",
+          "type": "constant",
+          "limit": 1,
+          "operator": "<=",
+          "unit": "TU"
+        },
+        {
+          "pollutant": "생태독성",
+          "지역": "가지역",
+          "type": "constant",
+          "limit": 2,
+          "operator": "<=",
+          "unit": "TU"
+        },
+        {
+          "pollutant": "생태독성",
+          "지역": "나지역",
+          "type": "constant",
+          "limit": 2,
+          "operator": "<=",
+          "unit": "TU"
+        },
+        {
+          "pollutant": "생태독성",
+          "지역": "특례지역",
+          "type": "constant",
+          "limit": 2,
+          "operator": "<=",
+          "unit": "TU"
+        },
+        {
+          "pollutant": "셀레늄함유량",
+          "지역": "청정지역",
+          "type": "constant",
+          "limit": 0.1,
+          "operator": "<=",
+          "unit": "mg/L"
+        },
+        {
+          "pollutant": "셀레늄함유량",
+          "지역": "가지역",
+          "type": "constant",
+          "limit": 1,
+          "operator": "<=",
+          "unit": "mg/L"
+        },
+        {
+          "pollutant": "셀레늄함유량",
+          "지역": "나지역",
+          "type": "constant",
+          "limit": 1,
+          "operator": "<=",
+          "unit": "mg/L"
+        },
+        {
+          "pollutant": "셀레늄함유량",
+          "지역": "특례지역",
+          "type": "constant",
+          "limit": 1,
+          "operator": "<=",
+          "unit": "mg/L"
+        },
+        {
+          "pollutant": "사염화탄소",
+          "지역": "청정지역",
+          "type": "constant",
+          "limit": 0.004,
+          "operator": "<=",
+          "unit": "mg/L"
+        },
+        {
+          "pollutant": "사염화탄소",
+          "지역": "가지역",
+          "type": "constant",
+          "limit": 0.04,
+          "operator": "<=",
+          "unit": "mg/L"
+        },
+        {
+          "pollutant": "사염화탄소",
+          "지역": "나지역",
+          "type": "constant",
+          "limit": 0.04,
+          "operator": "<=",
+          "unit": "mg/L"
+        },
+        {
+          "pollutant": "사염화탄소",
+          "지역": "특례지역",
+          "type": "constant",
+          "limit": 0.08,
+          "operator": "<=",
+          "unit": "mg/L"
+        },
+        {
+          "pollutant": "1,1-디클로로에틸렌",
+          "지역": "청정지역",
+          "type": "constant",
+          "limit": 0.03,
+          "operator": "<=",
+          "unit": "mg/L"
+        },
+        {
+          "pollutant": "1,1-디클로로에틸렌",
+          "지역": "가지역",
+          "type": "constant",
+          "limit": 0.3,
+          "operator": "<=",
+          "unit": "mg/L"
+        },
+        {
+          "pollutant": "1,1-디클로로에틸렌",
+          "지역": "나지역",
+          "type": "constant",
+          "limit": 0.3,
+          "operator": "<=",
+          "unit": "mg/L"
+        },
+        {
+          "pollutant": "1,1-디클로로에틸렌",
+          "지역": "특례지역",
+          "type": "constant",
+          "limit": 0.6,
+          "operator": "<=",
+          "unit": "mg/L"
+        },
+        {
+          "pollutant": "1,2-디클로로에탄",
+          "지역": "청정지역",
+          "type": "constant",
+          "limit": 0.03,
+          "operator": "<=",
+          "unit": "mg/L"
+        },
+        {
+          "pollutant": "1,2-디클로로에탄",
+          "지역": "가지역",
+          "type": "constant",
+          "limit": 0.3,
+          "operator": "<=",
+          "unit": "mg/L"
+        },
+        {
+          "pollutant": "1,2-디클로로에탄",
+          "지역": "나지역",
+          "type": "constant",
+          "limit": 0.3,
+          "operator": "<=",
+          "unit": "mg/L"
+        },
+        {
+          "pollutant": "1,2-디클로로에탄",
+          "지역": "특례지역",
+          "type": "constant",
+          "limit": 0.3,
+          "operator": "<=",
+          "unit": "mg/L"
+        },
+        {
+          "pollutant": "클로로포름",
+          "지역": "청정지역",
+          "type": "constant",
+          "limit": 0.08,
+          "operator": "<=",
+          "unit": "mg/L"
+        },
+        {
+          "pollutant": "클로로포름",
+          "지역": "가지역",
+          "type": "constant",
+          "limit": 0.8,
+          "operator": "<=",
+          "unit": "mg/L"
+        },
+        {
+          "pollutant": "클로로포름",
+          "지역": "나지역",
+          "type": "constant",
+          "limit": 0.8,
+          "operator": "<=",
+          "unit": "mg/L"
+        },
+        {
+          "pollutant": "클로로포름",
+          "지역": "특례지역",
+          "type": "constant",
+          "limit": 0.8,
+          "operator": "<=",
+          "unit": "mg/L"
+        },
+        {
+          "pollutant": "니켈",
+          "지역": "청정지역",
+          "type": "constant",
+          "limit": 0.1,
+          "operator": "<=",
+          "unit": "mg/L"
+        },
+        {
+          "pollutant": "니켈",
+          "지역": "가지역",
+          "type": "constant",
+          "limit": 3.0,
+          "operator": "<=",
+          "unit": "mg/L"
+        },
+        {
+          "pollutant": "니켈",
+          "지역": "나지역",
+          "type": "constant",
+          "limit": 3.0,
+          "operator": "<=",
+          "unit": "mg/L"
+        },
+        {
+          "pollutant": "니켈",
+          "지역": "특례지역",
+          "type": "constant",
+          "limit": 3.0,
+          "operator": "<=",
+          "unit": "mg/L"
+        },
+        {
+          "pollutant": "바륨",
+          "지역": "청정지역",
+          "type": "constant",
+          "limit": 1.0,
+          "operator": "<=",
+          "unit": "mg/L"
+        },
+        {
+          "pollutant": "바륨",
+          "지역": "가지역",
+          "type": "constant",
+          "limit": 10.0,
+          "operator": "<=",
+          "unit": "mg/L"
+        },
+        {
+          "pollutant": "바륨",
+          "지역": "나지역",
+          "type": "constant",
+          "limit": 10.0,
+          "operator": "<=",
+          "unit": "mg/L"
+        },
+        {
+          "pollutant": "바륨",
+          "지역": "특례지역",
+          "type": "constant",
+          "limit": 10.0,
+          "operator": "<=",
+          "unit": "mg/L"
+        },
+        {
+          "pollutant": "1,4-다이옥산",
+          "지역": "청정지역",
+          "type": "constant",
+          "limit": 0.05,
+          "operator": "<=",
+          "unit": "mg/L"
+        },
+        {
+          "pollutant": "1,4-다이옥산",
+          "지역": "가지역",
+          "type": "constant",
+          "limit": 4.0,
+          "operator": "<=",
+          "unit": "mg/L"
+        },
+        {
+          "pollutant": "1,4-다이옥산",
+          "지역": "나지역",
+          "type": "constant",
+          "limit": 4.0,
+          "operator": "<=",
+          "unit": "mg/L"
+        },
+        {
+          "pollutant": "1,4-다이옥산",
+          "지역": "특례지역",
+          "type": "constant",
+          "limit": 4.0,
+          "operator": "<=",
+          "unit": "mg/L"
+        },
+        {
+          "pollutant": "디에틸헥실프탈레이트(DEHP)",
+          "지역": "청정지역",
+          "type": "constant",
+          "limit": 0.02,
+          "operator": "<=",
+          "unit": "mg/L"
+        },
+        {
+          "pollutant": "디에틸헥실프탈레이트(DEHP)",
+          "지역": "가지역",
+          "type": "constant",
+          "limit": 0.2,
+          "operator": "<=",
+          "unit": "mg/L"
+        },
+        {
+          "pollutant": "디에틸헥실프탈레이트(DEHP)",
+          "지역": "나지역",
+          "type": "constant",
+          "limit": 0.2,
+          "operator": "<=",
+          "unit": "mg/L"
+        },
+        {
+          "pollutant": "디에틸헥실프탈레이트(DEHP)",
+          "지역": "특례지역",
+          "type": "constant",
+          "limit": 0.8,
+          "operator": "<=",
+          "unit": "mg/L"
+        },
+        {
+          "pollutant": "염화비닐",
+          "지역": "청정지역",
+          "type": "constant",
+          "limit": 0.01,
+          "operator": "<=",
+          "unit": "mg/L"
+        },
+        {
+          "pollutant": "염화비닐",
+          "지역": "가지역",
+          "type": "constant",
+          "limit": 0.5,
+          "operator": "<=",
+          "unit": "mg/L"
+        },
+        {
+          "pollutant": "염화비닐",
+          "지역": "나지역",
+          "type": "constant",
+          "limit": 0.5,
+          "operator": "<=",
+          "unit": "mg/L"
+        },
+        {
+          "pollutant": "염화비닐",
+          "지역": "특례지역",
+          "type": "constant",
+          "limit": 1.0,
+          "operator": "<=",
+          "unit": "mg/L"
+        },
+        {
+          "pollutant": "아크릴로니트릴",
+          "지역": "청정지역",
+          "type": "constant",
+          "limit": 0.01,
+          "operator": "<=",
+          "unit": "mg/L"
+        },
+        {
+          "pollutant": "아크릴로니트릴",
+          "지역": "가지역",
+          "type": "constant",
+          "limit": 0.2,
+          "operator": "<=",
+          "unit": "mg/L"
+        },
+        {
+          "pollutant": "아크릴로니트릴",
+          "지역": "나지역",
+          "type": "constant",
+          "limit": 0.2,
+          "operator": "<=",
+          "unit": "mg/L"
+        },
+        {
+          "pollutant": "아크릴로니트릴",
+          "지역": "특례지역",
+          "type": "constant",
+          "limit": 1.0,
+          "operator": "<=",
+          "unit": "mg/L"
+        },
+        {
+          "pollutant": "브로모포름",
+          "지역": "청정지역",
+          "type": "constant",
+          "limit": 0.03,
+          "operator": "<=",
+          "unit": "mg/L"
+        },
+        {
+          "pollutant": "브로모포름",
+          "지역": "가지역",
+          "type": "constant",
+          "limit": 0.3,
+          "operator": "<=",
+          "unit": "mg/L"
+        },
+        {
+          "pollutant": "브로모포름",
+          "지역": "나지역",
+          "type": "constant",
+          "limit": 0.3,
+          "operator": "<=",
+          "unit": "mg/L"
+        },
+        {
+          "pollutant": "브로모포름",
+          "지역": "특례지역",
+          "type": "constant",
+          "limit": 0.3,
+          "operator": "<=",
+          "unit": "mg/L"
+        },
+        {
+          "pollutant": "나프탈렌",
+          "지역": "청정지역",
+          "type": "constant",
+          "limit": 0.05,
+          "operator": "<=",
+          "unit": "mg/L"
+        },
+        {
+          "pollutant": "나프탈렌",
+          "지역": "가지역",
+          "type": "constant",
+          "limit": 0.5,
+          "operator": "<=",
+          "unit": "mg/L"
+        },
+        {
+          "pollutant": "나프탈렌",
+          "지역": "나지역",
+          "type": "constant",
+          "limit": 0.5,
+          "operator": "<=",
+          "unit": "mg/L"
+        },
+        {
+          "pollutant": "나프탈렌",
+          "지역": "특례지역",
+          "type": "constant",
+          "limit": 0.5,
+          "operator": "<=",
+          "unit": "mg/L"
+        },
+        {
+          "pollutant": "폼알데하이드",
+          "지역": "청정지역",
+          "type": "constant",
+          "limit": 0.5,
+          "operator": "<=",
+          "unit": "mg/L"
+        },
+        {
+          "pollutant": "폼알데하이드",
+          "지역": "가지역",
+          "type": "constant",
+          "limit": 5.0,
+          "operator": "<=",
+          "unit": "mg/L"
+        },
+        {
+          "pollutant": "폼알데하이드",
+          "지역": "나지역",
+          "type": "constant",
+          "limit": 5.0,
+          "operator": "<=",
+          "unit": "mg/L"
+        },
+        {
+          "pollutant": "폼알데하이드",
+          "지역": "특례지역",
+          "type": "constant",
+          "limit": 5.0,
+          "operator": "<=",
+          "unit": "mg/L"
+        },
+        {
+          "pollutant": "에피클로로하이드린",
+          "지역": "청정지역",
+          "type": "constant",
+          "limit": 0.03,
+          "operator": "<=",
+          "unit": "mg/L"
+        },
+        {
+          "pollutant": "에피클로로하이드린",
+          "지역": "가지역",
+          "type": "constant",
+          "limit": 0.3,
+          "operator": "<=",
+          "unit": "mg/L"
+        },
+        {
+          "pollutant": "에피클로로하이드린",
+          "지역": "나지역",
+          "type": "constant",
+          "limit": 0.3,
+          "operator": "<=",
+          "unit": "mg/L"
+        },
+        {
+          "pollutant": "에피클로로하이드린",
+          "지역": "특례지역",
+          "type": "constant",
+          "limit": 0.3,
+          "operator": "<=",
+          "unit": "mg/L"
+        },
+        {
+          "pollutant": "톨루엔",
+          "지역": "청정지역",
+          "type": "constant",
+          "limit": 0.7,
+          "operator": "<=",
+          "unit": "mg/L"
+        },
+        {
+          "pollutant": "톨루엔",
+          "지역": "가지역",
+          "type": "constant",
+          "limit": 7.0,
+          "operator": "<=",
+          "unit": "mg/L"
+        },
+        {
+          "pollutant": "톨루엔",
+          "지역": "나지역",
+          "type": "constant",
+          "limit": 7.0,
+          "operator": "<=",
+          "unit": "mg/L"
+        },
+        {
+          "pollutant": "톨루엔",
+          "지역": "특례지역",
+          "type": "constant",
+          "limit": 7.0,
+          "operator": "<=",
+          "unit": "mg/L"
+        },
+        {
+          "pollutant": "자일렌",
+          "지역": "청정지역",
+          "type": "constant",
+          "limit": 0.5,
+          "operator": "<=",
+          "unit": "mg/L"
+        },
+        {
+          "pollutant": "자일렌",
+          "지역": "가지역",
+          "type": "constant",
+          "limit": 5.0,
+          "operator": "<=",
+          "unit": "mg/L"
+        },
+        {
+          "pollutant": "자일렌",
+          "지역": "나지역",
+          "type": "constant",
+          "limit": 5.0,
+          "operator": "<=",
+          "unit": "mg/L"
+        },
+        {
+          "pollutant": "자일렌",
+          "지역": "특례지역",
+          "type": "constant",
+          "limit": 5.0,
+          "operator": "<=",
+          "unit": "mg/L"
+        },
+        {
+          "pollutant": "퍼클로레이트",
+          "지역": "청정지역",
+          "type": "constant",
+          "limit": 0.03,
+          "operator": "<=",
+          "unit": "mg/L"
+        },
+        {
+          "pollutant": "퍼클로레이트",
+          "지역": "가지역",
+          "type": "constant",
+          "limit": 0.3,
+          "operator": "<=",
+          "unit": "mg/L"
+        },
+        {
+          "pollutant": "퍼클로레이트",
+          "지역": "나지역",
+          "type": "constant",
+          "limit": 0.3,
+          "operator": "<=",
+          "unit": "mg/L"
+        },
+        {
+          "pollutant": "퍼클로레이트",
+          "지역": "특례지역",
+          "type": "constant",
+          "limit": 0.3,
+          "operator": "<=",
+          "unit": "mg/L"
+        },
+        {
+          "pollutant": "아크릴아미드",
+          "지역": "청정지역",
+          "type": "constant",
+          "limit": 0.015,
+          "operator": "<=",
+          "unit": "mg/L"
+        },
+        {
+          "pollutant": "아크릴아미드",
+          "지역": "가지역",
+          "type": "constant",
+          "limit": 0.04,
+          "operator": "<=",
+          "unit": "mg/L"
+        },
+        {
+          "pollutant": "아크릴아미드",
+          "지역": "나지역",
+          "type": "constant",
+          "limit": 0.04,
+          "operator": "<=",
+          "unit": "mg/L"
+        },
+        {
+          "pollutant": "아크릴아미드",
+          "지역": "특례지역",
+          "type": "constant",
+          "limit": 0.04,
+          "operator": "<=",
+          "unit": "mg/L"
+        },
+        {
+          "pollutant": "스티렌",
+          "지역": "청정지역",
+          "type": "constant",
+          "limit": 0.02,
+          "operator": "<=",
+          "unit": "mg/L"
+        },
+        {
+          "pollutant": "스티렌",
+          "지역": "가지역",
+          "type": "constant",
+          "limit": 0.2,
+          "operator": "<=",
+          "unit": "mg/L"
+        },
+        {
+          "pollutant": "스티렌",
+          "지역": "나지역",
+          "type": "constant",
+          "limit": 0.2,
+          "operator": "<=",
+          "unit": "mg/L"
+        },
+        {
+          "pollutant": "스티렌",
+          "지역": "특례지역",
+          "type": "constant",
+          "limit": 0.2,
+          "operator": "<=",
+          "unit": "mg/L"
+        },
+        {
+          "pollutant": "비스(2-에틸헥실)아디페이트",
+          "지역": "청정지역",
+          "type": "constant",
+          "limit": 0.2,
+          "operator": "<=",
+          "unit": "mg/L"
+        },
+        {
+          "pollutant": "비스(2-에틸헥실)아디페이트",
+          "지역": "가지역",
+          "type": "constant",
+          "limit": 2,
+          "operator": "<=",
+          "unit": "mg/L"
+        },
+        {
+          "pollutant": "비스(2-에틸헥실)아디페이트",
+          "지역": "나지역",
+          "type": "constant",
+          "limit": 2,
+          "operator": "<=",
+          "unit": "mg/L"
+        },
+        {
+          "pollutant": "비스(2-에틸헥실)아디페이트",
+          "지역": "특례지역",
+          "type": "constant",
+          "limit": 2,
+          "operator": "<=",
+          "unit": "mg/L"
+        },
+        {
+          "pollutant": "안티몬",
+          "지역": "청정지역",
+          "type": "constant",
+          "limit": 0.02,
+          "operator": "<=",
+          "unit": "mg/L"
+        },
+        {
+          "pollutant": "안티몬",
+          "지역": "가지역",
+          "type": "constant",
+          "limit": 0.2,
+          "operator": "<=",
+          "unit": "mg/L"
+        },
+        {
+          "pollutant": "안티몬",
+          "지역": "나지역",
+          "type": "constant",
+          "limit": 0.2,
+          "operator": "<=",
+          "unit": "mg/L"
+        },
+        {
+          "pollutant": "안티몬",
+          "지역": "특례지역",
+          "type": "constant",
+          "limit": 0.2,
+          "operator": "<=",
+          "unit": "mg/L"
+        },
+        {
+          "pollutant": "주석",
+          "지역": "청정지역",
+          "type": "constant",
+          "limit": 0.5,
+          "operator": "<=",
+          "unit": "mg/L"
+        },
+        {
+          "pollutant": "주석",
+          "지역": "가지역",
+          "type": "constant",
+          "limit": 5,
+          "operator": "<=",
+          "unit": "mg/L"
+        },
+        {
+          "pollutant": "주석",
+          "지역": "나지역",
+          "type": "constant",
+          "limit": 5,
+          "operator": "<=",
+          "unit": "mg/L"
+        },
+        {
+          "pollutant": "주석",
+          "지역": "특례지역",
+          "type": "constant",
+          "limit": 5,
+          "operator": "<=",
+          "unit": "mg/L"
+        }
+      ],
+      "특별기준": [
+        {
+          "name": "퍼클로레이트 시설별 예외",
+          "applicableFacilities": [
+            "별표 4 제2호 31) 기초무기화학물질 제조시설",
+            "별표 4 제2호 57) 비철금속 제련·정련 및 합금제조 시설"
+          ],
+          "rows": [
+            {
+              "pollutant": "퍼클로레이트",
+              "지역": "청정지역",
+              "type": "constant",
+              "limit": 0.4,
+              "operator": "<=",
+              "unit": "mg/L"
+            },
+            {
+              "pollutant": "퍼클로레이트",
+              "지역": "가지역",
+              "type": "constant",
+              "limit": 4.0,
+              "operator": "<=",
+              "unit": "mg/L"
+            },
+            {
+              "pollutant": "퍼클로레이트",
+              "지역": "나지역",
+              "type": "constant",
+              "limit": 4.0,
+              "operator": "<=",
+              "unit": "mg/L"
+            },
+            {
+              "pollutant": "퍼클로레이트",
+              "지역": "특례지역",
+              "type": "constant",
+              "limit": 4.0,
+              "operator": "<=",
+              "unit": "mg/L"
+            }
+          ]
+        }
+      ],
+      "비고": [
+        "색도항목의 배출허용기준은 별표 4 제2호 18)의 섬유염색 및 가공시설, 같은 호 19)의 기타 섬유제품 제조시설 및 같은 호 23)의 펄프·종이 및 종이제품(색소첨가 제품만 해당한다) 제조시설에만 적용한다.",
+        "생태독성 배출허용기준은 물벼룩에 대한 급성독성시험을 기준으로 하며, 폐수배출시설에서 배출되는 폐수를 모두 공공폐수처리시설 또는 「하수도법」 제2조제9호에 따른 공공하수처리시설에 유입하여 처리하는 경우 해당 폐수배출시설에는 적용하지 않는다.",
+        "생태독성 항목의 배출허용기준의 경우 그 기준을 초과하더라도 가목의 요건을 모두 갖춘 경우에는 그 폐수를 나목의 방법으로 방류하는 경우에 한정하여 그 기준을 초과하지 않는 것으로 본다. 이 경우 가목에 따른 증명 및 확인의 신청은 제47조제1항에 따른 시운전 기간에도 할 수 있다. 가. 초과의 원인 및 영향 — 1) 초과 원인이 오직 염 성분(바닷물의 주성분인 염화이온, 나트륨이온, 황산이온, 마그네슘이온, 칼슘이온 및 칼륨이온) 때문이라는 국립환경과학원장의 증명(이하 \"염에의한 생태독성증명\"); 2) 해양생물종(발광박테리아 Aliivibrio fischeri 와 윤충류 Brachionus plicatilis)에 대하여 독성 영향이 없다는 국립환경과학원장의 확인(이하 \"독성영향확인\"). 나. 방류방법 — 1) 공공수역 중 항만·연안해역으로 방류; 2) 위 외의 방법으로 방류 시: 별표 4 제2호 폐수배출시설 분류 중 3), 12), 14), 17)~20), 23), 26), 27), 30), 31), 33)~40), 46), 48)~50), 54), 55), 57)~60), 63), 67), 74), 75), 80) 폐수배출시설(2010-12-31 까지 설치허가 등) 또는 그 외 폐수배출시설(2020-12-31 까지 설치허가 등).",
+        "염에의한 생태독성증명 및 독성영향확인에 필요한 첨부서류, 절차·방법 등에 관하여 필요한 사항은 국립환경과학원장이 정하여 고시한다.",
+        "기후에너지환경부장관은 「환경기술 및 환경산업 지원법」 제12조에 따라 한국환경공단이 수행하는 생태독성 기술지원을 제공할 수 있으며, 그 결과를 제출받을 수 있다.",
+        "특례지역(공공폐수처리구역의 경우로 한정한다) 내 폐수배출시설에서 발생한 폐수를 공공폐수처리시설에 유입하지 않고 공공수역으로 배출하는 사업장에 대한 배출허용기준은 공공폐수처리시설의 방류수 수질기준을 적용하되, 방류수 수질기준 이외의 항목에 대해서는 해당 지역 구분에 따른 배출허용기준을 적용한다.",
+        "위 표에도 불구하고 퍼클로레이트 항목은 별표 4 제2호 31)의 기초무기화학물질 제조시설 및 같은 호 57)의 비철금속 제련, 정련 및 합금제조 시설의 경우에는 청정지역은 0.4mg/L, 가지역, 나지역 및 특례지역은 4mg/L의 기준을 적용한다.",
+        "총대장균군 배출허용기준은 해당 사업장에서 배출된 폐수를 모두 공공폐수처리시설 또는 「하수도법」 제2조제9호에 따른 공공하수처리시설에 유입시키는 폐수배출시설에는 적용하지 않는다.",
+        "하수처리구역에서 「하수도법」 제28조에 따라 공공하수도관리청의 허가를 받아 폐수를 공공하수도에 유입시키지 않고 공공수역으로 배출하는 폐수배출시설 및 「하수도법」 제27조제1항을 위반하여 배수설비를 설치하지 않고 폐수를 공공수역으로 배출하는 사업장에 대한 배출허용기준은 공공하수처리시설의 방류수 수질기준을 적용한다."
+      ]
+    }
+  }
+}

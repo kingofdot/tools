@@ -1,0 +1,71 @@
+{
+  "별표번호": "5",
+  "별표가지번호": "00",
+  "별표제목": "기술진단의 내용 및 방법",
+  "법령명": "악취방지법 시행규칙",
+  "관련조문": "제13조의2제1항",
+  "신설일": "2011-02-01",
+  "_meta": {
+    "_note": "기술진단을 5개 영역(현황조사·시설진단·공정진단·운영진단·시설개선)으로 구분하고, 각 영역별 점검 방법(항목)을 트리로 기술."
+  },
+  "기술진단_내용": [
+    {
+      "category": "현황 조사",
+      "방법": [
+        { "depth": 0, "type": "number", "marker": "1.", "text": "처리대상 물질의 종류 및 용량 조사" },
+        { "depth": 0, "type": "number", "marker": "2.", "text": "악취 관련 민원 발생 현황 조사" },
+        { "depth": 0, "type": "number", "marker": "3.", "text": "민원 발생 지역과 떨어진 거리 및 주변 지역 현황 조사" },
+        { "depth": 0, "type": "number", "marker": "4.", "text": "사업장 주변의 지리적·환경적인 조건 파악" },
+        { "depth": 0, "type": "number", "marker": "5.", "text": "사업장의 풍향, 풍속 등 기상조건 파악" },
+        { "depth": 0, "type": "number", "marker": "6.", "text": "설계보고서 등 시설 및 운영 관련 자료 검토" }
+      ]
+    },
+    {
+      "category": "시설진단",
+      "방법": [
+        { "depth": 0, "type": "number",     "marker": "1.", "text": "자료 조사", "isHeader": true },
+        { "depth": 1, "type": "korean-dot", "marker": "가.", "text": "설비 및 시설의 보수·교환·개조 등의 기록 점검, 고장횟수 파악" },
+
+        { "depth": 0, "type": "number",     "marker": "2.", "text": "악취배출시설의 밀폐 및 악취포집 상태 파악", "isHeader": true },
+        { "depth": 1, "type": "korean-dot", "marker": "가.", "text": "악취발생 공정별 밀폐도 파악" },
+        { "depth": 1, "type": "korean-dot", "marker": "나.", "text": "악취발생 공정별 후드·덕트 설치 여부 및 적절성 파악" },
+        { "depth": 1, "type": "korean-dot", "marker": "다.", "text": "악취발생 공정별 악취포집 현황 파악" },
+
+        { "depth": 0, "type": "number",     "marker": "3.", "text": "악취방지시설 및 부대설비", "isHeader": true },
+        { "depth": 1, "type": "korean-dot", "marker": "가.", "text": "용량과 성능의 적절성 여부 검토" },
+        { "depth": 1, "type": "korean-dot", "marker": "나.", "text": "부식, 손상 등 정상작동 여부 검토" }
+      ]
+    },
+    {
+      "category": "공정진단",
+      "방법": [
+        { "depth": 0, "type": "number",     "marker": "1.", "text": "악취발생원 현황 파악" },
+        { "depth": 0, "type": "number",     "marker": "2.", "text": "악취배출 공정 및 특성 파악" },
+        { "depth": 0, "type": "number",     "marker": "3.", "text": "악취발생원별 악취물질 측정·분석" },
+        { "depth": 0, "type": "number",     "marker": "4.", "text": "악취방지시설 전·후단 및 최종 배출구 악취물질 측정·분석" },
+        { "depth": 0, "type": "number",     "marker": "5.", "text": "악취방지시설 성능 및 효율 진단", "isHeader": true },
+        { "depth": 1, "type": "korean-dot", "marker": "가.", "text": "악취방지시설 설계 적합성 및 운전의 적절성 파악" },
+        { "depth": 1, "type": "korean-dot", "marker": "나.", "text": "악취방지시설 운전인자(運轉因子) 관리 현황 파악" },
+        { "depth": 0, "type": "number",     "marker": "6.", "text": "부지경계지역 악취물질 측정·분석" }
+      ]
+    },
+    {
+      "category": "운영진단",
+      "방법": [
+        { "depth": 0, "type": "number", "marker": "1.", "text": "운전원과의 면담 결과를 토대로 한 유지·관리의 적합성 파악" },
+        { "depth": 0, "type": "number", "marker": "2.", "text": "관리인의 기술능력, 유지·보수의 적절성 파악" }
+      ]
+    },
+    {
+      "category": "시설 개선 및 최적 관리",
+      "방법": [
+        { "depth": 0, "type": "number", "marker": "1.", "text": "사업장의 악취발생 문제점 도출" },
+        { "depth": 0, "type": "number", "marker": "2.", "text": "문제점에 대한 악취배출시설 및 악취발생원별 악취 저감 대책 수립" },
+        { "depth": 0, "type": "number", "marker": "3.", "text": "악취문제 해결을 위한 시설 개선의 타당성 검토" },
+        { "depth": 0, "type": "number", "marker": "4.", "text": "시설 개선의 개략적 개선비용 산출" },
+        { "depth": 0, "type": "number", "marker": "5.", "text": "악취배출시설별 적정 점검방법 및 시설관리 방안 지도" },
+        { "depth": 0, "type": "number", "marker": "6.", "text": "시설기자재의 관리 점검 및 운영·관리 방법 지도" }
+      ]
+    }
+  ]
+}

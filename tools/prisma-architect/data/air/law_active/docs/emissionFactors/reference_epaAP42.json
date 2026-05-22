@@ -1,0 +1,7360 @@
+{
+  "schemaVersion": "1.0",
+  "sourceId": "reference/epaAP42",
+  "legalStatus": "참고",
+  "section": "美 EPA 배출계수 예 (AP-42)",
+  "sourceFile": "대기오염물질 배출시설 인허가업무 가이드라인(최종) (1).csv",
+  "_meta": {
+    "_status": "참고용 자료. 국내 법정 배출계수는 고시 제2021-41호 (annex1·2·3) 사용.",
+    "_note": "美 EPA AP-42 배출계수 표를 한국 시설명에 매핑. 카테고리는 빈 셀이 위 셀로부터 forward-fill 됨.",
+    "_recovery_notes": [
+      "원본 CSV 인코딩 손상으로 마지막 3개 카테고리는 .txt 원본에서 복구: 공통시설·분쇄시설·선별시설",
+      "PDF 페이지 분할로 인해 같은 대분류 카테고리가 여러 단편으로 나타남 → CATEGORY_CANONICAL 매핑으로 11개로 정규화"
+    ],
+    "오염물질": [
+      "먼지",
+      "황산화물",
+      "질소산화물"
+    ],
+    "valueTypes": {
+      "constant": "{type:'constant',   value}",
+      "range": "{type:'range',      min, max}",
+      "qualifier": "{type:'qualifier',  op, value}      // op: '<=' | '>=' | '<' | '>'",
+      "expression": "{type:'expression', coefficient, variable, variableMeaning}  // result = coefficient × variable",
+      "null": "데이터 없음 (해당 오염물질 미적용)"
+    },
+    "unitSchema": {
+      "raw": "원본 표기 (예: 'kg/폴리프로필렌생산량(ton)')",
+      "numerator": "배출량 단위 (kg 등)",
+      "denominator": "단위량의 단위 (ton, ㎘, 10³㎥, m², 109J 등)",
+      "basis": "단위량의 의미 (생산량 | 사용량 | 처리량 | 소각량 | 회수량 | 저장량 | 투입량 | null)"
+    },
+    "calculationFormula": "시간당 발생량(kg/h) = factor.value × 시간당 단위량 (factor.type 별 평가 방법은 valueTypes 참조)",
+    "basisVocabulary": [
+      "생산량",
+      "사용량",
+      "처리량",
+      "소각량",
+      "회수량",
+      "저장량",
+      "투입량"
+    ],
+    "materialTypeRules": {
+      "제품": "basis ∈ {생산량, 회수량}",
+      "원료": "basis ∈ {사용량, 저장량, 투입량, 처리량}",
+      "폐기물": "basis = 소각량",
+      "연료": "단위에 한글 basis 가 없는 연료성 단위 (kg/ton, kg/㎘, kg/10³㎥) — annex3 전용",
+      "null": "분류 불가"
+    },
+    "_referenceContextNote": "EPA AP-42 출처 정보 (process, subcategory) 는 _referenceContext 에 보존"
+  },
+  "entryCount": 264,
+  "entries": [
+    {
+      "id": "epaAP42-001",
+      "airFacilityRefs": null,
+      "facilityGroup": "제1차 금속 제조시설 및 조립금속제품·기계·기기·장비·운송장비·가구 제조시설",
+      "subFacility": "가열로",
+      "materialType": null,
+      "material": "anode baking furnace",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 1.5
+        },
+        "황산화물": null,
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/ton",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": null
+      },
+      "_referenceContext": {
+        "epaProcess": "primary aluminum production process",
+        "epaSubcategory": null
+      }
+    },
+    {
+      "id": "epaAP42-002",
+      "airFacilityRefs": null,
+      "facilityGroup": "제1차 금속 제조시설 및 조립금속제품·기계·기기·장비·운송장비·가구 제조시설",
+      "subFacility": "가열로",
+      "materialType": null,
+      "material": "blast furnace gas",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 0.015
+        },
+        "황산화물": null,
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/109J",
+        "numerator": "kg",
+        "denominator": "109J",
+        "basis": null
+      },
+      "_referenceContext": {
+        "epaProcess": "iron and steel mills",
+        "epaSubcategory": "miscellaneous combustion sources boiler,soaking pit, and slab reheat"
+      }
+    },
+    {
+      "id": "epaAP42-003",
+      "airFacilityRefs": null,
+      "facilityGroup": "제1차 금속 제조시설 및 조립금속제품·기계·기기·장비·운송장비·가구 제조시설",
+      "subFacility": "가열로",
+      "materialType": null,
+      "material": "coke oven gas",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 0.005
+        },
+        "황산화물": null,
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/109J",
+        "numerator": "kg",
+        "denominator": "109J",
+        "basis": null
+      },
+      "_referenceContext": {
+        "epaProcess": "iron and steel mills",
+        "epaSubcategory": "miscellaneous combustion sources boiler,soaking pit, and slab reheat"
+      }
+    },
+    {
+      "id": "epaAP42-004",
+      "airFacilityRefs": null,
+      "facilityGroup": "제1차 금속 제조시설 및 조립금속제품·기계·기기·장비·운송장비·가구 제조시설",
+      "subFacility": "납의 제2차 정련용 또는 납의 관･판･선 제조용 용해로",
+      "materialType": null,
+      "material": "reverberatory smelting",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 162.0
+        },
+        "황산화물": {
+          "type": "constant",
+          "value": 40.0
+        },
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/ton",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": null
+      },
+      "_referenceContext": {
+        "epaProcess": "secondary lead processing",
+        "epaSubcategory": null
+      }
+    },
+    {
+      "id": "epaAP42-005",
+      "airFacilityRefs": null,
+      "facilityGroup": "제1차 금속 제조시설 및 조립금속제품·기계·기기·장비·운송장비·가구 제조시설",
+      "subFacility": "납의 제2차 정련용 또는 납의 관･판･선 제조용 용해로",
+      "materialType": null,
+      "material": "blast smelting cupola",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 153.0
+        },
+        "황산화물": {
+          "type": "constant",
+          "value": 27.0
+        },
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/ton",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": null
+      },
+      "_referenceContext": {
+        "epaProcess": "secondary lead processing",
+        "epaSubcategory": null
+      }
+    },
+    {
+      "id": "epaAP42-006",
+      "airFacilityRefs": null,
+      "facilityGroup": "제1차 금속 제조시설 및 조립금속제품·기계·기기·장비·운송장비·가구 제조시설",
+      "subFacility": "납의 제2차 정련용 또는 납의 관･판･선 제조용 용해로",
+      "materialType": null,
+      "material": "sweating",
+      "factors": {
+        "먼지": {
+          "type": "range",
+          "min": 16.0,
+          "max": 35.0
+        },
+        "황산화물": null,
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/ton",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": null
+      },
+      "_referenceContext": {
+        "epaProcess": "secondary lead processing",
+        "epaSubcategory": null
+      }
+    },
+    {
+      "id": "epaAP42-007",
+      "airFacilityRefs": null,
+      "facilityGroup": "제1차 금속 제조시설 및 조립금속제품·기계·기기·장비·운송장비·가구 제조시설",
+      "subFacility": "납의 제2차 정련용 또는 납의 관･판･선 제조용 용해로",
+      "materialType": null,
+      "material": "kettle refining",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 0.02
+        },
+        "황산화물": null,
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/ton",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": null
+      },
+      "_referenceContext": {
+        "epaProcess": "secondary lead processing",
+        "epaSubcategory": null
+      }
+    },
+    {
+      "id": "epaAP42-008",
+      "airFacilityRefs": null,
+      "facilityGroup": "제1차 금속 제조시설 및 조립금속제품·기계·기기·장비·운송장비·가구 제조시설",
+      "subFacility": "납의 제2차 정련용 또는 납의 관･판･선 제조용 용해로",
+      "materialType": null,
+      "material": "kettle oxidation",
+      "factors": {
+        "먼지": {
+          "type": "qualifier",
+          "op": "<=",
+          "value": 20.0
+        },
+        "황산화물": null,
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/ton",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": null
+      },
+      "_referenceContext": {
+        "epaProcess": "secondary lead processing",
+        "epaSubcategory": null
+      }
+    },
+    {
+      "id": "epaAP42-009",
+      "airFacilityRefs": null,
+      "facilityGroup": "제1차 금속 제조시설 및 조립금속제품·기계·기기·장비·운송장비·가구 제조시설",
+      "subFacility": "도가니로",
+      "materialType": null,
+      "material": "crucible furnace",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 0.95
+        },
+        "황산화물": null,
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/ton",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": null
+      },
+      "_referenceContext": {
+        "epaProcess": "secondary aluminum operation",
+        "epaSubcategory": "smelting"
+      }
+    },
+    {
+      "id": "epaAP42-010",
+      "airFacilityRefs": null,
+      "facilityGroup": "제1차 금속 제조시설 및 조립금속제품·기계·기기·장비·운송장비·가구 제조시설",
+      "subFacility": "반사로",
+      "materialType": null,
+      "material": "reverberatory",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 2.15
+        },
+        "황산화물": null,
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/ton",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": null
+      },
+      "_referenceContext": {
+        "epaProcess": "secondary aluminum operation",
+        "epaSubcategory": "smelting"
+      }
+    },
+    {
+      "id": "epaAP42-011",
+      "airFacilityRefs": null,
+      "facilityGroup": "제1차 금속 제조시설 및 조립금속제품·기계·기기·장비·운송장비·가구 제조시설",
+      "subFacility": "배소로",
+      "materialType": null,
+      "material": "multiple hearth",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 113.0
+        },
+        "황산화물": null,
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/ton",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": null
+      },
+      "_referenceContext": {
+        "epaProcess": "zinc smelting",
+        "epaSubcategory": "roasting"
+      }
+    },
+    {
+      "id": "epaAP42-012",
+      "airFacilityRefs": null,
+      "facilityGroup": "제1차 금속 제조시설 및 조립금속제품·기계·기기·장비·운송장비·가구 제조시설",
+      "subFacility": "배소로",
+      "materialType": null,
+      "material": "suspension",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 1000.0
+        },
+        "황산화물": null,
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/ton",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": null
+      },
+      "_referenceContext": {
+        "epaProcess": "zinc smelting",
+        "epaSubcategory": "roasting"
+      }
+    },
+    {
+      "id": "epaAP42-013",
+      "airFacilityRefs": null,
+      "facilityGroup": "제1차 금속 제조시설 및 조립금속제품·기계·기기·장비·운송장비·가구 제조시설",
+      "subFacility": "배소로",
+      "materialType": null,
+      "material": "fluidized bed",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 1083.0
+        },
+        "황산화물": null,
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/ton",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": null
+      },
+      "_referenceContext": {
+        "epaProcess": "zinc smelting",
+        "epaSubcategory": "roasting"
+      }
+    },
+    {
+      "id": "epaAP42-014",
+      "airFacilityRefs": null,
+      "facilityGroup": "제1차 금속 제조시설 및 조립금속제품·기계·기기·장비·운송장비·가구 제조시설",
+      "subFacility": "용융 용해로",
+      "materialType": null,
+      "material": null,
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 0.05
+        },
+        "황산화물": null,
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/ton",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": null
+      },
+      "_referenceContext": {
+        "epaProcess": "secondary zinc smelting",
+        "epaSubcategory": "Kettle pot"
+      }
+    },
+    {
+      "id": "epaAP42-015",
+      "airFacilityRefs": null,
+      "facilityGroup": "제1차 금속 제조시설 및 조립금속제품·기계·기기·장비·운송장비·가구 제조시설",
+      "subFacility": "용융 용해로",
+      "materialType": null,
+      "material": "smelting furnace",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 0.2
+        },
+        "황산화물": {
+          "type": "constant",
+          "value": 2.0
+        },
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/ton",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": null
+      },
+      "_referenceContext": {
+        "epaProcess": "primary copper smelters",
+        "epaSubcategory": null
+      }
+    },
+    {
+      "id": "epaAP42-016",
+      "airFacilityRefs": null,
+      "facilityGroup": "제1차 금속 제조시설 및 조립금속제품·기계·기기·장비·운송장비·가구 제조시설",
+      "subFacility": "용융 용해로",
+      "materialType": null,
+      "material": "top blown furnace melting and refining",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 14.25
+        },
+        "황산화물": null,
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/ton",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": null
+      },
+      "_referenceContext": {
+        "epaProcess": "iron and steel mills",
+        "epaSubcategory": "basic oxygen furnace"
+      }
+    },
+    {
+      "id": "epaAP42-017",
+      "airFacilityRefs": null,
+      "facilityGroup": "제1차 금속 제조시설 및 조립금속제품·기계·기기·장비·운송장비·가구 제조시설",
+      "subFacility": "용융 용해로",
+      "materialType": null,
+      "material": "pot furnace",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 2.0
+        },
+        "황산화물": null,
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/ton",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": null
+      },
+      "_referenceContext": {
+        "epaProcess": "secondary magnesium smelting",
+        "epaSubcategory": null
+      }
+    },
+    {
+      "id": "epaAP42-018",
+      "airFacilityRefs": null,
+      "facilityGroup": "제1차 금속 제조시설 및 조립금속제품·기계·기기·장비·운송장비·가구 제조시설",
+      "subFacility": "전기 아크로",
+      "materialType": null,
+      "material": "Open",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 35.0
+        },
+        "황산화물": null,
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/ton",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": null
+      },
+      "_referenceContext": {
+        "epaProcess": "ferroalloy production",
+        "epaSubcategory": "FeSi (50%)"
+      }
+    },
+    {
+      "id": "epaAP42-019",
+      "airFacilityRefs": null,
+      "facilityGroup": "제1차 금속 제조시설 및 조립금속제품·기계·기기·장비·운송장비·가구 제조시설",
+      "subFacility": "전기 아크로",
+      "materialType": null,
+      "material": "Covered",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 46.0
+        },
+        "황산화물": null,
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/ton",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": null
+      },
+      "_referenceContext": {
+        "epaProcess": "ferroalloy production",
+        "epaSubcategory": "FeSi (50%)"
+      }
+    },
+    {
+      "id": "epaAP42-020",
+      "airFacilityRefs": null,
+      "facilityGroup": "제1차 금속 제조시설 및 조립금속제품·기계·기기·장비·운송장비·가구 제조시설",
+      "subFacility": "전기 아크로",
+      "materialType": null,
+      "material": "Open",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 158.0
+        },
+        "황산화물": null,
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/ton",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": null
+      },
+      "_referenceContext": {
+        "epaProcess": "ferroalloy production",
+        "epaSubcategory": "FeSi (75%)"
+      }
+    },
+    {
+      "id": "epaAP42-021",
+      "airFacilityRefs": null,
+      "facilityGroup": "제1차 금속 제조시설 및 조립금속제품·기계·기기·장비·운송장비·가구 제조시설",
+      "subFacility": "전기 아크로",
+      "materialType": null,
+      "material": "Covered",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 103.0
+        },
+        "황산화물": null,
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/ton",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": null
+      },
+      "_referenceContext": {
+        "epaProcess": "ferroalloy production",
+        "epaSubcategory": "FeSi (75%)"
+      }
+    },
+    {
+      "id": "epaAP42-022",
+      "airFacilityRefs": null,
+      "facilityGroup": "제1차 금속 제조시설 및 조립금속제품·기계·기기·장비·운송장비·가구 제조시설",
+      "subFacility": "전기 아크로",
+      "materialType": null,
+      "material": "Open",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 282.0
+        },
+        "황산화물": null,
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/ton",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": null
+      },
+      "_referenceContext": {
+        "epaProcess": "ferroalloy production",
+        "epaSubcategory": "FeSi (90%)"
+      }
+    },
+    {
+      "id": "epaAP42-023",
+      "airFacilityRefs": null,
+      "facilityGroup": "제1차 금속 제조시설 및 조립금속제품·기계·기기·장비·운송장비·가구 제조시설",
+      "subFacility": "전기 아크로",
+      "materialType": null,
+      "material": "Open",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 436.0
+        },
+        "황산화물": null,
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/ton",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": null
+      },
+      "_referenceContext": {
+        "epaProcess": "ferroalloy production",
+        "epaSubcategory": "Si metal (98%)"
+      }
+    },
+    {
+      "id": "epaAP42-024",
+      "airFacilityRefs": null,
+      "facilityGroup": "제1차 금속 제조시설 및 조립금속제품·기계·기기·장비·운송장비·가구 제조시설",
+      "subFacility": "전기 아크로",
+      "materialType": null,
+      "material": "Open",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 14.0
+        },
+        "황산화물": null,
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/ton",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": null
+      },
+      "_referenceContext": {
+        "epaProcess": "ferroalloy production",
+        "epaSubcategory": "FeMn (80%)"
+      }
+    },
+    {
+      "id": "epaAP42-025",
+      "airFacilityRefs": null,
+      "facilityGroup": "제1차 금속 제조시설 및 조립금속제품·기계·기기·장비·운송장비·가구 제조시설",
+      "subFacility": "전기 아크로",
+      "materialType": null,
+      "material": "Covered",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 6.0
+        },
+        "황산화물": null,
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/ton",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": null
+      },
+      "_referenceContext": {
+        "epaProcess": "ferroalloy production",
+        "epaSubcategory": "FeMn (1% Si)"
+      }
+    },
+    {
+      "id": "epaAP42-026",
+      "airFacilityRefs": null,
+      "facilityGroup": "제1차 금속 제조시설 및 조립금속제품·기계·기기·장비·운송장비·가구 제조시설",
+      "subFacility": "전기 아크로",
+      "materialType": null,
+      "material": "Sealed",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 37.0
+        },
+        "황산화물": null,
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/ton",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": null
+      },
+      "_referenceContext": {
+        "epaProcess": "ferroalloy production",
+        "epaSubcategory": "FeMn (1% Si)"
+      }
+    },
+    {
+      "id": "epaAP42-027",
+      "airFacilityRefs": null,
+      "facilityGroup": "제1차 금속 제조시설 및 조립금속제품·기계·기기·장비·운송장비·가구 제조시설",
+      "subFacility": "전기 아크로",
+      "materialType": null,
+      "material": "Open",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 78.0
+        },
+        "황산화물": null,
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/ton",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": null
+      },
+      "_referenceContext": {
+        "epaProcess": "ferroalloy production",
+        "epaSubcategory": "FeCr (high carbon)"
+      }
+    },
+    {
+      "id": "epaAP42-028",
+      "airFacilityRefs": null,
+      "facilityGroup": "제1차 금속 제조시설 및 조립금속제품·기계·기기·장비·운송장비·가구 제조시설",
+      "subFacility": "전기 아크로",
+      "materialType": null,
+      "material": "Open",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 96.0
+        },
+        "황산화물": null,
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/ton",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": null
+      },
+      "_referenceContext": {
+        "epaProcess": "ferroalloy production",
+        "epaSubcategory": "SiMn"
+      }
+    },
+    {
+      "id": "epaAP42-029",
+      "airFacilityRefs": null,
+      "facilityGroup": "제1차 금속 제조시설 및 조립금속제품·기계·기기·장비·운송장비·가구 제조시설",
+      "subFacility": "전기 아크로",
+      "materialType": null,
+      "material": "carbon steel",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 19.0
+        },
+        "황산화물": null,
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/ton",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": null
+      },
+      "_referenceContext": {
+        "epaProcess": "iron and steel mills",
+        "epaSubcategory": "melting and refining"
+      }
+    },
+    {
+      "id": "epaAP42-030",
+      "airFacilityRefs": null,
+      "facilityGroup": "제1차 금속 제조시설 및 조립금속제품·기계·기기·장비·운송장비·가구 제조시설",
+      "subFacility": "전기 아크로",
+      "materialType": null,
+      "material": "alloy steel",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 5.65
+        },
+        "황산화물": null,
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/ton",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": null
+      },
+      "_referenceContext": {
+        "epaProcess": "iron and steel mills",
+        "epaSubcategory": "melting,refiningg,charg ing,tapping,slagging"
+      }
+    },
+    {
+      "id": "epaAP42-031",
+      "airFacilityRefs": null,
+      "facilityGroup": "제1차 금속 제조시설 및 조립금속제품·기계·기기·장비·운송장비·가구 제조시설",
+      "subFacility": "전기 아크로",
+      "materialType": null,
+      "material": "carbon steel",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 25.0
+        },
+        "황산화물": null,
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/ton",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": null
+      },
+      "_referenceContext": {
+        "epaProcess": "iron and steel mills",
+        "epaSubcategory": "melting,refiningg,charg ing,tapping,slagging"
+      }
+    },
+    {
+      "id": "epaAP42-032",
+      "airFacilityRefs": null,
+      "facilityGroup": "제1차 금속 제조시설 및 조립금속제품·기계·기기·장비·운송장비·가구 제조시설",
+      "subFacility": "제선로",
+      "materialType": null,
+      "material": "slip",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 39.5
+        },
+        "황산화물": null,
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/ton",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": null
+      },
+      "_referenceContext": {
+        "epaProcess": "iron and steel mills",
+        "epaSubcategory": "blast furnace"
+      }
+    },
+    {
+      "id": "epaAP42-033",
+      "airFacilityRefs": null,
+      "facilityGroup": "제1차 금속 제조시설 및 조립금속제품·기계·기기·장비·운송장비·가구 제조시설",
+      "subFacility": "제선로",
+      "materialType": null,
+      "material": "roof monitor",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 0.3
+        },
+        "황산화물": null,
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/ton",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": null
+      },
+      "_referenceContext": {
+        "epaProcess": "iron and steel mills",
+        "epaSubcategory": "blast furnace"
+      }
+    },
+    {
+      "id": "epaAP42-034",
+      "airFacilityRefs": null,
+      "facilityGroup": "제1차 금속 제조시설 및 조립금속제품·기계·기기·장비·운송장비·가구 제조시설",
+      "subFacility": "제선로",
+      "materialType": null,
+      "material": "furnace with local evacuation",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 0.65
+        },
+        "황산화물": null,
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/ton",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": null
+      },
+      "_referenceContext": {
+        "epaProcess": "iron and steel mills",
+        "epaSubcategory": "blast furnace"
+      }
+    },
+    {
+      "id": "epaAP42-035",
+      "airFacilityRefs": null,
+      "facilityGroup": "제1차 금속 제조시설 및 조립금속제품·기계·기기·장비·운송장비·가구 제조시설",
+      "subFacility": "제선로",
+      "materialType": null,
+      "material": "taphole and trough only (not runners)",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 0.15
+        },
+        "황산화물": null,
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/ton",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": null
+      },
+      "_referenceContext": {
+        "epaProcess": "iron and steel mills",
+        "epaSubcategory": "blast furnace"
+      }
+    },
+    {
+      "id": "epaAP42-036",
+      "airFacilityRefs": null,
+      "facilityGroup": "제1차 금속 제조시설 및 조립금속제품·기계·기기·장비·운송장비·가구 제조시설",
+      "subFacility": "도금시설",
+      "materialType": null,
+      "material": "hard chromium electroplating",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 0.25
+        },
+        "황산화물": null,
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "grains/ A-hr",
+        "numerator": "grains",
+        "denominator": "A-hr",
+        "basis": null
+      },
+      "_referenceContext": {
+        "epaProcess": "chromium electroplating",
+        "epaSubcategory": null
+      }
+    },
+    {
+      "id": "epaAP42-037",
+      "airFacilityRefs": null,
+      "facilityGroup": "제1차 금속 제조시설 및 조립금속제품·기계·기기·장비·운송장비·가구 제조시설",
+      "subFacility": "도금시설",
+      "materialType": null,
+      "material": "decorative chromium electroplating",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 0.069
+        },
+        "황산화물": null,
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "grains/ A-hr",
+        "numerator": "grains",
+        "denominator": "A-hr",
+        "basis": null
+      },
+      "_referenceContext": {
+        "epaProcess": "chromium electroplating",
+        "epaSubcategory": null
+      }
+    },
+    {
+      "id": "epaAP42-038",
+      "airFacilityRefs": null,
+      "facilityGroup": "제1차 금속 제조시설 및 조립금속제품·기계·기기·장비·운송장비·가구 제조시설",
+      "subFacility": "주물사처리시설",
+      "materialType": null,
+      "material": "casting",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 0.02
+        },
+        "황산화물": null,
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/ton",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": null
+      },
+      "_referenceContext": {
+        "epaProcess": "secondary lead processing",
+        "epaSubcategory": null
+      }
+    },
+    {
+      "id": "epaAP42-039",
+      "airFacilityRefs": null,
+      "facilityGroup": "기초화합물 제조시설",
+      "subFacility": "반응시설",
+      "materialType": null,
+      "material": "neutralizer",
+      "factors": {
+        "먼지": {
+          "type": "range",
+          "min": 0.045,
+          "max": 4.3
+        },
+        "황산화물": null,
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/ton",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": null
+      },
+      "_referenceContext": {
+        "epaProcess": "ammonium nitrate manufacturing",
+        "epaSubcategory": null
+      }
+    },
+    {
+      "id": "epaAP42-040",
+      "airFacilityRefs": null,
+      "facilityGroup": "기초화합물 제조시설",
+      "subFacility": "반응시설",
+      "materialType": null,
+      "material": "high density prill towers",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 1.59
+        },
+        "황산화물": null,
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/ton",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": null
+      },
+      "_referenceContext": {
+        "epaProcess": "ammonium nitrate manufacturing",
+        "epaSubcategory": "solids formation operation"
+      }
+    },
+    {
+      "id": "epaAP42-041",
+      "airFacilityRefs": null,
+      "facilityGroup": "기초화합물 제조시설",
+      "subFacility": "반응시설",
+      "materialType": null,
+      "material": "low density prill towers",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 0.46
+        },
+        "황산화물": null,
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/ton",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": null
+      },
+      "_referenceContext": {
+        "epaProcess": "ammonium nitrate manufacturing",
+        "epaSubcategory": "solids formation operation"
+      }
+    },
+    {
+      "id": "epaAP42-042",
+      "airFacilityRefs": null,
+      "facilityGroup": "기초화합물 제조시설",
+      "subFacility": "반응시설",
+      "materialType": null,
+      "material": "rotary drum granulators",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 146.0
+        },
+        "황산화물": null,
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/ton",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": null
+      },
+      "_referenceContext": {
+        "epaProcess": "ammonium nitrate manufacturing",
+        "epaSubcategory": "solids formation operation"
+      }
+    },
+    {
+      "id": "epaAP42-043",
+      "airFacilityRefs": null,
+      "facilityGroup": "기초화합물 제조시설",
+      "subFacility": "반응시설",
+      "materialType": null,
+      "material": "pen granulators",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 1.34
+        },
+        "황산화물": null,
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/ton",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": null
+      },
+      "_referenceContext": {
+        "epaProcess": "ammonium nitrate manufacturing",
+        "epaSubcategory": "solids formation operation"
+      }
+    },
+    {
+      "id": "epaAP42-044",
+      "airFacilityRefs": null,
+      "facilityGroup": "기초화합물 제조시설",
+      "subFacility": "농축시설",
+      "materialType": null,
+      "material": "evaporation/concentration operations",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 0.26
+        },
+        "황산화물": null,
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/ton",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": null
+      },
+      "_referenceContext": {
+        "epaProcess": "ammonium nitrate manufacturing",
+        "epaSubcategory": null
+      }
+    },
+    {
+      "id": "epaAP42-045",
+      "airFacilityRefs": null,
+      "facilityGroup": "기초화합물 제조시설",
+      "subFacility": "농축시설",
+      "materialType": null,
+      "material": "solution formation and concentration",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 0.0105
+        },
+        "황산화물": null,
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/ton",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": null
+      },
+      "_referenceContext": {
+        "epaProcess": "urea production",
+        "epaSubcategory": null
+      }
+    },
+    {
+      "id": "epaAP42-046",
+      "airFacilityRefs": null,
+      "facilityGroup": "기초화합물 제조시설",
+      "subFacility": "농축시설",
+      "materialType": null,
+      "material": "agricultural grade",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 1.9
+        },
+        "황산화물": null,
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/ton",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": null
+      },
+      "_referenceContext": {
+        "epaProcess": "urea production",
+        "epaSubcategory": "nonfluidized bed prilling"
+      }
+    },
+    {
+      "id": "epaAP42-047",
+      "airFacilityRefs": null,
+      "facilityGroup": "기초화합물 제조시설",
+      "subFacility": "농축시설",
+      "materialType": null,
+      "material": "feed grade",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 1.8
+        },
+        "황산화물": null,
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/ton",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": null
+      },
+      "_referenceContext": {
+        "epaProcess": "urea production",
+        "epaSubcategory": "nonfluidized bed prilling"
+      }
+    },
+    {
+      "id": "epaAP42-048",
+      "airFacilityRefs": null,
+      "facilityGroup": "기초화합물 제조시설",
+      "subFacility": "농축시설",
+      "materialType": null,
+      "material": "agricultural grade",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 3.1
+        },
+        "황산화물": null,
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/ton",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": null
+      },
+      "_referenceContext": {
+        "epaProcess": "urea production",
+        "epaSubcategory": "fluidized bed prilling"
+      }
+    },
+    {
+      "id": "epaAP42-049",
+      "airFacilityRefs": null,
+      "facilityGroup": "기초화합물 제조시설",
+      "subFacility": "농축시설",
+      "materialType": null,
+      "material": "feed grade",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 1.8
+        },
+        "황산화물": null,
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/ton",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": null
+      },
+      "_referenceContext": {
+        "epaProcess": "urea production",
+        "epaSubcategory": "fluidized bed prilling"
+      }
+    },
+    {
+      "id": "epaAP42-050",
+      "airFacilityRefs": null,
+      "facilityGroup": "기초화합물 제조시설",
+      "subFacility": "응축시설",
+      "materialType": null,
+      "material": "high density prill cooler",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 0.8
+        },
+        "황산화물": null,
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/ton",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": null
+      },
+      "_referenceContext": {
+        "epaProcess": "ammonium nitrate manufacturing",
+        "epaSubcategory": "coolers and dryers"
+      }
+    },
+    {
+      "id": "epaAP42-051",
+      "airFacilityRefs": null,
+      "facilityGroup": "기초화합물 제조시설",
+      "subFacility": "응축시설",
+      "materialType": null,
+      "material": "low density prill cooler",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 25.8
+        },
+        "황산화물": null,
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/ton",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": null
+      },
+      "_referenceContext": {
+        "epaProcess": "ammonium nitrate manufacturing",
+        "epaSubcategory": "coolers and dryers"
+      }
+    },
+    {
+      "id": "epaAP42-052",
+      "airFacilityRefs": null,
+      "facilityGroup": "기초화합물 제조시설",
+      "subFacility": "응축시설",
+      "materialType": null,
+      "material": "rotary drum granulators cooler",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 8.1
+        },
+        "황산화물": null,
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/ton",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": null
+      },
+      "_referenceContext": {
+        "epaProcess": "ammonium nitrate manufacturing",
+        "epaSubcategory": "coolers and dryers"
+      }
+    },
+    {
+      "id": "epaAP42-053",
+      "airFacilityRefs": null,
+      "facilityGroup": "기초화합물 제조시설",
+      "subFacility": "응축시설",
+      "materialType": null,
+      "material": "pan granulators cooler",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 18.3
+        },
+        "황산화물": null,
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/ton",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": null
+      },
+      "_referenceContext": {
+        "epaProcess": "ammonium nitrate manufacturing",
+        "epaSubcategory": "coolers and dryers"
+      }
+    },
+    {
+      "id": "epaAP42-054",
+      "airFacilityRefs": null,
+      "facilityGroup": "기초화합물 제조시설",
+      "subFacility": "응축시설",
+      "materialType": null,
+      "material": null,
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 3.89
+        },
+        "황산화물": null,
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/ton",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": null
+      },
+      "_referenceContext": {
+        "epaProcess": "urea productions",
+        "epaSubcategory": "rotary drum cooler"
+      }
+    },
+    {
+      "id": "epaAP42-055",
+      "airFacilityRefs": null,
+      "facilityGroup": "기초화합물 제조시설",
+      "subFacility": "건조시설",
+      "materialType": null,
+      "material": "rotary dryers",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 23.0
+        },
+        "황산화물": null,
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/ton",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": null
+      },
+      "_referenceContext": {
+        "epaProcess": "ammonium sulfate manufacture",
+        "epaSubcategory": null
+      }
+    },
+    {
+      "id": "epaAP42-056",
+      "airFacilityRefs": null,
+      "facilityGroup": "기초화합물 제조시설",
+      "subFacility": "건조시설",
+      "materialType": null,
+      "material": "fluidized-bed dryers",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 109.0
+        },
+        "황산화물": null,
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/ton",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": null
+      },
+      "_referenceContext": {
+        "epaProcess": "ammonium sulfate manufacture",
+        "epaSubcategory": null
+      }
+    },
+    {
+      "id": "epaAP42-057",
+      "airFacilityRefs": null,
+      "facilityGroup": "기초화합물 제조시설",
+      "subFacility": "건조시설",
+      "materialType": null,
+      "material": "low density prill dryer",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 57.2
+        },
+        "황산화물": null,
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/ton",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": null
+      },
+      "_referenceContext": {
+        "epaProcess": "ammonium sulfate manufacture",
+        "epaSubcategory": null
+      }
+    },
+    {
+      "id": "epaAP42-058",
+      "airFacilityRefs": null,
+      "facilityGroup": "기초화합물 제조시설",
+      "subFacility": "회수시설",
+      "materialType": null,
+      "material": "desulfurization unit regeneration",
+      "factors": {
+        "먼지": null,
+        "황산화물": {
+          "type": "constant",
+          "value": 0.0288
+        },
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/ton",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": null
+      },
+      "_referenceContext": {
+        "epaProcess": "ammonia plant",
+        "epaSubcategory": null
+      }
+    },
+    {
+      "id": "epaAP42-059",
+      "airFacilityRefs": null,
+      "facilityGroup": "기타화학제품 제조시설",
+      "subFacility": "건조시설",
+      "materialType": null,
+      "material": "adipic acid drying/cooling/ storage",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 0.4
+        },
+        "황산화물": null,
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/ton",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": null
+      },
+      "_referenceContext": {
+        "epaProcess": "secondary oxidation adipic acid manufacturing",
+        "epaSubcategory": null
+      }
+    },
+    {
+      "id": "epaAP42-060",
+      "airFacilityRefs": null,
+      "facilityGroup": "기타화학제품 제조시설",
+      "subFacility": "건조시설",
+      "materialType": null,
+      "material": "spar drying",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 37.5
+        },
+        "황산화물": null,
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/ton",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": null
+      },
+      "_referenceContext": {
+        "epaProcess": "hydrofluoric acid manufacture",
+        "epaSubcategory": null
+      }
+    },
+    {
+      "id": "epaAP42-061",
+      "airFacilityRefs": null,
+      "facilityGroup": "기타화학제품 제조시설",
+      "subFacility": "농축시설",
+      "materialType": null,
+      "material": "nitric acid concentrators",
+      "factors": {
+        "먼지": null,
+        "황산화물": null,
+        "질소산화물": {
+          "type": "constant",
+          "value": 18.5
+        }
+      },
+      "unit": {
+        "raw": "kg/ton",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": null
+      },
+      "_referenceContext": {
+        "epaProcess": "explosives manufacturing",
+        "epaSubcategory": "nitration reactors"
+      }
+    },
+    {
+      "id": "epaAP42-062",
+      "airFacilityRefs": null,
+      "facilityGroup": "기타화학제품 제조시설",
+      "subFacility": "농축시설",
+      "materialType": null,
+      "material": "nitric acid concentrators",
+      "factors": {
+        "먼지": null,
+        "황산화물": null,
+        "질소산화물": {
+          "type": "constant",
+          "value": 7.0
+        }
+      },
+      "unit": {
+        "raw": "kg/ton",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": null
+      },
+      "_referenceContext": {
+        "epaProcess": "explosives manufacturing",
+        "epaSubcategory": "nitrocellulose"
+      }
+    },
+    {
+      "id": "epaAP42-063",
+      "airFacilityRefs": null,
+      "facilityGroup": "기타화학제품 제조시설",
+      "subFacility": "농축시설",
+      "materialType": null,
+      "material": "sulfuric acid concentrators",
+      "factors": {
+        "먼지": null,
+        "황산화물": {
+          "type": "constant",
+          "value": 34.0
+        },
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/ton",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": null
+      },
+      "_referenceContext": {
+        "epaProcess": "explosives manufacturing",
+        "epaSubcategory": "nitrocellulose"
+      }
+    },
+    {
+      "id": "epaAP42-064",
+      "airFacilityRefs": null,
+      "facilityGroup": "기타화학제품 제조시설",
+      "subFacility": "반응시설",
+      "materialType": null,
+      "material": "oxidation reactor",
+      "factors": {
+        "먼지": null,
+        "황산화물": null,
+        "질소산화물": {
+          "type": "constant",
+          "value": 6.3
+        }
+      },
+      "unit": {
+        "raw": "kg/ton",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": null
+      },
+      "_referenceContext": {
+        "epaProcess": "secondary oxidation adipic acid manufacturing",
+        "epaSubcategory": null
+      }
+    },
+    {
+      "id": "epaAP42-065",
+      "airFacilityRefs": null,
+      "facilityGroup": "기타화학제품 제조시설",
+      "subFacility": "반응시설",
+      "materialType": null,
+      "material": "nitration reactors",
+      "factors": {
+        "먼지": null,
+        "황산화물": {
+          "type": "constant",
+          "value": 0.7
+        },
+        "질소산화물": {
+          "type": "constant",
+          "value": 7.0
+        }
+      },
+      "unit": {
+        "raw": "kg/ton",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": null
+      },
+      "_referenceContext": {
+        "epaProcess": "explosives manufacturing",
+        "epaSubcategory": "nitrocellulose"
+      }
+    },
+    {
+      "id": "epaAP42-066",
+      "airFacilityRefs": null,
+      "facilityGroup": "기타화학제품 제조시설",
+      "subFacility": "반응시설",
+      "materialType": null,
+      "material": "main process stream",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 69.0
+        },
+        "황산화물": {
+          "type": "constant",
+          "value": 4.7
+        },
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/ton",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": null
+      },
+      "_referenceContext": {
+        "epaProcess": "phthalic anhydride",
+        "epaSubcategory": "oxidation of o-xylene"
+      }
+    },
+    {
+      "id": "epaAP42-067",
+      "airFacilityRefs": null,
+      "facilityGroup": "기타화학제품 제조시설",
+      "subFacility": "반응시설",
+      "materialType": null,
+      "material": "main process stream",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 28.0
+        },
+        "황산화물": null,
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/ton",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": null
+      },
+      "_referenceContext": {
+        "epaProcess": "phthalic anhydride",
+        "epaSubcategory": "oxidation of naphthalene"
+      }
+    },
+    {
+      "id": "epaAP42-068",
+      "airFacilityRefs": null,
+      "facilityGroup": "기타화학제품 제조시설",
+      "subFacility": "연소시설",
+      "materialType": null,
+      "material": "main process vent",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 3.27
+        },
+        "황산화물": null,
+        "질소산화물": {
+          "type": "constant",
+          "value": 0.28
+        }
+      },
+      "unit": {
+        "raw": "kg/ton",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": null
+      },
+      "_referenceContext": {
+        "epaProcess": "carbon black manufacture",
+        "epaSubcategory": "oil furnace prcess"
+      }
+    },
+    {
+      "id": "epaAP42-069",
+      "airFacilityRefs": null,
+      "facilityGroup": "기타화학제품 제조시설",
+      "subFacility": "연소시설",
+      "materialType": null,
+      "material": "flare",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 1.35
+        },
+        "황산화물": {
+          "type": "constant",
+          "value": 25.0
+        },
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/ton",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": null
+      },
+      "_referenceContext": {
+        "epaProcess": "carbon black manufacture",
+        "epaSubcategory": "oil furnace prcess"
+      }
+    },
+    {
+      "id": "epaAP42-070",
+      "airFacilityRefs": null,
+      "facilityGroup": "기타화학제품 제조시설",
+      "subFacility": "연소시설",
+      "materialType": null,
+      "material": "CO boiler and incinerator",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 1.04
+        },
+        "황산화물": {
+          "type": "constant",
+          "value": 17.5
+        },
+        "질소산화물": {
+          "type": "constant",
+          "value": 4.65
+        }
+      },
+      "unit": {
+        "raw": "kg/ton",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": null
+      },
+      "_referenceContext": {
+        "epaProcess": "carbon black manufacture",
+        "epaSubcategory": "oil furnace prcess"
+      }
+    },
+    {
+      "id": "epaAP42-071",
+      "airFacilityRefs": null,
+      "facilityGroup": "기타화학제품 제조시설",
+      "subFacility": "연소시설",
+      "materialType": null,
+      "material": "Solid waste incinerator",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 0.12
+        },
+        "황산화물": {
+          "type": "constant",
+          "value": 0.01
+        },
+        "질소산화물": {
+          "type": "constant",
+          "value": 0.04
+        }
+      },
+      "unit": {
+        "raw": "kg/ton",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": null
+      },
+      "_referenceContext": {
+        "epaProcess": "carbon black manufacture",
+        "epaSubcategory": "oil furnace prcess"
+      }
+    },
+    {
+      "id": "epaAP42-072",
+      "airFacilityRefs": null,
+      "facilityGroup": "기타화학제품 제조시설",
+      "subFacility": "연소시설",
+      "materialType": null,
+      "material": "red water incineratior",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 25.0
+        },
+        "황산화물": {
+          "type": "constant",
+          "value": 2.0
+        },
+        "질소산화물": {
+          "type": "constant",
+          "value": 26.0
+        }
+      },
+      "unit": {
+        "raw": "kg/ton",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": null
+      },
+      "_referenceContext": {
+        "epaProcess": "explosives manufacturing",
+        "epaSubcategory": "TNT-batch process"
+      }
+    },
+    {
+      "id": "epaAP42-073",
+      "airFacilityRefs": null,
+      "facilityGroup": "기타화학제품 제조시설",
+      "subFacility": "연소시설",
+      "materialType": null,
+      "material": "red water incineratior",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 0.25
+        },
+        "황산화물": {
+          "type": "constant",
+          "value": 0.24
+        },
+        "질소산화물": {
+          "type": "constant",
+          "value": 7.0
+        }
+      },
+      "unit": {
+        "raw": "kg/ton",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": null
+      },
+      "_referenceContext": {
+        "epaProcess": "explosives manufacturing",
+        "epaSubcategory": "TNT-continuous process"
+      }
+    },
+    {
+      "id": "epaAP42-074",
+      "airFacilityRefs": null,
+      "facilityGroup": "기타화학제품 제조시설",
+      "subFacility": "정제시설",
+      "materialType": null,
+      "material": "adipic acid refining",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 0.1
+        },
+        "황산화물": null,
+        "질소산화물": {
+          "type": "constant",
+          "value": 0.3
+        }
+      },
+      "unit": {
+        "raw": "kg/ton",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": null
+      },
+      "_referenceContext": {
+        "epaProcess": "secondary oxidation adipic acid manufacturing",
+        "epaSubcategory": null
+      }
+    },
+    {
+      "id": "epaAP42-075",
+      "airFacilityRefs": null,
+      "facilityGroup": "기타화학제품 제조시설",
+      "subFacility": "정제시설",
+      "materialType": null,
+      "material": "distillation",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 45.0
+        },
+        "황산화물": null,
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/ton",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": null
+      },
+      "_referenceContext": {
+        "epaProcess": "phthalic anhydride",
+        "epaSubcategory": "oxidation of o-xlyene"
+      }
+    },
+    {
+      "id": "epaAP42-076",
+      "airFacilityRefs": null,
+      "facilityGroup": "기타화학제품 제조시설",
+      "subFacility": "정제시설",
+      "materialType": null,
+      "material": "distillation",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 19.0
+        },
+        "황산화물": null,
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/ton",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": null
+      },
+      "_referenceContext": {
+        "epaProcess": "phthalic anhydride",
+        "epaSubcategory": "oxidation of naphthalene"
+      }
+    },
+    {
+      "id": "epaAP42-077",
+      "airFacilityRefs": null,
+      "facilityGroup": "기타화학제품 제조시설",
+      "subFacility": "혼합시설",
+      "materialType": null,
+      "material": "pigment mixing",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 1.0
+        },
+        "황산화물": null,
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/ton",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": null
+      },
+      "_referenceContext": {
+        "epaProcess": "printing ink manufacturing",
+        "epaSubcategory": null
+      }
+    },
+    {
+      "id": "epaAP42-078",
+      "airFacilityRefs": null,
+      "facilityGroup": "기타화학제품 제조시설",
+      "subFacility": "회수시설",
+      "materialType": null,
+      "material": "fume recovery",
+      "factors": {
+        "먼지": null,
+        "황산화물": null,
+        "질소산화물": {
+          "type": "constant",
+          "value": 12.5
+        }
+      },
+      "unit": {
+        "raw": "kg/ton",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": null
+      },
+      "_referenceContext": {
+        "epaProcess": "explosives manufacturing",
+        "epaSubcategory": "nitration reactors (TNT-batch process)"
+      }
+    },
+    {
+      "id": "epaAP42-079",
+      "airFacilityRefs": null,
+      "facilityGroup": "기타화학제품 제조시설",
+      "subFacility": "회수시설",
+      "materialType": null,
+      "material": "acid recovery",
+      "factors": {
+        "먼지": null,
+        "황산화물": null,
+        "질소산화물": {
+          "type": "constant",
+          "value": 27.5
+        }
+      },
+      "unit": {
+        "raw": "kg/ton",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": null
+      },
+      "_referenceContext": {
+        "epaProcess": "explosives manufacturing",
+        "epaSubcategory": "nitration reactors (TNT-batch process)"
+      }
+    },
+    {
+      "id": "epaAP42-080",
+      "airFacilityRefs": null,
+      "facilityGroup": "기타화학제품 제조시설",
+      "subFacility": "회수시설",
+      "materialType": null,
+      "material": "fume recovery",
+      "factors": {
+        "먼지": null,
+        "황산화물": null,
+        "질소산화물": {
+          "type": "constant",
+          "value": 4.0
+        }
+      },
+      "unit": {
+        "raw": "kg/ton",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": null
+      },
+      "_referenceContext": {
+        "epaProcess": "explosives manufacturing",
+        "epaSubcategory": "nitration reactors (TNT-continuous process)"
+      }
+    },
+    {
+      "id": "epaAP42-081",
+      "airFacilityRefs": null,
+      "facilityGroup": "기타화학제품 제조시설",
+      "subFacility": "회수시설",
+      "materialType": null,
+      "material": "acid recovery",
+      "factors": {
+        "먼지": null,
+        "황산화물": null,
+        "질소산화물": {
+          "type": "constant",
+          "value": 1.5
+        }
+      },
+      "unit": {
+        "raw": "kg/ton",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": null
+      },
+      "_referenceContext": {
+        "epaProcess": "explosives manufacturing",
+        "epaSubcategory": "nitration reactors (TNT-continuous process)"
+      }
+    },
+    {
+      "id": "epaAP42-082",
+      "airFacilityRefs": null,
+      "facilityGroup": "기타화학제품 제조시설",
+      "subFacility": "회수시설",
+      "materialType": null,
+      "material": "sulfur recovery : 93.5%",
+      "factors": {
+        "먼지": null,
+        "황산화물": {
+          "type": "constant",
+          "value": 139.0
+        },
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/ton",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": null
+      },
+      "_referenceContext": {
+        "epaProcess": "sulfur recovery plant",
+        "epaSubcategory": null
+      }
+    },
+    {
+      "id": "epaAP42-083",
+      "airFacilityRefs": null,
+      "facilityGroup": "기타화학제품 제조시설",
+      "subFacility": "회수시설",
+      "materialType": null,
+      "material": "sulfur recovery : 95.5%",
+      "factors": {
+        "먼지": null,
+        "황산화물": {
+          "type": "constant",
+          "value": 94.0
+        },
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/ton",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": null
+      },
+      "_referenceContext": {
+        "epaProcess": "sulfur recovery plant",
+        "epaSubcategory": null
+      }
+    },
+    {
+      "id": "epaAP42-084",
+      "airFacilityRefs": null,
+      "facilityGroup": "기타화학제품 제조시설",
+      "subFacility": "회수시설",
+      "materialType": null,
+      "material": "sulfur recovery : 96.5%",
+      "factors": {
+        "먼지": null,
+        "황산화물": {
+          "type": "constant",
+          "value": 73.0
+        },
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/ton",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": null
+      },
+      "_referenceContext": {
+        "epaProcess": "sulfur recovery plant",
+        "epaSubcategory": null
+      }
+    },
+    {
+      "id": "epaAP42-085",
+      "airFacilityRefs": null,
+      "facilityGroup": "석유정제품제조 시설",
+      "subFacility": "반응시설",
+      "materialType": null,
+      "material": "fluid catalytic cracking units",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 0.695
+        },
+        "황산화물": {
+          "type": "constant",
+          "value": 1.413
+        },
+        "질소산화물": {
+          "type": "constant",
+          "value": 0.204
+        }
+      },
+      "unit": {
+        "raw": "kg/kL",
+        "numerator": "kg",
+        "denominator": "kL",
+        "basis": null
+      },
+      "_referenceContext": {
+        "epaProcess": "petroreum refineries",
+        "epaSubcategory": null
+      }
+    },
+    {
+      "id": "epaAP42-086",
+      "airFacilityRefs": null,
+      "facilityGroup": "석유정제품제조 시설",
+      "subFacility": "반응시설",
+      "materialType": null,
+      "material": "moving-catalytic cracking units",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 0.049
+        },
+        "황산화물": {
+          "type": "constant",
+          "value": 0.171
+        },
+        "질소산화물": {
+          "type": "constant",
+          "value": 0.014
+        }
+      },
+      "unit": {
+        "raw": "kg/kL",
+        "numerator": "kg",
+        "denominator": "kL",
+        "basis": null
+      },
+      "_referenceContext": {
+        "epaProcess": "petroreum refineries",
+        "epaSubcategory": null
+      }
+    },
+    {
+      "id": "epaAP42-087",
+      "airFacilityRefs": null,
+      "facilityGroup": "석유정제품제조 시설",
+      "subFacility": "응축시설",
+      "materialType": null,
+      "material": "fluid coking units",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 1.5
+        },
+        "황산화물": null,
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/kL",
+        "numerator": "kg",
+        "denominator": "kL",
+        "basis": null
+      },
+      "_referenceContext": {
+        "epaProcess": "petroreum refineries",
+        "epaSubcategory": null
+      }
+    },
+    {
+      "id": "epaAP42-088",
+      "airFacilityRefs": null,
+      "facilityGroup": "코크스 및 관련제품제조 시설",
+      "subFacility": "코크스로",
+      "materialType": null,
+      "material": "Preheater",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 1.8
+        },
+        "황산화물": null,
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/ton",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": null
+      },
+      "_referenceContext": {
+        "epaProcess": "coke manufacturing",
+        "epaSubcategory": null
+      }
+    },
+    {
+      "id": "epaAP42-089",
+      "airFacilityRefs": null,
+      "facilityGroup": "코크스 및 관련제품제조 시설",
+      "subFacility": "코크스로",
+      "materialType": null,
+      "material": "oven charging",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 0.6
+        },
+        "황산화물": null,
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/ton",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": null
+      },
+      "_referenceContext": {
+        "epaProcess": "coke manufacturing",
+        "epaSubcategory": "oven leaks and charging"
+      }
+    },
+    {
+      "id": "epaAP42-090",
+      "airFacilityRefs": null,
+      "facilityGroup": "코크스 및 관련제품제조 시설",
+      "subFacility": "코크스로",
+      "materialType": null,
+      "material": "oven door leaks",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 0.26
+        },
+        "황산화물": null,
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/ton",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": null
+      },
+      "_referenceContext": {
+        "epaProcess": "coke manufacturing",
+        "epaSubcategory": "oven leaks and charging"
+      }
+    },
+    {
+      "id": "epaAP42-091",
+      "airFacilityRefs": null,
+      "facilityGroup": "코크스 및 관련제품제조 시설",
+      "subFacility": "코크스로",
+      "materialType": null,
+      "material": "oven pushing",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 0.695
+        },
+        "황산화물": {
+          "type": "constant",
+          "value": 0.049
+        },
+        "질소산화물": {
+          "type": "constant",
+          "value": 0.0097
+        }
+      },
+      "unit": {
+        "raw": "kg/ton",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": null
+      },
+      "_referenceContext": {
+        "epaProcess": "coke manufacturing",
+        "epaSubcategory": "coke oven pushing"
+      }
+    },
+    {
+      "id": "epaAP42-092",
+      "airFacilityRefs": null,
+      "facilityGroup": "코크스 및 관련제품제조 시설",
+      "subFacility": "코크스로",
+      "materialType": null,
+      "material": "dirty water",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 2.6
+        },
+        "황산화물": null,
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/ton",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": null
+      },
+      "_referenceContext": {
+        "epaProcess": "coke manufacturing",
+        "epaSubcategory": "quenching"
+      }
+    },
+    {
+      "id": "epaAP42-093",
+      "airFacilityRefs": null,
+      "facilityGroup": "코크스 및 관련제품제조 시설",
+      "subFacility": "코크스로",
+      "materialType": null,
+      "material": "clean water",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 0.57
+        },
+        "황산화물": null,
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/ton",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": null
+      },
+      "_referenceContext": {
+        "epaProcess": "coke manufacturing",
+        "epaSubcategory": "quenching"
+      }
+    },
+    {
+      "id": "epaAP42-094",
+      "airFacilityRefs": null,
+      "facilityGroup": "코크스 및 관련제품제조 시설",
+      "subFacility": "코크스로",
+      "materialType": null,
+      "material": "Raw COG",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 0.2
+        },
+        "황산화물": {
+          "type": "constant",
+          "value": 1.47
+        },
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/ton",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": null
+      },
+      "_referenceContext": {
+        "epaProcess": "coke manufacturing",
+        "epaSubcategory": "combustion stack"
+      }
+    },
+    {
+      "id": "epaAP42-095",
+      "airFacilityRefs": null,
+      "facilityGroup": "코크스 및 관련제품제조 시설",
+      "subFacility": "코크스로",
+      "materialType": null,
+      "material": "desulfurized COG",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 0.034
+        },
+        "황산화물": {
+          "type": "constant",
+          "value": 0.12
+        },
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/ton",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": null
+      },
+      "_referenceContext": {
+        "epaProcess": "coke manufacturing",
+        "epaSubcategory": "combustion stack"
+      }
+    },
+    {
+      "id": "epaAP42-096",
+      "airFacilityRefs": null,
+      "facilityGroup": "유리및유리제품 제조시설, 도자기·요업제품제조시설, 시멘트·석회·플라스터및그제품제조시설, 기타비금속광물제품제조시설, 아스팔트제품 제조시설",
+      "subFacility": "건조시설",
+      "materialType": null,
+      "material": null,
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 16.0
+        },
+        "황산화물": null,
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/ton",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": null
+      },
+      "_referenceContext": {
+        "epaProcess": "hot mix asphalt plants",
+        "epaSubcategory": "Dryer, hot screen, mixer"
+      }
+    },
+    {
+      "id": "epaAP42-097",
+      "airFacilityRefs": null,
+      "facilityGroup": "유리및유리제품 제조시설, 도자기·요업제품제조시설, 시멘트·석회·플라스터및그제품제조시설, 기타비금속광물제품제조시설, 아스팔트제품 제조시설",
+      "subFacility": "건조시설",
+      "materialType": null,
+      "material": null,
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 14.0
+        },
+        "황산화물": null,
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/ton",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": null
+      },
+      "_referenceContext": {
+        "epaProcess": "hot mix asphalt plants",
+        "epaSubcategory": "Dryer"
+      }
+    },
+    {
+      "id": "epaAP42-098",
+      "airFacilityRefs": null,
+      "facilityGroup": "유리및유리제품 제조시설, 도자기·요업제품제조시설, 시멘트·석회·플라스터및그제품제조시설, 기타비금속광물제품제조시설, 아스팔트제품 제조시설",
+      "subFacility": "건조시설",
+      "materialType": null,
+      "material": "Natural gas-fired",
+      "factors": {
+        "먼지": null,
+        "황산화물": {
+          "type": "constant",
+          "value": 0.002
+        },
+        "질소산화물": {
+          "type": "constant",
+          "value": 0.013
+        }
+      },
+      "unit": {
+        "raw": "kg/ton",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": null
+      },
+      "_referenceContext": {
+        "epaProcess": "hot mix asphalt plants",
+        "epaSubcategory": "batch mix hot mix asphalt plants"
+      }
+    },
+    {
+      "id": "epaAP42-099",
+      "airFacilityRefs": null,
+      "facilityGroup": "유리및유리제품 제조시설, 도자기·요업제품제조시설, 시멘트·석회·플라스터및그제품제조시설, 기타비금속광물제품제조시설, 아스팔트제품 제조시설",
+      "subFacility": "건조시설",
+      "materialType": null,
+      "material": "No.2 fuel oil-fired",
+      "factors": {
+        "먼지": null,
+        "황산화물": {
+          "type": "constant",
+          "value": 0.044
+        },
+        "질소산화물": {
+          "type": "constant",
+          "value": 0.06
+        }
+      },
+      "unit": {
+        "raw": "kg/ton",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": null
+      },
+      "_referenceContext": {
+        "epaProcess": "hot mix asphalt plants",
+        "epaSubcategory": "batch mix hot mix asphalt plants"
+      }
+    },
+    {
+      "id": "epaAP42-100",
+      "airFacilityRefs": null,
+      "facilityGroup": "유리및유리제품 제조시설, 도자기·요업제품제조시설, 시멘트·석회·플라스터및그제품제조시설, 기타비금속광물제품제조시설, 아스팔트제품 제조시설",
+      "subFacility": "건조시설",
+      "materialType": null,
+      "material": "Waste oil-fired",
+      "factors": {
+        "먼지": null,
+        "황산화물": {
+          "type": "constant",
+          "value": 0.044
+        },
+        "질소산화물": {
+          "type": "constant",
+          "value": 0.06
+        }
+      },
+      "unit": {
+        "raw": "kg/ton",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": null
+      },
+      "_referenceContext": {
+        "epaProcess": "hot mix asphalt plants",
+        "epaSubcategory": "batch mix hot mix asphalt plants"
+      }
+    },
+    {
+      "id": "epaAP42-101",
+      "airFacilityRefs": null,
+      "facilityGroup": "유리및유리제품 제조시설, 도자기·요업제품제조시설, 시멘트·석회·플라스터및그제품제조시설, 기타비금속광물제품제조시설, 아스팔트제품 제조시설",
+      "subFacility": "건조시설",
+      "materialType": null,
+      "material": "Coal-fired",
+      "factors": {
+        "먼지": null,
+        "황산화물": {
+          "type": "constant",
+          "value": 0.022
+        },
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/ton",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": null
+      },
+      "_referenceContext": {
+        "epaProcess": "hot mix asphalt plants",
+        "epaSubcategory": "batch mix hot mix asphalt plants"
+      }
+    },
+    {
+      "id": "epaAP42-102",
+      "airFacilityRefs": null,
+      "facilityGroup": "유리및유리제품 제조시설, 도자기·요업제품제조시설, 시멘트·석회·플라스터및그제품제조시설, 기타비금속광물제품제조시설, 아스팔트제품 제조시설",
+      "subFacility": "건조시설",
+      "materialType": null,
+      "material": "Natural gas-fired",
+      "factors": {
+        "먼지": null,
+        "황산화물": {
+          "type": "constant",
+          "value": 0.002
+        },
+        "질소산화물": {
+          "type": "constant",
+          "value": 0.013
+        }
+      },
+      "unit": {
+        "raw": "kg/ton",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": null
+      },
+      "_referenceContext": {
+        "epaProcess": "hot mix asphalt plants",
+        "epaSubcategory": "drum mix hot mix asphalt plants"
+      }
+    },
+    {
+      "id": "epaAP42-103",
+      "airFacilityRefs": null,
+      "facilityGroup": "유리및유리제품 제조시설, 도자기·요업제품제조시설, 시멘트·석회·플라스터및그제품제조시설, 기타비금속광물제품제조시설, 아스팔트제품 제조시설",
+      "subFacility": "건조시설",
+      "materialType": null,
+      "material": "No.2 fuel oil-fired",
+      "factors": {
+        "먼지": null,
+        "황산화물": {
+          "type": "constant",
+          "value": 0.006
+        },
+        "질소산화물": {
+          "type": "constant",
+          "value": 0.028
+        }
+      },
+      "unit": {
+        "raw": "kg/ton",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": null
+      },
+      "_referenceContext": {
+        "epaProcess": "hot mix asphalt plants",
+        "epaSubcategory": "drum mix hot mix asphalt plants"
+      }
+    },
+    {
+      "id": "epaAP42-104",
+      "airFacilityRefs": null,
+      "facilityGroup": "유리및유리제품 제조시설, 도자기·요업제품제조시설, 시멘트·석회·플라스터및그제품제조시설, 기타비금속광물제품제조시설, 아스팔트제품 제조시설",
+      "subFacility": "건조시설",
+      "materialType": null,
+      "material": "Waste oil-fired",
+      "factors": {
+        "먼지": null,
+        "황산화물": {
+          "type": "constant",
+          "value": 0.029
+        },
+        "질소산화물": {
+          "type": "constant",
+          "value": 0.028
+        }
+      },
+      "unit": {
+        "raw": "kg/ton",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": null
+      },
+      "_referenceContext": {
+        "epaProcess": "hot mix asphalt plants",
+        "epaSubcategory": "drum mix hot mix asphalt plants"
+      }
+    },
+    {
+      "id": "epaAP42-105",
+      "airFacilityRefs": null,
+      "facilityGroup": "유리및유리제품 제조시설, 도자기·요업제품제조시설, 시멘트·석회·플라스터및그제품제조시설, 기타비금속광물제품제조시설, 아스팔트제품 제조시설",
+      "subFacility": "건조시설",
+      "materialType": null,
+      "material": "Coal-fired",
+      "factors": {
+        "먼지": null,
+        "황산화물": {
+          "type": "constant",
+          "value": 0.095
+        },
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/ton",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": null
+      },
+      "_referenceContext": {
+        "epaProcess": "hot mix asphalt plants",
+        "epaSubcategory": "drum mix hot mix asphalt plants"
+      }
+    },
+    {
+      "id": "epaAP42-106",
+      "airFacilityRefs": null,
+      "facilityGroup": "유리및유리제품 제조시설, 도자기·요업제품제조시설, 시멘트·석회·플라스터및그제품제조시설, 기타비금속광물제품제조시설, 아스팔트제품 제조시설",
+      "subFacility": "건조시설",
+      "materialType": null,
+      "material": "Brick Dryer",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 0.039
+        },
+        "황산화물": null,
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/ton",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": null
+      },
+      "_referenceContext": {
+        "epaProcess": "brick manufacturing",
+        "epaSubcategory": null
+      }
+    },
+    {
+      "id": "epaAP42-107",
+      "airFacilityRefs": null,
+      "facilityGroup": "유리및유리제품 제조시설, 도자기·요업제품제조시설, 시멘트·석회·플라스터및그제품제조시설, 기타비금속광물제품제조시설, 아스팔트제품 제조시설",
+      "subFacility": "건조시설",
+      "materialType": null,
+      "material": "Sawdust-fired kiln and sawdust dryer",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 0.65
+        },
+        "황산화물": null,
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/ton",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": null
+      },
+      "_referenceContext": {
+        "epaProcess": "brick manufacturing",
+        "epaSubcategory": null
+      }
+    },
+    {
+      "id": "epaAP42-108",
+      "airFacilityRefs": null,
+      "facilityGroup": "유리및유리제품 제조시설, 도자기·요업제품제조시설, 시멘트·석회·플라스터및그제품제조시설, 기타비금속광물제품제조시설, 아스팔트제품 제조시설",
+      "subFacility": "건조시설",
+      "materialType": null,
+      "material": "Coke dryer",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 1.0
+        },
+        "황산화물": {
+          "type": "constant",
+          "value": 1.5
+        },
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/ton",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": null
+      },
+      "_referenceContext": {
+        "epaProcess": "calcium carbide manufacturing",
+        "epaSubcategory": null
+      }
+    },
+    {
+      "id": "epaAP42-109",
+      "airFacilityRefs": null,
+      "facilityGroup": "유리및유리제품 제조시설, 도자기·요업제품제조시설, 시멘트·석회·플라스터및그제품제조시설, 기타비금속광물제품제조시설, 아스팔트제품 제조시설",
+      "subFacility": "건조시설",
+      "materialType": null,
+      "material": "Furnace room vent",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 13.0
+        },
+        "황산화물": null,
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/ton",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": null
+      },
+      "_referenceContext": {
+        "epaProcess": "calcium carbide manufacturing",
+        "epaSubcategory": null
+      }
+    },
+    {
+      "id": "epaAP42-110",
+      "airFacilityRefs": null,
+      "facilityGroup": "유리및유리제품 제조시설, 도자기·요업제품제조시설, 시멘트·석회·플라스터및그제품제조시설, 기타비금속광물제품제조시설, 아스팔트제품 제조시설",
+      "subFacility": "건조시설",
+      "materialType": null,
+      "material": "Rotary dryer(fire clay)",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 33.0
+        },
+        "황산화물": null,
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/ton",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": null
+      },
+      "_referenceContext": {
+        "epaProcess": "refractory manufacturing",
+        "epaSubcategory": null
+      }
+    },
+    {
+      "id": "epaAP42-111",
+      "airFacilityRefs": null,
+      "facilityGroup": "유리및유리제품 제조시설, 도자기·요업제품제조시설, 시멘트·석회·플라스터및그제품제조시설, 기타비금속광물제품제조시설, 아스팔트제품 제조시설",
+      "subFacility": "건조시설",
+      "materialType": null,
+      "material": "Rotary dryer (chromite-magnesite ore)",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 0.83
+        },
+        "황산화물": null,
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/ton",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": null
+      },
+      "_referenceContext": {
+        "epaProcess": "refractory manufacturing",
+        "epaSubcategory": null
+      }
+    },
+    {
+      "id": "epaAP42-112",
+      "airFacilityRefs": null,
+      "facilityGroup": "유리및유리제품 제조시설, 도자기·요업제품제조시설, 시멘트·석회·플라스터및그제품제조시설, 기타비금속광물제품제조시설, 아스팔트제품 제조시설",
+      "subFacility": "건조시설",
+      "materialType": null,
+      "material": "Dryer",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 1.15
+        },
+        "황산화물": null,
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/ton",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": null
+      },
+      "_referenceContext": {
+        "epaProcess": "ceramic products manufacturing operations",
+        "epaSubcategory": null
+      }
+    },
+    {
+      "id": "epaAP42-113",
+      "airFacilityRefs": null,
+      "facilityGroup": "유리및유리제품 제조시설, 도자기·요업제품제조시설, 시멘트·석회·플라스터및그제품제조시설, 기타비금속광물제품제조시설, 아스팔트제품 제조시설",
+      "subFacility": "건조시설",
+      "materialType": null,
+      "material": "Multilouvered dryer",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 7.4
+        },
+        "황산화물": null,
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/ton",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": null
+      },
+      "_referenceContext": {
+        "epaProcess": "coal cleaning",
+        "epaSubcategory": null
+      }
+    },
+    {
+      "id": "epaAP42-114",
+      "airFacilityRefs": null,
+      "facilityGroup": "유리및유리제품 제조시설, 도자기·요업제품제조시설, 시멘트·석회·플라스터및그제품제조시설, 기타비금속광물제품제조시설, 아스팔트제품 제조시설",
+      "subFacility": "건조시설",
+      "materialType": null,
+      "material": "Fluidized bed dryer",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 52.0
+        },
+        "황산화물": {
+          "type": "constant",
+          "value": 2.8
+        },
+        "질소산화물": {
+          "type": "constant",
+          "value": 0.32
+        }
+      },
+      "unit": {
+        "raw": "kg/ton",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": null
+      },
+      "_referenceContext": {
+        "epaProcess": "coal cleaning",
+        "epaSubcategory": null
+      }
+    },
+    {
+      "id": "epaAP42-115",
+      "airFacilityRefs": null,
+      "facilityGroup": "유리및유리제품 제조시설, 도자기·요업제품제조시설, 시멘트·석회·플라스터및그제품제조시설, 기타비금속광물제품제조시설, 아스팔트제품 제조시설",
+      "subFacility": "건조시설",
+      "materialType": null,
+      "material": "Flame attenuation",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 3.0
+        },
+        "황산화물": null,
+        "질소산화물": {
+          "type": "constant",
+          "value": 1.0
+        }
+      },
+      "unit": {
+        "raw": "kg/ton",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": null
+      },
+      "_referenceContext": {
+        "epaProcess": "glass fiber manufacturing",
+        "epaSubcategory": "Oven curing- wool"
+      }
+    },
+    {
+      "id": "epaAP42-116",
+      "airFacilityRefs": null,
+      "facilityGroup": "유리및유리제품 제조시설, 도자기·요업제품제조시설, 시멘트·석회·플라스터및그제품제조시설, 기타비금속광물제품제조시설, 아스팔트제품 제조시설",
+      "subFacility": "건조시설",
+      "materialType": null,
+      "material": "Rotary ore dryers",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 0.042
+        },
+        "황산화물": null,
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/ton",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": null
+      },
+      "_referenceContext": {
+        "epaProcess": "gypsum processing",
+        "epaSubcategory": null
+      }
+    },
+    {
+      "id": "epaAP42-117",
+      "airFacilityRefs": null,
+      "facilityGroup": "유리및유리제품 제조시설, 도자기·요업제품제조시설, 시멘트·석회·플라스터및그제품제조시설, 기타비금속광물제품제조시설, 아스팔트제품 제조시설",
+      "subFacility": "건조시설",
+      "materialType": null,
+      "material": "Sand dryer",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 0.98
+        },
+        "황산화물": null,
+        "질소산화물": {
+          "type": "constant",
+          "value": 0.016
+        }
+      },
+      "unit": {
+        "raw": "kg/ton",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": null
+      },
+      "_referenceContext": {
+        "epaProcess": "sand and gravel processing",
+        "epaSubcategory": null
+      }
+    },
+    {
+      "id": "epaAP42-118",
+      "airFacilityRefs": null,
+      "facilityGroup": "유리및유리제품 제조시설, 도자기·요업제품제조시설, 시멘트·석회·플라스터및그제품제조시설, 기타비금속광물제품제조시설, 아스팔트제품 제조시설",
+      "subFacility": "건조시설",
+      "materialType": null,
+      "material": "Dryer",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 2.9
+        },
+        "황산화물": null,
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/ton",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": null
+      },
+      "_referenceContext": {
+        "epaProcess": "phosphate rock processing",
+        "epaSubcategory": null
+      }
+    },
+    {
+      "id": "epaAP42-119",
+      "airFacilityRefs": null,
+      "facilityGroup": "유리및유리제품 제조시설, 도자기·요업제품제조시설, 시멘트·석회·플라스터및그제품제조시설, 기타비금속광물제품제조시설, 아스팔트제품 제조시설",
+      "subFacility": "건조시설",
+      "materialType": null,
+      "material": "Apron Dryer",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 0.62
+        },
+        "황산화물": null,
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/ton",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": null
+      },
+      "_referenceContext": {
+        "epaProcess": "kaolin processing",
+        "epaSubcategory": null
+      }
+    },
+    {
+      "id": "epaAP42-120",
+      "airFacilityRefs": null,
+      "facilityGroup": "유리및유리제품 제조시설, 도자기·요업제품제조시설, 시멘트·석회·플라스터및그제품제조시설, 기타비금속광물제품제조시설, 아스팔트제품 제조시설",
+      "subFacility": "건조시설",
+      "materialType": null,
+      "material": "rotary dryer",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 140.0
+        },
+        "황산화물": null,
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/ton",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": null
+      },
+      "_referenceContext": {
+        "epaProcess": "bentonite processing",
+        "epaSubcategory": null
+      }
+    },
+    {
+      "id": "epaAP42-121",
+      "airFacilityRefs": null,
+      "facilityGroup": "유리및유리제품 제조시설, 도자기·요업제품제조시설, 시멘트·석회·플라스터및그제품제조시설, 기타비금속광물제품제조시설, 아스팔트제품 제조시설",
+      "subFacility": "계량시설",
+      "materialType": null,
+      "material": "Mixing and Weighing",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 0.3
+        },
+        "황산화물": null,
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/ton",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": null
+      },
+      "_referenceContext": {
+        "epaProcess": "glass fiber manufacturing",
+        "epaSubcategory": null
+      }
+    },
+    {
+      "id": "epaAP42-122",
+      "airFacilityRefs": null,
+      "facilityGroup": "유리및유리제품 제조시설, 도자기·요업제품제조시설, 시멘트·석회·플라스터및그제품제조시설, 기타비금속광물제품제조시설, 아스팔트제품 제조시설",
+      "subFacility": "권취시설･압 착시설･탈판 시설･방사집 면시설･절단 시설",
+      "materialType": null,
+      "material": "Board end sawing-2.4m boards",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 0.04
+        },
+        "황산화물": null,
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/㎡",
+        "numerator": "kg",
+        "denominator": "㎡",
+        "basis": null
+      },
+      "_referenceContext": {
+        "epaProcess": "gypsum processing",
+        "epaSubcategory": null
+      }
+    },
+    {
+      "id": "epaAP42-123",
+      "airFacilityRefs": null,
+      "facilityGroup": "유리및유리제품 제조시설, 도자기·요업제품제조시설, 시멘트·석회·플라스터및그제품제조시설, 기타비금속광물제품제조시설, 아스팔트제품 제조시설",
+      "subFacility": "권취시설･압 착시설･탈판 시설･방사집 면시설･절단 시설",
+      "materialType": null,
+      "material": "Board end sawing-3.7m boards",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 0.03
+        },
+        "황산화물": null,
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/㎡",
+        "numerator": "kg",
+        "denominator": "㎡",
+        "basis": null
+      },
+      "_referenceContext": {
+        "epaProcess": "gypsum processing",
+        "epaSubcategory": null
+      }
+    },
+    {
+      "id": "epaAP42-124",
+      "airFacilityRefs": null,
+      "facilityGroup": "유리및유리제품 제조시설, 도자기·요업제품제조시설, 시멘트·석회·플라스터및그제품제조시설, 기타비금속광물제품제조시설, 아스팔트제품 제조시설",
+      "subFacility": "냉각시설",
+      "materialType": null,
+      "material": "Cooler",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 0.055
+        },
+        "황산화물": null,
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/ton",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": null
+      },
+      "_referenceContext": {
+        "epaProcess": "ceramic products manufacturing operations",
+        "epaSubcategory": null
+      }
+    },
+    {
+      "id": "epaAP42-125",
+      "airFacilityRefs": null,
+      "facilityGroup": "유리및유리제품 제조시설, 도자기·요업제품제조시설, 시멘트·석회·플라스터및그제품제조시설, 기타비금속광물제품제조시설, 아스팔트제품 제조시설",
+      "subFacility": "냉각시설",
+      "materialType": null,
+      "material": "Oven curing and cooling-textile",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 0.6
+        },
+        "황산화물": null,
+        "질소산화물": {
+          "type": "constant",
+          "value": 1.3
+        }
+      },
+      "unit": {
+        "raw": "kg/ton",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": null
+      },
+      "_referenceContext": {
+        "epaProcess": "glass fiber manufacturing",
+        "epaSubcategory": null
+      }
+    },
+    {
+      "id": "epaAP42-126",
+      "airFacilityRefs": null,
+      "facilityGroup": "유리및유리제품 제조시설, 도자기·요업제품제조시설, 시멘트·석회·플라스터및그제품제조시설, 기타비금속광물제품제조시설, 아스팔트제품 제조시설",
+      "subFacility": "냉각시설",
+      "materialType": null,
+      "material": "Product cooler",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 3.4
+        },
+        "황산화물": null,
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/ton",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": null
+      },
+      "_referenceContext": {
+        "epaProcess": "lime manufacturing",
+        "epaSubcategory": null
+      }
+    },
+    {
+      "id": "epaAP42-127",
+      "airFacilityRefs": null,
+      "facilityGroup": "유리및유리제품 제조시설, 도자기·요업제품제조시설, 시멘트·석회·플라스터및그제품제조시설, 기타비금속광물제품제조시설, 아스팔트제품 제조시설",
+      "subFacility": "냉각시설",
+      "materialType": null,
+      "material": "Cooler",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 1.2
+        },
+        "황산화물": {
+          "type": "constant",
+          "value": 0.034
+        },
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/ton",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": null
+      },
+      "_referenceContext": {
+        "epaProcess": "mineral wool manufacturing",
+        "epaSubcategory": null
+      }
+    },
+    {
+      "id": "epaAP42-128",
+      "airFacilityRefs": null,
+      "facilityGroup": "유리및유리제품 제조시설, 도자기·요업제품제조시설, 시멘트·석회·플라스터및그제품제조시설, 기타비금속광물제품제조시설, 아스팔트제품 제조시설",
+      "subFacility": "소성시설",
+      "materialType": null,
+      "material": "Natural gas-fired kiln",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 0.48
+        },
+        "황산화물": {
+          "type": "constant",
+          "value": 0.335
+        },
+        "질소산화물": {
+          "type": "constant",
+          "value": 0.175
+        }
+      },
+      "unit": {
+        "raw": "kg/ton",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": null
+      },
+      "_referenceContext": {
+        "epaProcess": "brick manufacturing",
+        "epaSubcategory": null
+      }
+    },
+    {
+      "id": "epaAP42-129",
+      "airFacilityRefs": null,
+      "facilityGroup": "유리및유리제품 제조시설, 도자기·요업제품제조시설, 시멘트·석회·플라스터및그제품제조시설, 기타비금속광물제품제조시설, 아스팔트제품 제조시설",
+      "subFacility": "소성시설",
+      "materialType": null,
+      "material": "Coal-fired kiln",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 0.9
+        },
+        "황산화물": {
+          "type": "constant",
+          "value": 0.6
+        },
+        "질소산화물": {
+          "type": "constant",
+          "value": 0.255
+        }
+      },
+      "unit": {
+        "raw": "kg/ton",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": null
+      },
+      "_referenceContext": {
+        "epaProcess": "brick manufacturing",
+        "epaSubcategory": null
+      }
+    },
+    {
+      "id": "epaAP42-130",
+      "airFacilityRefs": null,
+      "facilityGroup": "유리및유리제품 제조시설, 도자기·요업제품제조시설, 시멘트·석회·플라스터및그제품제조시설, 기타비금속광물제품제조시설, 아스팔트제품 제조시설",
+      "subFacility": "소성시설",
+      "materialType": null,
+      "material": "Sawdust-fired kiln",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 0.465
+        },
+        "황산화물": {
+          "type": "constant",
+          "value": 0.335
+        },
+        "질소산화물": {
+          "type": "constant",
+          "value": 0.185
+        }
+      },
+      "unit": {
+        "raw": "kg/ton",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": null
+      },
+      "_referenceContext": {
+        "epaProcess": "brick manufacturing",
+        "epaSubcategory": null
+      }
+    },
+    {
+      "id": "epaAP42-131",
+      "airFacilityRefs": null,
+      "facilityGroup": "유리및유리제품 제조시설, 도자기·요업제품제조시설, 시멘트·석회·플라스터및그제품제조시설, 기타비금속광물제품제조시설, 아스팔트제품 제조시설",
+      "subFacility": "소성시설",
+      "materialType": null,
+      "material": "Natural gas-fired kiln (high-sulfur material)",
+      "factors": {
+        "먼지": null,
+        "황산화물": {
+          "type": "constant",
+          "value": 2.55
+        },
+        "질소산화물": {
+          "type": "constant",
+          "value": 0.175
+        }
+      },
+      "unit": {
+        "raw": "kg/ton",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": null
+      },
+      "_referenceContext": {
+        "epaProcess": "brick manufacturing",
+        "epaSubcategory": null
+      }
+    },
+    {
+      "id": "epaAP42-132",
+      "airFacilityRefs": null,
+      "facilityGroup": "유리및유리제품 제조시설, 도자기·요업제품제조시설, 시멘트·석회·플라스터및그제품제조시설, 기타비금속광물제품제조시설, 아스팔트제품 제조시설",
+      "subFacility": "소성시설",
+      "materialType": null,
+      "material": "Rotary Calciner",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 62.0
+        },
+        "황산화물": null,
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/ton",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": null
+      },
+      "_referenceContext": {
+        "epaProcess": "refractory manufacturing",
+        "epaSubcategory": "fire clay"
+      }
+    },
+    {
+      "id": "epaAP42-133",
+      "airFacilityRefs": null,
+      "facilityGroup": "유리및유리제품 제조시설, 도자기·요업제품제조시설, 시멘트·석회·플라스터및그제품제조시설, 기타비금속광물제품제조시설, 아스팔트제품 제조시설",
+      "subFacility": "소성시설",
+      "materialType": null,
+      "material": "tunnel kiln",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 0.41
+        },
+        "황산화물": null,
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/ton",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": null
+      },
+      "_referenceContext": {
+        "epaProcess": "refractory manufacturing",
+        "epaSubcategory": "magnesite ore"
+      }
+    },
+    {
+      "id": "epaAP42-134",
+      "airFacilityRefs": null,
+      "facilityGroup": "유리및유리제품 제조시설, 도자기·요업제품제조시설, 시멘트·석회·플라스터및그제품제조시설, 기타비금속광물제품제조시설, 아스팔트제품 제조시설",
+      "subFacility": "소성시설",
+      "materialType": null,
+      "material": "Wet process kiln",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 65.0
+        },
+        "황산화물": {
+          "type": "constant",
+          "value": 4.1
+        },
+        "질소산화물": {
+          "type": "constant",
+          "value": 3.7
+        }
+      },
+      "unit": {
+        "raw": "kg/ton",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": null
+      },
+      "_referenceContext": {
+        "epaProcess": "portland cement manufacturing",
+        "epaSubcategory": null
+      }
+    },
+    {
+      "id": "epaAP42-135",
+      "airFacilityRefs": null,
+      "facilityGroup": "유리및유리제품 제조시설, 도자기·요업제품제조시설, 시멘트·석회·플라스터및그제품제조시설, 기타비금속광물제품제조시설, 아스팔트제품 제조시설",
+      "subFacility": "소성시설",
+      "materialType": null,
+      "material": "Preheater kiln",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 130.0
+        },
+        "황산화물": {
+          "type": "constant",
+          "value": 0.27
+        },
+        "질소산화물": {
+          "type": "constant",
+          "value": 2.4
+        }
+      },
+      "unit": {
+        "raw": "kg/ton",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": null
+      },
+      "_referenceContext": {
+        "epaProcess": "portland cement manufacturing",
+        "epaSubcategory": null
+      }
+    },
+    {
+      "id": "epaAP42-136",
+      "airFacilityRefs": null,
+      "facilityGroup": "유리및유리제품 제조시설, 도자기·요업제품제조시설, 시멘트·석회·플라스터및그제품제조시설, 기타비금속광물제품제조시설, 아스팔트제품 제조시설",
+      "subFacility": "소성시설",
+      "materialType": null,
+      "material": "Long dry process kiln",
+      "factors": {
+        "먼지": null,
+        "황산화물": {
+          "type": "constant",
+          "value": 4.9
+        },
+        "질소산화물": {
+          "type": "constant",
+          "value": 3.0
+        }
+      },
+      "unit": {
+        "raw": "kg/ton",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": null
+      },
+      "_referenceContext": {
+        "epaProcess": "portland cement manufacturing",
+        "epaSubcategory": null
+      }
+    },
+    {
+      "id": "epaAP42-137",
+      "airFacilityRefs": null,
+      "facilityGroup": "유리및유리제품 제조시설, 도자기·요업제품제조시설, 시멘트·석회·플라스터및그제품제조시설, 기타비금속광물제품제조시설, 아스팔트제품 제조시설",
+      "subFacility": "소성시설",
+      "materialType": null,
+      "material": "Preheater/precalciner kiln",
+      "factors": {
+        "먼지": null,
+        "황산화물": {
+          "type": "constant",
+          "value": 0.54
+        },
+        "질소산화물": {
+          "type": "constant",
+          "value": 2.1
+        }
+      },
+      "unit": {
+        "raw": "kg/ton",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": null
+      },
+      "_referenceContext": {
+        "epaProcess": "portland cement manufacturing",
+        "epaSubcategory": null
+      }
+    },
+    {
+      "id": "epaAP42-138",
+      "airFacilityRefs": null,
+      "facilityGroup": "유리및유리제품 제조시설, 도자기·요업제품제조시설, 시멘트·석회·플라스터및그제품제조시설, 기타비금속광물제품제조시설, 아스팔트제품 제조시설",
+      "subFacility": "소성시설",
+      "materialType": null,
+      "material": "Refiring-natural gas-fired kiln",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 0.0335
+        },
+        "황산화물": null,
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/ton",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": null
+      },
+      "_referenceContext": {
+        "epaProcess": "ceramic products manufacturing operations",
+        "epaSubcategory": null
+      }
+    },
+    {
+      "id": "epaAP42-139",
+      "airFacilityRefs": null,
+      "facilityGroup": "유리및유리제품 제조시설, 도자기·요업제품제조시설, 시멘트·석회·플라스터및그제품제조시설, 기타비금속광물제품제조시설, 아스팔트제품 제조시설",
+      "subFacility": "소성시설",
+      "materialType": null,
+      "material": "firing-natural gas-fired kiln",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 0.245
+        },
+        "황산화물": {
+          "type": "expression",
+          "coefficient": 22.0,
+          "variable": "S",
+          "variableMeaning": "연료 중 황 함량(%)"
+        },
+        "질소산화물": {
+          "type": "constant",
+          "value": 0.27
+        }
+      },
+      "unit": {
+        "raw": "kg/ton",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": null
+      },
+      "_referenceContext": {
+        "epaProcess": "ceramic products manufacturing operations",
+        "epaSubcategory": null
+      }
+    },
+    {
+      "id": "epaAP42-140",
+      "airFacilityRefs": null,
+      "facilityGroup": "유리및유리제품 제조시설, 도자기·요업제품제조시설, 시멘트·석회·플라스터및그제품제조시설, 기타비금속광물제품제조시설, 아스팔트제품 제조시설",
+      "subFacility": "소성시설",
+      "materialType": null,
+      "material": "Clay/coke mixture sintering",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 20.0
+        },
+        "황산화물": null,
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/ton",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": null
+      },
+      "_referenceContext": {
+        "epaProcess": "clay and fly ash sintering",
+        "epaSubcategory": null
+      }
+    },
+    {
+      "id": "epaAP42-141",
+      "airFacilityRefs": null,
+      "facilityGroup": "유리및유리제품 제조시설, 도자기·요업제품제조시설, 시멘트·석회·플라스터및그제품제조시설, 기타비금속광물제품제조시설, 아스팔트제품 제조시설",
+      "subFacility": "소성시설",
+      "materialType": null,
+      "material": "Natrual clay sintering",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 6.0
+        },
+        "황산화물": null,
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/ton",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": null
+      },
+      "_referenceContext": {
+        "epaProcess": "clay and fly ash sintering",
+        "epaSubcategory": null
+      }
+    },
+    {
+      "id": "epaAP42-142",
+      "airFacilityRefs": null,
+      "facilityGroup": "유리및유리제품 제조시설, 도자기·요업제품제조시설, 시멘트·석회·플라스터및그제품제조시설, 기타비금속광물제품제조시설, 아스팔트제품 제조시설",
+      "subFacility": "소성시설",
+      "materialType": null,
+      "material": "Continuous kettle calciners and hot pit",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 21.0
+        },
+        "황산화물": null,
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/ton",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": null
+      },
+      "_referenceContext": {
+        "epaProcess": "gypsum processing",
+        "epaSubcategory": null
+      }
+    },
+    {
+      "id": "epaAP42-143",
+      "airFacilityRefs": null,
+      "facilityGroup": "유리및유리제품 제조시설, 도자기·요업제품제조시설, 시멘트·석회·플라스터및그제품제조시설, 기타비금속광물제품제조시설, 아스팔트제품 제조시설",
+      "subFacility": "소성시설",
+      "materialType": null,
+      "material": "Flash calciners",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 19.0
+        },
+        "황산화물": null,
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/ton",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": null
+      },
+      "_referenceContext": {
+        "epaProcess": "gypsum processing",
+        "epaSubcategory": null
+      }
+    },
+    {
+      "id": "epaAP42-144",
+      "airFacilityRefs": null,
+      "facilityGroup": "유리및유리제품 제조시설, 도자기·요업제품제조시설, 시멘트·석회·플라스터및그제품제조시설, 기타비금속광물제품제조시설, 아스팔트제품 제조시설",
+      "subFacility": "소성시설",
+      "materialType": null,
+      "material": "Coal-fired rotary kiln",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 180.0
+        },
+        "황산화물": {
+          "type": "constant",
+          "value": 2.7
+        },
+        "질소산화물": {
+          "type": "constant",
+          "value": 1.6
+        }
+      },
+      "unit": {
+        "raw": "kg/ton",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": null
+      },
+      "_referenceContext": {
+        "epaProcess": "lime manufacturing",
+        "epaSubcategory": null
+      }
+    },
+    {
+      "id": "epaAP42-145",
+      "airFacilityRefs": null,
+      "facilityGroup": "유리및유리제품 제조시설, 도자기·요업제품제조시설, 시멘트·석회·플라스터및그제품제조시설, 기타비금속광물제품제조시설, 아스팔트제품 제조시설",
+      "subFacility": "소성시설",
+      "materialType": null,
+      "material": "Coal and gas fired rotary kiln",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 40.0
+        },
+        "황산화물": null,
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/ton",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": null
+      },
+      "_referenceContext": {
+        "epaProcess": "lime manufacturing",
+        "epaSubcategory": null
+      }
+    },
+    {
+      "id": "epaAP42-146",
+      "airFacilityRefs": null,
+      "facilityGroup": "유리및유리제품 제조시설, 도자기·요업제품제조시설, 시멘트·석회·플라스터및그제품제조시설, 기타비금속광물제품제조시설, 아스팔트제품 제조시설",
+      "subFacility": "소성시설",
+      "materialType": null,
+      "material": "Gas-fired calcimatic kiln",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 48.0
+        },
+        "황산화물": null,
+        "질소산화물": {
+          "type": "constant",
+          "value": 0.076
+        }
+      },
+      "unit": {
+        "raw": "kg/ton",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": null
+      },
+      "_referenceContext": {
+        "epaProcess": "lime manufacturing",
+        "epaSubcategory": null
+      }
+    },
+    {
+      "id": "epaAP42-147",
+      "airFacilityRefs": null,
+      "facilityGroup": "유리및유리제품 제조시설, 도자기·요업제품제조시설, 시멘트·석회·플라스터및그제품제조시설, 기타비금속광물제품제조시설, 아스팔트제품 제조시설",
+      "subFacility": "소성시설",
+      "materialType": null,
+      "material": "Gas-fired rotary kiln",
+      "factors": {
+        "먼지": null,
+        "황산화물": null,
+        "질소산화물": {
+          "type": "constant",
+          "value": 1.7
+        }
+      },
+      "unit": {
+        "raw": "kg/ton",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": null
+      },
+      "_referenceContext": {
+        "epaProcess": "lime manufacturing",
+        "epaSubcategory": null
+      }
+    },
+    {
+      "id": "epaAP42-148",
+      "airFacilityRefs": null,
+      "facilityGroup": "유리및유리제품 제조시설, 도자기·요업제품제조시설, 시멘트·석회·플라스터및그제품제조시설, 기타비금속광물제품제조시설, 아스팔트제품 제조시설",
+      "subFacility": "소성시설",
+      "materialType": null,
+      "material": "Calciner",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 7.7
+        },
+        "황산화물": null,
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/ton",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": null
+      },
+      "_referenceContext": {
+        "epaProcess": "phosphate rock processing",
+        "epaSubcategory": null
+      }
+    },
+    {
+      "id": "epaAP42-149",
+      "airFacilityRefs": null,
+      "facilityGroup": "유리및유리제품 제조시설, 도자기·요업제품제조시설, 시멘트·석회·플라스터및그제품제조시설, 기타비금속광물제품제조시설, 아스팔트제품 제조시설",
+      "subFacility": "소성시설",
+      "materialType": null,
+      "material": "Flash calciners",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 550.0
+        },
+        "황산화물": null,
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/ton",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": null
+      },
+      "_referenceContext": {
+        "epaProcess": "kaolin processing",
+        "epaSubcategory": null
+      }
+    },
+    {
+      "id": "epaAP42-150",
+      "airFacilityRefs": null,
+      "facilityGroup": "유리및유리제품 제조시설, 도자기·요업제품제조시설, 시멘트·석회·플라스터및그제품제조시설, 기타비금속광물제품제조시설, 아스팔트제품 제조시설",
+      "subFacility": "용융･ 용해시설",
+      "materialType": null,
+      "material": "Electric(wool)",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 0.25
+        },
+        "황산화물": {
+          "type": "constant",
+          "value": 0.02
+        },
+        "질소산화물": {
+          "type": "constant",
+          "value": 0.14
+        }
+      },
+      "unit": {
+        "raw": "kg/ton",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": null
+      },
+      "_referenceContext": {
+        "epaProcess": "glass fiber manufacturing",
+        "epaSubcategory": "Glass furnace"
+      }
+    },
+    {
+      "id": "epaAP42-151",
+      "airFacilityRefs": null,
+      "facilityGroup": "유리및유리제품 제조시설, 도자기·요업제품제조시설, 시멘트·석회·플라스터및그제품제조시설, 기타비금속광물제품제조시설, 아스팔트제품 제조시설",
+      "subFacility": "용융･ 용해시설",
+      "materialType": null,
+      "material": "Gas-recuperative(wool)",
+      "factors": {
+        "먼지": {
+          "type": "range",
+          "min": 13.0,
+          "max": 15.0
+        },
+        "황산화물": {
+          "type": "constant",
+          "value": 5.0
+        },
+        "질소산화물": {
+          "type": "constant",
+          "value": 0.85
+        }
+      },
+      "unit": {
+        "raw": "kg/ton",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": null
+      },
+      "_referenceContext": {
+        "epaProcess": "glass fiber manufacturing",
+        "epaSubcategory": "Glass furnace"
+      }
+    },
+    {
+      "id": "epaAP42-152",
+      "airFacilityRefs": null,
+      "facilityGroup": "유리및유리제품 제조시설, 도자기·요업제품제조시설, 시멘트·석회·플라스터및그제품제조시설, 기타비금속광물제품제조시설, 아스팔트제품 제조시설",
+      "subFacility": "용융･ 용해시설",
+      "materialType": null,
+      "material": "Gas-regeration(wool)",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 11.0
+        },
+        "황산화물": {
+          "type": "constant",
+          "value": 5.0
+        },
+        "질소산화물": {
+          "type": "constant",
+          "value": 2.5
+        }
+      },
+      "unit": {
+        "raw": "kg/ton",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": null
+      },
+      "_referenceContext": {
+        "epaProcess": "glass fiber manufacturing",
+        "epaSubcategory": "Glass furnace"
+      }
+    },
+    {
+      "id": "epaAP42-153",
+      "airFacilityRefs": null,
+      "facilityGroup": "유리및유리제품 제조시설, 도자기·요업제품제조시설, 시멘트·석회·플라스터및그제품제조시설, 기타비금속광물제품제조시설, 아스팔트제품 제조시설",
+      "subFacility": "용융･ 용해시설",
+      "materialType": null,
+      "material": "Gas-unit melter(wool)",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 4.5
+        },
+        "황산화물": {
+          "type": "constant",
+          "value": 0.3
+        },
+        "질소산화물": {
+          "type": "constant",
+          "value": 0.15
+        }
+      },
+      "unit": {
+        "raw": "kg/ton",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": null
+      },
+      "_referenceContext": {
+        "epaProcess": "glass fiber manufacturing",
+        "epaSubcategory": "Glass furnace"
+      }
+    },
+    {
+      "id": "epaAP42-154",
+      "airFacilityRefs": null,
+      "facilityGroup": "유리및유리제품 제조시설, 도자기·요업제품제조시설, 시멘트·석회·플라스터및그제품제조시설, 기타비금속광물제품제조시설, 아스팔트제품 제조시설",
+      "subFacility": "용융･ 용해시설",
+      "materialType": null,
+      "material": "Gas-recuperative(textile)",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 1.0
+        },
+        "황산화물": {
+          "type": "constant",
+          "value": 1.5
+        },
+        "질소산화물": {
+          "type": "constant",
+          "value": 10.0
+        }
+      },
+      "unit": {
+        "raw": "kg/ton",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": null
+      },
+      "_referenceContext": {
+        "epaProcess": "glass fiber manufacturing",
+        "epaSubcategory": "Glass furnace"
+      }
+    },
+    {
+      "id": "epaAP42-155",
+      "airFacilityRefs": null,
+      "facilityGroup": "유리및유리제품 제조시설, 도자기·요업제품제조시설, 시멘트·석회·플라스터및그제품제조시설, 기타비금속광물제품제조시설, 아스팔트제품 제조시설",
+      "subFacility": "용융･ 용해시설",
+      "materialType": null,
+      "material": "Gas-regeration(textile)",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 8.0
+        },
+        "황산화물": {
+          "type": "constant",
+          "value": 15.0
+        },
+        "질소산화물": {
+          "type": "constant",
+          "value": 10.0
+        }
+      },
+      "unit": {
+        "raw": "kg/ton",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": null
+      },
+      "_referenceContext": {
+        "epaProcess": "glass fiber manufacturing",
+        "epaSubcategory": "Glass furnace"
+      }
+    },
+    {
+      "id": "epaAP42-156",
+      "airFacilityRefs": null,
+      "facilityGroup": "유리및유리제품 제조시설, 도자기·요업제품제조시설, 시멘트·석회·플라스터및그제품제조시설, 기타비금속광물제품제조시설, 아스팔트제품 제조시설",
+      "subFacility": "용융･ 용해시설",
+      "materialType": null,
+      "material": "Gas-unit melter(textile)",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 3.0
+        },
+        "황산화물": null,
+        "질소산화물": {
+          "type": "constant",
+          "value": 10.0
+        }
+      },
+      "unit": {
+        "raw": "kg/ton",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": null
+      },
+      "_referenceContext": {
+        "epaProcess": "glass fiber manufacturing",
+        "epaSubcategory": "Glass furnace"
+      }
+    },
+    {
+      "id": "epaAP42-157",
+      "airFacilityRefs": null,
+      "facilityGroup": "유리및유리제품 제조시설, 도자기·요업제품제조시설, 시멘트·석회·플라스터및그제품제조시설, 기타비금속광물제품제조시설, 아스팔트제품 제조시설",
+      "subFacility": "용융･ 용해시설",
+      "materialType": null,
+      "material": "Smelting furmance",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 8.0
+        },
+        "황산화물": null,
+        "질소산화물": {
+          "type": "constant",
+          "value": 8.0
+        }
+      },
+      "unit": {
+        "raw": "kg/ton",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": null
+      },
+      "_referenceContext": {
+        "epaProcess": "frit manufacturing",
+        "epaSubcategory": null
+      }
+    },
+    {
+      "id": "epaAP42-158",
+      "airFacilityRefs": null,
+      "facilityGroup": "유리및유리제품 제조시설, 도자기·요업제품제조시설, 시멘트·석회·플라스터및그제품제조시설, 기타비금속광물제품제조시설, 아스팔트제품 제조시설",
+      "subFacility": "용융･ 용해시설",
+      "materialType": null,
+      "material": "Container",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 0.7
+        },
+        "황산화물": {
+          "type": "constant",
+          "value": 1.7
+        },
+        "질소산화물": {
+          "type": "constant",
+          "value": 3.1
+        }
+      },
+      "unit": {
+        "raw": "kg/ton",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": null
+      },
+      "_referenceContext": {
+        "epaProcess": "glass manufacturing",
+        "epaSubcategory": "Melting furnace"
+      }
+    },
+    {
+      "id": "epaAP42-159",
+      "airFacilityRefs": null,
+      "facilityGroup": "유리및유리제품 제조시설, 도자기·요업제품제조시설, 시멘트·석회·플라스터및그제품제조시설, 기타비금속광물제품제조시설, 아스팔트제품 제조시설",
+      "subFacility": "용융･ 용해시설",
+      "materialType": null,
+      "material": "Flat",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 1.0
+        },
+        "황산화물": {
+          "type": "constant",
+          "value": 1.5
+        },
+        "질소산화물": {
+          "type": "constant",
+          "value": 4.0
+        }
+      },
+      "unit": {
+        "raw": "kg/ton",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": null
+      },
+      "_referenceContext": {
+        "epaProcess": "glass manufacturing",
+        "epaSubcategory": "Melting furnace"
+      }
+    },
+    {
+      "id": "epaAP42-160",
+      "airFacilityRefs": null,
+      "facilityGroup": "유리및유리제품 제조시설, 도자기·요업제품제조시설, 시멘트·석회·플라스터및그제품제조시설, 기타비금속광물제품제조시설, 아스팔트제품 제조시설",
+      "subFacility": "용융･ 용해시설",
+      "materialType": null,
+      "material": "Pressed and blown",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 8.4
+        },
+        "황산화물": {
+          "type": "constant",
+          "value": 2.8
+        },
+        "질소산화물": {
+          "type": "constant",
+          "value": 4.3
+        }
+      },
+      "unit": {
+        "raw": "kg/ton",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": null
+      },
+      "_referenceContext": {
+        "epaProcess": "glass manufacturing",
+        "epaSubcategory": "Melting furnace"
+      }
+    },
+    {
+      "id": "epaAP42-161",
+      "airFacilityRefs": null,
+      "facilityGroup": "유리및유리제품 제조시설, 도자기·요업제품제조시설, 시멘트·석회·플라스터및그제품제조시설, 기타비금속광물제품제조시설, 아스팔트제품 제조시설",
+      "subFacility": "용융･ 용해시설",
+      "materialType": null,
+      "material": "Cupolar",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 8.2
+        },
+        "황산화물": {
+          "type": "constant",
+          "value": 4.0
+        },
+        "질소산화물": {
+          "type": "constant",
+          "value": 0.8
+        }
+      },
+      "unit": {
+        "raw": "kg/ton",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": null
+      },
+      "_referenceContext": {
+        "epaProcess": "mineral wool manufacturing",
+        "epaSubcategory": null
+      }
+    },
+    {
+      "id": "epaAP42-162",
+      "airFacilityRefs": null,
+      "facilityGroup": "유리및유리제품 제조시설, 도자기·요업제품제조시설, 시멘트·석회·플라스터및그제품제조시설, 기타비금속광물제품제조시설, 아스팔트제품 제조시설",
+      "subFacility": "용융･ 용해시설",
+      "materialType": null,
+      "material": "Reverberatory furnace",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 2.4
+        },
+        "황산화물": null,
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/ton",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": null
+      },
+      "_referenceContext": {
+        "epaProcess": "mineral wool manufacturing",
+        "epaSubcategory": null
+      }
+    },
+    {
+      "id": "epaAP42-163",
+      "airFacilityRefs": null,
+      "facilityGroup": "유리및유리제품 제조시설, 도자기·요업제품제조시설, 시멘트·석회·플라스터및그제품제조시설, 기타비금속광물제품제조시설, 아스팔트제품 제조시설",
+      "subFacility": "용융･ 용해시설",
+      "materialType": null,
+      "material": "Rotary kiln",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 6.5
+        },
+        "황산화물": {
+          "type": "constant",
+          "value": 2.8
+        },
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/ton",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": null
+      },
+      "_referenceContext": {
+        "epaProcess": "lightweight aggregate production",
+        "epaSubcategory": null
+      }
+    },
+    {
+      "id": "epaAP42-164",
+      "airFacilityRefs": null,
+      "facilityGroup": "유리및유리제품 제조시설, 도자기·요업제품제조시설, 시멘트·석회·플라스터및그제품제조시설, 기타비금속광물제품제조시설, 아스팔트제품 제조시설",
+      "subFacility": "용융･ 용해시설",
+      "materialType": null,
+      "material": "Natural gas-fired grate/ kiln",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 3.7
+        },
+        "황산화물": {
+          "type": "constant",
+          "value": 0.15
+        },
+        "질소산화물": {
+          "type": "constant",
+          "value": 0.75
+        }
+      },
+      "unit": {
+        "raw": "kg/ton",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": null
+      },
+      "_referenceContext": {
+        "epaProcess": "taconite ore processing",
+        "epaSubcategory": null
+      }
+    },
+    {
+      "id": "epaAP42-165",
+      "airFacilityRefs": null,
+      "facilityGroup": "유리및유리제품 제조시설, 도자기·요업제품제조시설, 시멘트·석회·플라스터및그제품제조시설, 기타비금속광물제품제조시설, 아스팔트제품 제조시설",
+      "subFacility": "용융･ 용해시설",
+      "materialType": null,
+      "material": "Oil-fired straight grate",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 0.6
+        },
+        "황산화물": null,
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/ton",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": null
+      },
+      "_referenceContext": {
+        "epaProcess": "taconite ore processing",
+        "epaSubcategory": null
+      }
+    },
+    {
+      "id": "epaAP42-166",
+      "airFacilityRefs": null,
+      "facilityGroup": "유리및유리제품 제조시설, 도자기·요업제품제조시설, 시멘트·석회·플라스터및그제품제조시설, 기타비금속광물제품제조시설, 아스팔트제품 제조시설",
+      "subFacility": "용융･ 용해시설",
+      "materialType": null,
+      "material": "Coke-fired grate/kiln",
+      "factors": {
+        "먼지": null,
+        "황산화물": {
+          "type": "constant",
+          "value": 0.9
+        },
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/ton",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": null
+      },
+      "_referenceContext": {
+        "epaProcess": "taconite ore processing",
+        "epaSubcategory": null
+      }
+    },
+    {
+      "id": "epaAP42-167",
+      "airFacilityRefs": null,
+      "facilityGroup": "유리및유리제품 제조시설, 도자기·요업제품제조시설, 시멘트·석회·플라스터및그제품제조시설, 기타비금속광물제품제조시설, 아스팔트제품 제조시설",
+      "subFacility": "용융･ 용해시설",
+      "materialType": null,
+      "material": "coal/coke-fired grate/kiln",
+      "factors": {
+        "먼지": null,
+        "황산화물": {
+          "type": "constant",
+          "value": 1.1
+        },
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/ton",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": null
+      },
+      "_referenceContext": {
+        "epaProcess": "taconite ore processing",
+        "epaSubcategory": null
+      }
+    },
+    {
+      "id": "epaAP42-168",
+      "airFacilityRefs": null,
+      "facilityGroup": "유리및유리제품 제조시설, 도자기·요업제품제조시설, 시멘트·석회·플라스터및그제품제조시설, 기타비금속광물제품제조시설, 아스팔트제품 제조시설",
+      "subFacility": "용융･ 용해시설",
+      "materialType": null,
+      "material": "Coke/gas-fired straight-grate",
+      "factors": {
+        "먼지": null,
+        "황산화물": null,
+        "질소산화물": {
+          "type": "constant",
+          "value": 0.22
+        }
+      },
+      "unit": {
+        "raw": "kg/ton",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": null
+      },
+      "_referenceContext": {
+        "epaProcess": "taconite ore processing",
+        "epaSubcategory": null
+      }
+    },
+    {
+      "id": "epaAP42-169",
+      "airFacilityRefs": null,
+      "facilityGroup": "유리및유리제품 제조시설, 도자기·요업제품제조시설, 시멘트·석회·플라스터및그제품제조시설, 기타비금속광물제품제조시설, 아스팔트제품 제조시설",
+      "subFacility": "용융･ 용해시설",
+      "materialType": null,
+      "material": "Multiple hearth furnace",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 17.0
+        },
+        "황산화물": null,
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/ton",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": null
+      },
+      "_referenceContext": {
+        "epaProcess": "kaolin processing",
+        "epaSubcategory": null
+      }
+    },
+    {
+      "id": "epaAP42-170",
+      "airFacilityRefs": null,
+      "facilityGroup": "유리및유리제품 제조시설, 도자기·요업제품제조시설, 시멘트·석회·플라스터및그제품제조시설, 기타비금속광물제품제조시설, 아스팔트제품 제조시설",
+      "subFacility": "혼합시설",
+      "materialType": null,
+      "material": "Clay/coke mixture crushing, screening and storage",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 7.5
+        },
+        "황산화물": null,
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/ton",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": null
+      },
+      "_referenceContext": {
+        "epaProcess": "clay and fly ash sintering",
+        "epaSubcategory": null
+      }
+    },
+    {
+      "id": "epaAP42-171",
+      "airFacilityRefs": null,
+      "facilityGroup": "유리및유리제품 제조시설, 도자기·요업제품제조시설, 시멘트·석회·플라스터및그제품제조시설, 기타비금속광물제품제조시설, 아스팔트제품 제조시설",
+      "subFacility": "혼합시설",
+      "materialType": null,
+      "material": "Bentonite blending",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 9.5
+        },
+        "황산화물": null,
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/ton",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": null
+      },
+      "_referenceContext": {
+        "epaProcess": "taconite ore processing",
+        "epaSubcategory": null
+      }
+    },
+    {
+      "id": "epaAP42-172",
+      "airFacilityRefs": null,
+      "facilityGroup": "유리및유리제품 제조시설, 도자기·요업제품제조시설, 시멘트·석회·플라스터및그제품제조시설, 기타비금속광물제품제조시설, 아스팔트제품 제조시설",
+      "subFacility": "혼합시설",
+      "materialType": null,
+      "material": "Dryer, hot screen, mixer",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 3.2
+        },
+        "황산화물": null,
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/ton",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": null
+      },
+      "_referenceContext": {
+        "epaProcess": "hot mix asphalt plants",
+        "epaSubcategory": null
+      }
+    },
+    {
+      "id": "epaAP42-173",
+      "airFacilityRefs": null,
+      "facilityGroup": "유리및유리제품 제조시설, 도자기·요업제품제조시설, 시멘트·석회·플라스터및그제품제조시설, 기타비금속광물제품제조시설, 아스팔트제품 제조시설",
+      "subFacility": "혼합시설",
+      "materialType": null,
+      "material": "Natural gas-fired",
+      "factors": {
+        "먼지": null,
+        "황산화물": {
+          "type": "constant",
+          "value": 0.0034
+        },
+        "질소산화물": {
+          "type": "constant",
+          "value": 0.0026
+        }
+      },
+      "unit": {
+        "raw": "kg/ton",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": null
+      },
+      "_referenceContext": {
+        "epaProcess": "hot mix asphalt plants",
+        "epaSubcategory": "Dryer, hot screen, mixer"
+      }
+    },
+    {
+      "id": "epaAP42-174",
+      "airFacilityRefs": null,
+      "facilityGroup": "유리및유리제품 제조시설, 도자기·요업제품제조시설, 시멘트·석회·플라스터및그제품제조시설, 기타비금속광물제품제조시설, 아스팔트제품 제조시설",
+      "subFacility": "혼합시설",
+      "materialType": null,
+      "material": "No.2 fuel oil-fired",
+      "factors": {
+        "먼지": null,
+        "황산화물": {
+          "type": "constant",
+          "value": 0.011
+        },
+        "질소산화물": {
+          "type": "constant",
+          "value": 0.055
+        }
+      },
+      "unit": {
+        "raw": "kg/ton",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": null
+      },
+      "_referenceContext": {
+        "epaProcess": "hot mix asphalt plants",
+        "epaSubcategory": "Dryer, hot screen, mixer"
+      }
+    },
+    {
+      "id": "epaAP42-175",
+      "airFacilityRefs": null,
+      "facilityGroup": "유리및유리제품 제조시설, 도자기·요업제품제조시설, 시멘트·석회·플라스터및그제품제조시설, 기타비금속광물제품제조시설, 아스팔트제품 제조시설",
+      "subFacility": "혼합시설",
+      "materialType": null,
+      "material": "Waste oil-fired",
+      "factors": {
+        "먼지": null,
+        "황산화물": {
+          "type": "constant",
+          "value": 0.058
+        },
+        "질소산화물": {
+          "type": "constant",
+          "value": 0.055
+        }
+      },
+      "unit": {
+        "raw": "kg/ton",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": null
+      },
+      "_referenceContext": {
+        "epaProcess": "hot mix asphalt plants",
+        "epaSubcategory": "Dryer, hot screen, mixer"
+      }
+    },
+    {
+      "id": "epaAP42-176",
+      "airFacilityRefs": null,
+      "facilityGroup": "유리및유리제품 제조시설, 도자기·요업제품제조시설, 시멘트·석회·플라스터및그제품제조시설, 기타비금속광물제품제조시설, 아스팔트제품 제조시설",
+      "subFacility": "혼합시설",
+      "materialType": null,
+      "material": "Coal-fired",
+      "factors": {
+        "먼지": null,
+        "황산화물": {
+          "type": "constant",
+          "value": 0.019
+        },
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/ton",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": null
+      },
+      "_referenceContext": {
+        "epaProcess": "hot mix asphalt plants",
+        "epaSubcategory": "Dryer, hot screen, mixer"
+      }
+    },
+    {
+      "id": "epaAP42-177",
+      "airFacilityRefs": null,
+      "facilityGroup": "유리및유리제품 제조시설, 도자기·요업제품제조시설, 시멘트·석회·플라스터및그제품제조시설, 기타비금속광물제품제조시설, 아스팔트제품 제조시설",
+      "subFacility": "혼합시설",
+      "materialType": null,
+      "material": "Mixing and Weighing",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 0.3
+        },
+        "황산화물": null,
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/ton",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": null
+      },
+      "_referenceContext": {
+        "epaProcess": "glass fiber manufacturing",
+        "epaSubcategory": null
+      }
+    },
+    {
+      "id": "epaAP42-178",
+      "airFacilityRefs": null,
+      "facilityGroup": "제재 및 목재가공시설",
+      "subFacility": "건조시설",
+      "materialType": null,
+      "material": "Indirect heated, heated zones, softwood",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 0.175
+        },
+        "황산화물": null,
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/m3",
+        "numerator": "kg",
+        "denominator": "m3",
+        "basis": null
+      },
+      "_referenceContext": {
+        "epaProcess": "plywood manufacturing",
+        "epaSubcategory": null
+      }
+    },
+    {
+      "id": "epaAP42-179",
+      "airFacilityRefs": null,
+      "facilityGroup": "제재 및 목재가공시설",
+      "subFacility": "건조시설",
+      "materialType": null,
+      "material": "Direct natural gas-fired, heated zones, softwood",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 0.04
+        },
+        "황산화물": null,
+        "질소산화물": {
+          "type": "constant",
+          "value": 0.006
+        }
+      },
+      "unit": {
+        "raw": "kg/m3",
+        "numerator": "kg",
+        "denominator": "m3",
+        "basis": null
+      },
+      "_referenceContext": {
+        "epaProcess": "plywood manufacturing",
+        "epaSubcategory": null
+      }
+    },
+    {
+      "id": "epaAP42-180",
+      "airFacilityRefs": null,
+      "facilityGroup": "제재 및 목재가공시설",
+      "subFacility": "건조시설",
+      "materialType": null,
+      "material": "Radio frequency-heated redryer, softwood",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 0.12
+        },
+        "황산화물": null,
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/m3",
+        "numerator": "kg",
+        "denominator": "m3",
+        "basis": null
+      },
+      "_referenceContext": {
+        "epaProcess": "plywood manufacturing",
+        "epaSubcategory": null
+      }
+    },
+    {
+      "id": "epaAP42-181",
+      "airFacilityRefs": null,
+      "facilityGroup": "제재 및 목재가공시설",
+      "subFacility": "건조시설",
+      "materialType": null,
+      "material": "Direct wood-fired, heated, softwood",
+      "factors": {
+        "먼지": null,
+        "황산화물": null,
+        "질소산화물": {
+          "type": "constant",
+          "value": 0.085
+        }
+      },
+      "unit": {
+        "raw": "kg/m3",
+        "numerator": "kg",
+        "denominator": "m3",
+        "basis": null
+      },
+      "_referenceContext": {
+        "epaProcess": "plywood manufacturing",
+        "epaSubcategory": null
+      }
+    },
+    {
+      "id": "epaAP42-182",
+      "airFacilityRefs": null,
+      "facilityGroup": "제재 및 목재가공시설",
+      "subFacility": "건조시설",
+      "materialType": null,
+      "material": "Rotray dryer, direct wood-fired, softwood",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 2.05
+        },
+        "황산화물": null,
+        "질소산화물": {
+          "type": "constant",
+          "value": 0.35
+        }
+      },
+      "unit": {
+        "raw": "kg/ton",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": null
+      },
+      "_referenceContext": {
+        "epaProcess": "oriented strandboard manufacturing",
+        "epaSubcategory": null
+      }
+    },
+    {
+      "id": "epaAP42-183",
+      "airFacilityRefs": null,
+      "facilityGroup": "제재 및 목재가공시설",
+      "subFacility": "건조시설",
+      "materialType": null,
+      "material": "Rotray dryer, direct wood-fired, hardwood",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 2.1
+        },
+        "황산화물": null,
+        "질소산화물": {
+          "type": "constant",
+          "value": 0.315
+        }
+      },
+      "unit": {
+        "raw": "kg/ton",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": null
+      },
+      "_referenceContext": {
+        "epaProcess": "oriented strandboard manufacturing",
+        "epaSubcategory": null
+      }
+    },
+    {
+      "id": "epaAP42-184",
+      "airFacilityRefs": null,
+      "facilityGroup": "제재 및 목재가공시설",
+      "subFacility": "건조시설",
+      "materialType": null,
+      "material": "Rotary dryer, direct wood-fired, mixed species(40-60% softwood, 40-60% hardwood)",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 2.35
+        },
+        "황산화물": null,
+        "질소산화물": {
+          "type": "constant",
+          "value": 0.255
+        }
+      },
+      "unit": {
+        "raw": "kg/ton",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": null
+      },
+      "_referenceContext": {
+        "epaProcess": "oriented strandboard manufacturing",
+        "epaSubcategory": null
+      }
+    },
+    {
+      "id": "epaAP42-185",
+      "airFacilityRefs": null,
+      "facilityGroup": "제재 및 목재가공시설",
+      "subFacility": "건조시설",
+      "materialType": null,
+      "material": "Conveyor dryer, indirect-heated, heated zones, hardwood",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 0.36
+        },
+        "황산화물": null,
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/ton",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": null
+      },
+      "_referenceContext": {
+        "epaProcess": "oriented strandboard manufacturing",
+        "epaSubcategory": null
+      }
+    },
+    {
+      "id": "epaAP42-186",
+      "airFacilityRefs": null,
+      "facilityGroup": "제재 및 목재가공시설",
+      "subFacility": "건조시설",
+      "materialType": null,
+      "material": "Rotary dryer, direct natural gas-fired, hardwood",
+      "factors": {
+        "먼지": null,
+        "황산화물": null,
+        "질소산화물": {
+          "type": "constant",
+          "value": 0.34
+        }
+      },
+      "unit": {
+        "raw": "kg/ton",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": null
+      },
+      "_referenceContext": {
+        "epaProcess": "oriented strandboard manufacturing",
+        "epaSubcategory": null
+      }
+    },
+    {
+      "id": "epaAP42-187",
+      "airFacilityRefs": null,
+      "facilityGroup": "제재 및 목재가공시설",
+      "subFacility": "건조시설",
+      "materialType": null,
+      "material": "Rotray dryer, direct wood-fired, hardwood",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 1.65
+        },
+        "황산화물": null,
+        "질소산화물": {
+          "type": "constant",
+          "value": 0.46
+        }
+      },
+      "unit": {
+        "raw": "kg/ton",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": null
+      },
+      "_referenceContext": {
+        "epaProcess": "particleboard manufacturing",
+        "epaSubcategory": null
+      }
+    },
+    {
+      "id": "epaAP42-188",
+      "airFacilityRefs": null,
+      "facilityGroup": "제재 및 목재가공시설",
+      "subFacility": "건조시설",
+      "materialType": null,
+      "material": "Rotray dryer, direct wood-fired, softwood",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 1.7
+        },
+        "황산화물": null,
+        "질소산화물": {
+          "type": "constant",
+          "value": 0.29
+        }
+      },
+      "unit": {
+        "raw": "kg/ton",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": null
+      },
+      "_referenceContext": {
+        "epaProcess": "particleboard manufacturing",
+        "epaSubcategory": null
+      }
+    },
+    {
+      "id": "epaAP42-189",
+      "airFacilityRefs": null,
+      "facilityGroup": "제재 및 목재가공시설",
+      "subFacility": "건조시설",
+      "materialType": null,
+      "material": "Rotary dryer, direct wood-fired, mixed species(35-60% softwood, 40-65% hardwood)",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 1.1
+        },
+        "황산화물": null,
+        "질소산화물": {
+          "type": "constant",
+          "value": 0.9
+        }
+      },
+      "unit": {
+        "raw": "kg/ton",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": null
+      },
+      "_referenceContext": {
+        "epaProcess": "particleboard manufacturing",
+        "epaSubcategory": null
+      }
+    },
+    {
+      "id": "epaAP42-190",
+      "airFacilityRefs": null,
+      "facilityGroup": "제재 및 목재가공시설",
+      "subFacility": "건조시설",
+      "materialType": null,
+      "material": "Rotary dryer, green,direct wood- fired(inlet moisture",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 1.1
+        },
+        "황산화물": null,
+        "질소산화물": {
+          "type": "constant",
+          "value": 1.35
+        }
+      },
+      "unit": {
+        "raw": "kg/ton",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": null
+      },
+      "_referenceContext": {
+        "epaProcess": "particleboard manufacturing",
+        "epaSubcategory": null
+      }
+    },
+    {
+      "id": "epaAP42-191",
+      "airFacilityRefs": null,
+      "facilityGroup": "제재 및 목재가공시설",
+      "subFacility": "건조시설",
+      "materialType": null,
+      "material": "Rotary dryer, direct natural gas-fired, soft wood",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 0.21
+        },
+        "황산화물": null,
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/ton",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": null
+      },
+      "_referenceContext": {
+        "epaProcess": "particleboard manufacturing",
+        "epaSubcategory": null
+      }
+    },
+    {
+      "id": "epaAP42-192",
+      "airFacilityRefs": null,
+      "facilityGroup": "제재 및 목재가공시설",
+      "subFacility": "건조시설",
+      "materialType": null,
+      "material": "Rotary dryer, green,direct wood- fired(inlet moisture content >50%, dry basis), mixed species(40-60% soft wood, 40-60% hardwood)",
+      "factors": {
+        "먼지": null,
+        "황산화물": null,
+        "질소산화물": {
+          "type": "constant",
+          "value": 0.7
+        }
+      },
+      "unit": {
+        "raw": "kg/ton",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": null
+      },
+      "_referenceContext": {
+        "epaProcess": "particleboard manufacturing",
+        "epaSubcategory": null
+      }
+    },
+    {
+      "id": "epaAP42-193",
+      "airFacilityRefs": null,
+      "facilityGroup": "제재 및 목재가공시설",
+      "subFacility": "건조시설",
+      "materialType": null,
+      "material": "Rotary dryer, direct natural gas-fired, hardwood",
+      "factors": {
+        "먼지": null,
+        "황산화물": null,
+        "질소산화물": {
+          "type": "constant",
+          "value": 0.012
+        }
+      },
+      "unit": {
+        "raw": "kg/ton",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": null
+      },
+      "_referenceContext": {
+        "epaProcess": "particleboard manufacturing",
+        "epaSubcategory": null
+      }
+    },
+    {
+      "id": "epaAP42-194",
+      "airFacilityRefs": null,
+      "facilityGroup": "제재 및 목재가공시설",
+      "subFacility": "건조시설",
+      "materialType": null,
+      "material": "Rotary dryer, indirect heated with auxiliary natural gas, softwood",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 0.21
+        },
+        "황산화물": null,
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/ton",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": null
+      },
+      "_referenceContext": {
+        "epaProcess": "particleboard manufacturing",
+        "epaSubcategory": null
+      }
+    },
+    {
+      "id": "epaAP42-195",
+      "airFacilityRefs": null,
+      "facilityGroup": "제재 및 목재가공시설",
+      "subFacility": "건조시설",
+      "materialType": null,
+      "material": "Tube dryer, direct wood-fired, blowling blend, UF resin, softwood",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 5.2
+        },
+        "황산화물": null,
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/ton",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": null
+      },
+      "_referenceContext": {
+        "epaProcess": "medium density fiberboard manufacturing",
+        "epaSubcategory": null
+      }
+    },
+    {
+      "id": "epaAP42-196",
+      "airFacilityRefs": null,
+      "facilityGroup": "제재 및 목재가공시설",
+      "subFacility": "건조시설",
+      "materialType": null,
+      "material": "Tube dryer, direct wood-fired, blowling blend, UF resin, softwood",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 0.95
+        },
+        "황산화물": null,
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/ton",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": null
+      },
+      "_referenceContext": {
+        "epaProcess": "hardboard and fiberboard manufacturing",
+        "epaSubcategory": null
+      }
+    },
+    {
+      "id": "epaAP42-197",
+      "airFacilityRefs": null,
+      "facilityGroup": "제재 및 목재가공시설",
+      "subFacility": "건조시설",
+      "materialType": null,
+      "material": "Hardboard tube dryer, direct natural gas-fired, blowline blend, PF resin, hardwood",
+      "factors": {
+        "먼지": null,
+        "황산화물": null,
+        "질소산화물": {
+          "type": "constant",
+          "value": 0.22
+        }
+      },
+      "unit": {
+        "raw": "kg/ton",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": null
+      },
+      "_referenceContext": {
+        "epaProcess": "hardboard and fiberboard manufacturing",
+        "epaSubcategory": null
+      }
+    },
+    {
+      "id": "epaAP42-198",
+      "airFacilityRefs": null,
+      "facilityGroup": "제재 및 목재가공시설",
+      "subFacility": "건조시설",
+      "materialType": null,
+      "material": "Hardboard humidification kiln, indirect heated",
+      "factors": {
+        "먼지": null,
+        "황산화물": null,
+        "질소산화물": {
+          "type": "constant",
+          "value": 0.004
+        }
+      },
+      "unit": {
+        "raw": "kg/m3",
+        "numerator": "kg",
+        "denominator": "m3",
+        "basis": null
+      },
+      "_referenceContext": {
+        "epaProcess": "hardboard and fiberboard manufacturing",
+        "epaSubcategory": null
+      }
+    },
+    {
+      "id": "epaAP42-199",
+      "airFacilityRefs": null,
+      "facilityGroup": "제재 및 목재가공시설",
+      "subFacility": "건조시설",
+      "materialType": null,
+      "material": "LVL veneer dryer, indirect- heated, cooling section, hardwood",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 0.09
+        },
+        "황산화물": null,
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/m3",
+        "numerator": "kg",
+        "denominator": "m3",
+        "basis": null
+      },
+      "_referenceContext": {
+        "epaProcess": "engineered wood products manufacturing",
+        "epaSubcategory": null
+      }
+    },
+    {
+      "id": "epaAP42-200",
+      "airFacilityRefs": null,
+      "facilityGroup": "제재 및 목재가공시설",
+      "subFacility": "건조시설",
+      "materialType": null,
+      "material": "LSL rotary dryer, direct wood-fired, hardwood",
+      "factors": {
+        "먼지": null,
+        "황산화물": null,
+        "질소산화물": {
+          "type": "constant",
+          "value": 0.235
+        }
+      },
+      "unit": {
+        "raw": "kg/ton",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": null
+      },
+      "_referenceContext": {
+        "epaProcess": "engineered wood products manufacturing",
+        "epaSubcategory": null
+      }
+    },
+    {
+      "id": "epaAP42-201",
+      "airFacilityRefs": null,
+      "facilityGroup": "제재 및 목재가공시설",
+      "subFacility": "건조시설",
+      "materialType": null,
+      "material": "LSL conveyer dryer, indirect heated, hardwood",
+      "factors": {
+        "먼지": null,
+        "황산화물": null,
+        "질소산화물": {
+          "type": "constant",
+          "value": 1.15
+        }
+      },
+      "unit": {
+        "raw": "kg/ton",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": null
+      },
+      "_referenceContext": {
+        "epaProcess": "engineered wood products manufacturing",
+        "epaSubcategory": null
+      }
+    },
+    {
+      "id": "epaAP42-202",
+      "airFacilityRefs": null,
+      "facilityGroup": "제재 및 목재가공시설",
+      "subFacility": "목재가공 연마시설",
+      "materialType": null,
+      "material": "Hot press, PF resin, softwood plywood",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 0.06
+        },
+        "황산화물": null,
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/m3",
+        "numerator": "kg",
+        "denominator": "m3",
+        "basis": null
+      },
+      "_referenceContext": {
+        "epaProcess": "plywood manufacturing",
+        "epaSubcategory": null
+      }
+    },
+    {
+      "id": "epaAP42-203",
+      "airFacilityRefs": null,
+      "facilityGroup": "제재 및 목재가공시설",
+      "subFacility": "목재가공 연마시설",
+      "materialType": null,
+      "material": "Hot press, PF resin, liquid",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 0.06
+        },
+        "황산화물": null,
+        "질소산화물": {
+          "type": "constant",
+          "value": 0.0245
+        }
+      },
+      "unit": {
+        "raw": "kg/m3",
+        "numerator": "kg",
+        "denominator": "m3",
+        "basis": null
+      },
+      "_referenceContext": {
+        "epaProcess": "oriented strandboard manufacturing",
+        "epaSubcategory": null
+      }
+    },
+    {
+      "id": "epaAP42-204",
+      "airFacilityRefs": null,
+      "facilityGroup": "제재 및 목재가공시설",
+      "subFacility": "목재가공 연마시설",
+      "materialType": null,
+      "material": "Hot press, PF resin, powder",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 0.055
+        },
+        "황산화물": null,
+        "질소산화물": {
+          "type": "constant",
+          "value": 0.0007
+        }
+      },
+      "unit": {
+        "raw": "kg/m3",
+        "numerator": "kg",
+        "denominator": "m3",
+        "basis": null
+      },
+      "_referenceContext": {
+        "epaProcess": "oriented strandboard manufacturing",
+        "epaSubcategory": null
+      }
+    },
+    {
+      "id": "epaAP42-205",
+      "airFacilityRefs": null,
+      "facilityGroup": "제재 및 목재가공시설",
+      "subFacility": "목재가공 연마시설",
+      "materialType": null,
+      "material": "Hot press, MDI resin,",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 0.065
+        },
+        "황산화물": null,
+        "질소산화물": {
+          "type": "constant",
+          "value": 0.0095
+        }
+      },
+      "unit": {
+        "raw": "kg/m3",
+        "numerator": "kg",
+        "denominator": "m3",
+        "basis": null
+      },
+      "_referenceContext": {
+        "epaProcess": "oriented strandboard manufacturing",
+        "epaSubcategory": null
+      }
+    },
+    {
+      "id": "epaAP42-206",
+      "airFacilityRefs": null,
+      "facilityGroup": "제재 및 목재가공시설",
+      "subFacility": "목재가공 연마시설",
+      "materialType": null,
+      "material": "Hot press, PF /MDI resins,",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 0.185
+        },
+        "황산화물": {
+          "type": "constant",
+          "value": 0.0185
+        },
+        "질소산화물": {
+          "type": "constant",
+          "value": 0.0205
+        }
+      },
+      "unit": {
+        "raw": "kg/m3",
+        "numerator": "kg",
+        "denominator": "m3",
+        "basis": null
+      },
+      "_referenceContext": {
+        "epaProcess": "oriented strandboard manufacturing",
+        "epaSubcategory": null
+      }
+    },
+    {
+      "id": "epaAP42-207",
+      "airFacilityRefs": null,
+      "facilityGroup": "제재 및 목재가공시설",
+      "subFacility": "목재가공 연마시설",
+      "materialType": null,
+      "material": "Hot press, UF resin",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 0.052
+        },
+        "황산화물": null,
+        "질소산화물": {
+          "type": "constant",
+          "value": 0.004
+        }
+      },
+      "unit": {
+        "raw": "kg/m3",
+        "numerator": "kg",
+        "denominator": "m3",
+        "basis": null
+      },
+      "_referenceContext": {
+        "epaProcess": "particleboard manufacturing",
+        "epaSubcategory": null
+      }
+    },
+    {
+      "id": "epaAP42-208",
+      "airFacilityRefs": null,
+      "facilityGroup": "제재 및 목재가공시설",
+      "subFacility": "목재가공 연마시설",
+      "materialType": null,
+      "material": "Board cooler, UF resin",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 0.039
+        },
+        "황산화물": null,
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/m3",
+        "numerator": "kg",
+        "denominator": "m3",
+        "basis": null
+      },
+      "_referenceContext": {
+        "epaProcess": "particleboard manufacturing",
+        "epaSubcategory": null
+      }
+    },
+    {
+      "id": "epaAP42-209",
+      "airFacilityRefs": null,
+      "facilityGroup": "제재 및 목재가공시설",
+      "subFacility": "목재가공 연마시설",
+      "materialType": null,
+      "material": "bach hot press, UF resin",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 0.047
+        },
+        "황산화물": null,
+        "질소산화물": {
+          "type": "constant",
+          "value": 0.008
+        }
+      },
+      "unit": {
+        "raw": "kg/m3",
+        "numerator": "kg",
+        "denominator": "m3",
+        "basis": null
+      },
+      "_referenceContext": {
+        "epaProcess": "medium density fiberboard manufacturing",
+        "epaSubcategory": null
+      }
+    },
+    {
+      "id": "epaAP42-210",
+      "airFacilityRefs": null,
+      "facilityGroup": "제재 및 목재가공시설",
+      "subFacility": "목재가공 연마시설",
+      "materialType": null,
+      "material": "Board cooler, UF resin",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 0.014
+        },
+        "황산화물": null,
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/m3",
+        "numerator": "kg",
+        "denominator": "m3",
+        "basis": null
+      },
+      "_referenceContext": {
+        "epaProcess": "medium density fiberboard manufacturing",
+        "epaSubcategory": null
+      }
+    },
+    {
+      "id": "epaAP42-211",
+      "airFacilityRefs": null,
+      "facilityGroup": "제재 및 목재가공시설",
+      "subFacility": "목재가공 연마시설",
+      "materialType": null,
+      "material": "Hardboard hot press, PF resin",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 0.216
+        },
+        "황산화물": null,
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/m3",
+        "numerator": "kg",
+        "denominator": "m3",
+        "basis": null
+      },
+      "_referenceContext": {
+        "epaProcess": "hardboard manufacturing",
+        "epaSubcategory": null
+      }
+    },
+    {
+      "id": "epaAP42-212",
+      "airFacilityRefs": null,
+      "facilityGroup": "제재 및 목재가공시설",
+      "subFacility": "목재가공 연마시설",
+      "materialType": null,
+      "material": "LSL hot press, MDI resin",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 0.007
+        },
+        "황산화물": null,
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/m3",
+        "numerator": "kg",
+        "denominator": "m3",
+        "basis": null
+      },
+      "_referenceContext": {
+        "epaProcess": "engineered wood products manufacturing",
+        "epaSubcategory": null
+      }
+    },
+    {
+      "id": "epaAP42-213",
+      "airFacilityRefs": null,
+      "facilityGroup": "펄프, 종이제품 제조시설과 인쇄 및 각종 기록매체 제조시설",
+      "subFacility": "석회로시설･ 가열시설",
+      "materialType": null,
+      "material": "Lime kiln",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 28.0
+        },
+        "황산화물": {
+          "type": "constant",
+          "value": 0.15
+        },
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/ton",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": null
+      },
+      "_referenceContext": {
+        "epaProcess": "kraft pulping",
+        "epaSubcategory": null
+      }
+    },
+    {
+      "id": "epaAP42-214",
+      "airFacilityRefs": null,
+      "facilityGroup": "펄프, 종이제품 제조시설과 인쇄 및 각종 기록매체 제조시설",
+      "subFacility": "석회로시설･ 가열시설",
+      "materialType": null,
+      "material": "Recovery boiler and direct evaporator",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 90.0
+        },
+        "황산화물": {
+          "type": "constant",
+          "value": 3.5
+        },
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/ton",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": null
+      },
+      "_referenceContext": {
+        "epaProcess": "kraft pulping",
+        "epaSubcategory": null
+      }
+    },
+    {
+      "id": "epaAP42-215",
+      "airFacilityRefs": null,
+      "facilityGroup": "음식료품제조 시설, 단백질 및 배합사료 제조시설(유기질비료 제조시설을 포함)",
+      "subFacility": "건조시설",
+      "materialType": null,
+      "material": "Cheese dryer",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 1.25
+        },
+        "황산화물": null,
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/ton",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": null
+      },
+      "_referenceContext": {
+        "epaProcess": "natural and processed cheese manufacture",
+        "epaSubcategory": null
+      }
+    },
+    {
+      "id": "epaAP42-216",
+      "airFacilityRefs": null,
+      "facilityGroup": "음식료품제조 시설, 단백질 및 배합사료 제조시설(유기질비료 제조시설을 포함)",
+      "subFacility": "건조시설",
+      "materialType": null,
+      "material": "Whey dryer",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 0.62
+        },
+        "황산화물": null,
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/ton",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": null
+      },
+      "_referenceContext": {
+        "epaProcess": "natural and processed cheese manufacture",
+        "epaSubcategory": null
+      }
+    },
+    {
+      "id": "epaAP42-217",
+      "airFacilityRefs": null,
+      "facilityGroup": "음식료품제조 시설, 단백질 및 배합사료 제조시설(유기질비료 제조시설을 포함)",
+      "subFacility": "건조시설",
+      "materialType": null,
+      "material": "Column dryer",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 0.11
+        },
+        "황산화물": null,
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/ton",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": null
+      },
+      "_referenceContext": {
+        "epaProcess": "grain elevator",
+        "epaSubcategory": "Grain drying"
+      }
+    },
+    {
+      "id": "epaAP42-218",
+      "airFacilityRefs": null,
+      "facilityGroup": "음식료품제조 시설, 단백질 및 배합사료 제조시설(유기질비료 제조시설을 포함)",
+      "subFacility": "건조시설",
+      "materialType": null,
+      "material": "Rack dryer",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 1.5
+        },
+        "황산화물": null,
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/ton",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": null
+      },
+      "_referenceContext": {
+        "epaProcess": "grain elevator",
+        "epaSubcategory": "Grain drying"
+      }
+    },
+    {
+      "id": "epaAP42-219",
+      "airFacilityRefs": null,
+      "facilityGroup": "음식료품제조 시설, 단백질 및 배합사료 제조시설(유기질비료 제조시설을 포함)",
+      "subFacility": "건조시설",
+      "materialType": null,
+      "material": "Coal-fired pulp dryer",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 2.2
+        },
+        "황산화물": {
+          "type": "constant",
+          "value": 0.395
+        },
+        "질소산화물": {
+          "type": "constant",
+          "value": 0.33
+        }
+      },
+      "unit": {
+        "raw": "kg/ton",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": null
+      },
+      "_referenceContext": {
+        "epaProcess": "sugarbeet processing operation",
+        "epaSubcategory": null
+      }
+    },
+    {
+      "id": "epaAP42-220",
+      "airFacilityRefs": null,
+      "facilityGroup": "음식료품제조 시설, 단백질 및 배합사료 제조시설(유기질비료 제조시설을 포함)",
+      "subFacility": "건조시설",
+      "materialType": null,
+      "material": "Fuel oil-fired pulp dryer",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 0.7
+        },
+        "황산화물": {
+          "type": "constant",
+          "value": 0.5
+        },
+        "질소산화물": {
+          "type": "constant",
+          "value": 0.3
+        }
+      },
+      "unit": {
+        "raw": "kg/ton",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": null
+      },
+      "_referenceContext": {
+        "epaProcess": "sugarbeet processing operation",
+        "epaSubcategory": null
+      }
+    },
+    {
+      "id": "epaAP42-221",
+      "airFacilityRefs": null,
+      "facilityGroup": "음식료품제조 시설, 단백질 및 배합사료 제조시설(유기질비료 제조시설을 포함)",
+      "subFacility": "건조시설",
+      "materialType": null,
+      "material": "steam tube dryer",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 2.5
+        },
+        "황산화물": null,
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/ton",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": null
+      },
+      "_referenceContext": {
+        "epaProcess": "fish canning and byproduct manufacture",
+        "epaSubcategory": null
+      }
+    },
+    {
+      "id": "epaAP42-222",
+      "airFacilityRefs": null,
+      "facilityGroup": "음식료품제조 시설, 단백질 및 배합사료 제조시설(유기질비료 제조시설을 포함)",
+      "subFacility": "건조시설",
+      "materialType": null,
+      "material": "Drect-fired dryer",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 4.0
+        },
+        "황산화물": null,
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/ton",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": null
+      },
+      "_referenceContext": {
+        "epaProcess": "fish canning and byproduct manufacture",
+        "epaSubcategory": null
+      }
+    },
+    {
+      "id": "epaAP42-223",
+      "airFacilityRefs": null,
+      "facilityGroup": "음식료품제조 시설, 단백질 및 배합사료 제조시설(유기질비료 제조시설을 포함)",
+      "subFacility": "건조시설",
+      "materialType": null,
+      "material": "Rice drying",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 0.032
+        },
+        "황산화물": null,
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/ton",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": null
+      },
+      "_referenceContext": {
+        "epaProcess": "grain processing facilities",
+        "epaSubcategory": "Rice mill"
+      }
+    },
+    {
+      "id": "epaAP42-224",
+      "airFacilityRefs": null,
+      "facilityGroup": "음식료품제조 시설, 단백질 및 배합사료 제조시설(유기질비료 제조시설을 포함)",
+      "subFacility": "제분시설",
+      "materialType": null,
+      "material": "roller mill",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 35.0
+        },
+        "황산화물": null,
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/ton",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": null
+      },
+      "_referenceContext": {
+        "epaProcess": "grain processing facilities",
+        "epaSubcategory": "Wheat milling"
+      }
+    },
+    {
+      "id": "epaAP42-225",
+      "airFacilityRefs": null,
+      "facilityGroup": "음식료품제조 시설, 단백질 및 배합사료 제조시설(유기질비료 제조시설을 포함)",
+      "subFacility": "증자시설(훈증 시설포함)",
+      "materialType": null,
+      "material": "Batch smokehouse, smoking cycle",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 11.5
+        },
+        "황산화물": null,
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/ton",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": null
+      },
+      "_referenceContext": {
+        "epaProcess": "meat smokehouse",
+        "epaSubcategory": null
+      }
+    },
+    {
+      "id": "epaAP42-226",
+      "airFacilityRefs": null,
+      "facilityGroup": "음식료품제조 시설, 단백질 및 배합사료 제조시설(유기질비료 제조시설을 포함)",
+      "subFacility": "증자시설(훈증 시설포함)",
+      "materialType": null,
+      "material": "Continuous smokehouse, smoke zone",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 3.0
+        },
+        "황산화물": null,
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/ton",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": null
+      },
+      "_referenceContext": {
+        "epaProcess": "meat smokehouse",
+        "epaSubcategory": null
+      }
+    },
+    {
+      "id": "epaAP42-227",
+      "airFacilityRefs": null,
+      "facilityGroup": "소각시설",
+      "subFacility": "적출물 소각시설",
+      "materialType": null,
+      "material": "Medical Waste Incinerators",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 2.33
+        },
+        "황산화물": {
+          "type": "constant",
+          "value": 1.09
+        },
+        "질소산화물": {
+          "type": "constant",
+          "value": 1.78
+        }
+      },
+      "unit": {
+        "raw": "kg/ton",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": null
+      },
+      "_referenceContext": {
+        "epaProcess": "Medical Waste Incinerators",
+        "epaSubcategory": null
+      }
+    },
+    {
+      "id": "epaAP42-228",
+      "airFacilityRefs": null,
+      "facilityGroup": "소각시설",
+      "subFacility": "적출물 소각시설",
+      "materialType": null,
+      "material": "Rotary Klin Medical Waste Incinerator",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 17.3
+        },
+        "황산화물": {
+          "type": "constant",
+          "value": 0.543
+        },
+        "질소산화물": {
+          "type": "constant",
+          "value": 2.31
+        }
+      },
+      "unit": {
+        "raw": "kg/ton",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": null
+      },
+      "_referenceContext": {
+        "epaProcess": "Medical Waste Incinerators",
+        "epaSubcategory": null
+      }
+    },
+    {
+      "id": "epaAP42-229",
+      "airFacilityRefs": null,
+      "facilityGroup": "소각시설",
+      "subFacility": "폐기물 소각시설",
+      "materialType": null,
+      "material": "Mass burn waterwall combustor",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 12.6
+        },
+        "황산화물": {
+          "type": "constant",
+          "value": 1.73
+        },
+        "질소산화물": {
+          "type": "constant",
+          "value": 1.83
+        }
+      },
+      "unit": {
+        "raw": "kg/ton",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": null
+      },
+      "_referenceContext": {
+        "epaProcess": "refuse combustion",
+        "epaSubcategory": null
+      }
+    },
+    {
+      "id": "epaAP42-230",
+      "airFacilityRefs": null,
+      "facilityGroup": "소각시설",
+      "subFacility": "폐기물 소각시설",
+      "materialType": null,
+      "material": "Mass burn rotary waterwall combustor",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 12.6
+        },
+        "황산화물": {
+          "type": "constant",
+          "value": 1.73
+        },
+        "질소산화물": {
+          "type": "constant",
+          "value": 1.13
+        }
+      },
+      "unit": {
+        "raw": "kg/ton",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": null
+      },
+      "_referenceContext": {
+        "epaProcess": "refuse combustion",
+        "epaSubcategory": null
+      }
+    },
+    {
+      "id": "epaAP42-231",
+      "airFacilityRefs": null,
+      "facilityGroup": "소각시설",
+      "subFacility": "폐기물 소각시설",
+      "materialType": null,
+      "material": "Mass burn rotary refractory wall combustor",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 12.6
+        },
+        "황산화물": {
+          "type": "constant",
+          "value": 1.73
+        },
+        "질소산화물": {
+          "type": "constant",
+          "value": 1.23
+        }
+      },
+      "unit": {
+        "raw": "kg/ton",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": null
+      },
+      "_referenceContext": {
+        "epaProcess": "refuse combustion",
+        "epaSubcategory": null
+      }
+    },
+    {
+      "id": "epaAP42-232",
+      "airFacilityRefs": null,
+      "facilityGroup": "소각시설",
+      "subFacility": "폐기물 소각시설",
+      "materialType": null,
+      "material": "Modular excess air combustor",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 12.6
+        },
+        "황산화물": {
+          "type": "constant",
+          "value": 1.73
+        },
+        "질소산화물": {
+          "type": "constant",
+          "value": 1.24
+        }
+      },
+      "unit": {
+        "raw": "kg/ton",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": null
+      },
+      "_referenceContext": {
+        "epaProcess": "refuse combustion",
+        "epaSubcategory": null
+      }
+    },
+    {
+      "id": "epaAP42-233",
+      "airFacilityRefs": null,
+      "facilityGroup": "소각시설",
+      "subFacility": "폐기물 소각시설",
+      "materialType": null,
+      "material": "Refuse-Derived Fuel-Fired Combustors",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 34.8
+        },
+        "황산화물": {
+          "type": "constant",
+          "value": 1.95
+        },
+        "질소산화물": {
+          "type": "constant",
+          "value": 2.51
+        }
+      },
+      "unit": {
+        "raw": "kg/ton",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": null
+      },
+      "_referenceContext": {
+        "epaProcess": "refuse combustion",
+        "epaSubcategory": null
+      }
+    },
+    {
+      "id": "epaAP42-234",
+      "airFacilityRefs": null,
+      "facilityGroup": "소각시설",
+      "subFacility": "폐기물 소각시설",
+      "materialType": null,
+      "material": "Modular starved Air Combustors",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 1.72
+        },
+        "황산화물": {
+          "type": "constant",
+          "value": 1.61
+        },
+        "질소산화물": {
+          "type": "constant",
+          "value": 1.58
+        }
+      },
+      "unit": {
+        "raw": "kg/ton",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": null
+      },
+      "_referenceContext": {
+        "epaProcess": "refuse combustion",
+        "epaSubcategory": null
+      }
+    },
+    {
+      "id": "epaAP42-235",
+      "airFacilityRefs": null,
+      "facilityGroup": "소각시설",
+      "subFacility": "폐기물 소각시설",
+      "materialType": null,
+      "material": "Multiple chamber",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 3.5
+        },
+        "황산화물": {
+          "type": "constant",
+          "value": 1.25
+        },
+        "질소산화물": {
+          "type": "constant",
+          "value": 1.5
+        }
+      },
+      "unit": {
+        "raw": "kg/ton",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": null
+      },
+      "_referenceContext": {
+        "epaProcess": "refuse combustion",
+        "epaSubcategory": "Industrial/Commercial"
+      }
+    },
+    {
+      "id": "epaAP42-236",
+      "airFacilityRefs": null,
+      "facilityGroup": "소각시설",
+      "subFacility": "폐기물 소각시설",
+      "materialType": null,
+      "material": "Single chamber",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 7.5
+        },
+        "황산화물": {
+          "type": "constant",
+          "value": 1.25
+        },
+        "질소산화물": {
+          "type": "constant",
+          "value": 1.0
+        }
+      },
+      "unit": {
+        "raw": "kg/ton",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": null
+      },
+      "_referenceContext": {
+        "epaProcess": "refuse combustion",
+        "epaSubcategory": "Industrial/Commercial"
+      }
+    },
+    {
+      "id": "epaAP42-237",
+      "airFacilityRefs": null,
+      "facilityGroup": "소각시설",
+      "subFacility": "폐기물 소각시설",
+      "materialType": null,
+      "material": "Wood",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 6.5
+        },
+        "황산화물": {
+          "type": "constant",
+          "value": 0.05
+        },
+        "질소산화물": {
+          "type": "constant",
+          "value": 2.0
+        }
+      },
+      "unit": {
+        "raw": "kg/ton",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": null
+      },
+      "_referenceContext": {
+        "epaProcess": "refuse combustion",
+        "epaSubcategory": "Trench"
+      }
+    },
+    {
+      "id": "epaAP42-238",
+      "airFacilityRefs": null,
+      "facilityGroup": "소각시설",
+      "subFacility": "폐기물 소각시설",
+      "materialType": null,
+      "material": "Rubber tires",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 69.0
+        },
+        "황산화물": null,
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/ton",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": null
+      },
+      "_referenceContext": {
+        "epaProcess": "refuse combustion",
+        "epaSubcategory": "Trench"
+      }
+    },
+    {
+      "id": "epaAP42-239",
+      "airFacilityRefs": null,
+      "facilityGroup": "소각시설",
+      "subFacility": "폐기물 소각시설",
+      "materialType": null,
+      "material": "Municipal refuse",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 18.5
+        },
+        "황산화물": {
+          "type": "constant",
+          "value": 1.25
+        },
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/ton",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": null
+      },
+      "_referenceContext": {
+        "epaProcess": "refuse combustion",
+        "epaSubcategory": "Trench"
+      }
+    },
+    {
+      "id": "epaAP42-240",
+      "airFacilityRefs": null,
+      "facilityGroup": "소각시설",
+      "subFacility": "폐기물 소각시설",
+      "materialType": null,
+      "material": null,
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 15.0
+        },
+        "황산화물": {
+          "type": "constant",
+          "value": 0.25
+        },
+        "질소산화물": {
+          "type": "constant",
+          "value": 1.5
+        }
+      },
+      "unit": {
+        "raw": "kg/ton",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": null
+      },
+      "_referenceContext": {
+        "epaProcess": "refuse combustion",
+        "epaSubcategory": "Flue-fed single Chamber"
+      }
+    },
+    {
+      "id": "epaAP42-241",
+      "airFacilityRefs": null,
+      "facilityGroup": "소각시설",
+      "subFacility": "폐기물 소각시설",
+      "materialType": null,
+      "material": null,
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 3.0
+        },
+        "황산화물": {
+          "type": "constant",
+          "value": 0.25
+        },
+        "질소산화물": {
+          "type": "constant",
+          "value": 5.0
+        }
+      },
+      "unit": {
+        "raw": "kg/ton",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": null
+      },
+      "_referenceContext": {
+        "epaProcess": "refuse combustion",
+        "epaSubcategory": "Flue-fed(modified)"
+      }
+    },
+    {
+      "id": "epaAP42-242",
+      "airFacilityRefs": null,
+      "facilityGroup": "소각시설",
+      "subFacility": "폐기물 소각시설",
+      "materialType": null,
+      "material": "Without primary burner",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 17.5
+        },
+        "황산화물": {
+          "type": "constant",
+          "value": 0.25
+        },
+        "질소산화물": {
+          "type": "constant",
+          "value": 0.5
+        }
+      },
+      "unit": {
+        "raw": "kg/ton",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": null
+      },
+      "_referenceContext": {
+        "epaProcess": "refuse combustion",
+        "epaSubcategory": "Domestic single chamber"
+      }
+    },
+    {
+      "id": "epaAP42-243",
+      "airFacilityRefs": null,
+      "facilityGroup": "소각시설",
+      "subFacility": "폐기물 소각시설",
+      "materialType": null,
+      "material": "With primary burner",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 3.5
+        },
+        "황산화물": {
+          "type": "constant",
+          "value": 0.25
+        },
+        "질소산화물": {
+          "type": "constant",
+          "value": 1.0
+        }
+      },
+      "unit": {
+        "raw": "kg/ton",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": null
+      },
+      "_referenceContext": {
+        "epaProcess": "refuse combustion",
+        "epaSubcategory": "Domestic single chamber"
+      }
+    },
+    {
+      "id": "epaAP42-244",
+      "airFacilityRefs": null,
+      "facilityGroup": "소각시설",
+      "subFacility": "폐기물 소각시설",
+      "materialType": null,
+      "material": "Municipal refuse",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 10.0
+        },
+        "황산화물": {
+          "type": "constant",
+          "value": 1.0
+        },
+        "질소산화물": {
+          "type": "constant",
+          "value": 2.5
+        }
+      },
+      "unit": {
+        "raw": "kg/ton",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": null
+      },
+      "_referenceContext": {
+        "epaProcess": "Waste Incineration",
+        "epaSubcategory": "conical burners"
+      }
+    },
+    {
+      "id": "epaAP42-245",
+      "airFacilityRefs": null,
+      "facilityGroup": "소각시설",
+      "subFacility": "폐기물 소각시설",
+      "materialType": null,
+      "material": "wood refuse",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 3.5
+        },
+        "황산화물": {
+          "type": "constant",
+          "value": 0.05
+        },
+        "질소산화물": {
+          "type": "constant",
+          "value": 0.5
+        }
+      },
+      "unit": {
+        "raw": "kg/ton",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": null
+      },
+      "_referenceContext": {
+        "epaProcess": "Waste Incineration",
+        "epaSubcategory": "conical burners"
+      }
+    },
+    {
+      "id": "epaAP42-246",
+      "airFacilityRefs": null,
+      "facilityGroup": "소각시설",
+      "subFacility": "폐기물 소각시설",
+      "materialType": null,
+      "material": "auto body incinerator",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 0.9
+        },
+        "황산화물": null,
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/car",
+        "numerator": "kg",
+        "denominator": "car",
+        "basis": null
+      },
+      "_referenceContext": {
+        "epaProcess": "automobile body incineration",
+        "epaSubcategory": null
+      }
+    },
+    {
+      "id": "epaAP42-247",
+      "airFacilityRefs": null,
+      "facilityGroup": "소각시설",
+      "subFacility": "슬러지 소각시설",
+      "materialType": null,
+      "material": "multiple hearth",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 52.0
+        },
+        "황산화물": {
+          "type": "constant",
+          "value": 14.0
+        },
+        "질소산화물": {
+          "type": "constant",
+          "value": 2.5
+        }
+      },
+      "unit": {
+        "raw": "kg/ton",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": null
+      },
+      "_referenceContext": {
+        "epaProcess": "sewage sludge incineration",
+        "epaSubcategory": "sewage sludge incinerator"
+      }
+    },
+    {
+      "id": "epaAP42-248",
+      "airFacilityRefs": null,
+      "facilityGroup": "소각시설",
+      "subFacility": "슬러지 소각시설",
+      "materialType": null,
+      "material": "Fluidized Bed",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 230.0
+        },
+        "황산화물": {
+          "type": "constant",
+          "value": 0.15
+        },
+        "질소산화물": {
+          "type": "constant",
+          "value": 0.88
+        }
+      },
+      "unit": {
+        "raw": "kg/ton",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": null
+      },
+      "_referenceContext": {
+        "epaProcess": "sewage sludge incineration",
+        "epaSubcategory": "sewage sludge incinerator"
+      }
+    },
+    {
+      "id": "epaAP42-249",
+      "airFacilityRefs": null,
+      "facilityGroup": "소각시설",
+      "subFacility": "슬러지 소각시설",
+      "materialType": null,
+      "material": "Electric Infrared",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 3.7
+        },
+        "황산화물": {
+          "type": "constant",
+          "value": 9.2
+        },
+        "질소산화물": {
+          "type": "constant",
+          "value": 4.3
+        }
+      },
+      "unit": {
+        "raw": "kg/ton",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": null
+      },
+      "_referenceContext": {
+        "epaProcess": "sewage sludge incineration",
+        "epaSubcategory": "Sewage Sludge Incinerators"
+      }
+    },
+    {
+      "id": "epaAP42-250",
+      "airFacilityRefs": null,
+      "facilityGroup": "공통시설",
+      "subFacility": "유무기산 저장시설",
+      "materialType": null,
+      "material": "uncontrolled",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 30.0
+        },
+        "황산화물": null,
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/ton",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": null
+      },
+      "_referenceContext": {
+        "epaProcess": "hydrofluoric acid manufacture",
+        "epaSubcategory": "Spar handling silos"
+      }
+    },
+    {
+      "id": "epaAP42-251",
+      "airFacilityRefs": null,
+      "facilityGroup": "공통시설",
+      "subFacility": "유기화합물 저장시설",
+      "materialType": null,
+      "material": "Soda ash storage/loading and unloading",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 0.002
+        },
+        "황산화물": null,
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/ton",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": null
+      },
+      "_referenceContext": {
+        "epaProcess": "sodium carbonate production",
+        "epaSubcategory": null
+      }
+    },
+    {
+      "id": "epaAP42-252",
+      "airFacilityRefs": null,
+      "facilityGroup": "공통시설",
+      "subFacility": "고체입자상물 질 저장시설",
+      "materialType": null,
+      "material": "Storage bins",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 0.1
+        },
+        "황산화물": null,
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/ton",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": null
+      },
+      "_referenceContext": {
+        "epaProcess": "glass fiber manufacturing",
+        "epaSubcategory": null
+      }
+    },
+    {
+      "id": "epaAP42-253",
+      "airFacilityRefs": null,
+      "facilityGroup": "공통시설",
+      "subFacility": "고체입자상물 질 저장시설",
+      "materialType": null,
+      "material": "Pellet sotrage bin loading",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 1.85
+        },
+        "황산화물": null,
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/ton",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": null
+      },
+      "_referenceContext": {
+        "epaProcess": "taconite ore processing",
+        "epaSubcategory": null
+      }
+    },
+    {
+      "id": "epaAP42-254",
+      "airFacilityRefs": null,
+      "facilityGroup": "공통시설",
+      "subFacility": "도장시설",
+      "materialType": null,
+      "material": "Ceramic glaze spray booth",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 9.5
+        },
+        "황산화물": null,
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/ton",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": null
+      },
+      "_referenceContext": {
+        "epaProcess": "ceramic products manufacturing",
+        "epaSubcategory": null
+      }
+    },
+    {
+      "id": "epaAP42-255",
+      "airFacilityRefs": null,
+      "facilityGroup": "공통시설",
+      "subFacility": "도장시설",
+      "materialType": null,
+      "material": null,
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 1.8
+        },
+        "황산화물": null,
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/Mg",
+        "numerator": "kg",
+        "denominator": "Mg",
+        "basis": null
+      },
+      "_referenceContext": {
+        "epaProcess": "ammonium nitrate manufacturing",
+        "epaSubcategory": "coating operationg"
+      }
+    },
+    {
+      "id": "epaAP42-256",
+      "airFacilityRefs": null,
+      "facilityGroup": "공통시설",
+      "subFacility": "분쇄시설",
+      "materialType": null,
+      "material": "processing wet material",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 0.013
+        },
+        "황산화물": null,
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/ton",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": null
+      },
+      "_referenceContext": {
+        "epaProcess": "brick manufacturing",
+        "epaSubcategory": "Grinding and screening operation"
+      }
+    },
+    {
+      "id": "epaAP42-257",
+      "airFacilityRefs": null,
+      "facilityGroup": "공통시설",
+      "subFacility": "분쇄시설",
+      "materialType": null,
+      "material": "processing dry material",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 4.25
+        },
+        "황산화물": null,
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/ton",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": null
+      },
+      "_referenceContext": {
+        "epaProcess": "brick manufacturing",
+        "epaSubcategory": "Grinding and screening operation"
+      }
+    },
+    {
+      "id": "epaAP42-258",
+      "airFacilityRefs": null,
+      "facilityGroup": "공통시설",
+      "subFacility": "분쇄시설",
+      "materialType": null,
+      "material": "Clay/coke mixture crushing, screening and storage",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 7.5
+        },
+        "황산화물": null,
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/ton",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": null
+      },
+      "_referenceContext": {
+        "epaProcess": "clay and fly ash sintering",
+        "epaSubcategory": null
+      }
+    },
+    {
+      "id": "epaAP42-259",
+      "airFacilityRefs": null,
+      "facilityGroup": "공통시설",
+      "subFacility": "분쇄시설",
+      "materialType": null,
+      "material": "Fly ash crushing, screening, sintering and storage",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 55.0
+        },
+        "황산화물": null,
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/ton",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": null
+      },
+      "_referenceContext": {
+        "epaProcess": "clay and fly ash sintering",
+        "epaSubcategory": null
+      }
+    },
+    {
+      "id": "epaAP42-260",
+      "airFacilityRefs": null,
+      "facilityGroup": "공통시설",
+      "subFacility": "분쇄시설",
+      "materialType": null,
+      "material": "Natural clay curshing, screening, and storage",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 6.0
+        },
+        "황산화물": null,
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/ton",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": null
+      },
+      "_referenceContext": {
+        "epaProcess": "clay and fly ash sintering",
+        "epaSubcategory": null
+      }
+    },
+    {
+      "id": "epaAP42-261",
+      "airFacilityRefs": null,
+      "facilityGroup": "공통시설",
+      "subFacility": "분쇄시설",
+      "materialType": null,
+      "material": "Primary crusher",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 0.008
+        },
+        "황산화물": null,
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/ton",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": null
+      },
+      "_referenceContext": {
+        "epaProcess": "lime manufacturing",
+        "epaSubcategory": null
+      }
+    },
+    {
+      "id": "epaAP42-262",
+      "airFacilityRefs": null,
+      "facilityGroup": "공통시설",
+      "subFacility": "분쇄시설",
+      "materialType": null,
+      "material": "Scalping screen and hammermill(secondary crusher)",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 0.31
+        },
+        "황산화물": null,
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/ton",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": null
+      },
+      "_referenceContext": {
+        "epaProcess": "lime manufacturing",
+        "epaSubcategory": null
+      }
+    },
+    {
+      "id": "epaAP42-263",
+      "airFacilityRefs": null,
+      "facilityGroup": "공통시설",
+      "subFacility": "분쇄시설",
+      "materialType": null,
+      "material": "bauxite grinding",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 3.0
+        },
+        "황산화물": null,
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/ton",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": null
+      },
+      "_referenceContext": {
+        "epaProcess": "primary aluminum production process",
+        "epaSubcategory": null
+      }
+    },
+    {
+      "id": "epaAP42-264",
+      "airFacilityRefs": null,
+      "facilityGroup": "공통시설",
+      "subFacility": "선별시설",
+      "materialType": null,
+      "material": "Pellet screen",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 5.0
+        },
+        "황산화물": null,
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/ton",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": null
+      },
+      "_referenceContext": {
+        "epaProcess": "taconite ore processing",
+        "epaSubcategory": null
+      }
+    }
+  ],
+  "title": "대기오염물질 배출시설 인허가업무 가이드라인"
+}

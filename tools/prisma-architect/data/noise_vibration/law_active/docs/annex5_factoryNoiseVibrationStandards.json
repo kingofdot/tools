@@ -1,0 +1,147 @@
+{
+  "별표번호": "5",
+  "별표가지번호": "00",
+  "별표제목": "공장소음·진동의 배출허용기준",
+  "법령명": "소음·진동관리법 시행규칙",
+  "관련조문": "제8조",
+  "개정일": "2019-12-31",
+  "_meta": {
+    "_note": "lookup 사용 케이스: 사용자 공장의 입지 지역구분 + 시간대 → 적용 배출허용기준 dB 조회. 폐수 별표13 같은 limit/range 패턴 적용.",
+    "operator": "기본값 <= (~ 이하). 보정값은 별도 계산.",
+    "지역구분": ["가", "나", "다", "라", "마"],
+    "시간대_소음": ["낮(06:00~18:00)", "저녁(18:00~24:00)", "밤(24:00~06:00)"],
+    "시간대_진동": ["낮(06:00~22:00)", "밤(22:00~06:00)"]
+  },
+  "1_공장소음": {
+    "title": "공장소음 배출허용기준",
+    "단위": "dB(A)",
+    "지역구분": [
+      { "code": "가", "description": "도시지역 중 전용주거지역 및 녹지지역(취락지구·주거개발진흥지구 및 관광·휴양개발진흥지구만 해당), 관리지역 중 취락지구·주거개발진흥지구 및 관광·휴양개발진흥지구, 자연환경보전지역 중 수산자원보호구역 외의 지역" },
+      { "code": "나", "description": "도시지역 중 일반주거지역 및 준주거지역, 도시지역 중 녹지지역(취락지구·주거개발진흥지구 및 관광·휴양개발진흥지구는 제외)" },
+      { "code": "다", "description": "농림지역, 자연환경보전지역 중 수산자원보호구역, 관리지역 중 가목과 라목을 제외한 그 밖의 지역" },
+      { "code": "라", "description": "도시지역 중 상업지역·준공업지역, 관리지역 중 산업개발진흥지구" },
+      { "code": "마", "description": "도시지역 중 일반공업지역 및 전용공업지역" }
+    ],
+    "rows": [
+      { "지역": "가", "시간대": "낮",   "limit": 50, "operator": "<=", "unit": "dB(A)" },
+      { "지역": "가", "시간대": "저녁", "limit": 45, "operator": "<=", "unit": "dB(A)" },
+      { "지역": "가", "시간대": "밤",   "limit": 40, "operator": "<=", "unit": "dB(A)" },
+      { "지역": "나", "시간대": "낮",   "limit": 55, "operator": "<=", "unit": "dB(A)" },
+      { "지역": "나", "시간대": "저녁", "limit": 50, "operator": "<=", "unit": "dB(A)" },
+      { "지역": "나", "시간대": "밤",   "limit": 45, "operator": "<=", "unit": "dB(A)" },
+      { "지역": "다", "시간대": "낮",   "limit": 60, "operator": "<=", "unit": "dB(A)" },
+      { "지역": "다", "시간대": "저녁", "limit": 55, "operator": "<=", "unit": "dB(A)" },
+      { "지역": "다", "시간대": "밤",   "limit": 50, "operator": "<=", "unit": "dB(A)" },
+      { "지역": "라", "시간대": "낮",   "limit": 65, "operator": "<=", "unit": "dB(A)" },
+      { "지역": "라", "시간대": "저녁", "limit": 60, "operator": "<=", "unit": "dB(A)" },
+      { "지역": "라", "시간대": "밤",   "limit": 55, "operator": "<=", "unit": "dB(A)" },
+      { "지역": "마", "시간대": "낮",   "limit": 70, "operator": "<=", "unit": "dB(A)" },
+      { "지역": "마", "시간대": "저녁", "limit": 65, "operator": "<=", "unit": "dB(A)" },
+      { "지역": "마", "시간대": "밤",   "limit": 60, "operator": "<=", "unit": "dB(A)" }
+    ],
+    "보정값": [
+      { "조건": "충격음 성분이 있는 경우",
+        "보정": -5, "단위": "dB",
+        "criteriaText": "충격음 성분이 있는 경우 허용 기준치에 -5dB 보정"
+      },
+      { "조건": "측정소음발생시간 백분율 < 12.5%",
+        "보정": +15, "단위": "dB",
+        "criteria": { "logic": "AND", "conditions": [{ "metric": "noiseDurationRatio", "operator": "<", "value": 12.5, "unit": "%" }] }
+      },
+      { "조건": "12.5% ≤ 측정소음발생시간 백분율 < 25%",
+        "보정": +10, "단위": "dB",
+        "criteria": { "logic": "AND", "conditions": [
+          { "metric": "noiseDurationRatio", "operator": ">=", "value": 12.5, "unit": "%" },
+          { "metric": "noiseDurationRatio", "operator": "<",  "value": 25,   "unit": "%" }
+        ]}
+      },
+      { "조건": "25% ≤ 측정소음발생시간 백분율 < 50%",
+        "보정": +5, "단위": "dB",
+        "criteria": { "logic": "AND", "conditions": [
+          { "metric": "noiseDurationRatio", "operator": ">=", "value": 25, "unit": "%" },
+          { "metric": "noiseDurationRatio", "operator": "<",  "value": 50, "unit": "%" }
+        ]}
+      },
+      { "조건": "50% ≤ 측정소음발생시간 백분율 < 75%",
+        "보정": +3, "단위": "dB",
+        "criteria": { "logic": "AND", "conditions": [
+          { "metric": "noiseDurationRatio", "operator": ">=", "value": 50, "unit": "%" },
+          { "metric": "noiseDurationRatio", "operator": "<",  "value": 75, "unit": "%" }
+        ]}
+      }
+    ],
+    "특수규정": [
+      { "rule": "산업단지", "applicableRegion": "마", "criteriaText": "「산업입지 및 개발에 관한 법률」에 따른 산업단지에 대하여는 마목의 허용 기준치를 적용한다." },
+      { "rule": "정온시설 50m 이내", "applicableRegion": "가",
+        "criteriaText": "정온시설(종합병원, 학교, 공공도서관, 100병상 이상 노인 요양병원, 입소규모 100명 이상 보육시설)의 부지경계선으로부터 50m 이내의 지역에 대하여는 정온시설 부지경계선에서 측정한 소음도 기준 가목 허용 기준치 적용",
+        "criteria": { "logic": "AND", "conditions": [
+          { "metric": "distanceToQuietFacility", "operator": "<=", "value": 50, "unit": "m" }
+        ]}
+      },
+      { "rule": "녹지지역 + 가목 200m 이내", "applicableRegion": "가",
+        "criteriaText": "도시지역 중 녹지지역(취락지구·주거개발진흥지구·관광·휴양개발진흥지구 제외)에 위치한 공장으로 200m 이내에 가목 대상지역이 있는 경우 가목 허용 기준치 적용",
+        "criteria": { "logic": "AND", "conditions": [
+          { "metric": "regionType", "operator": "==", "value": "녹지지역" },
+          { "metric": "distanceToCategoryA", "operator": "<=", "value": 200, "unit": "m" }
+        ]}
+      },
+      { "rule": "산업단지 + 정온시설 50m 이내 중복",
+        "criteriaText": "산업단지와 정온시설 50m 이내가 중복되는 경우 시·도지사가 별도 배출허용기준 정함" }
+    ],
+    "비고": [
+      "소음의 측정 및 평가기준은 환경오염공정시험기준에 따른다.",
+      "대상 지역의 구분은 「국토의 계획 및 이용에 관한 법률」에 따른다.",
+      "허용 기준치는 해당 공장이 입지한 대상 지역을 기준으로 하여 적용한다.",
+      "정온시설: 종합병원, 학교(초·중등교육법 및 고등교육법), 공공도서관, 100병상 이상 노인 요양병원, 입소규모 100명 이상 보육시설"
+    ]
+  },
+  "2_공장진동": {
+    "title": "공장진동 배출허용기준",
+    "단위": "dB(V)",
+    "지역구분": [
+      { "code": "가", "description": "도시지역 중 전용주거지역·녹지지역, 관리지역 중 취락지구·주거개발진흥지구 및 관광·휴양개발진흥지구, 자연환경보전지역 중 수산자원보호구역 외의 지역" },
+      { "code": "나", "description": "도시지역 중 일반주거지역·준주거지역, 농림지역, 자연환경보전지역 중 수산자원보호구역, 관리지역 중 가목과 다목을 제외한 그 밖의 지역" },
+      { "code": "다", "description": "도시지역 중 상업지역·준공업지역, 관리지역 중 산업개발진흥지구" },
+      { "code": "라", "description": "도시지역 중 일반공업지역 및 전용공업지역" }
+    ],
+    "rows": [
+      { "지역": "가", "시간대": "낮", "limit": 60, "operator": "<=", "unit": "dB(V)" },
+      { "지역": "가", "시간대": "밤", "limit": 55, "operator": "<=", "unit": "dB(V)" },
+      { "지역": "나", "시간대": "낮", "limit": 65, "operator": "<=", "unit": "dB(V)" },
+      { "지역": "나", "시간대": "밤", "limit": 60, "operator": "<=", "unit": "dB(V)" },
+      { "지역": "다", "시간대": "낮", "limit": 70, "operator": "<=", "unit": "dB(V)" },
+      { "지역": "다", "시간대": "밤", "limit": 65, "operator": "<=", "unit": "dB(V)" },
+      { "지역": "라", "시간대": "낮", "limit": 75, "operator": "<=", "unit": "dB(V)" },
+      { "지역": "라", "시간대": "밤", "limit": 70, "operator": "<=", "unit": "dB(V)" }
+    ],
+    "보정값": [
+      { "조건": "측정진동발생시간 백분율 < 25%",
+        "보정": +10, "단위": "dB",
+        "criteria": { "logic": "AND", "conditions": [{ "metric": "vibrationDurationRatio", "operator": "<", "value": 25, "unit": "%" }] }
+      },
+      { "조건": "25% ≤ 측정진동발생시간 백분율 < 50%",
+        "보정": +5, "단위": "dB",
+        "criteria": { "logic": "AND", "conditions": [
+          { "metric": "vibrationDurationRatio", "operator": ">=", "value": 25, "unit": "%" },
+          { "metric": "vibrationDurationRatio", "operator": "<",  "value": 50, "unit": "%" }
+        ]}
+      }
+    ],
+    "특수규정": [
+      { "rule": "산업단지", "applicableRegion": "라", "criteriaText": "산업단지에 대하여는 라목의 허용 기준치를 적용한다." },
+      { "rule": "정온시설 50m 이내", "applicableRegion": "가",
+        "criteriaText": "정온시설 부지경계선으로부터 50m 이내 지역은 정온시설 부지경계선에서 측정한 진동레벨 기준 가목 허용 기준치 적용",
+        "criteria": { "logic": "AND", "conditions": [
+          { "metric": "distanceToQuietFacility", "operator": "<=", "value": 50, "unit": "m" }
+        ]}
+      },
+      { "rule": "산업단지 + 정온시설 50m 이내 중복",
+        "criteriaText": "중복 시 시·도지사가 별도 배출허용기준 정함" }
+    ],
+    "비고": [
+      "진동의 측정 및 평가기준은 환경오염공정시험기준에 따른다.",
+      "대상 지역의 구분은 「국토의 계획 및 이용에 관한 법률」에 따른다.",
+      "허용 기준치는 해당 공장이 입지한 대상 지역을 기준으로 하여 적용한다."
+    ]
+  }
+}
