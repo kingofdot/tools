@@ -1394,6 +1394,9 @@ function renderMasterDataPanel(wrap) {
               style="padding:3px 8px;border:1px solid var(--border);border-radius:6px;background:var(--bg-primary);color:var(--text-primary);font-family:var(--font-mono);font-size:12px;width:160px;outline:none">
           </div>
           <span style="font-size:11px;background:var(--accent-dim);color:var(--accent);padding:2px 8px;border-radius:99px;font-weight:700">${db.length}건</span>
+          <button class="btn" style="padding:3px 10px;font-size:11px"
+            onclick="masterDataDownload(${selectedMasterDataIdx})"
+            title="이 테이블 전체를 JSON 파일로 저장">⬇ JSON</button>
           <input type="text" placeholder="검색…" value="${_masterDataSearch}"
             oninput="_masterDataSearch=this.value;renderUiTable()"
             style="margin-left:auto;padding:4px 10px;border:1px solid var(--border);border-radius:7px;background:var(--bg-primary);color:var(--text-primary);font-size:12px;width:180px">
@@ -1455,6 +1458,26 @@ function masterDataEditField(i, key, val) {
   if (!masterDataRegistry[i]) return;
   masterDataRegistry[i][key] = val.trim();
   renderUiTable();
+}
+
+// 선택된 테이블의 전역 배열 전체를 JSON 파일로 다운로드 (검색 필터 무시 — 원본 그대로)
+function masterDataDownload(i) {
+  const entry = masterDataRegistry[i];
+  if (!entry) return;
+  const raw = (typeof window !== 'undefined') ? window[entry.globalVar] : null;
+  if (!Array.isArray(raw)) {
+    if (typeof toast === 'function') toast(`${entry.globalVar} 데이터를 찾을 수 없음`, 'error');
+    return;
+  }
+  const blob = new Blob([JSON.stringify(raw, null, 2)], { type: 'application/json;charset=utf-8' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `${entry.globalVar || entry.name || 'data'}.json`;
+  document.body.appendChild(a);
+  a.click();
+  setTimeout(() => { document.body.removeChild(a); URL.revokeObjectURL(url); }, 0);
+  if (typeof toast === 'function') toast(`${entry.label || entry.name} → JSON 저장`, 'success');
 }
 
 // ══════════════════════════════════════════════════════════════
