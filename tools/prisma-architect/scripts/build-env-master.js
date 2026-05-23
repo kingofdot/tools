@@ -10,11 +10,11 @@ const ROOT = path.join(__dirname, '..');
 
 const SOURCES = [
   // ── 대기 (대기환경보전법 / 배출계수 고시 / EPA AP-42 참고) ──────────────────
-  { domain:'대기', var:'AirPollutantsDB',                label:'대기오염물질',                     arrayKey:'별표내용',  fields:['depth','type','marker','text'], file:'data/air/law_active/docs/annex1_airPollutants.json' },
-  { domain:'대기', var:'AirMonitoredSubstancesDB',       label:'유해성대기감시물질',               arrayKey:'별표내용',  fields:['depth','type','marker','text'], file:'data/air/law_active/docs/annex1-2_hazardousAirMonitoredSubstances.json' },
+  { domain:'대기', var:'AirPollutantsDB',                label:'대기오염물질',                     arrayKey:'별표내용',                                       file:'data/air/law_active/docs/annex1_airPollutants.json' },
+  { domain:'대기', var:'AirMonitoredSubstancesDB',       label:'유해성대기감시물질',               arrayKey:'별표내용',                                       file:'data/air/law_active/docs/annex1-2_hazardousAirMonitoredSubstances.json' },
   { domain:'대기', var:'AirBusinessClassificationDB',    label:'대기 사업장 분류기준',             arrayKey:'별표내용',                                       file:'data/air/law_active/docs/annex1-3_businessClassification.json' },
-  { domain:'대기', var:'AirHazardousPollutantsDB',       label:'특정대기유해물질',                 arrayKey:'별표내용',  fields:['depth','type','marker','text'], file:'data/air/law_active/docs/annex2_specificHazardousAirPollutants.json' },
-  { domain:'대기', var:'AirPreventionFacilitiesDB',      label:'대기오염방지시설',                 arrayKey:'별표내용',  fields:['depth','type','marker','text'], file:'data/air/law_active/docs/annex4_airPollutionPreventionFacilities.json' },
+  { domain:'대기', var:'AirHazardousPollutantsDB',       label:'특정대기유해물질',                 arrayKey:'별표내용',                                       file:'data/air/law_active/docs/annex2_specificHazardousAirPollutants.json' },
+  { domain:'대기', var:'AirPreventionFacilitiesDB',      label:'대기오염방지시설',                 arrayKey:'별표내용',                                       file:'data/air/law_active/docs/annex4_airPollutionPreventionFacilities.json' },
   { domain:'대기', var:'AirHazardousFacilityCriteriaDB', label:'특정대기유해 시설 적용기준',       arrayKey:'별표내용',                                       file:'data/air/law_active/docs/annex8-2_specificHazardousFacilityCriteria.json' },
   { domain:'대기', var:'AirHourlyEmissionMethodDB',      label:'시간당 대기오염물질 발생량 산정',  arrayKey:'산정방법',                                       file:'data/air/law_active/docs/annex10_hourlyEmissionCalculation.json' },
   { domain:'대기', var:'AirDustBusinessesDB',            label:'비산먼지 발생 사업',               arrayKey:'별표내용',  fields:['depth','type','marker','text'], file:'data/air/law_active/docs/annex13_dustEmissionBusinesses.json' },

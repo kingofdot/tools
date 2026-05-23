@@ -45,25 +45,25 @@
         "criteriaText": "충격음 성분이 있는 경우 허용 기준치에 -5dB 보정"
       },
       { "조건": "측정소음발생시간 백분율 < 12.5%",
-        "보정": +15, "단위": "dB",
+        "보정": 15, "단위": "dB",
         "criteria": { "logic": "AND", "conditions": [{ "metric": "noiseDurationRatio", "operator": "<", "value": 12.5, "unit": "%" }] }
       },
       { "조건": "12.5% ≤ 측정소음발생시간 백분율 < 25%",
-        "보정": +10, "단위": "dB",
+        "보정": 10, "단위": "dB",
         "criteria": { "logic": "AND", "conditions": [
           { "metric": "noiseDurationRatio", "operator": ">=", "value": 12.5, "unit": "%" },
           { "metric": "noiseDurationRatio", "operator": "<",  "value": 25,   "unit": "%" }
         ]}
       },
       { "조건": "25% ≤ 측정소음발생시간 백분율 < 50%",
-        "보정": +5, "단위": "dB",
+        "보정": 5, "단위": "dB",
         "criteria": { "logic": "AND", "conditions": [
           { "metric": "noiseDurationRatio", "operator": ">=", "value": 25, "unit": "%" },
           { "metric": "noiseDurationRatio", "operator": "<",  "value": 50, "unit": "%" }
         ]}
       },
       { "조건": "50% ≤ 측정소음발생시간 백분율 < 75%",
-        "보정": +3, "단위": "dB",
+        "보정": 3, "단위": "dB",
         "criteria": { "logic": "AND", "conditions": [
           { "metric": "noiseDurationRatio", "operator": ">=", "value": 50, "unit": "%" },
           { "metric": "noiseDurationRatio", "operator": "<",  "value": 75, "unit": "%" }
@@ -116,11 +116,11 @@
     ],
     "보정값": [
       { "조건": "측정진동발생시간 백분율 < 25%",
-        "보정": +10, "단위": "dB",
+        "보정": 10, "단위": "dB",
         "criteria": { "logic": "AND", "conditions": [{ "metric": "vibrationDurationRatio", "operator": "<", "value": 25, "unit": "%" }] }
       },
       { "조건": "25% ≤ 측정진동발생시간 백분율 < 50%",
-        "보정": +5, "단위": "dB",
+        "보정": 5, "단위": "dB",
         "criteria": { "logic": "AND", "conditions": [
           { "metric": "vibrationDurationRatio", "operator": ">=", "value": 25, "unit": "%" },
           { "metric": "vibrationDurationRatio", "operator": "<",  "value": 50, "unit": "%" }

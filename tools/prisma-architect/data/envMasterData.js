@@ -4,386 +4,258 @@
 
 var AirPollutantsDB = [
   {
-    "depth": 0,
-    "type": "number",
     "marker": "1.",
     "text": "입자상물질"
   },
   {
-    "depth": 0,
-    "type": "number",
     "marker": "2.",
     "text": "브롬 및 그 화합물"
   },
   {
-    "depth": 0,
-    "type": "number",
     "marker": "3.",
     "text": "알루미늄 및 그 화합물"
   },
   {
-    "depth": 0,
-    "type": "number",
     "marker": "4.",
     "text": "바나듐 및 그 화합물"
   },
   {
-    "depth": 0,
-    "type": "number",
     "marker": "5.",
     "text": "망간화합물"
   },
   {
-    "depth": 0,
-    "type": "number",
     "marker": "6.",
     "text": "철 및 그 화합물"
   },
   {
-    "depth": 0,
-    "type": "number",
     "marker": "7.",
     "text": "아연 및 그 화합물"
   },
   {
-    "depth": 0,
-    "type": "number",
     "marker": "8.",
     "text": "셀렌 및 그 화합물"
   },
   {
-    "depth": 0,
-    "type": "number",
     "marker": "9.",
     "text": "안티몬 및 그 화합물"
   },
   {
-    "depth": 0,
-    "type": "number",
     "marker": "10.",
     "text": "주석 및 그 화합물"
   },
   {
-    "depth": 0,
-    "type": "number",
     "marker": "11.",
     "text": "텔루륨 및 그 화합물"
   },
   {
-    "depth": 0,
-    "type": "number",
     "marker": "12.",
     "text": "바륨 및 그 화합물"
   },
   {
-    "depth": 0,
-    "type": "number",
     "marker": "13.",
     "text": "일산화탄소"
   },
   {
-    "depth": 0,
-    "type": "number",
     "marker": "14.",
     "text": "암모니아"
   },
   {
-    "depth": 0,
-    "type": "number",
     "marker": "15.",
     "text": "질소산화물"
   },
   {
-    "depth": 0,
-    "type": "number",
     "marker": "16.",
     "text": "황산화물"
   },
   {
-    "depth": 0,
-    "type": "number",
     "marker": "17.",
     "text": "황화수소"
   },
   {
-    "depth": 0,
-    "type": "number",
     "marker": "18.",
     "text": "황화메틸"
   },
   {
-    "depth": 0,
-    "type": "number",
     "marker": "19.",
     "text": "이황화메틸"
   },
   {
-    "depth": 0,
-    "type": "number",
     "marker": "20.",
     "text": "메르캅탄류"
   },
   {
-    "depth": 0,
-    "type": "number",
     "marker": "21.",
     "text": "아민류"
   },
   {
-    "depth": 0,
-    "type": "number",
     "marker": "22.",
     "text": "사염화탄소"
   },
   {
-    "depth": 0,
-    "type": "number",
     "marker": "23.",
     "text": "이황화탄소"
   },
   {
-    "depth": 0,
-    "type": "number",
     "marker": "24.",
     "text": "탄화수소"
   },
   {
-    "depth": 0,
-    "type": "number",
     "marker": "25.",
     "text": "인 및 그 화합물"
   },
   {
-    "depth": 0,
-    "type": "number",
     "marker": "26.",
     "text": "붕소화합물"
   },
   {
-    "depth": 0,
-    "type": "number",
     "marker": "27.",
     "text": "아닐린"
   },
   {
-    "depth": 0,
-    "type": "number",
     "marker": "28.",
     "text": "벤젠"
   },
   {
-    "depth": 0,
-    "type": "number",
     "marker": "29.",
     "text": "스틸렌"
   },
   {
-    "depth": 0,
-    "type": "number",
     "marker": "30.",
     "text": "아크롤레인"
   },
   {
-    "depth": 0,
-    "type": "number",
     "marker": "31.",
     "text": "카드뮴 및 그 화합물"
   },
   {
-    "depth": 0,
-    "type": "number",
     "marker": "32.",
     "text": "시안화물"
   },
   {
-    "depth": 0,
-    "type": "number",
     "marker": "33.",
     "text": "납 및 그 화합물"
   },
   {
-    "depth": 0,
-    "type": "number",
     "marker": "34.",
     "text": "크롬 및 그 화합물"
   },
   {
-    "depth": 0,
-    "type": "number",
     "marker": "35.",
     "text": "비소 및 그 화합물"
   },
   {
-    "depth": 0,
-    "type": "number",
     "marker": "36.",
     "text": "수은 및 그 화합물"
   },
   {
-    "depth": 0,
-    "type": "number",
     "marker": "37.",
     "text": "구리 및 그 화합물"
   },
   {
-    "depth": 0,
-    "type": "number",
     "marker": "38.",
     "text": "염소 및 그 화합물"
   },
   {
-    "depth": 0,
-    "type": "number",
     "marker": "39.",
     "text": "불소화물"
   },
   {
-    "depth": 0,
-    "type": "number",
     "marker": "40.",
     "text": "석면"
   },
   {
-    "depth": 0,
-    "type": "number",
     "marker": "41.",
     "text": "니켈 및 그 화합물"
   },
   {
-    "depth": 0,
-    "type": "number",
     "marker": "42.",
     "text": "염화비닐"
   },
   {
-    "depth": 0,
-    "type": "number",
     "marker": "43.",
     "text": "다이옥신"
   },
   {
-    "depth": 0,
-    "type": "number",
     "marker": "44.",
     "text": "페놀 및 그 화합물"
   },
   {
-    "depth": 0,
-    "type": "number",
     "marker": "45.",
     "text": "베릴륨 및 그 화합물"
   },
   {
-    "depth": 0,
-    "type": "number",
     "marker": "46.",
     "text": "프로필렌옥사이드"
   },
   {
-    "depth": 0,
-    "type": "number",
     "marker": "47.",
     "text": "폴리염화비페닐"
   },
   {
-    "depth": 0,
-    "type": "number",
     "marker": "48.",
     "text": "클로로포름"
   },
   {
-    "depth": 0,
-    "type": "number",
     "marker": "49.",
     "text": "포름알데히드"
   },
   {
-    "depth": 0,
-    "type": "number",
     "marker": "50.",
     "text": "아세트알데히드"
   },
   {
-    "depth": 0,
-    "type": "number",
     "marker": "51.",
     "text": "벤지딘"
   },
   {
-    "depth": 0,
-    "type": "number",
     "marker": "52.",
     "text": "1,3-부타디엔"
   },
   {
-    "depth": 0,
-    "type": "number",
     "marker": "53.",
     "text": "다환 방향족 탄화수소류"
   },
   {
-    "depth": 0,
-    "type": "number",
     "marker": "54.",
     "text": "에틸렌옥사이드"
   },
   {
-    "depth": 0,
-    "type": "number",
     "marker": "55.",
     "text": "디클로로메탄"
   },
   {
-    "depth": 0,
-    "type": "number",
     "marker": "56.",
     "text": "테트라클로로에틸렌"
   },
   {
-    "depth": 0,
-    "type": "number",
     "marker": "57.",
     "text": "1,2-디클로로에탄"
   },
   {
-    "depth": 0,
-    "type": "number",
     "marker": "58.",
     "text": "에틸벤젠"
   },
   {
-    "depth": 0,
-    "type": "number",
     "marker": "59.",
     "text": "트리클로로에틸렌"
   },
   {
-    "depth": 0,
-    "type": "number",
     "marker": "60.",
     "text": "아크릴로니트릴"
   },
   {
-    "depth": 0,
-    "type": "number",
     "marker": "61.",
     "text": "히드라진"
   },
   {
-    "depth": 0,
-    "type": "number",
     "marker": "62.",
     "text": "아세트산비닐"
   },
   {
-    "depth": 0,
-    "type": "number",
     "marker": "63.",
     "text": "비스(2-에틸헥실)프탈레이트"
   },
   {
-    "depth": 0,
-    "type": "number",
     "marker": "64.",
     "text": "디메틸포름아미드"
   }
@@ -391,260 +263,174 @@ var AirPollutantsDB = [
 
 var AirMonitoredSubstancesDB = [
   {
-    "depth": 0,
-    "type": "number",
     "marker": "1.",
     "text": "카드뮴 및 그 화합물"
   },
   {
-    "depth": 0,
-    "type": "number",
     "marker": "2.",
     "text": "시안화수소"
   },
   {
-    "depth": 0,
-    "type": "number",
     "marker": "3.",
     "text": "납 및 그 화합물"
   },
   {
-    "depth": 0,
-    "type": "number",
     "marker": "4.",
     "text": "폴리염화비페닐"
   },
   {
-    "depth": 0,
-    "type": "number",
     "marker": "5.",
     "text": "크롬 및 그 화합물"
   },
   {
-    "depth": 0,
-    "type": "number",
     "marker": "6.",
     "text": "비소 및 그 화합물"
   },
   {
-    "depth": 0,
-    "type": "number",
     "marker": "7.",
     "text": "수은 및 그 화합물"
   },
   {
-    "depth": 0,
-    "type": "number",
     "marker": "8.",
     "text": "프로필렌옥사이드"
   },
   {
-    "depth": 0,
-    "type": "number",
     "marker": "9.",
     "text": "염소 및 염화수소"
   },
   {
-    "depth": 0,
-    "type": "number",
     "marker": "10.",
     "text": "불소화물"
   },
   {
-    "depth": 0,
-    "type": "number",
     "marker": "11.",
     "text": "석면"
   },
   {
-    "depth": 0,
-    "type": "number",
     "marker": "12.",
     "text": "니켈 및 그 화합물"
   },
   {
-    "depth": 0,
-    "type": "number",
     "marker": "13.",
     "text": "염화비닐"
   },
   {
-    "depth": 0,
-    "type": "number",
     "marker": "14.",
     "text": "다이옥신"
   },
   {
-    "depth": 0,
-    "type": "number",
     "marker": "15.",
     "text": "페놀 및 그 화합물"
   },
   {
-    "depth": 0,
-    "type": "number",
     "marker": "16.",
     "text": "베릴륨 및 그 화합물"
   },
   {
-    "depth": 0,
-    "type": "number",
     "marker": "17.",
     "text": "벤젠"
   },
   {
-    "depth": 0,
-    "type": "number",
     "marker": "18.",
     "text": "사염화탄소"
   },
   {
-    "depth": 0,
-    "type": "number",
     "marker": "19.",
     "text": "이황화메틸"
   },
   {
-    "depth": 0,
-    "type": "number",
     "marker": "20.",
     "text": "아닐린"
   },
   {
-    "depth": 0,
-    "type": "number",
     "marker": "21.",
     "text": "클로로포름"
   },
   {
-    "depth": 0,
-    "type": "number",
     "marker": "22.",
     "text": "포름알데히드"
   },
   {
-    "depth": 0,
-    "type": "number",
     "marker": "23.",
     "text": "아세트알데히드"
   },
   {
-    "depth": 0,
-    "type": "number",
     "marker": "24.",
     "text": "벤지딘"
   },
   {
-    "depth": 0,
-    "type": "number",
     "marker": "25.",
     "text": "1,3-부타디엔"
   },
   {
-    "depth": 0,
-    "type": "number",
     "marker": "26.",
     "text": "다환 방향족 탄화수소류"
   },
   {
-    "depth": 0,
-    "type": "number",
     "marker": "27.",
     "text": "에틸렌옥사이드"
   },
   {
-    "depth": 0,
-    "type": "number",
     "marker": "28.",
     "text": "디클로로메탄"
   },
   {
-    "depth": 0,
-    "type": "number",
     "marker": "29.",
     "text": "스틸렌"
   },
   {
-    "depth": 0,
-    "type": "number",
     "marker": "30.",
     "text": "테트라클로로에틸렌"
   },
   {
-    "depth": 0,
-    "type": "number",
     "marker": "31.",
     "text": "1,2-디클로로에탄"
   },
   {
-    "depth": 0,
-    "type": "number",
     "marker": "32.",
     "text": "에틸벤젠"
   },
   {
-    "depth": 0,
-    "type": "number",
     "marker": "33.",
     "text": "트리클로로에틸렌"
   },
   {
-    "depth": 0,
-    "type": "number",
     "marker": "34.",
     "text": "아크릴로니트릴"
   },
   {
-    "depth": 0,
-    "type": "number",
     "marker": "35.",
     "text": "히드라진"
   },
   {
-    "depth": 0,
-    "type": "number",
     "marker": "36.",
     "text": "암모니아"
   },
   {
-    "depth": 0,
-    "type": "number",
     "marker": "37.",
     "text": "아세트산비닐"
   },
   {
-    "depth": 0,
-    "type": "number",
     "marker": "38.",
     "text": "비스(2-에틸헥실)프탈레이트"
   },
   {
-    "depth": 0,
-    "type": "number",
     "marker": "39.",
     "text": "디메틸포름아미드"
   },
   {
-    "depth": 0,
-    "type": "number",
     "marker": "40.",
     "text": "일산화탄소"
   },
   {
-    "depth": 0,
-    "type": "number",
     "marker": "41.",
     "text": "알루미늄 및 그 화합물"
   },
   {
-    "depth": 0,
-    "type": "number",
     "marker": "42.",
     "text": "망간화합물"
   },
   {
-    "depth": 0,
-    "type": "number",
     "marker": "43.",
     "text": "구리 및 그 화합물"
   }
@@ -758,212 +544,142 @@ var AirBusinessClassificationDB = [
 
 var AirHazardousPollutantsDB = [
   {
-    "depth": 0,
-    "type": "number",
     "marker": "1.",
     "text": "카드뮴 및 그 화합물"
   },
   {
-    "depth": 0,
-    "type": "number",
     "marker": "2.",
     "text": "시안화수소"
   },
   {
-    "depth": 0,
-    "type": "number",
     "marker": "3.",
     "text": "납 및 그 화합물"
   },
   {
-    "depth": 0,
-    "type": "number",
     "marker": "4.",
     "text": "폴리염화비페닐"
   },
   {
-    "depth": 0,
-    "type": "number",
     "marker": "5.",
     "text": "크롬 및 그 화합물"
   },
   {
-    "depth": 0,
-    "type": "number",
     "marker": "6.",
     "text": "비소 및 그 화합물"
   },
   {
-    "depth": 0,
-    "type": "number",
     "marker": "7.",
     "text": "수은 및 그 화합물"
   },
   {
-    "depth": 0,
-    "type": "number",
     "marker": "8.",
     "text": "프로필렌 옥사이드"
   },
   {
-    "depth": 0,
-    "type": "number",
     "marker": "9.",
     "text": "염소 및 염화수소"
   },
   {
-    "depth": 0,
-    "type": "number",
     "marker": "10.",
     "text": "불소화물"
   },
   {
-    "depth": 0,
-    "type": "number",
     "marker": "11.",
     "text": "석면"
   },
   {
-    "depth": 0,
-    "type": "number",
     "marker": "12.",
     "text": "니켈 및 그 화합물"
   },
   {
-    "depth": 0,
-    "type": "number",
     "marker": "13.",
     "text": "염화비닐"
   },
   {
-    "depth": 0,
-    "type": "number",
     "marker": "14.",
     "text": "다이옥신"
   },
   {
-    "depth": 0,
-    "type": "number",
     "marker": "15.",
     "text": "페놀 및 그 화합물"
   },
   {
-    "depth": 0,
-    "type": "number",
     "marker": "16.",
     "text": "베릴륨 및 그 화합물"
   },
   {
-    "depth": 0,
-    "type": "number",
     "marker": "17.",
     "text": "벤젠"
   },
   {
-    "depth": 0,
-    "type": "number",
     "marker": "18.",
     "text": "사염화탄소"
   },
   {
-    "depth": 0,
-    "type": "number",
     "marker": "19.",
     "text": "이황화메틸"
   },
   {
-    "depth": 0,
-    "type": "number",
     "marker": "20.",
     "text": "아닐린"
   },
   {
-    "depth": 0,
-    "type": "number",
     "marker": "21.",
     "text": "클로로포름"
   },
   {
-    "depth": 0,
-    "type": "number",
     "marker": "22.",
     "text": "포름알데히드"
   },
   {
-    "depth": 0,
-    "type": "number",
     "marker": "23.",
     "text": "아세트알데히드"
   },
   {
-    "depth": 0,
-    "type": "number",
     "marker": "24.",
     "text": "벤지딘"
   },
   {
-    "depth": 0,
-    "type": "number",
     "marker": "25.",
     "text": "1,3-부타디엔"
   },
   {
-    "depth": 0,
-    "type": "number",
     "marker": "26.",
     "text": "다환 방향족 탄화수소류"
   },
   {
-    "depth": 0,
-    "type": "number",
     "marker": "27.",
     "text": "에틸렌옥사이드"
   },
   {
-    "depth": 0,
-    "type": "number",
     "marker": "28.",
     "text": "디클로로메탄"
   },
   {
-    "depth": 0,
-    "type": "number",
     "marker": "29.",
     "text": "스틸렌"
   },
   {
-    "depth": 0,
-    "type": "number",
     "marker": "30.",
     "text": "테트라클로로에틸렌"
   },
   {
-    "depth": 0,
-    "type": "number",
     "marker": "31.",
     "text": "1,2-디클로로에탄"
   },
   {
-    "depth": 0,
-    "type": "number",
     "marker": "32.",
     "text": "에틸벤젠"
   },
   {
-    "depth": 0,
-    "type": "number",
     "marker": "33.",
     "text": "트리클로로에틸렌"
   },
   {
-    "depth": 0,
-    "type": "number",
     "marker": "34.",
     "text": "아크릴로니트릴"
   },
   {
-    "depth": 0,
-    "type": "number",
     "marker": "35.",
     "text": "히드라진"
   }
@@ -971,98 +687,66 @@ var AirHazardousPollutantsDB = [
 
 var AirPreventionFacilitiesDB = [
   {
-    "depth": 0,
-    "type": "number",
     "marker": "1.",
     "text": "중력집진시설"
   },
   {
-    "depth": 0,
-    "type": "number",
     "marker": "2.",
     "text": "관성력집진시설"
   },
   {
-    "depth": 0,
-    "type": "number",
     "marker": "3.",
     "text": "원심력집진시설"
   },
   {
-    "depth": 0,
-    "type": "number",
     "marker": "4.",
     "text": "세정집진시설"
   },
   {
-    "depth": 0,
-    "type": "number",
     "marker": "5.",
     "text": "여과집진시설"
   },
   {
-    "depth": 0,
-    "type": "number",
     "marker": "6.",
     "text": "전기집진시설"
   },
   {
-    "depth": 0,
-    "type": "number",
     "marker": "7.",
     "text": "음파집진시설"
   },
   {
-    "depth": 0,
-    "type": "number",
     "marker": "8.",
     "text": "흡수에 의한 시설"
   },
   {
-    "depth": 0,
-    "type": "number",
     "marker": "9.",
     "text": "흡착에 의한 시설"
   },
   {
-    "depth": 0,
-    "type": "number",
     "marker": "10.",
     "text": "직접연소에 의한 시설"
   },
   {
-    "depth": 0,
-    "type": "number",
     "marker": "11.",
     "text": "촉매반응을 이용하는 시설"
   },
   {
-    "depth": 0,
-    "type": "number",
     "marker": "12.",
     "text": "응축에 의한 시설"
   },
   {
-    "depth": 0,
-    "type": "number",
     "marker": "13.",
     "text": "산화ㆍ환원에 의한 시설"
   },
   {
-    "depth": 0,
-    "type": "number",
     "marker": "14.",
     "text": "미생물을 이용한 처리시설"
   },
   {
-    "depth": 0,
-    "type": "number",
     "marker": "15.",
     "text": "연소조절에 의한 시설"
   },
   {
-    "depth": 0,
-    "type": "number",
     "marker": "16.",
     "text": "위 제1호부터 제15호까지의 시설과 같은 방지효율 또는 그 이상의 방지효율을 가진 시설로서 기후에너지환경부장관이 인정하는 시설"
   }
