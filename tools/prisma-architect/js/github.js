@@ -106,6 +106,7 @@ async function githubLoad() {
     if (data.comboboxStore) comboboxStore = data.comboboxStore;
     // 코드 기반 마스터 데이터 재등록 (comboboxStore 덮어씌워진 후 복원)
     if (typeof initWasteMaster === 'function') initWasteMaster();
+    if (typeof initEnvMaster === 'function') initEnvMaster();
     // functionStore: 저장된 것과 코드 정의 함수를 병합
     // (fn-definitions.js 자동 등록 항목은 항상 최신 코드 기준 유지)
     if (data.functionStore) {
@@ -116,6 +117,8 @@ async function githubLoad() {
     }
     if (data.assemblyStore) assemblyStore = data.assemblyStore;
     if (data.masterDataRegistry && data.masterDataRegistry.length) masterDataRegistry = data.masterDataRegistry;
+    // masterDataRegistry 가 저장본으로 덮어씌워진 뒤에도 환경 분야 테이블이 빠져 있으면 다시 추가
+    if (typeof initEnvMaster === 'function') initEnvMaster();
     if (data.todoItems) todoItems = data.todoItems;
     if (data.suggestItems) suggestItems = data.suggestItems;
     if (data.annotations) annotations = data.annotations;

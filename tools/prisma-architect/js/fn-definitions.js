@@ -255,6 +255,44 @@ function initWasteMaster() {
 }
 initWasteMaster();
 
+// 환경 분야 마스터(대기·폐수·악취·소음진동). data/envMasterData.js 의 EnvMasterMeta 기반.
+// 각 테이블의 대표 텍스트 컬럼을 comboboxStore에 등록하고 masterDataRegistry에 idempotent push.
+function initEnvMaster() {
+  // 저장본에 domain 누락된 기존 항목 보강 (WasteMasterDB)
+  if (typeof masterDataRegistry !== 'undefined') {
+    const waste = masterDataRegistry.find(x => x.name === 'WasteMasterDB');
+    if (waste && !waste.domain) waste.domain = '폐기물';
+  }
+  if (typeof EnvMasterMeta === 'undefined' || !Array.isArray(EnvMasterMeta)) {
+    console.warn('EnvMasterMeta가 로드되지 않았습니다. data/envMasterData.js 확인 필요');
+    return;
+  }
+  EnvMasterMeta.forEach(m => {
+    const arr = (typeof window !== 'undefined') ? window[m.var] : globalThis[m.var];
+    if (!Array.isArray(arr) || !arr.length) return;
+    // 대표 컬럼: text(별표내용) 또는 name(pollutants/substances)
+    const sample = arr[0];
+    const labelKey = ('text' in sample) ? 'text' : (('name' in sample) ? 'name' : Object.keys(sample)[0]);
+    comboboxStore[m.var] = arr.map(r => r[labelKey]).filter(Boolean);
+    // masterDataRegistry — 이미 있으면 domain만 갱신, 없으면 push
+    if (typeof masterDataRegistry !== 'undefined') {
+      const exists = masterDataRegistry.find(x => x.name === m.var);
+      if (!exists) {
+        masterDataRegistry.push({
+          name:         m.var,
+          label:        m.label,
+          globalVar:    m.var,
+          searchFields: labelKey,
+          domain:       m.domain,
+        });
+      } else if (!exists.domain && m.domain) {
+        exists.domain = m.domain;
+      }
+    }
+  });
+}
+initEnvMaster();
+
 // ── functionStore 동기화 ───────────────────────────────────
 // 로드 시 FunctionRegistry → functionStore 자동 반영
 Object.entries(FunctionRegistry._store).forEach(([name, def]) => {

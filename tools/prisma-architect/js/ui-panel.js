@@ -1265,10 +1265,76 @@ let masterDataRegistry = [
     label:        '폐기물 마스터',
     globalVar:    'WasteMasterDB',
     searchFields: 'wasteCode,wasteName',
+    domain:       '폐기물',
   },
 ];
 let selectedMasterDataIdx = 0;
 let _masterDataSearch = '';
+let _masterDataDomainCollapsed = {};   // { domain: true } 면 접힘
+
+// 분야별 그룹 헤더 + 아이템 렌더. 원본 masterDataRegistry 의 idx 를 보존해
+// 드래그·선택·삭제 핸들러가 그대로 동작.
+const _MASTER_DATA_DOMAIN_ORDER = ['폐기물', '대기', '폐수', '악취', '소음진동', '기타'];
+
+function renderMasterDataGroups() {
+  if (!masterDataRegistry.length) {
+    return '<div style="color:var(--text-muted);font-size:12px;text-align:center;padding:20px">데이터 없음</div>';
+  }
+  // 분야별 묶기 — 원본 idx 보존
+  const groups = {};
+  masterDataRegistry.forEach((m, i) => {
+    const d = m.domain || '기타';
+    (groups[d] = groups[d] || []).push({ m, i });
+  });
+  // 정의된 순서 + 정의 외 분야는 뒤에
+  const order = [..._MASTER_DATA_DOMAIN_ORDER];
+  Object.keys(groups).forEach(d => { if (!order.includes(d)) order.push(d); });
+
+  return order.filter(d => groups[d] && groups[d].length).map(domain => {
+    const items = groups[domain];
+    const collapsed = !!_masterDataDomainCollapsed[domain];
+    const headerCaret = collapsed ? '▸' : '▾';
+    return `
+      <div style="margin-bottom:8px">
+        <div onclick="masterDataDomainToggle('${domain.replace(/'/g,"\\'")}')"
+             style="display:flex;align-items:center;gap:5px;padding:4px 6px;cursor:pointer;
+                    font-size:11px;font-weight:700;color:var(--text-secondary);
+                    text-transform:uppercase;letter-spacing:.5px;user-select:none">
+          <span style="font-size:9px">${headerCaret}</span>
+          <span>${domain}</span>
+          <span style="margin-left:auto;font-weight:500;color:var(--text-muted)">${items.length}</span>
+        </div>
+        ${collapsed ? '' : items.map(({ m, i }) => {
+          const raw = (typeof window !== 'undefined' && window[m.globalVar]);
+          const count = Array.isArray(raw) ? raw.length : 0;
+          const active = selectedMasterDataIdx === i;
+          return `<div draggable="true"
+            ondragstart="listDragStart('masterData',${i});event.currentTarget.style.opacity='.4'"
+            ondragend="event.currentTarget.style.opacity='1'"
+            ondragover="listDragOver(event);event.currentTarget.style.background='var(--bg-hover)'"
+            ondragleave="event.currentTarget.style.background=''"
+            ondrop="event.currentTarget.style.background='';listDragDrop('masterData',${i})"
+            onclick="masterDataSelect(${i})"
+            style="padding:6px 10px 6px 16px;border-radius:7px;cursor:grab;margin-bottom:2px;
+            background:${active ? 'var(--accent-dim)' : 'transparent'};
+            border:${active ? '1px solid var(--accent)' : '1px solid transparent'};
+            display:flex;align-items:center;gap:6px">
+            <span style="color:var(--text-muted);font-size:13px;flex-shrink:0">⠿</span>
+            <div style="flex:1;overflow:hidden">
+              <div style="font-weight:600;font-size:12px;color:${active ? 'var(--accent)' : 'var(--text-primary)'};white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${m.label || m.name}</div>
+              <div style="font-size:10px;color:var(--text-muted);font-family:var(--font-mono)">${count > 0 ? count + '개 · ' : ''}${m.globalVar || ''}</div>
+            </div>
+            <button class="btn btn-danger" style="padding:1px 6px;font-size:10px;flex-shrink:0" onclick="event.stopPropagation();masterDataDelete(${i})">✕</button>
+          </div>`;
+        }).join('')}
+      </div>`;
+  }).join('');
+}
+
+function masterDataDomainToggle(domain) {
+  _masterDataDomainCollapsed[domain] = !_masterDataDomainCollapsed[domain];
+  renderUiTable();
+}
 
 function renderMasterDataPanel(wrap) {
   const titleEl = document.getElementById('uiTitle');
@@ -1294,35 +1360,13 @@ function renderMasterDataPanel(wrap) {
   wrap.innerHTML = `
   <div style="display:flex;height:100%;gap:0">
 
-    <!-- 좌: 데이터 소스 목록 -->
-    <div style="width:220px;flex-shrink:0;border-right:1px solid var(--border);padding:12px;overflow-y:auto">
+    <!-- 좌: 데이터 소스 목록 (분야별 그룹) -->
+    <div style="width:240px;flex-shrink:0;border-right:1px solid var(--border);padding:12px;overflow-y:auto">
       <div style="display:flex;align-items:center;margin-bottom:10px">
         <span style="font-size:12px;font-weight:700;color:var(--text-secondary);text-transform:uppercase;letter-spacing:.5px">데이터 목록</span>
         <button class="btn btn-accent" style="margin-left:auto;padding:2px 10px;font-size:11px" onclick="masterDataAdd()">+ 추가</button>
       </div>
-      ${masterDataRegistry.map((m, i) => {
-        const raw = (typeof window !== 'undefined' && window[m.globalVar]);
-        const count = Array.isArray(raw) ? raw.length : 0;
-        const active = selectedMasterDataIdx === i;
-        return `<div draggable="true"
-          ondragstart="listDragStart('masterData',${i});event.currentTarget.style.opacity='.4'"
-          ondragend="event.currentTarget.style.opacity='1'"
-          ondragover="listDragOver(event);event.currentTarget.style.background='var(--bg-hover)'"
-          ondragleave="event.currentTarget.style.background=''"
-          ondrop="event.currentTarget.style.background='';listDragDrop('masterData',${i})"
-          onclick="masterDataSelect(${i})"
-          style="padding:7px 10px;border-radius:7px;cursor:grab;margin-bottom:3px;
-          background:${active ? 'var(--accent-dim)' : 'transparent'};
-          border:${active ? '1px solid var(--accent)' : '1px solid transparent'};
-          display:flex;align-items:center;gap:6px">
-          <span style="color:var(--text-muted);font-size:13px;flex-shrink:0">⠿</span>
-          <div style="flex:1;overflow:hidden">
-            <div style="font-weight:600;font-family:var(--font-mono);font-size:12px;color:${active ? 'var(--accent)' : 'var(--text-primary)'};white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${m.label || m.name}</div>
-            <div style="font-size:10px;color:var(--text-muted)">${count > 0 ? count + '개' : (m.globalVar || '변수 미설정')}</div>
-          </div>
-          <button class="btn btn-danger" style="padding:1px 6px;font-size:10px;flex-shrink:0" onclick="event.stopPropagation();masterDataDelete(${i})">✕</button>
-        </div>`;
-      }).join('') || '<div style="color:var(--text-muted);font-size:12px;text-align:center;padding:20px">데이터 없음</div>'}
+      ${renderMasterDataGroups()}
     </div>
 
     <!-- 우: 선택된 데이터 상세 -->

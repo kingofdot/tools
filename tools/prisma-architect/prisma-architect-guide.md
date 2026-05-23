@@ -320,6 +320,48 @@ GitHub 불러오기 후에도 재호출 필요.
 
 ---
 
+## 환경 분야 마스터 (대기·폐수·악취·소음진동)
+
+`data/envMasterData.js` — 30개 테이블 (총 ~1,000 rows).
+`scripts/build-env-master.js` 가 `data/<분야>/law_active/docs/` 의 원본 JSON에서 추출.
+원본 필드 보존 — 파일에 따라 `별표내용[{depth,type,marker,text}]` / `pollutants[{id,name}]` / `자격기준` / `entries` 등 다양.
+
+```
+node scripts/build-env-master.js   # 소스 갱신 시 재생성
+```
+
+### 분야별 등록 현황
+
+| 분야 | 테이블 수 | 주요 항목 |
+|---|---|---|
+| 대기 | 14 | 대기오염물질, 특정대기유해물질, 비산먼지(사업/기준/엄격기준), 방지시설, 배출계수 4종(연료/비연료/기타연료/EPA AP-42) |
+| 폐수 | 9 | 수질오염물질, 특정수질유해물질, 폐수배출시설, 방지시설, 산정방법, 경보 종류, 자격기준 |
+| 악취 | 5 | 지정악취물질, 배출시설, 방지계획 요건, 기술진단(내용·대상) |
+| 소음진동 | 2 | 소음발생건설기계, 자격기준 |
+| 폐기물 | 1 | WasteMasterDB (별도 — `data/wasteInformation.js` 로드) |
+
+### 데이터 관리 패널 (UI)
+
+`ui-panel.js renderMasterDataPanel` — 좌측 사이드바가 `domain` 필드로 그룹화되어 분야별로 표시.
+헤더 클릭 → 접기/펼치기. 우측 패널은 선택된 테이블의 컬럼 자동 감지(첫 row의 키) + 검색.
+
+### initEnvMaster() (fn-definitions.js)
+
+- 각 테이블의 대표 컬럼(`text` 또는 `name`)을 `comboboxStore[변수명]` 에 등록
+- `masterDataRegistry` 에 idempotent push (`domain` 필드 포함) — db_select/db_combobox에서 참조 가능
+- 저장본에 `domain` 누락된 항목(`WasteMasterDB`)은 자동 보강
+
+GitHub 로드 / 시트 로드 후에도 호출됨 (`github.js`, `sheets.js`).
+
+### 향후 추가
+
+빌드 스크립트의 SOURCES 배열에 항목 추가 → 재빌드 → 자동으로 패널에 노출.
+미포함 후보(현재 1차 배열이 없거나 구조 복잡):
+- 대기/폐수의 배출허용기준 (`annex8_*`, `annex13_*`) — 중첩 객체 구조 필요
+- 소음진동 배출시설/방지시설 (`annex1, annex2`) — 최상위 배열 없음, 별도 정리 필요
+
+---
+
 ## 조립모델 (설계 완료, 미구현)
 
 여러 UI모델을 조합해 화면을 구성하고 모델 간 데이터 흐름을 관리.
