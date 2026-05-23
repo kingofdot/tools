@@ -274,7 +274,7 @@ function initEnvMaster() {
     const sample = arr[0];
     const labelKey = ('text' in sample) ? 'text' : (('name' in sample) ? 'name' : Object.keys(sample)[0]);
     comboboxStore[m.var] = arr.map(r => r[labelKey]).filter(Boolean);
-    // masterDataRegistry — 이미 있으면 domain만 갱신, 없으면 push
+    // masterDataRegistry — 없으면 push, 있으면 domain/annex 백필
     if (typeof masterDataRegistry !== 'undefined') {
       const exists = masterDataRegistry.find(x => x.name === m.var);
       if (!exists) {
@@ -284,9 +284,11 @@ function initEnvMaster() {
           globalVar:    m.var,
           searchFields: labelKey,
           domain:       m.domain,
+          annex:        m.annex,
         });
-      } else if (!exists.domain && m.domain) {
-        exists.domain = m.domain;
+      } else {
+        if (!exists.domain && m.domain) exists.domain = m.domain;
+        if (!exists.annex  && m.annex)  exists.annex  = m.annex;
       }
     }
   });

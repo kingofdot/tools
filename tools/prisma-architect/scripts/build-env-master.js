@@ -18,8 +18,8 @@ const SOURCES = [
   { domain:'대기', var:'AirHazardousFacilityCriteriaDB', label:'특정대기유해 시설 적용기준',       arrayKey:'별표내용',                                       file:'data/air/law_active/docs/annex8-2_specificHazardousFacilityCriteria.json' },
   { domain:'대기', var:'AirHourlyEmissionMethodDB',      label:'시간당 대기오염물질 발생량 산정',  arrayKey:'산정방법',                                       file:'data/air/law_active/docs/annex10_hourlyEmissionCalculation.json' },
   { domain:'대기', var:'AirDustBusinessesDB',            label:'비산먼지 발생 사업',               arrayKey:'별표내용',  fields:['depth','type','marker','text'], file:'data/air/law_active/docs/annex13_dustEmissionBusinesses.json' },
-  { domain:'대기', var:'AirDustControlStandardsDB',      label:'비산먼지 시설·조치 기준',           arrayKey:'별표내용',  fields:['depth','type','marker','text'], file:'data/air/law_active/docs/annex14_dustControlStandards.json' },
-  { domain:'대기', var:'AirDustStrictStandardsDB',       label:'비산먼지 엄격기준',                arrayKey:'별표내용',  fields:['depth','type','marker','text'], file:'data/air/law_active/docs/annex15_dustControlStrictStandards.json' },
+  { domain:'대기', var:'AirDustControlStandardsDB',      label:'비산먼지 시설·조치 기준',           arrayKey:'별표내용',                                       file:'data/air/law_active/docs/annex14_dustControlStandards.json' },
+  { domain:'대기', var:'AirDustStrictStandardsDB',       label:'비산먼지 엄격기준',                arrayKey:'별표내용',                                       file:'data/air/law_active/docs/annex15_dustControlStrictStandards.json' },
   { domain:'대기', var:'AirEFFueledFacilitiesDB',        label:'배출계수 — 연료 사용 시설',         arrayKey:'entries',                                        file:'data/air/law_active/docs/emissionFactors/annex1_fueledFacilities.json' },
   { domain:'대기', var:'AirEFNonFueledFacilitiesDB',     label:'배출계수 — 연료 미사용 시설',       arrayKey:'entries',                                        file:'data/air/law_active/docs/emissionFactors/annex2_nonFueledFacilities.json' },
   { domain:'대기', var:'AirEFOtherFuelsDB',              label:'배출계수 — 기타연료',               arrayKey:'entries',                                        file:'data/air/law_active/docs/emissionFactors/annex3_otherFuels.json' },
@@ -75,10 +75,19 @@ for (const s of SOURCES) {
     : items;
   lines.push(`var ${s.var} = ${JSON.stringify(rows, null, 2)};`);
   lines.push('');
+  // 별표 표기 — "별표1" / "별표1의2" / "시행령 별표17" 등
+  const annexNum = json['별표번호'] || '';
+  const annexSub = json['별표가지번호'] || '';
+  const isDecree = /시행령/.test(json['법령명'] || '');
+  const annex = annexNum
+    ? `${isDecree ? '시행령 ' : ''}별표${parseInt(annexNum) || annexNum}${(annexSub && annexSub !== '00') ? '의' + parseInt(annexSub) : ''}`
+    : '';
+
   meta.push({
     var:       s.var,
     label:     s.label,
     domain:    s.domain,
+    annex,
     title:     json['별표제목'] || '',
     law:       json['법령명']   || '',
     count:     rows.length,

@@ -1321,7 +1321,10 @@ function renderMasterDataGroups() {
             display:flex;align-items:center;gap:6px">
             <span style="color:var(--text-muted);font-size:13px;flex-shrink:0">⠿</span>
             <div style="flex:1;overflow:hidden">
-              <div style="font-weight:600;font-size:12px;color:${active ? 'var(--accent)' : 'var(--text-primary)'};white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${m.label || m.name}</div>
+              <div style="display:flex;align-items:baseline;gap:6px">
+                <span style="font-weight:600;font-size:12px;color:${active ? 'var(--accent)' : 'var(--text-primary)'};white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${m.label || m.name}</span>
+                ${m.annex ? `<span style="font-size:10px;color:var(--text-muted);font-weight:500;flex-shrink:0">${m.annex}</span>` : ''}
+              </div>
               <div style="font-size:10px;color:var(--text-muted);font-family:var(--font-mono)">${count > 0 ? count + '개 · ' : ''}${m.globalVar || ''}</div>
             </div>
             <button class="btn btn-danger" style="padding:1px 6px;font-size:10px;flex-shrink:0" onclick="event.stopPropagation();masterDataDelete(${i})">✕</button>
