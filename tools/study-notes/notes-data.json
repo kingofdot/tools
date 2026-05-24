@@ -514,6 +514,19 @@
       "order": 39,
       "updatedAt": "2026-05-11T15:56:31.848Z",
       "sha": null
+    },
+    {
+      "id": "2026-05-24T23-24-49",
+      "subject": "민법",
+      "subTopic": "",
+      "topic": "",
+      "mnemonic": "",
+      "body": "",
+      "dueDate": "",
+      "importance": 0,
+      "order": 0,
+      "updatedAt": "2026-05-24T23:55:04.044Z",
+      "sha": null
     }
   ],
   "subjectOrder": [
@@ -533,5 +546,5 @@
       "개인정보 보호법": "개인정보 보호법"
     }
   },
-  "savedAt": "2026. 5. 25. 오전 8:24:47"
+  "savedAt": "2026. 5. 25. 오전 8:55:09"
 }
