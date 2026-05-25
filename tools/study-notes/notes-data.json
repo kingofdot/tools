@@ -592,6 +592,19 @@
       "order": 5,
       "updatedAt": "2026-05-25T08:05:25.291Z",
       "sha": null
+    },
+    {
+      "id": "2026-05-25T08-05-27",
+      "subject": "민법",
+      "subTopic": "",
+      "topic": "",
+      "mnemonic": "",
+      "body": "",
+      "dueDate": "",
+      "importance": 0,
+      "order": 6,
+      "updatedAt": "2026-05-25T08:05:27.110Z",
+      "sha": null
     }
   ],
   "subjectOrder": [
@@ -614,5 +627,5 @@
       "__default": "민법"
     }
   },
-  "savedAt": "2026. 5. 25. 오후 5:05:25"
+  "savedAt": "2026. 5. 25. 오후 5:05:30"
 }
