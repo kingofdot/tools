@@ -527,6 +527,19 @@
       "order": 0,
       "updatedAt": "2026-05-25T00:13:07.372Z",
       "sha": null
+    },
+    {
+      "id": "2026-05-25T00-22-36",
+      "subject": "민법",
+      "subTopic": "",
+      "topic": "계약체결상의 과실책임",
+      "mnemonic": "",
+      "body": "",
+      "dueDate": "",
+      "importance": 0,
+      "order": 1,
+      "updatedAt": "2026-05-25T00:22:44.688Z",
+      "sha": null
     }
   ],
   "subjectOrder": [
@@ -546,5 +559,5 @@
       "개인정보 보호법": "개인정보 보호법"
     }
   },
-  "savedAt": "2026. 5. 25. 오전 9:13:07"
+  "savedAt": "2026. 5. 25. 오전 9:22:49"
 }
