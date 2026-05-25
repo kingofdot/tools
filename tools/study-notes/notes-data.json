@@ -545,13 +545,13 @@
       "id": "2026-05-25T01-05-45",
       "subject": "민법",
       "subTopic": "",
-      "topic": "계약체결",
+      "topic": "계약교섭의 부당파기",
       "mnemonic": "",
       "body": "",
       "dueDate": "",
       "importance": 0,
       "order": 2,
-      "updatedAt": "2026-05-25T01:05:51.278Z",
+      "updatedAt": "2026-05-25T01:05:57.969Z",
       "sha": null
     }
   ],
@@ -575,5 +575,5 @@
       "__default": "민법"
     }
   },
-  "savedAt": "2026. 5. 25. 오전 10:05:56"
+  "savedAt": "2026. 5. 25. 오전 10:06:02"
 }
