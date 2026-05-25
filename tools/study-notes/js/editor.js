@@ -25,6 +25,10 @@ function bindEditor() {
     }
   });
 
+  // 외부 텍스트 붙여넣기 — "1.1.", "1.1.1." 같은 선두 숫자 마커 자동 변환
+  // 숫자 제거 + 점 개수로 추정한 깊이만큼 탭 들여쓰기
+  $body.addEventListener('paste', (e) => handlePasteWithAutoIndent($body, e));
+
   $body.addEventListener('input', () => {
     markDirty();
     renderPreview();
@@ -211,6 +215,42 @@ function syncPreviewToCursor() {
   const sr = $scroller.getBoundingClientRect();
   const target = $scroller.scrollTop + (r.top - sr.top) - ($scroller.clientHeight / 2) + (r.height / 2);
   $scroller.scrollTo({ top: Math.max(0, target), behavior: 'smooth' });
+}
+
+// 외부 복붙 텍스트가 "1.1.", "1.1.1." 같은 숫자 마커로 시작하면 변환:
+//   - 마커 제거
+//   - 점 개수 - 1 만큼 \t 들여쓰기 추가
+//   - 줄 하나라도 매치 안 되면 변환하지 않고 그냥 붙여넣기 (의도치 않은 가공 방지)
+function handlePasteWithAutoIndent(ta, e) {
+  const data = (e.clipboardData || window.clipboardData)?.getData('text');
+  if (!data) return;
+
+  const lines = data.replace(/\r\n/g, '\n').split('\n');
+  // 비어있지 않은 줄 중 숫자 마커 매치 비율이 충분히 높을 때만 변환 (이질 텍스트 보호)
+  const nonEmpty = lines.filter(l => l.trim());
+  if (!nonEmpty.length) return;
+  const numbered = nonEmpty.filter(l => /^\s*\d+(?:\.\d+)*\.\s+/.test(l));
+  if (numbered.length / nonEmpty.length < 0.6) return;   // 60% 미만이면 일반 붙여넣기
+
+  e.preventDefault();
+  const transformed = lines.map(l => {
+    if (!l.trim()) return '';
+    const trimmed = l.replace(/^[\s\t]+/, '');
+    const m = trimmed.match(/^(\d+(?:\.\d+)*)\.\s*/);
+    if (!m) return l;
+    const segs = m[1].split('.').filter(Boolean).length;
+    const depth = Math.max(0, segs - 1);
+    return '\t'.repeat(depth) + trimmed.slice(m[0].length);
+  }).join('\n');
+
+  const start = ta.selectionStart, end = ta.selectionEnd;
+  const before = ta.value.slice(0, start);
+  const after  = ta.value.slice(end);
+  ta.value = before + transformed + after;
+  const caret = start + transformed.length;
+  ta.selectionStart = ta.selectionEnd = caret;
+  // 기존 input 이벤트 핸들러(저장/미리보기) 트리거
+  ta.dispatchEvent(new Event('input', { bubbles: true }));
 }
 
 function handleTab(ta, isShift) {

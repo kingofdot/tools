@@ -1,0 +1,206 @@
+{
+  "_note": "waste-change-selector 페이로더 데이터 샘플. 모든 TR(수집·운반업) 변경사항을 채워 넣은 예시. 검증 로직(classifyVehicleProcedure)이 베이크된 결과를 포함한다.",
+  "meta": {
+    "tool": "waste-change-selector",
+    "version": "2026-05-22",
+    "exportedAt": "2026-05-22T15:30:00.000Z",
+    "bizType": "TR",
+    "bizTypeLabel": "폐기물수집운반업",
+    "law": {
+      "법령": ["폐기물관리법", "폐기물관리법 시행규칙"],
+      "시행일자": "20260326"
+    }
+  },
+  "applicant": {
+    "businessName":         "(주)동방클린",
+    "businessRegNumber":    "123-45-67890",
+    "ownerName":            "홍길동",
+    "corporationRegNumber": "800101-1234567",
+    "businessAddress":      "서울시 강남구 테헤란로 100",
+    "businessPhone":        "02-1234-5678",
+    "wasteIndustryType":    "폐기물수집·운반업",
+    "date":                 "2026-05-22",
+    "submissionOffice":     "서울특별시장"
+  },
+  "_note_templateMapping": {
+    "businessName":         "{{businessName}}",
+    "businessRegNumber":    "{{businessRegNumber}}",
+    "ownerName":            "{{ownerName}}",
+    "corporationRegNumber": "{{corporationRegNumber}}",
+    "businessAddress":      "{{businessAddress}}",
+    "businessPhone":        "{{businessPhone}}",
+    "wasteIndustryType":    "{{wasteIndustryType}}",
+    "date":                 "{{date}}",
+    "submissionOffice":     "{{submissionOffice}}"
+  },
+  "selections": [
+    {
+      "id": "P01",
+      "label": "수집ㆍ운반대상 폐기물의 변경",
+      "description": "폐기물을 선택 후 변경사항을 입력합니다.",
+      "changeType": ["변경허가"],
+      "조항": ["시행규칙 제29조①1.가."],
+      "신고시점": null,
+      "조건": null,
+      "비고": null,
+      "data": {
+        "wasteChanges": [
+          { "wasteCode": "01-01-01", "wasteName": "폐폴리에틸렌", "change": "추가" },
+          { "wasteCode": "51-20-99", "wasteName": "그 밖의 폐목재류", "change": "제거" },
+          { "wasteCode": "02-01-01", "wasteName": "폐촉매", "change": "유지" }
+        ]
+      }
+    },
+    {
+      "id": "P02",
+      "label": "영업구역의 변경",
+      "description": "변경 전·후 내용을 적습니다.",
+      "changeType": ["변경허가"],
+      "조항": ["시행규칙 제29조①1.나."],
+      "신고시점": null,
+      "조건": null,
+      "비고": null,
+      "data": {
+        "before": "서울특별시",
+        "after": "서울특별시, 경기도"
+      }
+    },
+    {
+      "id": "P03",
+      "label": "주차장 소재지의 변경",
+      "description": "변경 전·후 내용을 적습니다.",
+      "changeType": ["변경허가"],
+      "조항": ["시행규칙 제29조①1.다."],
+      "신고시점": null,
+      "조건": "지정폐기물을 대상으로 하는 수집ㆍ운반업만 해당한다",
+      "비고": null,
+      "data": {
+        "before": "서울시 강서구 화곡동 123",
+        "after": "서울시 양천구 신정동 456"
+      }
+    },
+    {
+      "id": "V01",
+      "label": "차량 변경",
+      "description": "차량 변경사항의 전·후 사항을 적습니다.",
+      "changeType": ["변경허가", "변경신고"],
+      "조항": ["시행규칙 제29조①1.라.", "시행규칙 제33조①4."],
+      "신고시점": null,
+      "조건": null,
+      "비고": "변경 전·후 차량 명세 (증차·감차·교체 통합)",
+      "data": {
+        "changes": [
+          { "category": "전용차량", "before": "",         "after": "12가1234", "change": "증차", "procedure": "변경허가" },
+          { "category": "전용차량", "before": "98다7777", "after": "",         "change": "감차", "procedure": "변경신고" },
+          { "category": "임시차량", "before": "",         "after": "34나5678", "change": "증차", "procedure": "변경신고" },
+          { "category": "임시차량", "before": "55라8888", "after": "",         "change": "감차", "procedure": "변경신고" },
+          { "category": "전용차량", "before": "11가1111", "after": "11가1111", "change": "기존", "procedure": "변경 없음" }
+        ],
+        "additions": [
+          {
+            "차량등록번호": "12가1234",
+            "specs": {
+              "vehicleType":  "5톤 카고",
+              "ownerName":    "홍길동",
+              "ownerRrn":     "800101-1234567",
+              "manufacturer": "현대자동차",
+              "typeApproval": "HD-CV-2023-04812",
+              "firstRegDate": "2023-04-12",
+              "maxLoad":      "5",
+              "note":         ""
+            }
+          },
+          {
+            "차량등록번호": "34나5678",
+            "specs": {
+              "vehicleType":  "1톤 트럭(임시)",
+              "ownerName":    "이순신",
+              "ownerRrn":     "851225-2345678",
+              "manufacturer": "기아",
+              "typeApproval": "KIA-LT-2024-01023",
+              "firstRegDate": "2024-08-30",
+              "maxLoad":      "1",
+              "note":         "임시 — 3개월 사용"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "N01",
+      "label": "상호의 변경",
+      "description": "변경 전·후 내용을 적습니다.",
+      "changeType": ["변경신고"],
+      "조항": ["시행규칙 제33조①1."],
+      "신고시점": "사후 30일 이내",
+      "조건": null,
+      "비고": null,
+      "data": {
+        "before": "(주)동방환경",
+        "after": "(주)동방클린"
+      }
+    },
+    {
+      "id": "N02",
+      "label": "대표자의 변경",
+      "description": "변경 전·후 내용을 적습니다.",
+      "changeType": ["변경신고"],
+      "조항": ["시행규칙 제33조①2."],
+      "신고시점": "사후 30일 이내",
+      "조건": "법 제33조에 따라 권리ㆍ의무를 승계하는 경우는 제외한다",
+      "비고": "법 제33조 권리·의무 승계 케이스는 제외",
+      "tooltipInfo": {
+        "title": "권리ㆍ의무 승계 (폐기물관리법 제33조)",
+        "intro": "대표자가 다음 사유로 바뀐 경우엔 변경신고가 아니라 별도 절차:",
+        "cases": [
+          { "no": "①", "label": "양수ㆍ인수",     "procedure": "허가", "detail": "양수, 경매, 환가, 압류재산 매각 등" },
+          { "no": "②", "label": "법인 합병ㆍ분할", "procedure": "허가", "detail": "흡수합병, 신설합병, 분할" },
+          { "no": "③", "label": "상속",            "procedure": "신고", "detail": "사망 시 상속인이 자동 승계 + 사후 신고" }
+        ]
+      },
+      "data": {
+        "before": "홍길동",
+        "after": "김철수"
+      }
+    },
+    {
+      "id": "N03",
+      "label": "연락장소나 사무실 소재지의 변경",
+      "description": "변경 전·후 내용을 적습니다.",
+      "changeType": ["변경신고"],
+      "조항": ["시행규칙 제33조①3."],
+      "신고시점": "사전",
+      "조건": null,
+      "비고": null,
+      "data": {
+        "before": "서울시 강남구 테헤란로 100",
+        "after": "서울시 송파구 올림픽로 200"
+      }
+    },
+    {
+      "id": "N09",
+      "label": "별표 7에 따른 기술능력의 변경",
+      "description": "변경 전·후 내용을 적습니다.",
+      "changeType": ["변경신고"],
+      "조항": ["시행규칙 제33조①9."],
+      "신고시점": "사후 30일 이내",
+      "조건": null,
+      "비고": "별표 7 기술능력 변경",
+      "data": {
+        "before": "박환경(폐기물처리기사)",
+        "after": "최환경(폐기물처리기사) + 정수자(폐기물처리산업기사)"
+      }
+    }
+  ],
+  "summary": {
+    "selectionCount": 8,
+    "finalProcedure": "변경허가",
+    "_note_finalRule": "변경허가 건이 1개라도 있으면 '변경허가', 그 외 모두 변경신고면 '변경신고'. V01은 행 단위(전용+증차만 변경허가) 적용.",
+    "proceduresInvoked": ["변경허가", "변경신고"],
+    "vehicleChangesProcedures": {
+      "변경허가": 1,
+      "변경신고": 3,
+      "변경 없음": 1
+    }
+  }
+}

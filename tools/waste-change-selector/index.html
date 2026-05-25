@@ -110,6 +110,281 @@
     resize:vertical; color:var(--text); background:var(--surface); outline:none;
   }
   .cf-row textarea:focus{border-color:var(--accent); box-shadow:0 0 0 3px var(--accent-bg);}
+
+  /* 구조화 폼 (fields 스키마) */
+  .item-fields{
+    flex-basis:100%; width:100%; margin-top:10px; padding-top:10px;
+    border-top:1px dashed var(--border-2);
+    display:flex; flex-direction:column; gap:10px; cursor:default;
+  }
+  .fld{display:flex; gap:8px; align-items:center;}
+  .fld-label{
+    font-size:10.5px; font-weight:600; color:var(--text-dim);
+    width:96px; flex-shrink:0;
+  }
+  .fld-ctrl{flex:1; display:flex; gap:6px; align-items:center;}
+  .fld-ctrl input, .fld-ctrl select, .fld-ctrl textarea{
+    flex:1; border:1px solid var(--border-2); border-radius:6px;
+    padding:5px 8px; font-family:inherit; font-size:11.5px;
+    color:var(--text); background:var(--surface); outline:none;
+  }
+  .fld-ctrl input:focus, .fld-ctrl select:focus, .fld-ctrl textarea:focus{
+    border-color:var(--accent); box-shadow:0 0 0 3px var(--accent-bg);
+  }
+  .fld-suffix{
+    font-size:11px; color:var(--text-dim); padding:0 4px; flex-shrink:0;
+  }
+  .fld-repeat{
+    display:flex; flex-direction:column; gap:8px;
+    background:var(--surface-2); border:1px solid var(--border);
+    border-radius:8px; padding:10px 12px;
+  }
+  .fld-repeat-head{display:flex; align-items:center; gap:8px;}
+  .fld-grp-label{font-size:11.5px; font-weight:700; color:var(--text);}
+  .fld-repeat-item{
+    background:var(--surface); border:1px solid var(--border-2); border-radius:7px;
+    padding:8px 10px; display:flex; flex-direction:column; gap:7px;
+  }
+  .fld-repeat-item-head{
+    display:flex; align-items:center; gap:8px;
+    padding-bottom:5px; border-bottom:1px dashed var(--border-2);
+  }
+  .fld-repeat-no{
+    font-size:10.5px; font-weight:700; color:var(--accent-2);
+    background:var(--accent-bg); padding:2px 8px; border-radius:5px;
+  }
+  .fld-repeat-rm{
+    margin-left:auto;
+    width:22px; height:22px; padding:0;
+    border:1px solid var(--border-2); border-radius:5px;
+    background:var(--surface); color:var(--muted); cursor:pointer;
+    font-size:11px; line-height:1;
+  }
+  .fld-repeat-rm:hover{border-color:var(--danger); color:var(--danger); background:#fff;}
+  .fld-repeat-item-body{display:flex; flex-direction:column; gap:6px;}
+  .fld-repeat-add{
+    align-self:flex-start;
+    background:var(--surface); border:1px dashed var(--border-2); color:var(--accent-2);
+    font-family:inherit; font-size:11.5px; font-weight:600;
+    padding:6px 12px; border-radius:6px; cursor:pointer;
+  }
+  .fld-repeat-add:hover{border-color:var(--accent); background:var(--accent-bg);}
+
+  /* pair repeat — 변경전/변경후 좌우 분할 */
+  .fld-pair-group{
+    display:flex; flex-direction:column; gap:8px;
+    background:var(--surface-2); border:1px solid var(--border);
+    border-radius:8px; padding:10px 12px;
+  }
+  .fld-pair-row{
+    background:var(--surface); border:1px solid var(--border-2); border-radius:7px;
+    padding:8px 10px; display:flex; flex-direction:column; gap:8px;
+  }
+  .fld-pair-body{display:flex; gap:10px; align-items:flex-start;}
+  .fld-pair-col{
+    flex:1; min-width:0; padding:8px 10px; border-radius:6px;
+    display:flex; flex-direction:column; gap:5px;
+  }
+  .fld-pair-left{
+    background:rgba(220,38,38,.04);
+    border:1px solid rgba(220,38,38,.18);
+  }
+  .fld-pair-right{
+    background:var(--success-bg);
+    border:1px solid rgba(5,150,105,.22);
+  }
+  .fld-pair-col-head{
+    font-size:10.5px; font-weight:700;
+    padding-bottom:4px; border-bottom:1px dashed currentColor;
+    margin-bottom:2px;
+  }
+  .fld-pair-left  .fld-pair-col-head{color:var(--danger);}
+  .fld-pair-right .fld-pair-col-head{color:var(--success-2);}
+  .fld-pair-col-body{display:flex; flex-direction:column; gap:5px;}
+  .fld-pair-col-body .fld-label{width:80px;}  /* 좌우 분할에서 라벨 폭 좁힘 */
+
+  /* compact 모드 — 헤더 생략, 한 줄 인라인 + 자동 비고 뱃지 */
+  .fld-pair-row.compact{
+    flex-direction:row; align-items:center; gap:10px;
+    padding:6px 10px;
+  }
+  .fld-pair-row.compact .fld-pair-body{flex:1; gap:8px;}
+  .fld-pair-row.compact .fld-pair-col{padding:5px 8px; gap:3px;}
+  .fld-pair-row.compact .fld-pair-col-head{
+    font-size:9.5px; padding-bottom:2px; margin-bottom:0;
+  }
+  .fld-pair-row.compact .fld-pair-col-body{flex-direction:row; gap:5px;}
+  .fld-pair-row.compact .fld{gap:5px;}
+  .fld-pair-row.compact .fld-label{display:none;}
+  .fld-pair-row.compact .fld-ctrl input{font-size:11.5px; padding:4px 7px;}
+  .fld-pair-tail{display:flex; align-items:center; gap:8px; flex-shrink:0;}
+  .pair-class{
+    font-size:10.5px; font-weight:700; padding:3px 10px; border-radius:4px;
+    white-space:nowrap;
+  }
+  .pair-class.add   {background:var(--success-bg);    color:var(--success-2);}
+  .pair-class.remove{background:rgba(220,38,38,.08);  color:var(--danger);}
+  .pair-class.keep  {background:var(--surface-3);     color:var(--text-dim);}
+
+  /* 테이블 모드 — repeat + compact: 엑셀 같은 그리드 */
+  .fld-repeat-table-wrap{
+    display:flex; flex-direction:column; gap:8px;
+  }
+  .fld-table{
+    border:1px solid var(--border-2); border-radius:6px;
+    overflow:hidden; background:var(--surface);
+  }
+  .fld-table-tr{
+    display:flex; align-items:stretch;
+    border-bottom:1px solid var(--border);
+  }
+  .fld-table-tr:last-child{border-bottom:none;}
+  .fld-table-th{
+    flex:1; min-width:0;
+    background:var(--surface-3); color:var(--text-dim);
+    padding:7px 10px; font-size:10.5px; font-weight:700;
+    border-right:1px solid var(--border);
+  }
+  .fld-table-th:last-child{border-right:none;}
+  .fld-table-td{
+    flex:1; min-width:0;
+    border-right:1px solid var(--border);
+    display:flex; align-items:stretch;
+  }
+  .fld-table-td:last-child{border-right:none;}
+  .fld-table-td input,
+  .fld-table-td select,
+  .fld-table-td textarea{
+    width:100%; border:none; background:transparent;
+    padding:6px 10px; font:inherit; font-size:11.5px;
+    color:var(--text); outline:none; text-align:center;
+  }
+  .fld-table-th{text-align:center;}
+  .fld-table-td input:focus,
+  .fld-table-td select:focus,
+  .fld-table-td textarea:focus{
+    background:var(--accent-bg);
+    box-shadow:inset 0 0 0 2px var(--accent);
+  }
+  .fld-table-th.fld-table-action,
+  .fld-table-td.fld-table-action{
+    flex:0 0 44px;
+    display:flex; align-items:center; justify-content:center;
+    padding:0;
+    background:transparent;
+    border-right:none;
+  }
+  .fld-table-td.fld-table-action .fld-repeat-rm{
+    width:24px; height:24px; padding:0;
+    border:1px solid transparent; border-radius:5px;
+    background:transparent; color:var(--muted);
+    font-size:13px; line-height:1; cursor:pointer;
+    display:flex; align-items:center; justify-content:center;
+  }
+  .fld-table-td.fld-table-action .fld-repeat-rm:hover{
+    border-color:var(--border-2); color:var(--danger); background:var(--surface);
+  }
+
+  /* 요약 — 테이블 모드 행 */
+  .sum-table-row{
+    display:flex; flex-wrap:wrap; gap:8px;
+    padding:4px 0; font-size:11px;
+    border-bottom:1px dashed var(--border-2);
+  }
+  .sum-table-row:last-child{border-bottom:none;}
+  .sum-table-cell{display:inline-flex; gap:4px; align-items:baseline;}
+  .sum-table-cell .k{
+    font-weight:600; color:var(--text-dim); font-size:10px;
+  }
+
+  /* auto 셀 — 변경사항 자동 분류 */
+  .fld-table-td-auto{
+    display:flex; align-items:center; justify-content:center;
+    background:var(--surface-2);
+  }
+  .auto-cls{
+    font-size:11.5px; color:var(--text);
+    padding:0 6px; white-space:normal;   /* 긴 텍스트(폐기물명칭 등)도 wrap */
+  }
+  /* 짧은 분류 라벨 — 뱃지 스타일 */
+  .auto-cls-add, .auto-cls-remove, .auto-cls-keep,
+  .auto-cls-perm, .auto-cls-noti, .auto-cls-muted{
+    font-size:10.5px; font-weight:700;
+    padding:3px 10px; border-radius:4px; white-space:nowrap;
+    display:inline-block;
+  }
+  .auto-cls-add   {background:var(--success-bg);   color:var(--success-2);}
+  .auto-cls-remove{background:rgba(220,38,38,.08); color:var(--danger);}
+  .auto-cls-keep  {background:var(--surface-3);    color:var(--text-dim);}
+  .auto-cls-perm  {background:var(--perm-bg);      color:var(--perm);}
+  .auto-cls-noti  {background:var(--noti-bg);      color:var(--noti);}
+  .auto-cls-muted {background:var(--surface-3);    color:var(--muted);}
+
+  /* derivedFrom 섹션 */
+  .fld-derived{
+    display:flex; flex-direction:column; gap:8px;
+    background:var(--surface-2); border:1px solid var(--border);
+    border-radius:8px; padding:10px 12px;
+  }
+  .fld-derived-count{
+    font-size:10.5px; font-weight:600; color:var(--muted);
+    margin-left:4px;
+  }
+  .fld-derived-empty{
+    font-size:11px; color:var(--muted); padding:14px 8px; text-align:center;
+    border:1px dashed var(--border-2); border-radius:6px; background:var(--surface);
+  }
+  .fld-derived-bind{
+    font-size:11px; color:var(--text-dim); margin-left:8px;
+  }
+  .fld-derived-bind b{color:var(--accent-2); font-weight:600; margin-right:3px;}
+  .sum-derived{
+    display:flex; flex-direction:column; gap:5px;
+    background:var(--surface-2); border:1px solid var(--border);
+    border-radius:6px; padding:6px 9px;
+  }
+
+  /* 요약 — pair */
+  .sum-pair-grp{
+    background:var(--surface-2); border:1px solid var(--border);
+    border-radius:6px; padding:6px 9px;
+    display:flex; flex-direction:column; gap:5px;
+  }
+  .sum-pair-body{display:flex; gap:8px; align-items:flex-start;}
+  .sum-pair-col{
+    flex:1; min-width:0; padding:6px 8px; border-radius:5px;
+    display:flex; flex-direction:column; gap:3px;
+  }
+  .sum-pair-left {background:rgba(220,38,38,.05);  border:1px solid rgba(220,38,38,.18);}
+  .sum-pair-right{background:var(--success-bg);     border:1px solid rgba(5,150,105,.22);}
+  .sum-pair-col-head{
+    font-size:10px; font-weight:700;
+    padding-bottom:2px; border-bottom:1px dashed currentColor;
+  }
+  .sum-pair-left  .sum-pair-col-head{color:var(--danger);}
+  .sum-pair-right .sum-pair-col-head{color:var(--success-2);}
+  .sum-pair-empty{font-size:10.5px; color:var(--muted); padding:3px 0;}
+  .sum-pair-col .sum-form-row .k{width:78px;}
+
+  /* 요약 — 구조화 폼 */
+  .sum-form{
+    padding:7px 10px 8px; border-top:1px dashed var(--border-2);
+    background:var(--surface); display:flex; flex-direction:column; gap:6px;
+  }
+  .sum-form-grp{
+    background:var(--surface-2); border:1px solid var(--border);
+    border-radius:6px; padding:6px 9px;
+    display:flex; flex-direction:column; gap:4px;
+  }
+  .sum-form-grp-head{
+    font-size:10.5px; font-weight:700; color:var(--accent-2);
+    border-bottom:1px dashed var(--border-2); padding-bottom:3px;
+  }
+  .sum-form-row{display:flex; gap:8px; font-size:11px;}
+  .sum-form-row .k{
+    font-weight:600; color:var(--text-dim); width:90px; flex-shrink:0;
+  }
+  .sum-form-row .v{flex:1; color:var(--text); word-break:break-word;}
   .item .chk{
     width:18px; height:18px; border:1.5px solid var(--border-2); border-radius:5px;
     flex-shrink:0; margin-top:1px; display:flex; align-items:center; justify-content:center;
@@ -125,7 +400,67 @@
   .badge.noti{background:var(--noti-bg); color:var(--noti);}
   .badge.time{background:var(--warn-bg); color:var(--warn);}
   .item .jo{font-size:10.5px; color:var(--muted); font-weight:600;}
+  .jo-sep{font-size:10px; color:var(--border-2); margin:0 4px;}
+
+  /* ℹ 정보 아이콘 + 호버 팝오버 */
+  .info-icon{
+    display:inline-flex; align-items:center; justify-content:center;
+    width:16px; height:16px; margin-left:4px; vertical-align:middle;
+    border-radius:50%; background:var(--accent-bg); color:var(--accent-2);
+    font-size:10px; font-weight:700; cursor:help; position:relative;
+    user-select:none;
+  }
+  .info-icon:hover, .info-icon:focus{
+    background:var(--accent); color:#fff; outline:none;
+  }
+  .info-icon .info-pop{
+    display:none; position:absolute;
+    bottom:calc(100% + 6px); left:50%; transform:translateX(-50%);
+    width:380px; max-width:90vw;
+    background:var(--surface); color:var(--text);
+    border:1px solid var(--border-2); border-radius:8px;
+    box-shadow:0 6px 24px rgba(15,23,42,.15);
+    padding:12px 14px; font-size:11.5px; line-height:1.55;
+    font-weight:400; text-align:left; cursor:default;
+    z-index:100;
+  }
+  .info-icon:hover .info-pop, .info-icon:focus .info-pop{display:block;}
+  .info-icon .info-pop::after{
+    content:""; position:absolute; top:100%; left:50%; transform:translateX(-50%);
+    border:6px solid transparent; border-top-color:var(--surface);
+    filter:drop-shadow(0 1px 0 var(--border-2));
+  }
+  .info-pop-title{
+    font-size:12.5px; font-weight:700; color:var(--accent-2);
+    border-bottom:1px solid var(--border); padding-bottom:6px; margin-bottom:8px;
+  }
+  .info-pop-intro{color:var(--text-dim); margin-bottom:8px;}
+  .info-pop-cases{list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:6px;}
+  .info-pop-cases li{
+    padding:6px 8px; background:var(--surface-2); border-radius:5px;
+    border-left:3px solid var(--accent);
+  }
+  .info-pop-no{color:var(--accent-2); margin-right:3px;}
+  .info-pop-proc{
+    font-size:10px; font-weight:700; padding:1px 6px; border-radius:3px;
+    margin-left:5px; vertical-align:middle;
+  }
+  .info-pop-proc-perm{background:var(--perm-bg); color:var(--perm);}
+  .info-pop-proc-noti{background:var(--noti-bg); color:var(--noti);}
+  .info-pop-detail{
+    margin-top:3px; color:var(--text-dim); font-size:10.5px; line-height:1.5;
+  }
+  .info-pop-common{
+    margin-top:9px; padding-top:8px; border-top:1px dashed var(--border-2);
+  }
+  .info-pop-common-head{
+    font-size:10px; font-weight:700; color:var(--text-dim);
+    text-transform:uppercase; letter-spacing:.5px; margin-bottom:4px;
+  }
+  .info-pop-common ul{list-style:disc; padding-left:18px; margin:0; color:var(--text-dim);}
+  .info-pop-common li{font-size:10.5px; line-height:1.5;}
   .item .label{font-size:12.5px; font-weight:600; color:var(--text); line-height:1.45;}
+  .item .desc{font-size:11px; color:var(--text-dim); margin-top:3px; line-height:1.5;}
   .item .meta{font-size:11px; color:var(--text-dim); margin-top:4px; display:flex; flex-direction:column; gap:2px;}
   .item .meta .m-cond{color:var(--warn);}
   .item .meta .m-row b{color:var(--text); font-weight:600;}
@@ -138,6 +473,13 @@
   .sum-head{display:flex; align-items:baseline; gap:10px; flex-wrap:wrap; margin-bottom:10px;}
   .sum-count{font-size:22px; font-weight:700; color:var(--accent-2);}
   .sum-count .u{font-size:13px; color:var(--muted); font-weight:500; margin-left:3px;}
+  .sum-final-badge{
+    margin-left:auto;
+    font-size:12px; font-weight:700; padding:6px 14px; border-radius:6px;
+    white-space:nowrap;
+  }
+  .sum-final-badge.perm{background:var(--perm-bg); color:var(--perm); border:1px solid rgba(124,58,237,.25);}
+  .sum-final-badge.noti{background:var(--noti-bg); color:var(--noti); border:1px solid rgba(8,145,178,.25);}
   .sum-list{display:flex; flex-direction:column; gap:6px;}
   .sum-item-wrap{
     background:var(--surface-2); border:1px solid var(--border); border-radius:7px;
@@ -178,6 +520,26 @@
 
   .biz-empty{font-size:12px; color:var(--muted); padding:8px 2px;}
   .law-note{font-size:10.5px; color:var(--muted); margin-top:6px;}
+
+  /* 신청인 정보 그리드 */
+  .applicant-grid{
+    display:grid; grid-template-columns:repeat(2, 1fr); gap:10px 14px;
+  }
+  .app-fld{
+    display:flex; flex-direction:column; gap:4px;
+  }
+  .app-fld-full{grid-column:1 / -1;}
+  .app-fld-label{
+    font-size:11px; font-weight:600; color:var(--text-dim);
+  }
+  .app-fld input{
+    width:100%; border:1px solid var(--border-2); border-radius:6px;
+    padding:6px 9px; font-family:inherit; font-size:12px; color:var(--text);
+    background:var(--surface); outline:none;
+  }
+  .app-fld input:focus{
+    border-color:var(--accent); box-shadow:0 0 0 3px var(--accent-bg);
+  }
 </style>
 </head>
 <body>
@@ -187,21 +549,30 @@
     <p class="desc">폐기물 수집·운반업의 변경허가/변경신고 해당 변경사항을 선택합니다.</p>
   </div>
 
-  <!-- 1. 변경구분 + 항목 -->
+  <!-- 1. 신청인 정보 -->
   <div class="card">
     <div class="card-head">
       <span class="card-num">1</span>
-      <h2>변경사항 선택</h2>
-      <span class="hint" id="itemHint"></span>
+      <h2>신청인 정보</h2>
+      <span class="hint">서식 ① ~ ⑤, 신청일자, 제출청 등에 사용</span>
     </div>
-    <div class="tabs" id="tabs" style="margin-bottom:14px;"></div>
-    <div class="item-list" id="itemList"></div>
+    <div class="applicant-grid" id="applicantGrid"></div>
   </div>
 
-  <!-- 2. 선택 요약 -->
+  <!-- 2. 변경구분 + 항목 -->
   <div class="card">
     <div class="card-head">
       <span class="card-num">2</span>
+      <h2>변경사항 선택</h2>
+      <span class="hint" id="itemHint"></span>
+    </div>
+    <div class="item-list" id="itemList"></div>
+  </div>
+
+  <!-- 3. 선택 요약 -->
+  <div class="card">
+    <div class="card-head">
+      <span class="card-num">3</span>
       <h2>선택 요약</h2>
     </div>
     <div id="summary"></div>
@@ -218,13 +589,16 @@
 "use strict";
 
 /* ── 데이터 (폐기물_변경사항_선택옵션.json 인라인) ── */
+/* 폐기물 마스터 (코드+명칭) — wasteInformation.json 에서 생성 */
+var WASTE_DATA = [{"wasteCode":"01","wasteName":"특정시설에서 발생하는 폐기물"},{"wasteCode":"01-01","wasteName":"폐합성고분자화합물"},{"wasteCode":"01-01-01","wasteName":"폐폴리에틸렌"},{"wasteCode":"01-01-02","wasteName":"폐폴리프로필렌"},{"wasteCode":"01-01-03","wasteName":"폐폴리염화비닐수지"},{"wasteCode":"01-01-04","wasteName":"폐폴리에틸렌테레프탈레이트"},{"wasteCode":"01-01-05","wasteName":"폐페놀수지"},{"wasteCode":"01-01-06","wasteName":"폐폴리우레탄"},{"wasteCode":"01-01-07","wasteName":"폐합성고무"},{"wasteCode":"01-01-08","wasteName":"폐폴리스티렌"},{"wasteCode":"01-01-09","wasteName":"폐아크리로니트릴브타디엔스티렌(ABS수지)"},{"wasteCode":"01-01-99","wasteName":"그 밖의 폐합성고분자화합물"},{"wasteCode":"01-02","wasteName":"오니류"},{"wasteCode":"01-02-01","wasteName":"폐수처리오니"},{"wasteCode":"01-02-02","wasteName":"유리식각공정오니"},{"wasteCode":"01-02-03","wasteName":"제지공정오니"},{"wasteCode":"01-02-04","wasteName":"실리콘제조공정오니"},{"wasteCode":"01-02-05","wasteName":"보크사이트잔재물"},{"wasteCode":"01-02-99","wasteName":"그 밖의 공정 오니"},{"wasteCode":"01-03","wasteName":"폐농약"},{"wasteCode":"01-03-01","wasteName":"유기인계폐농약"},{"wasteCode":"01-03-02","wasteName":"유기염소계폐농약"},{"wasteCode":"01-03-03","wasteName":"카바메이트계(Carbamate)폐농약"},{"wasteCode":"01-03-99","wasteName":"그 밖의 폐농약"},{"wasteCode":"02","wasteName":"부식성폐기물"},{"wasteCode":"02-01","wasteName":"폐산"},{"wasteCode":"02-01-01","wasteName":"폐염산"},{"wasteCode":"02-01-02","wasteName":"폐황산(폐황산이 포함된 2차 폐축전지는 제외한다)"},{"wasteCode":"02-01-03","wasteName":"폐질산"},{"wasteCode":"02-01-05","wasteName":"LCD·반도체 공정의 폐산"},{"wasteCode":"02-01-99","wasteName":"그 밖의 폐산"},{"wasteCode":"02-02","wasteName":"폐알칼리"},{"wasteCode":"02-02-01","wasteName":"폐가성소다수"},{"wasteCode":"02-02-02","wasteName":"폐암모니아수"},{"wasteCode":"02-02-03","wasteName":"폐수산화나트륨(고상)"},{"wasteCode":"02-02-04","wasteName":"폐수산화칼륨(고상)"},{"wasteCode":"02-02-99","wasteName":"그 밖의 폐알칼리"},{"wasteCode":"03","wasteName":"유해물질 함유 폐기물"},{"wasteCode":"03-01","wasteName":"광재"},{"wasteCode":"03-01-01","wasteName":"알루미늄제조공정광재"},{"wasteCode":"03-01-02","wasteName":"납 열처리·야금(冶金) 공정광재"},{"wasteCode":"03-01-03","wasteName":"아연열처리공정광재"},{"wasteCode":"03-01-04","wasteName":"철제조공정광재(철광 원석의 사용으로 인한 고로슬래그는 제외한다)"},{"wasteCode":"03-01-99","wasteName":"그 밖의 광재"},{"wasteCode":"03-02-00","wasteName":"분진"},{"wasteCode":"03-03","wasteName":"폐주물사 및 폐사"},{"wasteCode":"03-03-01","wasteName":"점토점결폐주물사"},{"wasteCode":"03-03-02","wasteName":"화학점결폐주물사"},{"wasteCode":"03-03-03","wasteName":"샌드블라스트폐사"},{"wasteCode":"03-03-99","wasteName":"그 밖의 폐주물사 및 폐사"},{"wasteCode":"03-07","wasteName":"폐촉매"},{"wasteCode":"03-07-01","wasteName":"금속성폐촉매"},{"wasteCode":"03-07-02","wasteName":"비금속성폐촉매"},{"wasteCode":"03-08","wasteName":"폐흡착제 및 폐흡수제"},{"wasteCode":"03-08-01","wasteName":"폐흡착제"},{"wasteCode":"03-08-02","wasteName":"폐흡수제"},{"wasteCode":"03-10","wasteName":"폐전지류"},{"wasteCode":"03-10-01","wasteName":"황산이 포함된 폐이차전지"},{"wasteCode":"03-10-02","wasteName":"알칼리가 포함된 폐이차전지"},{"wasteCode":"03-10-03","wasteName":"리튬계 폐이차전지(침수ㆍ화재ㆍ변형ㆍ파손 등이 발생한 것과 셀이 훼손되어 유해물질이 유출되거나 화재ㆍ폭발의 위험이 있는 것으로 한정한다)"},{"wasteCode":"03-10-04","wasteName":"이차전지 스크랩"},{"wasteCode":"03-10-99","wasteName":"그 밖의 폐이차전지(침수ㆍ화재ㆍ변형ㆍ파손 등이 발생한 것과 셀이 훼손되어 유해물질이 유출되거나 화재ㆍ폭발의 위험이 있는 것으로 한정한다)"},{"wasteCode":"04","wasteName":"폐유기용제"},{"wasteCode":"04-01-00","wasteName":"할로겐족 폐유기용제"},{"wasteCode":"04-02-00","wasteName":"그 밖의 폐유기용제"},{"wasteCode":"05","wasteName":"폐페인트 및 폐락카"},{"wasteCode":"05-01-00","wasteName":"폐유성페인트"},{"wasteCode":"05-02-00","wasteName":"폐수성페인트"},{"wasteCode":"05-03-00","wasteName":"폐락카"},{"wasteCode":"06","wasteName":"폐유"},{"wasteCode":"06-01","wasteName":"폐광물유"},{"wasteCode":"06-01-01","wasteName":"폐윤활유(「자원의 절약과 재활용촉진에 관한 법률 시행령」 제18조에 따른 재활용의무 대상 제품·포장재인 기어유 및 내연기관용 윤활유를 말한다)"},{"wasteCode":"06-01-02","wasteName":"폐연마유·비수용성폐절삭유·폐열처리유(금속가공과정에서 발생된 것을 말한다)"},{"wasteCode":"06-01-03","wasteName":"폐기계유·폐작동유(공업용 기예유·냉동기유·터어빈유·베어링윤활유·압축기유·유압작동유·열매체유 및 프로세스유 등을 말한다)"},{"wasteCode":"06-01-04","wasteName":"폐연료유"},{"wasteCode":"06-01-05","wasteName":"폐오일필터"},{"wasteCode":"06-01-06","wasteName":"기름 함유 폐전선·폐케이블"},{"wasteCode":"06-01-07","wasteName":"폐절연유(폴리클로리네이티드비페닐 함유 폐기물을 제외한다)"},{"wasteCode":"06-01-99","wasteName":"그 밖의 폐광물유[아스팔트유·그리스(grease)·방청유 및 수용성절삭유, 20퍼센트 이상의 이물질이 함유된 폐유, 고체상태의 폐유 등을 말한다]"},{"wasteCode":"06-02-00","wasteName":"폐동식물유"},{"wasteCode":"06-03-00","wasteName":"그 밖의 폐유"},{"wasteCode":"07","wasteName":"폐석면"},{"wasteCode":"07-01","wasteName":"제품·설비(뿜칠로 사용된 것을 포함한다) 등의 해체·제거 시 발생되는 폐석면"},{"wasteCode":"07-01-01","wasteName":"흩날릴 우려가 없는 폐석면"},{"wasteCode":"07-01-02","wasteName":"흩날릴 우려가 있는 폐석면"},{"wasteCode":"07-02-00","wasteName":"석면제품 등의 연마·절단·가공 공정에서 발생된 부스러기 및 연마·절단·가공 시설의 집진기에서 모아진 분진"},{"wasteCode":"07-03-00","wasteName":"석면의 제거작업에 사용된 모든 바닥비닐시트·방진마스크·작업복, 집진필터 등"},{"wasteCode":"08","wasteName":"폴리클로리네이티드비페닐 함유 폐기물"},{"wasteCode":"08-01-00","wasteName":"폴리클로리네이티드비페닐 함유 폐유"},{"wasteCode":"08-02-00","wasteName":"폴리클로리네이티드비페닐 함유 폐유기용제"},{"wasteCode":"08-03-00","wasteName":"그 밖의 폴리클로리네이티드비페닐을 함유한 액상의 것"},{"wasteCode":"08-04-00","wasteName":"그 밖의 폴리클로리네이티드비페닐을 함유한 액상이 아닌 것"},{"wasteCode":"09","wasteName":"폐유독물질"},{"wasteCode":"09-01-00","wasteName":"「화학물질관리법」 제2조제5호에 따른 금지물질"},{"wasteCode":"09-02-00","wasteName":"연구·검사용 폐시약"},{"wasteCode":"09-03-00","wasteName":"「화학물질관리법」 제2조제7호에 따른 유해화학물질"},{"wasteCode":"09-04-00","wasteName":"「화학물질관리법」 제2조제3호 및 제4호에 따른 허가물질 및 제한물질"},{"wasteCode":"10","wasteName":"의료폐기물"},{"wasteCode":"10-11-00","wasteName":"격리의료폐기물"},{"wasteCode":"10-12","wasteName":"위해의료폐기물"},{"wasteCode":"10-12-01","wasteName":"조직물류폐기물(태반을 재활용하는 경우는 제외한다)"},{"wasteCode":"10-12-02","wasteName":"병리계폐기물"},{"wasteCode":"10-12-03","wasteName":"손상성폐기물"},{"wasteCode":"10-12-04","wasteName":"생물·화학폐기물"},{"wasteCode":"10-12-05","wasteName":"혈액오염폐기물"},{"wasteCode":"10-12-06","wasteName":"인체조직물 중 태반(재활용하는 경우에만 해당한다)"},{"wasteCode":"10-13-00","wasteName":"일반의료폐기물"},{"wasteCode":"11","wasteName":"수은폐기물"},{"wasteCode":"11-01","wasteName":"수은함유폐기물"},{"wasteCode":"11-01-01","wasteName":"수은 첨가 폐램프"},{"wasteCode":"11-01-02","wasteName":"수은 첨가 폐계측기기"},{"wasteCode":"11-01-03","wasteName":"수은 첨가 폐전지"},{"wasteCode":"11-01-99","wasteName":"그 밖의 기후에너지환경부장관이 고시하는 폐제품"},{"wasteCode":"11-02-00","wasteName":"수은구성폐기물"},{"wasteCode":"11-03-00","wasteName":"수은함유폐기물 처리잔재물"},{"wasteCode":"51-01","wasteName":"유기성오니류"},{"wasteCode":"51-01-01","wasteName":"정수처리오니"},{"wasteCode":"51-01-02","wasteName":"하수처리오니"},{"wasteCode":"51-01-03","wasteName":"분뇨처리오니"},{"wasteCode":"51-01-04","wasteName":"가축분뇨처리오니"},{"wasteCode":"51-01-05","wasteName":"펄프·제지공정오니"},{"wasteCode":"51-01-06","wasteName":"그 밖의 공정오니"},{"wasteCode":"51-01-07","wasteName":"펄프·제지폐수처리오니"},{"wasteCode":"51-01-08","wasteName":"그 밖의 폐수처리오니"},{"wasteCode":"51-01-99","wasteName":"그 밖의 유기성오니"},{"wasteCode":"51-02","wasteName":"무기성오니류"},{"wasteCode":"51-02-01","wasteName":"폐수처리오니"},{"wasteCode":"51-02-02","wasteName":"정수처리오니"},{"wasteCode":"51-02-03","wasteName":"하수처리오니"},{"wasteCode":"51-02-04","wasteName":"하수준설토"},{"wasteCode":"51-02-05","wasteName":"건설오니"},{"wasteCode":"51-02-06","wasteName":"석재·골재폐수처리오니(석재·골재 생산시 발생한 폐수를 처리하는 과정에서 발생한 오니로 한정한다)"},{"wasteCode":"51-02-07","wasteName":"유리식각공정오니"},{"wasteCode":"51-02-08","wasteName":"실리콘공정오니"},{"wasteCode":"51-02-09","wasteName":"보크사이트 잔재물"},{"wasteCode":"51-02-10","wasteName":"영농폐기물(농업활동 과정에서 배출된 농업용 폐플라스틱 필름·시트류에 한정한다) 폐수처리오니"},{"wasteCode":"51-02-11","wasteName":"영농폐기물(농업활동 과정에서 배출된 농업용 폐플라스틱 필름·시트류에 한정한다) 공정오니"},{"wasteCode":"51-02-19","wasteName":"그 밖의 공정오니"},{"wasteCode":"51-02-99","wasteName":"그 밖의 무기성오니"},{"wasteCode":"51-03","wasteName":"폐합성고분자화합물"},{"wasteCode":"51-03-01","wasteName":"폐합성수지류(폐염화비닐수지류는 제외한다)"},{"wasteCode":"51-03-02","wasteName":"폐합성고무류"},{"wasteCode":"51-03-03","wasteName":"폐폴리염화비닐수지류"},{"wasteCode":"51-03-04","wasteName":"폐폴리우레탄폼류"},{"wasteCode":"51-03-05","wasteName":"양식용폐부자"},{"wasteCode":"51-03-06","wasteName":"폐발포합성수지"},{"wasteCode":"51-03-07","wasteName":"플라스틱폐포장재"},{"wasteCode":"51-03-08","wasteName":"폐어망"},{"wasteCode":"51-03-99","wasteName":"그 밖의 폐합성고분자화합물(합성수지류로 피복된 폐전선을 포함한다)"},{"wasteCode":"51-04","wasteName":"광재류"},{"wasteCode":"51-04-01","wasteName":"고로슬래그"},{"wasteCode":"51-04-02","wasteName":"제강슬래그"},{"wasteCode":"51-04-03","wasteName":"비철금속제련공정광재"},{"wasteCode":"51-04-04","wasteName":"선광공정광재"},{"wasteCode":"51-04-99","wasteName":"그 밖의 광재류"},{"wasteCode":"51-05","wasteName":"분진류(대기오염방지시설에서 포집된 것으로 한정하되, 소각시설에서 발생하는 것은 제외한다)"},{"wasteCode":"51-05-01","wasteName":"제철공정분진"},{"wasteCode":"51-05-02","wasteName":"시멘트제조공정분진"},{"wasteCode":"51-05-03","wasteName":"발전시설분진"},{"wasteCode":"51-05-04","wasteName":"폐실리카 퓸(규소철 제조과정에서 발생된 분진을 말한다)"},{"wasteCode":"51-05-99","wasteName":"그 밖의 분진"},{"wasteCode":"51-06","wasteName":"폐주물사 및 폐사"},{"wasteCode":"51-06-01","wasteName":"점토점결폐주물사"},{"wasteCode":"51-06-02","wasteName":"화학점결폐주물사"},{"wasteCode":"51-06-03","wasteName":"샌드블라스트폐사"},{"wasteCode":"51-06-04","wasteName":"폐여과사"},{"wasteCode":"51-06-99","wasteName":"그 밖의 폐사"},{"wasteCode":"51-07","wasteName":"폐내화물 및 도자기 조각"},{"wasteCode":"51-07-01","wasteName":"폐내화물"},{"wasteCode":"51-07-02","wasteName":"폐도자기조각"},{"wasteCode":"51-08","wasteName":"소각재"},{"wasteCode":"51-08-01","wasteName":"생활폐기물 소각시설 비산재"},{"wasteCode":"51-08-02","wasteName":"사업장폐기물 소각시설 비산재"},{"wasteCode":"51-08-03","wasteName":"생활폐기물 소각시설 바닥재"},{"wasteCode":"51-08-04","wasteName":"사업장폐기물 소각시설 바닥재"},{"wasteCode":"51-08-05","wasteName":"생활폐기물 소각시설 소각재(바닥재와 비산재가 혼합된 경우를 말한다)"},{"wasteCode":"51-08-06","wasteName":"사업장폐기물 소각시설 소각재(바닥재와 비산재가 혼합된 경우를 말한다)"},{"wasteCode":"51-09","wasteName":"안정화 또는 고형화·고화 처리물"},{"wasteCode":"51-09-01","wasteName":"안정화 처리물"},{"wasteCode":"51-09-02","wasteName":"시멘트고형화 처리물"},{"wasteCode":"51-09-03","wasteName":"고화 처리물"},{"wasteCode":"51-09-04","wasteName":"킬레이트(Chelate)처리물"},{"wasteCode":"51-09-99","wasteName":"그 밖의 고형화·고화 처리물"},{"wasteCode":"51-10","wasteName":"폐촉매"},{"wasteCode":"51-10-01","wasteName":"금속성폐촉매"},{"wasteCode":"51-10-02","wasteName":"폐이온교환수지"},{"wasteCode":"51-10-03","wasteName":"폐멤브레인수지"},{"wasteCode":"51-10-99","wasteName":"그 밖의 폐촉매"},{"wasteCode":"51-11","wasteName":"폐흡착제 및 폐흡수제"},{"wasteCode":"51-11-01","wasteName":"폐흡착제"},{"wasteCode":"51-11-02","wasteName":"폐흡수제"},{"wasteCode":"51-11-03","wasteName":"폐활성탄"},{"wasteCode":"51-12","wasteName":"폐석고 및 폐석회"},{"wasteCode":"51-12-01","wasteName":"폐석고"},{"wasteCode":"51-12-02","wasteName":"폐석회"},{"wasteCode":"51-13","wasteName":"연소잔재물"},{"wasteCode":"51-13-01","wasteName":"연탄재"},{"wasteCode":"51-13-02","wasteName":"액체연료연소재"},{"wasteCode":"51-13-03","wasteName":"석탄재"},{"wasteCode":"51-13-99","wasteName":"그 밖의 연소잔재물"},{"wasteCode":"51-14","wasteName":"폐석재류"},{"wasteCode":"51-14-01","wasteName":"폐석분토사(석재·골재생산 과정에서 발생한 응집 미립분을 포함한다)"},{"wasteCode":"51-14-02","wasteName":"폐석재"},{"wasteCode":"51-15","wasteName":"폐타이어(「자원의 절약과 재활용촉진에 관한 법률 시행령」 제18조제5호에 해당하는 것을 말한다)"},{"wasteCode":"51-15-01","wasteName":"자동차 폐타이어"},{"wasteCode":"51-15-02","wasteName":"그 밖의 폐타이어"},{"wasteCode":"51-16-00","wasteName":"폐식용유(식용을 목적으로 식품 재료와 원료를 제조·조리·가공하거나 식용유를 유통·사용 또는 음식물류 폐기물을 처리하는 과정에서 발생하는 기름을 말한다)"},{"wasteCode":"51-17","wasteName":"동·식물성잔재물(식료품 및 음료제조업, 유통업 등에서 발생하는 잔재물을 포함하며, 음식물류 폐기물은 제외한다)"},{"wasteCode":"51-17-01","wasteName":"동물사체"},{"wasteCode":"51-17-02","wasteName":"축산물가공잔재물(동물성 유지류는 제외한다)"},{"wasteCode":"51-17-03","wasteName":"수산물가공잔재물"},{"wasteCode":"51-17-04","wasteName":"폐패각"},{"wasteCode":"51-17-05","wasteName":"폐모피류"},{"wasteCode":"51-17-06","wasteName":"피혁 및 피혁가공잔재물"},{"wasteCode":"51-17-07","wasteName":"동물털"},{"wasteCode":"51-17-08","wasteName":"동물성유지류"},{"wasteCode":"51-17-19","wasteName":"그 밖의 동물성잔재물"},{"wasteCode":"51-17-21","wasteName":"주정박"},{"wasteCode":"51-17-22","wasteName":"맥주박"},{"wasteCode":"51-17-23","wasteName":"유박유잔재물"},{"wasteCode":"51-17-24","wasteName":"초본류"},{"wasteCode":"51-17-25","wasteName":"커피찌꺼기"},{"wasteCode":"51-17-26","wasteName":"버섯폐배지"},{"wasteCode":"51-17-27","wasteName":"과채류(「사료관리법」 제2조제2호에 따른 단미사료에 해당하는 것으로 한정한다)"},{"wasteCode":"51-17-29","wasteName":"그 밖의 식물성잔재물"},{"wasteCode":"51-17-30","wasteName":"식재료 및 조리부산물(제18조제1항제1호에 따른 배출자 중 식품 제조ㆍ가공업체 및 같은 항 제3호에 따른 배출자 중 집단급식소에서 발생한 것으로 한정한다)"},{"wasteCode":"51-17-99","wasteName":"그 밖의 동·식물성잔재물"},{"wasteCode":"51-18","wasteName":"폐전기전자제품류"},{"wasteCode":"51-18-01","wasteName":"가정용폐전기전자제품"},{"wasteCode":"51-18-02","wasteName":"산업용폐전기전자제품"},{"wasteCode":"51-18-03","wasteName":"프린트토너 및 폐카트리지 폐부속품"},{"wasteCode":"51-18-99","wasteName":"그 밖의 폐전기전자제품류"},{"wasteCode":"51-19-00","wasteName":"왕겨 및 쌀겨"},{"wasteCode":"51-20","wasteName":"폐목재류(원목의 용도 그대로 사용하는 나무뿌리·가지 등을 제거한 원줄기는 제외한다)"},{"wasteCode":"51-20-21","wasteName":"임목폐목재(건설공사·산지개간 등의 과정에서 발생된 나무뿌리·가지·줄기 등을 말한다)"},{"wasteCode":"51-20-22","wasteName":"제재부산물(원목 가공과정에서 발생되는 나무 껍질·톱밥·대패밥 등을 말한다), 목재가공공장 부산물(원목상태의 깨끗한 목재부산물 및 분진을 말한다)"},{"wasteCode":"51-20-23","wasteName":"폐도장목·폐목재포장재·폐전선드럼·건설현장 폐목재(원목상태의 깨끗한 목재를 말한다)"},{"wasteCode":"51-20-24","wasteName":"접착제, 페인트, 기름, 콘크리트 등의 물질이 사용된 폐목재(목재부산물 및 분진을 포함한다)"},{"wasteCode":"51-20-25","wasteName":"할로겐족 유기화합물 또는 방부제가 사용된 폐목재(목재부산물 및 분진을 포함한다) 및 건설현장의 실외목재구조물에서 발생되는 폐목재, 폐선박 및 차량에서 나오는 목재, 건축물 화재현장에서 발생한 폐목재, 냉각탑, 산업용 바닥재 등에 사용된 폐목재"},{"wasteCode":"51-20-26","wasteName":"폐철도목재받침목"},{"wasteCode":"51-20-27","wasteName":"폐가구류"},{"wasteCode":"51-20-99","wasteName":"그 밖의 폐목재류"},{"wasteCode":"51-21","wasteName":"폐토사류"},{"wasteCode":"51-21-01","wasteName":"폐토사"},{"wasteCode":"51-21-02","wasteName":"건설폐토석"},{"wasteCode":"51-21-03","wasteName":"오염하천·오염해양 준설토"},{"wasteCode":"51-22","wasteName":"폐콘크리트류"},{"wasteCode":"51-22-01","wasteName":"폐콘크리트"},{"wasteCode":"51-22-02","wasteName":"폐철도콘크리트받침목"},{"wasteCode":"51-23-00","wasteName":"폐아스팔트콘크리트"},{"wasteCode":"51-24-00","wasteName":"폐벽돌"},{"wasteCode":"51-25-00","wasteName":"폐블록"},{"wasteCode":"51-26-00","wasteName":"폐기와"},{"wasteCode":"51-27","wasteName":"폐섬유류"},{"wasteCode":"51-27-01","wasteName":"폐천연섬유"},{"wasteCode":"51-27-02","wasteName":"폐합성섬유"},{"wasteCode":"51-27-03","wasteName":"폐의류"},{"wasteCode":"51-27-99","wasteName":"그 밖의 폐섬유"},{"wasteCode":"51-28","wasteName":"폐지류"},{"wasteCode":"51-28-01","wasteName":"폐종이팩(「자원의 절약과 재활용촉진에 관한 법률 시행령」 제18조제1호에 해당하는 것을 말한다)"},{"wasteCode":"51-28-02","wasteName":"폐종이류"},{"wasteCode":"51-28-03","wasteName":"폐벽지"},{"wasteCode":"51-29","wasteName":"폐금속류"},{"wasteCode":"51-29-01","wasteName":"고철"},{"wasteCode":"51-29-02","wasteName":"비철금속"},{"wasteCode":"51-29-03","wasteName":"폐금속캔류(「자원의 절약과 재활용촉진에 관한 법률 시행령」 제18조제1호에 해당하는 것을 말한다)"},{"wasteCode":"51-29-04","wasteName":"폐금속 용기류(폐금속캔류는 제외한다)"},{"wasteCode":"51-29-99","wasteName":"그 밖의 폐금속류"},{"wasteCode":"51-30","wasteName":"폐유리류"},{"wasteCode":"51-30-01","wasteName":"폐유리"},{"wasteCode":"51-30-02","wasteName":"폐유리병류(「자원의 절약과 재활용촉진에 관한 법률 시행령」 제18조제1호에 해당하는 것을 말한다)"},{"wasteCode":"51-30-03","wasteName":"폐스마트유리"},{"wasteCode":"51-30-04","wasteName":"폐유리섬유"},{"wasteCode":"51-30-05","wasteName":"수은폐기물이 아닌 수은함유폐기물 처리잔재물"},{"wasteCode":"51-30-99","wasteName":"그 밖의 폐유리"},{"wasteCode":"51-31-00","wasteName":"폐타일"},{"wasteCode":"51-32-00","wasteName":"폐보드류"},{"wasteCode":"51-33-00","wasteName":"폐판넬"},{"wasteCode":"51-35-00","wasteName":"폐전주(폐애자, 폐근가 및 폐합성수지제 덮개류 등을 포함한다)"},{"wasteCode":"51-36","wasteName":"폐가스포집물"},{"wasteCode":"51-36-01","wasteName":"이산화탄소스트림"},{"wasteCode":"51-36-02","wasteName":"이산화탄소전환탄산화물"},{"wasteCode":"51-37","wasteName":"폐냉매물질"},{"wasteCode":"51-37-01","wasteName":"가전제품회수폐냉매물질"},{"wasteCode":"51-37-02","wasteName":"자동차회수폐냉매물질"},{"wasteCode":"51-37-03","wasteName":"공조기회수폐냉매물질"},{"wasteCode":"51-37-99","wasteName":"그 밖의 폐냉매물질"},{"wasteCode":"51-38","wasteName":"음식물류폐기물 및 처리물"},{"wasteCode":"51-38-01","wasteName":"음식물류 폐기물"},{"wasteCode":"51-38-02","wasteName":"중간가공 음식물류 폐기물"},{"wasteCode":"51-38-03","wasteName":"음식물류 폐기물 처리 잔재물(액상의 경우만 해당한다)"},{"wasteCode":"51-38-99","wasteName":"그 밖의 음식물류폐기물처리잔재물"},{"wasteCode":"51-39-00","wasteName":"폐사료"},{"wasteCode":"51-40","wasteName":"폐소화기류"},{"wasteCode":"51-40-01","wasteName":"폐분말 소화기"},{"wasteCode":"51-40-99","wasteName":"그 밖의 폐소화기"},{"wasteCode":"51-41","wasteName":"폐전지류"},{"wasteCode":"51-41-01","wasteName":"폐일차전지"},{"wasteCode":"51-41-04","wasteName":"폐태양전지ㆍ전자기기페이스트ㆍ태양광 폐패널"},{"wasteCode":"51-41-05","wasteName":"전기자동차 폐이차전지(침수ㆍ화재ㆍ변형ㆍ파손 등이 발생한 것과 셀이 훼손되어 유해물질이 유출되거나 화재ㆍ폭발의 위험이 있는 것은 제외한다)"},{"wasteCode":"51-41-06","wasteName":"구동용 폐이차전지(침수ㆍ화재ㆍ변형ㆍ파손 등이 발생한 것과 셀이 훼손되어 유해물질이 유출되거나 화재ㆍ폭발의 위험이 있는 것은 제외한다)"},{"wasteCode":"51-41-07","wasteName":"폐양극활물질(양극재 또는 전구체 제조공정에서 발생하는 것을 포함한다)"},{"wasteCode":"51-41-08","wasteName":"폐연료전지"},{"wasteCode":"51-41-99","wasteName":"그 밖의 폐이차전지(침수ㆍ화재ㆍ변형ㆍ파손 등이 발생한 것과 셀이 훼손되어 유해물질이 유출되거나 화재ㆍ폭발의 위험이 있는 것은 제외한다)"},{"wasteCode":"51-42-00","wasteName":"폐의약품류 재활용금지"},{"wasteCode":"51-43-00","wasteName":"폐흑연가루"},{"wasteCode":"51-44-00","wasteName":"나노폐기물(나노물질을 제조·가공하는 과정에서 발생된 분진을 말한다)"},{"wasteCode":"51-45","wasteName":"폐차발생폐기물"},{"wasteCode":"51-45-01","wasteName":"폐차파쇄잔재물"},{"wasteCode":"51-45-02","wasteName":"폐차부품류"},{"wasteCode":"51-45-99","wasteName":"그 밖의 폐차발생폐기물"},{"wasteCode":"51-46-00","wasteName":"의료폐기물 멸균분쇄잔재물"},{"wasteCode":"51-47","wasteName":"조명폐기물"},{"wasteCode":"51-47-01","wasteName":"폐형광등"},{"wasteCode":"51-47-02","wasteName":"폐발광다이오드조명"},{"wasteCode":"51-99-00","wasteName":"그 밖의 폐기물"},{"wasteCode":"91-01-00","wasteName":"종량제봉투 배출 폐기물(합성수지 종량제 봉투에 배출되는 폐기물을 말한다)"},{"wasteCode":"91-02-00","wasteName":"음식물류 폐기물(분리배출된 음식물류 폐기물을 말한다)"},{"wasteCode":"91-03-00","wasteName":"폐식용유(가정 및 음식점에서 분리배출된 것을 말한다)"},{"wasteCode":"91-04-00","wasteName":"폐지류(종이팩을 포함한다)"},{"wasteCode":"91-05-00","wasteName":"고철 및 금속캔류"},{"wasteCode":"91-06-01","wasteName":"폐합성수지(폴리염화비닐은 제외한다)"},{"wasteCode":"91-06-02","wasteName":"폐합성수지(폴리염화비닐)"},{"wasteCode":"91-06-03","wasteName":"폐합성고무류"},{"wasteCode":"91-07-01","wasteName":"유리병"},{"wasteCode":"91-07-02","wasteName":"폐유리"},{"wasteCode":"91-08-00","wasteName":"폐의류 및 원단류(섬유재질의 커튼, 현수막 등을 포함한다)"},{"wasteCode":"91-09-00","wasteName":"폐전기전자제품"},{"wasteCode":"91-10","wasteName":"폐목재 및 폐가구류"},{"wasteCode":"91-10-01","wasteName":"원목상태의 깨끗한 목재"},{"wasteCode":"91-10-02","wasteName":"접착제, 페인트, 기름, 콘크리트 등의 물질이 사용된 목재(할로겐족 유기화합물 또는 방부제가 사용된 목재는 제외한다)"},{"wasteCode":"91-10-03","wasteName":"할로겐족 유기화합물 또는 방부제가 사용된 목재"},{"wasteCode":"91-10-04","wasteName":"폐가구류"},{"wasteCode":"91-11-00","wasteName":"건설폐재류(콘크리트, 벽돌 등을 말한다)"},{"wasteCode":"91-12-00","wasteName":"폐타일 및 도자기류"},{"wasteCode":"91-13","wasteName":"조명폐기물"},{"wasteCode":"91-13-01","wasteName":"폐형광등"},{"wasteCode":"91-13-02","wasteName":"폐발광다이오드조명"},{"wasteCode":"91-14-00","wasteName":"폐전지류"},{"wasteCode":"91-15-00","wasteName":"연탄재"},{"wasteCode":"91-16-00","wasteName":"동물성 잔재물(동물의 사체, 수산가공물, 유지 등을 포함한다)"},{"wasteCode":"91-17","wasteName":"식물성 잔재물"},{"wasteCode":"91-17-01","wasteName":"커피찌꺼기"},{"wasteCode":"91-17-02","wasteName":"버섯폐배지"},{"wasteCode":"91-17-03","wasteName":"그 밖의 식물성 잔재물"},{"wasteCode":"91-18-01","wasteName":"영농폐기물(농약용기류)"},{"wasteCode":"91-18-02","wasteName":"영농폐기물(농촌폐비닐)"},{"wasteCode":"91-19-00","wasteName":"폐소화기류"},{"wasteCode":"91-21","wasteName":"1회용 컵"},{"wasteCode":"91-21-01","wasteName":"종이 컵"},{"wasteCode":"91-21-02","wasteName":"합성수지 컵"},{"wasteCode":"91-21-03","wasteName":"금속 컵"}];
+
 var DATA = {
   "_meta": {
-    "버전": "2026-05-09",
-    "설명": "폐기물처리업 변경허가/변경신고 사용자 선택 옵션",
+    "버전": "2026-05-22",
+    "설명": "폐기물처리업 변경허가/변경신고/권리ㆍ의무 승계 사용자 선택 옵션",
     "법령": {
-      "법령명_한글": "폐기물관리법 시행규칙",
-      "공포번호": "00033",
+      "법령명_한글": "폐기물관리법 + 시행규칙",
+      "공포번호": "21065 / 00033",
       "시행일자": "20260326"
     },
     "bizType_코드": {
@@ -237,35 +611,167 @@ var DATA = {
     }
   },
   "items": [
-    { "id":"P01","changeType":"변경허가","조항":"시행규칙 제29조①1.가.","label":"수집ㆍ운반대상 폐기물의 변경","bizType":["TR"],"처리업종":"폐기물 수집·운반업","신고시점":null,"조건":null,"비고":null },
-    { "id":"P02","changeType":"변경허가","조항":"시행규칙 제29조①1.나.","label":"영업구역의 변경","bizType":["TR"],"처리업종":"폐기물 수집·운반업","신고시점":null,"조건":null,"비고":null },
-    { "id":"P03","changeType":"변경허가","조항":"시행규칙 제29조①1.다.","label":"주차장 소재지의 변경","bizType":["TR"],"처리업종":"폐기물 수집·운반업","신고시점":null,"조건":"지정폐기물을 대상으로 하는 수집ㆍ운반업만 해당한다","비고":null },
-    { "id":"P04","changeType":"변경허가","조항":"시행규칙 제29조①1.라.","label":"운반차량(임시차량은 제외한다)의 증차","bizType":["TR"],"처리업종":"폐기물 수집·운반업","신고시점":null,"조건":null,"비고":null },
-    { "id":"P05","changeType":"변경허가","조항":"시행규칙 제29조①2.가.","label":"처분대상 폐기물의 변경","bizType":["ID","FD"],"처리업종":"폐기물 중간처분업, 폐기물 최종처분업 및 폐기물 종합처분업","신고시점":null,"조건":null,"비고":null },
-    { "id":"P06","changeType":"변경허가","조항":"시행규칙 제29조①2.나.","label":"폐기물 처분시설 소재지의 변경","bizType":["ID","FD"],"처리업종":"폐기물 중간처분업, 폐기물 최종처분업 및 폐기물 종합처분업","신고시점":null,"조건":null,"비고":null },
-    { "id":"P07","changeType":"변경허가","조항":"시행규칙 제29조①2.다.","label":"운반차량(임시차량은 제외한다)의 증차","bizType":["ID","FD"],"처리업종":"폐기물 중간처분업, 폐기물 최종처분업 및 폐기물 종합처분업","신고시점":null,"조건":null,"비고":null },
-    { "id":"P08","changeType":"변경허가","조항":"시행규칙 제29조①2.라.","label":"폐기물 처분시설의 신설","bizType":["ID","FD"],"처리업종":"폐기물 중간처분업, 폐기물 최종처분업 및 폐기물 종합처분업","신고시점":null,"조건":null,"비고":null },
-    { "id":"P09","changeType":"변경허가","조항":"시행규칙 제29조①2.마.","label":"폐기물 처분시설의 증설, 개ㆍ보수 또는 그 밖의 방법으로 허가 또는 변경허가를 받은 처분용량의 100분의 30 이상의 변경(허가 또는 변경허가를 받은 후 변경되는 누계를 말한다)","bizType":["ID","FD"],"처리업종":"폐기물 중간처분업, 폐기물 최종처분업 및 폐기물 종합처분업","신고시점":null,"조건":null,"비고":null },
-    { "id":"P10","changeType":"변경허가","조항":"시행규칙 제29조①2.바.","label":"주요 설비의 변경","bizType":["ID","FD"],"처리업종":"폐기물 중간처분업, 폐기물 최종처분업 및 폐기물 종합처분업","신고시점":null,"조건":"다만, 다음 1)부터 4)까지의 경우만 해당한다.","비고":null },
-    { "id":"P11","changeType":"변경허가","조항":"시행규칙 제29조①2.사.","label":"매립시설 제방의 증ㆍ개축","bizType":["ID","FD"],"처리업종":"폐기물 중간처분업, 폐기물 최종처분업 및 폐기물 종합처분업","신고시점":null,"조건":null,"비고":null },
-    { "id":"P12","changeType":"변경허가","조항":"시행규칙 제29조①2.아.","label":"허용보관량의 변경","bizType":["ID","FD"],"처리업종":"폐기물 중간처분업, 폐기물 최종처분업 및 폐기물 종합처분업","신고시점":null,"조건":null,"비고":null },
-    { "id":"P13","changeType":"변경허가","조항":"시행규칙 제29조①3.가.","label":"재활용대상 폐기물의 변경","bizType":["IR","FR","CR"],"처리업종":"폐기물 중간재활용업, 폐기물 최종재활용업 및 폐기물 종합재활용업","신고시점":null,"조건":"제33조제1항제6호에 해당하는 경우는 제외한다","비고":null },
-    { "id":"P14","changeType":"변경허가","조항":"시행규칙 제29조①3.나.","label":"폐기물 재활용 유형의 변경","bizType":["IR","FR","CR"],"처리업종":"폐기물 중간재활용업, 폐기물 최종재활용업 및 폐기물 종합재활용업","신고시점":null,"조건":"제33조제1항제7호에 해당하는 경우는 제외한다","비고":null },
-    { "id":"P15","changeType":"변경허가","조항":"시행규칙 제29조①3.다.","label":"폐기물 재활용시설 소재지의 변경","bizType":["IR","FR","CR"],"처리업종":"폐기물 중간재활용업, 폐기물 최종재활용업 및 폐기물 종합재활용업","신고시점":null,"조건":null,"비고":null },
-    { "id":"P16","changeType":"변경허가","조항":"시행규칙 제29조①3.라.","label":"운반차량(임시차량은 제외한다)의 증차","bizType":["IR","FR","CR"],"처리업종":"폐기물 중간재활용업, 폐기물 최종재활용업 및 폐기물 종합재활용업","신고시점":null,"조건":null,"비고":null },
-    { "id":"P17","changeType":"변경허가","조항":"시행규칙 제29조①3.마.","label":"폐기물 재활용시설의 신설","bizType":["IR","FR","CR"],"처리업종":"폐기물 중간재활용업, 폐기물 최종재활용업 및 폐기물 종합재활용업","신고시점":null,"조건":null,"비고":null },
-    { "id":"P18","changeType":"변경허가","조항":"시행규칙 제29조①3.바.","label":"폐기물 재활용시설의 증설, 개ㆍ보수 또는 그 밖의 방법으로 허가 또는 변경허가를 받은 재활용 용량의 100분의 30 이상(금속을 회수하는 최종재활용업 또는 종합재활용업의 경우에는 100분의 50 이상)의 변경(허가 또는 변경허가를 받은 후 변경되는 누계를 말한다)","bizType":["IR","FR","CR"],"처리업종":"폐기물 중간재활용업, 폐기물 최종재활용업 및 폐기물 종합재활용업","신고시점":null,"조건":null,"비고":null },
-    { "id":"P19","changeType":"변경허가","조항":"시행규칙 제29조①3.사.","label":"주요 설비의 변경","bizType":["IR","FR","CR"],"처리업종":"폐기물 중간재활용업, 폐기물 최종재활용업 및 폐기물 종합재활용업","신고시점":null,"조건":"다만, 다음 1) 및 2)의 경우만 해당한다.","비고":null },
-    { "id":"P20","changeType":"변경허가","조항":"시행규칙 제29조①3.아.","label":"허용보관량의 변경","bizType":["IR","FR","CR"],"처리업종":"폐기물 중간재활용업, 폐기물 최종재활용업 및 폐기물 종합재활용업","신고시점":null,"조건":null,"비고":null },
-    { "id":"N01","changeType":"변경신고","조항":"시행규칙 제33조①1.","label":"상호의 변경","bizType":["TR","ID","FD","IR","FR","CR"],"처리업종":"전체","신고시점":"사후 30일 이내","조건":null,"비고":null },
-    { "id":"N02","changeType":"변경신고","조항":"시행규칙 제33조①2.","label":"대표자의 변경","bizType":["TR","ID","FD","IR","FR","CR"],"처리업종":"전체","신고시점":"사후 30일 이내","조건":"법 제33조에 따라 권리ㆍ의무를 승계하는 경우는 제외한다","비고":"법 제33조 권리·의무 승계 케이스는 제외" },
-    { "id":"N03","changeType":"변경신고","조항":"시행규칙 제33조①3.","label":"연락장소나 사무실 소재지의 변경","bizType":["TR","ID","FD","IR","FR","CR"],"처리업종":"전체","신고시점":"사전","조건":null,"비고":null },
-    { "id":"N04","changeType":"변경신고","조항":"시행규칙 제33조①4.","label":"임시차량의 증차 또는 운반차량의 감차","bizType":["TR","ID","FD","IR","FR","CR"],"처리업종":"전체","신고시점":"사전","조건":null,"비고":null },
-    { "id":"N05","changeType":"변경신고","조항":"시행규칙 제33조①5.","label":"재활용 대상 부지의 변경","bizType":["IR","FR","CR"],"처리업종":"재활용업","신고시점":"사전","조건":"별표 4의2 제4호에 따른 재활용 유형으로 재활용하는 경우만 해당한다","비고":"별표 4의2 제4호 재활용 유형(매체접촉형)에 한정" },
-    { "id":"N06","changeType":"변경신고","조항":"시행규칙 제33조①6.","label":"재활용 대상 폐기물의 변경","bizType":["IR","FR","CR"],"처리업종":"재활용업","신고시점":"사전","조건":"별표 4의2에 따른 재활용의 세부 유형은 변경하지 않고 재활용하려는 폐기물을 추가하는 경우만 해당한다","비고":"재활용 세부 유형 미변경 + 폐기물 추가만" },
-    { "id":"N07","changeType":"변경신고","조항":"시행규칙 제33조①7.","label":"폐기물 재활용 유형의 변경","bizType":["IR","FR","CR"],"처리업종":"재활용업","신고시점":"사전","조건":"재활용 시설 또는 해당 시설의 소재지가 변경되지 않는 경우만 해당한다","비고":"재활용 시설/소재지 미변경" },
-    { "id":"N08","changeType":"변경신고","조항":"시행규칙 제33조①8.","label":"매립시설 침출수 처리방법의 변경","bizType":["FD"],"처리업종":"처분업(매립)","신고시점":"사전","조건":null,"비고":"매립시설만 해당" },
-    { "id":"N09","changeType":"변경신고","조항":"시행규칙 제33조①9.","label":"별표 7에 따른 기술능력의 변경","bizType":["TR","ID","FD","IR","FR","CR"],"처리업종":"전체","신고시점":"사후 30일 이내","조건":null,"비고":"별표 7 기술능력 변경" }
+    { "id":"P01","changeType":"변경허가","조항":"시행규칙 제29조①1.가.","label":"수집ㆍ운반대상 폐기물의 변경","bizType":["TR"],"처리업종":"폐기물 수집·운반업","신고시점":null,"조건":null,"비고":null,
+      "fields":[
+        {
+          "key":"wasteChanges","label":"수집ㆍ운반대상 폐기물","type":"repeat","compact":true,"min":1,
+          "addLabel":"+ 줄 추가",
+          "fields":[
+            {"key":"wasteCode","label":"코드",      "type":"text",  "dataList":"wastes","placeholder":"01-01-01"},
+            {"key":"wasteName","label":"폐기물명칭","type":"auto",  "compute":"lookupWasteName"},
+            {"key":"change",   "label":"변경사항", "type":"select","options":["추가","제거","기존"],"defaultValue":"추가"}
+          ]
+        }
+      ],
+      "description":"폐기물을 선택 후 변경사항을 입력합니다."
+    },
+    { "id":"P02","changeType":"변경허가","조항":"시행규칙 제29조①1.나.","label":"영업구역의 변경","bizType":["TR"],"처리업종":"폐기물 수집·운반업","신고시점":null,"조건":null,"비고":null,
+      "description":"변경 전·후 내용을 적습니다."
+    },
+    { "id":"P03","changeType":"변경허가","조항":"시행규칙 제29조①1.다.","label":"주차장 소재지의 변경","bizType":["TR"],"처리업종":"폐기물 수집·운반업","신고시점":null,"조건":"지정폐기물을 대상으로 하는 수집ㆍ운반업만 해당한다","비고":null,
+      "description":"변경 전·후 내용을 적습니다."
+    },
+    {
+      "id":"V01","changeType":["변경허가","변경신고"],"조항":["시행규칙 제29조①1.라.","시행규칙 제33조①4."],
+      "label":"차량 변경",
+      "bizType":["TR"],"처리업종":"폐기물 수집·운반업","신고시점":null,"조건":null,
+      "비고":"변경 전·후 차량 명세 (증차·감차·교체 통합)",
+      "fields":[
+        {
+          "key":"changes","label":"차량 변경","type":"repeat","compact":true,"min":1,
+          "addLabel":"+ 줄 추가",
+          "fields":[
+            {"key":"category", "label":"구분",     "type":"select","options":["전용차량","임시차량"],"defaultValue":"전용차량"},
+            {"key":"before",   "label":"변경 전",  "type":"text",  "placeholder":"12가 3456"},
+            {"key":"change",   "label":"변경사항", "type":"select","options":["증차","감차","기존"],"onChangeAction":"v01SyncBeforeAfter"},
+            {"key":"after",    "label":"변경 후",  "type":"text",  "placeholder":"12가 3456"},
+            {"key":"procedure","label":"절차",     "type":"auto",  "compute":"classifyVehicleProcedure","hideFromUI":true}
+          ]
+        },
+        {
+          "key":"additions","label":"증차 차량 제원","type":"derivedFrom",
+          "source":"changes","filterCompute":"classifyChange","filterValue":"증차",
+          "bindField":"after","titleLabel":"차량등록번호","specsKey":"specs",
+          "emptyText":"증차 행이 생기면 여기에 제원 카드가 자동으로 추가됩니다",
+          "fields":[
+            {"key":"vehicleType",  "label":"차종(명)",     "type":"text"},
+            {"key":"ownerName",    "label":"소유자",       "type":"text"},
+            {"key":"ownerRrn",     "label":"주민등록번호", "type":"text","placeholder":"주민/외국인등록번호"},
+            {"key":"manufacturer", "label":"제작사",       "type":"text"},
+            {"key":"typeApproval", "label":"형식승인번호", "type":"text"},
+            {"key":"firstRegDate", "label":"최초차등록일", "type":"date"},
+            {"key":"maxLoad",      "label":"최대적재량",   "type":"text","suffix":"톤"},
+            {"key":"note",         "label":"비고",         "type":"text"}
+          ]
+        }
+      ],
+      "description":"차량 변경사항의 전·후 사항을 적습니다."
+    },
+    { "id":"P05","changeType":"변경허가","조항":"시행규칙 제29조①2.가.","label":"처분대상 폐기물의 변경","bizType":["ID","FD"],"처리업종":"폐기물 중간처분업, 폐기물 최종처분업 및 폐기물 종합처분업","신고시점":null,"조건":null,"비고":null,
+      "description":"변경 전·후 내용을 적습니다."
+    },
+    { "id":"P06","changeType":"변경허가","조항":"시행규칙 제29조①2.나.","label":"폐기물 처분시설 소재지의 변경","bizType":["ID","FD"],"처리업종":"폐기물 중간처분업, 폐기물 최종처분업 및 폐기물 종합처분업","신고시점":null,"조건":null,"비고":null,
+      "description":"변경 전·후 내용을 적습니다."
+    },
+    { "id":"P07","changeType":"변경허가","조항":"시행규칙 제29조①2.다.","label":"운반차량(임시차량은 제외한다)의 증차","bizType":["ID","FD"],"처리업종":"폐기물 중간처분업, 폐기물 최종처분업 및 폐기물 종합처분업","신고시점":null,"조건":null,"비고":null,
+      "description":"변경 전·후 내용을 적습니다."
+    },
+    { "id":"P08","changeType":"변경허가","조항":"시행규칙 제29조①2.라.","label":"폐기물 처분시설의 신설","bizType":["ID","FD"],"처리업종":"폐기물 중간처분업, 폐기물 최종처분업 및 폐기물 종합처분업","신고시점":null,"조건":null,"비고":null,
+      "description":"변경 전·후 내용을 적습니다."
+    },
+    { "id":"P09","changeType":"변경허가","조항":"시행규칙 제29조①2.마.","label":"폐기물 처분시설의 증설, 개ㆍ보수 또는 그 밖의 방법으로 허가 또는 변경허가를 받은 처분용량의 100분의 30 이상의 변경(허가 또는 변경허가를 받은 후 변경되는 누계를 말한다)","bizType":["ID","FD"],"처리업종":"폐기물 중간처분업, 폐기물 최종처분업 및 폐기물 종합처분업","신고시점":null,"조건":null,"비고":null,
+      "description":"변경 전·후 내용을 적습니다."
+    },
+    { "id":"P10","changeType":"변경허가","조항":"시행규칙 제29조①2.바.","label":"주요 설비의 변경","bizType":["ID","FD"],"처리업종":"폐기물 중간처분업, 폐기물 최종처분업 및 폐기물 종합처분업","신고시점":null,"조건":"다만, 다음 1)부터 4)까지의 경우만 해당한다.","비고":null,
+      "description":"변경 전·후 내용을 적습니다."
+    },
+    { "id":"P11","changeType":"변경허가","조항":"시행규칙 제29조①2.사.","label":"매립시설 제방의 증ㆍ개축","bizType":["ID","FD"],"처리업종":"폐기물 중간처분업, 폐기물 최종처분업 및 폐기물 종합처분업","신고시점":null,"조건":null,"비고":null,
+      "description":"변경 전·후 내용을 적습니다."
+    },
+    { "id":"P12","changeType":"변경허가","조항":"시행규칙 제29조①2.아.","label":"허용보관량의 변경","bizType":["ID","FD"],"처리업종":"폐기물 중간처분업, 폐기물 최종처분업 및 폐기물 종합처분업","신고시점":null,"조건":null,"비고":null,
+      "description":"변경 전·후 내용을 적습니다."
+    },
+    { "id":"P13","changeType":"변경허가","조항":"시행규칙 제29조①3.가.","label":"재활용대상 폐기물의 변경","bizType":["IR","FR","CR"],"처리업종":"폐기물 중간재활용업, 폐기물 최종재활용업 및 폐기물 종합재활용업","신고시점":null,"조건":"제33조제1항제6호에 해당하는 경우는 제외한다","비고":null,
+      "description":"변경 전·후 내용을 적습니다."
+    },
+    { "id":"P14","changeType":"변경허가","조항":"시행규칙 제29조①3.나.","label":"폐기물 재활용 유형의 변경","bizType":["IR","FR","CR"],"처리업종":"폐기물 중간재활용업, 폐기물 최종재활용업 및 폐기물 종합재활용업","신고시점":null,"조건":"제33조제1항제7호에 해당하는 경우는 제외한다","비고":null,
+      "description":"변경 전·후 내용을 적습니다."
+    },
+    { "id":"P15","changeType":"변경허가","조항":"시행규칙 제29조①3.다.","label":"폐기물 재활용시설 소재지의 변경","bizType":["IR","FR","CR"],"처리업종":"폐기물 중간재활용업, 폐기물 최종재활용업 및 폐기물 종합재활용업","신고시점":null,"조건":null,"비고":null,
+      "description":"변경 전·후 내용을 적습니다."
+    },
+    { "id":"P16","changeType":"변경허가","조항":"시행규칙 제29조①3.라.","label":"운반차량(임시차량은 제외한다)의 증차","bizType":["IR","FR","CR"],"처리업종":"폐기물 중간재활용업, 폐기물 최종재활용업 및 폐기물 종합재활용업","신고시점":null,"조건":null,"비고":null,
+      "description":"변경 전·후 내용을 적습니다."
+    },
+    { "id":"P17","changeType":"변경허가","조항":"시행규칙 제29조①3.마.","label":"폐기물 재활용시설의 신설","bizType":["IR","FR","CR"],"처리업종":"폐기물 중간재활용업, 폐기물 최종재활용업 및 폐기물 종합재활용업","신고시점":null,"조건":null,"비고":null,
+      "description":"변경 전·후 내용을 적습니다."
+    },
+    { "id":"P18","changeType":"변경허가","조항":"시행규칙 제29조①3.바.","label":"폐기물 재활용시설의 증설, 개ㆍ보수 또는 그 밖의 방법으로 허가 또는 변경허가를 받은 재활용 용량의 100분의 30 이상(금속을 회수하는 최종재활용업 또는 종합재활용업의 경우에는 100분의 50 이상)의 변경(허가 또는 변경허가를 받은 후 변경되는 누계를 말한다)","bizType":["IR","FR","CR"],"처리업종":"폐기물 중간재활용업, 폐기물 최종재활용업 및 폐기물 종합재활용업","신고시점":null,"조건":null,"비고":null,
+      "description":"변경 전·후 내용을 적습니다."
+    },
+    { "id":"P19","changeType":"변경허가","조항":"시행규칙 제29조①3.사.","label":"주요 설비의 변경","bizType":["IR","FR","CR"],"처리업종":"폐기물 중간재활용업, 폐기물 최종재활용업 및 폐기물 종합재활용업","신고시점":null,"조건":"다만, 다음 1) 및 2)의 경우만 해당한다.","비고":null,
+      "description":"변경 전·후 내용을 적습니다."
+    },
+    { "id":"P20","changeType":"변경허가","조항":"시행규칙 제29조①3.아.","label":"허용보관량의 변경","bizType":["IR","FR","CR"],"처리업종":"폐기물 중간재활용업, 폐기물 최종재활용업 및 폐기물 종합재활용업","신고시점":null,"조건":null,"비고":null,
+      "description":"변경 전·후 내용을 적습니다."
+    },
+    { "id":"N01","changeType":"변경신고","조항":"시행규칙 제33조①1.","label":"상호의 변경","bizType":["TR","ID","FD","IR","FR","CR"],"처리업종":"전체","신고시점":"사후 30일 이내","조건":null,"비고":null,
+      "description":"변경 전·후 내용을 적습니다."
+    },
+    { "id":"N02","changeType":"변경신고","조항":"시행규칙 제33조①2.","label":"대표자의 변경","bizType":["TR","ID","FD","IR","FR","CR"],"처리업종":"전체","신고시점":"사후 30일 이내","조건":"법 제33조에 따라 권리ㆍ의무를 승계하는 경우는 제외한다","비고":"법 제33조 권리·의무 승계 케이스는 제외",
+      "tooltipInfo":{
+        "title":"권리ㆍ의무 승계 (폐기물관리법 제33조)",
+        "intro":"대표자가 다음 사유로 바뀐 경우엔 변경신고가 아니라 별도 절차:",
+        "cases":[
+          {"no":"①","label":"양수ㆍ인수",     "procedure":"허가","detail":"양수, 경매(민사집행법), 환가(채무자회생법), 압류재산 매각(국세징수법ㆍ관세법ㆍ지방세징수법) 등"},
+          {"no":"②","label":"법인 합병ㆍ분할","procedure":"허가","detail":"흡수합병, 신설합병, 분할로 신설된 법인, 분할 후 다른 법인에의 합병"},
+          {"no":"③","label":"상속",           "procedure":"신고","detail":"사망 시 상속인이 자동 승계 + 사후 신고"}
+        ],
+        "common":[
+          "처리기간 30일 내 허가/수리 여부 통지 — 미통지 시 자동 허가 (제5항·제6항)",
+          "종전 사업자의 법 위반 책임은 승계 후에도 소멸하지 않음 (제8항)"
+        ]
+      },
+      "description":"변경 전·후 내용을 적습니다."
+    },
+    { "id":"N03","changeType":"변경신고","조항":"시행규칙 제33조①3.","label":"연락장소나 사무실 소재지의 변경","bizType":["TR","ID","FD","IR","FR","CR"],"처리업종":"전체","신고시점":"사전","조건":null,"비고":null,
+      "description":"변경 전·후 내용을 적습니다."
+    },
+    { "id":"N05","changeType":"변경신고","조항":"시행규칙 제33조①5.","label":"재활용 대상 부지의 변경","bizType":["IR","FR","CR"],"처리업종":"재활용업","신고시점":"사전","조건":"별표 4의2 제4호에 따른 재활용 유형으로 재활용하는 경우만 해당한다","비고":"별표 4의2 제4호 재활용 유형(매체접촉형)에 한정",
+      "description":"변경 전·후 내용을 적습니다."
+    },
+    { "id":"N06","changeType":"변경신고","조항":"시행규칙 제33조①6.","label":"재활용 대상 폐기물의 변경","bizType":["IR","FR","CR"],"처리업종":"재활용업","신고시점":"사전","조건":"별표 4의2에 따른 재활용의 세부 유형은 변경하지 않고 재활용하려는 폐기물을 추가하는 경우만 해당한다","비고":"재활용 세부 유형 미변경 + 폐기물 추가만",
+      "description":"변경 전·후 내용을 적습니다."
+    },
+    { "id":"N07","changeType":"변경신고","조항":"시행규칙 제33조①7.","label":"폐기물 재활용 유형의 변경","bizType":["IR","FR","CR"],"처리업종":"재활용업","신고시점":"사전","조건":"재활용 시설 또는 해당 시설의 소재지가 변경되지 않는 경우만 해당한다","비고":"재활용 시설/소재지 미변경",
+      "description":"변경 전·후 내용을 적습니다."
+    },
+    { "id":"N08","changeType":"변경신고","조항":"시행규칙 제33조①8.","label":"매립시설 침출수 처리방법의 변경","bizType":["FD"],"처리업종":"처분업(매립)","신고시점":"사전","조건":null,"비고":"매립시설만 해당",
+      "description":"변경 전·후 내용을 적습니다."
+    },
+    { "id":"N09","changeType":"변경신고","조항":"시행규칙 제33조①9.","label":"별표 7에 따른 기술능력의 변경","bizType":["TR","ID","FD","IR","FR","CR"],"처리업종":"전체","신고시점":"사후 30일 이내","조건":null,"비고":"별표 7 기술능력 변경",
+      "description":"변경 전·후 기술인의 성명·자격사항·생년월일을 적습니다.",
+      "fields":[
+        {
+          "key":"beforePersonnel","label":"변경 전 기술인","type":"repeat","compact":true,"min":1,
+          "addLabel":"+ 인원 추가",
+          "fields":[
+            {"key":"name",     "label":"성명",     "type":"text"},
+            {"key":"cert",     "label":"자격사항", "type":"text","placeholder":"예: 폐기물처리기사"},
+            {"key":"birthDate","label":"생년월일", "type":"date"}
+          ]
+        },
+        {
+          "key":"afterPersonnel","label":"변경 후 기술인","type":"repeat","compact":true,"min":1,
+          "addLabel":"+ 인원 추가",
+          "fields":[
+            {"key":"name",     "label":"성명",     "type":"text"},
+            {"key":"cert",     "label":"자격사항", "type":"text","placeholder":"예: 폐기물처리기사"},
+            {"key":"birthDate","label":"생년월일", "type":"date"}
+          ]
+        }
+      ]
+    }
   ]
 };
 
@@ -274,7 +780,19 @@ var STORAGE_KEY = "waste-change-selector.v1";
 var BIZ = DATA._meta.bizType_코드;
 /* 수집·운반업(TR) 전용 — 처리업 코드 고정 */
 var FIXED_BIZ = "TR";
-var state = { bizType: FIXED_BIZ, tab: "전체", selected: {} };
+/* 신청인 정보 — 페이로드 템플릿 변수와 1:1 매핑 */
+var APPLICANT_FIELDS = [
+  { key: "businessName",         label: "상호(명칭)",                  placeholder: "(주)동방클린" },
+  { key: "businessRegNumber",    label: "사업자등록번호",              placeholder: "000-00-00000" },
+  { key: "ownerName",            label: "성명(대표자)",                placeholder: "홍길동" },
+  { key: "corporationRegNumber", label: "주민등록번호 또는 법인등록번호", placeholder: "800101-1234567" },
+  { key: "businessAddress",      label: "주소",                        placeholder: "서울시 ...", full: true },
+  { key: "businessPhone",        label: "전화번호",                    placeholder: "02-1234-5678" },
+  { key: "wasteIndustryType",    label: "업종",                        placeholder: "폐기물수집·운반업" },
+  { key: "date",                 label: "신청일자",                    type: "date" },
+  { key: "submissionOffice",     label: "제출청",                      placeholder: "○○시·도지사" }
+];
+var state = { bizType: FIXED_BIZ, tab: "전체", selected: {}, applicant: {} };
 
 function save(){ try{ localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); }catch(e){} }
 function load(){
@@ -288,14 +806,20 @@ function load(){
         state.selected = {};
         Object.keys(s.selected).forEach(function(id){
           var v = s.selected[id];
-          if(v === true) state.selected[id] = { before:"", after:"" };
+          if(v === true) state.selected[id] = { before:"", after:"", form:{} };
           else if(v && typeof v === "object")
-            state.selected[id] = { before: v.before || "", after: v.after || "" };
+            state.selected[id] = {
+              before: v.before || "",
+              after:  v.after  || "",
+              form:   (v.form && typeof v.form === "object") ? v.form : {}
+            };
         });
       }
+      if(s.applicant && typeof s.applicant === "object") state.applicant = s.applicant;
     }
   }catch(e){}
   state.bizType = FIXED_BIZ;
+  if(!state.applicant || typeof state.applicant !== "object") state.applicant = {};
 }
 function escapeHtml(s){
   return String(s==null?"":s).replace(/[&<>"]/g,function(c){
@@ -310,38 +834,69 @@ function visibleItems(){
     return it.bizType.indexOf(state.bizType) !== -1;
   });
 }
-/* 탭 필터 적용 */
+/* 탭 필터 — 변경허가/변경신고 통합 모드라 항상 전체 반환 */
 function tabItems(){
-  var items = visibleItems();
-  if(state.tab === "전체") return items;
-  return items.filter(function(it){ return it.changeType === state.tab; });
+  return visibleItems();
 }
 function itemById(id){
   for(var i=0;i<DATA.items.length;i++) if(DATA.items[i].id === id) return DATA.items[i];
   return null;
 }
 
-/* ── 렌더 ── */
-function renderTabs(){
-  var box = document.getElementById("tabs");
-  box.innerHTML = "";
-  var vis = visibleItems();
-  var counts = {
-    "전체": vis.length,
-    "변경허가": vis.filter(function(i){return i.changeType==="변경허가";}).length,
-    "변경신고": vis.filter(function(i){return i.changeType==="변경신고";}).length
-  };
-  ["전체","변경허가","변경신고"].forEach(function(t){
-    var tab = document.createElement("button");
-    tab.className = "tab" + (state.tab === t ? " active" : "");
-    tab.innerHTML = escapeHtml(t) + '<span class="cnt">' + counts[t] + '</span>';
-    tab.addEventListener("click", function(){
-      state.tab = t; save(); renderItems(); renderTabs();
-    });
-    box.appendChild(tab);
-  });
+/* changeType / 조항 은 string 또는 string[] 둘 다 허용 — 배열로 통일 */
+function changeTypeList(it){
+  if(!it || it.changeType == null) return [];
+  return Array.isArray(it.changeType) ? it.changeType : [it.changeType];
+}
+function joList(it){
+  if(!it || it.조항 == null) return [];
+  return Array.isArray(it.조항) ? it.조항 : [it.조항];
+}
+function badgeClsFor(ct){
+  /* 허가류 → perm(보라), 신고류 → noti(청록) */
+  if(/허가/.test(ct)) return "perm";
+  if(/신고/.test(ct)) return "noti";
+  return "noti";
+}
+function badgesHtml(it){
+  return changeTypeList(it).map(function(ct){
+    return '<span class="badge ' + badgeClsFor(ct) + '">' + escapeHtml(ct) + '</span>';
+  }).join("");
+}
+function joDisplayHtml(it){
+  return joList(it).map(function(raw){
+    return '<span class="jo" title="' + escapeHtml(raw) + '">' + escapeHtml(formatJo(raw)) + '</span>';
+  }).join('<span class="jo-sep">·</span>');
 }
 
+/* tooltipInfo 객체 → HTML 팝오버 본문 */
+function renderTooltipPop(info){
+  if(!info) return "";
+  var html = '';
+  if(info.title) html += '<div class="info-pop-title">' + escapeHtml(info.title) + '</div>';
+  if(info.intro) html += '<div class="info-pop-intro">' + escapeHtml(info.intro) + '</div>';
+  if(Array.isArray(info.cases) && info.cases.length){
+    html += '<ul class="info-pop-cases">';
+    info.cases.forEach(function(c){
+      var proc = c.procedure ? '<span class="info-pop-proc info-pop-proc-' +
+        (/허가/.test(c.procedure)?'perm':'noti') + '">' + escapeHtml(c.procedure) + '</span>' : '';
+      html += '<li>' +
+        (c.no ? '<b class="info-pop-no">' + escapeHtml(c.no) + '</b> ' : '') +
+        '<b>' + escapeHtml(c.label || '') + '</b> ' + proc +
+        (c.detail ? '<div class="info-pop-detail">' + escapeHtml(c.detail) + '</div>' : '') +
+      '</li>';
+    });
+    html += '</ul>';
+  }
+  if(Array.isArray(info.common) && info.common.length){
+    html += '<div class="info-pop-common"><div class="info-pop-common-head">공통</div><ul>' +
+      info.common.map(function(line){ return '<li>' + escapeHtml(line) + '</li>'; }).join('') +
+    '</ul></div>';
+  }
+  return html;
+}
+
+/* ── 렌더 ── */
 function renderItems(){
   var box = document.getElementById("itemList");
   var hint = document.getElementById("itemHint");
@@ -363,14 +918,7 @@ function renderItems(){
     var row = document.createElement("div");
     row.className = "item" + (checked ? " checked" : "");
 
-    var badgeCls = it.changeType === "변경허가" ? "perm" : "noti";
-    var top = '<div class="item-top">' +
-      '<span class="badge ' + badgeCls + '">' + escapeHtml(it.changeType) + '</span>';
-    if(it.신고시점){
-      top += '<span class="badge time">' + escapeHtml(it.신고시점) + '</span>';
-    }
-    top += '<span class="jo" title="' + escapeHtml(it.조항) + '">' +
-           escapeHtml(formatJo(it.조항)) + '</span></div>';
+    var top = '<div class="item-top">' + badgesHtml(it) + '</div>';
 
     var meta = "";
     if(it.조건){
@@ -380,40 +928,60 @@ function renderItems(){
       meta += '<div class="m-row"><b>비고:</b> ' + escapeHtml(it.비고) + '</div>';
     }
 
+    /* tooltipInfo 있으면 라벨 옆에 ℹ 아이콘 + 호버 팝오버 */
+    var infoIcon = '';
+    if(it.tooltipInfo){
+      infoIcon = ' <span class="info-icon" tabindex="0">ℹ<span class="info-pop">' +
+        renderTooltipPop(it.tooltipInfo) + '</span></span>';
+    }
+
     row.innerHTML =
       '<div class="chk">' + (checked ? "✓" : "") + '</div>' +
       '<div class="item-body">' +
         top +
-        '<div class="label">' + escapeHtml(it.label) + '</div>' +
+        '<div class="label">' + escapeHtml(it.label) + infoIcon + '</div>' +
+        (it.description ? '<div class="desc">' + escapeHtml(it.description) + '</div>' : '') +
         (meta ? '<div class="meta">' + meta + '</div>' : '') +
       '</div>';
 
     /* 체크/해제 — chk·item-body 영역 클릭만 */
     function toggle(){
       if(state.selected[it.id]) delete state.selected[it.id];
-      else state.selected[it.id] = { before:"", after:"" };
+      else state.selected[it.id] = { before:"", after:"", form:{} };
       save(); renderItems(); renderSummary();
     }
     row.querySelector(".chk").addEventListener("click", toggle);
     row.querySelector(".item-body").addEventListener("click", toggle);
+    /* ℹ 아이콘 클릭은 토글되지 않도록 */
+    var infoEl = row.querySelector(".info-icon");
+    if(infoEl) infoEl.addEventListener("click", function(e){ e.stopPropagation(); });
 
-    /* 체크 시 변경전/후 입력칸 */
+    /* 체크 시 — fields 스키마 있으면 구조화 폼, 없으면 변경전/후 textarea */
     if(checked){
-      var cf = document.createElement("div");
-      cf.className = "change-fields";
-      cf.innerHTML =
-        '<div class="cf-row cf-before"><label>변경 전</label>' +
-        '<textarea rows="2" placeholder="현재 내용"></textarea></div>' +
-        '<div class="cf-row cf-after"><label>변경 후</label>' +
-        '<textarea rows="2" placeholder="변경할 내용"></textarea></div>';
-      var taB = cf.querySelector(".cf-before textarea");
-      var taA = cf.querySelector(".cf-after textarea");
-      taB.value = sel.before || "";
-      taA.value = sel.after || "";
-      taB.addEventListener("input", function(){ sel.before = taB.value; save(); });
-      taA.addEventListener("input", function(){ sel.after = taA.value; save(); });
-      cf.addEventListener("click", function(e){ e.stopPropagation(); });
-      row.appendChild(cf);
+      if(Array.isArray(it.fields) && it.fields.length){
+        if(!sel.form || typeof sel.form !== "object") sel.form = {};
+        var fbox = document.createElement("div");
+        fbox.className = "item-fields";
+        fbox.addEventListener("click", function(e){ e.stopPropagation(); });
+        renderFields(it.fields, sel.form, fbox);
+        row.appendChild(fbox);
+      } else {
+        var cf = document.createElement("div");
+        cf.className = "change-fields";
+        cf.innerHTML =
+          '<div class="cf-row cf-before"><label>변경 전</label>' +
+          '<textarea rows="2" placeholder="현재 내용"></textarea></div>' +
+          '<div class="cf-row cf-after"><label>변경 후</label>' +
+          '<textarea rows="2" placeholder="변경할 내용"></textarea></div>';
+        var taB = cf.querySelector(".cf-before textarea");
+        var taA = cf.querySelector(".cf-after textarea");
+        taB.value = sel.before || "";
+        taA.value = sel.after || "";
+        taB.addEventListener("input", function(){ sel.before = taB.value; save(); });
+        taA.addEventListener("input", function(){ sel.after = taA.value; save(); });
+        cf.addEventListener("click", function(e){ e.stopPropagation(); });
+        row.appendChild(cf);
+      }
     }
     box.appendChild(row);
   });
@@ -430,14 +998,20 @@ function renderSummary(){
     box.innerHTML = '<div class="empty">선택된 변경사항이 없습니다.</div>';
     return;
   }
+  var finalProc = determineFinalProcedure();
+  var finalProcHtml = finalProc
+    ? '<span class="sum-final-badge ' + (finalProc === "변경허가" ? "perm" : "noti") + '">최종 절차: ' + escapeHtml(finalProc) + '</span>'
+    : '';
   var html = '<div class="sum-head"><span class="sum-count">' + ids.length +
-             '<span class="u">건 선택</span></span></div><div class="sum-list">';
+             '<span class="u">건 선택</span></span>' + finalProcHtml + '</div><div class="sum-list">';
   ids.forEach(function(id){
     var it = itemById(id);
     var sel = state.selected[id] || {};
-    var badgeCls = it.changeType === "변경허가" ? "perm" : "noti";
     var ba = "";
-    if((sel.before || "").trim() || (sel.after || "").trim()){
+    if(Array.isArray(it.fields) && it.fields.length){
+      var fhtml = formSummaryHtml(it.fields, sel.form || {});
+      if(fhtml) ba = '<div class="sum-form">' + fhtml + '</div>';
+    } else if((sel.before || "").trim() || (sel.after || "").trim()){
       ba = '<div class="sum-ba">' +
         '<div class="sum-ba-row"><span class="t b">변경 전</span><span class="v">' +
           (escapeHtml(sel.before) || '<span class="nd">—</span>') + '</span></div>' +
@@ -447,8 +1021,7 @@ function renderSummary(){
     }
     html += '<div class="sum-item-wrap">' +
       '<div class="sum-item">' +
-        '<span class="badge ' + badgeCls + '">' + escapeHtml(it.changeType) + '</span>' +
-        '<span class="jo" title="' + escapeHtml(it.조항) + '">' + escapeHtml(formatJo(it.조항)) + '</span>' +
+        badgesHtml(it) +
         '<span class="lbl">' + escapeHtml(it.label) + '</span>' +
         '<span class="x" data-id="' + escapeHtml(it.id) + '" title="제거">✕</span>' +
       '</div>' + ba +
@@ -468,13 +1041,745 @@ function idxOf(id){
   return 999;
 }
 
+/* 최종 절차 판정
+   - V01: 행마다 classifyVehicleProcedure 로 절차 누적
+   - 그 외: item.changeType 누적
+   - 변경허가 한 건이라도 있으면 → 변경허가, 그 외 모두 변경신고면 → 변경신고
+   반환: '변경허가' | '변경신고' | '' (선택 없거나 절차 발생 없음) */
+function determineFinalProcedure(){
+  var hasPermit = false, hasNotify = false;
+  Object.keys(state.selected).forEach(function(id){
+    var it = itemById(id);
+    if(!it) return;
+    var sel = state.selected[id] || {};
+    /* V01: 행 단위 절차 */
+    if(it.id === "V01" && sel.form && Array.isArray(sel.form.changes)){
+      sel.form.changes.forEach(function(row){
+        var p = AUTO_COMPUTERS.classifyVehicleProcedure(row);
+        if(p === "변경허가") hasPermit = true;
+        else if(p === "변경신고") hasNotify = true;
+        /* '변경 없음', '' 무시 */
+      });
+      return;
+    }
+    /* 일반 항목: item.changeType */
+    changeTypeList(it).forEach(function(ct){
+      if(ct === "변경허가") hasPermit = true;
+      else if(ct === "변경신고") hasNotify = true;
+    });
+  });
+  if(hasPermit) return "변경허가";
+  if(hasNotify) return "변경신고";
+  return "";
+}
+
+/* ── 구조화 폼 (fields 스키마) ── */
+/* 지원 type: text / textarea / number / date / select / repeat / pairRepeat / auto / derivedFrom */
+
+/* 자동 계산 함수 — auto 타입 셀과 derivedFrom 필터에서 공용 */
+var AUTO_COMPUTERS = {
+  classifyChange: function(row){
+    var b = String(row.before || "").trim();
+    var a = String(row.after  || "").trim();
+    if(b && a) return "기존";
+    if(b)      return "감차";
+    if(a)      return "증차";
+    return "";
+  },
+  /* 차량변경 절차 판정 (사용자 선택값 row.change 기준)
+     - 전용차량 + 증차 → 변경허가 (시행규칙 제29조①1.라.)
+     - 그 외(전용차량 감차 / 임시차량 증차 / 임시차량 감차) → 변경신고 (제33조①4.)
+     - 기존 → 변경 없음
+     - 선택 없음 → 빈값 */
+  classifyVehicleProcedure: function(row){
+    var c = row.change;
+    if(!c) return "";
+    if(c === "기존") return "변경 없음";
+    if(row.category === "전용차량" && c === "증차") return "변경허가";
+    return "변경신고";
+  },
+  /* 폐기물코드 → 폐기물명칭 lookup (WASTE_DATA 전역) */
+  lookupWasteName: function(row){
+    if(typeof WASTE_DATA === "undefined" || !Array.isArray(WASTE_DATA)) return "";
+    var code = String(row.wasteCode || "").trim();
+    if(!code) return "";
+    var hit = WASTE_DATA.find(function(w){ return w.wasteCode === code; });
+    return hit ? hit.wasteName : "";
+  }
+};
+function autoClassKind(text){
+  if(text === "증차") return "add";
+  if(text === "감차") return "remove";
+  if(text === "기존") return "keep";
+  if(text === "변경허가") return "perm";
+  if(text === "변경신고") return "noti";
+  if(text === "변경 없음") return "muted";
+  return "";
+}
+
+/* datalist 동적 생성 — text 입력에 list 속성 연결 */
+function ensureDataList(name){
+  var id = "dl-" + name;
+  if(document.getElementById(id)) return;
+  var dl = document.createElement("datalist");
+  dl.id = id;
+  if(name === "wastes" && typeof WASTE_DATA !== "undefined"){
+    WASTE_DATA.forEach(function(w){
+      var opt = document.createElement("option");
+      opt.value = w.wasteCode;
+      opt.textContent = w.wasteName;   /* Chrome 등에선 코드 옆에 명칭 표시 */
+      dl.appendChild(opt);
+    });
+  }
+  document.body.appendChild(dl);
+}
+
+/* 필드 onChangeAction — select 등에서 값이 바뀌면 같은 행의 다른 필드를 갱신 */
+var FIELD_ACTIONS = {
+  /* V01 차량 변경사항 select 변경 시 변경전/후 자동 정리 */
+  v01SyncBeforeAfter: function(row, value){
+    if(value === "기존"){
+      row.after = row.before;
+    } else if(value === "증차"){
+      row.before = "";
+    } else if(value === "감차"){
+      row.after = "";
+    }
+  }
+};
+
+/* repeat 새 행 추가 시 defaultValue 적용 */
+function makeDefaultRow(subFields){
+  var row = {};
+  (subFields || []).forEach(function(sub){
+    if(sub.defaultValue !== undefined && sub.type !== "auto"){
+      row[sub.key] = sub.defaultValue;
+    }
+  });
+  return row;
+}
+
+
+/* pairRepeat 한 줄의 자동 분류 — 변경전·후 채움 여부로 증차/감차/기존 결정 */
+function classifyPair(child, leftFields, rightFields, labels){
+  function has(side, flds){
+    return (flds || []).some(function(fl){
+      return child[side] && String(child[side][fl.key] || "").trim() !== "";
+    });
+  }
+  var hL = has("left",  leftFields);
+  var hR = has("right", rightFields);
+  if(hL && hR) return labels.both       || "기존";
+  if(hL)       return labels.removeOnly || "감차";
+  if(hR)       return labels.addOnly    || "증차";
+  return "";
+}
+function classBadgeKind(text, labels){
+  if(text === (labels.addOnly    || "증차")) return "add";
+  if(text === (labels.removeOnly || "감차")) return "remove";
+  if(text === (labels.both       || "기존")) return "keep";
+  return "";
+}
+
+function renderFields(fields, val, container){
+  fields.forEach(function(f){
+    if(f.type === "derivedFrom"){
+      /* 다른 필드(source)에서 filterCompute(filterValue) 매칭 행들로부터
+         spec 카드 자동 생성. spec 데이터는 source[i][specsKey] 에 저장. */
+      var grp = document.createElement("div");
+      grp.className = "fld-derived";
+      function rebuild(){
+        grp.innerHTML = "";
+        var sourceArr = Array.isArray(val[f.source]) ? val[f.source] : [];
+        var fn = AUTO_COMPUTERS[f.filterCompute];
+        var hits = [];
+        if(fn){
+          sourceArr.forEach(function(row, i){
+            if(fn(row) === f.filterValue) hits.push({ row: row, idx: i });
+          });
+        }
+        var head = document.createElement("div");
+        head.className = "fld-repeat-head";
+        head.innerHTML = '<span class="fld-grp-label">' + escapeHtml(f.label || "") +
+          ' <span class="fld-derived-count">(' + hits.length + '건)</span></span>';
+        grp.appendChild(head);
+        if(!hits.length){
+          var emp = document.createElement("div");
+          emp.className = "fld-derived-empty";
+          emp.textContent = f.emptyText || "해당 항목이 없습니다";
+          grp.appendChild(emp);
+          return;
+        }
+        hits.forEach(function(hit, hIdx){
+          var card = document.createElement("div");
+          card.className = "fld-repeat-item";
+          var hd = document.createElement("div");
+          hd.className = "fld-repeat-item-head";
+          var bindVal = (f.bindField && hit.row[f.bindField]) || "";
+          hd.innerHTML = '<span class="fld-repeat-no">증차 ' + (hIdx+1) + '</span>' +
+            ' <span class="fld-derived-bind"><b>' + escapeHtml(f.titleLabel || "") + '</b> ' + escapeHtml(bindVal) + '</span>';
+          card.appendChild(hd);
+          if(!hit.row[f.specsKey] || typeof hit.row[f.specsKey] !== "object") hit.row[f.specsKey] = {};
+          var body = document.createElement("div");
+          body.className = "fld-repeat-item-body";
+          renderFields(f.fields || [], hit.row[f.specsKey], body);
+          card.appendChild(body);
+          grp.appendChild(card);
+        });
+      }
+      rebuild();
+      /* container 레벨에서 input 이벤트 받아 재빌드 — source 변경 감지 */
+      if(!container._derivedRebuilders) container._derivedRebuilders = [];
+      container._derivedRebuilders.push(rebuild);
+      if(!container._derivedListenerAttached){
+        container._derivedListenerAttached = true;
+        /* source 셀이 포커스 아웃되면 derived 재빌드 (변경 후 입력 후 탭/클릭 이동 시점) */
+        function _onSourceChange(e){
+          if(e.target && e.target.closest && e.target.closest(".fld-derived")) return;
+          (container._derivedRebuilders || []).forEach(function(r){ r(); });
+        }
+        container.addEventListener("focusout", _onSourceChange);
+        container.addEventListener("change", _onSourceChange);  /* select 즉시 반영 */
+      }
+      container.appendChild(grp);
+      return;
+    }
+    if(f.type === "pairRepeat"){
+      var arr = Array.isArray(val[f.key]) ? val[f.key] : (val[f.key] = []);
+      while(arr.length < (f.min || 0)) arr.push({ left:{}, right:{} });
+      var grp = document.createElement("div");
+      grp.className = "fld-pair-group" + (f.compact ? " compact" : "");
+      grp.innerHTML = '<div class="fld-repeat-head"><span class="fld-grp-label">' +
+        escapeHtml(f.label || "") + '</span></div>';
+
+      var leftSpec  = f.left  || { fields: [] };
+      var rightSpec = f.right || { fields: [] };
+      var classifyAs = f.classifyAs || { addOnly: "증차", removeOnly: "감차", both: "기존" };
+
+      arr.forEach(function(child, idx){
+        if(!child.left)  child.left  = {};
+        if(!child.right) child.right = {};
+        var card = document.createElement("div");
+        card.className = "fld-pair-row" + (f.compact ? " compact" : "");
+
+        /* compact 모드: 헤더(변경 N) 생략, ✕ + 비고 뱃지 인라인 */
+        if(!f.compact){
+          var hd = document.createElement("div");
+          hd.className = "fld-repeat-item-head";
+          hd.innerHTML = '<span class="fld-repeat-no">' + escapeHtml(f.itemLabel || "변경") + ' ' + (idx+1) + '</span>';
+          var rmBtnH = document.createElement("button");
+          rmBtnH.type = "button"; rmBtnH.className = "fld-repeat-rm";
+          rmBtnH.textContent = "✕"; rmBtnH.title = "줄 삭제";
+          rmBtnH.addEventListener("click", function(e){
+            e.stopPropagation();
+            arr.splice(idx, 1);
+            while(arr.length < (f.min || 0)) arr.push({ left:{}, right:{} });
+            save(); renderItems(); renderSummary();
+          });
+          hd.appendChild(rmBtnH);
+          card.appendChild(hd);
+        }
+
+        var body = document.createElement("div");
+        body.className = "fld-pair-body";
+
+        var leftCol = document.createElement("div");
+        leftCol.className = "fld-pair-col fld-pair-left";
+        leftCol.innerHTML = '<div class="fld-pair-col-head">' + escapeHtml(leftSpec.label || "변경 전") + '</div>';
+        var leftBody = document.createElement("div");
+        leftBody.className = "fld-pair-col-body";
+        renderFields(leftSpec.fields || [], child.left, leftBody);
+        leftCol.appendChild(leftBody);
+
+        var rightCol = document.createElement("div");
+        rightCol.className = "fld-pair-col fld-pair-right";
+        rightCol.innerHTML = '<div class="fld-pair-col-head">' + escapeHtml(rightSpec.label || "변경 후") + '</div>';
+        var rightBody = document.createElement("div");
+        rightBody.className = "fld-pair-col-body";
+        renderFields(rightSpec.fields || [], child.right, rightBody);
+        rightCol.appendChild(rightBody);
+
+        body.appendChild(leftCol);
+        body.appendChild(rightCol);
+        card.appendChild(body);
+
+        /* 비고 (자동 분류) + ✕ — compact 모드에선 인라인, 아니면 카드 아래 */
+        var tail = document.createElement("div");
+        tail.className = "fld-pair-tail";
+        var badge = document.createElement("span");
+        badge.className = "pair-class";
+        tail.appendChild(badge);
+
+        if(f.compact){
+          var rmBtn = document.createElement("button");
+          rmBtn.type = "button"; rmBtn.className = "fld-repeat-rm";
+          rmBtn.textContent = "✕"; rmBtn.title = "줄 삭제";
+          rmBtn.addEventListener("click", function(e){
+            e.stopPropagation();
+            arr.splice(idx, 1);
+            while(arr.length < (f.min || 0)) arr.push({ left:{}, right:{} });
+            save(); renderItems(); renderSummary();
+          });
+          tail.appendChild(rmBtn);
+        }
+        card.appendChild(tail);
+
+        function updateBadge(){
+          var cls = classifyPair(child, leftSpec.fields, rightSpec.fields, classifyAs);
+          if(cls){
+            badge.textContent = cls;
+            badge.className = "pair-class " + classBadgeKind(cls, classifyAs);
+            badge.style.display = "";
+          } else {
+            badge.textContent = "";
+            badge.className = "pair-class";
+            badge.style.display = "none";
+          }
+        }
+        updateBadge();
+        card.addEventListener("input", updateBadge);
+
+        grp.appendChild(card);
+      });
+      var addBtn = document.createElement("button");
+      addBtn.type = "button"; addBtn.className = "fld-repeat-add";
+      addBtn.textContent = f.addLabel || "+ 줄 추가";
+      addBtn.addEventListener("click", function(e){
+        e.stopPropagation();
+        arr.push({ left:{}, right:{} });
+        save(); renderItems(); renderSummary();
+      });
+      grp.appendChild(addBtn);
+      container.appendChild(grp);
+      return;
+    }
+    if(f.type === "repeat" && f.compact){
+      /* 테이블 모드 — 엑셀처럼 한 줄에 모든 필드 가로 배치 */
+      var arr = Array.isArray(val[f.key]) ? val[f.key] : (val[f.key] = []);
+      while(arr.length < (f.min || 0)) arr.push(makeDefaultRow(f.fields));
+      var grp = document.createElement("div");
+      grp.className = "fld-repeat-table-wrap";
+      grp.innerHTML = '<div class="fld-repeat-head"><span class="fld-grp-label">' +
+        escapeHtml(f.label || "") + '</span></div>';
+
+      var table = document.createElement("div");
+      table.className = "fld-table";
+
+      /* hideFromUI 필드는 표에 보이지 않음 (페이로드에는 포함) */
+      var visibleFields = (f.fields || []).filter(function(s){ return !s.hideFromUI; });
+
+      /* 헤더 */
+      var hdr = document.createElement("div");
+      hdr.className = "fld-table-tr fld-table-header";
+      visibleFields.forEach(function(sub){
+        var th = document.createElement("div");
+        th.className = "fld-table-th";
+        th.textContent = sub.label || sub.key;
+        hdr.appendChild(th);
+      });
+      var thA = document.createElement("div");
+      thA.className = "fld-table-th fld-table-action";
+      hdr.appendChild(thA);
+      table.appendChild(hdr);
+
+      /* 행 */
+      arr.forEach(function(child, idx){
+        var tr = document.createElement("div");
+        tr.className = "fld-table-tr";
+        var autoCells = [];   // 행 내부의 auto 셀들 (입력 시 재계산)
+        visibleFields.forEach(function(sub){
+          var td = document.createElement("div");
+          td.className = "fld-table-td";
+          if(sub.type === "auto"){
+            td.classList.add("fld-table-td-auto");
+            var span = document.createElement("span");
+            span.className = "auto-cls";
+            td.appendChild(span);
+            autoCells.push({ span: span, compute: sub.compute });
+            tr.appendChild(td);
+            return;
+          }
+          var inp;
+          if(sub.type === "select"){
+            inp = document.createElement("select");
+            var empty = document.createElement("option");
+            empty.value = ""; empty.textContent = "—";
+            inp.appendChild(empty);
+            (sub.options || []).forEach(function(o){
+              var opt = document.createElement("option");
+              if(typeof o === "string"){ opt.value = o; opt.textContent = o; }
+              else { opt.value = o.value; opt.textContent = o.label; }
+              inp.appendChild(opt);
+            });
+          } else if(sub.type === "textarea"){
+            inp = document.createElement("textarea"); inp.rows = 1;
+          } else {
+            inp = document.createElement("input");
+            inp.type = (sub.type === "date") ? "date" : (sub.type === "number") ? "number" : "text";
+            if(sub.dataList){
+              ensureDataList(sub.dataList);
+              inp.setAttribute("list", "dl-" + sub.dataList);
+            }
+          }
+          if(sub.placeholder) inp.placeholder = sub.placeholder;
+          inp.setAttribute("data-key", sub.key);
+          inp.value = (child[sub.key] != null) ? child[sub.key] : "";
+          inp.addEventListener("input",  function(){
+            child[sub.key] = inp.value;
+            /* V01 — '기존' 상태에서 변경전 입력 시 변경후 자동 미러 */
+            if(sub.key === "before" && child.change === "기존"){
+              child.after = inp.value;
+              var afterEl = tr.querySelector('[data-key="after"]');
+              if(afterEl) afterEl.value = inp.value;
+            }
+            save();
+          });
+          inp.addEventListener("change", function(){
+            child[sub.key] = inp.value;
+            save();
+            /* onChangeAction (select 등) → 같은 행 다른 필드 갱신 후 행 재구성 */
+            if(sub.onChangeAction && FIELD_ACTIONS[sub.onChangeAction]){
+              FIELD_ACTIONS[sub.onChangeAction](child, inp.value);
+              save(); renderItems(); renderSummary();
+            }
+          });
+          inp.addEventListener("click",  function(e){ e.stopPropagation(); });
+          td.appendChild(inp);
+          tr.appendChild(td);
+        });
+        function refreshAutoCells(){
+          autoCells.forEach(function(ac){
+            var fn = AUTO_COMPUTERS[ac.compute];
+            var v = fn ? fn(child) : "";
+            ac.span.textContent = v;
+            ac.span.className = "auto-cls" + (v ? " auto-cls-" + autoClassKind(v) : "");
+          });
+        }
+        refreshAutoCells();
+        if(autoCells.length){
+          /* 행 밖으로 진짜 나갈 때만 갱신 — 행 내부 이동(변경전→변경후)에선 보류 */
+          tr.addEventListener("focusout", function(e){
+            if(e.relatedTarget && tr.contains(e.relatedTarget)) return;
+            refreshAutoCells();
+          });
+          /* select 등 즉시 확정 입력엔 change 로 바로 반영 */
+          tr.addEventListener("change", function(e){
+            if(e.target && e.target.tagName === "SELECT") refreshAutoCells();
+          });
+        }
+        var tdA = document.createElement("div");
+        tdA.className = "fld-table-td fld-table-action";
+        var rm = document.createElement("button");
+        rm.type = "button"; rm.className = "fld-repeat-rm";
+        rm.textContent = "✕"; rm.title = "줄 삭제";
+        rm.addEventListener("click", function(e){
+          e.stopPropagation();
+          arr.splice(idx, 1);
+          while(arr.length < (f.min || 0)) arr.push(makeDefaultRow(f.fields));
+          save(); renderItems(); renderSummary();
+        });
+        tdA.appendChild(rm);
+        tr.appendChild(tdA);
+        table.appendChild(tr);
+      });
+      grp.appendChild(table);
+
+      var addBtn = document.createElement("button");
+      addBtn.type = "button"; addBtn.className = "fld-repeat-add";
+      addBtn.textContent = f.addLabel || "+ 줄 추가";
+      addBtn.addEventListener("click", function(e){
+        e.stopPropagation();
+        arr.push(makeDefaultRow(f.fields));
+        save(); renderItems(); renderSummary();
+      });
+      grp.appendChild(addBtn);
+      container.appendChild(grp);
+      return;
+    }
+    if(f.type === "repeat"){
+      var arr = Array.isArray(val[f.key]) ? val[f.key] : (val[f.key] = []);
+      while(arr.length < (f.min || 0)) arr.push(makeDefaultRow(f.fields));
+      var grp = document.createElement("div");
+      grp.className = "fld-repeat";
+      grp.innerHTML = '<div class="fld-repeat-head"><span class="fld-grp-label">' +
+        escapeHtml(f.label || "") + '</span></div>';
+      arr.forEach(function(child, idx){
+        var card = document.createElement("div");
+        card.className = "fld-repeat-item";
+        var hd = document.createElement("div");
+        hd.className = "fld-repeat-item-head";
+        hd.innerHTML = '<span class="fld-repeat-no">' + escapeHtml(f.itemLabel || "항목") + ' ' + (idx+1) + '</span>';
+        var rmBtn = document.createElement("button");
+        rmBtn.type = "button";
+        rmBtn.className = "fld-repeat-rm";
+        rmBtn.textContent = "✕";
+        rmBtn.title = "삭제";
+        rmBtn.addEventListener("click", function(e){
+          e.stopPropagation();
+          arr.splice(idx, 1);
+          while(arr.length < (f.min || 0)) arr.push(makeDefaultRow(f.fields));
+          save(); renderItems(); renderSummary();
+        });
+        hd.appendChild(rmBtn);
+        card.appendChild(hd);
+        var body = document.createElement("div");
+        body.className = "fld-repeat-item-body";
+        renderFields(f.fields, child, body);
+        card.appendChild(body);
+        grp.appendChild(card);
+      });
+      var addBtn = document.createElement("button");
+      addBtn.type = "button";
+      addBtn.className = "fld-repeat-add";
+      addBtn.textContent = f.addLabel || "+ 추가";
+      addBtn.addEventListener("click", function(e){
+        e.stopPropagation();
+        arr.push(makeDefaultRow(f.fields));
+        save(); renderItems(); renderSummary();
+      });
+      grp.appendChild(addBtn);
+      container.appendChild(grp);
+      return;
+    }
+    /* 단일 필드 */
+    var wrap = document.createElement("div");
+    wrap.className = "fld";
+    var lbl = document.createElement("label");
+    lbl.className = "fld-label";
+    lbl.textContent = f.label || f.key;
+    wrap.appendChild(lbl);
+    var ctrlWrap = document.createElement("div");
+    ctrlWrap.className = "fld-ctrl";
+    var inp;
+    if(f.type === "textarea"){
+      inp = document.createElement("textarea");
+      inp.rows = f.rows || 2;
+    } else if(f.type === "select"){
+      inp = document.createElement("select");
+      if(!f.required){
+        var empty = document.createElement("option");
+        empty.value = ""; empty.textContent = "— 선택 —";
+        inp.appendChild(empty);
+      }
+      (f.options || []).forEach(function(o){
+        var opt = document.createElement("option");
+        if(typeof o === "string"){ opt.value = o; opt.textContent = o; }
+        else { opt.value = o.value; opt.textContent = o.label; }
+        inp.appendChild(opt);
+      });
+    } else {
+      inp = document.createElement("input");
+      inp.type = (f.type === "date") ? "date"
+              : (f.type === "number") ? "number"
+              : "text";
+    }
+    if(f.placeholder) inp.placeholder = f.placeholder;
+    inp.value = (val[f.key] != null) ? val[f.key] : "";
+    inp.addEventListener("input", function(){ val[f.key] = inp.value; save(); });
+    inp.addEventListener("change", function(){ val[f.key] = inp.value; save(); });
+    inp.addEventListener("click", function(e){ e.stopPropagation(); });
+    ctrlWrap.appendChild(inp);
+    if(f.suffix){
+      var sfx = document.createElement("span");
+      sfx.className = "fld-suffix";
+      sfx.textContent = f.suffix;
+      ctrlWrap.appendChild(sfx);
+    }
+    wrap.appendChild(ctrlWrap);
+    container.appendChild(wrap);
+  });
+}
+
+/* 폼 값 → 요약 HTML */
+function formSummaryHtml(fields, val){
+  var parts = [];
+  fields.forEach(function(f){
+    if(f.type === "derivedFrom"){
+      var sourceArr = Array.isArray(val[f.source]) ? val[f.source] : [];
+      var fn = AUTO_COMPUTERS[f.filterCompute];
+      if(!fn) return;
+      var hits = sourceArr.filter(function(row){ return fn(row) === f.filterValue; });
+      if(!hits.length) return;
+      var inner = "";
+      hits.forEach(function(row, idx){
+        var specs = row[f.specsKey] || {};
+        var sub = formSummaryHtml(f.fields || [], specs);
+        var bind = (f.bindField && row[f.bindField]) || "";
+        inner += '<div class="sum-form-grp">' +
+          '<div class="sum-form-grp-head">증차 ' + (idx+1) +
+          (bind ? ' · ' + escapeHtml(f.titleLabel || "") + ' ' + escapeHtml(bind) : '') +
+          '</div>' + (sub || '<div class="sum-pair-empty">제원 미입력</div>') + '</div>';
+      });
+      parts.push('<div class="sum-derived"><div class="sum-form-grp-head">' + escapeHtml(f.label || "") + '</div>' + inner + '</div>');
+      return;
+    }
+    if(f.type === "pairRepeat"){
+      var arr = Array.isArray(val[f.key]) ? val[f.key] : [];
+      if(!arr.length) return;
+      var labels = f.classifyAs || { addOnly:"증차", removeOnly:"감차", both:"기존" };
+      arr.forEach(function(child, idx){
+        var leftFlds  = (f.left  && f.left.fields)  || [];
+        var rightFlds = (f.right && f.right.fields) || [];
+        var leftIn  = formSummaryHtml(leftFlds,  child.left  || {});
+        var rightIn = formSummaryHtml(rightFlds, child.right || {});
+        if(!leftIn && !rightIn) return;
+        var cls = classifyPair(child, leftFlds, rightFlds, labels);
+        var clsKind = cls ? classBadgeKind(cls, labels) : "";
+        var badgeHtml = cls
+          ? '<span class="pair-class ' + clsKind + '">' + escapeHtml(cls) + '</span>'
+          : '';
+        var head = f.compact
+          ? '<div class="sum-form-grp-head">' + escapeHtml(f.label || "") + ' #' + (idx+1) + ' ' + badgeHtml + '</div>'
+          : '<div class="sum-form-grp-head">' + escapeHtml(f.itemLabel || f.label) + ' ' + (idx+1) + ' ' + badgeHtml + '</div>';
+        parts.push('<div class="sum-pair-grp">' + head +
+          '<div class="sum-pair-body">' +
+            '<div class="sum-pair-col sum-pair-left">' +
+              '<div class="sum-pair-col-head">' + escapeHtml((f.left||{}).label || "변경 전") + '</div>' +
+              (leftIn || '<div class="sum-pair-empty">—</div>') +
+            '</div>' +
+            '<div class="sum-pair-col sum-pair-right">' +
+              '<div class="sum-pair-col-head">' + escapeHtml((f.right||{}).label || "변경 후") + '</div>' +
+              (rightIn || '<div class="sum-pair-empty">—</div>') +
+            '</div>' +
+          '</div>' +
+          '</div>');
+      });
+      return;
+    }
+    if(f.type === "repeat" && f.compact){
+      var arr = Array.isArray(val[f.key]) ? val[f.key] : [];
+      if(!arr.length) return;
+      var visible = (f.fields || []).filter(function(s){ return !s.hideFromUI; });
+      var rowsHtml = arr.map(function(child){
+        var cells = visible.map(function(sub){
+          if(sub.type === "auto"){
+            var fn = AUTO_COMPUTERS[sub.compute];
+            var v = fn ? fn(child) : "";
+            if(!v) return null;
+            var kind = autoClassKind(v);
+            return '<span class="sum-table-cell"><span class="k">' + escapeHtml(sub.label) + '</span> <span class="auto-cls' + (kind ? ' auto-cls-' + kind : '') + '">' + escapeHtml(v) + '</span></span>';
+          }
+          var v = child[sub.key];
+          if(v == null || String(v).trim() === "") return null;
+          return '<span class="sum-table-cell"><span class="k">' + escapeHtml(sub.label) + '</span> ' + escapeHtml(v) + (sub.suffix ? ' ' + escapeHtml(sub.suffix) : '') + '</span>';
+        }).filter(Boolean).join('');
+        return cells ? '<div class="sum-table-row">' + cells + '</div>' : '';
+      }).filter(Boolean).join('');
+      if(rowsHtml){
+        parts.push('<div class="sum-form-grp"><div class="sum-form-grp-head">' + escapeHtml(f.label || '') + '</div>' + rowsHtml + '</div>');
+      }
+      return;
+    }
+    if(f.type === "repeat"){
+      var arr = Array.isArray(val[f.key]) ? val[f.key] : [];
+      if(!arr.length) return;
+      arr.forEach(function(child, idx){
+        var inner = formSummaryHtml(f.fields, child);
+        if(inner){
+          parts.push('<div class="sum-form-grp">' +
+            '<div class="sum-form-grp-head">' + escapeHtml(f.itemLabel || f.label) + ' ' + (idx+1) + '</div>' +
+            inner + '</div>');
+        }
+      });
+    } else {
+      var v = val[f.key];
+      if(v == null || String(v).trim() === "") return;
+      parts.push('<div class="sum-form-row"><span class="k">' +
+        escapeHtml(f.label || f.key) + '</span><span class="v">' +
+        escapeHtml(v) + (f.suffix ? ' ' + escapeHtml(f.suffix) : '') + '</span></div>');
+    }
+  });
+  return parts.join("");
+}
+
+/* 폼 값 → 복사용 텍스트 줄 배열 */
+function formTextLines(fields, val, indent){
+  var pad = ""; for(var i=0;i<indent;i++) pad += "    ";
+  var out = [];
+  fields.forEach(function(f){
+    if(f.type === "pairRepeat"){
+      var arr = Array.isArray(val[f.key]) ? val[f.key] : [];
+      var labels = f.classifyAs || { addOnly:"증차", removeOnly:"감차", both:"기존" };
+      arr.forEach(function(child, idx){
+        var leftFlds  = (f.left  && f.left.fields)  || [];
+        var rightFlds = (f.right && f.right.fields) || [];
+        var leftLines  = formTextLines(leftFlds,  child.left  || {}, indent + 2);
+        var rightLines = formTextLines(rightFlds, child.right || {}, indent + 2);
+        if(!leftLines.length && !rightLines.length) return;
+        var cls = classifyPair(child, leftFlds, rightFlds, labels);
+        var head = f.compact
+          ? (f.label || "변경") + " #" + (idx+1)
+          : (f.itemLabel || f.label) + " " + (idx+1);
+        out.push(pad + "· " + head + (cls ? "  [" + cls + "]" : ""));
+        if(leftLines.length){
+          out.push(pad + "    [" + ((f.left||{}).label || "변경 전") + "]");
+          out = out.concat(leftLines);
+        }
+        if(rightLines.length){
+          out.push(pad + "    [" + ((f.right||{}).label || "변경 후") + "]");
+          out = out.concat(rightLines);
+        }
+      });
+      return;
+    }
+    if(f.type === "derivedFrom"){
+      var sourceArr = Array.isArray(val[f.source]) ? val[f.source] : [];
+      var fn = AUTO_COMPUTERS[f.filterCompute];
+      if(!fn) return;
+      var hits = sourceArr.filter(function(row){ return fn(row) === f.filterValue; });
+      if(!hits.length) return;
+      out.push(pad + "· " + (f.label || "") + " (" + hits.length + "건)");
+      hits.forEach(function(row, idx){
+        var bind = (f.bindField && row[f.bindField]) || "";
+        out.push(pad + "    · 증차 " + (idx+1) + (bind ? " · " + (f.titleLabel || "") + ": " + bind : ""));
+        out = out.concat(formTextLines(f.fields || [], row[f.specsKey] || {}, indent + 2));
+      });
+      return;
+    }
+    if(f.type === "repeat" && f.compact){
+      var arr = Array.isArray(val[f.key]) ? val[f.key] : [];
+      arr.forEach(function(child){
+        var parts = (f.fields || []).map(function(sub){
+          if(sub.type === "auto"){
+            var fn = AUTO_COMPUTERS[sub.compute];
+            var v = fn ? fn(child) : "";
+            return v ? sub.label + ": " + v : null;
+          }
+          var v = child[sub.key];
+          if(v == null || String(v).trim() === "") return null;
+          return sub.label + ": " + v + (sub.suffix ? " " + sub.suffix : "");
+        }).filter(Boolean).join(" / ");
+        if(parts) out.push(pad + "· " + parts);
+      });
+      return;
+    }
+    if(f.type === "repeat"){
+      var arr = Array.isArray(val[f.key]) ? val[f.key] : [];
+      arr.forEach(function(child, idx){
+        var inner = formTextLines(f.fields, child, indent + 1);
+        if(inner.length){
+          out.push(pad + "· " + (f.itemLabel || f.label) + " " + (idx+1));
+          out = out.concat(inner);
+        }
+      });
+    } else {
+      var v = val[f.key];
+      if(v == null || String(v).trim() === "") return;
+      out.push(pad + "· " + (f.label || f.key) + ": " + v + (f.suffix ? " " + f.suffix : ""));
+    }
+  });
+  return out;
+}
+
 /* 조항 문자열 → 몇조 몇항 몇호 몇목 정식 표기 */
 /* 예: "시행규칙 제29조①1.가." → "폐기물관리법 시행규칙 제29조 제1항 제1호 가목" */
 var MOK_CHARS = "가나다라마바사아자차카타파하";
 function formatJo(raw){
   if(!raw) return "";
   var out = [];
-  if(raw.indexOf("시행규칙") !== -1) out.push("폐기물관리법 시행규칙");
+  if(/시행규칙/.test(raw))      out.push("폐기물관리법 시행규칙");
+  else if(/시행령/.test(raw))   out.push("폐기물관리법 시행령");
+  else if(/^법\s|^폐기물관리법/.test(raw)) out.push("폐기물관리법");
   var joM = raw.match(/제(\d+)조/);
   if(joM) out.push("제" + joM[1] + "조");
   var hangM = raw.match(/[①-⑳]/);  /* ①~⑳ */
@@ -486,8 +1791,33 @@ function formatJo(raw){
   return out.length ? out.join(" ") : raw;
 }
 
+/* 신청인 정보 폼 렌더 */
+function renderApplicant(){
+  var box = document.getElementById("applicantGrid");
+  if(!box) return;
+  box.innerHTML = "";
+  APPLICANT_FIELDS.forEach(function(f){
+    var wrap = document.createElement("label");
+    wrap.className = "app-fld" + (f.full ? " app-fld-full" : "");
+    var lbl = document.createElement("span");
+    lbl.className = "app-fld-label";
+    lbl.textContent = f.label;
+    var inp = document.createElement("input");
+    inp.type = f.type || "text";
+    if(f.placeholder) inp.placeholder = f.placeholder;
+    inp.value = state.applicant[f.key] || "";
+    inp.addEventListener("input", function(){
+      state.applicant[f.key] = inp.value;
+      save();
+    });
+    wrap.appendChild(lbl);
+    wrap.appendChild(inp);
+    box.appendChild(wrap);
+  });
+}
+
 function renderAll(){
-  renderTabs();
+  renderApplicant();
   renderItems();
   renderSummary();
 }
@@ -498,17 +1828,35 @@ function selectionText(){
   ids.sort(function(a,b){ return idxOf(a) - idxOf(b); });
   var lines = ["[폐기물처리업 변경사항 선택]"];
   lines.push("처리업: " + (BIZ[state.bizType] || "-"));
+  var finalProc = determineFinalProcedure();
+  if(finalProc) lines.push("최종 절차: " + finalProc);
   lines.push("");
+  /* 신청인 정보 */
+  var anyApp = APPLICANT_FIELDS.some(function(f){ return (state.applicant[f.key] || "").trim(); });
+  if(anyApp){
+    lines.push("[신청인 정보]");
+    APPLICANT_FIELDS.forEach(function(f){
+      var v = (state.applicant[f.key] || "").trim();
+      if(v) lines.push("  · " + f.label + ": " + v);
+    });
+    lines.push("");
+  }
   ids.forEach(function(id){
     var it = itemById(id);
     var sel = state.selected[id] || {};
-    var line = "- [" + it.changeType + "] " + formatJo(it.조항) + " " + it.label;
+    var ctText = changeTypeList(it).join("/");
+    var joText = joList(it).map(formatJo).join(" / ");
+    var line = "- [" + ctText + "] " + joText + " " + it.label;
     if(it.신고시점) line += " (" + it.신고시점 + ")";
     lines.push(line);
     if(it.조건) lines.push("    · 조건: " + it.조건);
     if(it.비고) lines.push("    · 비고: " + it.비고);
-    if((sel.before || "").trim()) lines.push("    · 변경 전: " + sel.before.trim());
-    if((sel.after  || "").trim()) lines.push("    · 변경 후: " + sel.after.trim());
+    if(Array.isArray(it.fields) && it.fields.length){
+      lines = lines.concat(formTextLines(it.fields, sel.form || {}, 1));
+    } else {
+      if((sel.before || "").trim()) lines.push("    · 변경 전: " + sel.before.trim());
+      if((sel.after  || "").trim()) lines.push("    · 변경 후: " + sel.after.trim());
+    }
   });
   return lines.join("\n");
 }
