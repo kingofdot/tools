@@ -27,6 +27,7 @@
   const K_ART = (lawName, jo)   => `law:art2:${lawName}:${jo}`;
 
   // ─── 노트 컨텍스트 → 법령명 ───────────────────────────────
+  // 소과목 매칭 우선, 없으면 과목-수준 기본값(__default)으로 폴백
   function lawNameForCurrent() {
     if (typeof currentId === 'undefined' || !currentId) return null;
     const n = (typeof findNote === 'function') ? findNote(currentId) : null;
@@ -34,7 +35,8 @@
     const map = currentLawMap();
     const m = map[n.subject];
     if (!m) return null;
-    return m[n.subTopic] || null;
+    if (n.subTopic && m[n.subTopic]) return m[n.subTopic];
+    return m['__default'] || null;
   }
 
   // 뱃지 텍스트에서 직접 법령명 추출 — 시행령/시행규칙 suffix 도 함께 잡음
