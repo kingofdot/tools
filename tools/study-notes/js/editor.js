@@ -92,7 +92,7 @@ function bindEditor() {
       if (!n) return;
       const subj = (document.getElementById('subjectInput').value || '').trim();
       const sub  = (document.getElementById('subTopicInput').value || '').trim();
-      if (!subj || !sub) return;            // 과목/소과목이 정해진 뒤에만 매핑
+      if (!subj) return;                    // 과목만 있으면 OK (소과목 없으면 과목 기본 법령)
       if (typeof setLawForSubTopic !== 'function') return;
       setLawForSubTopic(subj, sub, $law.value);
       if (settings.ghAutoSync && settings.ghToken) {

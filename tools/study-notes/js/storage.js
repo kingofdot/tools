@@ -48,8 +48,12 @@ function saveEditSplit() {
   localStorage.setItem(EDIT_SPLIT_KEY, String(editSplit));
 }
 
-// ─── 소과목 → 법령 매핑 ───────────────────────────────────
+// ─── 과목 → (소과목 → 법령) 매핑 ─────────────────────────
+// '__default' 키 = 소과목이 없는 과목(예: 민법)의 과목-수준 기본 법령
 const DEFAULT_LAW_MAP = {
+  '민법': {
+    '__default': '민법',
+  },
   '행정사실무법': {
     '행정사법':       '행정사법',
     '행정심판':       '행정심판법',
@@ -64,28 +68,39 @@ function loadLawMap() {
     lawMap = raw ? JSON.parse(raw) : null;
   } catch (_) { lawMap = null; }
   if (!lawMap || typeof lawMap !== 'object' || Array.isArray(lawMap)) lawMap = {};
-  // 첫 실행 시 기존 하드코딩 매핑을 시드 — 사용자가 자유롭게 덮어쓰거나 비울 수 있음
-  if (Object.keys(lawMap).length === 0) {
-    lawMap = JSON.parse(JSON.stringify(DEFAULT_LAW_MAP));
-    saveLawMap();
-  }
+  // 누락된 기본 매핑은 보충 (사용자 설정은 절대 덮어쓰지 않음)
+  let changed = false;
+  Object.keys(DEFAULT_LAW_MAP).forEach(subj => {
+    if (!lawMap[subj]) {
+      lawMap[subj] = JSON.parse(JSON.stringify(DEFAULT_LAW_MAP[subj]));
+      changed = true;
+    } else {
+      Object.keys(DEFAULT_LAW_MAP[subj]).forEach(k => {
+        if (!(k in lawMap[subj])) { lawMap[subj][k] = DEFAULT_LAW_MAP[subj][k]; changed = true; }
+      });
+    }
+  });
+  if (changed) saveLawMap();
 }
 function saveLawMap() {
   localStorage.setItem(LAW_MAP_KEY, JSON.stringify(lawMap));
 }
 function getLawForSubTopic(subject, subTopic) {
-  if (!subject || !subTopic) return null;
+  if (!subject) return null;
   const m = lawMap[subject];
-  return (m && m[subTopic]) || null;
+  if (!m) return null;
+  if (subTopic && m[subTopic]) return m[subTopic];
+  return m['__default'] || null;   // 소과목 매칭 없으면 과목 기본값
 }
 function setLawForSubTopic(subject, subTopic, lawName) {
-  if (!subject || !subTopic) return;
+  if (!subject) return;
   const v = String(lawName || '').trim();
   if (!lawMap[subject]) lawMap[subject] = {};
+  const key = subTopic || '__default';
   if (v) {
-    lawMap[subject][subTopic] = v;
+    lawMap[subject][key] = v;
   } else {
-    delete lawMap[subject][subTopic];
+    delete lawMap[subject][key];
     if (Object.keys(lawMap[subject]).length === 0) delete lawMap[subject];
   }
   saveLawMap();
