@@ -483,6 +483,37 @@
       "신고시점": "사후 30일 이내",
       "조건": "법 제33조에 따라 권리ㆍ의무를 승계하는 경우는 제외한다",
       "비고": "법 제33조 권리·의무 승계 케이스는 제외",
+      "description": "변경 전·후 대표자의 성명·주민등록번호·본적·연락처를 적습니다.",
+      "fields": [
+        {
+          "key": "beforeRepresentatives",
+          "label": "변경 전 대표자",
+          "type": "repeat",
+          "compact": true,
+          "min": 1,
+          "addLabel": "+ 대표자 추가",
+          "fields": [
+            { "key": "name",       "label": "성명",         "type": "text" },
+            { "key": "residentId", "label": "주민등록번호", "type": "text", "placeholder": "800101-1234567" },
+            { "key": "domicile",   "label": "본적",         "type": "text" },
+            { "key": "phone",      "label": "연락처",       "type": "text", "placeholder": "010-1234-5678" }
+          ]
+        },
+        {
+          "key": "afterRepresentatives",
+          "label": "변경 후 대표자",
+          "type": "repeat",
+          "compact": true,
+          "min": 1,
+          "addLabel": "+ 대표자 추가",
+          "fields": [
+            { "key": "name",       "label": "성명",         "type": "text" },
+            { "key": "residentId", "label": "주민등록번호", "type": "text", "placeholder": "800101-1234567" },
+            { "key": "domicile",   "label": "본적",         "type": "text" },
+            { "key": "phone",      "label": "연락처",       "type": "text", "placeholder": "010-1234-5678" }
+          ]
+        }
+      ],
       "tooltipInfo": {
         "title": "권리ㆍ의무 승계 (폐기물관리법 제33조)",
         "intro": "대표자가 다음 사유로 바뀐 경우엔 변경신고가 아니라 별도 절차:",
@@ -510,8 +541,7 @@
           "처리기간 30일 내 허가/수리 여부 통지 — 미통지 시 자동 허가 (제5항·제6항)",
           "종전 사업자의 법 위반 책임은 승계 후에도 소멸하지 않음 (제8항)"
         ]
-      },
-      "description": "변경 전·후 내용을 적습니다."
+      }
     },
     {
       "id": "N03",

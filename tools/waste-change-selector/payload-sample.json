@@ -107,7 +107,11 @@
               "typeApproval": "HD-CV-2023-04812",
               "firstRegDate": "2023-04-12",
               "maxLoad":      "5",
-              "note":         ""
+              "note":         "",
+              "frontImageUrl": "vehicles/2026/05/12_1234-front.jpg",
+              "rearImageUrl":  "vehicles/2026/05/12_1234-rear.jpg",
+              "leftImageUrl":  "vehicles/2026/05/12_1234-left.jpg",
+              "rightImageUrl": "vehicles/2026/05/12_1234-right.jpg"
             }
           },
           {
@@ -120,7 +124,11 @@
               "typeApproval": "KIA-LT-2024-01023",
               "firstRegDate": "2024-08-30",
               "maxLoad":      "1",
-              "note":         "임시 — 3개월 사용"
+              "note":         "임시 — 3개월 사용",
+              "frontImageUrl": "vehicles/2026/05/34_5678-front.jpg",
+              "rearImageUrl":  "vehicles/2026/05/34_5678-rear.jpg",
+              "leftImageUrl":  "vehicles/2026/05/34_5678-left.jpg",
+              "rightImageUrl": "vehicles/2026/05/34_5678-right.jpg"
             }
           }
         ]
@@ -143,7 +151,7 @@
     {
       "id": "N02",
       "label": "대표자의 변경",
-      "description": "변경 전·후 내용을 적습니다.",
+      "description": "변경 전·후 대표자의 성명·주민등록번호·본적·연락처를 적습니다.",
       "changeType": ["변경신고"],
       "조항": ["시행규칙 제33조①2."],
       "신고시점": "사후 30일 이내",
@@ -159,8 +167,22 @@
         ]
       },
       "data": {
-        "before": "홍길동",
-        "after": "김철수"
+        "beforeRepresentatives": [
+          {
+            "name":       "홍길동",
+            "residentId": "800101-1234567",
+            "domicile":   "서울특별시 강남구 테헤란로 100",
+            "phone":      "010-1111-2222"
+          }
+        ],
+        "afterRepresentatives": [
+          {
+            "name":       "김철수",
+            "residentId": "850315-1234567",
+            "domicile":   "서울특별시 송파구 올림픽로 200",
+            "phone":      "010-3333-4444"
+          }
+        ]
       }
     },
     {
