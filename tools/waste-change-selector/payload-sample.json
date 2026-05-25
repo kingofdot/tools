@@ -168,12 +168,7 @@
       },
       "data": {
         "beforeRepresentatives": [
-          {
-            "name":       "홍길동",
-            "residentId": "800101-1234567",
-            "domicile":   "서울특별시 강남구 테헤란로 100",
-            "phone":      "010-1111-2222"
-          }
+          { "name": "홍길동", "birthDate": "1980-01-01" }
         ],
         "afterRepresentatives": [
           {

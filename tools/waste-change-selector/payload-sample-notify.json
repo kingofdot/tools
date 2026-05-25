@@ -80,12 +80,7 @@
       "비고": "법 제33조 권리·의무 승계 케이스는 제외",
       "data": {
         "beforeRepresentatives": [
-          {
-            "name":       "정약용",
-            "residentId": "700220-1112233",
-            "domicile":   "부산광역시 부산진구 부전동 100",
-            "phone":      "010-7777-8888"
-          }
+          { "name": "정약용", "birthDate": "1970-02-20" }
         ],
         "afterRepresentatives": [
           {
