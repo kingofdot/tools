@@ -219,18 +219,28 @@ function syncPreviewToCursor() {
 
 // 외부 복붙 텍스트가 "1.1.", "1.1.1." 같은 숫자 마커로 시작하면 변환:
 //   - 마커 제거
-//   - 점 개수 - 1 만큼 \t 들여쓰기 추가
-//   - 줄 하나라도 매치 안 되면 변환하지 않고 그냥 붙여넣기 (의도치 않은 가공 방지)
+//   - 붙여넣은 텍스트의 최소 세그먼트 수를 기준으로 정규화 (가장 위 레벨이 depth 0)
+//     예: "1.1.", "1.1.1.", "1.1.1.1." 가 섞여 있으면 minSegs=2
+//          → "1.1."=depth 0, "1.1.1."=depth 1, "1.1.1.1."=depth 2
+//   - 줄 중 숫자 마커 매치 비율이 60% 미만이면 변환 보류 (이질 텍스트 보호)
 function handlePasteWithAutoIndent(ta, e) {
   const data = (e.clipboardData || window.clipboardData)?.getData('text');
   if (!data) return;
 
   const lines = data.replace(/\r\n/g, '\n').split('\n');
-  // 비어있지 않은 줄 중 숫자 마커 매치 비율이 충분히 높을 때만 변환 (이질 텍스트 보호)
   const nonEmpty = lines.filter(l => l.trim());
   if (!nonEmpty.length) return;
-  const numbered = nonEmpty.filter(l => /^\s*\d+(?:\.\d+)*\.\s+/.test(l));
-  if (numbered.length / nonEmpty.length < 0.6) return;   // 60% 미만이면 일반 붙여넣기
+
+  // 각 줄의 세그먼트 수 파싱 + 최소값 (= 정규화 기준)
+  const segCounts = lines.map(l => {
+    if (!l.trim()) return null;
+    const trimmed = l.replace(/^[\s\t]+/, '');
+    const m = trimmed.match(/^(\d+(?:\.\d+)*)\.\s+/);
+    return m ? m[1].split('.').filter(Boolean).length : null;
+  });
+  const numbered = segCounts.filter(c => c !== null);
+  if (numbered.length / nonEmpty.length < 0.6) return;
+  const minSegs = Math.min.apply(null, numbered);
 
   e.preventDefault();
   const transformed = lines.map(l => {
@@ -239,7 +249,7 @@ function handlePasteWithAutoIndent(ta, e) {
     const m = trimmed.match(/^(\d+(?:\.\d+)*)\.\s*/);
     if (!m) return l;
     const segs = m[1].split('.').filter(Boolean).length;
-    const depth = Math.max(0, segs - 1);
+    const depth = Math.max(0, segs - minSegs);
     return '\t'.repeat(depth) + trimmed.slice(m[0].length);
   }).join('\n');
 
@@ -249,7 +259,6 @@ function handlePasteWithAutoIndent(ta, e) {
   ta.value = before + transformed + after;
   const caret = start + transformed.length;
   ta.selectionStart = ta.selectionEnd = caret;
-  // 기존 input 이벤트 핸들러(저장/미리보기) 트리거
   ta.dispatchEvent(new Event('input', { bubbles: true }));
 }
 
