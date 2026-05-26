@@ -256,7 +256,7 @@ function renderUiSidebar() {
     { key: '__varType__',    icon: '🧩', label: '배리어블타입 관리' },
     { key: '__combobox__',   icon: '🔽', label: '콤보박스 관리' },
     { key: '__functions__',  icon: '⚡', label: '함수 관리' },
-    { key: '__masterdata__', icon: '🗄️', label: '데이터 관리' },
+    /* __masterdata__ 항목은 상단 nav-tab '마스터 데이터' 로 이동됨 */
     { key: '__assembly__',   icon: '🖥️', label: '조립모델 관리' },
   ];
   MGMT_ITEMS.forEach(item => {
@@ -1274,7 +1274,8 @@ let _masterDataDomainCollapsed = {};   // { domain: true } 면 접힘
 
 // 분야별 그룹 헤더 + 아이템 렌더. 원본 masterDataRegistry 의 idx 를 보존해
 // 드래그·선택·삭제 핸들러가 그대로 동작.
-const _MASTER_DATA_DOMAIN_ORDER = ['폐기물', '대기', '폐수', '악취', '소음진동', '기타'];
+const _MASTER_DATA_DOMAIN_ORDER = ['공통', '폐기물', '대기', '폐수', '소음진동', '악취', '가축분뇨', '기타'];
+let _selectedMasterDomain = '공통';
 
 function renderMasterDataGroups() {
   if (!masterDataRegistry.length) {
@@ -1428,10 +1429,148 @@ function renderMasterDataPanel(wrap) {
 function masterDataSelect(i) {
   selectedMasterDataIdx = i;
   _masterDataSearch = '';
-  renderUiTable();
+  /* 마스터 데이터 탭이 열려 있으면 그쪽 갱신, 아니면 UI 패널 */
+  const masterActive = document.querySelector('.nav-tab.active')?.dataset?.panel === 'master';
+  if (masterActive) renderMasterPanel(); else renderUiTable();
 }
 
-function masterDataAdd() {
+/* ───── 상단 nav-tab "마스터 데이터" 패널 ───── */
+function renderMasterPanel() {
+  const tabsEl = document.getElementById('masterDomainTabs');
+  const bodyEl = document.getElementById('masterContent');
+  if (!tabsEl || !bodyEl) return;
+
+  /* 도메인별 카운트 */
+  const counts = {};
+  masterDataRegistry.forEach(m => {
+    const d = m.domain || '기타';
+    counts[d] = (counts[d] || 0) + 1;
+  });
+
+  /* 사용중인 도메인 + 정의 순서대로 — 빈 도메인(공통/가축분뇨)도 노출 */
+  const domains = _MASTER_DATA_DOMAIN_ORDER.filter(d =>
+    d === '공통' || d === '가축분뇨' || (counts[d] || 0) > 0
+  );
+  Object.keys(counts).forEach(d => { if (!domains.includes(d)) domains.push(d); });
+
+  /* 현재 선택 검증 */
+  if (!domains.includes(_selectedMasterDomain)) _selectedMasterDomain = domains[0] || '공통';
+
+  /* 탭 렌더 */
+  tabsEl.innerHTML = domains.map(d => {
+    const active = d === _selectedMasterDomain;
+    const c = counts[d] || 0;
+    return `<button class="master-tab${active ? ' active' : ''}"
+      onclick="masterDomainSelect('${d.replace(/'/g,"\\'")}')"
+      style="padding:7px 14px;border:1px solid ${active ? 'var(--accent)' : 'var(--border)'};
+             background:${active ? 'var(--accent-dim)' : 'var(--bg-primary)'};
+             color:${active ? 'var(--accent)' : 'var(--text-secondary)'};
+             border-radius:8px;font-size:12px;font-weight:${active ? '700' : '500'};
+             cursor:pointer;white-space:nowrap;display:flex;align-items:center;gap:6px">
+      <span>${d}</span>
+      <span style="font-size:10px;color:var(--text-muted);font-weight:500;
+             background:var(--bg-secondary);padding:1px 6px;border-radius:99px">${c}</span>
+    </button>`;
+  }).join('');
+
+  /* 도메인별 마스터 목록 */
+  const itemsInDomain = masterDataRegistry
+    .map((m, i) => ({ m, i }))
+    .filter(({ m }) => (m.domain || '기타') === _selectedMasterDomain);
+
+  /* 선택된 마스터가 현 도메인 밖이면 도메인 첫 항목으로 */
+  if (itemsInDomain.length > 0) {
+    const inDomain = itemsInDomain.some(({ i }) => i === selectedMasterDataIdx);
+    if (!inDomain) selectedMasterDataIdx = itemsInDomain[0].i;
+  }
+
+  const entry = selectedMasterDataIdx !== null && itemsInDomain.some(({ i }) => i === selectedMasterDataIdx)
+    ? masterDataRegistry[selectedMasterDataIdx]
+    : null;
+
+  let db = [], cols = [];
+  if (entry) {
+    const raw = (typeof window !== 'undefined' && window[entry.globalVar]);
+    db = Array.isArray(raw) ? raw : [];
+    cols = db.length > 0 ? Object.keys(db[0]) : [];
+    const searchFields = (entry.searchFields || '').split(',').map(s => s.trim()).filter(Boolean);
+    const q = _masterDataSearch.trim().toLowerCase();
+    if (q && searchFields.length > 0) {
+      db = db.filter(r => searchFields.some(f => String(r[f] || '').toLowerCase().includes(q)));
+    }
+  }
+
+  bodyEl.innerHTML = `
+    <!-- 좌: 도메인 내 데이터 소스 목록 -->
+    <div style="width:240px;flex-shrink:0;border-right:1px solid var(--border);padding:12px;overflow-y:auto">
+      <div style="display:flex;align-items:center;margin-bottom:10px">
+        <span style="font-size:12px;font-weight:700;color:var(--text-secondary);
+                     text-transform:uppercase;letter-spacing:.5px">${_selectedMasterDomain}</span>
+        <button class="btn btn-accent" style="margin-left:auto;padding:2px 10px;font-size:11px"
+          onclick="masterDataAdd('${_selectedMasterDomain.replace(/'/g,"\\'")}')">+ 추가</button>
+      </div>
+      ${itemsInDomain.length === 0
+        ? `<div style="color:var(--text-muted);font-size:12px;text-align:center;padding:30px 8px">
+             등록된 데이터 없음<br><span style="font-size:10.5px">+ 추가 버튼으로 등록</span></div>`
+        : itemsInDomain.map(({ m, i }) => {
+            const raw = window[m.globalVar];
+            const cnt = Array.isArray(raw) ? raw.length : 0;
+            const active = selectedMasterDataIdx === i;
+            return `<div onclick="masterDataSelect(${i})"
+              style="padding:7px 10px;border-radius:7px;cursor:pointer;margin-bottom:3px;
+                     background:${active ? 'var(--accent-dim)' : 'transparent'};
+                     border:${active ? '1px solid var(--accent)' : '1px solid transparent'}">
+              <div style="font-weight:600;font-size:12px;
+                          color:${active ? 'var(--accent)' : 'var(--text-primary)'};
+                          white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${m.label || m.name}</div>
+              <div style="font-size:10px;color:var(--text-muted);font-family:var(--font-mono)">
+                ${cnt > 0 ? cnt + '개 · ' : ''}${m.globalVar || ''}</div>
+            </div>`;
+          }).join('')}
+    </div>
+
+    <!-- 우: 선택된 데이터 상세 -->
+    <div style="flex:1;display:flex;flex-direction:column;overflow:hidden">
+      ${entry ? `
+        <div style="padding:10px 16px;border-bottom:1px solid var(--border);
+                    display:flex;align-items:center;gap:10px;flex-shrink:0;flex-wrap:wrap">
+          <span style="font-size:13px;font-weight:700;color:var(--accent)">${entry.label || entry.name}</span>
+          <span style="font-size:11px;color:var(--text-muted);font-family:var(--font-mono)">${entry.globalVar}</span>
+          <span style="font-size:11px;background:var(--accent-dim);color:var(--accent);
+                       padding:2px 8px;border-radius:99px;font-weight:700">${db.length}건</span>
+          <button class="btn" style="padding:3px 10px;font-size:11px"
+            onclick="masterDataDownload(${selectedMasterDataIdx})"
+            title="이 테이블 전체를 JSON 파일로 저장">⬇ JSON</button>
+          <input type="text" placeholder="검색…" value="${_masterDataSearch}"
+            oninput="_masterDataSearch=this.value;renderMasterPanel()"
+            style="margin-left:auto;padding:4px 10px;border:1px solid var(--border);border-radius:7px;
+                   background:var(--bg-primary);color:var(--text-primary);font-size:12px;width:180px">
+        </div>
+        <div style="flex:1;overflow:auto;padding:0">
+          ${cols.length === 0
+            ? `<div style="padding:60px;text-align:center;color:var(--text-muted);font-size:13px">
+                 전역변수 <code>${entry.globalVar}</code> 에서 데이터를 찾을 수 없습니다</div>`
+            : `<table class="excel-table" style="width:100%">
+                <thead><tr>${cols.map(c => `<th style="white-space:nowrap;font-size:11px">${c}</th>`).join('')}</tr></thead>
+                <tbody>
+                  ${db.length === 0
+                    ? `<tr><td colspan="${cols.length}" style="text-align:center;padding:20px;color:var(--text-muted)">검색 결과 없음</td></tr>`
+                    : db.map(r => `<tr>${cols.map(c => `<td style="font-size:11px;white-space:nowrap;max-width:200px;overflow:hidden;text-overflow:ellipsis" title="${String(r[c]||'').replace(/"/g,'&quot;')}">${r[c] ?? ''}</td>`).join('')}</tr>`).join('')}
+                </tbody>
+              </table>`}
+        </div>
+      ` : `<div style="color:var(--text-muted);font-size:13px;text-align:center;padding:60px">
+             ${itemsInDomain.length === 0 ? '+ 추가로 데이터 소스 등록' : '← 왼쪽에서 데이터 소스를 선택하세요'}</div>`}
+    </div>
+  `;
+}
+
+function masterDomainSelect(d) {
+  _selectedMasterDomain = d;
+  renderMasterPanel();
+}
+
+function masterDataAdd(domain) {
   const label = prompt('데이터 소스 표시명:');
   if (!label || !label.trim()) return;
   const globalVar = prompt('전역 변수명 (window.XXX):');
@@ -1441,10 +1580,12 @@ function masterDataAdd() {
     label:        label.trim(),
     globalVar:    globalVar.trim(),
     searchFields: '',
+    domain:       domain || '기타',
   });
   selectedMasterDataIdx = masterDataRegistry.length - 1;
   _masterDataSearch = '';
-  renderUiTable();
+  const masterActive = document.querySelector('.nav-tab.active')?.dataset?.panel === 'master';
+  if (masterActive) renderMasterPanel(); else renderUiTable();
   toast(`"${label.trim()}" 추가됨`, 'success');
 }
 

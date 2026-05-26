@@ -1,0 +1,54 @@
+commentary	id	label
+"[1. 방지시설]
+나중에 대기, 폐수, 폐기물 등의
+서류 작업시에 '방지시설 시트'에서 
+값을 가져오는데, 사용자의 혼동을
+방지하기 위해서 사용자가 입력하는
+구분번호를 넣는다."	facilityNumber	관리번호
+사용자 입력 값, 자유	facilityName	명칭
+사용자 입력 값, 자유	size	사이즈
+사용자 입력 값, 자유	specification	규격
+대기방지시설에 해당하는지 여부	isAirControlFacility	대기
+"대기" 체크(TRUE)(TRUE)시에 해당 열 생성 	airEmissionOutletNumber	대기 배출구번호
+"대기" 체크(TRUE)시에 해당 열 생성, int	airEmissionOutletOrder	대기 배출구 내 처리순서
+폐수방지시설에 해당하는지 여부	isWaterControlFacility	폐수
+"폐수" 체크(TRUE)시에 해당 열 생성	waterEmissionOutletNumber	폐수 배출구번호
+"폐수" 체크(TRUE)시에 해당 열 생성, int	waterEmissionOutletOrder	폐수 배출구 내 처리순서
+악취방지시설에 해당하는지 여부	isSmellControlFacility	악취
+"악취" 체크(TRUE)시에 해당 열 생성	smellEmissionOutletNumber	악취 배출구번호
+"악취" 체크(TRUE)시에 해당 열 생성, int	smellEmissionOutletOrder	악취 배출구 내 처리순서
+소음진동방지시설에 해당하는지 여부	isNoiseControlFacility	소음진동
+"소음진동" 체크(TRUE)시에 해당 열 생성	noiseEmissionOutletNumber	소음진동 배출구번호
+"소음진동" 체크(TRUE)시에 해당 열 생성, int	noiseEmissionOutletOrder	소음진동 배출구 내 처리순서
+사용자 입력 값, 자유	facilityPrice	가격
+사용자 입력 값, 자유	installedBuilding	설치건물
+사용자 입력 값, 자유	manufacturer	제작사
+사용자 입력 값, 자유	phoneNumber	연락처
+사용자 입력 값, 자유	changeType	변경여부
+사용자 입력 값, 자유	memo	메모
+"[2. 생산시설]
+나중에 대기, 폐수, 폐기물 등의
+서류 작업시에 '생산시설 시트'에서 
+값을 가져오는데, 사용자의 혼동을
+방지하기 위해서 사용자가 입력하는
+구분번호를 넣는다."	facilityNumber	관리번호
+사용자 입력 값, 자유	facilityName	명칭
+사용자입력값, 자유	process	공정
+사용자 입력 값, 자유	size	사이즈
+사용자 입력 값, 자유	specification	규격
+사용자 입력 값, 정수형으로	quantity	수량
+폐기물시설에 해당하는지 여부	isWasteFacility	폐기물신고허가종류
+대기배출시설에 해당하는지 여부	isAirEmissionFacility	대기
+"대기"체크(TRUE)시에 해당 열 생성	airEmissionOutletNumber	대기 배출구번호
+폐수배출시설에 해당하는지 여부	isWaterEmissionFacility	폐수
+"폐수"체크(TRUE)시에 해당 열 생성	waterEmissionOutletNumber	폐수 배출구번호
+악취배출시설에 해당하는지 여부	isSmellEmissionFacility	악취
+"악취"체크(TRUE)시에 해당 열 생성	smellEmissionOutletNumber	악취 배출구번호
+소음진동배출시설에 해당하는지 여부	isNoiseEmissionFacility	소음진동
+"소음진동"체크(TRUE)시에 해당 열 생성	noiseEmissionOutletNumber	소음 배출구번호
+사용자 입력 값, 자유	facilityPrice	가격
+사용자 입력 값, 자유	installedBuilding	설치건물
+사용자 입력 값, 자유	manufacturer	제작사
+사용자 입력 값, 자유	phoneNumber	연락처
+사용자 입력 값, 자유	changeType	변경여부
+사용자 입력 값, 자유	memo	메모

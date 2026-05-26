@@ -36,7 +36,8 @@
     <div class="nav-tabs">
       <button class="nav-tab active" data-panel="diagram">다이어그램</button>
       <button class="nav-tab" data-panel="editor">편집기</button>
-      <button class="nav-tab" data-panel="excel">DB관리</button>
+      <button class="nav-tab" data-panel="excel">스키마 데이터</button>
+      <button class="nav-tab" data-panel="master">마스터 데이터</button>
       <button class="nav-tab" data-panel="ui">UI관리</button>
       <button class="nav-tab" data-panel="diff">비교</button>
       <button class="nav-tab" data-panel="todo">Todo</button>
@@ -136,6 +137,12 @@
           <div style="padding:40px;text-align:center;color:var(--text-muted)">좌측에서 모델 선택</div>
         </div>
       </div>
+    </div>
+
+    <!-- 마스터 데이터 패널 -->
+    <div id="masterPanel" class="panel" style="flex-direction:column">
+      <div id="masterDomainTabs" style="display:flex;gap:4px;padding:10px 14px;border-bottom:1px solid var(--border);background:var(--bg-secondary);flex-shrink:0;overflow-x:auto"></div>
+      <div id="masterContent" style="flex:1;overflow:hidden;display:flex"></div>
     </div>
 
     <!-- 변경 비교 패널 -->
