@@ -1492,7 +1492,9 @@ function renderMasterPanel() {
   if (entry) {
     const raw = (typeof window !== 'undefined' && window[entry.globalVar]);
     db = Array.isArray(raw) ? raw : [];
-    cols = db.length > 0 ? Object.keys(db[0]) : [];
+    /* 법령 개정 삭제 항목(deleted:true) 숨김 */
+    db = db.filter(r => !r || !r.deleted);
+    cols = db.length > 0 ? Object.keys(db[0]).filter(k => k !== 'deleted' && k !== 'deletedDate') : [];
     const searchFields = (entry.searchFields || '').split(',').map(s => s.trim()).filter(Boolean);
     const q = _masterDataSearch.trim().toLowerCase();
     if (q && searchFields.length > 0) {
@@ -1514,7 +1516,7 @@ function renderMasterPanel() {
              등록된 데이터 없음<br><span style="font-size:10.5px">+ 추가 버튼으로 등록</span></div>`
         : itemsInDomain.map(({ m, i }) => {
             const raw = window[m.globalVar];
-            const cnt = Array.isArray(raw) ? raw.length : 0;
+            const cnt = Array.isArray(raw) ? raw.filter(r => !r || !r.deleted).length : 0;
             const active = selectedMasterDataIdx === i;
             return `<div onclick="masterDataSelect(${i})"
               style="padding:7px 10px;border-radius:7px;cursor:pointer;margin-bottom:3px;
