@@ -1502,6 +1502,20 @@ function renderMasterPanel() {
     }
   }
 
+  /* 셀 값 렌더링 — 객체/배열은 JSON 직렬화 (길면 잘라 표시, title 에 전문) */
+  function _renderMasterCell(v) {
+    if (v === null || v === undefined) return { text: '', title: '' };
+    if (typeof v === 'object') {
+      const full = JSON.stringify(v, null, 0);
+      const text = full.length > 120 ? full.slice(0, 117) + '…' : full;
+      return { text, title: JSON.stringify(v, null, 2) };
+    }
+    const s = String(v);
+    return { text: s, title: s };
+  }
+  function _escAttr(s) { return String(s).replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+  function _escHtml(s) { return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+
   bodyEl.innerHTML = `
     <!-- 좌: 도메인 내 데이터 소스 목록 -->
     <div style="width:240px;flex-shrink:0;border-right:1px solid var(--border);padding:12px;overflow-y:auto">
@@ -1557,7 +1571,11 @@ function renderMasterPanel() {
                 <tbody>
                   ${db.length === 0
                     ? `<tr><td colspan="${cols.length}" style="text-align:center;padding:20px;color:var(--text-muted)">검색 결과 없음</td></tr>`
-                    : db.map(r => `<tr>${cols.map(c => `<td style="font-size:11px;white-space:nowrap;padding:4px 10px">${r[c] ?? ''}</td>`).join('')}</tr>`).join('')}
+                    : db.map(r => `<tr>${cols.map(c => {
+                        const { text, title } = _renderMasterCell(r[c]);
+                        const isObj = r[c] !== null && typeof r[c] === 'object';
+                        return `<td style="font-size:11px;white-space:nowrap;padding:4px 10px${isObj ? ';font-family:var(--font-mono);color:var(--text-secondary)' : ''}" title="${_escAttr(title)}">${_escHtml(text)}</td>`;
+                      }).join('')}</tr>`).join('')}
                 </tbody>
               </table>`}
         </div>
