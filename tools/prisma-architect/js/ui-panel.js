@@ -1489,16 +1489,50 @@ function renderMasterPanel() {
     : null;
 
   let db = [], cols = [];
+  let _efSubstances = [];   /* EF 테이블이면 물질명 목록 */
   if (entry) {
     const raw = (typeof window !== 'undefined' && window[entry.globalVar]);
     db = Array.isArray(raw) ? raw : [];
     /* 법령 개정 삭제 항목(deleted:true) 숨김 */
     db = db.filter(r => !r || !r.deleted);
     cols = db.length > 0 ? Object.keys(db[0]).filter(k => k !== 'deleted' && k !== 'deletedDate') : [];
+
+    /* 배출계수 테이블 감지: row.factors 가 객체 → 물질별 (배출계수, 단위) 컬럼으로 펼침 */
+    const hasFactors = db.length > 0 && db.some(r => r && r.factors && typeof r.factors === 'object');
+    if (hasFactors) {
+      const sset = new Set();
+      db.forEach(r => {
+        if (r && r.factors && typeof r.factors === 'object') {
+          Object.keys(r.factors).forEach(k => sset.add(k));
+        }
+      });
+      _efSubstances = [...sset];
+      const factIdx = cols.indexOf('factors');
+      const expanded = [];
+      _efSubstances.forEach(s => { expanded.push(`${s}_배출계수`, `${s}_단위`); });
+      const before = factIdx === -1 ? cols : cols.slice(0, factIdx);
+      const after  = factIdx === -1 ? [] : cols.slice(factIdx + 1);
+      /* 단일 unit 컬럼은 펼친 단위 컬럼과 중복 → 제거 */
+      cols = [...before, ...expanded, ...after].filter(c => c !== 'unit');
+    }
+
     const searchFields = (entry.searchFields || '').split(',').map(s => s.trim()).filter(Boolean);
     const q = _masterDataSearch.trim().toLowerCase();
     if (q && searchFields.length > 0) {
       db = db.filter(r => searchFields.some(f => String(r[f] || '').toLowerCase().includes(q)));
+    }
+  }
+
+  /* 배출계수 객체 → 표시 문자열 */
+  function _formatFactor(f) {
+    if (f === null || f === undefined) return '';
+    if (typeof f !== 'object') return String(f);
+    switch (f.type) {
+      case 'constant':   return String(f.value);
+      case 'range':      return `${f.min} ~ ${f.max}`;
+      case 'qualifier':  return `${f.op || ''} ${f.value}`.trim();
+      case 'expression': return `${f.coefficient} × ${f.variable || ''}${f.variableMeaning ? ` (${f.variableMeaning})` : ''}`;
+      default:           return JSON.stringify(f);
     }
   }
 
@@ -1512,6 +1546,29 @@ function renderMasterPanel() {
     }
     const s = String(v);
     return { text: s, title: s };
+  }
+  /* EF 펼침 컬럼: {물질}_배출계수 / {물질}_단위 */
+  function _renderEfCell(r, col) {
+    const mF = col.match(/^(.+)_배출계수$/);
+    const mU = col.match(/^(.+)_단위$/);
+    if (mF) {
+      const sub = mF[1];
+      const f = r && r.factors && r.factors[sub];
+      const text = _formatFactor(f);
+      const title = f && typeof f === 'object' ? JSON.stringify(f, null, 2) : text;
+      return { text, title, isObj: false };
+    }
+    if (mU) {
+      const sub = mU[1];
+      const f = r && r.factors && r.factors[sub];
+      /* 해당 물질에 값이 없으면 단위도 공란 */
+      if (f === null || f === undefined) return { text: '', title: '', isObj: false };
+      const u = r && r.unit;
+      const text = (u && u.raw) ? u.raw : (typeof u === 'string' ? u : '');
+      const title = u && typeof u === 'object' ? JSON.stringify(u, null, 2) : text;
+      return { text, title, isObj: false };
+    }
+    return null;
   }
   function _escAttr(s) { return String(s).replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
   function _escHtml(s) { return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
@@ -1572,8 +1629,13 @@ function renderMasterPanel() {
                   ${db.length === 0
                     ? `<tr><td colspan="${cols.length}" style="text-align:center;padding:20px;color:var(--text-muted)">검색 결과 없음</td></tr>`
                     : db.map(r => `<tr>${cols.map(c => {
-                        const { text, title } = _renderMasterCell(r[c]);
-                        const isObj = r[c] !== null && typeof r[c] === 'object';
+                        const ef = _efSubstances.length > 0 ? _renderEfCell(r, c) : null;
+                        let text, title, isObj;
+                        if (ef) { ({ text, title, isObj } = ef); }
+                        else {
+                          ({ text, title } = _renderMasterCell(r[c]));
+                          isObj = r[c] !== null && typeof r[c] === 'object';
+                        }
                         return `<td style="font-size:11px;white-space:nowrap;padding:4px 10px${isObj ? ';font-family:var(--font-mono);color:var(--text-secondary)' : ''}" title="${_escAttr(title)}">${_escHtml(text)}</td>`;
                       }).join('')}</tr>`).join('')}
                 </tbody>
