@@ -1410,12 +1410,12 @@ function renderMasterDataPanel(wrap) {
         <div style="flex:1;overflow:auto;padding:0">
           ${cols.length === 0
             ? `<div style="padding:60px;text-align:center;color:var(--text-muted);font-size:13px">전역변수 <code>${entry.globalVar}</code> 에서 데이터를 찾을 수 없습니다</div>`
-            : `<table class="excel-table" style="width:100%">
-                <thead><tr>${cols.map(c => `<th style="white-space:nowrap;font-size:11px">${c}</th>`).join('')}</tr></thead>
+            : `<table class="excel-table" style="width:auto;table-layout:auto">
+                <thead><tr>${cols.map(c => `<th style="white-space:nowrap;font-size:11px;padding:6px 10px">${c}</th>`).join('')}</tr></thead>
                 <tbody>
                   ${db.length === 0
                     ? `<tr><td colspan="${cols.length}" style="text-align:center;padding:20px;color:var(--text-muted)">검색 결과 없음</td></tr>`
-                    : db.map(r => `<tr>${cols.map(c => `<td style="font-size:11px;white-space:nowrap;max-width:200px;overflow:hidden;text-overflow:ellipsis" title="${String(r[c]||'').replace(/"/g,'&quot;')}">${r[c] ?? ''}</td>`).join('')}</tr>`).join('')}
+                    : db.map(r => `<tr>${cols.map(c => `<td style="font-size:11px;white-space:nowrap;padding:4px 10px">${r[c] ?? ''}</td>`).join('')}</tr>`).join('')}
                 </tbody>
               </table>`}
         </div>
@@ -1550,12 +1550,12 @@ function renderMasterPanel() {
           ${cols.length === 0
             ? `<div style="padding:60px;text-align:center;color:var(--text-muted);font-size:13px">
                  전역변수 <code>${entry.globalVar}</code> 에서 데이터를 찾을 수 없습니다</div>`
-            : `<table class="excel-table" style="width:100%">
-                <thead><tr>${cols.map(c => `<th style="white-space:nowrap;font-size:11px">${c}</th>`).join('')}</tr></thead>
+            : `<table class="excel-table" style="width:auto;table-layout:auto">
+                <thead><tr>${cols.map(c => `<th style="white-space:nowrap;font-size:11px;padding:6px 10px">${c}</th>`).join('')}</tr></thead>
                 <tbody>
                   ${db.length === 0
                     ? `<tr><td colspan="${cols.length}" style="text-align:center;padding:20px;color:var(--text-muted)">검색 결과 없음</td></tr>`
-                    : db.map(r => `<tr>${cols.map(c => `<td style="font-size:11px;white-space:nowrap;max-width:200px;overflow:hidden;text-overflow:ellipsis" title="${String(r[c]||'').replace(/"/g,'&quot;')}">${r[c] ?? ''}</td>`).join('')}</tr>`).join('')}
+                    : db.map(r => `<tr>${cols.map(c => `<td style="font-size:11px;white-space:nowrap;padding:4px 10px">${r[c] ?? ''}</td>`).join('')}</tr>`).join('')}
                 </tbody>
               </table>`}
         </div>
