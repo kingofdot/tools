@@ -655,7 +655,20 @@
       "dueDate": "",
       "importance": 0,
       "order": 4,
-      "updatedAt": "2026-05-28T10:35:34.450Z",
+      "updatedAt": "2026-05-28T10:35:36.210Z",
+      "sha": null
+    },
+    {
+      "id": "2026-05-28T10-35-36",
+      "subject": "사무관리론",
+      "subTopic": "민원처리에 관한 법령",
+      "topic": "민원인",
+      "mnemonic": "",
+      "body": "",
+      "dueDate": "",
+      "importance": 3,
+      "order": 5,
+      "updatedAt": "2026-05-28T10:35:46.588Z",
       "sha": null
     }
   ],
@@ -679,5 +692,5 @@
       "__default": "민법"
     }
   },
-  "savedAt": "2026. 5. 28. 오후 7:35:34"
+  "savedAt": "2026. 5. 28. 오후 7:35:51"
 }
