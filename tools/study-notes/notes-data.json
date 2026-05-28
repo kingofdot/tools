@@ -670,6 +670,19 @@
       "order": 5,
       "updatedAt": "2026-05-28T10:45:27.366Z",
       "sha": null
+    },
+    {
+      "id": "2026-05-28T10-45-30",
+      "subject": "사무관리론",
+      "subTopic": "",
+      "topic": "",
+      "mnemonic": "",
+      "body": "",
+      "dueDate": "",
+      "importance": 0,
+      "order": 6,
+      "updatedAt": "2026-05-28T10:45:30.258Z",
+      "sha": null
     }
   ],
   "subjectOrder": [
@@ -692,5 +705,5 @@
       "__default": "민법"
     }
   },
-  "savedAt": "2026. 5. 28. 오후 7:45:27"
+  "savedAt": "2026. 5. 28. 오후 7:45:32"
 }
