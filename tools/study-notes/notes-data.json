@@ -648,14 +648,14 @@
     {
       "id": "2026-05-28T10-29-12",
       "subject": "사무관리론",
-      "subTopic": "",
-      "topic": "",
+      "subTopic": "민원처리에 관한 법령",
+      "topic": "민원, 민원의 종류",
       "mnemonic": "",
       "body": "",
       "dueDate": "",
       "importance": 0,
       "order": 4,
-      "updatedAt": "2026-05-28T10:29:12.802Z",
+      "updatedAt": "2026-05-28T10:29:25.052Z",
       "sha": null
     }
   ],
@@ -679,5 +679,5 @@
       "__default": "민법"
     }
   },
-  "savedAt": "2026. 5. 28. 오후 7:29:12"
+  "savedAt": "2026. 5. 28. 오후 7:29:24"
 }
