@@ -664,11 +664,11 @@
       "subTopic": "민원처리에 관한 법령",
       "topic": "민원인",
       "mnemonic": "",
-      "body": "",
+      "body": "의의\n\t민원인이란",
       "dueDate": "",
       "importance": 3,
       "order": 5,
-      "updatedAt": "2026-05-28T10:35:46.588Z",
+      "updatedAt": "2026-05-28T10:36:00.219Z",
       "sha": null
     }
   ],
@@ -692,5 +692,5 @@
       "__default": "민법"
     }
   },
-  "savedAt": "2026. 5. 28. 오후 7:35:51"
+  "savedAt": "2026. 5. 28. 오후 7:36:05"
 }
