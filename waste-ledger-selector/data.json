@@ -24,12 +24,35 @@
     },
     "download_note": "download_url 은 https://www.law.go.kr + 상대경로. 최신 서식 파일로 리다이렉트됨.",
     "schema": {
-      "subjects[]": "선택지(업종·신고 주체). branches 가 있으면 질문 후 when 조건으로 ledgers 필터",
+      "categories[]": "대분류(큰→작은 드릴다운). 표시 순서=배열 순서",
+      "subjects[]": "세부 선택지. category 로 대분류에 소속. branches 있으면 질문 후 when 조건으로 ledgers 필터",
       "ledgers[].when": "null(키없음) 이면 항상 포함. {branch,value} 면 해당 답변일 때만 포함",
       "forms{}": "form_id 로 참조되는 별지서식 상세",
       "allbaro_required": "true=올바로 의무입력 / false=대상아님 / null=겸영 여부에 따라 달라짐"
     }
   },
+  "categories": [
+    {
+      "id": "cat_business",
+      "label": "폐기물 처리업 · 처리신고자",
+      "desc": "허가받은 처리업자와 처리신고자"
+    },
+    {
+      "id": "cat_generator",
+      "label": "배출자 · 신고",
+      "desc": "사업장·음식물류 폐기물 배출/신고"
+    },
+    {
+      "id": "cat_coop",
+      "label": "공동처리 운영기구",
+      "desc": "공동 수집·운반·처리 대표자"
+    },
+    {
+      "id": "cat_facility_etc",
+      "label": "시설 설치·관리자 · 기타",
+      "desc": "자가·공공 처리시설, 전용용기, EPR"
+    }
+  ],
   "forms": {
     "21-9": {
       "form_id": "21-9",
@@ -178,113 +201,8 @@
   },
   "subjects": [
     {
-      "id": "gen_food_plan",
-      "group": "배출자·신고",
-      "label": "음식물류 폐기물 발생억제·처리계획 신고자",
-      "trigger": {
-        "kind": "신고",
-        "basis": "법 제15조의2제2항"
-      },
-      "rule58": "제1항 제1호",
-      "retention_years": 2,
-      "allbaro_required": false,
-      "ledgers": [
-        {
-          "form": "35-2",
-          "required": true
-        }
-      ],
-      "notes": [
-        "보존기간은 예외적으로 2년(그 외 주체는 3년)"
-      ]
-    },
-    {
-      "id": "biz_waste_generator",
-      "group": "배출자·신고",
-      "label": "사업장폐기물배출자(신고/확인)",
-      "trigger": {
-        "kind": "신고·확인",
-        "basis": "법 제17조제2항(신고)·제17조제5항(확인)"
-      },
-      "rule58": "제1항 제1호의2",
-      "retention_years": 3,
-      "allbaro_required": false,
-      "ledgers": [
-        {
-          "form": "36",
-          "required": true
-        }
-      ],
-      "notes": [
-        "중간가공 폐기물 배출자 포함",
-        "폐기물 인계·인수는 올바로로 별도 관리"
-      ]
-    },
-    {
-      "id": "self_recycle_generator",
-      "group": "배출자·신고",
-      "label": "└ 배출자 중 자기 폐기물을 자가(자체) 재활용하는 자",
-      "trigger": {
-        "kind": "-",
-        "basis": "법 제13조의2 재활용 원칙·준수사항"
-      },
-      "rule58": "제1항 제1호의3",
-      "retention_years": 3,
-      "allbaro_required": false,
-      "ledgers": [
-        {
-          "form": "36",
-          "required": true,
-          "note": "배출자 기본대장"
-        },
-        {
-          "form": "36-2",
-          "required": true,
-          "note": "자가재활용분"
-        }
-      ],
-      "notes": [
-        "배출자 대장(36호)에 더해 자가재활용 대장(36호의2)도 기록"
-      ]
-    },
-    {
-      "id": "coop_food",
-      "group": "공동처리 운영기구",
-      "label": "음식물류 폐기물 공동처리 운영기구 대표자",
-      "trigger": {
-        "kind": "-",
-        "basis": "법 제18조제5항"
-      },
-      "rule58": "제1항 제1호의4",
-      "retention_years": 3,
-      "allbaro_required": false,
-      "ledgers": [
-        {
-          "form": "36-3",
-          "required": true
-        }
-      ]
-    },
-    {
-      "id": "coop_biz",
-      "group": "공동처리 운영기구",
-      "label": "사업장폐기물 공동처리 운영기구 대표자",
-      "trigger": {
-        "kind": "-",
-        "basis": "법 제18조제5항"
-      },
-      "rule58": "제1항 제2호",
-      "retention_years": 3,
-      "allbaro_required": false,
-      "ledgers": [
-        {
-          "form": "37",
-          "required": true
-        }
-      ]
-    },
-    {
       "id": "biz_collect_transport",
+      "category": "cat_business",
       "group": "폐기물처리업(법 제25조 허가)",
       "label": "폐기물 수집·운반업자",
       "trigger": {
@@ -307,6 +225,7 @@
     },
     {
       "id": "biz_intermediate_disposal",
+      "category": "cat_business",
       "group": "폐기물처리업(법 제25조 허가)",
       "label": "폐기물 중간처분업자",
       "trigger": {
@@ -331,6 +250,7 @@
     },
     {
       "id": "biz_final_disposal",
+      "category": "cat_business",
       "group": "폐기물처리업(법 제25조 허가)",
       "label": "폐기물 최종처분업자",
       "trigger": {
@@ -355,6 +275,7 @@
     },
     {
       "id": "biz_comprehensive_disposal",
+      "category": "cat_business",
       "group": "폐기물처리업(법 제25조 허가)",
       "label": "폐기물 종합처분업자",
       "trigger": {
@@ -384,13 +305,14 @@
     },
     {
       "id": "biz_recycle",
+      "category": "cat_business",
       "group": "폐기물처리업(법 제25조 허가)",
       "label": "폐기물 재활용업자(중간/최종/종합재활용)",
       "trigger": {
         "kind": "허가",
         "basis": "법 제25조제5항제5호~제7호"
       },
-      "rule58": "제1항 제3호 다목",
+      "rule58": "제1항 제3호 다목 (+ 제4호 다목)",
       "retention_years": 3,
       "allbaro_required": true,
       "branches": [
@@ -411,12 +333,18 @@
       ],
       "ledgers": [
         {
+          "form": "44-2",
+          "required": true,
+          "note": "재활용시설 운전기록 — 시설 설치·관리자 지위(제58조제1항제4호 다목)"
+        },
+        {
           "form": "45",
           "required": true,
           "when": {
             "branch": "recycle_type",
             "value": "general"
-          }
+          },
+          "note": "수탁 재활용 실적(일반유형)"
         },
         {
           "form": "45-2",
@@ -424,98 +352,19 @@
           "when": {
             "branch": "recycle_type",
             "value": "r7"
-          }
+          },
+          "note": "수탁 재활용 실적(R-7 유형)"
         }
       ],
       "notes": [
-        "재활용 유형에 따라 45호(일반) 또는 45호의2(R-7) 중 택1"
-      ]
-    },
-    {
-      "id": "container_maker",
-      "group": "기타 업·제조",
-      "label": "전용용기 제조업자",
-      "trigger": {
-        "kind": "-",
-        "basis": "법 제36조제1항제4호의2"
-      },
-      "rule58": "제1항 제3호의2",
-      "retention_years": 3,
-      "allbaro_required": false,
-      "ledgers": [
-        {
-          "form": "41",
-          "required": true
-        }
-      ]
-    },
-    {
-      "id": "facility_intermediate",
-      "group": "폐기물처리시설 설치·관리자",
-      "label": "중간처분시설 설치·관리자",
-      "trigger": {
-        "kind": "-",
-        "basis": "법 제36조제1항제5호"
-      },
-      "rule58": "제1항 제4호 가목",
-      "retention_years": 3,
-      "allbaro_required": null,
-      "ledgers": [
-        {
-          "form": "40",
-          "required": true
-        }
-      ],
-      "notes": [
-        "국가·지자체·자가처분시설 포함",
-        "처리업 겸영 시 올바로 의무(○), 순수 설치·관리자는 종이/전자매체"
-      ]
-    },
-    {
-      "id": "facility_final",
-      "group": "폐기물처리시설 설치·관리자",
-      "label": "최종처분시설 설치·관리자",
-      "trigger": {
-        "kind": "-",
-        "basis": "법 제36조제1항제5호"
-      },
-      "rule58": "제1항 제4호 나목",
-      "retention_years": 3,
-      "allbaro_required": null,
-      "ledgers": [
-        {
-          "form": "43",
-          "required": true
-        }
-      ],
-      "notes": [
-        "처리업 겸영 시 올바로 의무(○)"
-      ]
-    },
-    {
-      "id": "facility_recycle",
-      "group": "폐기물처리시설 설치·관리자",
-      "label": "재활용시설 설치·관리자",
-      "trigger": {
-        "kind": "-",
-        "basis": "법 제36조제1항제5호"
-      },
-      "rule58": "제1항 제4호 다목",
-      "retention_years": 3,
-      "allbaro_required": null,
-      "ledgers": [
-        {
-          "form": "44-2",
-          "required": true
-        }
-      ],
-      "notes": [
-        "처리업 겸영 시 올바로 의무(○)"
+        "재활용시설을 직접 운영하므로 재활용시설 운영·관리대장(44호의2)도 함께 기록",
+        "수탁재활용대장은 유형에 따라 45호(일반) 또는 45호의2(R-7) 중 택1"
       ]
     },
     {
       "id": "waste_treat_reporter",
-      "group": "배출자·신고",
+      "category": "cat_business",
+      "group": "폐기물처리 신고",
       "label": "폐기물처리 신고자",
       "trigger": {
         "kind": "신고",
@@ -560,7 +409,205 @@
       ]
     },
     {
+      "id": "biz_waste_generator",
+      "category": "cat_generator",
+      "group": "배출자·신고",
+      "label": "사업장폐기물배출자(신고/확인)",
+      "trigger": {
+        "kind": "신고·확인",
+        "basis": "법 제17조제2항(신고)·제17조제5항(확인)"
+      },
+      "rule58": "제1항 제1호의2",
+      "retention_years": 3,
+      "allbaro_required": false,
+      "ledgers": [
+        {
+          "form": "36",
+          "required": true
+        }
+      ],
+      "notes": [
+        "중간가공 폐기물 배출자 포함",
+        "폐기물 인계·인수는 올바로로 별도 관리"
+      ]
+    },
+    {
+      "id": "self_recycle_generator",
+      "category": "cat_generator",
+      "group": "배출자·신고",
+      "label": "배출자 중 자기 폐기물을 자가(자체) 재활용하는 자",
+      "trigger": {
+        "kind": "-",
+        "basis": "법 제13조의2 재활용 원칙·준수사항"
+      },
+      "rule58": "제1항 제1호의3",
+      "retention_years": 3,
+      "allbaro_required": false,
+      "ledgers": [
+        {
+          "form": "36",
+          "required": true,
+          "note": "배출자 기본대장"
+        },
+        {
+          "form": "36-2",
+          "required": true,
+          "note": "자가재활용분"
+        }
+      ],
+      "notes": [
+        "배출자 대장(36호)에 더해 자가재활용 대장(36호의2)도 기록"
+      ]
+    },
+    {
+      "id": "gen_food_plan",
+      "category": "cat_generator",
+      "group": "배출자·신고",
+      "label": "음식물류 폐기물 발생억제·처리계획 신고자",
+      "trigger": {
+        "kind": "신고",
+        "basis": "법 제15조의2제2항"
+      },
+      "rule58": "제1항 제1호",
+      "retention_years": 2,
+      "allbaro_required": false,
+      "ledgers": [
+        {
+          "form": "35-2",
+          "required": true
+        }
+      ],
+      "notes": [
+        "보존기간은 예외적으로 2년(그 외 주체는 3년)"
+      ]
+    },
+    {
+      "id": "coop_biz",
+      "category": "cat_coop",
+      "group": "공동처리 운영기구",
+      "label": "사업장폐기물 공동처리 운영기구 대표자",
+      "trigger": {
+        "kind": "-",
+        "basis": "법 제18조제5항"
+      },
+      "rule58": "제1항 제2호",
+      "retention_years": 3,
+      "allbaro_required": false,
+      "ledgers": [
+        {
+          "form": "37",
+          "required": true
+        }
+      ]
+    },
+    {
+      "id": "coop_food",
+      "category": "cat_coop",
+      "group": "공동처리 운영기구",
+      "label": "음식물류 폐기물 공동처리 운영기구 대표자",
+      "trigger": {
+        "kind": "-",
+        "basis": "법 제18조제5항"
+      },
+      "rule58": "제1항 제1호의4",
+      "retention_years": 3,
+      "allbaro_required": false,
+      "ledgers": [
+        {
+          "form": "36-3",
+          "required": true
+        }
+      ]
+    },
+    {
+      "id": "facility_intermediate",
+      "category": "cat_facility_etc",
+      "group": "폐기물처리시설 설치·관리자",
+      "label": "중간처분시설 설치·관리자(자가·공공)",
+      "trigger": {
+        "kind": "-",
+        "basis": "법 제36조제1항제5호"
+      },
+      "rule58": "제1항 제4호 가목",
+      "retention_years": 3,
+      "allbaro_required": null,
+      "ledgers": [
+        {
+          "form": "40",
+          "required": true
+        }
+      ],
+      "notes": [
+        "국가·지자체·자가처분시설 포함",
+        "처리업 겸영 시 올바로 의무(○), 순수 설치·관리자는 종이/전자매체"
+      ]
+    },
+    {
+      "id": "facility_final",
+      "category": "cat_facility_etc",
+      "group": "폐기물처리시설 설치·관리자",
+      "label": "최종처분시설 설치·관리자(자가·공공)",
+      "trigger": {
+        "kind": "-",
+        "basis": "법 제36조제1항제5호"
+      },
+      "rule58": "제1항 제4호 나목",
+      "retention_years": 3,
+      "allbaro_required": null,
+      "ledgers": [
+        {
+          "form": "43",
+          "required": true
+        }
+      ],
+      "notes": [
+        "처리업 겸영 시 올바로 의무(○)"
+      ]
+    },
+    {
+      "id": "facility_recycle",
+      "category": "cat_facility_etc",
+      "group": "폐기물처리시설 설치·관리자",
+      "label": "재활용시설 설치·관리자(자가·공공)",
+      "trigger": {
+        "kind": "-",
+        "basis": "법 제36조제1항제5호"
+      },
+      "rule58": "제1항 제4호 다목",
+      "retention_years": 3,
+      "allbaro_required": null,
+      "ledgers": [
+        {
+          "form": "44-2",
+          "required": true
+        }
+      ],
+      "notes": [
+        "처리업(재활용업)으로 운영 시에는 재활용업자 항목을 선택하세요"
+      ]
+    },
+    {
+      "id": "container_maker",
+      "category": "cat_facility_etc",
+      "group": "기타 업·제조",
+      "label": "전용용기 제조업자",
+      "trigger": {
+        "kind": "-",
+        "basis": "법 제36조제1항제4호의2"
+      },
+      "rule58": "제1항 제3호의2",
+      "retention_years": 3,
+      "allbaro_required": false,
+      "ledgers": [
+        {
+          "form": "41",
+          "required": true
+        }
+      ]
+    },
+    {
       "id": "epr_maker_importer",
+      "category": "cat_facility_etc",
       "group": "기타 업·제조",
       "label": "EPR 제품 제조·수입업자(회수·처리 의무 대상)",
       "trigger": {

@@ -52,11 +52,19 @@
     .card-h .n{margin-left:auto;font-weight:500;color:var(--subtle);font-size:12px;}
     .card-b{padding:14px 16px;}
 
+    /* 대분류(accordion) */
+    .cat{display:flex;align-items:center;gap:8px;width:100%;text-align:left;
+      padding:12px 14px;border:1px solid var(--border);border-radius:var(--r);
+      background:var(--surface);color:var(--text);margin-bottom:8px;
+      font-size:14px;font-weight:700;transition:all .12s;}
+    .cat:hover{border-color:var(--accent-bd);background:var(--accent-bg);}
+    .cat.on{border-color:var(--accent);background:var(--accent-bg);color:var(--accent);}
+    .cat .cat-x{color:var(--accent);font-size:12px;width:12px;}
+    .cat .cat-d{display:block;font-size:11px;font-weight:400;color:var(--muted);margin-top:2px;}
+    .cat.on .cat-d{color:var(--accent-h);}
+    .subwrap{margin:-2px 0 12px 10px;padding:8px 0 4px 12px;border-left:2px solid var(--accent-bd);}
+
     /* Subject picker */
-    .grp{margin-bottom:16px;}
-    .grp:last-child{margin-bottom:0;}
-    .grp-t{font-size:11px;font-weight:700;color:var(--accent);text-transform:none;
-      letter-spacing:.02em;margin:0 0 8px 2px;}
     .opt{display:block;width:100%;text-align:left;padding:9px 12px;border:1px solid var(--border);
       border-radius:var(--r);background:var(--surface);color:var(--text);margin-bottom:6px;
       font-size:13px;line-height:1.35;transition:all .12s;}
@@ -129,13 +137,14 @@
   <div class="foot" id="foot"></div>
 
   <script>
-    const state = { db:null, subjectId:null, answers:{} };
+    const state = { db:null, categoryId:null, subjectId:null, answers:{} };
 
     async function boot(){
       try{
         const r = await fetch('data.json');
         if(!r.ok) throw new Error('HTTP '+r.status);
         state.db = await r.json();
+        if(state.db.categories && state.db.categories[0]) state.categoryId = state.db.categories[0].id;
         render();
       }catch(e){
         showLoadError(e);
@@ -158,7 +167,9 @@
       document.getElementById('fileIn').addEventListener('change', ev=>{
         const f = ev.target.files[0]; if(!f) return;
         const fr = new FileReader();
-        fr.onload = () => { try{ state.db = JSON.parse(fr.result); render(); }
+        fr.onload = () => { try{ state.db = JSON.parse(fr.result);
+          if(state.db.categories && state.db.categories[0]) state.categoryId = state.db.categories[0].id;
+          render(); }
           catch(err){ alert('JSON 파싱 실패: '+err.message); } };
         fr.readAsText(f, 'utf-8');
       });
@@ -176,23 +187,30 @@
       app.innerHTML = '';
       const wrap = el('div','wrap');
 
-      // ── left: picker ──
+      // ── left: 대분류 → 세부 드릴다운 ──
       const left = el('div','card');
-      left.appendChild(el('div','card-h','업종·신고 선택 <span class="n">'+state.db.subjects.length+'종</span>'));
+      left.appendChild(el('div','card-h','① 대분류 → ② 세부 선택'));
       const lb = el('div','card-b');
 
-      const groups = {};
-      state.db.subjects.forEach(s=>{ (groups[s.group]=groups[s.group]||[]).push(s); });
-      Object.keys(groups).forEach(g=>{
-        const gd = el('div','grp');
-        gd.appendChild(el('div','grp-t',g));
-        groups[g].forEach(s=>{
-          const b = el('button','opt'+(state.subjectId===s.id?' on':''));
-          b.innerHTML = esc(s.label) + '<div class="b">'+esc(s.trigger.basis)+'</div>';
-          b.onclick = ()=>{ state.subjectId=s.id; state.answers={}; render(); };
-          gd.appendChild(b);
-        });
-        lb.appendChild(gd);
+      const cats = state.db.categories || [{id:null,label:'전체'}];
+      cats.forEach(c=>{
+        const open = state.categoryId===c.id;
+        const cat = el('button','cat'+(open?' on':''));
+        cat.innerHTML = '<span class="cat-x">'+(open?'▾':'▸')+'</span>'
+          + '<span>'+esc(c.label)+(c.desc?'<span class="cat-d">'+esc(c.desc)+'</span>':'')+'</span>';
+        cat.onclick = ()=>{ state.categoryId = open?null:c.id; render(); };
+        lb.appendChild(cat);
+
+        if(open){
+          const sub = el('div','subwrap');
+          state.db.subjects.filter(s=>s.category===c.id).forEach(s=>{
+            const b = el('button','opt'+(state.subjectId===s.id?' on':''));
+            b.innerHTML = esc(s.label) + '<div class="b">'+esc(s.trigger.basis)+'</div>';
+            b.onclick = ()=>{ state.subjectId=s.id; state.answers={}; render(); };
+            sub.appendChild(b);
+          });
+          lb.appendChild(sub);
+        }
       });
       left.appendChild(lb);
       wrap.appendChild(left);
@@ -203,7 +221,7 @@
       const rb = el('div','card-b');
       const s = state.db.subjects.find(x=>x.id===state.subjectId);
       if(!s){
-        rb.appendChild(el('div','empty','왼쪽에서 해당하는 업종 또는 신고를 선택하세요.'));
+        rb.appendChild(el('div','empty','왼쪽에서 대분류를 펼친 뒤 해당하는 업종·신고를 선택하세요.'));
       }else{
         renderResult(rb, s);
       }
