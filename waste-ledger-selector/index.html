@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta name="tool-name" content="Waste Ledger Selector">
+  <meta name="tool-tag" content="폐기물 대장">
+  <meta name="tool-description" content="폐기물 업종·신고를 선택하면 작성해야 할 별지서식 대장(장부)을 알려주는 도구. 폐기물관리법 제36조·시행규칙 제58조 기반.">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>폐기물 대장 찾기 — Waste Ledger Selector</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700&display=swap">
+  <style>
+    :root {
+      --bg:#f1f5f9; --surface:#ffffff; --border:#e2e8f0; --border-2:#f1f5f9;
+      --text:#0f172a; --muted:#64748b; --subtle:#94a3b8;
+      --accent:#1d4ed8; --accent-h:#1e40af; --accent-bg:#eff6ff; --accent-bd:#bfdbfe;
+      --ok:#15803d; --ok-bg:#f0fdf4; --ok-bd:#86efac;
+      --err:#b91c1c; --err-bg:#fef2f2; --err-bd:#fca5a5;
+      --warn:#b45309; --warn-bg:#fffbeb; --warn-bd:#fde68a;
+      --code-bg:#0f172a; --code-text:#e2e8f0;
+      --r-sm:6px; --r:10px; --r-lg:14px;
+      --shadow-sm:0 1px 2px rgba(0,0,0,.06);
+      --shadow:0 1px 3px rgba(0,0,0,.1),0 1px 2px rgba(0,0,0,.06);
+      --shadow-md:0 4px 6px -1px rgba(0,0,0,.1),0 2px 4px rgba(0,0,0,.06);
+    }
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+    html{height:100%;}
+    body{font-family:'Noto Sans KR',system-ui,sans-serif;font-size:14px;color:var(--text);
+      background:var(--bg);min-height:100%;display:flex;flex-direction:column;}
+    button,input,select{font:inherit;}
+    button{cursor:pointer;border:none;background:none;}
+    a{color:var(--accent);text-decoration:none;}
+    a:hover{text-decoration:underline;}
+
+    /* Header */
+    .app-header{position:sticky;top:0;z-index:50;background:var(--code-bg);
+      border-bottom:1px solid #1e293b;box-shadow:0 2px 8px rgba(0,0,0,.25);padding:0 20px;}
+    .header-inner{display:flex;align-items:center;gap:14px;height:58px;max-width:1120px;margin:0 auto;}
+    .brand{display:flex;align-items:baseline;gap:10px;color:#fff;font-weight:700;font-size:16px;}
+    .brand .tag{font-size:11px;font-weight:600;color:#93c5fd;background:#1e3a8a;
+      padding:3px 8px;border-radius:999px;letter-spacing:.02em;}
+    .brand .sub{font-size:12px;font-weight:400;color:#94a3b8;}
+
+    .wrap{max-width:1120px;margin:0 auto;padding:22px 20px 40px;width:100%;
+      display:grid;grid-template-columns:380px 1fr;gap:22px;align-items:start;}
+    @media(max-width:880px){.wrap{grid-template-columns:1fr;}}
+
+    .card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-lg);
+      box-shadow:var(--shadow-sm);overflow:hidden;}
+    .card-h{padding:14px 16px;border-bottom:1px solid var(--border-2);
+      font-weight:700;font-size:13px;color:var(--text);display:flex;align-items:center;gap:8px;}
+    .card-h .n{margin-left:auto;font-weight:500;color:var(--subtle);font-size:12px;}
+    .card-b{padding:14px 16px;}
+
+    /* Subject picker */
+    .grp{margin-bottom:16px;}
+    .grp:last-child{margin-bottom:0;}
+    .grp-t{font-size:11px;font-weight:700;color:var(--accent);text-transform:none;
+      letter-spacing:.02em;margin:0 0 8px 2px;}
+    .opt{display:block;width:100%;text-align:left;padding:9px 12px;border:1px solid var(--border);
+      border-radius:var(--r);background:var(--surface);color:var(--text);margin-bottom:6px;
+      font-size:13px;line-height:1.35;transition:all .12s;}
+    .opt:hover{border-color:var(--accent-bd);background:var(--accent-bg);}
+    .opt.on{border-color:var(--accent);background:var(--accent-bg);
+      box-shadow:0 0 0 2px var(--accent-bd);font-weight:600;}
+    .opt .b{font-size:11px;color:var(--muted);font-weight:400;}
+
+    /* Result */
+    .empty{color:var(--subtle);font-size:13px;text-align:center;padding:48px 16px;}
+    .res-title{font-size:18px;font-weight:700;margin-bottom:4px;}
+    .res-basis{font-size:12px;color:var(--muted);margin-bottom:14px;}
+    .badges{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px;}
+    .badge{font-size:12px;font-weight:600;padding:4px 10px;border-radius:999px;
+      border:1px solid var(--border);color:var(--muted);background:var(--border-2);}
+    .badge.ok{color:var(--ok);background:var(--ok-bg);border-color:var(--ok-bd);}
+    .badge.warn{color:var(--warn);background:var(--warn-bg);border-color:var(--warn-bd);}
+    .badge.info{color:var(--accent);background:var(--accent-bg);border-color:var(--accent-bd);}
+
+    .qbox{background:var(--warn-bg);border:1px solid var(--warn-bd);border-radius:var(--r);
+      padding:12px 14px;margin-bottom:16px;}
+    .qbox .q{font-size:13px;font-weight:600;margin-bottom:10px;}
+    .qopts{display:flex;flex-wrap:wrap;gap:8px;}
+    .qopt{padding:7px 12px;border:1px solid var(--border);border-radius:var(--r);
+      background:var(--surface);font-size:12px;}
+    .qopt:hover{border-color:var(--accent-bd);}
+    .qopt.on{border-color:var(--accent);background:var(--accent-bg);font-weight:700;color:var(--accent);}
+
+    .ledger{border:1px solid var(--border);border-radius:var(--r);padding:12px 14px;margin-bottom:10px;}
+    .ledger-top{display:flex;align-items:center;gap:10px;flex-wrap:wrap;}
+    .ledger .no{font-weight:700;font-size:13px;color:var(--accent);white-space:nowrap;}
+    .ledger .nm{font-weight:600;font-size:14px;}
+    .ledger .kind{font-size:11px;color:var(--muted);background:var(--border-2);
+      border:1px solid var(--border);padding:2px 7px;border-radius:999px;}
+    .ledger .note{font-size:12px;color:var(--muted);margin-top:6px;}
+    .ledger .dl{display:inline-flex;align-items:center;gap:5px;margin-top:9px;font-size:12px;
+      font-weight:600;color:var(--accent);border:1px solid var(--accent-bd);background:var(--accent-bg);
+      padding:5px 11px;border-radius:var(--r-sm);}
+    .ledger .dl:hover{background:#dbeafe;text-decoration:none;}
+
+    .notes{margin-top:14px;padding-top:12px;border-top:1px solid var(--border-2);}
+    .notes li{font-size:12px;color:var(--muted);margin-left:16px;margin-bottom:4px;line-height:1.45;}
+
+    .foot{color:var(--subtle);font-size:11px;text-align:center;padding:0 20px 24px;line-height:1.6;}
+    .foot code{background:#e2e8f0;padding:1px 5px;border-radius:4px;color:#475569;}
+
+    /* loader / error */
+    .load{padding:40px;text-align:center;color:var(--muted);}
+    .errbox{margin:22px auto;max-width:640px;background:var(--err-bg);border:1px solid var(--err-bd);
+      border-radius:var(--r);padding:18px 20px;color:#7f1d1d;font-size:13px;line-height:1.6;}
+    .errbox h3{font-size:14px;margin-bottom:8px;}
+    .errbox input[type=file]{margin-top:10px;font-size:12px;}
+  </style>
+</head>
+<body>
+  <header class="app-header">
+    <div class="header-inner">
+      <div class="brand">
+        폐기물 대장 찾기
+        <span class="tag">폐기물 대장</span>
+        <span class="sub">업종·신고 → 써야 할 별지서식</span>
+      </div>
+    </div>
+  </header>
+
+  <div id="app">
+    <div class="load">데이터 불러오는 중…</div>
+  </div>
+
+  <div class="foot" id="foot"></div>
+
+  <script>
+    const state = { db:null, subjectId:null, answers:{} };
+
+    async function boot(){
+      try{
+        const r = await fetch('data.json');
+        if(!r.ok) throw new Error('HTTP '+r.status);
+        state.db = await r.json();
+        render();
+      }catch(e){
+        showLoadError(e);
+      }
+    }
+
+    function showLoadError(e){
+      document.getElementById('app').innerHTML = `
+        <div class="errbox">
+          <h3>data.json 을 불러오지 못했습니다</h3>
+          <div>브라우저에서 파일을 직접 열면(<code>file://</code>) 보안정책상 fetch 가 막힙니다.
+          아래 중 하나로 해결하세요:</div>
+          <ul style="margin:8px 0 8px 18px;">
+            <li>같은 폴더에서 <code>python -m http.server</code> 실행 후 <code>localhost:8000</code> 접속</li>
+            <li>또는 아래에서 <b>data.json 을 직접 선택</b>:</li>
+          </ul>
+          <input type="file" accept=".json" id="fileIn">
+          <div style="margin-top:8px;font-size:11px;color:#991b1b;">(${(e&&e.message)||e})</div>
+        </div>`;
+      document.getElementById('fileIn').addEventListener('change', ev=>{
+        const f = ev.target.files[0]; if(!f) return;
+        const fr = new FileReader();
+        fr.onload = () => { try{ state.db = JSON.parse(fr.result); render(); }
+          catch(err){ alert('JSON 파싱 실패: '+err.message); } };
+        fr.readAsText(f, 'utf-8');
+      });
+    }
+
+    function el(tag, cls, html){
+      const n = document.createElement(tag);
+      if(cls) n.className = cls;
+      if(html!=null) n.innerHTML = html;
+      return n;
+    }
+
+    function render(){
+      const app = document.getElementById('app');
+      app.innerHTML = '';
+      const wrap = el('div','wrap');
+
+      // ── left: picker ──
+      const left = el('div','card');
+      left.appendChild(el('div','card-h','업종·신고 선택 <span class="n">'+state.db.subjects.length+'종</span>'));
+      const lb = el('div','card-b');
+
+      const groups = {};
+      state.db.subjects.forEach(s=>{ (groups[s.group]=groups[s.group]||[]).push(s); });
+      Object.keys(groups).forEach(g=>{
+        const gd = el('div','grp');
+        gd.appendChild(el('div','grp-t',g));
+        groups[g].forEach(s=>{
+          const b = el('button','opt'+(state.subjectId===s.id?' on':''));
+          b.innerHTML = esc(s.label) + '<div class="b">'+esc(s.trigger.basis)+'</div>';
+          b.onclick = ()=>{ state.subjectId=s.id; state.answers={}; render(); };
+          gd.appendChild(b);
+        });
+        lb.appendChild(gd);
+      });
+      left.appendChild(lb);
+      wrap.appendChild(left);
+
+      // ── right: result ──
+      const right = el('div','card');
+      right.appendChild(el('div','card-h','결과'));
+      const rb = el('div','card-b');
+      const s = state.db.subjects.find(x=>x.id===state.subjectId);
+      if(!s){
+        rb.appendChild(el('div','empty','왼쪽에서 해당하는 업종 또는 신고를 선택하세요.'));
+      }else{
+        renderResult(rb, s);
+      }
+      right.appendChild(rb);
+      wrap.appendChild(right);
+
+      app.appendChild(wrap);
+      renderFoot();
+    }
+
+    function renderResult(rb, s){
+      rb.appendChild(el('div','res-title',esc(s.label)));
+      rb.appendChild(el('div','res-basis','근거: '+esc(s.trigger.basis)+' · 시행규칙 '+esc(s.rule58)));
+
+      // badges
+      const bd = el('div','badges');
+      bd.appendChild(el('span','badge info','보존 '+s.retention_years+'년'));
+      if(s.allbaro_required===true) bd.appendChild(el('span','badge ok','올바로 의무입력 ○'));
+      else if(s.allbaro_required===false) bd.appendChild(el('span','badge','올바로 의무 아님'));
+      else bd.appendChild(el('span','badge warn','올바로: 처리업 겸영 여부에 따라'));
+      rb.appendChild(bd);
+
+      // branch questions
+      (s.branches||[]).forEach(br=>{
+        const q = el('div','qbox');
+        q.appendChild(el('div','q',esc(br.question)));
+        const qo = el('div','qopts');
+        br.options.forEach(o=>{
+          const b = el('button','qopt'+(state.answers[br.id]===o.value?' on':''));
+          b.textContent = o.label;
+          b.onclick = ()=>{ state.answers[br.id]=o.value; render(); };
+          qo.appendChild(b);
+        });
+        q.appendChild(qo);
+        rb.appendChild(q);
+      });
+
+      // resolve ledgers
+      const pending = (s.branches||[]).filter(br=>!(br.id in state.answers));
+      if(pending.length){
+        rb.appendChild(el('div','empty','위 질문에 답하면 대장이 표시됩니다.'));
+        return;
+      }
+      const list = s.ledgers.filter(l=>!l.when || state.answers[l.when.branch]===l.when.value);
+      rb.appendChild(el('div','',`<div style="font-weight:700;font-size:13px;margin:4px 0 10px;">작성해야 할 대장 ${list.length}종</div>`));
+      list.forEach(l=>{
+        const f = state.db.forms[l.form];
+        const c = el('div','ledger');
+        const top = el('div','ledger-top');
+        top.appendChild(el('span','no','별지 '+esc(f.no)));
+        top.appendChild(el('span','nm',esc(f.name)));
+        if(f.kind) top.appendChild(el('span','kind',esc(f.kind)));
+        c.appendChild(top);
+        if(l.note) c.appendChild(el('div','note','· '+esc(l.note)));
+        if(f.download_url){
+          const a = el('a','dl','⬇ 서식 내려받기 (law.go.kr)');
+          a.href = f.download_url; a.target='_blank'; a.rel='noopener';
+          c.appendChild(a);
+        }
+        rb.appendChild(c);
+      });
+
+      if(s.notes && s.notes.length){
+        const nb = el('ul','notes');
+        s.notes.forEach(n=> nb.appendChild(el('li','',esc(n))));
+        rb.appendChild(nb);
+      }
+    }
+
+    function renderFoot(){
+      const m = state.db && state.db.meta;
+      if(!m){ document.getElementById('foot').textContent=''; return; }
+      document.getElementById('foot').innerHTML =
+        '근거: '+esc(m.legal_basis.ledger)+' · 출처: '+esc(m.source)+'<br>'+
+        m.laws.map(l=>esc(l.name)+'(시행 '+l.effective.replace(/(\d{4})(\d{2})(\d{2})/,'$1.$2.$3')+')').join(' · ')+
+        '<br>실제 적용 시 최신 개정·시행일자를 확인하세요.';
+    }
+
+    function esc(s){ return String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])); }
+
+    boot();
+  </script>
+</body>
+</html>
