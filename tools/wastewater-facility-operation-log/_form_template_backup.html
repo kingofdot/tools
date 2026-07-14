@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="tool-name" content="폐수배출시설 및 수질오염방지시설 운영일지">
+<meta name="tool-tag" content="물환경 서식">
+<meta name="tool-description" content="물환경보전법 시행규칙 별지 제18호서식 운영일지 재현">
+<title>폐수배출시설 및 수질오염방지시설 운영일지 (별지 제18호서식)</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { background: #6b7280; }
+  body {
+    font-family: 'Batang', '바탕', 'BatangChe', 'Gungsuh', '궁서', serif;
+    color: #000;
+    -webkit-font-smoothing: antialiased;
+    padding: 24px 0;
+  }
+  .page {
+    width: 210mm;
+    min-height: 297mm;
+    margin: 0 auto 24px;
+    background: #fff;
+    padding: 13mm 15mm 10mm;
+    position: relative;
+    box-shadow: 0 2px 14px rgba(0,0,0,.35);
+  }
+  .corner { position: absolute; right: 15mm; font-size: 12pt; }
+  .corner.top { top: 9mm; }
+
+  /* ── 표제부 ── */
+  .formno { font-size: 11.5pt; margin-bottom: 6mm; }
+  .formno .rev { color: #1414c8; }
+
+  .headrow { display: flex; align-items: flex-start; justify-content: space-between; }
+  .title { font-size: 16.5pt; font-weight: 700; letter-spacing: .5px; line-height: 1.5; padding-left: 6mm; }
+  .title .l2 { display: block; text-align: center; }
+
+  /* 결재란 */
+  table.appr { border-collapse: collapse; border: 2px solid #000; }
+  table.appr td { border: 1px solid #000; font-size: 11pt; text-align: center; vertical-align: middle; }
+  table.appr .lab { width: 8mm; height: 18mm; writing-mode: vertical-rl; letter-spacing: 4px; }
+  table.appr .hcell { width: 22mm; height: 8mm; }
+  table.appr .scell { height: 14mm; }
+
+  .dateline { display: flex; align-items: flex-end; margin: 2mm 0 1mm; }
+  .dateline .ymd { font-size: 12pt; letter-spacing: 2px; padding-left: 8mm; white-space: pre; }
+  .dateline .wt { font-size: 12pt; padding-left: 14mm; white-space: pre; }
+
+  .sec { font-size: 12pt; margin: 2.5mm 0 1mm; }
+
+  /* ── 표 공통 ── */
+  table.t { border-collapse: collapse; width: 100%; table-layout: fixed; border: 2px solid #000; }
+  table.t td { border: 1px solid #000; font-size: 10pt; line-height: 1.1; text-align: center; vertical-align: middle; padding: 0 1px; height: 6.5mm; overflow: hidden; }
+  table.t td.tall { height: 7.5mm; }
+  .u { font-size: 8pt; }
+
+  /* 대각선 헤더셀 (좌하=구분 / 우상=항목·시간대) */
+  .diag { position: relative; }
+  .diag::before {
+    content: ''; position: absolute; inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' preserveAspectRatio='none' viewBox='0 0 100 100'%3E%3Cline x1='0' y1='0' x2='100' y2='100' stroke='%23000' stroke-width='1' vector-effect='non-scaling-stroke'/%3E%3C/svg%3E");
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+  }
+  .diag .a { position: absolute; top: 1px; right: 4px; font-size: 9.5pt; line-height: 1.05; }
+  .diag .b { position: absolute; bottom: 1px; left: 4px; font-size: 9.5pt; line-height: 1.05; }
+
+  .note { font-size: 10.5pt; line-height: 1.5; margin: 1mm 0; }
+  .note.ind { text-indent: 4mm; }
+  .paper { text-align: right; font-size: 10.5pt; margin-top: 4mm; }
+
+  /* 좌우 배치(용수/약품) */
+  .duo { display: flex; }
+  .duo > table { flex: 1; }
+  .duo > table:first-child { border-right: none; }
+
+  .blank { height: 16mm; }
+
+  /* ── 상단 툴바(인쇄 시 숨김) ── */
+  .toolbar {
+    position: sticky; top: 0; z-index: 100;
+    display: flex; justify-content: center; gap: 10px;
+    padding: 10px; background: rgba(31,41,55,.96);
+    box-shadow: 0 1px 6px rgba(0,0,0,.3);
+  }
+  .toolbar button {
+    font: 600 14px/1 'Malgun Gothic', sans-serif;
+    color: #fff; background: #1d4ed8; border: none;
+    padding: 10px 18px; border-radius: 8px; cursor: pointer;
+  }
+  .toolbar button:hover { background: #1e40af; }
+  .toolbar .hint { color: #cbd5e1; font: 12px/2.6 'Malgun Gothic', sans-serif; }
+
+  .page { break-after: page; page-break-after: always; }
+  .page:last-child { break-after: auto; page-break-after: auto; }
+
+  @media print {
+    html { background: #fff; }
+    body { padding: 0; }
+    .toolbar { display: none; }
+    .page { box-shadow: none; margin: 0; width: 210mm; height: 297mm; overflow: hidden; }
+
+    /* 가로 1장 모드: 앞·뒤 나란히 */
+    body.landscape .sheet {
+      width: 297mm; height: 210mm; display: flex;
+      justify-content: center; align-items: flex-start; overflow: hidden;
+      break-inside: avoid; page-break-inside: avoid;
+    }
+    body.landscape .page {
+      width: 210mm; height: 297mm; zoom: 0.70;
+      break-after: auto; page-break-after: auto; overflow: hidden;
+    }
+  }
+</style>
+<style id="pagerule">@page { size: A4 portrait; margin: 0; }</style>
+</head>
+<body>
+
+<div class="toolbar">
+  <button type="button" onclick="printAs('portrait')">📄 세로 2장 저장</button>
+  <button type="button" onclick="printAs('landscape')">🔄 가로 1장 저장 (앞·뒤 나란히)</button>
+  <span class="hint">인쇄 창: 대상 &lt;PDF로 저장&gt;, 여백 &lt;없음&gt;, 배율 &lt;기본값&gt;</span>
+</div>
+
+<div class="sheet">
+
+<!-- ══════════════ 앞쪽 ══════════════ -->
+<div class="page">
+  <div class="corner top">(앞 쪽)</div>
+
+  <div class="formno">[별지 제18호서식] <span class="rev">&lt;개정 2024. 11. 7.&gt;</span></div>
+
+  <div class="headrow">
+    <div class="title">폐수배출시설 및 수질오염방지시설<span class="l2">운영일지</span></div>
+    <table class="appr">
+      <tr>
+        <td class="lab" rowspan="2">결재</td>
+        <td class="hcell">부서장</td><td class="hcell">공장장</td><td class="hcell">대표자</td>
+      </tr>
+      <tr><td class="scell"></td><td class="scell"></td><td class="scell"></td></tr>
+    </table>
+  </div>
+
+  <div class="dateline">
+    <div class="ymd">     년        월        일        요일</div>
+    <div class="wt">날씨:                         온도:</div>
+  </div>
+
+  <!-- 1. 폐수배출시설 가동시간대 -->
+  <div class="sec">1. 폐수배출시설 가동(조업)시간대</div>
+  <table class="t" id="tbl1"></table>
+
+  <!-- 2. 수질오염방지시설 가동시간대 -->
+  <div class="sec">2. 수질오염방지시설 가동시간대(처리방법:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;)</div>
+  <table class="t" id="tbl2"></table>
+
+  <!-- 3. 용수 공급원별 사용량과 폐수배출량 -->
+  <div class="sec">3. 용수 공급원별 사용량과 폐수배출량</div>
+  <div class="duo">
+    <table class="t" id="tbl3L"></table>
+    <table class="t" id="tbl3R"></table>
+  </div>
+
+  <!-- 4. 슬러지 -->
+  <div class="sec">4. 슬러지의 발생량 및 처리량</div>
+  <table class="t">
+    <colgroup><col style="width:22%"><col style="width:18%"><col style="width:18%"><col style="width:18%"><col style="width:24%"></colgroup>
+    <tr>
+      <td>슬러지발생량(㎥)</td><td>처리량(㎥)</td><td>보관량(㎥)</td><td>함수율(%)</td><td>보관장소</td>
+    </tr>
+    <tr><td class="tall"></td><td></td><td></td><td></td><td></td></tr>
+    <tr><td class="tall"></td><td></td><td></td><td></td><td></td></tr>
+  </table>
+  <p class="note">※ 함수율(%)란은 슬러지를 처리하는 경우 또는 슬러지를 적정하게 관리ㆍ처리할 수 있는 주기(월 1회 등)마다 작성합니다.</p>
+  <p class="note">※ 슬러지를 스스로 처리하는 경우 그 처리장소:</p>
+  <p class="note">※ 위탁처리를 하는 경우 위탁처리업소명:</p>
+
+  <p class="paper">210㎜×297㎜[일반용지 60g/㎡(재활용품)]</p>
+</div>
+
+<!-- ══════════════ 뒤쪽 ══════════════ -->
+<div class="page">
+  <div class="corner top">(뒤 쪽)</div>
+
+  <!-- 5. 원료·첨가제 -->
+  <div class="sec" style="margin-top:4mm">5. 원료 또는 첨가제 등의 사용량</div>
+  <table class="t" id="tbl5"></table>
+  <p class="note">※ 일반적으로 사용되는 용어 또는 공통어로 기재합니다.</p>
+
+  <!-- 6. 전력사용량 -->
+  <div class="sec">6. 전력사용량</div>
+  <table class="t">
+    <colgroup><col style="width:14%"><col style="width:14%"><col style="width:26%"><col style="width:14%"><col style="width:18%"><col style="width:14%"></colgroup>
+    <tr style="height:10mm">
+      <td>가동시간</td><td>사용량<br>(㎾h)</td><td>금일 폐수 1㎥당<br>소모전력량(㎾h/㎥)</td><td>검침시간</td><td>적산전력계 지침</td><td>참고사항</td>
+    </tr>
+    <tr><td class="tall"></td><td></td><td></td><td></td><td></td><td></td></tr>
+  </table>
+
+  <!-- 7. 약품사용량 -->
+  <div class="sec">7. 약품사용량</div>
+  <div class="duo">
+    <table class="t" id="tbl7L"></table>
+    <table class="t" id="tbl7R"></table>
+  </div>
+
+  <!-- 8. 폭기조 -->
+  <div class="sec">8. 폭기조 운전상태(생물화학적 처리시설의 경우)</div>
+  <table class="t">
+    <tr>
+      <td>pH</td><td>수온</td><td>DO</td><td>SV30</td><td>MLSS</td><td>SVI</td><td>폭기시간</td><td>주미생물상태</td>
+    </tr>
+    <tr><td class="tall"></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+  </table>
+  <p class="note">※ 미생물 관찰: 현미경 보유(600배율 이상), 주미생물상태는 양호 또는 불량으로 적습니다.</p>
+
+  <!-- 9. 고장 유무 -->
+  <div class="sec">9. 수질오염방지시설 고장 유무 및 특기사항</div>
+
+  <!-- 10. 수질오염물질 측정 -->
+  <div class="sec">10. 수질오염물질 측정내용</div>
+  <table class="t" id="tbl10"></table>
+  <p class="note">&nbsp;&nbsp;&nbsp;※ 사업장에서 분석하는 경우 분석자명:</p>
+  <p class="note">&nbsp;&nbsp;&nbsp;※ 분석을 위탁하는 경우 측정대행업소명:</p>
+
+  <!-- 11. 수질자동측정기기 -->
+  <div class="sec">11. 수질자동측정기기 등의 측정항목별 점검내용</div>
+  <table class="t" id="tbl11"></table>
+
+  <!-- 12. 지도점검 -->
+  <div class="sec">12. 지도ㆍ점검을 받은 사항</div>
+
+  <p class="note ind" style="margin-top:6mm">※ 제1호부터 제4호까지는 폐수처리방법 등 사업장 특성을 고려하여 해당 부분을 반드시 적어야 하며, 제5호부터 제12호까지는 사업자의 판단에 따라 선택적으로 적을 수 있습니다.</p>
+</div>
+
+</div><!-- /.sheet -->
+
+<script>
+  // ── 인쇄 모드(세로 2장 / 가로 1장) ──
+  function printAs(mode){
+    const rule = document.getElementById('pagerule');
+    if (mode === 'landscape'){
+      document.body.classList.add('landscape');
+      rule.textContent = '@page { size: A4 landscape; margin: 0; }';
+    } else {
+      document.body.classList.remove('landscape');
+      rule.textContent = '@page { size: A4 portrait; margin: 0; }';
+    }
+    setTimeout(function(){ window.print(); }, 60);
+  }
+  window.addEventListener('afterprint', function(){
+    document.body.classList.remove('landscape');
+    document.getElementById('pagerule').textContent = '@page { size: A4 portrait; margin: 0; }';
+  });
+</script>
+
+<script>
+  // ── 24시간 표 (1·2 항목) ──
+  function hourTable(id, dataRows, extraRow) {
+    const t = document.getElementById(id);
+    const cols = ['<col style="width:9%">'];
+    for (let i=0;i<24;i++) cols.push('<col>');
+    let html = '<colgroup>'+cols.join('')+'</colgroup>';
+    // 헤더
+    html += '<tr><td class="diag" style="height:9mm"><span class="a">시간대</span><span class="b">구분</span></td>';
+    for (let h=1;h<=24;h++) html += '<td>'+h+'</td>';
+    html += '</tr>';
+    // 데이터 행
+    for (let r=0;r<dataRows;r++){
+      html += '<tr><td class="tall"></td>';
+      for (let h=0;h<24;h++) html += '<td></td>';
+      html += '</tr>';
+    }
+    if (extraRow){
+      html += '<tr><td class="tall" style="height:12mm">시간대별<br>근무자<br>직ㆍ성명</td>'
+            + '<td colspan="24" style="text-align:left;padding-left:4mm">※ 시간대 표시는 검은색</td></tr>';
+    }
+    t.innerHTML = html;
+  }
+  hourTable('tbl1', 3, false);
+  hourTable('tbl2', 3, true);
+
+  // ── 3. 용수(좌) ──
+  (function(){
+    const rowsL = [
+      {n:'계', sub:''},
+      {n:'상수도', sub:['1호','2호']},
+      {n:'공업<br>용수', sub:['1호','2호']},
+      {n:'지하수', sub:['1호','2호']},
+      {n:'하천수', sub:['1호','2호']},
+      {n:'해수<br>등<br>기타', sub:['1호','2호']},
+    ];
+    let h = '<colgroup><col style="width:15%"><col style="width:9%"><col style="width:19%"><col style="width:19%"><col style="width:19%"><col style="width:19%"></colgroup>';
+    h += '<tr><td class="diag" colspan="2" style="height:11mm"><span class="a">항목</span><span class="b">구분</span></td>'
+       + '<td>전일 지침<br><span class="u">(㎥)</span></td><td>금일 지침<br><span class="u">(㎥)</span></td>'
+       + '<td>사용량<br><span class="u">(㎥/일)</span></td><td>검침<br>시간대</td></tr>';
+    // 계
+    h += '<tr><td colspan="2" class="tall">계</td><td></td><td></td><td></td><td></td></tr>';
+    for (let i=1;i<rowsL.length;i++){
+      const it = rowsL[i];
+      h += '<tr><td class="tall" rowspan="2">'+it.n+'</td><td>'+it.sub[0]+'</td><td></td><td></td><td></td><td></td></tr>';
+      h += '<tr><td>'+it.sub[1]+'</td><td></td><td></td><td></td><td></td></tr>';
+    }
+    document.getElementById('tbl3L').innerHTML = h;
+  })();
+
+  // ── 3. 폐수(우) ──
+  (function(){
+    const items = ['폐수발생량','폐수배출량','냉각수량','소모<br>(증발량)','재사용량','생활용수량'];
+    let h = '<colgroup><col style="width:26%"><col style="width:22%"><col style="width:22%"><col style="width:30%"></colgroup>';
+    h += '<tr><td class="diag" style="height:11mm"><span class="a">항목</span><span class="b">구분</span></td>'
+       + '<td>전일 지침<br><span class="u">(㎥)</span></td><td>금일 지침<br><span class="u">(㎥)</span></td>'
+       + '<td>배출량 및<br>사용량<span class="u">(㎥/일)</span></td></tr>';
+    // 좌측 11 데이터행 높이에 맞춰 6항목을 배분: 각 항목 높이 = tall
+    for (let i=0;i<items.length;i++){
+      h += '<tr style="height:14.7mm"><td>'+items[i]+'</td><td></td><td></td><td></td></tr>';
+    }
+    document.getElementById('tbl3R').innerHTML = h;
+  })();
+
+  // ── 5. 원료·첨가제 (2행 × 6열) ──
+  (function(){
+    let h = '<colgroup><col style="width:22%"><col><col><col><col><col><col></colgroup>';
+    h += '<tr><td class="tall" style="text-align:left;padding-left:2mm">원료 또는 첨가제 등</td>'+'<td></td>'.repeat(6)+'</tr>';
+    h += '<tr><td class="tall" style="text-align:left;padding-left:2mm">사용량(㎏)</td>'+'<td></td>'.repeat(6)+'</tr>';
+    document.getElementById('tbl5').innerHTML = h;
+  })();
+
+  // ── 7. 약품(좌·우 동일 구조) ──
+  (function(){
+    const head = '<tr><td>약품명</td><td>구입량</td><td>약품 소모량</td><td>잔량</td><td>비고</td></tr>';
+    const body = ('<tr>'+'<td class="tall"></td>'+'<td></td>'.repeat(4)+'</tr>').repeat(2);
+    const cg = '<colgroup><col style="width:22%"><col style="width:20%"><col style="width:26%"><col style="width:18%"><col style="width:14%"></colgroup>';
+    document.getElementById('tbl7L').innerHTML = cg+head+body;
+    document.getElementById('tbl7R').innerHTML = cg+head+body;
+  })();
+
+  // ── 10. 수질오염물질 측정 ──
+  (function(){
+    const cols = ['pH','BOD','TOC','SS','n-Hex','시안<br>(CN)','Cu','','',''];
+    let h = '<colgroup><col style="width:16%">'+'<col>'.repeat(10)+'</colgroup>';
+    h += '<tr><td class="diag" rowspan="1" style="height:10mm"><span class="a">항목</span><span class="b">구분</span></td>';
+    cols.forEach(c => h += '<td>'+c+'</td>');
+    h += '</tr>';
+    ['원폐수','방류수'].forEach(r => {
+      h += '<tr><td class="tall">'+r+'</td>'+'<td></td>'.repeat(10)+'</tr>';
+    });
+    document.getElementById('tbl10').innerHTML = h;
+  })();
+
+  // ── 11. 수질자동측정기기 점검 ──
+  (function(){
+    const cols = ['pH','TOC','SS','T-N','T-P','유량계','시료채취조'];
+    const rows = ['청소상태','시료도입<br>[튜빙(tubing:<br>배관)류]상태','시약류<br>주입상태','센서류<br>작동여부','소모품 교체'];
+    let h = '<colgroup><col style="width:20%">'+'<col>'.repeat(7)+'</colgroup>';
+    h += '<tr><td class="diag" style="height:11mm"><span class="a">항목</span><span class="b">구분</span></td>';
+    cols.forEach(c => h += '<td>'+c+'</td>');
+    h += '</tr>';
+    rows.forEach(r => {
+      const big = r.includes('튜빙');
+      h += '<tr><td style="height:'+(big?'16mm':'7.5mm')+';text-align:left;padding-left:2mm">'+r+'</td>'+'<td></td>'.repeat(7)+'</tr>';
+    });
+    document.getElementById('tbl11').innerHTML = h;
+  })();
+</script>
+</body>
+</html>
