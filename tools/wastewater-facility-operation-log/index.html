@@ -25,6 +25,10 @@
   .row2 { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
   .box { border:1px solid #cbd5e1; border-radius:8px; padding:12px 14px; margin-bottom:12px; background:#f8fafc; }
   .box > .bt { font-size:13px; font-weight:700; color:#334155; margin-bottom:8px; display:flex; align-items:center; justify-content:space-between; gap:8px; }
+  .hobox { display:flex; gap:10px; flex-wrap:wrap; }
+  .hobox .subbox { flex:1; min-width:230px; border:1px solid #d1d5db; border-radius:8px; padding:8px 10px; background:#fff; }
+  .hobox .subt { font-size:12px; font-weight:700; color:#475569; margin-bottom:6px; }
+  .hobox .subbox .grid { grid-template-columns:1fr 1fr; }
   .actions { display:flex; gap:10px; flex-wrap:wrap; align-items:center; margin-top:8px; }
   button { font:600 13px 'Malgun Gothic',sans-serif; color:#fff; background:#1d4ed8; border:none; padding:10px 18px; border-radius:8px; cursor:pointer; }
   button:hover { background:#1e40af; }
@@ -35,6 +39,12 @@
   code { background:#e2e8f0; padding:1px 5px; border-radius:4px; font-size:12px; }
   .hint { font-size:12px; color:#64748b; }
   .count { font-size:13px; color:#0f172a; font-weight:600; }
+
+  /* 직접 수정 모드: 생성된 폼 편집 가능 */
+  #output.editing td { cursor:text; }
+  #output.editing td:hover { background:#eef2ff; }
+  #output.editing td:focus { outline:2px solid #7c3aed; outline-offset:-2px; background:#fff; }
+  @media print { #output.editing td:hover, #output.editing td:focus { background:transparent; outline:none; } }
 
   /* ── 기간 달력(공휴일 제외) ── */
   .calwrap { margin-top:10px; display:flex; flex-wrap:wrap; gap:16px; }
@@ -78,10 +88,11 @@
   /* ══════════ 운영일지 폼(원본 서식) ══════════ */
   .page {
     width: 210mm; min-height: 297mm; margin: 0 auto 20px; background:#fff;
-    padding: 13mm 15mm 10mm; position: relative; box-shadow: 0 2px 14px rgba(0,0,0,.35);
+    padding: 13mm 18mm 10mm; position: relative; box-shadow: 0 2px 14px rgba(0,0,0,.35);
     font-family: 'Batang','바탕','BatangChe','Gungsuh',serif; color:#000;
   }
   .corner { position:absolute; right:15mm; top:9mm; font-size:12pt; }
+  .pz { zoom:0.88; }   /* 폼 내용 전체 축소(꽉참 완화 + 앞면 잘림 방지) */
   .formno { font-size:11.5pt; margin-bottom:6mm; }
   .formno .rev { color:#1414c8; }
   .headrow { display:flex; align-items:flex-start; justify-content:space-between; }
@@ -99,6 +110,7 @@
   table.t { border-collapse:collapse; width:100%; table-layout:fixed; border:2px solid #000; }
   table.t td { border:1px solid #000; font-size:10pt; line-height:1.1; text-align:center; vertical-align:middle; padding:0 1px; height:6.5mm; overflow:hidden; }
   table.t td.tall { height:7.5mm; }
+  table.t td.facname { height:9mm; font-size:8pt; line-height:1.05; white-space:normal; word-break:break-all; padding:1px 1.5px; }
   td .v { font-family:'Batang',serif; }
   .u { font-size:8pt; }
   .diag { position:relative; }
@@ -123,6 +135,7 @@
   .duo { display:flex; }
   .duo > table { flex:1; }
   .duo > table:first-child { border-right:none; }
+  .duo > table:last-child { margin-left:-2px; }   /* 가운데 굵은선 겹침 방지(2겹→1겹) */
 
   /* ── 출력 페이지 브레이크 ── */
   @media print {
@@ -153,13 +166,13 @@
         <div class="fld"><label>시작일</label><input type="date" id="d1" value="2026-07-01"></div>
         <div class="fld"><label>종료일</label><input type="date" id="d2" value="2026-07-02"></div>
         <div class="fld"><label>관측지점(KMA)</label><select id="stn"></select></div>
-        <div class="fld"><label>온도(℃)</label>
+        <div class="fld"><label>날씨/온도</label>
           <div style="display:flex;gap:6px;align-items:center">
-            <button type="button" id="btnTemp" class="btn2" style="white-space:nowrap">🌡 온도 자동 채우기</button>
+            <button type="button" id="btnTemp" class="btn2" style="white-space:nowrap">🌦 날씨/온도 자동 채우기</button>
           </div>
         </div>
       </div>
-      <p class="hint" id="tempStat" style="margin:6px 4px 0">일평균 온도를 KMA에서 받아 각 일자에 넣습니다. <b>로컬 프록시(kma_proxy.py)가 실행 중이어야 합니다.</b> 터미널에서 <code>python kma_proxy.py</code></p>
+      <p class="hint" id="tempStat" style="margin:6px 4px 0">KMA 기후통계에서 일평균 온도와 날씨(맑음/흐림/비/눈/안개)를 받아 각 일자에 넣습니다. <b>로컬 프록시(kma_proxy.py)가 실행 중이어야 합니다.</b> 터미널에서 <code>python kma_proxy.py</code></p>
       <p class="hint" style="margin:12px 4px 0"><b>📅 작성 대상일 선택</b>: 시작일과 종료일로 기간을 잡고, 아래 달력에서 <b>제외할 날짜(공휴일, 휴무일)를 클릭</b>하면 빨간 취소선으로 빠집니다. 다시 누르면 복구됩니다.</p>
       <div style="display:flex;gap:6px;flex-wrap:wrap;margin:8px 4px 0">
         <button type="button" class="btn2" data-wk="6">토요일 제외</button>
@@ -190,62 +203,98 @@
       </div>
 
       <div class="box">
-        <div class="bt">1, 2. 가동시간대</div>
+        <div class="bt">가동시간대 (대표시간)</div>
+        <p class="hint" style="margin:0 2px 6px">아래 시설별 가동 시작/종료시를 비우면 이 대표시간을 씁니다. 6호, 8호 가동시간도 대표시간을 사용합니다.</p>
         <div class="grid">
-          <div class="fld"><label>가동 시작(시)</label><input type="number" id="op_s" value="8" min="0" max="24"></div>
-          <div class="fld"><label>가동 종료(시)</label><input type="number" id="op_e" value="18" min="0" max="24"></div>
+          <div class="fld"><label>대표 가동 시작(시)</label><input type="number" id="op_s" value="8" min="0" max="24"></div>
+          <div class="fld"><label>대표 가동 종료(시)</label><input type="number" id="op_e" value="18" min="0" max="24"></div>
         </div>
+      </div>
+
+      <div class="box">
+        <div class="bt">1. 폐수배출시설 가동시간대 (구분)</div>
+        <p class="hint" style="margin:0 2px 6px">목록에서 고르거나 자유 입력. 시설별로 「＋ 시설 추가」.</p>
+        <div id="wwfacRows"></div>
+        <button type="button" class="addrow" data-add="wwfac">＋ 시설 추가</button>
+        <datalist id="facDL"></datalist>
+      </div>
+
+      <div class="box">
+        <div class="bt">2. 수질오염방지시설 가동시간대 (처리방법)</div>
+        <p class="hint" style="margin:0 2px 6px">자유 입력. 시설별로 「＋ 방지시설 추가」.</p>
+        <div id="prvRows"></div>
+        <button type="button" class="addrow" data-add="prv">＋ 방지시설 추가</button>
       </div>
 
       <p class="hint" style="margin:0 4px 8px">3. 용수 공급원. 시작지침 = 기록된 마지막 지침, 끝지침 = 마지막 날의 지침. 구간(끝−시작)을 날짜 수로 나눠 하루치를 산정하고 변동폭만큼 매일 변동, 마지막 날 끝지침으로 정확히 마감합니다. <b>사용 안 하는 칸은 비우세요.</b> 계량기가 1대면 1호만 입력.</p>
 
       <div class="box">
         <div class="bt">3-①. 상수도 (시작지침 / 끝지침, ㎥)</div>
-        <div class="grid">
-          <div class="fld"><label>1호 시작</label><input type="number" id="sw_s1" value="10000"></div>
-          <div class="fld"><label>1호 끝</label><input type="number" id="sw_e1" value="11560"></div>
-          <div class="fld"><label>2호 시작</label><input type="number" id="sw_s2"></div>
-          <div class="fld"><label>2호 끝</label><input type="number" id="sw_e2"></div>
+        <div class="hobox">
+          <div class="subbox"><div class="subt">1호</div><div class="grid">
+            <div class="fld"><label>시작</label><input type="number" id="sw_s1" value="10000"></div>
+            <div class="fld"><label>끝</label><input type="number" id="sw_e1" value="11560"></div>
+          </div></div>
+          <div class="subbox"><div class="subt">2호</div><div class="grid">
+            <div class="fld"><label>시작</label><input type="number" id="sw_s2"></div>
+            <div class="fld"><label>끝</label><input type="number" id="sw_e2"></div>
+          </div></div>
         </div>
       </div>
 
       <div class="box">
         <div class="bt">3-②. 공업용수 (시작지침 / 끝지침, ㎥)</div>
-        <div class="grid">
-          <div class="fld"><label>1호 시작</label><input type="number" id="iw_s1"></div>
-          <div class="fld"><label>1호 끝</label><input type="number" id="iw_e1"></div>
-          <div class="fld"><label>2호 시작</label><input type="number" id="iw_s2"></div>
-          <div class="fld"><label>2호 끝</label><input type="number" id="iw_e2"></div>
+        <div class="hobox">
+          <div class="subbox"><div class="subt">1호</div><div class="grid">
+            <div class="fld"><label>시작</label><input type="number" id="iw_s1"></div>
+            <div class="fld"><label>끝</label><input type="number" id="iw_e1"></div>
+          </div></div>
+          <div class="subbox"><div class="subt">2호</div><div class="grid">
+            <div class="fld"><label>시작</label><input type="number" id="iw_s2"></div>
+            <div class="fld"><label>끝</label><input type="number" id="iw_e2"></div>
+          </div></div>
         </div>
       </div>
 
       <div class="box">
         <div class="bt">3-③. 지하수 (시작지침 / 끝지침, ㎥)</div>
-        <div class="grid">
-          <div class="fld"><label>1호 시작</label><input type="number" id="gw_s1"></div>
-          <div class="fld"><label>1호 끝</label><input type="number" id="gw_e1"></div>
-          <div class="fld"><label>2호 시작</label><input type="number" id="gw_s2"></div>
-          <div class="fld"><label>2호 끝</label><input type="number" id="gw_e2"></div>
+        <div class="hobox">
+          <div class="subbox"><div class="subt">1호</div><div class="grid">
+            <div class="fld"><label>시작</label><input type="number" id="gw_s1"></div>
+            <div class="fld"><label>끝</label><input type="number" id="gw_e1"></div>
+          </div></div>
+          <div class="subbox"><div class="subt">2호</div><div class="grid">
+            <div class="fld"><label>시작</label><input type="number" id="gw_s2"></div>
+            <div class="fld"><label>끝</label><input type="number" id="gw_e2"></div>
+          </div></div>
         </div>
       </div>
 
       <div class="box">
         <div class="bt">3-④. 하천수 (시작지침 / 끝지침, ㎥)</div>
-        <div class="grid">
-          <div class="fld"><label>1호 시작</label><input type="number" id="rw_s1"></div>
-          <div class="fld"><label>1호 끝</label><input type="number" id="rw_e1"></div>
-          <div class="fld"><label>2호 시작</label><input type="number" id="rw_s2"></div>
-          <div class="fld"><label>2호 끝</label><input type="number" id="rw_e2"></div>
+        <div class="hobox">
+          <div class="subbox"><div class="subt">1호</div><div class="grid">
+            <div class="fld"><label>시작</label><input type="number" id="rw_s1"></div>
+            <div class="fld"><label>끝</label><input type="number" id="rw_e1"></div>
+          </div></div>
+          <div class="subbox"><div class="subt">2호</div><div class="grid">
+            <div class="fld"><label>시작</label><input type="number" id="rw_s2"></div>
+            <div class="fld"><label>끝</label><input type="number" id="rw_e2"></div>
+          </div></div>
         </div>
       </div>
 
       <div class="box">
         <div class="bt">3-⑤. 해수 등 기타 (시작지침 / 끝지침, ㎥)</div>
-        <div class="grid">
-          <div class="fld"><label>1호 시작</label><input type="number" id="sea_s1"></div>
-          <div class="fld"><label>1호 끝</label><input type="number" id="sea_e1"></div>
-          <div class="fld"><label>2호 시작</label><input type="number" id="sea_s2"></div>
-          <div class="fld"><label>2호 끝</label><input type="number" id="sea_e2"></div>
+        <div class="hobox">
+          <div class="subbox"><div class="subt">1호</div><div class="grid">
+            <div class="fld"><label>시작</label><input type="number" id="sea_s1"></div>
+            <div class="fld"><label>끝</label><input type="number" id="sea_e1"></div>
+          </div></div>
+          <div class="subbox"><div class="subt">2호</div><div class="grid">
+            <div class="fld"><label>시작</label><input type="number" id="sea_s2"></div>
+            <div class="fld"><label>끝</label><input type="number" id="sea_e2"></div>
+          </div></div>
         </div>
       </div>
 
@@ -343,10 +392,11 @@
         <button onclick="generate()">🔄 운영일지 생성</button>
         <span class="count" id="cnt"></span>
         <span style="flex:1"></span>
-        <button class="ghost" onclick="printAs('portrait')">📄 세로 2면 PDF</button>
-        <button class="ghost" onclick="printAs('landscape')">🔄 가로 1장 PDF</button>
+        <button type="button" id="btnEdit" class="btn2" style="background:#7c3aed">✏️ 직접 수정</button>
+        <button class="ghost" onclick="printAs('portrait')">세로</button>
+        <button class="ghost" onclick="printAs('landscape')">가로</button>
       </div>
-      <p class="hint" style="margin-top:8px">기준값을 바꾸고 다시 [생성]하면 새 데이터로 갱신됩니다. 변동값은 날짜 기반 고정 시드라 재실행해도 동일합니다. 인쇄창: 대상 &lt;PDF로 저장&gt;, 여백 &lt;없음&gt;.</p>
+      <p class="hint" style="margin-top:8px">기준값을 바꾸고 다시 [생성]하면 새 데이터로 갱신됩니다. 변동값은 날짜 기반 고정 시드라 재실행해도 동일합니다. <b>「직접 수정」</b>을 켜면 아래 생성된 폼의 글자를 클릭해 바로 고칠 수 있고, PDF에도 반영됩니다(재생성하면 초기화). 인쇄창: 대상 &lt;PDF로 저장&gt;, 여백 &lt;없음&gt;.</p>
     </div>
   </div>
 
@@ -375,25 +425,55 @@ const STATIONS = [
   STATIONS.forEach(([id,nm])=>{ const o=document.createElement('option'); o.value=id; o.textContent=nm+' ('+id+')'; if(id===203) o.selected=true; sel.appendChild(o); });
 })();
 
-/* ── KMA 온도 자동 채우기 (로컬 프록시 kma_proxy.py 경유) ── */
+/* 폐수배출시설 종류 (물환경보전법 시행규칙 별표4, 제1호~제82호) */
+const WWFAC_LIST = [
+ '1. 석탄 광업시설','2. 금속 광업시설','3. 비금속 광물 광업시설','4. 도축, 육류·수산물 가공 및 저장·처리시설',
+ '5. 과실·채소 가공 및 저장·처리시설','6. 동·식물성 유지 제조시설','7. 낙농제품 및 식용빙과류 제조시설','8. 곡물 가공품 제조시설',
+ '9. 전분 및 당류 제조시설','10. 동물용 사료 및 조제식품 제조시설','11. 설탕 제조시설','12. 조미료 및 식품첨가물 제조시설',
+ '13. 기타 식품 제조시설','14. 알콜음료 제조시설','15. 비알콜성 음료 및 얼음 제조시설','16. 담배 제조시설',
+ '17. 방적 및 가공사 제조시설','18. 섬유염색 및 가공시설','19. 기타 섬유제품 제조시설','20. 가죽·모피가공 및 제품 제조시설',
+ '21. 신발 및 신발부분품 제조시설','22. 목재 및 나무제품 제조시설','23. 펄프·종이 및 종이제품 제조시설','24. 출판·인쇄·사진처리 및 기록매체 복제시설',
+ '25. 코크스 및 연탄 제조시설','26. 석유정제품 제조시설','27. 석유화학계 기초화합물 제조시설','28. 석탄화합물 제조시설',
+ '29. 천연수지 및 나무화합물 제조시설','30. 기타 기초유기화합물 제조시설','31. 기초무기화학물질 제조시설','32. 산업용가스 제조시설',
+ '33. 염료, 조제 무기안료, 유연제 및 기타 착색제 제조시설','34. 비료 및 질소화합물 제조시설','35. 합성고무 제조시설','36. 합성수지 및 기타 플라스틱물질 제조시설',
+ '37. 의료용 물질 및 의약품 제조시설','38. 살충제 및 기타 농약 제조시설','39. 잉크, 페인트, 코팅제 및 유사제품 제조시설','40. 계면활성제·치약·비누 및 기타 세제 제조시설',
+ '41. 화장품 제조시설','42. 표면광택제 및 실내가향제 제조시설','43. 마그네틱 및 광학 매체, 사진용 화학제품 및 감광재료 제조시설','44. 가공염 및 정제염 제조시설',
+ '45. 방향유 및 관련제품 제조시설','46. 접착제 및 젤라틴 제조시설','47. 화약 및 불꽃제품 제조시설','48. 바이오 연료 및 기타 분류되지 않은 화학제품 제조시설',
+ '49. 화학섬유 제조시설','50. 고무제품 및 플라스틱제품 제조시설','51. 유리 및 유리제품 제조시설','52. 도자기 및 기타 요업제품 제조시설',
+ '53. 시멘트·석회·플라스터 및 그 제품 제조시설','54. 기타 비금속 광물제품 제조시설','55. 1차 철강 제조시설','56. 합금철 제조시설',
+ '57. 비철금속 제련, 정련 및 합금 제조시설','58. 동 압연·압출 및 연신제품 제조시설','59. 알루미늄 압연·압출 및 연신제품 제조시설','60. 기타 비철금속 압연·압출 및 연신제품 제조시설',
+ '61. 기타 1차 비철금속 제조시설','62. 금속주조시설','63. 금속가공제품 제조시설','64. 절연선 및 케이블 제조시설',
+ '65. 1차 전지 및 축전지 제조시설','66. 전구 및 조명장치 제조시설','67. 반도체 및 전자부품 제조시설','68. 영상 및 음향기기 제조시설',
+ '69. 가구 및 기타 제품 제조시설','70. 화력발전시설','71. 수도사업시설','72. 먹는샘물 제조시설',
+ '73. 수산물 판매장','74. 병원시설','75. 폐수처리업의 폐수저장시설 및 폐기물처리업의 폐수발생시설','76. 세탁시설',
+ '77. 산업시설의 폐가스·분진, 세정·응축시설','78. 산업시설의 정수시설','79. 이화학 시험시설','80. 도금시설',
+ '81. 운수장비 수선 및 세차 또는 세척시설','82. 제1호부터 제81호까지의 분류에 속하지 아니하는 시설',
+];
+document.getElementById('facDL').innerHTML = WWFAC_LIST.map(s=>'<option value="'+s+'">').join('');
+
+/* ── KMA 날씨/온도 자동 채우기 (로컬 프록시 kma_proxy.py 경유, 기후통계 일자료) ── */
 const PROXY = 'http://127.0.0.1:8765';
-let TEMPMAP = {};   // {'2026-07-01': 25.7, ...}
+let TEMPMAP = {};      // {'2026-07-01': 25.7, ...}
+let WEATHERMAP = {};   // {'2026-07-01': '맑음', ...}
 async function fetchTemps(){
   const stat=document.getElementById('tempStat');
   const d1=document.getElementById('d1').value, d2=document.getElementById('d2').value;
   const stn=document.getElementById('stn').value;
   if(!d1||!d2){ stat.innerHTML='<b style="color:#b91c1c">시작일과 종료일을 먼저 입력하세요.</b>'; return; }
-  stat.textContent='⏳ KMA 조회 중… (일수가 많으면 수십 초 걸릴 수 있습니다)';
+  stat.textContent='⏳ KMA 기후통계 조회 중…';
   try{
-    const r=await fetch(`${PROXY}/temp?stn=${encodeURIComponent(stn)}&d1=${d1}&d2=${d2}`);
+    const r=await fetch(`${PROXY}/wx?stn=${encodeURIComponent(stn)}&d1=${d1}&d2=${d2}`);
     if(!r.ok) throw new Error('HTTP '+r.status);
     const j=await r.json();
     if(!j.ok) throw new Error(j.error||'조회 실패');
-    TEMPMAP={}; let hit=0, miss=0;
-    j.days.forEach(x=>{ if(x.temp!=null){ TEMPMAP[x.date]=x.temp; hit++; } else miss++; });
-    stat.innerHTML=`✅ 온도 ${hit}일 수신${miss?`, 결측 ${miss}일`:''}. <b>「운영일지 생성」</b>을 눌러 반영하세요.`;
+    TEMPMAP={}; WEATHERMAP={}; let th=0, wh=0, miss=0;
+    j.days.forEach(x=>{
+      if(x.temp!=null){ TEMPMAP[x.date]=x.temp; th++; } else miss++;
+      if(x.weather){ WEATHERMAP[x.date]=x.weather; wh++; }
+    });
+    stat.innerHTML=`✅ 온도 ${th}일, 날씨 ${wh}일 수신${miss?`, 결측 ${miss}일(기후통계 확정 전일 수 있음)`:''}. <b>「운영일지 생성」</b>을 눌러 반영하세요.`;
   }catch(e){
-    TEMPMAP={};
+    TEMPMAP={}; WEATHERMAP={};
     stat.innerHTML='<b style="color:#b91c1c">❌ 프록시 연결 실패:</b> '+e.message+
       ' 터미널에서 <code>python kma_proxy.py</code> 실행 후 다시 시도하세요.';
   }
@@ -483,6 +563,34 @@ function firstActive(){ const a=activeDates(); return a.length? ymd(a[0]) : (el(
 const esc=s=>String(s==null?'':s).replace(/"/g,'&quot;');
 function emptyNote(){ return '<div class="emptynote">「＋ 행 추가」로 날짜를 골라 입력하세요.</div>'; }
 
+let WWFAC=[{name:'', s:'8', e:'18'}];   // 1호 폐수배출시설(구분), 기본 1개
+let WWPRV=[{name:'', s:'8', e:'18'}];   // 2호 수질오염방지시설(처리방법), 기본 1개
+let REP_S='8', REP_E='18';              // 직전 대표시간(상속 판별용)
+function syncRep(){                      // 대표시간 → 시설 빈칸/상속칸에 자동 입력
+  const ns=el('op_s').value, ne=el('op_e').value;
+  [WWFAC, WWPRV].forEach(arr=> arr.forEach(r=>{
+    if(r.s===''||r.s===REP_S) r.s=ns;
+    if(r.e===''||r.e===REP_E) r.e=ne;
+  }));
+  REP_S=ns; REP_E=ne; renderWWFAC(); renderPRV();
+}
+function facRowHTML(r,i,dl){
+  return '<div class="drow" data-i="'+i+'">'
+    +'<input '+(dl?'list="'+dl+'" ':'')+'data-f="name" placeholder="'+(dl?'폐수배출시설(구분)':'수질오염방지시설(처리방법)')+'" value="'+esc(r.name)+'" style="width:240px">'
+    +'<span class="flab">가동</span><input class="num" type="number" min="0" max="24" data-f="s" placeholder="시작" value="'+esc(r.s)+'">'
+    +'<span class="flab">~</span><input class="num" type="number" min="0" max="24" data-f="e" placeholder="종료" value="'+esc(r.e)+'">'
+    +'<button type="button" class="del">삭제</button></div>';
+}
+function renderWWFAC(){
+  const box=el('wwfacRows');
+  box.innerHTML = WWFAC.length ? WWFAC.map((r,i)=>facRowHTML(r,i,'facDL')).join('')
+    : '<div class="emptynote">「＋ 시설 추가」로 폐수배출시설을 추가하세요.</div>';
+}
+function renderPRV(){
+  const box=el('prvRows');
+  box.innerHTML = WWPRV.length ? WWPRV.map((r,i)=>facRowHTML(r,i,'')).join('')
+    : '<div class="emptynote">「＋ 방지시설 추가」로 수질오염방지시설을 추가하세요.</div>';
+}
 function renderSludge(){
   const box=el('sludgeRows'), {min,max}=dbounds();
   box.innerHTML = SLUDGE.length ? SLUDGE.map((r,i)=>
@@ -543,16 +651,23 @@ function wireRows(id, arr, render){
   box.addEventListener('change', upd);
   box.addEventListener('click', e=>{ if(e.target.classList.contains('del')){ arr.splice(+e.target.closest('.drow').dataset.i,1); render(); redrawDS(); } });
 }
+wireRows('wwfacRows', WWFAC, renderWWFAC);
+wireRows('prvRows', WWPRV, renderPRV);
 wireRows('sludgeRows', SLUDGE, renderSludge);
 wireRows('matNames', MATNAMES, renderMatNames);
 wireRows('matRows', MATROWS, renderMatRows);
 wireRows('chemRows', CHEMROWS, renderChem);
 wireRows('qItems', QITEMS, renderQItems);
 el('matNames').addEventListener('input', renderMatRows);   // 원료명 바뀌면 날짜별 행 열 갱신
+el('op_s').addEventListener('input', syncRep);
+el('op_e').addEventListener('input', syncRep);
+renderWWFAC(); renderPRV();
 document.addEventListener('click', e=>{
   const b=e.target.closest('.addrow'); if(!b) return;
   const t=b.dataset.add, d=firstActive();
-  if(t==='sludge'){ SLUDGE.push({date:d}); renderSludge(); }
+  if(t==='wwfac'){ if(WWFAC.length>=8){ alert('시설은 최대 8개까지 입력할 수 있습니다.'); return; } WWFAC.push({name:'',s:el('op_s').value,e:el('op_e').value}); renderWWFAC(); }
+  else if(t==='prv'){ if(WWPRV.length>=8){ alert('방지시설은 최대 8개까지 입력할 수 있습니다.'); return; } WWPRV.push({name:'',s:el('op_s').value,e:el('op_e').value}); renderPRV(); }
+  else if(t==='sludge'){ SLUDGE.push({date:d}); renderSludge(); }
   else if(t==='matname'){ if(MATNAMES.length>=6){ alert('원료는 최대 6종까지 입력할 수 있습니다.'); return; } MATNAMES.push({name:''}); renderMatNames(); renderMatRows(); }
   else if(t==='matrow'){ MATROWS.push({date:d}); renderMatRows(); }
   else if(t==='chem'){ CHEMROWS.push({date:d, name:''}); renderChem(); }
@@ -741,6 +856,10 @@ function generate(){
     materials: MATNAMES.slice(0,6).map(x=>(x.name||'').trim()),
     analyst:val('c_analyst'), agency:val('c_agency'),
     sludgeSelf:val('c_sludge_self'), sludgeOut:val('c_sludge_out'),
+    wwfac: WWFAC.map(f=>({ name:(f.name||'').trim(),
+      s:(f.s!==''&&f.s!=null)?Number(f.s):null, e:(f.e!==''&&f.e!=null)?Number(f.e):null })),
+    wwprv: WWPRV.map(f=>({ name:(f.name||'').trim(),
+      s:(f.s!==''&&f.s!=null)?Number(f.s):null, e:(f.e!==''&&f.e!=null)?Number(f.e):null })),
   };
   const ptBase=val('pw_time'), ptVary=el('pw_time_vary').checked, ptRange=num('pw_time_range');
   // 4,7호 날짜별 입력 → 날짜 키 맵
@@ -778,6 +897,7 @@ function generate(){
     const unitPower = (pw && waste.wout && waste.wout.use>0) ? r1(pw.use/waste.wout.use) : '';
     const dstr = y+'-'+String(m).padStart(2,'0')+'-'+String(d).padStart(2,'0');
     const temp = (TEMPMAP[dstr]!=null) ? TEMPMAP[dstr] : '';
+    const weather = WEATHERMAP[dstr] || '';
     const checkTime = ptVary ? addMin(ptBase, (seeded('pt'+dstr)()*2-1)*ptRange) : ptBase;
     // 8호 폭기조: 선택된 기록일에만
     const aer = AER_DATES.has(dstr) ? { pH:r1(vary(num('a_ph'),3,rnd)), tw:r1(vary(num('a_tw'),8,rnd)), do:r1(vary(num('a_do'),15,rnd)),
@@ -793,7 +913,7 @@ function generate(){
     const tms = TMS_DATES.has(dstr);
     // 5호: 그 날짜에 입력된 원료 사용량(없으면 null)
     const matRow = matMap[dstr] || null;
-    DAYS.push({ y,m,d, dow:DOW[dt.getDay()], weather:'', temp,
+    DAYS.push({ y,m,d, dow:DOW[dt.getDay()], weather, temp,
       opS,opE, water, waterSum, waste, checkTime,
       powerUse,powerPrev,powerToday,unitPower, aer, q, tms,
       sludge: sludgeMap[dstr]||null, matRow, chemEntries: chemMap[dstr]||[], common });
@@ -803,7 +923,15 @@ function generate(){
 }
 
 /* ───────── 렌더 ───────── */
-function pad(v){ return (v===''||v==null)?'':v; }
+function pad(v){
+  if(v===''||v==null) return '';
+  const s=String(v);
+  if(/^-?\d+(\.\d+)?$/.test(s)){          // 숫자면 천단위 콤마
+    const neg=s[0]==='-', a=neg?s.slice(1):s, [i,d]=a.split('.');
+    return (neg?'-':'')+i.replace(/\B(?=(\d{3})+(?!\d))/g,',')+(d!==undefined?'.'+d:'');
+  }
+  return s;
+}
 function hourCells(opS,opE){
   const first=opS+1, last=opE;   // on: opS+1 .. opE
   let h='';
@@ -822,6 +950,19 @@ function hourCells(opS,opE){
 function buildSheet(dy, common){
   const emptyRow24 = '<td class="tall"></td>'+'<td></td>'.repeat(24);
   const hourHead = '<td class="diag" style="height:9mm"><span class="a">시간대</span><span class="b">구분</span></td>'+Array.from({length:24},(_,i)=>'<td>'+(i+1)+'</td>').join('');
+  // 1·2호 시설(구분) 행: 시설명 + 시설별 가동시간 간트, 최소 3행
+  function facTableBody(list){
+    const use=(list||[]).filter(f=>f.name||f.s!=null||f.e!=null);
+    const rows = use.length ? use : [{name:'',s:null,e:null}];
+    let body = rows.map(f=>{
+      const s=(f.s!=null)?f.s:dy.opS, e=(f.e!=null)?f.e:dy.opE;
+      return '<tr><td class="facname">'+pad(f.name)+'</td>'+hourCells(s,e)+'</tr>';
+    }).join('');
+    for(let k=rows.length;k<3;k++) body += '<tr>'+emptyRow24+'</tr>';
+    return body;
+  }
+  const facBody = facTableBody(common.wwfac);
+  const prvBody = facTableBody(common.wwprv);
   // 3호 좌 (용수): 계 + 5개 공급원(1,2호)
   const wsum=dy.waterSum;
   let leftBody = '<tr><td colspan="2" class="tall">계</td><td>'+pad(wsum&&wsum.prev)+'</td><td>'+pad(wsum&&wsum.today)+'</td><td>'+pad(wsum&&wsum.use)+'</td><td></td></tr>';
@@ -869,6 +1010,7 @@ function buildSheet(dy, common){
 <div class="sheet">
   <div class="page">
     <div class="corner">(앞 쪽)</div>
+    <div class="pz">
     <div class="formno">[별지 제18호서식] <span class="rev">&lt;개정 2024. 11. 7.&gt;</span></div>
     <div class="headrow">
       <div class="title">폐수배출시설 및 수질오염방지시설<span class="l2">운영일지</span></div>
@@ -879,15 +1021,13 @@ function buildSheet(dy, common){
       <div class="wt">날씨: ${pad(dy.weather)}       온도: ${pad(dy.temp)}℃</div>
     </div>
     <div class="sec">1. 폐수배출시설 가동(조업)시간대</div>
-    <table class="t"><colgroup><col style="width:9%">${'<col>'.repeat(24)}</colgroup>
+    <table class="t"><colgroup><col style="width:15%">${'<col>'.repeat(24)}</colgroup>
       <tr>${hourHead}</tr>
-      <tr><td class="tall"></td>${hourCells(dy.opS,dy.opE)}</tr>
-      <tr>${emptyRow24}</tr><tr>${emptyRow24}</tr></table>
+      ${facBody}</table>
     <div class="sec">2. 수질오염방지시설 가동시간대(처리방법: ${pad(common.method)}　　　)</div>
-    <table class="t"><colgroup><col style="width:9%">${'<col>'.repeat(24)}</colgroup>
+    <table class="t"><colgroup><col style="width:15%">${'<col>'.repeat(24)}</colgroup>
       <tr>${hourHead}</tr>
-      <tr><td class="tall"></td>${hourCells(dy.opS,dy.opE)}</tr>
-      <tr>${emptyRow24}</tr><tr>${emptyRow24}</tr>
+      ${prvBody}
       <tr><td class="tall" style="height:12mm">시간대별<br>근무자<br>직ㆍ성명</td><td colspan="24" style="text-align:left;padding-left:4mm">${pad(common.worker)}　　　※ 시간대 표시는 검은색</td></tr></table>
     <div class="sec">3. 용수 공급원별 사용량과 폐수배출량</div>
     <div class="duo">
@@ -907,9 +1047,11 @@ function buildSheet(dy, common){
     <p class="note">※ 슬러지를 스스로 처리하는 경우 그 처리장소: ${pad(common.sludgeSelf)}</p>
     <p class="note">※ 위탁처리를 하는 경우 위탁처리업소명: ${pad(common.sludgeOut)}</p>
     <p class="paper">210㎜×297㎜[일반용지 60g/㎡(재활용품)]</p>
+    </div>
   </div>
   <div class="page">
     <div class="corner">(뒤 쪽)</div>
+    <div class="pz">
     <div class="sec" style="margin-top:4mm">5. 원료 또는 첨가제 등의 사용량</div>
     <table class="t"><colgroup><col style="width:22%">${'<col>'.repeat(6)}</colgroup>${matNameCells}${matAmtCells}</table>
     <p class="note">※ 일반적으로 사용되는 용어 또는 공통어로 기재합니다.</p>
@@ -932,6 +1074,7 @@ function buildSheet(dy, common){
     <table class="t"><colgroup><col style="width:20%">${'<col>'.repeat(7)}</colgroup>${aHead}${aBody}</table>
     <div class="sec">12. 지도ㆍ점검을 받은 사항</div>
     <p class="note ind" style="margin-top:6mm">※ 제1호부터 제4호까지는 폐수처리방법 등 사업장 특성을 고려하여 해당 부분을 반드시 적어야 하며, 제5호부터 제12호까지는 사업자의 판단에 따라 선택적으로 적을 수 있습니다.</p>
+    </div>
   </div>
 </div>`;
 }
@@ -939,6 +1082,22 @@ function buildSheet(dy, common){
 function render(common){
   el('output').innerHTML = DAYS.map(d=>buildSheet(d, common)).join('');
 }
+
+/* ───────── 직접 수정 ───────── */
+let EDITING=false;
+function applyEdit(){
+  const out=el('output');
+  out.contentEditable = EDITING ? 'true' : 'false';
+  out.spellcheck=false;
+  out.classList.toggle('editing', EDITING);
+  const b=el('btnEdit');
+  b.textContent = EDITING ? '✅ 수정 끝내기' : '✏️ 직접 수정';
+  b.style.background = EDITING ? '#16a34a' : '#7c3aed';
+}
+el('btnEdit').addEventListener('click', ()=>{
+  if(!DAYS.length){ alert('먼저 [운영일지 생성]을 눌러주세요.'); return; }
+  EDITING=!EDITING; applyEdit();
+});
 
 /* ───────── 인쇄 ───────── */
 function printAs(mode){
