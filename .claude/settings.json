@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(python3 -c ':*)"
+    ],
+    "additionalDirectories": [
+      "C:\\Users\\USER\\OneDrive\\바탕 화면\\py\\tools\\tools\\prisma-architect",
+      "c:\\Users\\USER\\.claude\\projects\\c--Users-USER-OneDrive-------py-tools\\memory"
+    ]
+  }
+}

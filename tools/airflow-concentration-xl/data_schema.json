@@ -1,0 +1,629 @@
+{
+  "source_file": "",
+  "documentInfo": {
+    "_note": "문서 메타. 변경 서류면 changeReason/changeContents 채움. 신규면 빈 값.",
+    "documentType": "",
+    "_documentType_note": "예: '대기배출시설 설치신고서' / '대기배출시설 변경신고서' / '대기배출시설 변경허가신청서'",
+    "reportType": "",
+    "_reportType_note": "신규 / 변경 — 표지 표기만 믿지 말고 본문 내용으로 판정",
+    "changeReason": "",
+    "changeContents": [],
+    "isJointPrevention": false
+  },
+  "applicant": {
+    "businessName": "",
+    "businessRegNumber": "",
+    "ownerName": "",
+    "ownerBirthdate": "",
+    "mobilePhone": "",
+    "ownerAddress": "",
+    "businessAddress": "",
+    "industryTypeName": "",
+    "mainProduct": "",
+    "installPlannedDate": "",
+    "operationStartDate": "",
+    "ownerPhone": "",
+    "businessPhone": ""
+  },
+  "jointPrevention": {
+    "_note": "공동방지시설 — 여러 사업장이 한 방지시설을 공동 사용하는 경우만. 단독 사업장이면 isJoint=false 로 두고 나머지 빈 값.",
+    "isJoint": false,
+    "representativeBusiness": "",
+    "_representativeBusiness_note": "대표업체 사업장명",
+    "coUsageBusinesses": [
+      {"businessName": "", "ownerName": "", "role": "", "_role_note": "대표업체 / 공동사용"}
+    ],
+    "sharedPreventionFacility": "",
+    "_sharedPreventionFacility_note": "공유하는 방지시설 번호·명. 예: '방-2)흡수에 의한 시설(1000㎥/분)'"
+  },
+  "facilities": [
+    {
+      "emissionNumber": "",
+      "facilityName": "",
+      "changeStatus": "",
+      "rawMaterialUsage": [
+        {"name": "", "value": "", "unit": ""}
+      ],
+      "emissionCoefficient": {"value": "", "unit": ""},
+      "dustGeneration": {"value": "", "unit": ""},
+      "productionProcess": "",
+      "power": {"value": "", "unit": ""},
+      "powerBreakdown": "",
+      "dailyOperatingHours": "",
+      "annualOperatingDays": "",
+      "dischargeAmount": {"value": "", "unit": ""},
+      "facilityRemovalRate": {"value": "", "unit": ""},
+      "treatmentMethod": "",
+      "airFlow": {"value": "", "unit": ""},
+      "temperature": {"value": "", "unit": ""},
+      "dustConcentration": {"value": "", "unit": ""},
+      "THCConcentration": {"value": "", "unit": ""},
+      "standardAirFlow": {"value": "", "unit": ""},
+      "outlet": "",
+      "_pollutants_note": "오염물질은 시설마다 다름 — 먼지·THC·SOx·NOx·트리클로로에틸렌·구리/니켈/주석/아연/크롬화합물·시안화수소·염화수소·불소화물·암모니아 등. 위 dustConcentration/THCConcentration 는 흔한 2종 예시일 뿐, 실제는 아래 pollutants 배열로 동적 표현.",
+      "pollutants": [
+        {
+          "name": "",
+          "generation": {"value": "", "unit": "톤/년"},
+          "concentration": {"value": "", "unit": "㎎/S㎥ 또는 ppm"},
+          "emissionCoefficient": {"value": "", "unit": ""},
+          "calcMethod": "",
+          "_calcMethod_note": "산정방식 예: '연료에 의한 산정' / '원료에 의한 산정' / '측정농도 역산(자가측정 결과 참조)' / '이론적 산정'"
+        }
+      ],
+      "emissionCoefficientSource": {
+        "applicationNote": "",
+        "reference": ""
+      },
+      "specCapacity": {
+        "dimension": {
+          "raw": "",
+          "width":  {"value": "", "unit": ""},
+          "length": {"value": "", "unit": ""},
+          "height": {"value": "", "unit": ""},
+          "shape": ""
+        },
+        "capacity": {
+          "raw": "",
+          "main": {"value": "", "unit": ""},
+          "components": [
+            {"name": "", "value": "", "unit": ""}
+          ],
+          "total": {"value": "", "unit": ""}
+        },
+        "count": {"value": "", "unit": ""}
+      },
+      "powerUsage": {
+        "power": {"type": "", "value": "", "unit": ""},
+        "heatSource": {"value": "", "unit": ""}
+      },
+      "purpose": "",
+      "operation": "",
+      "hood": {
+        "raw": "",
+        "installLocation": "",
+        "shape": "",
+        "spec": "",
+        "airFlow": {"value": "", "unit": ""},
+        "temperature": {"value": "", "unit": ""},
+        "ductVelocity": {"value": "", "unit": "", "reference": ""},
+        "crossSectionShape": "",
+        "ductDiameter": {"value": "", "unit": ""},
+        "crossSectionArea": {"value": "", "unit": ""},
+        "standardAirFlow": {"value": "", "unit": ""},
+        "openings": [
+          {
+            "name": "",
+            "size": "",
+            "_size_note": "도장부스 등 개구부 — 예: '700W x 1,800H', '컨베이어 레일 인입/토출 OPEN부위'"
+          }
+        ]
+      }
+    }
+  ],
+  "totals": {
+    "rawMaterialUsage": [
+      {"name": "", "value": "", "unit": ""}
+    ],
+    "dustGeneration": {"value": "", "unit": ""},
+    "combinedAirFlow": {"value": "", "unit": ""},
+    "combinedStandardAirFlow": {"value": "", "unit": ""},
+    "combinedTemperature": {"value": "", "unit": ""},
+    "combinedDustConcentration": {"value": "", "unit": ""},
+    "combinedTHCConcentration": {"value": "", "unit": ""},
+    "outlet": ""
+  },
+  "preventionFacilities": [
+    {
+      "preventionNumber": "",
+      "facilityName": "",
+      "facilityType": "",
+      "changeStatus": "",
+      "capacity": {"value": "", "unit": ""},
+      "auxiliaryEquipment": "",
+      "blowerSpec": {
+        "airFlow":        {"value": "", "unit": ""},
+        "staticPressure": {"value": "", "unit": ""},
+        "power":          {"value": "", "unit": ""}
+      },
+      "measurementHole": "",
+      "removalEfficiency": {"value": "", "unit": ""},
+      "intakeConcentration": {
+        "먼지": {"value": "", "unit": ""},
+        "THC":  {"value": "", "unit": ""}
+      },
+      "outletConcentration": {
+        "먼지": {"value": "", "unit": ""},
+        "THC":  {"value": "", "unit": ""}
+      },
+      "emissionLimit": {
+        "먼지": {"value": "", "unit": ""},
+        "THC":  {"value": "", "unit": ""}
+      },
+      "annualMaintenanceCost": {"value": "", "unit": ""},
+      "costBreakdown": [
+        {"item": "", "formula": "", "amount": {"value": "", "unit": ""}}
+      ],
+      "specifications": {
+        "name": "",
+        "capacity": {"value": "", "unit": ""},
+        "dimension": {
+          "raw":    "",
+          "width":  "",
+          "length": "",
+          "height": ""
+        },
+        "activatedCarbonLayerDimension": {
+          "raw":    "",
+          "width":  "",
+          "length": "",
+          "height": "",
+          "layers": ""
+        },
+        "bodyMaterial": "",
+        "activatedCarbonMaterial": "",
+        "fillHeight": {"value": "", "unit": ""},
+        "fillStages": ""
+      },
+      "designConditions": {
+        "gasFlowRate":      {"value": "", "unit": ""},
+        "gasSpecificWeight":{"value": "", "unit": ""},
+        "gasTemperature":   {"value": "", "unit": ""}
+      },
+      "bodyDesign": {
+        "inletGasFlow": {"value": "", "unit": ""},
+        "gasVelocity":  {"value": "", "unit": ""},
+        "본체규격": {
+          "area":         {"value": "", "unit": ""},
+          "adsorberSpec": ""
+        },
+        "충진량_교환주기": {
+          "충진높이": {"value": "", "unit": ""},
+          "단수":     {"value": "", "unit": ""},
+          "fillAmount": {
+            "area":    {"value": "", "unit": ""},
+            "height":  {"value": "", "unit": ""},
+            "density": {"value": "", "unit": ""},
+            "result":  {"value": "", "unit": ""},
+            "formula": ""
+          },
+          "replacementCycle": {
+            "formula": "",
+            "variables": {},
+            "result": {
+              "totalHours":    {"value": "", "unit": ""},
+              "months":        {"value": "", "unit": ""},
+              "roundedMonths": {"value": "", "unit": ""}
+            }
+          }
+        }
+      },
+      "pressureLoss": {
+        "formula": "",
+        "variables": {},
+        "result": {
+          "inchesOfWater": {"value": "", "unit": ""},
+          "mmAq":          {"value": "", "unit": ""},
+          "selected":      {"value": "", "unit": ""}
+        }
+      },
+      "ductAndBlower": {
+        "exhaustDesign": {
+          "exhaustGasFlow":          {"value": "", "unit": ""},
+          "blowerPower":             {"value": "", "unit": ""},
+          "minTransportSpeed":       {"value": "", "unit": ""},
+          "ductMainDiameter":        {"calculation": "", "value": "", "unit": "", "notation": ""},
+          "outletDiameter":          {"value": "", "unit": "", "notation": ""},
+          "measurementHoleDiameter": {"value": "", "unit": "", "notation": ""}
+        },
+        "pressureLossDuct": {
+          "velocityPressure": {
+            "formula": "",
+            "variables": {},
+            "result": {"value": "", "unit": ""}
+          },
+          "dP1_inlet":  {"formula": "", "value": "", "unit": ""},
+          "dP2_straight": {
+            "formula":  "",
+            "sections": [
+              {
+                "name":         "",
+                "diameter":     {"value": "", "unit": "", "notation": ""},
+                "length":       {"value": "", "unit": ""},
+                "pressureLoss": {"value": "", "unit": ""}
+              }
+            ],
+            "total": {"value": "", "unit": ""}
+          },
+          "dP3_bend":     {"formula": "", "R": "", "Pv": "", "count": "", "value": "", "unit": ""},
+          "dP4_branch":   {"formula": "", "R": "", "Pv": "", "count": "", "value": "", "unit": ""},
+          "dP5_adsorber": {"value": "", "unit": ""},
+          "totalPressureLoss": {"components": "", "value": "", "unit": ""},
+          "selectedPressure":  {"value": "", "unit": ""}
+        },
+        "blowerSelection": {
+          "variables": {},
+          "result": {
+            "calculatedPower": {"value": "", "unit": ""},
+            "selectedPower":   {"value": "", "unit": ""}
+          },
+          "type": "",
+          "finalSpec": {
+            "type": "",
+            "airFlow":        {"value": "", "unit": ""},
+            "staticPressure": {"value": "", "unit": ""},
+            "power":          {"value": "", "unit": ""}
+          },
+          "formula": ""
+        }
+      }
+    },
+    {
+      "preventionNumber": "",
+      "facilityName": "여과집진시설",
+      "facilityType": "BAG FILTER",
+      "subType": "",
+      "changeStatus": "",
+      "capacity": {"value": "", "unit": ""},
+      "treats": [],
+      "removalEfficiency": {"value": "", "unit": ""},
+      "designConditions": {
+        "gasFlowRate":            {"value": "", "unit": ""},
+        "gasTemperature":         {"value": "", "unit": ""},
+        "inletDustConcentration": {"value": "", "unit": ""},
+        "designEfficiency":       {"value": "", "unit": ""}
+      },
+      "mixedInlet": {
+        "airFlow":           {"value": "", "unit": ""},
+        "standardAirFlow":   {"value": "", "unit": ""},
+        "temperature":       {"value": "", "unit": ""},
+        "dustConcentration": {"value": "", "unit": ""},
+        "formula": ""
+      },
+      "mixedOutlet": {
+        "airFlow":           {"value": "", "unit": ""},
+        "temperature":       {"value": "", "unit": ""},
+        "dustConcentration": {"value": "", "unit": ""}
+      },
+      "marginRate": {
+        "value":   "",
+        "unit":    "%",
+        "formula": ""
+      },
+      "emissionLimit": {
+        "먼지": {"value": "", "unit": ""}
+      },
+      "specifications": {
+        "shape": "",
+        "bodyDimension": {
+          "raw":    "",
+          "length": {"value": "", "unit": ""},
+          "width":  {"value": "", "unit": ""},
+          "height": {"value": "", "unit": ""}
+        },
+        "bodyMaterial":      "",
+        "filterBagMaterial": "",
+        "ductMaterial":      ""
+      },
+      "bodyDesign": {
+        "processGasFlow":  {"value": "", "unit": ""},
+        "filterVelocity":  {"value": "", "unit": ""},
+        "filterVelocityCalculation": {
+          "formula":   "Vf = A × B × C × D × E (m/min)",
+          "reference": "대기오염방지시설 설계실무편람",
+          "variables": {
+            "A": {"description": "물질명별 변수값",       "value": "", "unit": "m/min", "calc": "A1 × 60 × 0.00785", "A1": ""},
+            "B": {"description": "집진기 설치용도 보정치", "value": "",                  "calc": "(38 + B1) / 2 / 60", "B1": ""},
+            "C": {"description": "내부온도 보정치",        "value": "",                  "calc": "1.293 × 273/(273+T)"},
+            "D": {"description": "먼지 입도 보정치",       "value": "",                  "calc": "D1 / 3",             "D1": ""},
+            "E": {"description": "먼지 농도 보정치",       "value": "",                  "calc": "E1 / 38 - 0.9",      "E1": ""}
+          },
+          "calculatedVelocity": {"value": "", "unit": ""},
+          "designVelocity":     {"value": "", "unit": "", "note": ""}
+        },
+        "filterArea": {
+          "required": {"value": "", "unit": "", "formula": "A = Q / V"},
+          "design":   {"value": "", "unit": ""}
+        },
+        "filterBag": {
+          "type":        "",
+          "size":        "",
+          "pleatCount":  0,
+          "areaPerUnit": {"value": "", "unit": "", "formula": "산의수 × (외경-내경) × 2면/개 × 길이"},
+          "requiredCount":{"value": "", "unit": "", "formula": "필요여과면적 / 1개당 면적"},
+          "designCount": {"value": "", "unit": "", "layout": ""}
+        },
+        "auxiliary": {
+          "manometer": "",
+          "dustSilo":  ""
+        }
+      },
+      "efficiencyPrediction": {
+        "value":   "",
+        "unit":    "%",
+        "formula": "η = (Ci - Co) / Ci × 100",
+        "note":    ""
+      },
+      "dustCollectionPrediction": {
+        "inletGasFlow":        {"value": "", "unit": ""},
+        "standardGasFlow":     {"value": "", "unit": ""},
+        "inletConcentration":  {"value": "", "unit": ""},
+        "outletConcentration": {"value": "", "unit": ""},
+        "dailyCollected":      {"value": "", "unit": "", "formula": "Q × (Ci - Co) × 60min/hr × 8hr/day × 10⁻⁶"},
+        "disposalMethod":      ""
+      },
+      "pressureLoss": {
+        "filterMedium": {
+          "formula": "ΔP = 180 × (μ × V × L) / dp² × (1 - ε)² / ε (mmAq)",
+          "variables": {
+            "μ":  {"description": "가스점도",       "value": "", "unit": "kg/m·sec"},
+            "V":  {"description": "여과속도",       "value": "", "unit": "m/sec"},
+            "L":  {"description": "먼지층 두께",     "value": "", "unit": "m"},
+            "dp": {"description": "입경",          "value": "", "unit": "m"},
+            "ε":  {"description": "먼지층 공극율",   "value": ""}
+          },
+          "calculated": {"value": "", "unit": "mmAq"},
+          "selected":   {"value": "", "unit": "mmAq"}
+        }
+      },
+      "ductAndBlower": {
+        "exhaustDesign": {
+          "exhaustGasFlow":          {"value": "", "unit": ""},
+          "minTransportVelocity":    {"value": "", "unit": "m/sec"},
+          "ductMainDiameter":        {"calculation": "Dmain = ((4Q) / (π × V × 60))^0.5", "value": "", "unit": "mm", "notation": ""},
+          "outletDiameter":          {"value": "", "unit": "mm", "notation": ""},
+          "measurementHoleDiameter": {"value": "", "unit": "mm", "notation": ""}
+        },
+        "pressureLossDuct": {
+          "velocityPressure": {
+            "formula": "Pv = (r × V²) / (2 × g)",
+            "variables": {
+              "V": {"description": "속도",      "value": "", "unit": "m/sec"},
+              "r": {"description": "공기밀도",  "value": "", "unit": "kg/㎥", "calc": "1.293 × 273/(273+T)"},
+              "g": {"description": "중력가속도","value": "9.8", "unit": "m/s²"}
+            },
+            "result": {"value": "", "unit": "mmAq"}
+          },
+          "P1_inlet":     {"description": "유입 압력손실",        "formula": "P1 = 0.5 × Pv × N", "value": "", "unit": "mmAq"},
+          "P2_straight": {
+            "description": "DUCT(직관)의 압력손실",
+            "formula":     "P2 = 0.02 × (L/D) × Pv (구간별 합)",
+            "sections": [
+              {
+                "name":         "",
+                "diameter":     {"value": "", "unit": "mm", "notation": ""},
+                "length":       {"value": "", "unit": "m"},
+                "pressureLoss": {"value": "", "unit": "mmAq"}
+              }
+            ],
+            "total": {"value": "", "unit": "mmAq"}
+          },
+          "P3_bend":   {"description": "곡관의 압력손실",   "formula": "P3 = ζ × Pv × N", "ζ": "", "Pv": "", "count": 0, "value": "", "unit": "mmAq"},
+          "P4_branch": {"description": "합류관의 압력손실", "formula": "P4 = ζ × Pv × N", "ζ": "", "Pv": "", "count": 0, "value": "", "unit": "mmAq"},
+          "P5_filter": {"description": "여과집진시설 압력손실", "value": "", "unit": "mmAq"},
+          "totalPressureLoss": {"formula": "PT = P1 + P2 + P3 + P4 + P5", "calc": "", "value": "", "unit": "mmAq"},
+          "selectedPressure":  {"value": "", "unit": "mmAq"}
+        },
+        "blowerSelection": {
+          "type": "터보형",
+          "variables": {
+            "Q":  {"description": "풍량",   "value": "", "unit": "㎥/min"},
+            "dP": {"description": "압손",   "value": "", "unit": "mmAq"},
+            "η":  {"description": "효율",   "value": "", "unit": "%"},
+            "α":  {"description": "여유율", "value": ""}
+          },
+          "formula": "소요축동력(KW) = (Q × ΔP) / (6,120 × η) × α",
+          "result": {
+            "calculatedPower": {"value": "", "unit": "KW", "calc": ""},
+            "selectedPower":   {"value": "", "unit": "KW"}
+          },
+          "finalSpec": {
+            "type":           "",
+            "airFlow":        {"value": "", "unit": ""},
+            "staticPressure": {"value": "", "unit": ""},
+            "power":          {"value": "", "unit": ""}
+          }
+        }
+      },
+      "annualMaintenanceCost": {"value": "", "unit": ""},
+      "costBreakdown": [
+        {"item": "", "formula": "", "amount": {"value": "", "unit": ""}}
+      ],
+      "operationProcedure": [],
+      "maintenancePlan":    []
+    },
+    {
+      "_facilityType_note": "흡수에 의한 시설(SCRUBBER) — 충전탑. 흡착(A/C TOWER)·여과집진(BAG FILTER)과 설계 필드가 완전히 다름. 가스상 오염물질(산·알칼리 등) 처리, 폐수 발생.",
+      "preventionNumber": "",
+      "facilityName": "흡수에 의한 시설",
+      "facilityType": "SCRUBBER",
+      "subType": "",
+      "_subType_note": "예: '원통형 향류식 충전탑'",
+      "changeStatus": "",
+      "capacity": {"value": "", "unit": "㎥/분"},
+      "treats": [],
+      "removalEfficiency": {"value": "", "unit": "%"},
+      "designConditions": {
+        "gasFlowRate":      {"value": "", "unit": "㎥/분"},
+        "gasTemperature":   {"value": "", "unit": "℃"},
+        "designEfficiency": {"value": "", "unit": "%"}
+      },
+      "manufacturingSpec": {
+        "name":              "",
+        "typeClassification":"",
+        "processGasFlow":    {"value": "", "unit": "㎥/분"},
+        "superficialVelocity":{"value": "", "unit": "m/sec"},
+        "liquidGasRatio":    {"value": "", "unit": "L/㎥"},
+        "bodyDimension":     {"raw": "", "diameter": {"value": "", "unit": ""}, "height": {"value": "", "unit": ""}},
+        "material": {
+          "body":     "",
+          "packing":  "",
+          "demister": ""
+        }
+      },
+      "bodyDesign": {
+        "designGasFlow":       {"value": "", "unit": "㎥/분"},
+        "removalEfficiency":   {"value": "", "unit": "%"},
+        "liquidGasRatio":      {"value": "", "unit": "L/㎥"},
+        "superficialVelocity": {"value": "", "unit": "m/sec"},
+        "towerDiameter":       {"value": "", "unit": "", "notation": ""},
+        "packingType":         "",
+        "sprayWaterFlow":      {"value": "", "unit": "㎥/분", "formula": ""},
+        "towerDiameterCalc": {
+          "gasDensity":     {"value": "", "unit": "㎏/㎥"},
+          "liquidDensity":  {"value": "", "unit": "㎏/㎥"},
+          "gasWeight":      {"value": "", "unit": "㎏/hr", "formula": ""},
+          "liquidWeight":   {"value": "", "unit": "㎏/hr", "formula": ""},
+          "towerArea":      {"value": "", "unit": "㎡", "formula": ""},
+          "calculatedDiameter": {"value": "", "unit": "m"},
+          "selectedDiameter":   {"value": "", "unit": "", "notation": ""}
+        },
+        "towerHeightCalc": {
+          "formula": "Z = NOG × HOG",
+          "NOG":     {"value": "", "formula": "Ln(1/(1-η))"},
+          "HOG":     {"value": ""},
+          "calculatedHeight": {"value": "", "unit": "m"},
+          "selectedHeight":   {"value": "", "unit": "mmH"}
+        }
+      },
+      "auxiliaryFacilities": {
+        "demister":      "",
+        "circulationTank":"",
+        "circulationPump":"",
+        "sprayNozzle":   {"spec": "", "sprayRate": "", "count": ""}
+      },
+      "efficiencyPrediction": {"value": "", "unit": "%"},
+      "wastewaterTreatment": {
+        "method": "",
+        "_note": "흡수시설 특유 — 세정 폐수 처리 경로. 예: '공동폐수처리시설인 물리·화학처리시설에 유입시켜 처리'"
+      },
+      "pressureLoss": {
+        "_note": "흡수시설은 경험치 합산이 일반적",
+        "components": [
+          {"name": "충진층 압력손실",      "value": "", "unit": "mmAq"},
+          {"name": "DEMISTER 압력손실",   "value": "", "unit": "mmAq"},
+          {"name": "입·출구 압력손실",     "value": "", "unit": "mmAq"}
+        ],
+        "total": {"value": "", "unit": "mmAq"}
+      },
+      "ductAndBlower": {
+        "exhaustDesign": {
+          "minTransportVelocity":    {"value": "", "unit": "m/sec"},
+          "ductMainDiameter":        {"calculation": "", "value": "", "unit": "", "notation": ""},
+          "outletDiameter":          {"value": "", "unit": "", "notation": ""},
+          "measurementHoleDiameter": {"value": "", "unit": "", "notation": ""}
+        },
+        "pressureLossDuct": {
+          "velocityPressure": {"formula": "Pv = (r × V²) / (2 × g)", "result": {"value": "", "unit": "mmAq"}},
+          "totalPressureLoss": {"value": "", "unit": "mmAq"},
+          "selectedPressure":  {"value": "", "unit": "mmAq"}
+        },
+        "blowerSelection": {
+          "type": "",
+          "formula": "소요축동력(KW) = (Q × ΔP) / (6,120 × η) × α",
+          "result": {
+            "calculatedPower": {"value": "", "unit": "KW"},
+            "selectedPower":   {"value": "", "unit": "KW"}
+          },
+          "finalSpec": {
+            "type": "",
+            "airFlow":        {"value": "", "unit": ""},
+            "staticPressure": {"value": "", "unit": ""},
+            "power":          {"value": "", "unit": ""}
+          }
+        }
+      },
+      "annualMaintenanceCost": {"value": "", "unit": ""},
+      "costBreakdown": [
+        {"item": "", "formula": "", "amount": {"value": "", "unit": ""}}
+      ],
+      "operationProcedure": [],
+      "maintenancePlan":    []
+    }
+  ],
+  "outlets": [
+    {
+      "_note": "배출구별 그룹 — 한 배출구에 연결된 배출시설·방지시설·가스량·오염물질. 배출구 단위로 농도/측정이 관리되는 서류(도장시설 등)에서 핵심.",
+      "outletNumber": "",
+      "_outletNumber_note": "예: '배출구-2'",
+      "connectedFacilities": [],
+      "_connectedFacilities_note": "이 배출구로 모이는 배출시설 번호 리스트. 예: ['배-2']",
+      "preventionFacility": "",
+      "gasFlow":     {"value": "", "unit": ""},
+      "temperature": {"value": "", "unit": ""},
+      "pollutants": [
+        {
+          "name": "",
+          "concentration": {"value": "", "unit": ""},
+          "measurementBasis": "",
+          "_measurementBasis_note": "자가측정 결과 등 측정 근거 (해당 시)"
+        }
+      ]
+    }
+  ],
+  "rawMaterials": [
+    {
+      "name": "",
+      "unit": "",
+      "daily":   {"max": "", "avg": ""},
+      "monthly": {"max": "", "avg": ""},
+      "annual":  {"max": "", "avg": ""}
+    }
+  ],
+  "products": [
+    {
+      "name": "",
+      "unit": "",
+      "daily":   {"max": "", "avg": ""},
+      "monthly": {"max": "", "avg": ""},
+      "annual":  {"max": "", "avg": ""}
+    }
+  ],
+  "operatingInfo": [
+    {
+      "emissionNumber":      "",
+      "dailyOperatingHours": "",
+      "annualOperatingDays": ""
+    }
+  ],
+  "processDescription": [
+    {
+      "order": 0,
+      "name":  "",
+      "description": "",
+      "notes": []
+    }
+  ],
+  "processFlow": {
+    "materials":  [],
+    "facilities": [],
+    "pollutants": [],
+    "products":   [],
+    "raw":        [],
+    "workingTime": {
+      "dailyHours":  "",
+      "monthlyDays": "",
+      "annualDays":  ""
+    }
+  }
+}

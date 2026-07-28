@@ -1,0 +1,3015 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Prisma Schema Architect</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Noto+Sans+KR:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet">
+  <style>
+    :root {
+      --bg-primary: #f5f6fa;
+      --bg-secondary: #ffffff;
+      --bg-tertiary: #eef0f6;
+      --bg-card: #ffffff;
+      --bg-hover: #f0f2f8;
+      --border: #d4d9e8;
+      --border-active: #a0aec0;
+      --text-primary: #1e293b;
+      --text-secondary: #475569;
+      --text-muted: #94a3b8;
+      --accent: #2563eb;
+      --accent-dim: #dbeafe;
+      --accent2: #7c3aed;
+      --accent2-dim: #ede9fe;
+      --accent3: #059669;
+      --accent3-dim: #d1fae5;
+      --danger: #dc2626;
+      --danger-dim: #fee2e2;
+      --warning: #d97706;
+      --success: #16a34a;
+      --model-header: linear-gradient(135deg, #2563eb 0%, #3b82f6 100%);
+      --enum-header: linear-gradient(135deg, #7c3aed 0%, #8b5cf6 100%);
+      --shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+      --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.12);
+      --font-mono: 'JetBrains Mono', monospace;
+      --font-sans: 'Noto Sans KR', sans-serif;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box
+    }
+
+    body {
+      font-family: var(--font-sans);
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      overflow: hidden;
+      height: 100vh
+    }
+
+    /* NAV */
+    .top-nav {
+      height: 52px;
+      background: var(--bg-secondary);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      padding: 0 20px;
+      gap: 12px;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04)
+    }
+
+    .logo {
+      font-family: var(--font-mono);
+      font-weight: 700;
+      font-size: 15px;
+      color: var(--accent);
+      display: flex;
+      align-items: center;
+      gap: 8px
+    }
+
+    .logo svg {
+      width: 22px;
+      height: 22px
+    }
+
+    .nav-tabs {
+      display: flex;
+      gap: 2px;
+      margin-left: 28px
+    }
+
+    .nav-tab {
+      padding: 10px 18px;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-secondary);
+      cursor: pointer;
+      border-radius: 8px 8px 0 0;
+      border: 1px solid transparent;
+      border-bottom: none;
+      transition: all .2s;
+      font-family: var(--font-sans);
+      background: none;
+      position: relative
+    }
+
+    .nav-tab:hover {
+      color: var(--text-primary);
+      background: var(--bg-tertiary)
+    }
+
+    .nav-tab.active {
+      color: var(--accent);
+      background: var(--bg-primary);
+      border-color: var(--border)
+    }
+
+    .nav-tab.active::after {
+      content: '';
+      position: absolute;
+      bottom: -1px;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: var(--bg-primary)
+    }
+
+    .nav-actions {
+      margin-left: auto;
+      display: flex;
+      gap: 8px
+    }
+
+    .btn {
+      padding: 7px 16px;
+      font-size: 12px;
+      font-weight: 600;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      background: var(--bg-secondary);
+      color: var(--text-primary);
+      cursor: pointer;
+      transition: all .15s;
+      font-family: var(--font-sans);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      white-space: nowrap
+    }
+
+    .btn:hover {
+      border-color: var(--border-active);
+      background: var(--bg-hover);
+      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06)
+    }
+
+    .btn-accent {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff
+    }
+
+    .btn-accent:hover {
+      background: #1d4ed8;
+      border-color: #1d4ed8
+    }
+
+    .btn-danger {
+      background: var(--danger-dim);
+      border-color: var(--danger);
+      color: var(--danger)
+    }
+
+    .btn-success {
+      background: var(--accent3-dim);
+      border-color: var(--accent3);
+      color: var(--accent3)
+    }
+
+    /* PANELS */
+    .panel-container {
+      height: calc(100vh - 52px);
+      position: relative
+    }
+
+    .panel {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      display: none
+    }
+
+    .panel.active {
+      display: flex
+    }
+
+    /* DIAGRAM */
+    #diagramPanel {
+      flex-direction: column
+    }
+
+    .diagram-toolbar {
+      height: 44px;
+      background: var(--bg-secondary);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      padding: 0 14px;
+      gap: 8px;
+      font-size: 12px;
+      flex-shrink: 0
+    }
+
+    .diagram-toolbar .separator {
+      width: 1px;
+      height: 22px;
+      background: var(--border);
+      margin: 0 6px
+    }
+
+    .zoom-control {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      color: var(--text-secondary)
+    }
+
+    .zoom-control button {
+      width: 28px;
+      height: 28px;
+      border: 1px solid var(--border);
+      background: var(--bg-secondary);
+      color: var(--text-primary);
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center
+    }
+
+    .zoom-control button:hover {
+      background: var(--bg-hover)
+    }
+
+    #zoomLevel {
+      width: 42px;
+      text-align: center;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--text-secondary)
+    }
+
+    .canvas-wrapper {
+      flex: 1;
+      overflow: hidden;
+      position: relative;
+      background: var(--bg-primary)
+    }
+
+    .canvas-grid {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: radial-gradient(circle, #d0d5e0 0.8px, transparent 0.8px);
+      background-size: 28px 28px;
+      opacity: .5
+    }
+
+    #canvasRoot {
+      position: absolute;
+      top: 0;
+      left: 0;
+      transform-origin: 0 0
+    }
+
+    #canvas {
+      position: absolute;
+      top: 0;
+      left: 0
+    }
+
+    #svgOverlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      overflow: visible;
+      width: 10000px;
+      height: 10000px;
+      pointer-events: none
+    }
+
+    /* MODEL CARDS */
+    .model-card {
+      position: absolute;
+      min-width: 230px;
+      max-width: 330px;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      box-shadow: var(--shadow);
+      cursor: grab;
+      user-select: none;
+      transition: box-shadow .2s;
+      z-index: 2
+    }
+
+    .model-card:hover {
+      box-shadow: var(--shadow-lg)
+    }
+
+    .model-card.dragging {
+      cursor: grabbing;
+      z-index: 1000;
+      box-shadow: 0 16px 48px rgba(37, 99, 235, 0.15)
+    }
+
+    .model-card.root-node {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.12), var(--shadow)
+    }
+
+    .mc-header {
+      padding: 10px 14px;
+      border-radius: 12px 12px 0 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-family: var(--font-mono);
+      font-weight: 700;
+      font-size: 13px;
+      color: #fff
+    }
+
+    .mc-header.model {
+      background: var(--model-header)
+    }
+
+    .mc-header.enum {
+      background: var(--enum-header)
+    }
+
+    .mc-header .badge {
+      font-size: 9px;
+      padding: 2px 7px;
+      border-radius: 5px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .5px;
+      background: rgba(255, 255, 255, 0.2);
+      color: #fff
+    }
+
+    .mc-body {
+      padding: 4px 0;
+      max-height: 280px;
+      overflow-y: auto
+    }
+
+    .mc-body::-webkit-scrollbar {
+      width: 4px
+    }
+
+    .mc-body::-webkit-scrollbar-thumb {
+      background: var(--border);
+      border-radius: 2px
+    }
+
+    .field-row {
+      padding: 5px 14px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12px;
+      font-family: var(--font-mono);
+      cursor: pointer;
+      transition: background .1s
+    }
+
+    .field-row:hover {
+      background: var(--bg-hover)
+    }
+
+    .field-name {
+      color: var(--text-primary);
+      flex: 1;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      font-weight: 500
+    }
+
+    .field-type {
+      color: var(--accent3);
+      font-size: 11px;
+      font-weight: 500
+    }
+
+    .fi {
+      width: 16px;
+      height: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 10px;
+      flex-shrink: 0;
+      border-radius: 3px
+    }
+
+    .fi.pk {
+      color: var(--warning);
+      background: rgba(217, 119, 6, 0.08)
+    }
+
+    .fi.rel {
+      color: var(--accent);
+      background: rgba(37, 99, 235, 0.08)
+    }
+
+    .fi.em {
+      width: 0
+    }
+
+    .enum-val {
+      padding: 4px 14px;
+      font-size: 12px;
+      font-family: var(--font-mono);
+      color: var(--accent2);
+      font-weight: 500
+    }
+
+    /* CARDINALITY */
+    .card-box {
+      cursor: pointer;
+      pointer-events: all
+    }
+
+    .card-box:hover rect {
+      stroke: var(--accent) !important;
+      filter: drop-shadow(0 0 4px rgba(37, 99, 235, 0.3))
+    }
+
+    /* EDITOR */
+    .editor-area {
+      flex: 1;
+      display: flex;
+      flex-direction: column
+    }
+
+    .editor-header {
+      height: 40px;
+      background: var(--bg-secondary);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      padding: 0 14px;
+      font-size: 12px;
+      color: var(--text-secondary);
+      font-family: var(--font-mono);
+      font-weight: 500
+    }
+
+    #schemaEditor {
+      flex: 1;
+      width: 100%;
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      border: none;
+      padding: 16px;
+      font-family: var(--font-mono);
+      font-size: 13px;
+      line-height: 1.8;
+      resize: none;
+      outline: none;
+      tab-size: 2
+    }
+
+    /* EXCEL */
+    .excel-sidebar {
+      width: 224px;
+      background: var(--bg-secondary);
+      border-right: 1px solid var(--border);
+      overflow-y: auto;
+      flex-shrink: 0
+    }
+
+    .excel-sidebar-title {
+      padding: 14px 16px;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1.2px;
+      color: var(--text-muted);
+      border-bottom: 1px solid var(--border)
+    }
+
+    .excel-model-item {
+      padding: 9px 16px;
+      font-size: 13px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      transition: background .1s;
+      border-left: 3px solid transparent;
+      font-weight: 500
+    }
+
+    .excel-model-item:hover {
+      background: var(--bg-hover)
+    }
+
+    .excel-model-item.active {
+      background: var(--accent-dim);
+      border-left-color: var(--accent);
+      color: var(--accent)
+    }
+
+    .dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      flex-shrink: 0
+    }
+
+    .dot.md {
+      background: var(--accent)
+    }
+
+    .dot.ed {
+      background: var(--accent2)
+    }
+
+    .excel-main {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden
+    }
+
+    .excel-toolbar {
+      height: 44px;
+      background: var(--bg-secondary);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      padding: 0 14px;
+      gap: 8px
+    }
+
+    .excel-table-wrap {
+      flex: 1;
+      overflow: auto;
+      background: var(--bg-primary)
+    }
+
+    .excel-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 12px;
+      font-family: var(--font-mono);
+      background: var(--bg-secondary)
+    }
+
+    .excel-table th {
+      position: sticky;
+      top: 0;
+      background: var(--bg-secondary);
+      padding: 10px 12px;
+      text-align: left;
+      font-weight: 700;
+      color: var(--text-secondary);
+      border-bottom: 2px solid var(--border);
+      white-space: nowrap;
+      z-index: 10;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: .5px
+    }
+
+    .excel-table td {
+      padding: 7px 12px;
+      border-bottom: 1px solid var(--border);
+      white-space: nowrap;
+      max-width: 200px;
+      overflow: hidden;
+      text-overflow: ellipsis
+    }
+
+    .excel-table tr:hover td {
+      background: var(--bg-hover)
+    }
+
+    .excel-table td[contenteditable="true"] {
+      outline: none;
+      cursor: text
+    }
+
+    .excel-table td[contenteditable="true"]:focus {
+      background: var(--accent-dim);
+      box-shadow: inset 0 0 0 2px var(--accent);
+      border-radius: 2px
+    }
+
+    .cell-pk {
+      color: var(--warning);
+      font-weight: 700
+    }
+
+    .cell-fk {
+      color: var(--accent2)
+    }
+
+    .cell-type {
+      color: var(--accent3);
+      font-weight: 500
+    }
+
+    /* DIFF */
+    .diff-container {
+      flex: 1;
+      display: flex;
+      overflow: hidden
+    }
+
+    .diff-pane {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden
+    }
+
+    .diff-pane+.diff-pane {
+      border-left: 1px solid var(--border)
+    }
+
+    .diff-hdr {
+      height: 40px;
+      background: var(--bg-secondary);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      padding: 0 14px;
+      font-size: 12px;
+      font-weight: 700
+    }
+
+    .diff-hdr.before {
+      color: var(--danger)
+    }
+
+    .diff-hdr.after {
+      color: var(--accent3)
+    }
+
+    .diff-content {
+      flex: 1;
+      overflow: auto;
+      padding: 8px 0;
+      font-family: var(--font-mono);
+      font-size: 12px;
+      line-height: 1.7;
+      background: var(--bg-primary)
+    }
+
+    .diff-line {
+      padding: 2px 16px 2px 8px;
+      display: flex;
+      white-space: pre-wrap;
+      word-break: break-all;
+      min-height: 22px
+    }
+
+    .diff-line .ln {
+      width: 36px;
+      text-align: right;
+      margin-right: 12px;
+      flex-shrink: 0;
+      color: var(--text-muted);
+      font-size: 11px;
+      user-select: none
+    }
+
+    .diff-line.added {
+      background: rgba(5, 150, 105, 0.08);
+      color: var(--accent3)
+    }
+
+    .diff-line.removed {
+      background: rgba(220, 38, 38, 0.08);
+      color: var(--danger)
+    }
+
+    .diff-line.unchanged {
+      color: var(--text-muted)
+    }
+
+    /* LOG */
+    .log-sidebar {
+      width: 320px;
+      background: var(--bg-secondary);
+      border-left: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      flex-shrink: 0;
+      overflow: hidden
+    }
+
+    .log-title {
+      padding: 12px 16px;
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--accent);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-family: var(--font-mono)
+    }
+
+    .log-list {
+      flex: 1;
+      overflow-y: auto;
+      padding: 4px 0
+    }
+
+    .log-entry {
+      padding: 10px 16px;
+      border-bottom: 1px solid var(--border);
+      font-size: 11px;
+      line-height: 1.6;
+      animation: logIn .3s ease
+    }
+
+    @keyframes logIn {
+      from {
+        opacity: 0;
+        transform: translateX(8px)
+      }
+
+      to {
+        opacity: 1;
+        transform: none
+      }
+    }
+
+    .log-entry .log-time {
+      color: var(--text-muted);
+      font-family: var(--font-mono);
+      font-size: 10px
+    }
+
+    .log-entry .log-action {
+      color: var(--text-primary);
+      margin-top: 3px;
+      font-weight: 500
+    }
+
+    .log-entry .log-detail {
+      color: var(--text-secondary);
+      font-family: var(--font-mono);
+      font-size: 10px;
+      margin-top: 2px
+    }
+
+    .log-entry.log-relation {
+      border-left: 3px solid var(--accent2)
+    }
+
+    .log-entry.log-field {
+      border-left: 3px solid var(--accent3)
+    }
+
+    .log-entry.log-model {
+      border-left: 3px solid var(--accent)
+    }
+
+    .log-entry.log-schema {
+      border-left: 3px solid var(--warning)
+    }
+
+    /* MODALS */
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.3);
+      backdrop-filter: blur(4px);
+      z-index: 9999;
+      display: none;
+      align-items: center;
+      justify-content: center
+    }
+
+    .modal-overlay.show {
+      display: flex
+    }
+
+    .modal {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      box-shadow: 0 24px 64px rgba(0, 0, 0, 0.15);
+      min-width: 440px;
+      max-width: 600px;
+      max-height: 80vh;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column
+    }
+
+    .modal-title {
+      padding: 18px 22px;
+      font-size: 16px;
+      font-weight: 700;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between
+    }
+
+    .modal-body {
+      padding: 22px;
+      overflow-y: auto;
+      flex: 1
+    }
+
+    .modal-footer {
+      padding: 14px 22px;
+      border-top: 1px solid var(--border);
+      display: flex;
+      justify-content: flex-end;
+      gap: 8px
+    }
+
+    .form-group {
+      margin-bottom: 16px
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text-secondary);
+      margin-bottom: 6px
+    }
+
+    .form-group input,
+    .form-group select {
+      width: 100%;
+      padding: 9px 12px;
+      background: var(--bg-primary);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: var(--text-primary);
+      font-size: 13px;
+      font-family: var(--font-mono);
+      outline: none
+    }
+
+    .form-group input:focus,
+    .form-group select:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1)
+    }
+
+    .import-area {
+      width: 100%;
+      height: 300px;
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 12px;
+      font-family: var(--font-mono);
+      font-size: 12px;
+      line-height: 1.6;
+      resize: none;
+      outline: none
+    }
+
+    .import-area:focus {
+      border-color: var(--accent)
+    }
+
+    .context-menu {
+      position: fixed;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      box-shadow: var(--shadow-lg);
+      min-width: 180px;
+      padding: 6px;
+      z-index: 10000;
+      display: none;
+      font-size: 13px
+    }
+
+    .context-menu.show {
+      display: block
+    }
+
+    .context-menu-item {
+      padding: 9px 14px;
+      cursor: pointer;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: background .1s;
+      font-weight: 500
+    }
+
+    .context-menu-item:hover {
+      background: var(--bg-hover)
+    }
+
+    .context-menu-item.danger {
+      color: var(--danger)
+    }
+
+    .context-menu-divider {
+      height: 1px;
+      background: var(--border);
+      margin: 4px 0
+    }
+
+    .toast-container {
+      position: fixed;
+      top: 64px;
+      right: 16px;
+      z-index: 10001;
+      display: flex;
+      flex-direction: column;
+      gap: 8px
+    }
+
+    .toast {
+      padding: 10px 18px;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      font-size: 13px;
+      box-shadow: var(--shadow-lg);
+      animation: toastIn .3s ease;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-weight: 500
+    }
+
+    .toast.success {
+      border-left: 3px solid var(--accent3)
+    }
+
+    .toast.error {
+      border-left: 3px solid var(--danger)
+    }
+
+    .toast.info {
+      border-left: 3px solid var(--accent)
+    }
+
+    @keyframes toastIn {
+      from {
+        opacity: 0;
+        transform: translateX(20px)
+      }
+
+      to {
+        opacity: 1;
+        transform: none
+      }
+    }
+
+    .stats-bar {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 30px;
+      background: var(--bg-secondary);
+      border-top: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      padding: 0 14px;
+      font-size: 11px;
+      color: var(--text-muted);
+      font-family: var(--font-mono);
+      gap: 20px;
+      z-index: 50;
+      font-weight: 500
+    }
+
+    #excelPanel.active {
+      display: flex;
+      flex-direction: row
+    }
+
+    #todoPanel.active {
+      display: flex;
+      flex-direction: column
+    }
+
+    #suggestPanel.active {
+      display: flex;
+      flex-direction: column
+    }
+
+    #uiPanel.active {
+      display: flex;
+      flex-direction: row
+    }
+
+    #uiPanel .excel-table-wrap {
+      overflow-x: auto
+    }
+
+    #uiMetaTable th,
+    #uiMetaTable td {
+      white-space: nowrap
+    }
+
+    #diffPanel.active {
+      display: flex;
+      flex-direction: column
+    }
+
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px
+    }
+
+    ::-webkit-scrollbar-track {
+      background: transparent
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: var(--border);
+      border-radius: 3px
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: var(--border-active)
+    }
+
+    /* 변경사항 추적 마커 (숨쉬는 초록색 점) */
+    .change-marker {
+      display: inline-block;
+      width: 10px;
+      height: 10px;
+      background: var(--success);
+      border: 2px solid #fff;
+      border-radius: 50%;
+      cursor: pointer;
+      box-shadow: 0 0 0 2px rgba(22, 163, 74, 0.3);
+      animation: pulse 1.5s infinite;
+      flex-shrink: 0;
+      transition: transform 0.2s;
+    }
+
+    .change-marker:hover {
+      transform: scale(1.3);
+    }
+
+    @keyframes pulse {
+      0% {
+        box-shadow: 0 0 0 0 rgba(22, 163, 74, 0.6);
+      }
+
+      70% {
+        box-shadow: 0 0 0 5px rgba(22, 163, 74, 0);
+      }
+
+      100% {
+        box-shadow: 0 0 0 0 rgba(22, 163, 74, 0);
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div id="passwordOverlay"
+    style="position:fixed;top:0;left:0;width:100%;height:100%;background:var(--bg-primary);z-index:999999;display:flex;align-items:center;justify-content:center;flex-direction:column;">
+    <div
+      style="background:var(--bg-card);padding:40px;border-radius:12px;box-shadow:var(--shadow-lg);text-align:center;border:1px solid var(--border);width:320px;">
+      <h2 style="margin-bottom:20px;color:var(--text-primary);font-size:18px;">접근 권한 필요</h2>
+      <input type="password" id="pwdInput" placeholder="비밀번호 입력"
+        style="width:100%;padding:12px;margin-bottom:12px;border:1px solid var(--border);border-radius:8px;font-size:14px;outline:none;text-align:center;font-family:var(--font-mono);background:var(--bg-primary);color:var(--text-primary);">
+      <button onclick="checkPwd()"
+        style="width:100%;padding:12px;background:var(--accent);color:white;border:none;border-radius:8px;font-size:14px;font-weight:600;cursor:pointer;transition:all .2s;">✓
+        확인</button>
+    </div>
+  </div>
+  <script>
+    function checkPwd() {
+      if (document.getElementById('pwdInput').value === 'ohyes999#') {
+        document.getElementById('passwordOverlay').style.display = 'none';
+      } else {
+        alert('비밀번호가 틀렸습니다.');
+        document.getElementById('pwdInput').value = '';
+        document.getElementById('pwdInput').focus();
+      }
+    }
+    document.addEventListener('DOMContentLoaded', function () {
+      var pwdInput = document.getElementById('pwdInput');
+      if (pwdInput) {
+        pwdInput.addEventListener('keyup', function (e) {
+          if (e.key === 'Enter') checkPwd();
+        });
+        setTimeout(function () { pwdInput.focus(); }, 100);
+      }
+    });
+  </script>
+  <nav class="top-nav">
+    <div class="logo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M12 2L2 7l10 5 10-5-10-5z" />
+        <path d="M2 17l10 5 10-5" />
+        <path d="M2 12l10 5 10-5" />
+      </svg>Prisma Architect</div>
+    <div class="nav-tabs">
+      <button class="nav-tab active" data-panel="diagram">다이어그램</button>
+      <button class="nav-tab" data-panel="editor">스키마 편집기</button>
+      <button class="nav-tab" data-panel="excel">DB 관리</button>
+      <button class="nav-tab" data-panel="ui">UI 관리</button>
+      <button class="nav-tab" data-panel="diff">변경 비교</button>
+      <button class="nav-tab" data-panel="todo">📋 Todo</button>
+      <button class="nav-tab" data-panel="suggest">💡 건의함</button>
+    </div>
+    <div class="nav-actions">
+      <button class="btn" onclick="showImportModal()">📥 임포트</button>
+      <button class="btn btn-accent" onclick="exportSchema()">📤 익스포트</button>
+      <button class="btn btn-success" onclick="snapshotSchema()">📸 스냅샷</button>
+      <button class="btn" onclick="exportLog()">📋 로그</button>
+      <div class="separator" style="width:1px;height:22px;background:var(--border);margin:0 4px"></div>
+      <button class="btn" id="sheetsStatusBtn" onclick="showSheetsModal()" title="구글 시트 연동">
+        <span id="sheetsStatusDot"
+          style="width:8px;height:8px;border-radius:50%;background:var(--text-muted);display:inline-block;margin-right:4px"></span>구글
+        시트
+      </button>
+      <button class="btn btn-success" onclick="sheetsSave()" id="sheetsSaveBtn" style="display:none">☁️ 저장</button>
+      <button class="btn" onclick="sheetsLoad()" id="sheetsLoadBtn" style="display:none">⬇️ 불러오기</button>
+    </div>
+  </nav>
+
+  <div class="panel-container">
+    <div id="diagramPanel" class="panel active">
+      <div class="diagram-toolbar">
+        <div class="zoom-control"><button onclick="zoomOut()">−</button><span id="zoomLevel">100%</span><button
+            onclick="zoomIn()">+</button><button onclick="zoomFit()">⊡</button></div>
+        <div class="separator"></div>
+        <button class="btn" onclick="autoLayout()">🔄 자동배치</button>
+        <button class="btn" onclick="addNewModel()">+ 모델</button>
+        <button class="btn" onclick="addNewEnum()">+ Enum</button>
+        <div class="separator"></div>
+        <button class="btn" id="enumToggleBtn" onclick="toggleEnumLines()" style="min-width:110px">🔗 Enum 연결
+          ON</button>
+        <div class="separator"></div>
+        <span style="color:var(--text-muted)">관계 박스 클릭 → 1:1 / 1:N / M:N 토글</span>
+      </div>
+
+      <div style="display:flex;flex:1;overflow:hidden">
+        <div class="canvas-wrapper" id="canvasWrapper">
+          <div class="canvas-grid"></div>
+          <div id="canvasRoot">
+            <svg id="svgOverlay" xmlns="http://www.w3.org/2000/svg"></svg>
+            <div id="canvas"></div>
+          </div>
+          <div class="stats-bar"><span id="statsModels">Models: 0</span><span id="statsEnums">Enums: 0</span><span
+              id="statsRelations">Relations: 0</span></div>
+        </div>
+        <div class="log-sidebar">
+          <div class="log-title">
+            <span>📜 변경 로그</span>
+            <button class="btn" style="padding:3px 10px;font-size:10px" onclick="clearLog()">지우기</button>
+          </div>
+          <div class="log-list" id="logList">
+            <div style="padding:24px;text-align:center;color:var(--text-muted);font-size:12px">변경사항이 기록됩니다</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="editorPanel" class="panel">
+      <div class="editor-area">
+        <div class="editor-header">schema.prisma<button class="btn btn-accent" style="margin-left:auto"
+            onclick="applyEditorChanges()">✓ 적용</button></div>
+        <textarea id="schemaEditor" spellcheck="false"></textarea>
+      </div>
+    </div>
+
+    <div id="excelPanel" class="panel">
+      <div class="excel-sidebar" id="excelSidebar"></div>
+      <div class="excel-main">
+        <div class="excel-toolbar"><span id="excelTitle" style="font-weight:700;color:var(--accent)">모델 선택</span>
+          <div style="margin-left:auto;display:flex;gap:8px"><button class="btn" id="excelAddFieldBtn"
+              onclick="excelAddField()" style="display:none">+ 필드</button><button class="btn btn-accent"
+              id="excelApplyBtn" onclick="excelApply()" style="display:none">✓ 적용</button></div>
+        </div>
+        <div class="excel-table-wrap" id="excelTableWrap">
+          <div style="padding:40px;text-align:center;color:var(--text-muted)">좌측에서 모델/Enum 선택</div>
+        </div>
+      </div>
+    </div>
+
+    <div id="uiPanel" class="panel">
+      <div class="excel-sidebar" id="uiSidebar"></div>
+      <div class="excel-main">
+        <div class="excel-toolbar">
+          <span id="uiTitle" style="font-weight:700;color:var(--accent2)">모델 선택</span>
+          <div style="margin-left:auto;display:flex;gap:8px">
+            <button class="btn" id="uiAddRowBtn" onclick="uiAddRow()" style="display:none">+ 행 추가</button>
+            <button class="btn btn-accent" id="uiApplyBtn" onclick="uiApply()" style="display:none">✓ 적용</button>
+          </div>
+        </div>
+        <div class="excel-table-wrap" id="uiContent">
+          <div style="padding:40px;text-align:center;color:var(--text-muted)">좌측에서 모델 선택</div>
+        </div>
+      </div>
+    </div>
+
+    <div id="diffPanel" class="panel">
+      <div
+        style="padding:10px 14px;background:var(--bg-secondary);border-bottom:1px solid var(--border);display:flex;align-items:center;gap:8px;flex-shrink:0">
+        <span style="font-size:14px;font-weight:700">변경 비교</span>
+        <button class="btn" onclick="snapshotSchema()">📸 Before</button>
+        <button class="btn btn-accent" onclick="runDiff()">🔍 비교</button>
+      </div>
+      <div class="diff-container">
+        <div class="diff-pane">
+          <div class="diff-hdr before">◀ Before</div>
+          <div class="diff-content" id="diffBefore"></div>
+        </div>
+        <div class="diff-pane">
+          <div class="diff-hdr after">After ▶</div>
+          <div class="diff-content" id="diffAfter"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TODO 패널 -->
+    <div id="todoPanel" class="panel" style="flex-direction:column">
+      <div
+        style="height:48px;background:var(--bg-secondary);border-bottom:1px solid var(--border);display:flex;align-items:center;padding:0 16px;gap:10px;flex-shrink:0">
+        <span style="font-size:14px;font-weight:700">📋 Todo List</span>
+        <div style="display:flex;gap:6px;margin-left:auto">
+          <select id="todoFilterSel" onchange="renderTodoList()"
+            style="padding:5px 10px;border:1px solid var(--border);border-radius:6px;background:var(--bg-primary);color:var(--text-primary);font-size:12px">
+            <option value="all">전체</option>
+            <option value="todo">할 일</option>
+            <option value="doing">진행중</option>
+            <option value="done">완료</option>
+          </select>
+          <button class="btn btn-accent" onclick="openTodoModal()">+ 항목 추가</button>
+        </div>
+      </div>
+      <div style="flex:1;overflow-y:auto;padding:16px" id="todoListWrap"></div>
+    </div>
+
+    <!-- 건의함 패널 -->
+    <div id="suggestPanel" class="panel" style="flex-direction:column">
+      <div
+        style="height:48px;background:var(--bg-secondary);border-bottom:1px solid var(--border);display:flex;align-items:center;padding:0 16px;gap:10px;flex-shrink:0">
+        <span style="font-size:14px;font-weight:700">💡 건의함</span>
+        <button class="btn btn-accent" onclick="openSuggestModal()" style="margin-left:auto">+ 건의 작성</button>
+      </div>
+      <div style="flex:1;overflow-y:auto;padding:16px" id="suggestListWrap"></div>
+    </div>
+  </div>
+
+  <div class="modal-overlay" id="todoModal">
+    <div class="modal" style="min-width:480px">
+      <div class="modal-title"><span id="todoModalTitle">할 일 추가</span><button class="btn"
+          onclick="closeTodoModal()">✕</button></div>
+      <div class="modal-body">
+        <div class="form-group"><label>제목</label><input id="todoTitleInput" placeholder="제목을 입력하세요"
+            style="width:100%;padding:9px 12px;background:var(--bg-primary);border:1px solid var(--border);border-radius:8px;color:var(--text-primary);font-size:13px;outline:none">
+        </div>
+        <div class="form-group"><label>내용</label><textarea id="todoBodyInput" placeholder="상세 내용..."
+            style="width:100%;height:100px;padding:9px 12px;background:var(--bg-primary);border:1px solid var(--border);border-radius:8px;color:var(--text-primary);font-size:13px;font-family:var(--font-sans);outline:none;resize:vertical"></textarea>
+        </div>
+        <div style="display:flex;gap:12px">
+          <div class="form-group" style="flex:1"><label>우선순위</label>
+            <select id="todoPriorityInput"
+              style="width:100%;padding:9px 12px;background:var(--bg-primary);border:1px solid var(--border);border-radius:8px;color:var(--text-primary);font-size:13px">
+              <option value="low">🟢 낮음</option>
+              <option value="mid" selected>🟡 보통</option>
+              <option value="high">🔴 높음</option>
+            </select>
+          </div>
+          <div class="form-group" style="flex:1"><label>상태</label>
+            <select id="todoStatusInput"
+              style="width:100%;padding:9px 12px;background:var(--bg-primary);border:1px solid var(--border);border-radius:8px;color:var(--text-primary);font-size:13px">
+              <option value="todo">할 일</option>
+              <option value="doing">진행중</option>
+              <option value="done">완료</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group"><label>관련 모델 (선택)</label>
+          <select id="todoModelInput"
+            style="width:100%;padding:9px 12px;background:var(--bg-primary);border:1px solid var(--border);border-radius:8px;color:var(--text-primary);font-size:13px">
+            <option value="">— 없음 —</option>
+          </select>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-danger" id="todoDeleteBtn" onclick="deleteTodoItem()" style="display:none">삭제</button>
+        <button class="btn" onclick="closeTodoModal()">취소</button>
+        <button class="btn btn-accent" onclick="saveTodoItem()">저장</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-overlay" id="suggestModal">
+    <div class="modal" style="min-width:500px">
+      <div class="modal-title"><span id="suggestModalTitle">건의 작성</span><button class="btn"
+          onclick="closeSuggestModal()">✕</button></div>
+      <div class="modal-body">
+        <div class="form-group"><label>제목</label><input id="suggestTitleInput" placeholder="건의 제목"
+            style="width:100%;padding:9px 12px;background:var(--bg-primary);border:1px solid var(--border);border-radius:8px;color:var(--text-primary);font-size:13px;outline:none">
+        </div>
+        <div class="form-group"><label>카테고리</label>
+          <select id="suggestCatInput"
+            style="width:100%;padding:9px 12px;background:var(--bg-primary);border:1px solid var(--border);border-radius:8px;color:var(--text-primary);font-size:13px">
+            <option value="feature">✨ 기능 요청</option>
+            <option value="bug">🐛 버그 신고</option>
+            <option value="improve">🔧 개선 제안</option>
+            <option value="etc">💬 기타</option>
+          </select>
+        </div>
+        <div class="form-group"><label>내용</label><textarea id="suggestBodyInput" placeholder="상세 내용을 작성해주세요..."
+            style="width:100%;height:140px;padding:9px 12px;background:var(--bg-primary);border:1px solid var(--border);border-radius:8px;color:var(--text-primary);font-size:13px;font-family:var(--font-sans);outline:none;resize:vertical"></textarea>
+        </div>
+        <div class="form-group"><label>작성자</label><input id="suggestAuthorInput" placeholder="이름 또는 익명"
+            style="width:100%;padding:9px 12px;background:var(--bg-primary);border:1px solid var(--border);border-radius:8px;color:var(--text-primary);font-size:13px;outline:none">
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-danger" id="suggestDeleteBtn" onclick="deleteSuggestItem()"
+          style="display:none">삭제</button>
+        <button class="btn" onclick="closeSuggestModal()">취소</button>
+        <button class="btn btn-accent" onclick="saveSuggestItem()">등록</button>
+      </div>
+    </div>
+  </div>
+  <div class="modal-overlay" id="sheetsModal">
+    <div class="modal" style="min-width:520px">
+      <div class="modal-title">
+        <span>🔗 구글 시트 연동</span>
+        <button class="btn" onclick="document.getElementById('sheetsModal').classList.remove('show')">✕</button>
+      </div>
+      <div class="modal-body">
+        <div
+          style="background:var(--accent-dim);border:1px solid var(--accent);border-radius:10px;padding:14px 16px;margin-bottom:18px;font-size:12px;line-height:1.8;color:var(--text-primary)">
+          <b>📋 Apps Script 설정 방법</b><br>
+          1. 구글 스프레드시트 열기 → <b>확장 프로그램 → Apps Script</b><br>
+          2. 다운로드한 <code style="background:var(--bg-tertiary);padding:1px 5px;border-radius:3px">prisma_sheets.gs</code>
+          내용을 붙여넣고 저장<br>
+          3. <b>배포 → 새 배포 → 웹앱</b> 선택<br>
+          &nbsp;&nbsp;&nbsp;• 실행 계정: <b>나</b> / 액세스: <b>모든 사용자</b><br>
+          4. 배포 후 생성된 <b>웹앱 URL</b>을 아래에 입력
+        </div>
+        <div class="form-group">
+          <label>Apps Script 웹앱 URL</label>
+          <input id="sheetsUrlInput" placeholder="https://script.google.com/macros/s/.../exec"
+            style="width:100%;padding:9px 12px;background:var(--bg-primary);border:1px solid var(--border);border-radius:8px;color:var(--text-primary);font-size:12px;font-family:var(--font-mono);outline:none">
+        </div>
+        <div style="display:flex;gap:8px;align-items:center;margin-top:4px">
+          <button class="btn" onclick="sheetsTest()" id="sheetsTestBtn">🔍 연결 테스트</button>
+          <span id="sheetsTestResult" style="font-size:12px;color:var(--text-muted)"></span>
+        </div>
+        <div
+          style="margin-top:16px;padding:12px;background:var(--bg-tertiary);border-radius:8px;font-size:12px;color:var(--text-secondary)">
+          <b>저장 범위:</b> Prisma 스키마, UI 헤더 설정, UI 메타 데이터, Todo 목록, 건의함
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-danger" onclick="sheetsDisconnect()" id="sheetsDisconnectBtn" style="display:none">연결
+          해제</button>
+        <button class="btn" onclick="document.getElementById('sheetsModal').classList.remove('show')">닫기</button>
+        <button class="btn btn-accent" onclick="sheetsSaveUrl()">저장</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-overlay" id="importModal">
+    <div class="modal" style="min-width:600px">
+      <div class="modal-title">Prisma 스키마 임포트<button class="btn" onclick="closeImportModal()">✕</button></div>
+      <div class="modal-body"><textarea class="import-area" id="importText"
+          placeholder="Prisma 스키마를 붙여넣으세요..."></textarea></div>
+      <div class="modal-footer"><button class="btn" onclick="closeImportModal()">취소</button><button
+          class="btn btn-accent" onclick="doImport()">임포트</button></div>
+    </div>
+  </div>
+
+  <div class="modal-overlay" id="fieldModal">
+    <div class="modal">
+      <div class="modal-title"><span id="fieldModalTitle">필드 편집</span><button class="btn"
+          onclick="closeFieldModal()">✕</button></div>
+      <div class="modal-body" id="fieldModalBody"></div>
+      <div class="modal-footer"><button class="btn btn-danger" id="fieldDeleteBtn"
+          onclick="deleteField()">삭제</button><button class="btn" onclick="closeFieldModal()">취소</button><button
+          class="btn btn-accent" onclick="saveField()">저장</button></div>
+    </div>
+  </div>
+
+  <div class="modal-overlay" id="relationModal">
+    <div class="modal" style="min-width: 320px;">
+      <div class="modal-title">
+        <span>🔗 연결 대상 선택</span>
+        <button class="btn" onclick="closeRelationModal()">✕</button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label>대상 모델 / Enum</label>
+          <select id="relationTargetSelect"></select>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn" onclick="closeRelationModal()">취소</button>
+        <button class="btn btn-accent" onclick="confirmRelation()">연결하기</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="context-menu" id="contextMenu">
+    <div class="context-menu-item" onclick="ctxAddRelation()">🔗 연결선 만들기</div>
+    <div class="context-menu-item" onclick="ctxAddField()">+ 필드 추가</div>
+    <div class="context-menu-item" onclick="ctxEditModel()">✏️ 이름 변경</div>
+    <div class="context-menu-divider"></div>
+    <div class="context-menu-item danger" onclick="ctxDeleteModel()">🗑 삭제</div>
+  </div>
+
+  <div class="toast-container" id="toastContainer"></div>
+
+  <script>
+    // === STATE ===
+    let schema = { models: [], enums: [] }, snapshot = null, zoom = 1, panX = 0, panY = 0;
+    let isDraggingCanvas = false, dragStartX, dragStartY, draggingCard = null, dragOffsetX, dragOffsetY;
+    let ctxTarget = null, editingField = null, selectedExcelModel = null;
+    let changeLog = [], cardinalityMap = {}, modelPositions = {};
+    let cardSizes = {};
+    let historyStack = [], historyIndex = -1;
+    let showEnumLines = true;
+
+    // === LOG & HISTORY (UNDO/REDO) ===
+    function addLog(type, action, detail = '') {
+      if (historyIndex < historyStack.length - 1) {
+        historyStack = historyStack.slice(0, historyIndex + 1);
+        changeLog = changeLog.slice(0, historyIndex);
+      }
+
+      changeLog.push({
+        type, action, detail,
+        time: new Date().toLocaleTimeString('ko-KR', { hour: '2-digit', minute: '2-digit', second: '2-digit' }),
+        isUndone: false
+      });
+
+      historyStack.push({
+        schemaStr: gen(schema),
+        positions: JSON.stringify(modelPositions),
+        cardinalities: JSON.stringify(cardinalityMap)
+      });
+      historyIndex++;
+
+      renderLog();
+    }
+
+    function renderLog() {
+      const l = document.getElementById('logList');
+      if (!changeLog.length) {
+        l.innerHTML = '<div style="padding:24px;text-align:center;color:var(--text-muted);font-size:12px">변경사항이 기록됩니다</div>';
+        return;
+      }
+      let html = '';
+      for (let i = changeLog.length - 1; i >= Math.max(0, changeLog.length - 200); i--) {
+        const e = changeLog[i];
+        let css = '';
+        if (e.isUndone) css = 'opacity:0.5; color:var(--danger); background:var(--danger-dim); text-decoration:line-through; border-left-color:var(--danger);';
+
+        const btnHtml = e.isUndone
+          ? `<button class="btn" style="padding:4px 8px;font-size:12px;background:var(--bg-secondary)" title="이 작업 다시 적용" onclick="revertHistory(${i + 1})">↪️</button>`
+          : `<button class="btn" style="padding:4px 8px;font-size:12px;background:var(--bg-secondary)" title="이 작업 취소" onclick="revertHistory(${i})">↩️</button>`;
+
+        html += `<div id="log-entry-${i}" class="log-entry log-${e.type}" style="${css} display:flex; justify-content:space-between; align-items:center; gap:8px;">
+      <div style="flex:1; min-width:0;">
+        <div class="log-time">${e.time}</div>
+        <div class="log-action" style="white-space:normal; word-break:break-all;">${e.action}</div>
+        ${e.detail ? `<div class="log-detail" style="white-space:normal; word-break:break-all;">${esc(e.detail)}</div>` : ''}
+      </div>
+      <div style="flex-shrink:0;">
+        ${btnHtml}
+      </div>
+    </div>`;
+      }
+      l.innerHTML = html;
+    }
+
+    // === 로그 대상 파싱 및 포커스 함수 ===
+    function getLogTarget(e) {
+      if (!e) return null;
+      const text = e.action + ' ' + (e.detail || '');
+      if (e.type === 'field' && text.includes('.')) {
+        const m = text.match(/([a-zA-Z0-9_]+)\.([a-zA-Z0-9_]+)/);
+        if (m) return 'field:' + m[1] + '.' + m[2];
+      }
+      if (e.type === 'relation') {
+        const m = text.match(/([a-zA-Z0-9_]+)\s*[↔→]\s*([a-zA-Z0-9_]+)/);
+        if (m) return 'relation:' + [m[1], m[2]].sort().join('↔');
+      }
+      if (e.type === 'model' || e.type === 'schema') {
+        if (text.includes('이름 변경') && text.includes('→')) {
+          const m = text.match(/→\s*([a-zA-Z0-9_]+)/);
+          if (m) return 'model:' + m[1];
+        }
+        const m = text.match(/:\s*([a-zA-Z0-9_]+)/);
+        if (m) return 'model:' + m[1];
+      }
+      return null;
+    }
+
+    function scrollToLog(e, idx) {
+      if (e) e.stopPropagation();
+      const logEl = document.getElementById('log-entry-' + idx);
+      if (logEl) {
+        logEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        const oldBg = logEl.style.background;
+        logEl.style.transition = 'background 0.3s';
+        logEl.style.background = 'var(--accent3-dim)';
+        setTimeout(() => { logEl.style.background = oldBg; }, 1500);
+      }
+    }
+
+    function revertHistory(targetIndex) {
+      if (targetIndex < 0 || targetIndex >= historyStack.length) return;
+      historyIndex = targetIndex;
+      for (let i = 0; i < changeLog.length; i++) {
+        changeLog[i].isUndone = (i >= historyIndex);
+      }
+      restoreState(historyStack[historyIndex]);
+      renderLog();
+      toast('상태가 변경되었습니다.', 'info');
+    }
+
+    function clearLog() {
+      changeLog = [];
+      if (historyIndex >= 0) {
+        historyStack = [historyStack[historyIndex]];
+        historyIndex = 0;
+      }
+      renderLog();
+      toast('로그가 초기화되었습니다.', 'info');
+    }
+
+    function toggleEnumLines() {
+      showEnumLines = !showEnumLines;
+      const btn = document.getElementById('enumToggleBtn');
+      if (showEnumLines) {
+        btn.textContent = '🔗 Enum 연결 ON';
+        btn.classList.remove('btn-danger');
+      } else {
+        btn.textContent = '⛔ Enum 연결 OFF';
+        btn.classList.add('btn-danger');
+      }
+      // enum 카드 즉시 show/hide (renderDiagram 없이 DOM 직접 조작)
+      document.querySelectorAll('.model-card').forEach(card => {
+        const name = card.dataset.name;
+        const isEnum = schema.enums.some(e => e.name === name);
+        if (isEnum) card.style.display = showEnumLines ? '' : 'none';
+      });
+      drawRels();
+    }
+
+    function restoreState(state) {
+      schema = parse(state.schemaStr);
+      modelPositions = JSON.parse(state.positions);
+      cardinalityMap = JSON.parse(state.cardinalities);
+      renderDiagram();
+      syncEditor();
+      if (document.getElementById('excelPanel').classList.contains('active')) renderExcelTable();
+    }
+
+    function exportLog() {
+      if (!changeLog.length) { toast('로그 없음', 'info'); return; }
+      dl(changeLog.map(e => `[${e.time}] ${e.action}${e.detail ? ' — ' + e.detail : ''}${e.isUndone ? ' (취소됨)' : ''}`).join('\n'), 'prisma-changelog.txt', 'text/plain');
+      toast('로그 다운로드', 'success');
+    }
+    function dl(c, n, t) { const a = document.createElement('a'); a.href = URL.createObjectURL(new Blob([c], { type: t })); a.download = n; a.click(); }
+
+    // === PARSER ===
+    function parse(text) {
+      const models = [], enums = [], lines = text.split('\n'); let cur = null, bd = 0;
+      for (const raw of lines) {
+        const tr = raw.trim();
+        if (tr.startsWith('//') && !cur) continue; if (!tr && !cur) continue;
+        if (/^(datasource|generator)\s+/.test(tr)) { cur = { type: '_s' }; bd = 0; if (tr.includes('{')) bd++; continue; }
+        if (cur && cur.type === '_s') { if (tr.includes('{')) bd++; if (tr.includes('}')) bd--; if (bd <= 0) cur = null; continue; }
+        const mm = tr.match(/^model\s+(\w+)\s*\{/); if (mm) { cur = { type: 'model', name: mm[1], fields: [], mapName: null, indexes: [] }; continue; }
+        const em = tr.match(/^enum\s+(\w+)\s*\{/); if (em) { cur = { type: 'enum', name: em[1], values: [] }; continue; }
+        if (tr === '}' && cur) { if (cur.type === 'model') models.push(cur); if (cur.type === 'enum') enums.push(cur); cur = null; continue; }
+        if (!cur) continue;
+        if (cur.type === 'enum') { if (tr && !tr.startsWith('//')) cur.values.push(tr); continue; }
+        if (cur.type === 'model') {
+          if (tr.match(/@@map\("(.+?)"\)/)) { cur.mapName = RegExp.$1; continue; }
+          if (tr.startsWith('@@')) { cur.indexes.push(tr); continue; }
+          if (tr.startsWith('//')) continue;
+          const fm = tr.match(/^(\w+)\s+(\S+)(.*)/); if (!fm) continue;
+          let fn = fm[1], ft = fm[2], rest = fm[3] || '';
+          const isOpt = ft.endsWith('?'), isArr = ft.endsWith('[]');
+          if (isOpt) ft = ft.slice(0, -1); if (isArr) ft = ft.slice(0, -2);
+          const attrs = []; const rx = /@(\w+)/g; let m;
+          while ((m = rx.exec(rest)) !== null) {
+            const nm = m[1]; const si = m.index + m[0].length;
+            if (rest[si] === '(') {
+              let dep = 1, j = si + 1, arg = '(';
+              while (j < rest.length && dep > 0) { if (rest[j] === '(') dep++; else if (rest[j] === ')') dep--; arg += rest[j]; j++; }
+              attrs.push({ name: nm, args: arg }); rx.lastIndex = j;
+            } else { attrs.push({ name: nm, args: '' }); }
+          }
+          const cm = rest.match(/\/\/\s*(.*)/);
+          cur.fields.push({ name: fn, type: ft, isOptional: isOpt, isArray: isArr, isId: attrs.some(a => a.name === 'id'), isUnique: attrs.some(a => a.name === 'unique'), attrs, hasRelation: attrs.some(a => a.name === 'relation'), defaultValue: (attrs.find(a => a.name === 'default') || {}).args || null, comment: cm ? cm[1] : '' });
+        }
+      }
+      return { models, enums };
+    }
+    function gen(s) {
+      let o = 'datasource db {\n  provider = "postgresql"\n}\n\ngenerator client {\n  provider = "prisma-client-js"\n}\n\n';
+      for (const e of s.enums) { o += `enum ${e.name} {\n`; for (const v of e.values) o += `  ${v}\n`; o += '}\n\n'; }
+      for (const m of s.models) { o += `model ${m.name} {\n`; for (const f of m.fields) { let l = `  ${f.name}`.padEnd(26); l += f.type + (f.isArray ? '[]' : '') + (f.isOptional ? '?' : ''); for (const a of f.attrs) l += ` @${a.name}${a.args}`; if (f.comment) l += ` // ${f.comment}`; o += l + '\n'; } for (const x of (m.indexes || [])) o += `\n  ${x}`; if (m.mapName) o += `\n  @@map("${m.mapName}")`; o += '\n}\n\n'; }
+      return o.trim() + '\n';
+    }
+
+    // === RELATIONS ===
+    function getRels() {
+      const rels = [], seen = new Set();
+      schema.models.forEach(model => {
+        model.fields.forEach(field => {
+          const tgt = schema.models.find(m => m.name === field.type);
+          if (!tgt || tgt.name === model.name) return;
+          const key = [model.name, tgt.name].sort().join('↔');
+          if (seen.has(key)) return; seen.add(key);
+          const rev = tgt.fields.find(f => f.type === model.name);
+          if (!cardinalityMap[key]) {
+            if (field.isArray && rev && rev.isArray) cardinalityMap[key] = 'M:N';
+            else if (field.isArray || (rev && !rev.isArray)) cardinalityMap[key] = '1:N';
+            else cardinalityMap[key] = '1:1';
+          }
+          rels.push({ from: model.name, to: tgt.name, key, cardinality: cardinalityMap[key], isEnum: false });
+        });
+        model.fields.forEach(field => {
+          const en = schema.enums.find(e => e.name === field.type); if (!en) return;
+          const key = model.name + '→' + en.name; if (seen.has(key)) return; seen.add(key);
+          rels.push({ from: model.name, to: en.name, key, cardinality: 'enum', isEnum: true });
+        });
+      });
+      return rels;
+    }
+
+    // === 관계 토글 ===
+    function cycleCard(fromName, toName, key) {
+      const order = ['1:1', '1:N', 'M:N'], cur = cardinalityMap[key] || '1:N';
+      const next = order[(order.indexOf(cur) + 1) % 3];
+      cardinalityMap[key] = next;
+
+      const m1 = schema.models.find(m => m.name === fromName);
+      const m2 = schema.models.find(m => m.name === toName);
+
+      if (m1 && m2) {
+        const f1 = m1.fields.find(f => f.type === toName);
+        const f2 = m2.fields.find(f => f.type === fromName);
+
+        if (f1 && f2) {
+          if (next === '1:1') {
+            f1.isArray = false; f1.isOptional = true;
+            f2.isArray = false; f2.isOptional = true;
+          } else if (next === '1:N') {
+            if (f1.hasRelation) {
+              f1.isArray = false; f1.isOptional = true;
+              f2.isArray = true; f2.isOptional = false;
+            } else {
+              f1.isArray = true; f1.isOptional = false;
+              f2.isArray = false; f2.isOptional = true;
+            }
+          } else if (next === 'M:N') {
+            f1.isArray = true; f1.isOptional = false;
+            f2.isArray = true; f2.isOptional = false;
+          }
+        }
+      }
+
+      addLog('relation', `관계 변경: ${fromName} ↔ ${toName}`, `${cur} → ${next}`);
+      renderDiagram();
+      syncEditor();
+    }
+
+    // === GRID AUTO LAYOUT ===
+    function autoLayout() {
+      const CX = 5000, CY = 5000;
+      const CARD_W = 290, CARD_H = 330;
+      const GX = 110, GY = 90;   // 카드 간 여백
+
+      // ── 배치 그룹 정의 ──────────────────────────────────────
+      // User 축 (위쪽 방사형)
+      const USER_AXIS = 'User';
+      const USER_ROW1 = ['Session', 'Account', 'DocumentRequest'];   // User 바로 위 1열
+      const USER_ROW2 = ['Post', 'DocumentPayload'];                  // 2열
+      const USER_ROW3 = ['Tag'];                                       // 3열
+      // Verification 계열 — User 왼쪽 상단
+      const USER_SIDE = ['Verification', 'VerifiedEmail'];
+
+      // Business 축 (아래쪽 방사형)
+      const BIZ_AXIS = 'Business';
+      const BIZ_ROW1 = ['BusinessDocumentProfile', 'ProcessFlow', 'WasteDocumentation'];
+      const BIZ_ROW2 = ['ControlFacility', 'ProductionFacility', 'WasteTargetItem', 'WasteStorageFacility'];
+      const BIZ_ROW3 = ['WasteFacility'];
+      // 독립 모델 — Business 오른쪽 하단
+      const BIZ_SIDE = ['ExecutiveOfficer', 'Vehicle', 'Office'];
+
+      // Enum 분류
+      const ENUM_USER = ['UserRole', 'UserType', 'Provider', 'DocumentType', 'DocumentRequestStatus'];
+      const ENUM_BIZ = ['WasteIndustryType', 'ProfileScope', 'ChangeType', 'BottomShape'];
+
+      // ── 헬퍼: 존재하는 노드만 필터 ─────────────────────────
+      const modelNames = new Set(schema.models.map(m => m.name));
+      const enumNames = new Set(schema.enums.map(e => e.name));
+      const f = (arr, set) => arr.filter(n => set.has(n));
+      const fm = arr => f(arr, modelNames);
+      const fe = arr => f(arr, enumNames);
+
+      // ── 헬퍼: 행(row) 배치 — items를 가로로 중앙 정렬 ─────
+      function placeRow(items, centerX, centerY) {
+        if (!items.length) return;
+        const totalW = items.length * (CARD_W + GX) - GX;
+        items.forEach((name, i) => {
+          const x = centerX - totalW / 2 + i * (CARD_W + GX);
+          modelPositions[name] = { x: Math.round(x), y: Math.round(centerY) };
+        });
+      }
+
+      // ── 헬퍼: 열(col) 배치 — items를 세로로 ───────────────
+      function placeCol(items, centerX, centerY) {
+        if (!items.length) return;
+        const totalH = items.length * (CARD_H + GY) - GY;
+        items.forEach((name, i) => {
+          const y = centerY - totalH / 2 + i * (CARD_H + GY);
+          modelPositions[name] = { x: Math.round(centerX), y: Math.round(y) };
+        });
+      }
+
+      const SW = CARD_W + GX;   // 슬롯 너비
+      const SH = CARD_H + GY;   // 슬롯 높이
+
+      // ── 1. User / Business 중심축 (세로) ────────────────────
+      //   CY - SH*1.2 = User,   CY + SH*1.2 = Business
+      const userY = CY - SH * 1.2;
+      const bizY = CY + SH * 1.2;
+
+      if (modelNames.has('User'))
+        modelPositions['User'] = { x: CX, y: Math.round(userY) };
+      if (modelNames.has('Business'))
+        modelPositions['Business'] = { x: CX, y: Math.round(bizY) };
+
+      // ── 2. User 위쪽 방사형 ─────────────────────────────────
+      const uRow1 = fm(USER_ROW1);
+      const uRow2 = fm(USER_ROW2);
+      const uRow3 = fm(USER_ROW3);
+
+      placeRow(uRow1, CX, userY - SH * 1.1);
+      placeRow(uRow2, CX, userY - SH * 2.2);
+      placeRow(uRow3, CX, userY - SH * 3.3);
+
+      // User 왼쪽 사이드 (Verification 계열)
+      const uSide = fm(USER_SIDE);
+      placeCol(uSide, CX - SW * (Math.max(uRow1.length, 1) / 2 + 1.5), userY - SH * 0.5);
+
+      // ── 3. Business 아래쪽 방사형 ───────────────────────────
+      const bRow1 = fm(BIZ_ROW1);
+      const bRow2 = fm(BIZ_ROW2);
+      const bRow3 = fm(BIZ_ROW3);
+
+      placeRow(bRow1, CX, bizY + SH * 1.1);
+      placeRow(bRow2, CX, bizY + SH * 2.2);
+      placeRow(bRow3, CX, bizY + SH * 3.3);
+
+      // Business 오른쪽 사이드 (독립 모델)
+      const bSide = fm(BIZ_SIDE);
+      placeCol(bSide, CX + SW * (Math.max(bRow1.length, 1) / 2 + 1.5), bizY + SH * 0.5);
+
+      // ── 4. 미분류 모델 처리 (새로 추가된 모델 등) ───────────
+      const placed = new Set(Object.keys(modelPositions));
+      const unplaced = schema.models.filter(m => !placed.has(m.name));
+      if (unplaced.length) {
+        placeRow(unplaced.map(m => m.name), CX, bizY + SH * 4.5);
+      }
+
+      // ── 5. Enum 배치 ─────────────────────────────────────────
+      // User 관련 enum → User 오른쪽 상단에 세로 배열
+      // Biz 관련 enum  → Business 왼쪽 하단에 세로 배열
+      const euList = fe(ENUM_USER);
+      const ebList = fe(ENUM_BIZ);
+
+      // 미분류 enum
+      const allEnumPlaced = new Set([...euList, ...ebList]);
+      const euExtra = schema.enums.filter(e => !allEnumPlaced.has(e.name)).map(e => e.name);
+
+      // User enum: 오른쪽 (CX + 넓은 offset), userY 근처 세로
+      const euX = CX + SW * (Math.max(uRow1.length, 1) / 2 + 1.8);
+      placeCol([...euList, ...euExtra], euX, userY - SH * 0.3);
+
+      // Biz enum: 왼쪽, bizY 근처 세로
+      const ebX = CX - SW * (Math.max(bRow1.length, 1) / 2 + 1.8);
+      placeCol(ebList, ebX, bizY + SH * 0.5);
+
+      // ── 6. 겹침 해소 (nudge) ─────────────────────────────────
+      const allNames = [
+        ...schema.models.map(m => m.name),
+        ...schema.enums.map(e => e.name),
+      ];
+      for (let iter = 0; iter < 50; iter++) {
+        let moved = false;
+        for (let i = 0; i < allNames.length; i++) {
+          for (let j = i + 1; j < allNames.length; j++) {
+            const a = modelPositions[allNames[i]];
+            const b = modelPositions[allNames[j]];
+            if (!a || !b) continue;
+            const dx = b.x - a.x, dy = b.y - a.y;
+            const ox = (CARD_W + GX * 0.8) - Math.abs(dx);
+            const oy = (CARD_H + GY * 0.8) - Math.abs(dy);
+            if (ox > 0 && oy > 0) {
+              if (ox < oy) {
+                const p = ox / 2 + 6;
+                if (dx >= 0) { a.x -= p; b.x += p; } else { a.x += p; b.x -= p; }
+              } else {
+                const p = oy / 2 + 6;
+                if (dy >= 0) { a.y -= p; b.y += p; } else { a.y += p; b.y -= p; }
+              }
+              moved = true;
+            }
+          }
+        }
+        if (!moved) break;
+      }
+
+      // 정수화
+      allNames.forEach(n => {
+        if (modelPositions[n]) {
+          modelPositions[n].x = Math.round(modelPositions[n].x);
+          modelPositions[n].y = Math.round(modelPositions[n].y);
+        }
+      });
+
+      renderDiagram();
+      setTimeout(zoomFit, 150);
+      addLog('schema', '✨ User·Business 중심축 방사형 배치');
+      toast('배치 완료', 'success');
+    }
+
+    // === RENDER ===
+    function renderDiagram() {
+      const canvas = document.getElementById('canvas'); canvas.innerHTML = '';
+
+      // 마커를 위한 최신 변경사항 추적
+      window.recentChangesMap = {};
+      for (let i = changeLog.length - 1; i >= 0; i--) {
+        const e = changeLog[i];
+        if (!e || e.isUndone) continue;
+        const key = getLogTarget(e);
+        if (key && window.recentChangesMap[key] === undefined) window.recentChangesMap[key] = i;
+      }
+
+      const all = [...schema.models.map(m => ({ ...m, kind: 'model' })), ...schema.enums.map(e => ({ ...e, kind: 'enum' }))];
+      all.forEach((item, i) => { if (!modelPositions[item.name]) { const c = Math.ceil(Math.sqrt(all.length)); modelPositions[item.name] = { x: 60 + (i % c) * 360, y: 60 + Math.floor(i / c) * 420 }; } });
+
+      all.forEach(item => {
+        const card = document.createElement('div');
+        card.className = 'model-card'; card.dataset.name = item.name;
+        const p = modelPositions[item.name]; card.style.left = p.x + 'px'; card.style.top = p.y + 'px';
+        if (item.kind === 'enum' && !showEnumLines) { card.style.display = 'none'; }
+
+        const hdr = document.createElement('div'); hdr.className = `mc-header ${item.kind}`;
+
+        let modelMarker = '';
+        const mKey = 'model:' + item.name;
+        if (window.recentChangesMap[mKey] !== undefined) {
+          modelMarker = `<div class="change-marker" style="margin-right:6px;" onclick="scrollToLog(event, ${window.recentChangesMap[mKey]})" title="변경 로그 포커스"></div>`;
+        }
+        hdr.innerHTML = `<span>${item.name}</span><div style="display:flex;align-items:center">${modelMarker}<span class="badge">${item.kind.toUpperCase()}</span></div>`;
+        card.appendChild(hdr);
+
+        const body = document.createElement('div'); body.className = 'mc-body';
+        if (item.kind === 'model') {
+          item.fields.forEach(f => {
+            const row = document.createElement('div'); row.className = 'field-row';
+            const ic = f.isId ? '<span class="fi pk">🔑</span>' : f.hasRelation || schema.models.some(m => m.name === f.type) ? '<span class="fi rel">🔗</span>' : '<span class="fi em"></span>';
+
+            let fieldMarker = '';
+            const fKey = 'field:' + item.name + '.' + f.name;
+            if (window.recentChangesMap[fKey] !== undefined) {
+              fieldMarker = `<div class="change-marker" style="margin-right:6px; width:8px; height:8px;" onclick="scrollToLog(event, ${window.recentChangesMap[fKey]})" title="변경 로그 포커스"></div>`;
+            }
+
+            row.innerHTML = `${fieldMarker}${ic}<span class="field-name">${f.name}</span><span class="field-type">${f.type + (f.isArray ? '[]' : '') + (f.isOptional ? '?' : '')}</span>`;
+            row.addEventListener('dblclick', e => { e.stopPropagation(); openFieldEditor(item.name, f.name); });
+            body.appendChild(row);
+          });
+        } else { item.values.forEach(v => { const d = document.createElement('div'); d.className = 'enum-val'; d.textContent = v; body.appendChild(d); }); }
+        card.appendChild(body);
+
+        hdr.addEventListener('mousedown', e => { if (e.button !== 0) return; e.preventDefault(); draggingCard = card; card.classList.add('dragging'); dragOffsetX = (e.clientX - card.getBoundingClientRect().left) / zoom; dragOffsetY = (e.clientY - card.getBoundingClientRect().top) / zoom; });
+        card.addEventListener('contextmenu', e => { e.preventDefault(); ctxTarget = item.name; const m = document.getElementById('contextMenu'); m.style.left = e.clientX + 'px'; m.style.top = e.clientY + 'px'; m.classList.add('show'); });
+        canvas.appendChild(card);
+      });
+
+      requestAnimationFrame(() => {
+        document.querySelectorAll('.model-card').forEach(c => { cardSizes[c.dataset.name] = { w: c.offsetWidth, h: c.offsetHeight }; });
+        drawRels();
+      });
+      updateStats(); updateTransform();
+    }
+
+    // === DRAW RELATIONS ===
+    function drawRels() {
+      const svg = document.getElementById('svgOverlay'); svg.innerHTML = '';
+      getRels().forEach(rel => {
+        if (rel.isEnum && !showEnumLines) return;
+        const fp = modelPositions[rel.from], tp = modelPositions[rel.to];
+        const fs = cardSizes[rel.from], ts = cardSizes[rel.to];
+        if (!fp || !tp || !fs || !ts) return;
+
+        const fRect = { l: fp.x, t: fp.y, r: fp.x + fs.w, b: fp.y + fs.h };
+        const tRect = { l: tp.x, t: tp.y, r: tp.x + ts.w, b: tp.y + ts.h };
+
+        const fcx = (fRect.l + fRect.r) / 2, fcy = (fRect.t + fRect.b) / 2;
+        const tcx = (tRect.l + tRect.r) / 2, tcy = (tRect.t + tRect.b) / 2;
+
+        const fromPt = getEdgePoint(fRect, tcx, tcy);
+        const toPt = getEdgePoint(tRect, fcx, fcy);
+
+        const x1 = fromPt.x, y1 = fromPt.y, x2 = toPt.x, y2 = toPt.y;
+
+        let cp1x, cp1y, cp2x, cp2y;
+        const dist = Math.hypot(x2 - x1, y2 - y1);
+        const tension = Math.min(dist * 0.4, 120);
+
+        if (fromPt.side === 'left' || fromPt.side === 'right') {
+          cp1x = x1 + (fromPt.side === 'right' ? tension : -tension); cp1y = y1;
+        } else {
+          cp1x = x1; cp1y = y1 + (fromPt.side === 'bottom' ? tension : -tension);
+        }
+        if (toPt.side === 'left' || toPt.side === 'right') {
+          cp2x = x2 + (toPt.side === 'right' ? tension : -tension); cp2y = y2;
+        } else {
+          cp2x = x2; cp2y = y2 + (toPt.side === 'bottom' ? tension : -tension);
+        }
+
+        const d = `M${x1},${y1} C${cp1x},${cp1y} ${cp2x},${cp2y} ${x2},${y2}`;
+        const col = rel.isEnum ? '#8b5cf6' : '#94a3b8';
+        const colAccent = rel.isEnum ? '#7c3aed' : '#64748b';
+
+        svg.appendChild(mkSVG('path', { d, fill: 'none', stroke: col, 'stroke-width': '6', opacity: '0.08' }));
+        svg.appendChild(mkSVG('path', { d, fill: 'none', stroke: col, 'stroke-width': '2', 'stroke-dasharray': rel.isEnum ? '6,4' : 'none', opacity: '0.6' }));
+
+        [{ x: x1, y: y1 }, { x: x2, y: y2 }].forEach(pt => {
+          svg.appendChild(mkSVG('circle', { cx: pt.x, cy: pt.y, r: '4', fill: colAccent, opacity: '0.8' }));
+        });
+
+        const bmx = 0.125 * x1 + 0.375 * cp1x + 0.375 * cp2x + 0.125 * x2;
+        const bmy = 0.125 * y1 + 0.375 * cp1y + 0.375 * cp2y + 0.125 * y2;
+
+        const bw = rel.isEnum ? 48 : 44, bh = 24;
+        const g = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+        g.setAttribute('class', 'card-box');
+        if (!rel.isEnum) { g.style.cursor = 'pointer'; g.addEventListener('click', () => cycleCard(rel.from, rel.to, rel.key)); }
+
+        g.appendChild(mkSVG('rect', { x: bmx - bw / 2, y: bmy - bh / 2, width: bw, height: bh, rx: '7', fill: '#ffffff', stroke: colAccent, 'stroke-width': '1.5' }));
+        g.appendChild(mkSVG('text', { x: bmx, y: bmy + 1, 'text-anchor': 'middle', 'dominant-baseline': 'central', fill: colAccent, 'font-size': '11', 'font-weight': '700', 'font-family': 'JetBrains Mono, monospace' }, rel.isEnum ? 'enum' : rel.cardinality));
+        if (!rel.isEnum) { const ti = document.createElementNS('http://www.w3.org/2000/svg', 'title'); ti.textContent = '클릭: 1:1 → 1:N → M:N'; g.appendChild(ti); }
+        svg.appendChild(g);
+
+        const delX = bmx + bw / 2 + 14;
+        const delY = bmy;
+        const delBtn = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+        delBtn.style.cursor = 'pointer';
+
+        delBtn.addEventListener('mouseenter', () => delBtn.firstChild.setAttribute('fill', '#fecaca'));
+        delBtn.addEventListener('mouseleave', () => delBtn.firstChild.setAttribute('fill', '#fee2e2'));
+
+        delBtn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          if (confirm(`[${rel.from} ↔ ${rel.to}] 연결을 완전히 끊으시겠습니까?\n(스키마에서도 관련 필드가 삭제됩니다)`)) {
+            deleteRelation(rel.from, rel.to, rel.isEnum);
+          }
+        });
+
+        delBtn.appendChild(mkSVG('circle', { cx: delX, cy: delY, r: '8', fill: '#fee2e2', stroke: '#dc2626', 'stroke-width': '1.2' }));
+        delBtn.appendChild(mkSVG('line', { x1: delX - 3, y1: delY - 3, x2: delX + 3, y2: delY + 3, stroke: '#dc2626', 'stroke-width': '2', 'stroke-linecap': 'round' }));
+        delBtn.appendChild(mkSVG('line', { x1: delX + 3, y1: delY - 3, x2: delX - 3, y2: delY + 3, stroke: '#dc2626', 'stroke-width': '2', 'stroke-linecap': 'round' }));
+
+        const delTi = document.createElementNS('http://www.w3.org/2000/svg', 'title');
+        delTi.textContent = '연결 완전히 끊기';
+        delBtn.appendChild(delTi);
+        svg.appendChild(delBtn);
+
+        // 관계 변경 마커 (초록색 맥박)
+        const rKey = 'relation:' + rel.key;
+        if (window.recentChangesMap && window.recentChangesMap[rKey] !== undefined) {
+          const idx = window.recentChangesMap[rKey];
+          const marker = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+          marker.setAttribute('cx', bmx - bw / 2 + 2);
+          marker.setAttribute('cy', bmy - bh / 2 + 2);
+          marker.setAttribute('r', '5');
+          marker.setAttribute('fill', 'var(--success)');
+          marker.setAttribute('stroke', '#fff');
+          marker.setAttribute('stroke-width', '1.5');
+          marker.style.cursor = 'pointer';
+
+          marker.innerHTML = `<animate attributeName="r" values="4;7;4" dur="1.5s" repeatCount="indefinite" />
+                          <animate attributeName="opacity" values="1;0.4;1" dur="1.5s" repeatCount="indefinite" />`;
+
+          marker.addEventListener('click', (e) => {
+            e.stopPropagation();
+            scrollToLog(e, idx);
+          });
+          const mTi = document.createElementNS('http://www.w3.org/2000/svg', 'title');
+          mTi.textContent = '클릭하여 변경 로그 확인';
+          marker.appendChild(mTi);
+          g.appendChild(marker);
+        }
+
+      });
+    }
+
+    function getEdgePoint(rect, tx, ty) {
+      const cx = (rect.l + rect.r) / 2, cy = (rect.t + rect.b) / 2;
+      const dx = tx - cx, dy = ty - cy;
+      const hw = (rect.r - rect.l) / 2, hh = (rect.b - rect.t) / 2;
+
+      if (dx === 0 && dy === 0) return { x: rect.r, y: cy, side: 'right' };
+
+      const absDx = Math.abs(dx), absDy = Math.abs(dy);
+
+      if (absDx * hh > absDy * hw) {
+        if (dx > 0) return { x: rect.r, y: cy + (dy / dx) * hw, side: 'right' };
+        else return { x: rect.l, y: cy - (dy / dx) * hw, side: 'left' };
+      } else {
+        if (dy > 0) return { x: cx + (dx / dy) * hh, y: rect.b, side: 'bottom' };
+        else return { x: cx - (dx / dy) * hh, y: rect.t, side: 'top' };
+      }
+    }
+
+    function mkSVG(tag, attrs, text) { const el = document.createElementNS('http://www.w3.org/2000/svg', tag); Object.entries(attrs).forEach(([k, v]) => el.setAttribute(k, String(v))); if (text) el.textContent = text; return el; }
+
+    function updateTransform() {
+      const t = `translate(${panX}px,${panY}px) scale(${zoom})`;
+      document.getElementById('canvasRoot').style.transform = t;
+      document.getElementById('zoomLevel').textContent = Math.round(zoom * 100) + '%';
+    }
+    function updateStats() {
+      document.getElementById('statsModels').textContent = `Models: ${schema.models.length}`;
+      document.getElementById('statsEnums').textContent = `Enums: ${schema.enums.length}`;
+      document.getElementById('statsRelations').textContent = `Relations: ${getRels().filter(r => !r.isEnum).length}`;
+    }
+
+    const wrapper = document.getElementById('canvasWrapper');
+    wrapper.addEventListener('wheel', e => { e.preventDefault(); const d = e.deltaY > 0 ? -0.1 : 0.1; const nz = Math.max(.15, Math.min(3, zoom + d)); const r = wrapper.getBoundingClientRect(); const mx = e.clientX - r.left, my = e.clientY - r.top; panX = mx - (mx - panX) * (nz / zoom); panY = my - (my - panY) * (nz / zoom); zoom = nz; updateTransform(); }, { passive: false });
+    wrapper.addEventListener('mousedown', e => { if (e.target === wrapper || e.target.classList.contains('canvas-grid')) { if (e.button === 0) { isDraggingCanvas = true; dragStartX = e.clientX - panX; dragStartY = e.clientY - panY; wrapper.style.cursor = 'grabbing'; } } });
+    document.addEventListener('mousemove', e => {
+      if (isDraggingCanvas) { panX = e.clientX - dragStartX; panY = e.clientY - dragStartY; updateTransform(); }
+      if (draggingCard) {
+        const r = wrapper.getBoundingClientRect(); const x = (e.clientX - r.left - panX) / zoom - dragOffsetX, y = (e.clientY - r.top - panY) / zoom - dragOffsetY; const n = draggingCard.dataset.name; modelPositions[n] = { x: Math.round(x), y: Math.round(y) }; draggingCard.style.left = Math.round(x) + 'px'; draggingCard.style.top = Math.round(y) + 'px';
+        cardSizes[n] = { w: draggingCard.offsetWidth, h: draggingCard.offsetHeight };
+        drawRels();
+      }
+    });
+    document.addEventListener('mouseup', () => {
+      isDraggingCanvas = false; wrapper.style.cursor = '';
+      if (draggingCard) {
+        const n = draggingCard.dataset.name;
+        const p = modelPositions[n];
+        if (p) addLog('model', `위치 이동: ${n}`, `x:${p.x}, y:${p.y}`);
+        draggingCard.classList.remove('dragging'); draggingCard = null;
+      }
+    });
+    document.addEventListener('click', () => document.getElementById('contextMenu').classList.remove('show'));
+    function zoomIn() { zoom = Math.min(3, zoom + .15); updateTransform(); }
+    function zoomOut() { zoom = Math.max(.15, zoom - .15); updateTransform(); }
+    function zoomFit() {
+      const ns = [...schema.models.map(m => m.name), ...schema.enums.map(e => e.name)]; if (!ns.length) return;
+      let minX = 1e9, minY = 1e9, maxX = -1e9, maxY = -1e9;
+      ns.forEach(n => { const p = modelPositions[n], s = cardSizes[n] || { w: 280, h: 300 }; if (!p) return; minX = Math.min(minX, p.x); minY = Math.min(minY, p.y); maxX = Math.max(maxX, p.x + s.w); maxY = Math.max(maxY, p.y + s.h); });
+      const r = wrapper.getBoundingClientRect(), w = maxX - minX + 100, h = maxY - minY + 100;
+      zoom = Math.min(r.width / w, r.height / h, 1.2); panX = (r.width - w * zoom) / 2 - minX * zoom; panY = (r.height - h * zoom) / 2 - minY * zoom; updateTransform();
+    }
+
+    function ctxAddField() { if (ctxTarget) openFieldEditor(ctxTarget, null); }
+    function ctxEditModel() {
+      if (!ctxTarget) return; const nn = prompt('새 이름:', ctxTarget); if (!nn || nn === ctxTarget) return;
+      const old = ctxTarget;
+      const m = schema.models.find(x => x.name === old), en = schema.enums.find(x => x.name === old);
+      if (m) { schema.models.forEach(x => x.fields.forEach(f => { if (f.type === old) f.type = nn; })); m.name = nn; }
+      else if (en) { schema.models.forEach(x => x.fields.forEach(f => { if (f.type === old) f.type = nn; })); en.name = nn; }
+      modelPositions[nn] = modelPositions[old]; delete modelPositions[old];
+      cardSizes[nn] = cardSizes[old]; delete cardSizes[old];
+      const nm = {}; Object.entries(cardinalityMap).forEach(([k, v]) => { nm[k.replaceAll(old, nn)] = v; }); cardinalityMap = nm;
+      addLog('model', '이름 변경', `${old} → ${nn}`); renderDiagram(); syncEditor();
+    }
+    function ctxDeleteModel() {
+      if (!ctxTarget || !confirm(`"${ctxTarget}" 삭제?`)) return; const old = ctxTarget;
+      schema.models = schema.models.filter(m => m.name !== old); schema.enums = schema.enums.filter(e => e.name !== old);
+      schema.models.forEach(m => { m.fields = m.fields.filter(f => f.type !== old); });
+      delete modelPositions[old]; delete cardSizes[old];
+      addLog('model', `삭제: ${old}`); renderDiagram(); syncEditor();
+    }
+
+    function deleteRelation(fromName, toName, isEnum) {
+      const fromModel = schema.models.find(m => m.name === fromName);
+      if (fromModel) {
+        fromModel.fields = fromModel.fields.filter(f => f.type !== toName);
+      }
+      if (!isEnum) {
+        const toModel = schema.models.find(m => m.name === toName);
+        if (toModel) {
+          toModel.fields = toModel.fields.filter(f => f.type !== fromName);
+        }
+      }
+      addLog('relation', `연결 끊기: ${fromName} ↔ ${toName}`);
+      renderDiagram();
+      syncEditor();
+      toast('연결이 삭제되었습니다.', 'success');
+    }
+
+    function ctxAddRelation() {
+      if (!ctxTarget) return;
+      const select = document.getElementById('relationTargetSelect');
+      select.innerHTML = '';
+      const options = [
+        ...schema.models.map(m => m.name),
+        ...schema.enums.map(e => e.name)
+      ].filter(name => name !== ctxTarget);
+
+      if (options.length === 0) {
+        toast('연결할 대상이 없습니다.', 'error');
+        return;
+      }
+      options.forEach(opt => {
+        const el = document.createElement('option');
+        el.value = opt;
+        el.textContent = opt;
+        select.appendChild(el);
+      });
+      document.getElementById('contextMenu').classList.remove('show');
+      document.getElementById('relationModal').classList.add('show');
+    }
+
+    function closeRelationModal() {
+      document.getElementById('relationModal').classList.remove('show');
+    }
+
+    function confirmRelation() {
+      const targetName = document.getElementById('relationTargetSelect').value;
+      if (!targetName || !ctxTarget) return;
+
+      const sourceModel = schema.models.find(m => m.name === ctxTarget);
+      const targetModel = schema.models.find(m => m.name === targetName);
+      const targetEnum = schema.enums.find(e => e.name === targetName);
+
+      if (!sourceModel) return;
+
+      const tf = targetName.charAt(0).toLowerCase() + targetName.slice(1);
+
+      if (targetEnum) {
+        sourceModel.fields.push({ name: tf + 'Value', type: targetName, isOptional: true, isArray: false, isId: false, isUnique: false, attrs: [], hasRelation: false, defaultValue: null, comment: '' });
+      } else {
+        if (sourceModel.fields.some(f => f.type === targetName)) {
+          toast('이미 연결된 대상입니다.', 'info');
+          closeRelationModal();
+          return;
+        }
+        sourceModel.fields.push({ name: tf, type: targetName, isOptional: true, isArray: false, isId: false, isUnique: false, attrs: [{ name: 'relation', args: `(fields: [${tf}Id], references: [id])` }], hasRelation: true, defaultValue: null, comment: '' });
+        sourceModel.fields.push({ name: tf + 'Id', type: 'String', isOptional: true, isArray: false, isId: false, isUnique: false, attrs: [], hasRelation: false, defaultValue: null, comment: '' });
+
+        const sf = ctxTarget.charAt(0).toLowerCase() + ctxTarget.slice(1) + 's';
+        if (!targetModel.fields.some(f => f.name === sf)) {
+          targetModel.fields.push({ name: sf, type: ctxTarget, isOptional: false, isArray: true, isId: false, isUnique: false, attrs: [], hasRelation: false, defaultValue: null, comment: '' });
+        }
+      }
+
+      addLog('relation', `연결선 생성: ${ctxTarget} → ${targetName}`);
+      closeRelationModal();
+      renderDiagram();
+      syncEditor();
+      toast('새로운 연결이 생성되었습니다.', 'success');
+    }
+
+
+    function openFieldEditor(mn, fn) {
+      const model = schema.models.find(m => m.name === mn); if (!model) return;
+      const field = fn ? model.fields.find(f => f.name === fn) : null;
+      editingField = { modelName: mn, fieldName: fn, isNew: !field };
+      document.getElementById('fieldModalTitle').textContent = field ? `${mn}.${fn}` : `새 필드: ${mn}`;
+      document.getElementById('fieldDeleteBtn').style.display = field ? '' : 'none';
+      const types = ['String', 'Int', 'Float', 'Boolean', 'DateTime', 'Json', 'BigInt', 'Decimal', 'Bytes', ...schema.models.map(m => m.name), ...schema.enums.map(e => e.name)];
+      document.getElementById('fieldModalBody').innerHTML = `
+    <div class="form-group"><label>필드 이름</label><input id="fN" value="${field ? field.name : ''}"></div>
+    <div class="form-group"><label>타입</label><select id="fT">${types.map(t => `<option value="${t}"${field && field.type === t ? ' selected' : ''}>${t}</option>`).join('')}</select></div>
+    <div class="form-group" style="display:flex;gap:20px;flex-wrap:wrap">
+      <label style="display:flex;align-items:center;gap:5px;cursor:pointer;font-size:13px"><input type="checkbox" id="fO"${field && field.isOptional ? ' checked' : ''}> Optional</label>
+      <label style="display:flex;align-items:center;gap:5px;cursor:pointer;font-size:13px"><input type="checkbox" id="fA"${field && field.isArray ? ' checked' : ''}> Array</label>
+      <label style="display:flex;align-items:center;gap:5px;cursor:pointer;font-size:13px"><input type="checkbox" id="fU"${field && field.isUnique ? ' checked' : ''}> @unique</label>
+      <label style="display:flex;align-items:center;gap:5px;cursor:pointer;font-size:13px"><input type="checkbox" id="fI"${field && field.isId ? ' checked' : ''}> @id</label>
+    </div>
+    <div class="form-group"><label>기본값</label><input id="fD" value="${field && field.defaultValue ? field.defaultValue.replace(/^\(|\)$/g, '') : ''}"></div>
+    <div class="form-group"><label>코멘트</label><input id="fC" value="${field ? field.comment || '' : ''}"></div>`;
+      document.getElementById('fieldModal').classList.add('show');
+    }
+    function closeFieldModal() { document.getElementById('fieldModal').classList.remove('show'); editingField = null; }
+    function saveField() {
+      if (!editingField) return; const model = schema.models.find(m => m.name === editingField.modelName); if (!model) return;
+      const name = document.getElementById('fN').value.trim(); if (!name) { toast('이름 필요', 'error'); return; }
+      const type = document.getElementById('fT').value, isOpt = document.getElementById('fO').checked, isArr = document.getElementById('fA').checked, isUni = document.getElementById('fU').checked, isId = document.getElementById('fI').checked;
+      const def = document.getElementById('fD').value.trim(), com = document.getElementById('fC').value.trim();
+      const defArgs = def ? (def.startsWith('(') ? def : `(${def})`) : null;
+      const attrs = []; if (isId) attrs.push({ name: 'id', args: '' }); if (isUni) attrs.push({ name: 'unique', args: '' }); if (defArgs) attrs.push({ name: 'default', args: defArgs });
+      const fd = { name, type, isOptional: isOpt, isArray: isArr, isId, isUnique: isUni, attrs, hasRelation: schema.models.some(m => m.name === type), defaultValue: defArgs, comment: com };
+      if (editingField.isNew) { model.fields.push(fd); addLog('field', `필드 추가: ${editingField.modelName}.${name}`, type); }
+      else { const i = model.fields.findIndex(f => f.name === editingField.fieldName); if (i >= 0) model.fields[i] = fd; addLog('field', `필드 수정: ${editingField.modelName}.${name}`, type); }
+      closeFieldModal(); renderDiagram(); syncEditor();
+    }
+    function deleteField() {
+      if (!editingField || editingField.isNew) return; const model = schema.models.find(m => m.name === editingField.modelName); if (!model) return;
+      model.fields = model.fields.filter(f => f.name !== editingField.fieldName);
+      addLog('field', `필드 삭제: ${editingField.modelName}.${editingField.fieldName}`);
+      closeFieldModal(); renderDiagram(); syncEditor();
+    }
+    function addNewModel() {
+      const name = prompt('모델 이름:'); if (!name) return;
+      if (schema.models.some(m => m.name === name) || schema.enums.some(e => e.name === name)) { toast('중복', 'error'); return; }
+      schema.models.push({
+        name, mapName: null, indexes: [], fields: [
+          { name: 'id', type: 'String', isOptional: false, isArray: false, isId: true, isUnique: false, attrs: [{ name: 'id', args: '' }, { name: 'default', args: '(cuid())' }], hasRelation: false, defaultValue: '(cuid())', comment: '' },
+          { name: 'createdAt', type: 'DateTime', isOptional: false, isArray: false, isId: false, isUnique: false, attrs: [{ name: 'default', args: '(now())' }], hasRelation: false, defaultValue: '(now())', comment: '' },
+          { name: 'updatedAt', type: 'DateTime', isOptional: false, isArray: false, isId: false, isUnique: false, attrs: [{ name: 'updatedAt', args: '' }], hasRelation: false, defaultValue: null, comment: '' }
+        ]
+      }); addLog('model', `모델 추가: ${name}`); renderDiagram(); syncEditor();
+    }
+    function addNewEnum() {
+      const name = prompt('Enum 이름:'); if (!name) return;
+      const vals = prompt('값 (쉼표 구분):', 'VAL1, VAL2'); if (!vals) return;
+      schema.enums.push({ name, values: vals.split(',').map(v => v.trim()).filter(Boolean) });
+      addLog('model', `Enum 추가: ${name}`); renderDiagram(); syncEditor();
+    }
+
+    document.querySelectorAll('.nav-tab').forEach(tab => {
+      tab.addEventListener('click', () => {
+        document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active')); tab.classList.add('active');
+        const p = tab.dataset.panel; document.querySelectorAll('.panel').forEach(x => x.classList.remove('active'));
+        document.getElementById(p + 'Panel').classList.add('active');
+        if (p === 'editor') syncEditor(); if (p === 'excel') renderExcelSidebar(); if (p === 'diagram') renderDiagram(); if (p === 'ui') { renderUiSidebar(); renderUiTable(); }
+        if (p === 'todo') renderTodoList(); if (p === 'suggest') renderSuggestList();
+      });
+    });
+
+    function syncEditor() { document.getElementById('schemaEditor').value = gen(schema); }
+    function applyEditorChanges() { try { schema = parse(document.getElementById('schemaEditor').value); addLog('schema', '텍스트 편집 적용'); renderDiagram(); toast('적용', 'success'); } catch (e) { toast('오류', 'error'); } }
+
+    function renderExcelSidebar() {
+      const sb = document.getElementById('excelSidebar'); sb.innerHTML = '<div class="excel-sidebar-title">Models & Enums</div>';
+      schema.models.forEach(m => { const d = document.createElement('div'); d.className = 'excel-model-item' + (selectedExcelModel === m.name ? ' active' : ''); d.innerHTML = `<span class="dot md"></span>${m.name}`; d.onclick = () => { selectedExcelModel = m.name; renderExcelSidebar(); renderExcelTable(); }; sb.appendChild(d); });
+      schema.enums.forEach(e => { const d = document.createElement('div'); d.className = 'excel-model-item' + (selectedExcelModel === e.name ? ' active' : ''); d.innerHTML = `<span class="dot ed"></span>${e.name}`; d.onclick = () => { selectedExcelModel = e.name; renderExcelSidebar(); renderExcelTable(); }; sb.appendChild(d); });
+    }
+    function renderExcelTable() {
+      const wrap = document.getElementById('excelTableWrap'), model = schema.models.find(m => m.name === selectedExcelModel), en = schema.enums.find(e => e.name === selectedExcelModel);
+      document.getElementById('excelTitle').textContent = selectedExcelModel || '선택';
+      document.getElementById('excelAddFieldBtn').style.display = model ? '' : 'none';
+      document.getElementById('excelApplyBtn').style.display = model ? '' : 'none';
+      if (model) {
+        let h = '<table class="excel-table"><thead><tr><th>#</th><th>필드명</th><th>타입</th><th>Opt</th><th>Arr</th><th>PK</th><th>Uniq</th><th>기본값</th><th>코멘트</th><th></th></tr></thead><tbody>';
+        model.fields.forEach((f, i) => { h += `<tr><td style="color:var(--text-muted)">${i + 1}</td><td class="${f.isId ? 'cell-pk' : f.hasRelation ? 'cell-fk' : ''}" contenteditable="true" data-field="${f.name}" data-col="name">${f.name}</td><td class="cell-type" contenteditable="true" data-field="${f.name}" data-col="type">${f.type}</td><td style="text-align:center"><input type="checkbox"${f.isOptional ? ' checked' : ''} data-field="${f.name}" data-col="isOptional"></td><td style="text-align:center"><input type="checkbox"${f.isArray ? ' checked' : ''} data-field="${f.name}" data-col="isArray"></td><td style="text-align:center"><input type="checkbox"${f.isId ? ' checked' : ''} data-field="${f.name}" data-col="isId"></td><td style="text-align:center"><input type="checkbox"${f.isUnique ? ' checked' : ''} data-field="${f.name}" data-col="isUnique"></td><td contenteditable="true" data-field="${f.name}" data-col="default" style="color:var(--text-muted)">${f.defaultValue || ''}</td><td contenteditable="true" data-field="${f.name}" data-col="comment" style="color:var(--text-muted)">${f.comment || ''}</td><td><button class="btn btn-danger" style="padding:2px 8px;font-size:10px" onclick="excelDelF('${f.name}')">✕</button></td></tr>`; });
+        wrap.innerHTML = h + '</tbody></table>';
+      } else if (en) {
+        let h = '<table class="excel-table"><thead><tr><th>#</th><th>값</th><th></th></tr></thead><tbody>';
+        en.values.forEach((v, i) => { h += `<tr><td style="color:var(--text-muted)">${i + 1}</td><td contenteditable="true" class="cell-type" data-idx="${i}">${v}</td><td><button class="btn btn-danger" style="padding:2px 8px;font-size:10px" onclick="excelDelEV(${i})">✕</button></td></tr>`; });
+        wrap.innerHTML = h + '</tbody></table><div style="padding:12px"><button class="btn" onclick="excelAddEV()">+ 값</button></div>';
+      } else wrap.innerHTML = '<div style="padding:40px;text-align:center;color:var(--text-muted)">모델 선택</div>';
+    }
+    function excelAddField() { if (selectedExcelModel) openFieldEditor(selectedExcelModel, null); }
+    function excelDelF(fn) { const m = schema.models.find(x => x.name === selectedExcelModel); if (!m) return; m.fields = m.fields.filter(f => f.name !== fn); addLog('field', `삭제: ${selectedExcelModel}.${fn}`); renderExcelTable(); renderDiagram(); syncEditor(); }
+    function excelApply() {
+      const model = schema.models.find(m => m.name === selectedExcelModel); if (!model) return;
+      document.querySelectorAll('.excel-table tbody tr').forEach(row => {
+        const nc = row.querySelector('[data-col="name"]'); if (!nc) return;
+        const f = model.fields.find(x => x.name === nc.dataset.field); if (!f) return;
+        f.name = nc.textContent.trim(); f.type = row.querySelector('[data-col="type"]')?.textContent.trim() || f.type;
+        f.isOptional = row.querySelector('[data-col="isOptional"]')?.checked || false;
+        f.isArray = row.querySelector('[data-col="isArray"]')?.checked || false;
+        f.isId = row.querySelector('[data-col="isId"]')?.checked || false;
+        f.isUnique = row.querySelector('[data-col="isUnique"]')?.checked || false;
+        const rawDef = row.querySelector('[data-col="default"]')?.textContent.trim() || null;
+        f.defaultValue = rawDef ? (rawDef.startsWith('(') ? rawDef : `(${rawDef})`) : null;
+        f.comment = row.querySelector('[data-col="comment"]')?.textContent.trim() || '';
+        f.attrs = []; if (f.isId) f.attrs.push({ name: 'id', args: '' }); if (f.isUnique) f.attrs.push({ name: 'unique', args: '' });
+        if (f.defaultValue) f.attrs.push({ name: 'default', args: f.defaultValue });
+        f.hasRelation = schema.models.some(m => m.name === f.type);
+      });
+      addLog('schema', `Excel 적용: ${selectedExcelModel}`); renderExcelTable(); renderDiagram(); syncEditor(); toast('적용', 'success');
+    }
+    function excelDelEV(i) { const en = schema.enums.find(e => e.name === selectedExcelModel); if (!en) return; en.values.splice(i, 1); addLog('field', 'Enum 값 삭제'); renderExcelTable(); renderDiagram(); syncEditor(); }
+    function excelAddEV() { const en = schema.enums.find(e => e.name === selectedExcelModel); if (!en) return; const v = prompt('새 값:'); if (!v) return; en.values.push(v.trim()); addLog('field', `Enum 값 추가: ${v.trim()}`); renderExcelTable(); renderDiagram(); syncEditor(); }
+
+    // ==================== UI 관리 (필드 메타 테이블) ====================
+    // 헤더 관리: 사용자가 등록/삭제 가능, 콤보박스 옵션도 지정
+    let uiHeaders = [
+      { name: 'commentary', type: 'text', options: [] },
+      { name: 'id', type: 'text', options: [] },
+      { name: 'label', type: 'text', options: [] },
+      { name: 'variableType', type: 'text', options: [] },
+      { name: 'systemType', type: 'text', options: [] },
+      { name: 'isRequired', type: 'combo', options: ['true', 'false'] },
+      { name: 'defaultValue', type: 'text', options: [] },
+      { name: 'showNode', type: 'combo', options: ['true', 'false'] },
+      { name: 'showNodeDeatil', type: 'combo', options: ['true', 'false'] },
+      { name: 'initialCreation', type: 'combo', options: ['true', 'false'] },
+      { name: 'width', type: 'text', options: [] },
+      { name: 'comboboxName', type: 'text', options: [] },
+      { name: 'creationConditions', type: 'text', options: [] },
+      { name: 'fnTriggerEvent', type: 'text', options: [] },
+      { name: 'fnName', type: 'text', options: [] },
+      { name: 'fnInputParams', type: 'text', options: [] },
+      { name: 'fnOutputTarget', type: 'text', options: [] },
+      { name: 'fnSyncCondition', type: 'text', options: [] },
+      { name: 'dataSource', type: 'model', options: [] },
+    ];
+
+    // metaStore: { [modelName]: { [fieldName]: { [header]: value } } }
+    let metaStore = {};
+    // rowOrderStore: { [modelName]: [fieldName, ...] } — 사용자 지정 행 순서
+    let rowOrderStore = {};
+    let selectedUiModel = null; // null = 헤더관리, 문자열 = 모델명
+
+    function renderUiSidebar() {
+      const sb = document.getElementById('uiSidebar');
+      sb.innerHTML = '<div class="excel-sidebar-title">UI 관리</div>';
+
+      // 헤더 관리 항목
+      const hd = document.createElement('div');
+      hd.className = 'excel-model-item' + (selectedUiModel === null ? ' active' : '');
+      hd.innerHTML = `<span style="font-size:14px">⚙️</span> 헤더 관리`;
+      hd.onclick = () => { selectedUiModel = null; renderUiSidebar(); renderUiTable(); };
+      sb.appendChild(hd);
+
+      // 구분선
+      const sep = document.createElement('div');
+      sep.style.cssText = 'height:1px;background:var(--border);margin:4px 0';
+      sb.appendChild(sep);
+
+      const modelLabel = document.createElement('div');
+      modelLabel.className = 'excel-sidebar-title';
+      modelLabel.style.cssText = 'padding:8px 16px 4px;font-size:10px';
+      modelLabel.textContent = 'MODELS';
+      sb.appendChild(modelLabel);
+
+      schema.models.forEach(m => {
+        const d = document.createElement('div');
+        d.className = 'excel-model-item' + (selectedUiModel === m.name ? ' active' : '');
+        d.innerHTML = `<span class="dot md"></span>${m.name}`;
+        d.onclick = () => { selectedUiModel = m.name; renderUiSidebar(); renderUiTable(); };
+        sb.appendChild(d);
+      });
+    }
+
+    function renderUiTable() {
+      const wrap = document.getElementById('uiContent');
+
+      // ── 헤더 관리 화면 ──
+      if (selectedUiModel === null) {
+        document.getElementById('uiTitle').textContent = '⚙️ 헤더 관리';
+        document.getElementById('uiAddRowBtn').style.display = 'none';
+        document.getElementById('uiApplyBtn').style.display = 'none';
+
+        let html = `
+    <div style="padding:16px">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:14px">
+        <span style="font-size:13px;font-weight:600;color:var(--text-secondary)">헤더 목록 (드래그로 순서 변경 가능)</span>
+        <button class="btn btn-accent" style="margin-left:auto" onclick="openAddHeaderModal()">+ 헤더 추가</button>
+      </div>
+      <table class="excel-table" id="headerMgmtTable" style="width:100%">
+        <thead><tr><th style="width:32px"></th><th>헤더명</th><th>타입</th><th>콤보 옵션 (쉼표 구분)</th><th style="width:60px"></th></tr></thead>
+        <tbody id="headerMgmtBody">`;
+
+        uiHeaders.forEach((h, i) => {
+          html += `<tr data-idx="${i}" draggable="true" style="cursor:grab">
+        <td style="color:var(--text-muted);text-align:center;font-size:16px;cursor:grab">⠿</td>
+        <td contenteditable="true" data-hidx="${i}"
+          style="font-weight:600;font-family:var(--font-mono);color:var(--accent);outline:none;min-width:120px"
+          onblur="uiHeaderNameChange(${i},this.textContent.trim())"
+          onkeydown="if(event.key==='Enter'){event.preventDefault();this.blur()}"
+        >${h.name}</td>
+        <td>
+          <select onchange="uiHeaderTypeChange(${i},this.value)" style="padding:4px 8px;border:1px solid var(--border);border-radius:6px;background:var(--bg-primary);color:var(--text-primary);font-size:12px">
+            <option value="text"${h.type === 'text' ? ' selected' : ''}>텍스트</option>
+            <option value="combo"${h.type === 'combo' ? ' selected' : ''}>콤보박스</option>
+            <option value="model"${h.type === 'model' ? ' selected' : ''}>모델 참조</option>
+          </select>
+        </td>
+        <td>
+          <input value="${h.type === 'model' ? '' : h.options.join(',')}"
+            placeholder="${h.type === 'model' ? '스키마 모델에서 자동 생성' : '옵션1,옵션2,옵션3'}"
+            onchange="uiHeaderOptionsChange(${i},this.value)"
+            ${h.type !== 'combo' ? 'disabled style="opacity:0.4"' : ''}
+            style="width:100%;padding:4px 8px;border:1px solid var(--border);border-radius:6px;background:var(--bg-primary);color:var(--text-primary);font-size:12px;font-family:var(--font-mono);outline:none">
+        </td>
+        <td><button class="btn btn-danger" style="padding:2px 8px;font-size:10px" onclick="uiHeaderDelete(${i})">✕</button></td>
+      </tr>`;
+        });
+
+        html += `</tbody></table></div>`;
+        wrap.innerHTML = html;
+        initHeaderDragDrop();
+        return;
+      }
+
+      // ── 모델 메타 테이블 화면 ──
+      document.getElementById('uiTitle').textContent = selectedUiModel;
+      document.getElementById('uiAddRowBtn').style.display = '';
+      document.getElementById('uiApplyBtn').style.display = '';
+
+      const model = schema.models.find(m => m.name === selectedUiModel);
+      if (!model) { wrap.innerHTML = '<div style="padding:40px;text-align:center;color:var(--text-muted)">모델 없음</div>'; return; }
+
+      if (!metaStore[selectedUiModel]) metaStore[selectedUiModel] = {};
+
+      // 행 순서 초기화: 아직 없으면 모델 필드 순으로 세팅
+      if (!rowOrderStore[selectedUiModel]) {
+        rowOrderStore[selectedUiModel] = model.fields.map(f => f.name);
+      } else {
+        // 새 필드 추가 반영
+        model.fields.forEach(f => { if (!rowOrderStore[selectedUiModel].includes(f.name)) rowOrderStore[selectedUiModel].push(f.name); });
+      }
+
+      const orderedFieldNames = rowOrderStore[selectedUiModel];
+      const rows = [];
+      orderedFieldNames.forEach(fn => {
+        if (!metaStore[selectedUiModel][fn]) metaStore[selectedUiModel][fn] = {};
+        const f = model.fields.find(f => f.name === fn);
+        rows.push({ fieldName: fn, meta: metaStore[selectedUiModel][fn], extraOnly: !f });
+      });
+      // metaStore에만 있는 extra 행
+      Object.keys(metaStore[selectedUiModel]).forEach(fn => {
+        if (!orderedFieldNames.includes(fn)) {
+          rows.push({ fieldName: fn, meta: metaStore[selectedUiModel][fn], extraOnly: true });
+        }
+      });
+
+      const thHtml = uiHeaders.map(h => {
+        const badge = (h.type === 'combo' || h.type === 'model') ? `<span style="font-size:9px;color:var(--accent2);margin-left:3px">▼</span>` : '';
+        return `<th style="white-space:nowrap">${h.name}${badge}</th>`;
+      }).join('');
+      let html = `<table class="excel-table" id="uiMetaTable">
+    <thead><tr><th style="width:32px;position:sticky;left:0;z-index:11;background:var(--bg-secondary)"></th><th style="min-width:140px;position:sticky;left:32px;z-index:11;background:var(--bg-secondary)">fieldName</th>${thHtml}<th></th></tr></thead><tbody>`;
+
+      rows.forEach((row, rowIdx) => {
+        const modelOpts = schema.models.map(m => m.name);
+        const tds = uiHeaders.map(h => {
+          const val = row.meta[h.name] !== undefined ? row.meta[h.name] : '';
+          if (h.type === 'combo' && h.options.length > 0) {
+            const opts = ['', ...h.options].map(o => `<option value="${o}"${o === val ? ' selected' : ''}>${o || '—'}</option>`).join('');
+            return `<td style="min-width:100px;padding:4px 8px"><select data-field="${row.fieldName}" data-col="${h.name}" style="width:100%;padding:3px 6px;border:1px solid var(--border);border-radius:4px;background:var(--bg-primary);color:var(--text-primary);font-size:12px">${opts}</select></td>`;
+          }
+          if (h.type === 'model') {
+            const opts = ['', ...modelOpts].map(o => `<option value="${o}"${o === val ? ' selected' : ''}>${o || '—'}</option>`).join('');
+            return `<td style="min-width:120px;padding:4px 8px"><select data-field="${row.fieldName}" data-col="${h.name}" style="width:100%;padding:3px 6px;border:1px solid var(--border);border-radius:4px;background:var(--bg-primary);color:var(--text-primary);font-size:12px">${opts}</select></td>`;
+          }
+          return `<td contenteditable="true" data-field="${row.fieldName}" data-col="${h.name}" style="min-width:90px">${val}</td>`;
+        }).join('');
+        const extraStyle = row.extraOnly ? 'color:var(--accent2)' : 'color:var(--text-muted)';
+        const canUp = rowIdx > 0;
+        const canDown = rowIdx < rows.length - 1;
+        html += `<tr>
+      <td style="text-align:center;white-space:nowrap;position:sticky;left:0;background:var(--bg-secondary);z-index:5;padding:2px 4px">
+        <button title="위로" onclick="uiMoveRow('${row.fieldName}',-1)" style="border:none;background:none;cursor:${canUp?'pointer':'default'};color:${canUp?'var(--accent)':'var(--border)'};font-size:13px;padding:1px 3px">▲</button>
+        <button title="아래로" onclick="uiMoveRow('${row.fieldName}',1)" style="border:none;background:none;cursor:${canDown?'pointer':'default'};color:${canDown?'var(--accent)':'var(--border)'};font-size:13px;padding:1px 3px">▼</button>
+      </td>
+      <td style="font-weight:600;${extraStyle};white-space:nowrap;position:sticky;left:32px;background:var(--bg-secondary);z-index:5">${row.fieldName}</td>
+      ${tds}
+      <td><button class="btn btn-danger" style="padding:2px 8px;font-size:10px" onclick="uiDelRow('${row.fieldName}')">✕</button></td>
+    </tr>`;
+      });
+      html += '</tbody></table>';
+      wrap.innerHTML = html;
+    }
+
+    // 헤더 타입/옵션 변경
+    function uiHeaderNameChange(i, val) {
+      if (!val) return;
+      if (uiHeaders.find((h, idx) => h.name === val && idx !== i)) { toast('이미 존재하는 헤더명입니다', 'error'); return; }
+      uiHeaders[i].name = val;
+    }
+    function uiHeaderTypeChange(i, val) {
+      uiHeaders[i].type = val;
+      if (val === 'text' || val === 'model') uiHeaders[i].options = [];
+      renderUiTable();
+    }
+    function uiHeaderOptionsChange(i, val) {
+      uiHeaders[i].options = val.split(',').map(s => s.trim()).filter(Boolean);
+    }
+    function uiHeaderDelete(i) {
+      if (!confirm(`헤더 "${uiHeaders[i].name}" 를 삭제할까요?`)) return;
+      uiHeaders.splice(i, 1);
+      renderUiTable();
+    }
+
+    // 헤더 추가 모달 (간단 인라인)
+    function openAddHeaderModal() {
+      const name = prompt('새 헤더 이름:');
+      if (!name || !name.trim()) return;
+      if (uiHeaders.find(h => h.name === name.trim())) { toast('이미 존재하는 헤더입니다', 'error'); return; }
+      uiHeaders.push({ name: name.trim(), type: 'text', options: [] });
+      renderUiTable();
+      toast(`헤더 "${name.trim()}" 추가됨`, 'success');
+    }
+
+    // 드래그 앤 드롭으로 헤더 순서 변경
+    function initHeaderDragDrop() {
+      const tbody = document.getElementById('headerMgmtBody');
+      if (!tbody) return;
+      let dragSrc = null;
+      tbody.querySelectorAll('tr').forEach(tr => {
+        tr.addEventListener('dragstart', e => { dragSrc = tr; tr.style.opacity = '0.4'; });
+        tr.addEventListener('dragend', e => { tr.style.opacity = '1'; });
+        tr.addEventListener('dragover', e => { e.preventDefault(); tr.style.background = 'var(--bg-hover)'; });
+        tr.addEventListener('dragleave', e => { tr.style.background = ''; });
+        tr.addEventListener('drop', e => {
+          e.preventDefault(); tr.style.background = '';
+          if (dragSrc === tr) return;
+          const fromIdx = parseInt(dragSrc.dataset.idx);
+          const toIdx = parseInt(tr.dataset.idx);
+          const moved = uiHeaders.splice(fromIdx, 1)[0];
+          uiHeaders.splice(toIdx, 0, moved);
+          renderUiTable();
+        });
+      });
+    }
+
+    function uiApply() {
+      if (selectedUiModel === null) { toast('헤더 변경은 자동 저장됩니다', 'info'); return; }
+      if (!metaStore[selectedUiModel]) metaStore[selectedUiModel] = {};
+      document.querySelectorAll('#uiMetaTable tbody tr').forEach(row => {
+        const fnCell = row.querySelector('td:first-child');
+        if (!fnCell) return;
+        const fieldName = fnCell.textContent.trim();
+        if (!metaStore[selectedUiModel][fieldName]) metaStore[selectedUiModel][fieldName] = {};
+        uiHeaders.forEach(h => {
+          const cell = row.querySelector(`[data-col="${h.name}"]`);
+          if (cell) {
+            const val = cell.tagName === 'SELECT' ? cell.value : cell.textContent.trim();
+            metaStore[selectedUiModel][fieldName][h.name] = val;
+          }
+        });
+      });
+      toast('UI 메타 저장 완료', 'success');
+      renderUiTable();
+    }
+
+    function uiAddRow() {
+      if (!selectedUiModel) return;
+      const fn = prompt('필드명 (메타 전용 행):');
+      if (!fn || !fn.trim()) return;
+      if (!metaStore[selectedUiModel]) metaStore[selectedUiModel] = {};
+      metaStore[selectedUiModel][fn.trim()] = {};
+      renderUiTable();
+    }
+
+    function uiDelRow(fieldName) {
+      if (!selectedUiModel || !metaStore[selectedUiModel]) return;
+      delete metaStore[selectedUiModel][fieldName];
+      if (rowOrderStore[selectedUiModel]) {
+        rowOrderStore[selectedUiModel] = rowOrderStore[selectedUiModel].filter(n => n !== fieldName);
+      }
+      renderUiTable();
+    }
+
+    function uiMoveRow(fieldName, dir) {
+      if (!selectedUiModel) return;
+      uiApply(); // 현재 값 먼저 저장
+      const order = rowOrderStore[selectedUiModel];
+      if (!order) return;
+      const idx = order.indexOf(fieldName);
+      if (idx < 0) return;
+      const newIdx = idx + dir;
+      if (newIdx < 0 || newIdx >= order.length) return;
+      order.splice(idx, 1);
+      order.splice(newIdx, 0, fieldName);
+      renderUiTable();
+    }
+
+    // ==================== TODO LIST ====================
+    let todoItems = [];
+    let editingTodoId = null;
+
+    const TODO_STATUS_LABEL = { todo: '📌 할 일', doing: '🔄 진행중', done: '✅ 완료' };
+    const TODO_STATUS_COLOR = { todo: 'var(--warning)', doing: 'var(--accent)', done: 'var(--accent3)' };
+    const TODO_PRIORITY_LABEL = { low: '🟢 낮음', mid: '🟡 보통', high: '🔴 높음' };
+    const TODO_PRIORITY_COLOR = { low: 'var(--accent3)', mid: 'var(--warning)', high: 'var(--danger)' };
+
+    function renderTodoList() {
+      const wrap = document.getElementById('todoListWrap');
+      const filter = document.getElementById('todoFilterSel')?.value || 'all';
+      const items = filter === 'all' ? todoItems : todoItems.filter(t => t.status === filter);
+
+      if (!items.length) {
+        wrap.innerHTML = `<div style="padding:60px;text-align:center;color:var(--text-muted);font-size:14px">${filter === 'all' ? '아직 할 일이 없습니다. + 항목 추가를 눌러보세요!' : '해당 상태의 항목이 없습니다.'}</div>`;
+        return;
+      }
+
+      // 통계
+      const total = todoItems.length, done = todoItems.filter(t => t.status === 'done').length, doing = todoItems.filter(t => t.status === 'doing').length;
+      let html = `<div style="display:flex;gap:12px;margin-bottom:16px;flex-wrap:wrap">
+    <div style="padding:10px 18px;background:var(--bg-secondary);border:1px solid var(--border);border-radius:10px;font-size:12px;font-weight:600">
+      전체 <span style="color:var(--accent);font-size:16px;margin-left:6px">${total}</span>
+    </div>
+    <div style="padding:10px 18px;background:var(--bg-secondary);border:1px solid var(--border);border-radius:10px;font-size:12px;font-weight:600">
+      진행중 <span style="color:var(--accent);font-size:16px;margin-left:6px">${doing}</span>
+    </div>
+    <div style="padding:10px 18px;background:var(--bg-secondary);border:1px solid var(--border);border-radius:10px;font-size:12px;font-weight:600">
+      완료 <span style="color:var(--accent3);font-size:16px;margin-left:6px">${done}</span>
+    </div>
+  </div>
+  <div style="display:flex;flex-direction:column;gap:10px">`;
+
+      items.forEach(t => {
+        html += `<div style="background:var(--bg-secondary);border:1px solid var(--border);border-left:4px solid ${TODO_PRIORITY_COLOR[t.priority]};border-radius:10px;padding:14px 16px;cursor:pointer;transition:box-shadow .15s" onmouseenter="this.style.boxShadow='var(--shadow-lg)'" onmouseleave="this.style.boxShadow=''" onclick="openTodoModal('${t.id}')">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px">
+        <span style="font-size:13px;font-weight:700;flex:1">${t.title}</span>
+        <span style="font-size:11px;padding:2px 8px;border-radius:5px;background:${TODO_STATUS_COLOR[t.status]}22;color:${TODO_STATUS_COLOR[t.status]};font-weight:600">${TODO_STATUS_LABEL[t.status]}</span>
+        <span style="font-size:11px;padding:2px 8px;border-radius:5px;border:1px solid ${TODO_PRIORITY_COLOR[t.priority]};color:${TODO_PRIORITY_COLOR[t.priority]};font-weight:600">${TODO_PRIORITY_LABEL[t.priority]}</span>
+      </div>
+      ${t.body ? `<div style="font-size:12px;color:var(--text-secondary);margin-bottom:6px;white-space:pre-wrap">${t.body}</div>` : ''}
+      <div style="display:flex;gap:10px;font-size:11px;color:var(--text-muted)">
+        <span>🕐 ${t.createdAt}</span>
+        ${t.model ? `<span>📦 ${t.model}</span>` : ''}
+      </div>
+    </div>`;
+      });
+      html += '</div>';
+      wrap.innerHTML = html;
+    }
+
+    function openTodoModal(id = null) {
+      editingTodoId = id;
+      const item = id ? todoItems.find(t => t.id === id) : null;
+      document.getElementById('todoModalTitle').textContent = item ? '할 일 편집' : '할 일 추가';
+      document.getElementById('todoDeleteBtn').style.display = item ? '' : 'none';
+      document.getElementById('todoTitleInput').value = item?.title || '';
+      document.getElementById('todoBodyInput').value = item?.body || '';
+      document.getElementById('todoPriorityInput').value = item?.priority || 'mid';
+      document.getElementById('todoStatusInput').value = item?.status || 'todo';
+
+      const sel = document.getElementById('todoModelInput');
+      sel.innerHTML = '<option value="">— 없음 —</option>';
+      schema.models.forEach(m => { const o = document.createElement('option'); o.value = m.name; o.textContent = m.name; if (item?.model === m.name) o.selected = true; sel.appendChild(o); });
+
+      document.getElementById('todoModal').classList.add('show');
+      setTimeout(() => document.getElementById('todoTitleInput').focus(), 100);
+    }
+    function closeTodoModal() { document.getElementById('todoModal').classList.remove('show'); editingTodoId = null; }
+    function saveTodoItem() {
+      const title = document.getElementById('todoTitleInput').value.trim();
+      if (!title) { toast('제목을 입력하세요', 'error'); return; }
+      if (editingTodoId) {
+        const t = todoItems.find(x => x.id === editingTodoId);
+        if (t) { t.title = title; t.body = document.getElementById('todoBodyInput').value.trim(); t.priority = document.getElementById('todoPriorityInput').value; t.status = document.getElementById('todoStatusInput').value; t.model = document.getElementById('todoModelInput').value; }
+      } else {
+        todoItems.unshift({ id: 't' + Date.now(), title, body: document.getElementById('todoBodyInput').value.trim(), priority: document.getElementById('todoPriorityInput').value, status: document.getElementById('todoStatusInput').value, model: document.getElementById('todoModelInput').value, createdAt: new Date().toLocaleDateString('ko-KR') });
+      }
+      closeTodoModal(); renderTodoList(); toast('저장되었습니다', 'success');
+    }
+    function deleteTodoItem() {
+      if (!editingTodoId) return;
+      todoItems = todoItems.filter(t => t.id !== editingTodoId);
+      closeTodoModal(); renderTodoList(); toast('삭제되었습니다', 'info');
+    }
+
+    // ==================== 건의함 ====================
+    let suggestItems = [];
+    let editingSuggestId = null;
+
+    const SUGGEST_CAT_LABEL = { feature: '✨ 기능 요청', bug: '🐛 버그 신고', improve: '🔧 개선 제안', etc: '💬 기타' };
+    const SUGGEST_CAT_COLOR = { feature: 'var(--accent)', bug: 'var(--danger)', improve: 'var(--warning)', etc: 'var(--accent2)' };
+
+    function renderSuggestList() {
+      const wrap = document.getElementById('suggestListWrap');
+      if (!suggestItems.length) {
+        wrap.innerHTML = `<div style="padding:60px;text-align:center;color:var(--text-muted);font-size:14px">아직 건의 내용이 없습니다. + 건의 작성을 눌러보세요!</div>`;
+        return;
+      }
+      let html = `<div style="display:flex;flex-direction:column;gap:10px">`;
+      suggestItems.forEach(s => {
+        html += `<div style="background:var(--bg-secondary);border:1px solid var(--border);border-left:4px solid ${SUGGEST_CAT_COLOR[s.category]};border-radius:10px;padding:14px 16px;cursor:pointer;transition:box-shadow .15s" onmouseenter="this.style.boxShadow='var(--shadow-lg)'" onmouseleave="this.style.boxShadow=''" onclick="openSuggestModal('${s.id}')">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px">
+        <span style="font-size:13px;font-weight:700;flex:1">${s.title}</span>
+        <span style="font-size:11px;padding:2px 10px;border-radius:5px;background:${SUGGEST_CAT_COLOR[s.category]}22;color:${SUGGEST_CAT_COLOR[s.category]};font-weight:600">${SUGGEST_CAT_LABEL[s.category]}</span>
+      </div>
+      ${s.body ? `<div style="font-size:12px;color:var(--text-secondary);margin-bottom:6px;white-space:pre-wrap">${s.body}</div>` : ''}
+      <div style="display:flex;gap:10px;font-size:11px;color:var(--text-muted)">
+        <span>🕐 ${s.createdAt}</span>
+        ${s.author ? `<span>👤 ${s.author}</span>` : ''}
+      </div>
+    </div>`;
+      });
+      html += '</div>';
+      wrap.innerHTML = html;
+    }
+
+    function openSuggestModal(id = null) {
+      editingSuggestId = id;
+      const item = id ? suggestItems.find(s => s.id === id) : null;
+      document.getElementById('suggestModalTitle').textContent = item ? '건의 편집' : '건의 작성';
+      document.getElementById('suggestDeleteBtn').style.display = item ? '' : 'none';
+      document.getElementById('suggestTitleInput').value = item?.title || '';
+      document.getElementById('suggestBodyInput').value = item?.body || '';
+      document.getElementById('suggestCatInput').value = item?.category || 'feature';
+      document.getElementById('suggestAuthorInput').value = item?.author || '';
+      document.getElementById('suggestModal').classList.add('show');
+      setTimeout(() => document.getElementById('suggestTitleInput').focus(), 100);
+    }
+    function closeSuggestModal() { document.getElementById('suggestModal').classList.remove('show'); editingSuggestId = null; }
+    function saveSuggestItem() {
+      const title = document.getElementById('suggestTitleInput').value.trim();
+      if (!title) { toast('제목을 입력하세요', 'error'); return; }
+      if (editingSuggestId) {
+        const s = suggestItems.find(x => x.id === editingSuggestId);
+        if (s) { s.title = title; s.body = document.getElementById('suggestBodyInput').value.trim(); s.category = document.getElementById('suggestCatInput').value; s.author = document.getElementById('suggestAuthorInput').value.trim(); }
+      } else {
+        suggestItems.unshift({ id: 's' + Date.now(), title, body: document.getElementById('suggestBodyInput').value.trim(), category: document.getElementById('suggestCatInput').value, author: document.getElementById('suggestAuthorInput').value.trim(), createdAt: new Date().toLocaleDateString('ko-KR') });
+      }
+      closeSuggestModal(); renderSuggestList(); toast('등록되었습니다', 'success');
+    }
+    function deleteSuggestItem() {
+      if (!editingSuggestId) return;
+      suggestItems = suggestItems.filter(s => s.id !== editingSuggestId);
+      closeSuggestModal(); renderSuggestList(); toast('삭제되었습니다', 'info');
+    }
+
+    // ==================== 구글 시트 연동 ====================
+    let sheetsUrl = localStorage.getItem('prisma_sheets_url') || 'https://script.google.com/macros/s/AKfycbzhngdoUwz5xqi3SG2s3ZVxAJKNjb5CusWDhIsWhMiJGalhrMm9ULxok8MACz2nlZa1gg/exec';
+
+    function initSheetsUI() {
+      if (sheetsUrl) {
+        document.getElementById('sheetsSaveBtn').style.display = '';
+        document.getElementById('sheetsLoadBtn').style.display = '';
+        document.getElementById('sheetsStatusDot').style.background = 'var(--accent3)';
+        document.getElementById('sheetsStatusBtn').title = '구글 시트 연동됨: ' + sheetsUrl;
+      }
+    }
+
+    function showSheetsModal() {
+      document.getElementById('sheetsUrlInput').value = sheetsUrl;
+      document.getElementById('sheetsTestResult').textContent = '';
+      document.getElementById('sheetsDisconnectBtn').style.display = sheetsUrl ? '' : 'none';
+      document.getElementById('sheetsModal').classList.add('show');
+    }
+
+    function sheetsSaveUrl() {
+      const url = document.getElementById('sheetsUrlInput').value.trim();
+      if (!url) { toast('URL을 입력하세요', 'error'); return; }
+      if (!url.includes('script.google.com')) {
+        if (!confirm('Apps Script URL이 아닌 것 같습니다. 그래도 저장할까요?')) return;
+      }
+      sheetsUrl = url;
+      localStorage.setItem('prisma_sheets_url', url);
+      document.getElementById('sheetsSaveBtn').style.display = '';
+      document.getElementById('sheetsLoadBtn').style.display = '';
+      document.getElementById('sheetsStatusDot').style.background = 'var(--accent3)';
+      document.getElementById('sheetsDisconnectBtn').style.display = '';
+      document.getElementById('sheetsModal').classList.remove('show');
+      toast('구글 시트 URL 저장됨', 'success');
+    }
+
+    function sheetsDisconnect() {
+      if (!confirm('연결을 해제할까요?')) return;
+      sheetsUrl = '';
+      localStorage.removeItem('prisma_sheets_url');
+      document.getElementById('sheetsSaveBtn').style.display = 'none';
+      document.getElementById('sheetsLoadBtn').style.display = 'none';
+      document.getElementById('sheetsStatusDot').style.background = 'var(--text-muted)';
+      document.getElementById('sheetsModal').classList.remove('show');
+      toast('연결 해제됨', 'info');
+    }
+
+    async function sheetsTest() {
+      const url = document.getElementById('sheetsUrlInput').value.trim();
+      if (!url) { toast('URL을 입력하세요', 'error'); return; }
+      const btn = document.getElementById('sheetsTestBtn');
+      const res = document.getElementById('sheetsTestResult');
+      btn.textContent = '⏳ 테스트 중...'; btn.disabled = true;
+      res.textContent = ''; res.style.color = 'var(--text-muted)';
+      try {
+        const resp = await fetch(url + '?action=ping', { method: 'GET' });
+        const data = await resp.json();
+        if (data.ok) {
+          res.textContent = '✅ 연결 성공!'; res.style.color = 'var(--accent3)';
+        } else {
+          res.textContent = '❌ 응답 오류: ' + data.msg; res.style.color = 'var(--danger)';
+        }
+      } catch (e) {
+        res.textContent = '❌ 연결 실패 — CORS 우회를 위해 Apps Script 배포 설정을 확인하세요'; res.style.color = 'var(--danger)';
+      }
+      btn.textContent = '🔍 연결 테스트'; btn.disabled = false;
+    }
+
+    async function sheetsSave() {
+      if (!sheetsUrl) { showSheetsModal(); return; }
+      toast('저장 중...', 'info');
+      const payload = {
+        action: 'save',
+        data: {
+          schema: gen(schema),
+          uiHeaders: uiHeaders,
+          metaStore: metaStore,
+          rowOrderStore: rowOrderStore,
+          todoItems: todoItems,
+          suggestItems: suggestItems,
+          modelPositions: modelPositions,
+          cardinalityMap: cardinalityMap,
+        }
+      };
+      try {
+        const resp = await fetch(sheetsUrl, {
+          method: 'POST',
+          body: JSON.stringify(payload),
+        });
+        const data = await resp.json();
+        if (data.ok) toast('☁️ 구글 시트에 저장 완료 — ' + (data.savedAt ? new Date(data.savedAt).toLocaleTimeString('ko-KR') : ''), 'success');
+        else toast('저장 실패: ' + data.msg, 'error');
+      } catch (e) {
+        // Apps Script는 CORS preflight를 지원 안 함 → no-cors 모드로 재시도
+        try {
+          await fetch(sheetsUrl, { method: 'POST', body: JSON.stringify(payload), mode: 'no-cors' });
+          toast('☁️ 저장 요청 전송됨 (no-cors — 응답 확인 불가)', 'success');
+        } catch (e2) {
+          toast('저장 실패: ' + e2.message, 'error');
+        }
+      }
+    }
+
+    async function sheetsLoad() {
+      if (!sheetsUrl) { showSheetsModal(); return; }
+      toast('불러오는 중...', 'info');
+      try {
+        const resp = await fetch(sheetsUrl + '?action=load');
+        const data = await resp.json();
+        if (!data.ok) { toast('불러오기 실패: ' + data.msg, 'error'); return; }
+
+        // 스키마
+        if (data.schema && data.schema.trim()) {
+          schema = parse(data.schema);
+          cardSizes = {};
+          snapshot = gen(schema);
+          syncEditor();
+        }
+        // 노드 위치 (스키마보다 먼저 적용해야 renderDiagram에서 사용됨)
+        if (data.modelPositions && Object.keys(data.modelPositions).length) {
+          modelPositions = data.modelPositions;
+        } else {
+          modelPositions = {};
+        }
+        // 카디널리티
+        if (data.cardinalityMap && Object.keys(data.cardinalityMap).length) {
+          cardinalityMap = data.cardinalityMap;
+        }
+        // 히스토리 초기화
+        historyStack = [{ schemaStr: gen(schema), positions: JSON.stringify(modelPositions), cardinalities: JSON.stringify(cardinalityMap) }];
+        historyIndex = 0; changeLog = [];
+        // 렌더 (위치 저장된 경우 autoLayout 하지 않음)
+        const hasPositions = data.modelPositions && Object.keys(data.modelPositions).length > 0;
+        setTimeout(() => { renderDiagram(); setTimeout(() => { if (!hasPositions) autoLayout(); else zoomFit(); }, 150); }, 50);
+        // UI 헤더
+        if (data.uiHeaders && data.uiHeaders.length) uiHeaders = data.uiHeaders;
+        // UI 메타
+        if (data.metaStore) metaStore = data.metaStore;
+        // 행 순서
+        if (data.rowOrderStore) rowOrderStore = data.rowOrderStore;
+        // Todo
+        if (data.todoItems) todoItems = data.todoItems;
+        // 건의함
+        if (data.suggestItems) suggestItems = data.suggestItems;
+
+        // 현재 보이는 패널 새로고침
+        const active = document.querySelector('.nav-tab.active')?.dataset?.panel;
+        if (active === 'ui') { renderUiSidebar(); renderUiTable(); }
+        if (active === 'todo') renderTodoList();
+        if (active === 'suggest') renderSuggestList();
+
+        toast('⬇️ 구글 시트에서 불러오기 완료', 'success');
+      } catch (e) {
+        toast('불러오기 실패: ' + e.message, 'error');
+      }
+    }
+
+    function showImportModal() { document.getElementById('importModal').classList.add('show'); document.getElementById('importText').value = ''; }
+    function closeImportModal() { document.getElementById('importModal').classList.remove('show'); }
+    function doImport() {
+      const t = document.getElementById('importText').value;
+      if (!t.trim()) { toast('입력 필요', 'error'); return; }
+      try {
+        schema = parse(t);
+        modelPositions = {}; cardSizes = {}; cardinalityMap = {};
+        snapshot = gen(schema);
+
+        historyStack = [{ schemaStr: gen(schema), positions: JSON.stringify(modelPositions), cardinalities: JSON.stringify(cardinalityMap) }];
+        historyIndex = 0; changeLog = [];
+
+        addLog('schema', `임포트: ${schema.models.length}모델, ${schema.enums.length}Enum`);
+        closeImportModal();
+        renderDiagram();
+        syncEditor();
+        setTimeout(autoLayout, 100);
+        toast('임포트 완료', 'success');
+      } catch (e) {
+        toast('오류', 'error');
+      }
+    }
+    function exportSchema() { dl(gen(schema), 'schema.prisma', 'text/plain'); addLog('schema', '익스포트'); toast('다운로드', 'success'); }
+    function snapshotSchema() { snapshot = gen(schema); addLog('schema', '📸 스냅샷 저장'); toast('스냅샷 저장', 'success'); }
+
+    function runDiff() {
+      if (!snapshot) { toast('스냅샷 먼저', 'error'); return; }
+      const cur = gen(schema), bL = snapshot.split('\n'), aL = cur.split('\n'), diff = computeDiff(bL, aL);
+      const bEl = document.getElementById('diffBefore'), aEl = document.getElementById('diffAfter');
+      const minimap = document.getElementById('diffMinimap');
+
+      let bHtml = '', aHtml = '', mHtml = '';
+      let bn = 0, an = 0;
+      const tLen = diff.length;
+
+      diff.forEach((op, i) => {
+        const topPercent = (i / tLen) * 100;
+        if (op.type === 'equal') {
+          bn++; an++;
+          bHtml += `<div class="diff-line unchanged"><span class="ln">${bn}</span>${esc(op.value)}</div>`;
+          aHtml += `<div class="diff-line unchanged"><span class="ln">${an}</span>${esc(op.value)}</div>`;
+        }
+        else if (op.type === 'remove') {
+          bn++;
+          bHtml += `<div class="diff-line removed"><span class="ln">${bn}</span>${esc(op.value)}</div>`;
+          aHtml += `<div class="diff-line" style="opacity:.15"><span class="ln"></span></div>`;
+          mHtml += `<div class="diff-marker removed" style="top:${topPercent}%"></div>`;
+        }
+        else {
+          an++;
+          bHtml += `<div class="diff-line" style="opacity:.15"><span class="ln"></span></div>`;
+          aHtml += `<div class="diff-line added"><span class="ln">${an}</span>${esc(op.value)}</div>`;
+          mHtml += `<div class="diff-marker added" style="top:${topPercent}%"></div>`;
+        }
+      });
+
+      bEl.innerHTML = bHtml;
+      aEl.innerHTML = aHtml;
+      if (minimap) minimap.innerHTML = mHtml;
+
+      toast('비교 완료', 'info');
+    }
+    function computeDiff(a, b) { const n = a.length, m = b.length, mx = n + m, v = new Array(2 * mx + 1).fill(0), tr = []; v[mx + 1] = 0; for (let d = 0; d <= mx; d++) { const nv = [...v]; for (let k = -d; k <= d; k += 2) { let x; if (k === -d || (k !== d && v[k - 1 + mx] < v[k + 1 + mx])) x = v[k + 1 + mx]; else x = v[k - 1 + mx] + 1; let y = x - k; while (x < n && y < m && a[x] === b[y]) { x++; y++ } nv[k + mx] = x; if (x >= n && y >= m) { tr.push([...nv]); return bt(tr, a, b, mx) } } tr.push([...nv]); for (let i = 0; i < nv.length; i++)v[i] = nv[i] } return [] }
+    function bt(tr, a, b, mx) { let x = a.length, y = b.length; const ops = []; for (let d = tr.length - 1; d >= 0; d--) { const v = tr[d], k = x - y; let pk; if (k === -d || (k !== d && (d === 0 || tr[d - 1][k - 1 + mx] < tr[d - 1][k + 1 + mx]))) pk = k + 1; else pk = k - 1; const px = d > 0 ? tr[d - 1][pk + mx] : 0, py = px - pk; while (x > px && y > py && x > 0 && y > 0) { x--; y--; ops.unshift({ type: 'equal', value: a[x] }) } if (d === 0) break; if (x === px && y > 0) { y--; ops.unshift({ type: 'add', value: b[y] }) } else if (x > 0) { x--; ops.unshift({ type: 'remove', value: a[x] }) } } return ops }
+    function esc(s) { return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;') }
+    function toast(msg, type = 'info') { const c = document.getElementById('toastContainer'), el = document.createElement('div'); el.className = `toast ${type}`; el.innerHTML = `${{ success: '✓', error: '✕', info: 'ℹ' }[type] || 'ℹ'} ${msg}`; c.appendChild(el); setTimeout(() => { el.style.opacity = '0'; el.style.transition = 'opacity .3s'; setTimeout(() => el.remove(), 300) }, 2500) }
+
+    // === INIT ===
+    const INIT = `datasource db { provider = "postgresql" }
+generator client { provider = "prisma-client-js" }
+model User { id String @id @default(cuid()) username String? displayUsername String? email String @unique emailVerified Boolean @default(false) phoneNumber String? name String role UserRole @default(USER) userType UserType? isProfileComplete Boolean @default(false) sessions Session[] accounts Account[] posts Post[] businesses Business[] documentRequests DocumentRequest[] createdAt DateTime @default(now()) updatedAt DateTime @updatedAt @@map("users") }
+enum UserRole { USER ADMIN }
+enum UserType { INHOUSE AGENCY }
+model Session { id String @id @default(cuid()) userId String token String @unique ipAddress String? userAgent String? user User @relation(fields: [userId], references: [id], onDelete: Cascade) expiresAt DateTime createdAt DateTime @default(now()) updatedAt DateTime @updatedAt @@map("sessions") }
+model Account { id String @id @default(cuid()) userId String accountId String providerId Provider accessToken String? refreshToken String? accessTokenExpiresAt DateTime? refreshTokenExpiresAt DateTime? scope String? idToken String? password String? user User @relation(fields: [userId], references: [id], onDelete: Cascade) createdAt DateTime @default(now()) updatedAt DateTime @updatedAt @@map("accounts") }
+enum Provider { credential google kakao naver }
+model Verification { id String @id @default(cuid()) identifier String value String expiresAt DateTime createdAt DateTime @default(now()) updatedAt DateTime @updatedAt @@map("verifications") }
+model VerifiedEmail { id String @id @default(cuid()) email String @unique expiresAt DateTime createdAt DateTime @default(now()) updatedAt DateTime @updatedAt @@map("verified_emails") }
+model Post { id String @id @default(cuid()) authorId String slug String @unique title String content String published Boolean @default(false) excerpt String? isFeatured Boolean @default(false) author User @relation(fields: [authorId], references: [id], onDelete: Cascade) tags Tag[] createdAt DateTime @default(now()) updatedAt DateTime @updatedAt @@map("posts") }
+model Tag { id String @id @default(cuid()) name String @unique slug String @unique posts Post[] createdAt DateTime @default(now()) updatedAt DateTime @updatedAt @@map("tags") }
+model Business { id String @id @default(cuid()) businessName String ownerName String? ownerBirthdate DateTime? businessRegNumber String corporationRegNumber String? businessAddress String? businessPhone String? mobilePhone String? mainProduct String? industryTypeCode String? industryTypeName String? wasteIndustryType WasteIndustryType? userId String user User @relation(fields: [userId], references: [id], onDelete: Cascade) documentProfiles BusinessDocumentProfile[] processFlows ProcessFlow[] wasteDocumentations WasteDocumentation[] createdAt DateTime @default(now()) updatedAt DateTime @updatedAt @@map("businesses") }
+enum WasteIndustryType { INTERMEDIATE_RECYCLING COMPREHENSIVE_RECYCLING FINAL_RECYCLING INTERMEDIATE_DISPOSAL FINAL_DISPOSAL TRANSPORT }
+enum ProfileScope { BUSINESS CATEGORY DOCUMENT }
+model BusinessDocumentProfile { id String @id @default(cuid()) businessId String profileScope ProfileScope @default(DOCUMENT) documentCategoryCode String? documentSubCategoryCode String? documentCode String? submissionOffice String? mainProcess String? specificData Json? business Business @relation(fields: [businessId], references: [id], onDelete: Cascade) createdAt DateTime @default(now()) updatedAt DateTime @updatedAt @@map("business_document_profiles") }
+model DocumentRequest { id String @id @default(cuid()) documentType DocumentType status DocumentRequestStatus @default(PENDING) memo String? payload DocumentPayload? completedAt DateTime? s3Key String? userId String user User @relation(fields: [userId], references: [id], onDelete: Cascade) createdAt DateTime @default(now()) updatedAt DateTime @updatedAt @@map("document_requests") }
+enum DocumentType { EMISSION_AIR_DOC EMISSION_WATER_DOC EMISSION_NOISE_DOC EMISSION_SMELL_DOC WASTE_PERMIT_DOC WASTE_REPORT_TRANSPORT_DOC WASTE_REPORT_RECYCLE_DOC WASTE_REPORT_DISPOSAL_DOC WASTE_APPROVAL_DISPOSAL_DOC WASTE_REPORT_EMITTER_DOC WASTE_STARTUP_DOC LOGS_AIR LOGS_WATER GAPZI }
+enum DocumentRequestStatus { PENDING IN_PROGRESS COMPLETED CANCELLED FAILED }
+model DocumentPayload { id String @id @default(cuid()) requestId String @unique request DocumentRequest @relation(fields: [requestId], references: [id], onDelete: Cascade) data Json createdAt DateTime @default(now()) updatedAt DateTime @updatedAt @@map("document_payloads") }
+model ProcessFlow { id String @id @default(cuid()) businessId String layoutData Json? productionFacilities ProductionFacility[] controlFacilities ControlFacility[] business Business @relation(fields: [businessId], references: [id], onDelete: Cascade) createdAt DateTime @default(now()) updatedAt DateTime @updatedAt @@map("process_flows") }
+enum ChangeType { NEW UPDATE EXPANSION CLOSE }
+model ControlFacility { id String @id @default(cuid()) processFlowId String facilityNumber String facilityName String size String? specification String? facilityPrice String? installedBuilding String? manufacturer String? phoneNumber String? changeType ChangeType @default(NEW) memo String? processFlow ProcessFlow @relation(fields: [processFlowId], references: [id], onDelete: Cascade) createdAt DateTime @default(now()) updatedAt DateTime @updatedAt @@map("control_facilities") }
+model ProductionFacility { id String @id @default(cuid()) processFlowId String facilityNumber String facilityName String process String? size String? specification String? quantity Int? facilityPrice String? installedBuilding String? manufacturer String? phoneNumber String? changeType ChangeType @default(NEW) memo String? asWasteFacility WasteFacility? processFlow ProcessFlow @relation(fields: [processFlowId], references: [id], onDelete: Cascade) createdAt DateTime @default(now()) updatedAt DateTime @updatedAt @@map("production_facilities") }
+model WasteDocumentation { id String @id @default(cuid()) businessId String wasteTargetItems WasteTargetItem[] wasteFacilities WasteFacility[] wasteStorageFacilities WasteStorageFacility[] business Business @relation(fields: [businessId], references: [id], onDelete: Cascade) createdAt DateTime @default(now()) updatedAt DateTime @updatedAt @@map("waste_documentations") }
+model WasteTargetItem { id String @id @default(cuid()) wasteDocumentationId String wasteCode String? wasteName String? preAnalysisRequired Boolean @default(false) recyclingCode String? recycledProduct String? throughput Float? changeType ChangeType @default(NEW) wasteDocumentation WasteDocumentation @relation(fields: [wasteDocumentationId], references: [id], onDelete: Cascade) storedIn WasteStorageFacility[] @@map("waste_target_items") }
+model WasteFacility { id String @id @default(cuid()) wasteDocumentationId String productionFacilityId String @unique capacityPerHour Float? dailyOperatingHours Float? dailyThroughput Float? productionFacility ProductionFacility @relation(fields: [productionFacilityId], references: [id], onDelete: Cascade) wasteDocumentation WasteDocumentation @relation(fields: [wasteDocumentationId], references: [id], onDelete: Cascade) @@map("waste_facilities") }
+enum BottomShape { CIRCLE RECT TRIANGLE TRAPEZOID MANUAL }
+model WasteStorageFacility { id String @id @default(cuid()) wasteDocumentationId String targetWasteId String? targetWaste WasteTargetItem? @relation(fields: [targetWasteId], references: [id]) specificGravity String? bottomShape BottomShape? diameter Float? width Float? length Float? topSide Float? bottomSide Float? verticalSide Float? height Float? quantity Int? volume Float? storageAmount Float? storageDays Float? changeType ChangeType @default(NEW) wasteDocumentation WasteDocumentation @relation(fields: [wasteDocumentationId], references: [id], onDelete: Cascade) @@map("waste_storage_facilities") }
+model ExecutiveOfficer { id String @id @default(cuid()) name String? residentIdNumber String? registrationAddress String? phoneNumber String? position String? changeType ChangeType @default(NEW) createdAt DateTime @default(now()) updatedAt DateTime @updatedAt @@map("executive_officers") }
+model Vehicle { id String @id @default(cuid()) vehicleName String? vehicleType String? vehicleRegistrationNumber String? maxPayload String? ownerRegistrationNumber String? manufacturer String? modelApprovalNumber String? changeType ChangeType @default(NEW) createdAt DateTime @default(now()) updatedAt DateTime @updatedAt @@map("vehicles") }
+model Office { id String @id @default(cuid()) officeAddress String? officeArea String? contactNumber String? changeType ChangeType @default(NEW) createdAt DateTime @default(now()) updatedAt DateTime @updatedAt @@map("offices") }`;
+
+    schema = parse(INIT); snapshot = gen(schema); syncEditor();
+
+    historyStack = [{ schemaStr: gen(schema), positions: JSON.stringify(modelPositions), cardinalities: JSON.stringify(cardinalityMap) }];
+    historyIndex = 0; changeLog = [];
+
+    setTimeout(() => { autoLayout(); addLog('schema', '초기 로드', `${schema.models.length}모델, ${schema.enums.length}Enum`); }, 100);
+    initSheetsUI();
+  </script>
+</body>
+
+</html>

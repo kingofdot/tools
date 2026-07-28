@@ -1,0 +1,342 @@
+{
+  "source": {
+    "title": "대기오염방지시설 설계실무편람",
+    "publisher": "대구지방환경관리청",
+    "year": "1999",
+    "registrationNumber": "38045-67030-67-9901",
+    "chapter": "제1장 후드설계 및 배출가스량 산정",
+    "pageRange": "15~52",
+    "originalFile": "대기편람분석/1~4장.hwp"
+  },
+
+  "I_designConsiderations": {
+    "pageRef": 15,
+    "definition": "후드(hood)란 대기오염물질배출시설에서 배출되는 오염물질이 근처의 공간으로 비산되는 것을 방지하기 위해 비산범위내의 오염공기를 배출원에서 직접 포집하기 위한 국소배기장치의 입구부.",
+    "byEmissionSource": [
+      "오염물질의 배출농도와 배출허용기준농도 파악",
+      "배출원의 온도와 작업장의 온도",
+      "오염물질의 비산속도와 횡단기류속도(작업장내 공기흐름속도)",
+      "작업방법과 공간활용범위 등 주위상태",
+      "오염물질이 mist/fume/vapor 상태로 배출되어 냉각응축되는지 등의 특성"
+    ],
+    "byHood": [
+      "최소의 배기량으로 최대의 흡인효과를 발휘할 것",
+      "발생원에 가깝게, 개구부위를 적게 할 것",
+      "작업자의 호흡영역은 보호할 것",
+      "후드 개구면에서의 면속도분포를 일정하게 할 것 (70% 범위내)",
+      "외형을 보기좋게, 압력손실을 적게 할 것"
+    ]
+  },
+
+  "II_hoodShapes": {
+    "pageRef": 16,
+    "diagramRef": "대기편람분석/figures/fig1-1_hood_shapes_p13.png",
+    "diagramRefContinued": "대기편람분석/figures/fig1-1_hood_shapes_p15.png",
+    "formulaSymbols": {
+      "Q":  {"description": "배출가스량",                     "typicalUnit": "㎥/min (V를 m/min으로 환산 사용)"},
+      "V":  {"description": "포착속도 (capture velocity)",     "typicalUnit": "m/sec → m/min 변환 필요", "lookupRef": "III_captureVelocities"},
+      "L":  {"description": "후드(슬롯) 길이",                "typicalUnit": "m"},
+      "W":  {"description": "후드 폭",                       "typicalUnit": "m"},
+      "X":  {"description": "후드와 발생원의 거리 (포집거리)", "typicalUnit": "m"},
+      "A":  {"description": "후드 개구면적 (= W × L)",         "typicalUnit": "㎡"},
+      "H":  {"description": "부스 높이",                     "typicalUnit": "m"},
+      "P":  {"description": "오염원 둘레 (perimeter)",        "typicalUnit": "m"},
+      "D":  {"description": "후드 높이 (height above work)",  "typicalUnit": "m"}
+    },
+    "shapes": [
+      {
+        "id": "slot",
+        "name": {"ko": "슬롯트형",     "en": "slot"},
+        "type": "external_side_draft",
+        "aspectRatio": {"condition": "W/L ≤ 0.2", "round": false},
+        "dimensions": ["L", "W", "X"],
+        "formula": "Q = 3.7 × L × V × X",
+        "formulaCoefficient": 3.7,
+        "useCase": "긴 슬롯 모양 후드. 처리조·탱크 등 가늘고 긴 발생원에 측방 흡입."
+      },
+      {
+        "id": "flanged_slot",
+        "name": {"ko": "프랜지 슬롯트형", "en": "flanged slot"},
+        "type": "external_side_draft_flanged",
+        "aspectRatio": {"condition": "W/L ≤ 0.2", "round": false},
+        "dimensions": ["L", "W", "X"],
+        "formula": "Q = 2.6 × L × V × X",
+        "formulaCoefficient": 2.6,
+        "useCase": "슬롯트형에 프랜지(차폐판) 부착 → 후방 기류 차단으로 같은 V 에 약 30% 적은 풍량."
+      },
+      {
+        "id": "plain_opening",
+        "name": {"ko": "편평개구형",   "en": "plain opening"},
+        "type": "external_circular_or_rect",
+        "aspectRatio": {"condition": "W/L ≥ 0.2", "round": true},
+        "dimensions": ["L", "W", "X", "A"],
+        "areaFormula": "A = W × L (sq.ft) — 원형이면 πD²/4",
+        "formula": "Q = V × (10X² + A)",
+        "formulaCoefficient": 1.0,
+        "useCase": "단순 사각/원형 개구부. 가장 일반적인 외부식 후드."
+      },
+      {
+        "id": "flanged_opening",
+        "name": {"ko": "프랜지개구형", "en": "flanged opening"},
+        "type": "external_circular_or_rect_flanged",
+        "aspectRatio": {"condition": "W/L ≥ 0.2", "round": true},
+        "dimensions": ["L", "W", "X", "A"],
+        "areaFormula": "A = W × L",
+        "formula": "Q = 0.75 × V × (10X² + A)",
+        "formulaCoefficient": 0.75,
+        "useCase": "편평개구형 + 프랜지 → 풍량 25% 절감."
+      },
+      {
+        "id": "plain_multiple_slot",
+        "name": {"ko": "복수스롯트형", "en": "plain multiple slot opening (2 or more slots)"},
+        "type": "external_multi_slot",
+        "aspectRatio": {"condition": "W/L ≥ 0.2", "round": false},
+        "dimensions": ["L", "W", "X", "A"],
+        "areaFormula": "A = W × L",
+        "formula": "Q = V × (10X² + A)",
+        "formulaCoefficient": 1.0,
+        "slotCount": "2 이상",
+        "useCase": "여러 개 슬롯을 평행하게 배치한 형태."
+      },
+      {
+        "id": "flanged_multiple_slot",
+        "name": {"ko": "프랜지복수개구형", "en": "flanged multiple slot opening (2 or more slots)"},
+        "type": "external_multi_slot_flanged",
+        "aspectRatio": {"condition": "W/L ≥ 0.2", "round": false},
+        "dimensions": ["L", "W", "X", "A"],
+        "areaFormula": "A = W × L",
+        "formula": "Q = 0.75 × V × (10X² + A)",
+        "formulaCoefficient": 0.75,
+        "slotCount": "2 이상",
+        "useCase": "복수스롯트형 + 프랜지."
+      },
+      {
+        "id": "booth",
+        "name": {"ko": "밀폐형(부스)", "en": "booth"},
+        "type": "enclosing",
+        "aspectRatio": {"condition": "to suit work", "round": true},
+        "dimensions": ["W", "H", "A"],
+        "areaFormula": "A = W × H (전면 개구면)",
+        "formula": "Q = V × A = V × W × H",
+        "formulaCoefficient": 1.0,
+        "useCase": "발생원을 거의 둘러싸는 부스 형태. 도장·블라스트·shake-out 등. 개구면 속도 = 포착속도."
+      },
+      {
+        "id": "canopy",
+        "name": {"ko": "천정형", "en": "canopy"},
+        "type": "receiving_overhead",
+        "aspectRatio": {"condition": "to suit work", "round": true},
+        "dimensions": ["P", "D"],
+        "formula": "Q = 1.4 × P × V × D",
+        "formulaCoefficient": 1.4,
+        "useCase": "발생원 위에 우산처럼 설치. 열원·증기 상승기류를 받아냄.",
+        "extraSymbols": {
+          "P": "오염원 둘레 (perimeter)",
+          "D": "포집거리 (height above work)"
+        }
+      }
+    ]
+  },
+
+  "III_captureVelocities": {
+    "pageRef": 18,
+    "definition": "배출원으로 배출되는 오염물질을 비산한계점 범위내의 어떤점에서 포착하여 후드로 몰아넣기 위하여 필요한 최소의 속도. 포위형/부스형에서는 후드 개구면이 포착점.",
+
+    "table1_1_byEmissionState": {
+      "pageRef": 18,
+      "title": "표1-1 일반적으로 사용되는 포착(제어)속도의 개략치",
+      "rows": [
+        {
+          "state":          "움직이지 않는 공기중에 실제상 거의 속도가 없는 상태",
+          "processExample": "용기의 액면으로부터 발생하는 가스/증기/흄 등",
+          "velocityRange":  {"min": 0.25, "max": 0.5, "unit": "m/sec"}
+        },
+        {
+          "state":          "비교적 조용한 대기중에 낮은 속도로 비산",
+          "processExample": "부스식 후드의 분무도장, 간헐적 용기충진, 낮은 속도 콘베이어, 도금, 용접, 산세척",
+          "velocityRange":  {"min": 0.5, "max": 1.0, "unit": "m/sec"}
+        },
+        {
+          "state":          "빠른 공기이동 작업장에 활발히 비산",
+          "processExample": "부스식 후드의 분무도장·함침도장, 콘베이어 낙하구 분쇄, 파쇄기",
+          "velocityRange":  {"min": 1.0, "max": 2.5, "unit": "m/sec"}
+        },
+        {
+          "state":          "대단히 빠른 공기이동, 아주 빠른 속도로 비산",
+          "processExample": "연삭, 분무, 텀블링, 블라스트",
+          "velocityRange":  {"min": 2.5, "max": 10.0, "unit": "m/sec"}
+        }
+      ]
+    },
+
+    "table1_2_bySourceHoodPair": {
+      "pageRef": 19,
+      "title": "표1-2 발생원과 후드형태에 따른 포착속도",
+      "rows": [
+        {"no":  1, "source": "sand blast room",           "hoodType": "포위박스형",    "velocity": {"min": 0.3, "max": 0.5, "unit": "m/sec"}, "capturePoint": "개구면"},
+        {"no":  1, "source": "sand blast table",          "hoodType": "부스형",        "velocity": {"value": 1.0, "unit": "m/sec"},          "capturePoint": "개구면"},
+        {"no":  2, "source": "포장작업(종이포장대)",        "hoodType": "부스형",        "velocity": {"value": 0.5, "unit": "m/sec"},          "capturePoint": "개구면"},
+        {"no":  2, "source": "포장작업(마대포장대)",        "hoodType": "부스형",        "velocity": {"value": 1.0, "unit": "m/sec"},          "capturePoint": "개구면"},
+        {"no":  3, "source": "저장투입",                   "hoodType": "포위카바형",     "velocity": {"min": 0.8, "max": 1.0, "unit": "m/sec"}, "capturePoint": "개구면"},
+        {"no":  4, "source": "병세척",                     "hoodType": "부스형(건물)",   "velocity": {"min": 0.8, "max": 1.3, "unit": "m/sec"}, "capturePoint": "개구면"},
+        {"no":  5, "source": "콘베이어이송",                "hoodType": "포위카바형",     "velocity": {"min": 0.8, "max": 1.0, "unit": "m/sec"}, "capturePoint": "개구면"},
+        {"no":  6, "source": "단조(수동)",                  "hoodType": "부스형(건물)",   "velocity": {"value": 1.0, "unit": "m/sec"},          "capturePoint": "개구면"},
+        {"no":  7, "source": "주물사스크린(회전)",          "hoodType": "포위카바형",     "velocity": {"value": 1.0, "unit": "m/sec"},          "capturePoint": "개구면"},
+        {"no":  7, "source": "주물사스크린(진동)",          "hoodType": "포위카바형",     "velocity": {"value": 2.0, "unit": "m/sec"},          "capturePoint": "개구면"},
+        {"no":  8, "source": "shake out",                "hoodType": "부스형(chamber)","velocity": {"value": 1.0, "unit": "m/sec"},          "capturePoint": "개구면"},
+        {"no":  8, "source": "shake out (냉각된 주물)",    "hoodType": "포집그리트형",   "velocity": {"value": 1.3, "unit": "m/sec"},          "capturePoint": "격자면"},
+        {"no":  8, "source": "shake out (뜨거운 주물)",    "hoodType": "포집그리트형",   "velocity": {"value": 3.0, "unit": "m/sec"},          "capturePoint": "격자면"},
+        {"no":  9, "source": "Al용해로",                   "hoodType": "레시바캐노피형", "velocity": {"value": 0.8, "unit": "m/sec"},          "capturePoint": "개구면"},
+        {"no":  9, "source": "동용해로",                   "hoodType": "레시바캐노피형", "velocity": {"min": 1.0, "max": 1.3, "unit": "m/sec"}, "capturePoint": "개구면"},
+        {"no":  9, "source": "도가니로",                   "hoodType": "레시바캐노피형", "velocity": {"value": 1.0, "unit": "m/sec"},          "capturePoint": "개구면"},
+        {"no":  9, "source": "전기로",                     "hoodType": "레시바캐노피형", "velocity": {"value": 2.0, "unit": "m/sec"},          "capturePoint": "개구면"},
+        {"no": 10, "source": "용탕주입",                   "hoodType": "포집스롯트루바형","velocity": {"value": 2.0, "unit": "m/sec"},         "capturePoint": "개구면"},
+        {"no": 11, "source": "바켙엘리베이터",              "hoodType": "포집박스형",    "velocity": {"value": 2.5, "unit": "m/sec"},          "capturePoint": "개구면"},
+        {"no": 12, "source": "디스크연마기",                "hoodType": "포집그리트",    "velocity": {"min": 1.0, "max": 2.0, "unit": "m/sec"}, "capturePoint": "격자면"},
+        {"no": 12, "source": "평면연마기",                  "hoodType": "포집스롯트형",   "velocity": {"value": 7.5, "unit": "m/sec"},          "capturePoint": "발생원"},
+        {"no": 13, "source": "주방가스렌지",                "hoodType": "레시바캐노피형", "velocity": {"min": 0.5, "max": 0.8, "unit": "m/sec"}, "capturePoint": "개구면"},
+        {"no": 14, "source": "분무도장",                   "hoodType": "부스형(건물)",   "velocity": {"min": 0.5, "max": 1.0, "unit": "m/sec"}, "capturePoint": "개구면"},
+        {"no": 15, "source": "고무카렌다",                  "hoodType": "포집장방형",    "velocity": {"value": 0.5, "unit": "m/sec"},          "capturePoint": "개구면"},
+        {"no": 16, "source": "탈지탱크",                   "hoodType": "포집스롯트형",   "velocity": {"min": 0.3, "max": 0.5, "unit": "m/sec"}, "capturePoint": "발생원"},
+        {"no": 16, "source": "침적탱크",                   "hoodType": "부스형(chamber)","velocity": {"value": 0.8, "unit": "m/sec"},         "capturePoint": "개구면"},
+        {"no": 16, "source": "산세척탱크",                  "hoodType": "포집스롯트형",   "velocity": {"min": 0.4, "max": 0.5, "unit": "m/sec"}, "capturePoint": "발생원"},
+        {"no": 16, "source": "도금탱크",                   "hoodType": "포집스롯트형",   "velocity": {"min": 0.4, "max": 0.5, "unit": "m/sec"}, "capturePoint": "발생원"},
+        {"no": 16, "source": "탕세탱크",                   "hoodType": "레시바캐노피형", "velocity": {"min": 0.4, "max": 0.5, "unit": "m/sec"}, "capturePoint": "발생원"},
+        {"no": 17, "source": "전기용접 (캐노피)",           "hoodType": "레시바캐노피형", "velocity": {"min": 0.5, "max": 1.0, "unit": "m/sec"}, "capturePoint": "발생원"},
+        {"no": 17, "source": "전기용접 (부스)",             "hoodType": "부스형(건물)",   "velocity": {"value": 0.5, "unit": "m/sec"},          "capturePoint": "개구면"},
+        {"no": 18, "source": "혼합기",                     "hoodType": "포위카바형",     "velocity": {"min": 0.5, "max": 1.0, "unit": "m/sec"}, "capturePoint": "개구면"}
+      ]
+    },
+
+    "table1_3_laborMinistry_90_45": {
+      "pageRef": 20,
+      "title": "표1-3 제어풍속(노동부고시 90-45호)",
+      "organicSolvent": {
+        "subtitle": "유기용제에 대한 제어풍속",
+        "rows": [
+          {"hoodType": "포위식 후드",                  "velocity": {"value": 0.4, "unit": "m/sec"}},
+          {"hoodType": "외부식 후드 (측방흡인형)",      "velocity": {"value": 0.5, "unit": "m/sec"}},
+          {"hoodType": "외부식 후드 (하방흡인형)",      "velocity": {"value": 0.5, "unit": "m/sec"}},
+          {"hoodType": "외부식 후드 (상방흡인형)",      "velocity": {"value": 1.0, "unit": "m/sec"}}
+        ]
+      },
+      "rotatingMachineryGeneral": {
+        "subtitle": "회전체를 가지는 기계와 관련있는 특정이외 먼지 발생원",
+        "rows": [
+          {"hoodType": "포위식 후드",                  "velocity": {"value": 0.7, "unit": "m/sec"}},
+          {"hoodType": "외부식 후드 (측방흡인형)",      "velocity": {"value": 1.0, "unit": "m/sec"}},
+          {"hoodType": "외부식 후드 (하방흡인형)",      "velocity": {"value": 1.0, "unit": "m/sec"}},
+          {"hoodType": "외부식 후드 (상방흡인형)",      "velocity": {"value": 1.2, "unit": "m/sec"}}
+        ]
+      },
+      "rotatingMachinerySpecific": {
+        "subtitle": "회전체를 가지는 기계에 관련있는 특정 먼지 발생원",
+        "rows": [
+          {"installation": "회전체를 갖는 기계전체를 포위하는 방법",                   "velocity": {"value": 0.5, "unit": "m/sec"}},
+          {"installation": "회전체의 회전에 의한 분진 비산방향을 후드 개구면으로 덮는 방법", "velocity": {"value": 5.0, "unit": "m/sec"}},
+          {"installation": "회전체만을 싸는 방법",                                "velocity": {"value": 5.0, "unit": "m/sec"}}
+        ]
+      },
+      "specificDustSource": {
+        "subtitle": "특정먼지 발생원 (16개 작업장 유형)",
+        "columns": ["포위식 후드", "외부식 측방흡인형", "외부식 하방흡인형", "외부식 상방흡인형"],
+        "unit": "m/sec",
+        "rows": [
+          {"process": "1. 동력 사용 옥내 암석/광물 재단",                                                       "enclosing": 0.7, "sideDraft": 1.0, "downDraft": 1.0, "upDraft": null},
+          {"process": "2. 동력 사용 옥내 암석/광물 조각·마무리",                                                "enclosing": 0.7, "sideDraft": 1.0, "downDraft": 1.0, "upDraft": 1.2},
+          {"process": "3. 연마재 분사로 옥내 암석/광물/주물 연마·조각",                                          "enclosing": 1.0, "sideDraft": null, "downDraft": null, "upDraft": null},
+          {"process": "4. 연마재+동력 사용 옥내 암석/광물/금속 연마·주물·추출 또는 금속 재단",                       "enclosing": 0.7, "sideDraft": 1.0, "downDraft": 1.0, "upDraft": 1.2},
+          {"process": "5. 옥내 시멘트/티타늄/광석분말/탄소원료/탄소제품/알미늄/산화티타늄 포장",                       "enclosing": 0.7, "sideDraft": 1.0, "downDraft": 1.0, "upDraft": 1.2},
+          {"process": "6. 옥내 광석분말/탄소원료 또는 함유 물질 혼합·혼입·살포",                                   "enclosing": 0.7, "sideDraft": 1.0, "downDraft": 1.0, "upDraft": 1.2},
+          {"process": "7. 유리/접량/도자기/내화물/형상토/연마재/탄소제품 제조시 옥내 원료혼합",                       "enclosing": 0.7, "sideDraft": 1.0, "downDraft": 1.0, "upDraft": null},
+          {"process": "8. 내화벽돌/타일 제조 중 동력 사용 옥내 원료성형",                                          "enclosing": 0.7, "sideDraft": 1.0, "downDraft": 1.0, "upDraft": 1.2},
+          {"process": "9. 옥내 수지식 용융분사기 미사용 금속용융분사",                                            "enclosing": 0.7, "sideDraft": 1.0, "downDraft": 1.0, "upDraft": 1.2},
+          {"process": "10. 동력 사용 옥내 암석/광물/탄소원료/알미늄 파쇄·분쇄",                                   "enclosing": 0.7, "sideDraft": 1.0, "downDraft": null, "upDraft": 1.2},
+          {"process": "11. 동력 사용 옥내 암석/광물/탄소원료/알미늄박 체질",                                      "enclosing": 0.7, "sideDraft": null, "downDraft": null, "upDraft": null},
+          {"process": "12. 도자기/내화물/형상토/연마재/탄소제품 제조 중 동력으로 옥내 반제품/제품 다듬질 (압축공기 확산)", "enclosing": 0.7, "sideDraft": 1.0, "downDraft": 1.0, "upDraft": null},
+          {"process": "13. 위 12번 + 압축공기 확산 외의 장소",                                                   "enclosing": 0.7, "sideDraft": 1.0, "downDraft": 1.0, "upDraft": 1.2},
+          {"process": "14. 주형 제조 중 옥내 주형해체 또는 사형 부수기/사락",                                       "enclosing": 0.7, "sideDraft": 1.3, "downDraft": 1.3, "upDraft": null},
+          {"process": "15. 사형 사용 주물제조 중 옥내 동력 주물사 재생",                                          "enclosing": 0.7, "sideDraft": null, "downDraft": null, "upDraft": null},
+          {"process": "16. 사형 사용 주물제조 중 옥내 동력 주물사 혼합",                                          "enclosing": 0.7, "sideDraft": 1.0, "downDraft": 1.0, "upDraft": 1.2}
+        ]
+      }
+    }
+  },
+
+  "IV_openTankHood": {
+    "pageRef": 23,
+    "title": "개방처리조의 후드설계 및 배출가스량 산정",
+    "hoodSelection": [
+      {"tankWidth": "500mm(20\") 이하",            "recommendedHood": "편흡입후드 (slot on one side)"},
+      {"tankWidth": "500~900mm(20~36\")",         "recommendedHood": "가급적 양편후드 (slot on both side)"},
+      {"tankWidth": "900~1,200mm(36~48\")",       "recommendedHood": "반드시 양편후드"},
+      {"tankWidth": "1,200mm(48\") 이상",          "recommendedHood": "push-pull hood 또는 밀폐형후드 (3,000mm 이내는 push-pull, 그 외 밀폐형 권장)"}
+    ],
+    "designRules": [
+      "탱크는 가급적 단변을 폭(W), 장변을 길이(L)로 설계. W/L > 2.0 인 긴 탱크 횡단환기는 피할 것",
+      "탱크 길이(L) > 1,800mm(6ft) → 가급적 복수흡입구, > 3,000mm(10ft) → 반드시 복수흡입구",
+      "탱크 폭(W) = 후드 유효흡인거리. slot hood 최대흡인거리 = 60mm(2ft)",
+      "탱크용액은 최소한 탱크상단부 150mm(6\") 이하에서 작업",
+      "닥트내 속도: 증기/가스/연기 5~10m/sec, fume 10~12.7m/sec",
+      "유입손실 = 1.78 × slot속도압 + 닥트유입손실",
+      "최대 plenum속도 = slot속도의 1/2",
+      "slot 유입속도 = 10m/sec (600m/min)"
+    ],
+    "table1_4_hazardLevel_TLV": {
+      "pageRef": 24,
+      "title": "표1-4 잠재성 유해정도 결정 (Industrial Ventilation TLV 기준)",
+      "rows": [
+        {"level": "A", "vaporPpm": "0~10",      "mistMgPerM3": "0~0.1",    "flashPointC": "-"},
+        {"level": "B", "vaporPpm": "11~100",    "mistMgPerM3": "0.11~1.0", "flashPointC": "37 이하"},
+        {"level": "C", "vaporPpm": "101~500",   "mistMgPerM3": "1.1~10",   "flashPointC": "38~93"},
+        {"level": "D", "vaporPpm": "500 이상",   "mistMgPerM3": "10 이상",   "flashPointC": "94 이상"}
+      ]
+    },
+    "table1_5_gasificationRate": {
+      "pageRef": 24,
+      "title": "표1-5 가스화·증발율·미스트화율 결정",
+      "rows": [
+        {"grade": 1, "tempC": "94 이상", "boilDiffC": "0~11",   "evaporationTime": "빠름 0~3hr",       "gasification": "높음"},
+        {"grade": 2, "tempC": "66~93",  "boilDiffC": "12~27",  "evaporationTime": "중간 3~12hr",      "gasification": "중간"},
+        {"grade": 3, "tempC": "35~65",  "boilDiffC": "28~55",  "evaporationTime": "느림 12~50hr",     "gasification": "낮음"},
+        {"grade": 4, "tempC": "34 이하","boilDiffC": "56 이상","evaporationTime": "정지 50hr 이상",   "gasification": "없음"}
+      ]
+    },
+    "_note": "표1-6 (금속도금/표면처리공정 발생가스 분류, 100+ 공정) 은 분량이 커서 별도 파일로 분리 권장 — 본 JSON 에는 미포함, 원본 PDF p.25~ 참조."
+  },
+
+  "V_pushPullHood": {
+    "pageRef": 36,
+    "title": "Push-pull 후드",
+    "_summary": "1,200mm 초과~3,000mm 이내 폭 탱크에 적용. 한쪽에서 공기를 push, 반대쪽에서 pull. 상세 설계식은 PDF p.36~38 참조.",
+    "diagramRef": "PDF p.36~38"
+  },
+
+  "VI_thermalSourceHood": {
+    "pageRef": 39,
+    "title": "열오염원의 후드설계",
+    "_summary": "용해로·도가니로·전기로 등 고온 발생원의 상승기류 처리. 캐노피 후드 위주. 상세 PDF p.39~45 참조.",
+    "diagramRef": "PDF p.39~45"
+  },
+
+  "VII_paintingFacility": {
+    "pageRef": 46,
+    "title": "도장시설의 후드설계 및 배출가스량 산정",
+    "_summary": "분무도장/함침도장 부스의 면속도·풍량 산정. 상세 PDF p.46~50 참조.",
+    "diagramRef": "PDF p.46~50"
+  },
+
+  "VIII_desandingFacility": {
+    "pageRef": 51,
+    "title": "탈사시설에서의 배출가스량 산정",
+    "_summary": "sand blast / shake-out 시설 풍량 산정. 상세 PDF p.51~ 참조.",
+    "diagramRef": "PDF p.51~"
+  },
+
+  "_meta": {
+    "generatedFrom": ["대기편람분석/1~4장.txt", "대기편람분석/1~4장.pdf"],
+    "rendered": ["대기편람분석/figures/fig1-1_hood_shapes_p13.png", "대기편람분석/figures/fig1-1_hood_shapes_p15.png"],
+    "coverage": "1장 I~III 완전 데이터화 (프로그램 직접 사용 가능). IV~VIII 은 헤딩과 페이지 참조만, 깊은 데이터는 필요시 별도 작업.",
+    "unitConvention": "단위는 원본 그대로 표기. m/sec ↔ m/min, m ↔ ft 변환은 사용자 측에서 처리."
+  }
+}

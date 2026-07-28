@@ -1,0 +1,28 @@
+📦 서대리 웹 서비스 전체 시스템
+ ┃
+ ┣ 🗄️ 1. 데이터베이스 계층 (Database Layer) ─ "절대 변하지 않는 원본"
+ ┃ ┣ 🐘 PostgreSQL DB       # 실제 데이터가 저장되는 영구 저장소 (SSOT)
+ ┃ ┗ 🔗 Prisma ORM          # DB와 백엔드를 이어주는 다리 (스키마 및 엄격한 타입 관리)
+ ┃
+ ┣ ⚙️ 2. 백엔드/API 계층 (Backend Layer) ─ "문지기"
+ ┃ ┗ 🚀 Next.js API 라우트  # (또는 Server Actions) 프론트엔드의 요청을 받아 Prisma를 통해 DB 조회/수정
+ ┃                          # └─ "시설 정보 좀 줘!", "수정된 폐기물 정보 저장해줘!" 요청 처리
+ ┃
+ ┣ 🏪 3. 프론트엔드 스토어 계층 (State Management Layer) ─ "임시 작업장 (Draft)"
+ ┃ ┣ 📥 Server State        # (TanStack Query) 백엔드에서 방금 가져온 따끈따끈한 '원본 데이터' (캐싱)
+ ┃ ┗ 🗂️ Client Store        # (Zustand) 사용자가 화면에서 뚝딱뚝딱 수정 중인 '임시 데이터(Draft)'
+ ┃                          # ├─ originalData: 취소(Undo)를 대비해 보관 중인 원본
+ ┃                          # ├─ draftData: 편집 중인 데이터 (※ 시설과 폐기물은 ID로만 연결!)
+ ┃                          # └─ Actions: updateCell(), saveToDB() 등의 상태 변경 함수들
+ ┃
+ ┣ 🧠 4. 로직 계층 (Logic Layer) ─ "계산기 & 두뇌"
+ ┃ ┣ 📜 대함수.js           # [공통 코어 로직] 사칙연산, 포맷팅, 빈 값 검증 등 (재사용률 100%)
+ ┃ ┗ 📜 세부함수.js         # [페이지별 맞춤 로직] 특정 스키마(업종별) 전용 계산
+ ┃                          # └─ 사용자가 값을 입력하면 Store의 draftData를 읽어와서 대함수로 계산 후 다시 Store에 꽂아줌
+ ┃
+ ┗ 💻 5. 뷰 & 렌더링 계층 (View Layer) ─ "사용자의 눈과 손"
+   ┣ 📜 data.js (Fetcher)   # 백엔드 API와 통신 전담 (데이터 가져오기 / [저장] 누를 때 DB로 쏘기)
+   ┣ 📜 pageLoader.js       # (DynamicTable 컴포넌트) JSON 스키마를 읽어 표와 폼을 동적으로 그림
+   ┃                        # └─ Store의 draftData를 바라보고 있다가, 값이 바뀌면 화면을 즉시 리렌더링
+   ┗ 📄 Next.js 페이지      # 사용자가 접속하는 실제 주소 (예: /permit/transport)
+                            # └─ "<DynamicTable targetGroup='VEHICLE' />" 딱 한 줄로 화면 완성

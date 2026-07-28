@@ -1,0 +1,864 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>공장 배치도 편집기</title>
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family:'Malgun Gothic',sans-serif; display:flex; flex-direction:column; height:100vh; background:#1e1e2e; color:#cdd6f4; overflow:hidden; user-select:none; }
+
+#topbar { display:flex; align-items:center; gap:6px; padding:5px 10px; background:#181825; border-bottom:1px solid #313244; flex-shrink:0; flex-wrap:wrap; }
+.tsep { width:1px; height:22px; background:#313244; margin:0 3px; }
+.btn { padding:3px 9px; border:1px solid #45475a; background:#313244; color:#cdd6f4; border-radius:4px; cursor:pointer; font-size:12px; white-space:nowrap; font-family:inherit; }
+.btn:hover { background:#45475a; }
+.btn.primary { background:#89b4fa; color:#1e1e2e; border-color:#89b4fa; }
+.btn.primary:hover { background:#74c7ec; }
+select { background:#313244; border:1px solid #45475a; color:#cdd6f4; border-radius:4px; padding:2px 5px; font-size:12px; cursor:pointer; font-family:inherit; }
+label { font-size:12px; color:#a6adc8; }
+
+#main { display:flex; flex:1; overflow:hidden; }
+
+#toolbar { width:46px; background:#181825; border-right:1px solid #313244; display:flex; flex-direction:column; align-items:center; padding:6px 0; gap:3px; flex-shrink:0; }
+.tb { width:34px; height:34px; border:none; background:transparent; color:#cdd6f4; cursor:pointer; border-radius:6px; display:flex; align-items:center; justify-content:center; font-size:17px; position:relative; }
+.tb:hover { background:#313244; }
+.tb.active { background:#89b4fa; color:#1e1e2e; }
+.tb-sep { width:26px; height:1px; background:#313244; margin:2px 0; }
+.tb[title]:hover::after { content:attr(title); position:absolute; left:40px; top:50%; transform:translateY(-50%); background:#313244; color:#cdd6f4; padding:3px 7px; border-radius:4px; font-size:11px; white-space:nowrap; z-index:999; border:1px solid #45475a; pointer-events:none; }
+
+#canvas-wrap { flex:1; position:relative; overflow:hidden; }
+#cv { display:block; }
+
+#rpanel { width:196px; background:#181825; border-left:1px solid #313244; display:flex; flex-direction:column; flex-shrink:0; overflow-y:auto; }
+.ps { border-bottom:1px solid #313244; padding:8px 10px; }
+.ps h3 { font-size:10px; text-transform:uppercase; color:#6c7086; margin-bottom:7px; letter-spacing:.5px; }
+.pr { display:flex; align-items:center; justify-content:space-between; margin-bottom:5px; font-size:12px; }
+.pr label { color:#a6adc8; }
+.pr input[type=color] { width:30px; height:22px; border:none; border-radius:3px; cursor:pointer; padding:0; background:none; }
+.pr input[type=number], .pr select { width:76px; height:22px; background:#313244; border:1px solid #45475a; color:#cdd6f4; border-radius:4px; font-size:12px; padding:0 5px; font-family:inherit; }
+.pr input[type=checkbox] { cursor:pointer; }
+
+#statusbar { height:22px; background:#181825; border-top:1px solid #313244; display:flex; align-items:center; padding:0 10px; gap:14px; font-size:11px; color:#6c7086; flex-shrink:0; }
+
+#ctx-menu { display:none; position:fixed; background:#181825; border:1px solid #45475a; border-radius:6px; z-index:1000; overflow:hidden; min-width:120px; box-shadow:0 4px 16px rgba(0,0,0,.5); }
+.ctx-item { padding:7px 14px; font-size:12px; cursor:pointer; color:#cdd6f4; }
+.ctx-item:hover { background:#313244; }
+.ctx-item.danger { color:#f38ba8; }
+.ctx-sep { height:1px; background:#313244; margin:2px 0; }
+
+#txt-modal { display:none; position:fixed; inset:0; background:rgba(0,0,0,.6); z-index:999; align-items:center; justify-content:center; }
+#txt-modal.show { display:flex; }
+#txt-inner { background:#181825; border:1px solid #45475a; border-radius:8px; padding:18px; min-width:280px; }
+#txt-inner h3 { margin-bottom:10px; font-size:13px; }
+#txt-inp { width:100%; padding:7px; background:#313244; border:1px solid #45475a; color:#cdd6f4; border-radius:4px; font-size:13px; margin-bottom:10px; font-family:inherit; }
+.mbtns { display:flex; gap:7px; justify-content:flex-end; }
+</style>
+</head>
+<body>
+
+<div id="topbar">
+  <div style="display:flex;gap:5px;align-items:center">
+    <button class="btn" onclick="newDoc()">새 도면</button>
+    <button class="btn" onclick="saveJSON()">저장 (JSON)</button>
+    <button class="btn" onclick="document.getElementById('fi').click()">불러오기</button>
+    <input type="file" id="fi" accept=".json" style="display:none" onchange="loadFile(event)">
+  </div>
+  <div class="tsep"></div>
+  <button class="btn" onclick="doUndo()">↩ 취소</button>
+  <button class="btn" onclick="doRedo()">↪ 복원</button>
+  <button class="btn" onclick="copyShapes()">복사 (C)</button>
+  <button class="btn" onclick="pasteShapes()">붙여넣기 (V)</button>
+  <div class="tsep"></div>
+  <label>축척</label>
+  <select id="scSel" onchange="scaleN=+this.value;updateStatus()">
+    <option value="20">1:20</option><option value="50">1:50</option>
+    <option value="100" selected>1:100</option><option value="200">1:200</option>
+    <option value="500">1:500</option><option value="1000">1:1000</option>
+  </select>
+  <label>단위</label>
+  <select id="unitSel" onchange="unitStr=this.value;updateStatus()">
+    <option value="mm">mm</option><option value="cm">cm</option><option value="m" selected>m</option>
+  </select>
+  <div class="tsep"></div>
+  <button class="btn" onclick="zoomFit()">화면 맞춤</button>
+  <button class="btn" onclick="doZoom(1.25)">+</button>
+  <button class="btn" onclick="doZoom(0.8)">−</button>
+  <span id="zoomLbl" style="font-size:12px;color:#a6adc8;min-width:38px">100%</span>
+  <div class="tsep"></div>
+  <button class="btn primary" onclick="exportPNG()">이미지 저장</button>
+  <select id="dpiSel"><option value="150">150 DPI</option><option value="300" selected>300 DPI</option><option value="600">600 DPI</option></select>
+</div>
+
+<div id="main">
+  <div id="toolbar">
+    <button class="tb active" id="t-select" title="선택 (V)" onclick="setTool('select')" style="font-size:19px">✋</button>
+    <div class="tb-sep"></div>
+    <button class="tb" id="t-line"   title="선 (L)"     onclick="setTool('line')">╱</button>
+    <button class="tb" id="t-rect"   title="사각형 (R)" onclick="setTool('rect')">▭</button>
+    <button class="tb" id="t-circle" title="원 (C)"     onclick="setTool('circle')" style="font-size:24px">○</button>
+    <div class="tb-sep"></div>
+    <button class="tb" id="t-text"   title="텍스트 (T)" onclick="setTool('text')" style="font-weight:700">T</button>
+    <button class="tb" id="t-leader" title="지시선 (A)" onclick="setTool('leader')">↗</button>
+    <button class="tb" id="t-dim"    title="치수 (D)"   onclick="setTool('dim')">↔</button>
+    <div class="tb-sep"></div>
+    <button class="tb" title="삭제 (Del)" onclick="delSel()" style="color:#f38ba8;font-size:14px">🗑</button>
+  </div>
+
+  <div id="canvas-wrap"><canvas id="cv"></canvas></div>
+
+  <div id="rpanel">
+    <div class="ps">
+      <h3>선 스타일</h3>
+      <div class="pr"><label>색상</label><input type="color" id="pStroke" value="#000000" onchange="render()"></div>
+      <div class="pr"><label>두께</label><input type="number" id="pLW" value="1" min="0.1" max="20" step="0.5" onchange="render()"></div>
+      <div class="pr"><label>선종류</label>
+        <select id="pDash" onchange="render()">
+          <option value="">실선</option><option value="dash">점선</option><option value="dot">점점선</option>
+        </select>
+      </div>
+    </div>
+    <div class="ps">
+      <h3>채우기</h3>
+      <div class="pr"><label>색상</label><input type="color" id="pFill" value="#ffffff" onchange="render()"></div>
+      <div class="pr"><label>없음</label><input type="checkbox" id="pNoFill" checked onchange="render()"></div>
+    </div>
+    <div class="ps">
+      <h3>해치 (우클릭으로 적용)</h3>
+      <div class="pr"><label>패턴</label>
+        <select id="pHatch" onchange="render()">
+          <option value="line45">사선 45°</option><option value="line135">사선 135°</option>
+          <option value="cross">격자</option><option value="horiz">수평선</option>
+          <option value="vert">수직선</option><option value="dot">점</option>
+        </select>
+      </div>
+      <div class="pr"><label>간격</label><input type="number" id="pHS" value="8" min="3" max="60" onchange="render()"></div>
+      <div class="pr"><label>색상</label><input type="color" id="pHC" value="#555555" onchange="render()"></div>
+    </div>
+    <div class="ps">
+      <h3>텍스트</h3>
+      <div class="pr"><label>크기</label><input type="number" id="pFS" value="14" min="6" max="120" onchange="render()"></div>
+      <div class="pr"><label>폰트</label>
+        <select id="pFont" onchange="render()">
+          <option value="Malgun Gothic">맑은 고딕</option>
+          <option value="Arial">Arial</option>
+          <option value="monospace">고정폭</option>
+        </select>
+      </div>
+    </div>
+    <div class="ps">
+      <h3>그리드</h3>
+      <div class="pr"><label>표시</label><input type="checkbox" id="gShow" checked onchange="render()"></div>
+      <div class="pr"><label>스냅</label><input type="checkbox" id="gSnap" checked></div>
+      <div class="pr"><label>간격</label><input type="number" id="gSize" value="0.1" min="0.01" max="100" step="0.1" onchange="render()"></div>
+    </div>
+  </div>
+</div>
+
+<div id="statusbar">
+  <span id="sXY">x: 0.00  y: 0.00</span>
+  <span id="sLen"></span>
+  <span id="sTool">도구: 선택</span>
+  <span id="sScale">축척 1:100</span>
+  <span id="sUnit">단위: m</span>
+  <span style="margin-left:auto;color:#45475a">Space+드래그: 화면이동 | 휠: 확대축소 | 선연속: ESC로 종료</span>
+</div>
+
+<div id="ctx-menu">
+  <div class="ctx-item" id="ctx-hatch-on"  onclick="applyHatch()">▨ 해치 적용</div>
+  <div class="ctx-item" id="ctx-hatch-off" onclick="removeHatch()">✕ 해치 제거</div>
+  <div class="ctx-sep"></div>
+  <div class="ctx-item" onclick="copyShapes();hideCtx()">복사</div>
+  <div class="ctx-sep"></div>
+  <div class="ctx-item danger" onclick="delSel();hideCtx()">🗑 삭제</div>
+</div>
+
+<div id="txt-modal">
+  <div id="txt-inner">
+    <h3 id="txt-title">텍스트 입력</h3>
+    <input type="text" id="txt-inp" placeholder="내용을 입력하세요">
+    <div class="mbtns">
+      <button class="btn" onclick="cancelTxt()">취소</button>
+      <button class="btn primary" onclick="confirmTxt()">확인</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// ── canvas ────────────────────────────────────────────────────
+const cv = document.getElementById('cv');
+const cx = cv.getContext('2d');
+const wrap = document.getElementById('canvas-wrap');
+function resize() { const r = wrap.getBoundingClientRect(); cv.width = r.width; cv.height = r.height; render(); }
+window.addEventListener('resize', resize);
+
+// ── state ─────────────────────────────────────────────────────
+let shapes = [], hist = [], fut = [], selIds = [];
+let clipboard = [];
+let tool = 'select';
+let scaleN = 100, unitStr = 'm';
+const PPU = 50; // px per world unit at zoom=1
+
+let vz = 1, vpx = 0, vpy = 0;
+
+// drawing
+let drawing = false, sx0 = 0, sy0 = 0, cx0 = 0, cy0 = 0;
+let leaderPts = [], dimStage = 0, dimP1 = null, dimP2 = null;
+let pendTx = 0, pendTy = 0;
+
+// line chaining: after drawing a line, next line starts from last endpoint
+let lineContPt = null;
+
+// select: drag-to-move vs marquee select
+let dragging = false, dragW0 = null, hasMoved = false;
+let isMarquee = false, mqStart = null, mqEnd = null;
+
+// pan
+let panning = false, spaceDown = false;
+let lastSX = 0, lastSY = 0;
+
+// context menu
+let ctxTarget = null;
+let idSeq = 1;
+
+// ── coords ────────────────────────────────────────────────────
+const w2s = (wx, wy) => ({ x: wx * vz * PPU + vpx, y: wy * vz * PPU + vpy });
+const s2w = (sx, sy) => ({ x: (sx - vpx) / (vz * PPU), y: (sy - vpy) / (vz * PPU) });
+function snap(wx, wy) {
+  if (!document.getElementById('gSnap').checked) return { x: wx, y: wy };
+  const g = +document.getElementById('gSize').value;
+  return { x: Math.round(wx / g) * g, y: Math.round(wy / g) * g };
+}
+function wdist(a, b) { return Math.hypot(b.x - a.x, b.y - a.y); }
+function fmt(d) {
+  if (unitStr === 'mm') return (d * 1000).toFixed(0) + ' mm';
+  if (unitStr === 'cm') return (d * 100).toFixed(1) + ' cm';
+  return d.toFixed(3) + ' m';
+}
+function wlen(v) { return v * vz * PPU; }
+
+// ── style ─────────────────────────────────────────────────────
+function getStyle() {
+  return {
+    stroke: document.getElementById('pStroke').value,
+    lw: +document.getElementById('pLW').value,
+    dash: document.getElementById('pDash').value,
+    fill: document.getElementById('pNoFill').checked ? null : document.getElementById('pFill').value,
+    hPat: document.getElementById('pHatch').value,
+    hSp: +document.getElementById('pHS').value,
+    hCol: document.getElementById('pHC').value,
+    fs: +document.getElementById('pFS').value,
+    font: document.getElementById('pFont').value,
+  };
+}
+function applyStroke(c2, s) {
+  c2.strokeStyle = s.stroke || '#000';
+  c2.lineWidth = (s.lw || 1) * vz;
+  if (s.dash === 'dash') c2.setLineDash([8 * vz, 4 * vz]);
+  else if (s.dash === 'dot') c2.setLineDash([2 * vz, 4 * vz]);
+  else c2.setLineDash([]);
+}
+
+// ── render ────────────────────────────────────────────────────
+function render() {
+  cx.clearRect(0, 0, cv.width, cv.height);
+  cx.fillStyle = '#f0f0eb'; cx.fillRect(0, 0, cv.width, cv.height);
+  if (document.getElementById('gShow').checked) drawGrid();
+  for (const s of shapes) drawShape(cx, s);
+  for (const s of shapes) if (selIds.includes(s.id)) drawSel(s);
+  if (drawing) drawPreview();
+  drawLineChainPreview();
+  drawLeaderPreview();
+  drawDimPreview();
+  if (isMarquee && mqStart && mqEnd) drawMarquee();
+}
+
+function drawGrid() {
+  const g = +document.getElementById('gSize').value;
+  const gpx = g * vz * PPU; if (gpx < 3) return;
+  const W = cv.width, H = cv.height;
+  const lx = (0 - vpx) / (vz * PPU), rx = (W - vpx) / (vz * PPU);
+  const ty = (0 - vpy) / (vz * PPU), by = (H - vpy) / (vz * PPU);
+  const major = g * 5;
+  cx.save();
+  for (let wx = Math.ceil(lx / g) * g; wx <= rx + g; wx += g) {
+    const px = w2s(wx, 0).x;
+    const isMaj = Math.abs(Math.round(wx / major) * major - wx) < g * 0.01;
+    cx.strokeStyle = isMaj ? '#b0b0a8' : '#ddddd5'; cx.lineWidth = isMaj ? 0.7 : 0.4;
+    cx.beginPath(); cx.moveTo(px, 0); cx.lineTo(px, H); cx.stroke();
+  }
+  for (let wy = Math.ceil(ty / g) * g; wy <= by + g; wy += g) {
+    const py = w2s(0, wy).y;
+    const isMaj = Math.abs(Math.round(wy / major) * major - wy) < g * 0.01;
+    cx.strokeStyle = isMaj ? '#b0b0a8' : '#ddddd5'; cx.lineWidth = isMaj ? 0.7 : 0.4;
+    cx.beginPath(); cx.moveTo(0, py); cx.lineTo(W, py); cx.stroke();
+  }
+  cx.restore();
+}
+
+// ── drawShape ─────────────────────────────────────────────────
+function drawShape(c2, s) {
+  c2.save(); applyStroke(c2, s);
+  switch (s.type) {
+    case 'line': {
+      const p1 = w2s(s.x1, s.y1), p2 = w2s(s.x2, s.y2);
+      c2.beginPath(); c2.moveTo(p1.x, p1.y); c2.lineTo(p2.x, p2.y); c2.stroke(); break;
+    }
+    case 'rect': {
+      const p = w2s(s.x, s.y), rw = wlen(s.w), rh = wlen(s.h);
+      if (s.fill) { c2.fillStyle = s.fill; c2.fillRect(p.x, p.y, rw, rh); }
+      if (s.hasHatch) drawHatch(c2, p.x, p.y, rw, rh, s.hPat, s.hSp * vz, s.hCol);
+      c2.strokeRect(p.x, p.y, rw, rh); break;
+    }
+    case 'circle': {
+      const c = w2s(s.cx, s.cy), r = wlen(s.r);
+      c2.beginPath(); c2.arc(c.x, c.y, r, 0, Math.PI * 2);
+      if (s.fill) { c2.fillStyle = s.fill; c2.fill(); }
+      if (s.hasHatch) {
+        c2.save(); c2.beginPath(); c2.arc(c.x, c.y, r, 0, Math.PI * 2); c2.clip();
+        drawHatch(c2, c.x - r, c.y - r, r * 2, r * 2, s.hPat, s.hSp * vz, s.hCol); c2.restore();
+      }
+      c2.beginPath(); c2.arc(c.x, c.y, r, 0, Math.PI * 2); c2.stroke(); break;
+    }
+    case 'text': {
+      const p = w2s(s.x, s.y);
+      c2.font = `${s.fs * vz}px "${s.font || 'Malgun Gothic'}"`;
+      c2.fillStyle = s.stroke || '#000'; c2.setLineDash([]);
+      c2.fillText(s.text || '', p.x, p.y); break;
+    }
+    case 'leader': {
+      if (!s.pts || s.pts.length < 2) break;
+      c2.setLineDash([]);
+      c2.beginPath(); const p0 = w2s(s.pts[0].x, s.pts[0].y); c2.moveTo(p0.x, p0.y);
+      for (let i = 1; i < s.pts.length; i++) { const pi = w2s(s.pts[i].x, s.pts[i].y); c2.lineTo(pi.x, pi.y); }
+      c2.stroke();
+      const a0 = w2s(s.pts[0].x, s.pts[0].y), a1 = w2s(s.pts[1].x, s.pts[1].y);
+      drawArrow(c2, a1.x, a1.y, a0.x, a0.y, 8 * vz, s.stroke);
+      if (s.text) {
+        const last = w2s(s.pts[s.pts.length - 1].x, s.pts[s.pts.length - 1].y);
+        c2.font = `${(s.fs || 12) * vz}px "${s.font || 'Malgun Gothic'}"`;
+        c2.fillStyle = s.stroke || '#000'; c2.setLineDash([]);
+        c2.fillText(s.text, last.x + 5 * vz, last.y - 3 * vz);
+      }
+      break;
+    }
+    case 'dim': {
+      const p1 = w2s(s.x1, s.y1), p2 = w2s(s.x2, s.y2);
+      const dx = p2.x - p1.x, dy = p2.y - p1.y, len = Math.hypot(dx, dy);
+      if (len < 1) break;
+      const nx = -dy / len, ny = dx / len, off = s.off * vz * PPU;
+      const d1 = { x: p1.x + nx * off, y: p1.y + ny * off };
+      const d2 = { x: p2.x + nx * off, y: p2.y + ny * off };
+      c2.setLineDash([]);
+      c2.beginPath();
+      c2.moveTo(p1.x, p1.y); c2.lineTo(d1.x, d1.y);
+      c2.moveTo(p2.x, p2.y); c2.lineTo(d2.x, d2.y);
+      c2.moveTo(d1.x, d1.y); c2.lineTo(d2.x, d2.y);
+      c2.stroke();
+      drawArrow(c2, d2.x, d2.y, d1.x, d1.y, 6 * vz, s.stroke);
+      drawArrow(c2, d1.x, d1.y, d2.x, d2.y, 6 * vz, s.stroke);
+      const mx = (d1.x + d2.x) / 2, my = (d1.y + d2.y) / 2;
+      const txt = s.label || fmt(wdist({ x: s.x1, y: s.y1 }, { x: s.x2, y: s.y2 }));
+      const fs = (s.fs || 11) * vz;
+      c2.font = `${fs}px "${s.font || 'Malgun Gothic'}"`;
+      c2.save(); c2.translate(mx, my); c2.rotate(Math.atan2(dy, dx));
+      const tw = c2.measureText(txt).width;
+      c2.fillStyle = '#f0f0eb'; c2.fillRect(-tw / 2 - 2, -fs - 2, tw + 4, fs + 2);
+      c2.fillStyle = s.stroke || '#000';
+      c2.fillText(txt, -tw / 2, -3 * vz);
+      c2.restore(); break;
+    }
+  }
+  c2.restore();
+}
+
+function drawHatch(c2, x, y, w, h, pat, sp, col) {
+  if (sp < 1) sp = 1;
+  c2.save(); c2.strokeStyle = col || '#555'; c2.lineWidth = 0.5; c2.setLineDash([]);
+  c2.beginPath(); c2.rect(x, y, w, h); c2.clip();
+  const diag = Math.hypot(w, h);
+  if (pat === 'line45' || pat === 'cross') {
+    for (let d = -diag; d < diag + w + h; d += sp) { c2.beginPath(); c2.moveTo(x+d,y); c2.lineTo(x+d-h,y+h); c2.stroke(); }
+  }
+  if (pat === 'line135' || pat === 'cross') {
+    for (let d = -diag; d < diag + w + h; d += sp) { c2.beginPath(); c2.moveTo(x+d,y); c2.lineTo(x+d+h,y+h); c2.stroke(); }
+  }
+  if (pat === 'horiz') for (let iy = y; iy <= y + h; iy += sp) { c2.beginPath(); c2.moveTo(x,iy); c2.lineTo(x+w,iy); c2.stroke(); }
+  if (pat === 'vert') for (let ix = x; ix <= x + w; ix += sp) { c2.beginPath(); c2.moveTo(ix,y); c2.lineTo(ix,y+h); c2.stroke(); }
+  if (pat === 'dot') {
+    for (let iy = y+sp/2; iy < y+h; iy+=sp) for (let ix=x+sp/2; ix<x+w; ix+=sp) { c2.beginPath(); c2.arc(ix,iy,1,0,Math.PI*2); c2.fillStyle=col; c2.fill(); }
+  }
+  c2.restore();
+}
+
+function drawArrow(c2, fx, fy, tx, ty, sz, col) {
+  const ang = Math.atan2(ty-fy, tx-fx);
+  c2.save(); c2.translate(tx,ty); c2.rotate(ang); c2.setLineDash([]);
+  c2.fillStyle = col || '#000'; c2.beginPath(); c2.moveTo(0,0); c2.lineTo(-sz,-sz/3); c2.lineTo(-sz,sz/3); c2.closePath(); c2.fill(); c2.restore();
+}
+
+function drawSel(s) {
+  const bb = bbox(s); if (!bb) return;
+  const p = w2s(bb.x, bb.y);
+  cx.save(); cx.strokeStyle = '#0078d4'; cx.lineWidth = 1.5; cx.setLineDash([4,3]);
+  cx.strokeRect(p.x-5, p.y-5, bb.w*vz*PPU+10, bb.h*vz*PPU+10); cx.restore();
+}
+
+function bbox(s) {
+  switch (s.type) {
+    case 'line': return { x:Math.min(s.x1,s.x2), y:Math.min(s.y1,s.y2), w:Math.abs(s.x2-s.x1), h:Math.abs(s.y2-s.y1) };
+    case 'rect': return { x:Math.min(s.x,s.x+s.w), y:Math.min(s.y,s.y+s.h), w:Math.abs(s.w), h:Math.abs(s.h) };
+    case 'circle': return { x:s.cx-s.r, y:s.cy-s.r, w:s.r*2, h:s.r*2 };
+    case 'text': return { x:s.x, y:s.y-(s.fs||14)/PPU, w:3, h:(s.fs||14)/PPU };
+    case 'leader': { if (!s.pts?.length) return null; const xs=s.pts.map(p=>p.x),ys=s.pts.map(p=>p.y); return { x:Math.min(...xs), y:Math.min(...ys), w:Math.max(...xs)-Math.min(...xs), h:Math.max(...ys)-Math.min(...ys) }; }
+    case 'dim': return { x:Math.min(s.x1,s.x2), y:Math.min(s.y1,s.y2)-Math.abs(s.off)-0.5, w:Math.abs(s.x2-s.x1), h:Math.abs(s.y2-s.y1)+Math.abs(s.off)+0.5 };
+    default: return null;
+  }
+}
+
+// ── marquee ───────────────────────────────────────────────────
+function drawMarquee() {
+  const p1 = w2s(mqStart.x, mqStart.y), p2 = w2s(mqEnd.x, mqEnd.y);
+  cx.save(); cx.strokeStyle = '#0078d4'; cx.lineWidth = 1; cx.setLineDash([4,3]);
+  cx.fillStyle = 'rgba(0,120,212,0.07)';
+  const rx = Math.min(p1.x,p2.x), ry = Math.min(p1.y,p2.y), rw = Math.abs(p2.x-p1.x), rh = Math.abs(p2.y-p1.y);
+  cx.fillRect(rx,ry,rw,rh); cx.strokeRect(rx,ry,rw,rh); cx.restore();
+}
+
+function shapeInMarquee(s) {
+  if (!mqStart || !mqEnd) return false;
+  const mx1=Math.min(mqStart.x,mqEnd.x), mx2=Math.max(mqStart.x,mqEnd.x);
+  const my1=Math.min(mqStart.y,mqEnd.y), my2=Math.max(mqStart.y,mqEnd.y);
+  const b = bbox(s); if (!b) return false;
+  return !(b.x+b.w < mx1 || b.x > mx2 || b.y+b.h < my1 || b.y > my2);
+}
+
+// ── previews ──────────────────────────────────────────────────
+function drawPreview() {
+  const st = getStyle(); cx.save(); cx.globalAlpha = 0.65; applyStroke(cx, st);
+  switch (tool) {
+    case 'line': {
+      // 체인 모드: sx0/sy0 already set to lineContPt if chaining
+      const p1 = w2s(sx0, sy0), p2 = w2s(cx0, cy0);
+      cx.beginPath(); cx.moveTo(p1.x,p1.y); cx.lineTo(p2.x,p2.y); cx.stroke();
+      cx.globalAlpha=1; cx.fillStyle='#0078d4'; cx.font='11px Malgun Gothic'; cx.setLineDash([]);
+      cx.fillText(fmt(wdist({x:sx0,y:sy0},{x:cx0,y:cy0})), p2.x+8, p2.y-4); break;
+    }
+    case 'rect': {
+      const p=w2s(sx0,sy0), pw=w2s(cx0,cy0);
+      if (st.fill) { cx.fillStyle=st.fill; cx.fillRect(p.x,p.y,pw.x-p.x,pw.y-p.y); }
+      cx.strokeRect(p.x,p.y,pw.x-p.x,pw.y-p.y);
+      cx.globalAlpha=1; cx.fillStyle='#0078d4'; cx.font='11px Malgun Gothic'; cx.setLineDash([]);
+      cx.fillText(`${fmt(Math.abs(cx0-sx0))} × ${fmt(Math.abs(cy0-sy0))}`, Math.min(p.x,pw.x), Math.min(p.y,pw.y)-4); break;
+    }
+    case 'circle': {
+      const c=w2s(sx0,sy0), r=wlen(wdist({x:sx0,y:sy0},{x:cx0,y:cy0}));
+      cx.beginPath(); cx.arc(c.x,c.y,r,0,Math.PI*2);
+      if (st.fill) { cx.fillStyle=st.fill; cx.fill(); } cx.stroke();
+      cx.globalAlpha=1; cx.fillStyle='#0078d4'; cx.font='11px Malgun Gothic'; cx.setLineDash([]);
+      cx.fillText('r='+fmt(wdist({x:sx0,y:sy0},{x:cx0,y:cy0})), c.x+r+4, c.y); break;
+    }
+  }
+  cx.restore();
+}
+
+// 선 체인 연속 표시: 다음 선의 시작점 표시
+function drawLineChainPreview() {
+  if (tool !== 'line' || !lineContPt || drawing) return;
+  const p = w2s(lineContPt.x, lineContPt.y);
+  const pc = w2s(cx0, cy0);
+  cx.save();
+  // 시작점 표시 (파란 원)
+  cx.fillStyle = '#89b4fa'; cx.beginPath(); cx.arc(p.x, p.y, 5, 0, Math.PI*2); cx.fill();
+  // 이어질 선 미리보기
+  cx.strokeStyle = '#89b4fa'; cx.lineWidth = 1; cx.setLineDash([5,4]);
+  cx.beginPath(); cx.moveTo(p.x,p.y); cx.lineTo(pc.x,pc.y); cx.stroke();
+  cx.globalAlpha=0.8; cx.fillStyle='#89b4fa'; cx.font='10px Malgun Gothic'; cx.setLineDash([]);
+  cx.fillText('ESC: 체인 종료', p.x+8, p.y-8);
+  cx.restore();
+}
+
+function drawLeaderPreview() {
+  if (tool!=='leader' || !leaderPts.length) return;
+  cx.save(); cx.strokeStyle='#0078d4'; cx.lineWidth=1; cx.setLineDash([5,4]);
+  cx.beginPath(); const p0=w2s(leaderPts[0].x,leaderPts[0].y); cx.moveTo(p0.x,p0.y);
+  for (let i=1;i<leaderPts.length;i++) { const pi=w2s(leaderPts[i].x,leaderPts[i].y); cx.lineTo(pi.x,pi.y); }
+  cx.lineTo(w2s(cx0,cy0).x, w2s(cx0,cy0).y); cx.stroke(); cx.restore();
+}
+
+function drawDimPreview() {
+  if (tool!=='dim') return;
+  cx.save(); cx.strokeStyle='#0078d4'; cx.lineWidth=1; cx.setLineDash([5,4]);
+  if (dimStage===1 && dimP1) {
+    const p1=w2s(dimP1.x,dimP1.y), pc=w2s(cx0,cy0);
+    cx.beginPath(); cx.moveTo(p1.x,p1.y); cx.lineTo(pc.x,pc.y); cx.stroke();
+  }
+  if (dimStage===2 && dimP1 && dimP2) {
+    const p1=w2s(dimP1.x,dimP1.y), p2=w2s(dimP2.x,dimP2.y);
+    const dx=p2.x-p1.x, dy=p2.y-p1.y, len=Math.hypot(dx,dy);
+    if (len>0) {
+      const nx=-dy/len, ny=dx/len, offPx=calcOff(cx0,cy0,dimP1,dimP2)*vz*PPU;
+      const d1={x:p1.x+nx*offPx,y:p1.y+ny*offPx}, d2={x:p2.x+nx*offPx,y:p2.y+ny*offPx};
+      cx.beginPath(); cx.moveTo(p1.x,p1.y); cx.lineTo(d1.x,d1.y); cx.moveTo(p2.x,p2.y); cx.lineTo(d2.x,d2.y); cx.moveTo(d1.x,d1.y); cx.lineTo(d2.x,d2.y); cx.stroke();
+    }
+  }
+  cx.restore();
+}
+
+function calcOff(wx,wy,p1,p2) {
+  const dx=p2.x-p1.x,dy=p2.y-p1.y,len=Math.hypot(dx,dy);
+  if (!len) return 0; const nx=-dy/len,ny=dx/len;
+  return (wx-p1.x)*nx+(wy-p1.y)*ny;
+}
+
+// ── hit test ──────────────────────────────────────────────────
+function hitTest(wx, wy) {
+  const tol = 6/(vz*PPU);
+  for (let i=shapes.length-1; i>=0; i--) if (shapeHit(shapes[i],wx,wy,tol)) return shapes[i];
+  return null;
+}
+function shapeHit(s, wx, wy, tol) {
+  switch (s.type) {
+    case 'line': return distSeg(wx,wy,s.x1,s.y1,s.x2,s.y2) < tol;
+    case 'rect': {
+      // 내부 전체로 히트 (선 없어도 내부 클릭으로 이동)
+      const x1=Math.min(s.x,s.x+s.w)-tol, y1=Math.min(s.y,s.y+s.h)-tol;
+      const x2=Math.max(s.x,s.x+s.w)+tol, y2=Math.max(s.y,s.y+s.h)+tol;
+      return wx>=x1 && wx<=x2 && wy>=y1 && wy<=y2;
+    }
+    case 'circle': {
+      // 내부 전체로 히트
+      return wdist({x:s.cx,y:s.cy},{x:wx,y:wy}) <= s.r+tol;
+    }
+    default: { const b=bbox(s); if (!b) return false; return wx>=b.x-tol && wx<=b.x+b.w+tol && wy>=b.y-tol && wy<=b.y+b.h+tol; }
+  }
+}
+function distSeg(px,py,x1,y1,x2,y2) {
+  const dx=x2-x1,dy=y2-y1,l2=dx*dx+dy*dy;
+  if (!l2) return wdist({x:px,y:py},{x:x1,y:y1});
+  const t=Math.max(0,Math.min(1,((px-x1)*dx+(py-y1)*dy)/l2));
+  return wdist({x:px,y:py},{x:x1+t*dx,y:y1+t*dy});
+}
+
+// ── context menu ──────────────────────────────────────────────
+function showCtx(clientX, clientY, shape) {
+  ctxTarget = shape; selIds = [shape.id];
+  const canHatch = ['rect','circle'].includes(shape.type);
+  document.getElementById('ctx-hatch-on').style.display  = canHatch ? 'block' : 'none';
+  document.getElementById('ctx-hatch-off').style.display = (canHatch && shape.hasHatch) ? 'block' : 'none';
+  const menu = document.getElementById('ctx-menu');
+  menu.style.display = 'block'; menu.style.left = clientX+'px'; menu.style.top = clientY+'px';
+  render();
+}
+function hideCtx() { document.getElementById('ctx-menu').style.display='none'; ctxTarget=null; }
+function applyHatch() {
+  if (!ctxTarget) return; saveHist();
+  const s = shapes.find(sh=>sh.id===ctxTarget.id);
+  if (s) { s.hasHatch=true; s.hPat=document.getElementById('pHatch').value; s.hSp=+document.getElementById('pHS').value; s.hCol=document.getElementById('pHC').value; }
+  hideCtx(); render();
+}
+function removeHatch() {
+  if (!ctxTarget) return; saveHist();
+  const s = shapes.find(sh=>sh.id===ctxTarget.id); if (s) s.hasHatch=false;
+  hideCtx(); render();
+}
+document.addEventListener('mousedown', e => { if (!document.getElementById('ctx-menu').contains(e.target)) hideCtx(); });
+
+// ── copy / paste ──────────────────────────────────────────────
+function copyShapes() {
+  if (!selIds.length) return;
+  clipboard = JSON.parse(JSON.stringify(shapes.filter(s=>selIds.includes(s.id))));
+  document.getElementById('sLen').textContent = `${clipboard.length}개 복사됨`;
+  setTimeout(()=>document.getElementById('sLen').textContent='', 1500);
+}
+function pasteShapes() {
+  if (!clipboard.length) return;
+  saveHist();
+  const offset = 0.5;
+  const pasted = clipboard.map(s => {
+    const ns = JSON.parse(JSON.stringify(s));
+    ns.id = idSeq++;
+    // offset all coordinates
+    switch (ns.type) {
+      case 'line': ns.x1+=offset; ns.y1+=offset; ns.x2+=offset; ns.y2+=offset; break;
+      case 'rect': ns.x+=offset; ns.y+=offset; break;
+      case 'circle': ns.cx+=offset; ns.cy+=offset; break;
+      case 'text': ns.x+=offset; ns.y+=offset; break;
+      case 'leader': ns.pts=ns.pts.map(p=>({x:p.x+offset,y:p.y+offset})); break;
+      case 'dim': ns.x1+=offset; ns.y1+=offset; ns.x2+=offset; ns.y2+=offset; break;
+    }
+    return ns;
+  });
+  shapes.push(...pasted);
+  selIds = pasted.map(s=>s.id);
+  render();
+}
+
+// ── cursor ────────────────────────────────────────────────────
+function updateCursor() {
+  if (tool==='select') cv.style.cursor = dragging ? 'grabbing' : 'grab';
+  else cv.style.cursor = 'crosshair';
+}
+
+// ── mouse events ──────────────────────────────────────────────
+cv.addEventListener('mousemove', e => {
+  const r=cv.getBoundingClientRect(), sx=e.clientX-r.left, sy=e.clientY-r.top;
+  if (panning) { vpx+=sx-lastSX; vpy+=sy-lastSY; lastSX=sx; lastSY=sy; render(); return; }
+
+  const w=s2w(sx,sy), sn=snap(w.x,w.y);
+
+  // 다중선택 드래그: 선택된 객체 이동
+  if (tool==='select' && dragging && dragW0) {
+    if (!hasMoved) { saveHist(); hasMoved=true; }
+    const ddx=sn.x-dragW0.x, ddy=sn.y-dragW0.y;
+    moveShapes(ddx,ddy); dragW0=sn; render(); lastSX=sx; lastSY=sy; return;
+  }
+
+  // 마퀴 선택 드래그
+  if (tool==='select' && isMarquee && mqStart) {
+    mqEnd=sn; render(); lastSX=sx; lastSY=sy; return;
+  }
+
+  cx0=sn.x; cy0=sn.y; lastSX=sx; lastSY=sy;
+  document.getElementById('sXY').textContent=`x: ${fmt(cx0)}  y: ${fmt(cy0)}`;
+  if (drawing && (tool==='line'||tool==='rect'||tool==='circle'))
+    document.getElementById('sLen').textContent='거리: '+fmt(wdist({x:sx0,y:sy0},{x:cx0,y:cy0}));
+  else if (!dragging && !isMarquee) document.getElementById('sLen').textContent='';
+  render();
+});
+
+cv.addEventListener('mousedown', e => {
+  const r=cv.getBoundingClientRect(), sx=e.clientX-r.left, sy=e.clientY-r.top;
+  lastSX=sx; lastSY=sy;
+  if (e.button===1||(e.button===0&&spaceDown)) { panning=true; cv.style.cursor='grabbing'; e.preventDefault(); return; }
+  if (e.button!==0) return;
+  hideCtx();
+  const w=s2w(sx,sy), sn=snap(w.x,w.y);
+  cx0=sn.x; cy0=sn.y;
+
+  if (tool==='select') {
+    const hit=hitTest(sn.x,sn.y);
+    if (hit) {
+      // shift: 추가 선택, 일반: 단일 선택
+      if (!selIds.includes(hit.id)) selIds=e.shiftKey?[...selIds,hit.id]:[hit.id];
+      dragging=true; hasMoved=false; dragW0=sn;
+    } else {
+      // 빈 공간 드래그 → 마퀴 선택
+      if (!e.shiftKey) selIds=[];
+      isMarquee=true; mqStart=sn; mqEnd=sn;
+    }
+    updateCursor(); render(); return;
+  }
+  if (tool==='text') { pendTx=sn.x; pendTy=sn.y; showTxtModal('텍스트 입력',''); return; }
+  if (tool==='leader') { leaderPts.push(sn); render(); return; }
+  if (tool==='dim') {
+    if (dimStage===0) { dimP1=sn; dimStage=1; }
+    else if (dimStage===1) { dimP2=sn; dimStage=2; }
+    else if (dimStage===2) {
+      const off=calcOff(sn.x,sn.y,dimP1,dimP2), st=getStyle();
+      saveHist(); shapes.push({id:idSeq++,type:'dim',x1:dimP1.x,y1:dimP1.y,x2:dimP2.x,y2:dimP2.y,off,label:'',...st});
+      dimStage=0; dimP1=dimP2=null; render();
+    }
+    return;
+  }
+
+  // 선 도구: 체인 모드이면 시작점을 마지막 끝점으로 고정
+  if (tool==='line' && lineContPt) {
+    sx0=lineContPt.x; sy0=lineContPt.y;
+  } else {
+    sx0=sn.x; sy0=sn.y;
+  }
+  drawing=true;
+});
+
+cv.addEventListener('mouseup', e => {
+  if (panning) { panning=false; updateCursor(); return; }
+  if (e.button!==0) return;
+
+  if (tool==='select') {
+    if (isMarquee) {
+      // 마퀴 안의 객체 선택
+      const inMq = shapes.filter(shapeInMarquee).map(s=>s.id);
+      selIds = [...new Set([...selIds, ...inMq])];
+      isMarquee=false; mqStart=mqEnd=null;
+    }
+    dragging=false; dragW0=null; hasMoved=false; updateCursor(); render(); return;
+  }
+
+  if (drawing && !['leader','dim','text'].includes(tool)) {
+    finalizeShape(); drawing=false;
+  }
+});
+
+cv.addEventListener('contextmenu', e => {
+  e.preventDefault();
+  if (tool==='leader') {
+    if (leaderPts.length>=2) showTxtModal('지시선 텍스트','');
+    else leaderPts=[];
+    render(); return;
+  }
+  if (drawing) { drawing=false; render(); return; }
+  if (dimStage>0) { dimStage=0; dimP1=dimP2=null; render(); return; }
+  const r=cv.getBoundingClientRect(), sx=e.clientX-r.left, sy=e.clientY-r.top;
+  const w=s2w(sx,sy), hit=hitTest(w.x,w.y);
+  if (hit) showCtx(e.clientX,e.clientY,hit);
+});
+
+cv.addEventListener('wheel', e => {
+  e.preventDefault();
+  const r=cv.getBoundingClientRect(), sx=e.clientX-r.left, sy=e.clientY-r.top;
+  const f=e.deltaY<0?1.12:1/1.12, nz=Math.max(0.04,Math.min(60,vz*f));
+  vpx=sx-(sx-vpx)*(nz/vz); vpy=sy-(sy-vpy)*(nz/vz); vz=nz;
+  document.getElementById('zoomLbl').textContent=Math.round(vz*100)+'%'; render();
+}, {passive:false});
+
+// ── keyboard ──────────────────────────────────────────────────
+document.addEventListener('keydown', e => {
+  if (['INPUT','SELECT','TEXTAREA'].includes(e.target.tagName)) return;
+  if (e.code==='Space') { spaceDown=true; e.preventDefault(); return; }
+  if (e.ctrlKey && e.key==='z') { doUndo(); e.preventDefault(); return; }
+  if (e.ctrlKey && (e.key==='y'||e.key==='Y')) { doRedo(); e.preventDefault(); return; }
+  if (e.ctrlKey && (e.key==='c'||e.key==='C')) { copyShapes(); e.preventDefault(); return; }
+  if (e.ctrlKey && (e.key==='v'||e.key==='V')) { pasteShapes(); e.preventDefault(); return; }
+  if (e.ctrlKey && (e.key==='a'||e.key==='A')) { selIds=shapes.map(s=>s.id); render(); e.preventDefault(); return; }
+  if (e.key==='Delete'||e.key==='Backspace') { delSel(); return; }
+  if (e.key==='Escape') {
+    drawing=false; dimStage=0; dimP1=dimP2=null; leaderPts=[];
+    lineContPt=null; isMarquee=false; mqStart=mqEnd=null;
+    hideCtx(); render(); return;
+  }
+  const map={v:'select',l:'line',r:'rect',c:'circle',t:'text',a:'leader',d:'dim'};
+  const t=map[e.key.toLowerCase()]; if (t) setTool(t);
+});
+document.addEventListener('keyup', e => { if (e.code==='Space') { spaceDown=false; updateCursor(); } });
+
+// ── shape creation ────────────────────────────────────────────
+function finalizeShape() {
+  const st=getStyle(); let s=null;
+  switch (tool) {
+    case 'line':
+      if (wdist({x:sx0,y:sy0},{x:cx0,y:cy0})<0.001) return;
+      s={id:idSeq++,type:'line',x1:sx0,y1:sy0,x2:cx0,y2:cy0,...st};
+      lineContPt={x:cx0,y:cy0}; // 다음 선의 시작점 기억
+      break;
+    case 'rect':
+      if (Math.abs(cx0-sx0)<0.001||Math.abs(cy0-sy0)<0.001) return;
+      s={id:idSeq++,type:'rect',x:Math.min(sx0,cx0),y:Math.min(sy0,cy0),w:Math.abs(cx0-sx0),h:Math.abs(cy0-sy0),...st}; break;
+    case 'circle': {
+      const rad=wdist({x:sx0,y:sy0},{x:cx0,y:cy0}); if (rad<0.001) return;
+      s={id:idSeq++,type:'circle',cx:sx0,cy:sy0,r:rad,...st}; break;
+    }
+  }
+  if (s) { saveHist(); shapes.push(s); selIds=[s.id]; render(); }
+}
+
+function moveShapes(ddx, ddy) {
+  for (const s of shapes) {
+    if (!selIds.includes(s.id)) continue;
+    switch (s.type) {
+      case 'line': s.x1+=ddx; s.y1+=ddy; s.x2+=ddx; s.y2+=ddy; break;
+      case 'rect': s.x+=ddx; s.y+=ddy; break;
+      case 'circle': s.cx+=ddx; s.cy+=ddy; break;
+      case 'text': s.x+=ddx; s.y+=ddy; break;
+      case 'leader': s.pts=s.pts.map(p=>({x:p.x+ddx,y:p.y+ddy})); break;
+      case 'dim': s.x1+=ddx; s.y1+=ddy; s.x2+=ddx; s.y2+=ddy; break;
+    }
+  }
+}
+
+// ── history ───────────────────────────────────────────────────
+function saveHist() { hist.push(JSON.parse(JSON.stringify(shapes))); if (hist.length>80) hist.shift(); fut=[]; }
+function doUndo() { if (!hist.length) return; fut.push(JSON.parse(JSON.stringify(shapes))); shapes=hist.pop(); selIds=[]; render(); }
+function doRedo() { if (!fut.length) return; hist.push(JSON.parse(JSON.stringify(shapes))); shapes=fut.pop(); selIds=[]; render(); }
+function delSel() { if (!selIds.length) return; saveHist(); shapes=shapes.filter(s=>!selIds.includes(s.id)); selIds=[]; render(); }
+
+// ── text modal ────────────────────────────────────────────────
+function showTxtModal(title, val) {
+  document.getElementById('txt-title').textContent=title;
+  const inp=document.getElementById('txt-inp'); inp.value=val;
+  document.getElementById('txt-modal').classList.add('show');
+  setTimeout(()=>inp.focus(),50);
+  inp.onkeydown=e=>{ if(e.key==='Enter') confirmTxt(); if(e.key==='Escape') cancelTxt(); };
+}
+function confirmTxt() {
+  const txt=document.getElementById('txt-inp').value.trim();
+  document.getElementById('txt-modal').classList.remove('show');
+  if (leaderPts.length>=2) {
+    const st=getStyle(); saveHist();
+    shapes.push({id:idSeq++,type:'leader',pts:[...leaderPts],text:txt,...st});
+    leaderPts=[]; render(); return;
+  }
+  if (!txt) return;
+  const st=getStyle(); saveHist();
+  shapes.push({id:idSeq++,type:'text',x:pendTx,y:pendTy,text:txt,...st}); render();
+}
+function cancelTxt() { document.getElementById('txt-modal').classList.remove('show'); leaderPts=[]; render(); }
+
+// ── tools ─────────────────────────────────────────────────────
+function setTool(t) {
+  tool=t; leaderPts=[]; dimStage=0; dimP1=dimP2=null; drawing=false;
+  lineContPt=null; isMarquee=false; mqStart=mqEnd=null; hideCtx();
+  document.querySelectorAll('.tb[id^="t-"]').forEach(b=>b.classList.toggle('active',b.id==='t-'+t));
+  updateCursor();
+  const nm={select:'선택',line:'선',rect:'사각형',circle:'원',text:'텍스트',leader:'지시선',dim:'치수'};
+  document.getElementById('sTool').textContent='도구: '+(nm[t]||t);
+  render();
+}
+function updateStatus() {
+  document.getElementById('sScale').textContent=`축척 1:${scaleN}`;
+  document.getElementById('sUnit').textContent=`단위: ${unitStr}`;
+}
+
+// ── zoom ──────────────────────────────────────────────────────
+function doZoom(f) {
+  const nz=Math.max(0.04,Math.min(60,vz*f));
+  vpx=cv.width/2-(cv.width/2-vpx)*(nz/vz); vpy=cv.height/2-(cv.height/2-vpy)*(nz/vz); vz=nz;
+  document.getElementById('zoomLbl').textContent=Math.round(vz*100)+'%'; render();
+}
+function zoomFit() { vz=1; vpx=cv.width/2-10*PPU; vpy=cv.height/2-7*PPU; document.getElementById('zoomLbl').textContent='100%'; render(); }
+
+// ── file ops ──────────────────────────────────────────────────
+function newDoc() {
+  if (shapes.length&&!confirm('현재 도면을 닫고 새 도면을 만들겠습니까?')) return;
+  shapes=[]; hist=[]; fut=[]; selIds=[]; idSeq=1; render();
+}
+function saveJSON() {
+  const blob=new Blob([JSON.stringify({shapes,idSeq,unitStr,scaleN},null,2)],{type:'application/json'});
+  const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download='배치도.json'; a.click();
+}
+function loadFile(e) {
+  const f=e.target.files[0]; if (!f) return;
+  const reader=new FileReader();
+  reader.onload=ev=>{
+    try {
+      const d=JSON.parse(ev.target.result);
+      shapes=d.shapes||[]; idSeq=d.idSeq||shapes.length+1;
+      if (d.unitStr) { unitStr=d.unitStr; document.getElementById('unitSel').value=unitStr; }
+      if (d.scaleN) { scaleN=d.scaleN; document.getElementById('scSel').value=scaleN; }
+      hist=[]; fut=[]; selIds=[]; updateStatus(); render();
+    } catch { alert('파일을 읽을 수 없습니다.'); }
+  };
+  reader.readAsText(f); e.target.value='';
+}
+
+// ── export ────────────────────────────────────────────────────
+function exportPNG() {
+  const dpi=+document.getElementById('dpiSel').value, pr=dpi/96;
+  const oc=document.createElement('canvas'); oc.width=cv.width*pr; oc.height=cv.height*pr;
+  const oc2=oc.getContext('2d'); oc2.scale(pr,pr);
+  oc2.fillStyle='#f0f0eb'; oc2.fillRect(0,0,cv.width,cv.height);
+  if (document.getElementById('gShow').checked) {
+    const g=+document.getElementById('gSize').value, gpx=g*vz*PPU;
+    if (gpx>=3) {
+      const W=cv.width,H=cv.height,lx=(0-vpx)/(vz*PPU),rx=(W-vpx)/(vz*PPU),ty=(0-vpy)/(vz*PPU),by=(H-vpy)/(vz*PPU),major=g*5;
+      for (let wx=Math.ceil(lx/g)*g;wx<=rx+g;wx+=g) { const px=w2s(wx,0).x,isMaj=Math.abs(Math.round(wx/major)*major-wx)<g*0.01; oc2.strokeStyle=isMaj?'#b0b0a8':'#ddddd5'; oc2.lineWidth=isMaj?0.7:0.4; oc2.beginPath(); oc2.moveTo(px,0); oc2.lineTo(px,H); oc2.stroke(); }
+      for (let wy=Math.ceil(ty/g)*g;wy<=by+g;wy+=g) { const py=w2s(0,wy).y,isMaj=Math.abs(Math.round(wy/major)*major-wy)<g*0.01; oc2.strokeStyle=isMaj?'#b0b0a8':'#ddddd5'; oc2.lineWidth=isMaj?0.7:0.4; oc2.beginPath(); oc2.moveTo(0,py); oc2.lineTo(W,py); oc2.stroke(); }
+    }
+  }
+  for (const s of shapes) drawShape(oc2,s);
+  oc.toBlob(blob=>{ const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download=`배치도_${dpi}dpi.png`; a.click(); },'image/png');
+}
+
+// ── init ──────────────────────────────────────────────────────
+resize(); zoomFit(); setTool('select'); updateStatus();
+</script>
+</body>
+</html>
