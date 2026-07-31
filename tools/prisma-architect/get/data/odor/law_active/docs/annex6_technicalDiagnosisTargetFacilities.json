@@ -1,0 +1,187 @@
+{
+  "별표번호": "6",
+  "별표가지번호": "00",
+  "별표제목": "기술진단 대상시설의 범위",
+  "법령명": "악취방지법 시행규칙",
+  "관련조문": "제13조의2제2항",
+  "개정일": "2025-10-01",
+  "_meta": {
+    "_note": "lookup 사용 케이스: 사용자 시설 종류·하수처리용량·설치일자 입력 → 기술진단 대상 여부 + 기술진단 시한 판정.",
+    "metrics": {
+      "dailySewageTreatmentCapacity": "1일 하수처리용량 (m³/day)",
+      "facilityType":                  "시설 종류",
+      "installationDate":              "설치일 / 사용개시 공고일 / 준공일",
+      "operatingBefore":               "특정 일자 이전 운영 여부 (boolean)"
+    }
+  },
+  "대상시설": [
+    {
+      "id": 1,
+      "applicableFrom": "2011-02-05",
+      "title": "2011년 2월 5일부터 적용되는 기술진단 대상시설",
+      "facilities": [
+        {
+          "code": "가",
+          "name": "공공하수처리시설 (대형)",
+          "fullText": "「하수도법」 제2조제9호에 따른 공공하수처리시설 중 1일 하수처리용량이 5만세제곱미터 이상인 시설",
+          "criteria": {
+            "logic": "AND",
+            "conditions": [
+              { "metric": "facilityType", "operator": "==", "value": "공공하수처리시설", "qualifier": "하수도법 제2조제9호" },
+              { "metric": "dailySewageTreatmentCapacity", "operator": ">=", "value": 50000, "unit": "m³/day" }
+            ]
+          }
+        },
+        {
+          "code": "나",
+          "name": "분뇨처리시설",
+          "fullText": "「하수도법」 제2조제11호에 따른 분뇨처리시설",
+          "criteria": {
+            "logic": "AND",
+            "conditions": [
+              { "metric": "facilityType", "operator": "==", "value": "분뇨처리시설", "qualifier": "하수도법 제2조제11호" }
+            ]
+          }
+        },
+        {
+          "code": "다",
+          "name": "가축분뇨 공공처리시설",
+          "fullText": "「가축분뇨의 관리 및 이용에 관한 법률」 제2조제9호에 따른 공공처리시설",
+          "criteria": {
+            "logic": "AND",
+            "conditions": [
+              { "metric": "facilityType", "operator": "==", "value": "가축분뇨 공공처리시설", "qualifier": "가축분뇨법 제2조제9호" }
+            ]
+          }
+        },
+        {
+          "code": "라",
+          "name": "음식물류 폐기물 처리시설",
+          "fullText": "「폐기물관리법」 제2조제8호에 따른 폐기물처리시설 중 음식물류 폐기물을 처리(재활용을 포함한다)하는 시설",
+          "criteria": {
+            "logic": "AND",
+            "conditions": [
+              { "metric": "facilityType", "operator": "==", "value": "폐기물처리시설", "qualifier": "폐기물관리법 제2조제8호 — 음식물류 폐기물 처리/재활용" }
+            ]
+          }
+        },
+        {
+          "code": "마",
+          "name": "지자체 인정시설",
+          "fullText": "법 제16조의2제1항제5호에 따른 시·도지사, 대도시의 장 및 시장·군수·구청장이 해당 지방자치단체의 장이 설치·운영하는 시설 중 악취발생으로 인한 피해가 우려되어 기술진단을 실시할 필요가 있다고 인정하는 시설",
+          "criteria": null,
+          "_note": "지자체장 인정 시설 — 자동 판정 불가"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "applicableFrom": "2013-02-05",
+      "title": "2013년 2월 5일부터 추가로 적용되는 기술진단 대상시설",
+      "facilities": [
+        {
+          "code": "가",
+          "name": "공공하수처리시설 (중소형)",
+          "fullText": "「하수도법」 제2조제9호에 따른 공공하수처리시설 중 1일 하수처리용량이 5백세제곱미터 이상 5만세제곱미터 미만인 시설",
+          "criteria": {
+            "logic": "AND",
+            "conditions": [
+              { "metric": "facilityType", "operator": "==", "value": "공공하수처리시설", "qualifier": "하수도법 제2조제9호" },
+              { "metric": "dailySewageTreatmentCapacity", "operator": ">=", "value": 500, "unit": "m³/day" },
+              { "metric": "dailySewageTreatmentCapacity", "operator": "<",  "value": 50000, "unit": "m³/day" }
+            ]
+          }
+        },
+        {
+          "code": "나",
+          "name": "공공폐수처리시설",
+          "fullText": "「물환경보전법」 제2조제17호에 따른 공공폐수처리시설",
+          "criteria": {
+            "logic": "AND",
+            "conditions": [
+              { "metric": "facilityType", "operator": "==", "value": "공공폐수처리시설", "qualifier": "물환경보전법 제2조제17호" }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "applicableFrom": "2023-09-29",
+      "title": "2023년 9월 29일부터 추가로 적용되는 기술진단 대상시설",
+      "facilities": [
+        {
+          "code": null,
+          "name": "기후에너지환경부장관 고시 인정시설",
+          "fullText": "법 제16조의2제1항제6호에 따라 기후에너지환경부장관이 인정하여 고시하는 시설",
+          "criteria": null,
+          "_note": "장관 고시 시설 — 자동 판정 불가"
+        }
+      ]
+    }
+  ],
+  "기술진단_시한": [
+    {
+      "no": "1",
+      "applicableTo": "제1호 시설 (2011-02-06 이후 설치)",
+      "rule": "사용개시 공고일 또는 준공일부터 5년 이내",
+      "criteria": {
+        "logic": "AND",
+        "conditions": [
+          { "metric": "installationDate", "operator": ">=", "value": "2011-02-06" },
+          { "metric": "diagnosisDeadline", "operator": "<=", "value": "사용개시일 + 5년" }
+        ]
+      }
+    },
+    {
+      "no": "2-기존",
+      "applicableTo": "제2호 시설 — 2013-02-06 전 설치하여 운영 중",
+      "rule": "2018-02-04 까지 기술진단 실시",
+      "criteria": {
+        "logic": "AND",
+        "conditions": [
+          { "metric": "installationDate", "operator": "<", "value": "2013-02-06" },
+          { "metric": "operatingBefore",  "operator": "==", "value": true },
+          { "metric": "diagnosisDeadline", "operator": "<=", "value": "2018-02-04" }
+        ]
+      }
+    },
+    {
+      "no": "2-신규",
+      "applicableTo": "제2호 시설 — 2013-02-06 이후 설치",
+      "rule": "사용개시 공고일 또는 준공일부터 5년 이내",
+      "criteria": {
+        "logic": "AND",
+        "conditions": [
+          { "metric": "installationDate", "operator": ">=", "value": "2013-02-06" },
+          { "metric": "diagnosisDeadline", "operator": "<=", "value": "사용개시일 + 5년" }
+        ]
+      }
+    },
+    {
+      "no": "3-기존",
+      "applicableTo": "제3호 시설 — 해당 고시 시행일 전 설치하여 운영 중",
+      "rule": "해당 고시 시행일부터 5년 이내",
+      "criteria": {
+        "logic": "AND",
+        "conditions": [
+          { "metric": "installationDate", "operator": "<", "value": "해당고시시행일" },
+          { "metric": "operatingBefore",  "operator": "==", "value": true },
+          { "metric": "diagnosisDeadline", "operator": "<=", "value": "해당고시시행일 + 5년" }
+        ]
+      }
+    },
+    {
+      "no": "3-신규",
+      "applicableTo": "제3호 시설 — 해당 고시 시행일 이후 설치",
+      "rule": "사용개시 공고일 또는 준공일부터 5년 이내",
+      "criteria": {
+        "logic": "AND",
+        "conditions": [
+          { "metric": "installationDate", "operator": ">=", "value": "해당고시시행일" },
+          { "metric": "diagnosisDeadline", "operator": "<=", "value": "사용개시일 + 5년" }
+        ]
+      }
+    }
+  ]
+}

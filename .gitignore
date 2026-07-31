@@ -1,1 +1,4 @@
 desktop.ini
+
+# 빌드 산출 로그 (재실행하면 다시 생성됨)
+블로그글작성/_build-pdf.log

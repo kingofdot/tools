@@ -1,0 +1,482 @@
+{
+  "_meta": {
+    "version": "0.8",
+    "description": "신고자·처리자 유형별 준수 별표 적용범위 매핑 (다이어그램 소스)",
+    "status": "draft",
+    "lastUpdated": "2026-04-22",
+    "completedAnnexes": ["법제13의2", "별표5", "별표5의3", "별표5의4", "별표6", "별표7", "별표8", "별표9", "별표17", "별표17의2"],
+    "pendingAnnexes": []
+  },
+
+  "subjects": [
+    {
+      "id": "S-허가-TR",
+      "label": "폐기물 수집·운반업 허가자",
+      "legalBasis": "법 제25조③, 제25조⑤1호",
+      "bizType": ["TR"]
+    },
+    {
+      "id": "S-허가-RTR",
+      "label": "재활용 가능 폐기물 수집·운반업 허가자",
+      "legalBasis": "법 제25조③, 제25조⑤2호",
+      "bizType": ["RTR"]
+    },
+    {
+      "id": "S-허가-ID",
+      "label": "폐기물 중간처분업 허가자",
+      "legalBasis": "법 제25조③, 제25조⑤3호",
+      "bizType": ["ID"]
+    },
+    {
+      "id": "S-허가-FD",
+      "label": "폐기물 최종처분업 허가자",
+      "legalBasis": "법 제25조③, 제25조⑤4호",
+      "bizType": ["FD"]
+    },
+    {
+      "id": "S-허가-RCY",
+      "label": "폐기물 재활용업 허가자",
+      "legalBasis": "법 제25조③, 제25조⑤5~7호",
+      "bizType": ["RCY"]
+    },
+    {
+      "id": "S-신고",
+      "label": "폐기물처리 신고자",
+      "legalBasis": "법 제46조①",
+      "bizType": ["신고"]
+    },
+    {
+      "id": "S-자가처리-배출자",
+      "label": "사업장폐기물 자가처리 배출자",
+      "legalBasis": "법 제17조①",
+      "bizType": []
+    },
+    {
+      "id": "S-생활-처리자",
+      "label": "생활폐기물 처리자 (지자체 등)",
+      "legalBasis": "법 제14조",
+      "bizType": []
+    },
+    {
+      "id": "S-중간가공",
+      "label": "중간가공폐기물 처리자",
+      "legalBasis": "법 제13조① 단서",
+      "bizType": []
+    }
+  ],
+
+  "annexes": [
+    {
+      "id": "A-별표5",
+      "annex": "별표5",
+      "title": "폐기물의 처리에 관한 구체적인 기준과 방법",
+      "legalChain": [
+        { "level": "법",     "article": "제13조①",   "label": "누구든지 폐기물을 처리하려는 자" },
+        { "level": "시행령", "article": "제7조②",    "label": "구체적 기준·방법은 기후부령으로" },
+        { "level": "시행규칙", "article": "제14조",  "label": "별표5와 같다" }
+      ],
+      "sections": [
+        { "sectionNo": 1, "title": "생활폐기물",       "wasteClass": ["L"] },
+        { "sectionNo": 2, "title": "음식물류 폐기물",  "wasteClass": ["L"] },
+        { "sectionNo": 3, "title": "사업장일반폐기물", "wasteClass": ["GO", "GN"] },
+        { "sectionNo": 4, "title": "지정폐기물",       "wasteClass": ["D"] },
+        { "sectionNo": 5, "title": "의료폐기물",       "wasteClass": ["Med"] },
+        { "sectionNo": 6, "title": "수집운반증",       "wasteClass": null }
+      ],
+      "note": "처리 행위자 전체에 적용. 각 섹션은 해당 wasteClass에만 적용됨."
+    },
+    {
+      "id": "A-법제13의2",
+      "annex": "법제13의2",
+      "title": "폐기물의 재활용 원칙 및 준수사항",
+      "legalChain": [
+        { "level": "법",       "article": "제13조의2",  "label": "재활용 원칙·금지·준수사항 (상위 근거 조문)" },
+        { "level": "시행령",   "article": "제7조의2",   "label": "별표4의2 (재활용 준수사항 — 유해물질 제거·안정화 등)" },
+        { "level": "시행령",   "article": "제7조의3",   "label": "별표4의3 (재활용 금지·제한 폐기물)" },
+        { "level": "시행규칙", "article": "제14조의3",  "label": "별표5의3·5의4 위임" }
+      ],
+      "sections": [
+        { "sectionNo": 1, "title": "재활용 원칙 (오염예방 5호)",                    "wasteClass": null },
+        { "sectionNo": 2, "title": "재활용 금지·제한 (폐석면·PCBs·의료·폐유독물 등)", "wasteClass": null },
+        { "sectionNo": 3, "title": "오염예방·저감방법 및 취급기준 (별표5의4 위임)",   "wasteClass": null }
+      ],
+      "note": "재활용 행위자(허가·신고) 및 자가처리 배출자에 적용. 별표5의3·5의4의 상위 근거 조문."
+    },
+    {
+      "id": "A-별표5의3",
+      "annex": "별표5의3",
+      "title": "폐기물의 재활용 기준",
+      "legalChain": [
+        { "level": "법",       "article": "제13조의2①5호", "label": "누구든지 폐기물을 재활용하는 자 — 재활용 기준 준수" },
+        { "level": "시행규칙", "article": "제14조의3①",    "label": "별표5의3에 따른 재활용 기준을 말한다" }
+      ],
+      "sections": [
+        { "sectionNo": null, "title": "재활용 가능 폐기물 및 재활용 유형별 기준 (R코드 기반)", "wasteClass": null }
+      ],
+      "note": "별표5의4와 동일한 법 제13조의2에서 분기. 별표5의3은 '재활용 가능 여부·방법'(기준), 별표5의4는 '이행 준수사항'. 재활용 행위자는 두 가지 모두 적용."
+    },
+    {
+      "id": "A-별표5의4",
+      "annex": "별표5의4",
+      "title": "폐기물을 재활용하는 자의 준수사항",
+      "legalChain": [
+        { "level": "법",       "article": "제13조의2③", "label": "폐기물을 재활용하는 자의 준수사항" },
+        { "level": "시행규칙", "article": "제14조의3⑤", "label": "별표5의4와 같다" }
+      ],
+      "sections": [
+        { "sectionNo": 1, "title": "오염예방 및 저감방법의 종류와 정도", "wasteClass": null },
+        { "sectionNo": 2, "title": "폐기물 재활용에 따른 취급기준과 방법", "wasteClass": null },
+        { "sectionNo": 3, "title": "장관 고시 추가 준수사항",             "wasteClass": null }
+      ],
+      "note": "별표5에 추가하여 재활용 행위자에게만 중첩 적용."
+    },
+    {
+      "id": "A-별표6",
+      "annex": "별표6",
+      "title": "폐기물 인계·인수에 관한 사항 (폐기물인계서)",
+      "legalChain": [
+        { "level": "법",       "article": "제18조③", "label": "사업장폐기물을 배출·수집운반·재활용·처분하는 자 → 인계·인수 사항 전자입력 의무" },
+        { "level": "시행규칙", "article": "(기후부령)",  "label": "별표6 서식" }
+      ],
+      "sections": [
+        { "sectionNo": null, "title": "폐기물인계서 (배출자 → 수집운반 → 처분/재활용)", "wasteClass": null }
+      ],
+      "note": "의료폐기물은 RFID 방식으로 별도 처리 (법 제18조③ 단서). 일반 사업장폐기물에 적용."
+    },
+    {
+      "id": "A-별표7",
+      "annex": "별표7",
+      "title": "폐기물처리업의 시설·장비·기술능력 기준",
+      "legalChain": [
+        { "level": "법",       "article": "제25조③",   "label": "기후부령으로 정하는 기준에 따른 시설·장비·기술능력을 갖추어 허가" },
+        { "level": "시행규칙", "article": "제28조⑥",   "label": "별표7과 같다" }
+      ],
+      "sections": [
+        { "sectionNo": 1, "title": "폐기물 수집·운반업",    "bizType": ["TR"] },
+        { "sectionNo": 2, "title": "폐기물 중간처분업",      "bizType": ["ID"] },
+        { "sectionNo": 3, "title": "폐기물 최종처분업",      "bizType": ["FD"] },
+        { "sectionNo": 4, "title": "폐기물 중간재활용업",    "bizType": ["RTR"] },
+        { "sectionNo": 5, "title": "폐기물 최종재활용업",    "bizType": ["RCY"] },
+        { "sectionNo": 6, "title": "폐기물 종합처분업",      "bizType": ["ID", "FD"] },
+        { "sectionNo": 7, "title": "폐기물 종합재활용업",    "bizType": ["RTR", "RCY"] }
+      ],
+      "note": "폐기물처리 신고자 제외 (법 제25조① 명시). 허가 처리업자에게만 적용. 법 제25조⑥에 따라 제2~7호 허가자는 수집·운반업 허가 없이 자체 수집·운반 가능 (별표7 수집운반 기준도 준용)."
+    },
+    {
+      "id": "A-별표8",
+      "annex": "별표8",
+      "title": "폐기물처리업자의 준수사항",
+      "legalChain": [
+        { "level": "법",       "article": "제25조⑨6호", "label": "폐기물 처리 계약 시 계약서 작성·보관 등 기후부령으로 정하는 준수사항" },
+        { "level": "시행규칙", "article": "제32조",      "label": "별표8과 같다" }
+      ],
+      "sections": [
+        { "sectionNo": null, "title": "폐기물처리업자 준수사항 (계약서 작성·보관 등)", "bizType": null }
+      ],
+      "note": "별표7과 동일 대상(허가 처리업자). 신고자 미적용 (법 제25조⑨는 제③항 허가자에게만 적용)."
+    },
+    {
+      "id": "A-별표17",
+      "annex": "별표17",
+      "title": "폐기물처리 신고자의 시설·장비 기준",
+      "legalChain": [
+        { "level": "법",       "article": "제46조①",  "label": "신고자가 갖추어야 하는 시설·장비 기준은 기후부령으로 정한다" },
+        { "level": "시행규칙", "article": "제66조①",  "label": "별표17과 같다" }
+      ],
+      "sections": [
+        { "sectionNo": 1, "title": "동·식물성 잔재물 농경지 퇴비 재활용자",          "bizType": ["신고"] },
+        { "sectionNo": 2, "title": "폐지·고철 등 수집·운반 또는 재활용자 (규모 기준)", "bizType": ["신고"] },
+        { "sectionNo": 3, "title": "폐타이어·폐가전제품 등 수집·운반자",              "bizType": ["신고"] }
+      ],
+      "note": "별표7(허가 처리업자)에 대응하는 신고자 전용 시설·장비 기준. 해당 신고 유형(법 제46조①1~3호)에 따라 적용 섹션 결정."
+    },
+    {
+      "id": "A-별표17의2",
+      "annex": "별표17의2",
+      "title": "폐기물처리 신고자의 준수사항",
+      "legalChain": [
+        { "level": "법",       "article": "제46조⑥",  "label": "신고한 폐기물처리 방법에 따라 폐기물을 처리하는 등 기후부령으로 정하는 준수사항" },
+        { "level": "시행규칙", "article": "제67조의2", "label": "별표17의2의 사항을 말한다" }
+      ],
+      "sections": [
+        { "sectionNo": null, "title": "폐기물처리 신고자 준수사항 (처리방법 준수 등)", "bizType": null }
+      ],
+      "note": "별표8(허가 처리업자 준수사항)에 대응하는 신고자 전용 준수사항. 허가 처리업자에는 미적용."
+    },
+    {
+      "id": "A-별표9",
+      "annex": "별표9",
+      "title": "폐기물처리시설의 설치기준",
+      "legalChain": [
+        { "level": "법",       "article": "제29조①",  "label": "폐기물처리시설은 기후부령으로 정하는 기준에 맞게 설치" },
+        { "level": "시행규칙", "article": "제35조①",  "label": "별표9와 같다" }
+      ],
+      "sections": [
+        { "sectionNo": 1, "title": "폐기물 처분시설 (소각·매립 등)", "bizType": ["ID", "FD"] },
+        { "sectionNo": 2, "title": "폐기물 재활용시설",               "bizType": ["RTR", "RCY"] }
+      ],
+      "note": "시설을 설치하는 자 전반에 적용. 수집·운반업(TR)은 처리시설 설치가 없으므로 미적용. 허가자 외의 자(자가처리 배출자 등)도 법 제29조②에 따른 승인·신고 후 동일 기준 적용."
+    }
+  ],
+
+  "mappings": [
+    {
+      "subjectId": "S-허가-RTR",
+      "annexId":   "A-법제13의2",
+      "appliedSections": null,
+      "note": "재활용 가능 폐기물 수집·운반 행위 → 재활용 원칙·금지·준수사항 상위 조문 적용"
+    },
+    {
+      "subjectId": "S-허가-RCY",
+      "annexId":   "A-법제13의2",
+      "appliedSections": null,
+      "note": "재활용 행위 → 재활용 원칙·금지·준수사항 상위 조문 적용"
+    },
+    {
+      "subjectId": "S-신고",
+      "annexId":   "A-법제13의2",
+      "appliedSections": null,
+      "note": "신고자 중 재활용 행위자에 한해 적용 (별표5의3·5의4의 근거 조문)"
+    },
+    {
+      "subjectId": "S-자가처리-배출자",
+      "annexId":   "A-법제13의2",
+      "appliedSections": null,
+      "note": "법 제17조① 자가처리 중 재활용하는 경우 적용"
+    },
+    {
+      "subjectId": "S-허가-TR",
+      "annexId":   "A-별표5",
+      "appliedSections": [3, 4, 6],
+      "note": "수집·운반 행위 → 섹션3(사업장), 4(지정), 6(수집운반증). 생활폐기물 수집 시 섹션1도 해당."
+    },
+    {
+      "subjectId": "S-허가-RTR",
+      "annexId":   "A-별표5",
+      "appliedSections": [3, 6],
+      "note": "재활용 가능 폐기물 수집·운반 → 섹션3, 6"
+    },
+    {
+      "subjectId": "S-허가-RTR",
+      "annexId":   "A-별표5의3",
+      "appliedSections": null,
+      "note": "재활용 행위 → 별표5의3 재활용 기준 준수 (R코드 유형별)"
+    },
+    {
+      "subjectId": "S-허가-RTR",
+      "annexId":   "A-별표5의4",
+      "appliedSections": [1, 2, 3],
+      "note": "재활용 행위자이므로 별표5의4 중첩 적용"
+    },
+    {
+      "subjectId": "S-허가-ID",
+      "annexId":   "A-별표5",
+      "appliedSections": [3, 4, 5],
+      "note": "중간처분 → 섹션3(사업장), 4(지정), 5(의료)"
+    },
+    {
+      "subjectId": "S-허가-FD",
+      "annexId":   "A-별표5",
+      "appliedSections": [3, 4],
+      "note": "최종처분 → 섹션3, 4"
+    },
+    {
+      "subjectId": "S-허가-RCY",
+      "annexId":   "A-별표5",
+      "appliedSections": [3, 4],
+      "note": "재활용 → 섹션3(사업장일반), 4(지정) 해당분"
+    },
+    {
+      "subjectId": "S-허가-RCY",
+      "annexId":   "A-별표5의3",
+      "appliedSections": null,
+      "note": "재활용 행위 → 별표5의3 재활용 기준 준수 (R코드 유형별)"
+    },
+    {
+      "subjectId": "S-허가-RCY",
+      "annexId":   "A-별표5의4",
+      "appliedSections": [1, 2, 3],
+      "note": "재활용 행위자이므로 별표5의4 중첩 적용"
+    },
+    {
+      "subjectId": "S-신고",
+      "annexId":   "A-별표5",
+      "appliedSections": [1, 2, 3, 4, 6],
+      "note": "시행령 제7조①-7호 명시. 해당 wasteClass에 따라 섹션 결정."
+    },
+    {
+      "subjectId": "S-신고",
+      "annexId":   "A-별표5의3",
+      "appliedSections": null,
+      "note": "신고자 중 재활용 행위자에 한해 적용 (R코드 유형별)"
+    },
+    {
+      "subjectId": "S-신고",
+      "annexId":   "A-별표5의4",
+      "appliedSections": [1, 2, 3],
+      "note": "신고자 중 재활용 행위자에 한해 중첩 적용"
+    },
+    {
+      "subjectId": "S-자가처리-배출자",
+      "annexId":   "A-별표5",
+      "appliedSections": [3, 4],
+      "note": "법 제17조① 자가처리 → 섹션3, 4"
+    },
+    {
+      "subjectId": "S-생활-처리자",
+      "annexId":   "A-별표5",
+      "appliedSections": [1, 2],
+      "note": "생활폐기물 처리자 → 섹션1, 2"
+    },
+    {
+      "subjectId": "S-허가-TR",
+      "annexId":   "A-별표7",
+      "appliedSections": [1],
+      "note": "수집·운반업 허가 기준 — 별표7 제1호"
+    },
+    {
+      "subjectId": "S-허가-RTR",
+      "annexId":   "A-별표7",
+      "appliedSections": [4, 7],
+      "note": "중간재활용업(4) 또는 종합재활용업(7) 허가 기준"
+    },
+    {
+      "subjectId": "S-허가-ID",
+      "annexId":   "A-별표7",
+      "appliedSections": [2, 6],
+      "note": "중간처분업(2) 또는 종합처분업(6) 허가 기준"
+    },
+    {
+      "subjectId": "S-허가-FD",
+      "annexId":   "A-별표7",
+      "appliedSections": [3, 6],
+      "note": "최종처분업(3) 또는 종합처분업(6) 허가 기준"
+    },
+    {
+      "subjectId": "S-허가-RCY",
+      "annexId":   "A-별표7",
+      "appliedSections": [5, 7],
+      "note": "최종재활용업(5) 또는 종합재활용업(7) 허가 기준"
+    },
+    {
+      "subjectId": "S-허가-TR",
+      "annexId":   "A-별표6",
+      "appliedSections": null,
+      "note": "수집·운반 행위 시 인계·인수 전자입력 의무"
+    },
+    {
+      "subjectId": "S-허가-RTR",
+      "annexId":   "A-별표6",
+      "appliedSections": null,
+      "note": "수집·운반 행위 시 인계·인수 전자입력 의무"
+    },
+    {
+      "subjectId": "S-허가-ID",
+      "annexId":   "A-별표6",
+      "appliedSections": null,
+      "note": "처분 행위 시 인계·인수 전자입력 의무"
+    },
+    {
+      "subjectId": "S-허가-FD",
+      "annexId":   "A-별표6",
+      "appliedSections": null,
+      "note": "처분 행위 시 인계·인수 전자입력 의무"
+    },
+    {
+      "subjectId": "S-허가-RCY",
+      "annexId":   "A-별표6",
+      "appliedSections": null,
+      "note": "재활용 행위 시 인계·인수 전자입력 의무"
+    },
+    {
+      "subjectId": "S-자가처리-배출자",
+      "annexId":   "A-별표6",
+      "appliedSections": null,
+      "note": "배출 시 인계·인수 전자입력 의무 (위탁 처리 시)"
+    },
+    {
+      "subjectId": "S-신고",
+      "annexId":   "A-별표6",
+      "appliedSections": null,
+      "note": "배출·수집운반·재활용·처분 행위 시 인계·인수 전자입력 의무"
+    },
+    {
+      "subjectId": "S-중간가공",
+      "annexId":   "A-별표5",
+      "appliedSections": null,
+      "note": "시행령 제7조③ 완화 기준 적용. 수집운반증 면제·보관기간 연장."
+    },
+    {
+      "subjectId": "S-허가-TR",
+      "annexId":   "A-별표8",
+      "appliedSections": null,
+      "note": "법 제25조⑨ 허가 처리업자 준수사항 → 별표8 전체 적용"
+    },
+    {
+      "subjectId": "S-허가-RTR",
+      "annexId":   "A-별표8",
+      "appliedSections": null,
+      "note": "법 제25조⑨ 허가 처리업자 준수사항 → 별표8 전체 적용"
+    },
+    {
+      "subjectId": "S-허가-ID",
+      "annexId":   "A-별표8",
+      "appliedSections": null,
+      "note": "법 제25조⑨ 허가 처리업자 준수사항 → 별표8 전체 적용"
+    },
+    {
+      "subjectId": "S-허가-FD",
+      "annexId":   "A-별표8",
+      "appliedSections": null,
+      "note": "법 제25조⑨ 허가 처리업자 준수사항 → 별표8 전체 적용"
+    },
+    {
+      "subjectId": "S-허가-RCY",
+      "annexId":   "A-별표8",
+      "appliedSections": null,
+      "note": "법 제25조⑨ 허가 처리업자 준수사항 → 별표8 전체 적용"
+    },
+    {
+      "subjectId": "S-허가-RTR",
+      "annexId":   "A-별표9",
+      "appliedSections": [2],
+      "note": "중간재활용시설 설치 기준 적용"
+    },
+    {
+      "subjectId": "S-허가-ID",
+      "annexId":   "A-별표9",
+      "appliedSections": [1],
+      "note": "중간처분시설 설치 기준 적용"
+    },
+    {
+      "subjectId": "S-허가-FD",
+      "annexId":   "A-별표9",
+      "appliedSections": [1],
+      "note": "최종처분시설 설치 기준 적용"
+    },
+    {
+      "subjectId": "S-허가-RCY",
+      "annexId":   "A-별표9",
+      "appliedSections": [2],
+      "note": "최종재활용시설 설치 기준 적용"
+    },
+    {
+      "subjectId": "S-자가처리-배출자",
+      "annexId":   "A-별표9",
+      "appliedSections": null,
+      "note": "법 제29조② 승인·신고 후 자체 처리시설 설치 시 적용"
+    },
+    {
+      "subjectId": "S-신고",
+      "annexId":   "A-별표17",
+      "appliedSections": [1, 2, 3],
+      "note": "법 제46조① 신고 유형(1~3호)별로 해당 섹션 적용. 허가 처리업자(별표7)에는 미적용."
+    },
+    {
+      "subjectId": "S-신고",
+      "annexId":   "A-별표17의2",
+      "appliedSections": null,
+      "note": "법 제46조⑥ 신고자 준수사항 → 별표17의2 전체 적용. 허가 처리업자(별표8)에는 미적용."
+    }
+  ]
+}

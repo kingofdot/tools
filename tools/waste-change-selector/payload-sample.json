@@ -47,7 +47,7 @@
         "wasteChanges": [
           { "wasteCode": "01-01-01", "wasteName": "폐폴리에틸렌", "change": "추가" },
           { "wasteCode": "51-20-99", "wasteName": "그 밖의 폐목재류", "change": "제거" },
-          { "wasteCode": "02-01-01", "wasteName": "폐촉매", "change": "유지" }
+          { "wasteCode": "02-01-01", "wasteName": "폐촉매", "change": "기존" }
         ]
       }
     },
@@ -204,8 +204,13 @@
       "조건": null,
       "비고": "별표 7 기술능력 변경",
       "data": {
-        "before": "박환경(폐기물처리기사)",
-        "after": "최환경(폐기물처리기사) + 정수자(폐기물처리산업기사)"
+        "beforePersonnel": [
+          { "name": "박환경", "cert": "폐기물처리기사", "birthDate": "1970-03-15" }
+        ],
+        "afterPersonnel": [
+          { "name": "최환경", "cert": "폐기물처리기사",     "birthDate": "1985-07-22" },
+          { "name": "정수자", "cert": "폐기물처리산업기사", "birthDate": "1990-11-30" }
+        ]
       }
     }
   ],
@@ -219,5 +224,6 @@
       "변경신고": 3,
       "변경 없음": 1
     }
-  }
+  },
+  "_note_attachments": "각 selection 의 attachments 필드는 스키마(폐기물처리업_절차옵션.json)에 정의됨. 공통 첨부서류는 _meta.공통_첨부서류 / 적합성확인_첨부서류 참고."
 }

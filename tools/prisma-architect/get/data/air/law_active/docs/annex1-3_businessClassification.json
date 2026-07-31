@@ -1,0 +1,81 @@
+{
+  "별표번호": "1",
+  "별표가지번호": "03",
+  "별표제목": "사업장 분류기준",
+  "법령명": "대기환경보전법 시행령",
+  "관련조문": "제13조",
+  "개정일": "2025-10-01",
+  "별표내용": [
+    {
+      "type": "1종사업장",
+      "text": "대기오염물질발생량의 합계가 연간 80톤 이상인 사업장",
+      "criteria": {
+        "logic": "AND",
+        "conditions": [
+          { "metric": "annualEmission", "operator": ">=", "value": 80, "unit": "ton/year" }
+        ]
+      },
+      "minAnnualEmission_ton": 80,
+      "maxAnnualEmission_ton": null
+    },
+    {
+      "type": "2종사업장",
+      "text": "대기오염물질발생량의 합계가 연간 20톤 이상 80톤 미만인 사업장",
+      "criteria": {
+        "logic": "AND",
+        "conditions": [
+          { "metric": "annualEmission", "operator": ">=", "value": 20, "unit": "ton/year" },
+          { "metric": "annualEmission", "operator": "<",  "value": 80, "unit": "ton/year" }
+        ]
+      },
+      "minAnnualEmission_ton": 20,
+      "maxAnnualEmission_ton": 80
+    },
+    {
+      "type": "3종사업장",
+      "text": "대기오염물질발생량의 합계가 연간 10톤 이상 20톤 미만인 사업장",
+      "criteria": {
+        "logic": "AND",
+        "conditions": [
+          { "metric": "annualEmission", "operator": ">=", "value": 10, "unit": "ton/year" },
+          { "metric": "annualEmission", "operator": "<",  "value": 20, "unit": "ton/year" }
+        ]
+      },
+      "minAnnualEmission_ton": 10,
+      "maxAnnualEmission_ton": 20
+    },
+    {
+      "type": "4종사업장",
+      "text": "대기오염물질발생량의 합계가 연간 2톤 이상 10톤 미만인 사업장",
+      "criteria": {
+        "logic": "AND",
+        "conditions": [
+          { "metric": "annualEmission", "operator": ">=", "value": 2,  "unit": "ton/year" },
+          { "metric": "annualEmission", "operator": "<",  "value": 10, "unit": "ton/year" }
+        ]
+      },
+      "minAnnualEmission_ton": 2,
+      "maxAnnualEmission_ton": 10
+    },
+    {
+      "type": "5종사업장",
+      "text": "대기오염물질발생량의 합계가 연간 2톤 미만인 사업장",
+      "criteria": {
+        "logic": "AND",
+        "conditions": [
+          { "metric": "annualEmission", "operator": "<", "value": 2, "unit": "ton/year" }
+        ]
+      },
+      "minAnnualEmission_ton": 0,
+      "maxAnnualEmission_ton": 2
+    }
+  ],
+  "비고": [
+    {
+      "term": "대기오염물질발생량",
+      "text": "\"대기오염물질발생량\"이란 방지시설을 통과하기 전의 먼지, 황산화물 및 질소산화물의 발생량을 기후에너지환경부령으로 정하는 방법에 따라 산정한 양을 말한다.",
+      "측정대상물질": ["먼지", "황산화물", "질소산화물"],
+      "측정시점": "방지시설을 통과하기 전"
+    }
+  ]
+}

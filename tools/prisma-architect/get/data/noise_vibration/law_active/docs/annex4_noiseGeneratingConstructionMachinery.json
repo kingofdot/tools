@@ -1,0 +1,60 @@
+{
+  "별표번호": "4",
+  "별표가지번호": "00",
+  "별표제목": "소음발생건설기계의 종류",
+  "법령명": "소음·진동관리법 시행규칙",
+  "관련조문": "제5조",
+  "개정일": "2019-12-20",
+  "_meta": {
+    "_note": "lookup 사용 케이스: 사용자가 건설기계 종류와 출력/중량/공기토출량 입력 시 소음발생건설기계 해당 여부 판정.",
+    "metrics": {
+      "ratedPower":   "정격출력 (kW)",
+      "weight":       "중량 (ton)",
+      "airDischarge": "공기토출량 (m³/min)"
+    }
+  },
+  "machinery": [
+    { "id": 1, "name": "굴착기",
+      "criteria": { "logic": "AND", "conditions": [
+        { "metric": "ratedPower", "operator": ">=", "value": 19,  "unit": "kW" },
+        { "metric": "ratedPower", "operator": "<",  "value": 500, "unit": "kW" }
+      ]},
+      "criteriaText": "정격출력 19㎾ 이상 500㎾ 미만"
+    },
+    { "id": 2, "name": "다짐기계",
+      "criteria": null,
+      "criteriaText": "(별도 조건 없음 — 모든 다짐기계 해당)"
+    },
+    { "id": 3, "name": "로더",
+      "criteria": { "logic": "AND", "conditions": [
+        { "metric": "ratedPower", "operator": ">=", "value": 19,  "unit": "kW" },
+        { "metric": "ratedPower", "operator": "<",  "value": 500, "unit": "kW" }
+      ]},
+      "criteriaText": "정격출력 19㎾ 이상 500㎾ 미만"
+    },
+    { "id": 4, "name": "발전기",
+      "criteria": { "logic": "AND", "conditions": [
+        { "metric": "ratedPower", "operator": "<", "value": 400, "unit": "kW" },
+        { "metric": "indoorOutdoor", "operator": "==", "value": "실외용" }
+      ]},
+      "criteriaText": "정격출력 400㎾ 미만의 실외용"
+    },
+    { "id": 5, "name": "브레이커",
+      "alsoIncludes": ["휴대용"],
+      "criteria": { "logic": "AND", "conditions": [
+        { "metric": "weight", "operator": "<=", "value": 5, "unit": "ton" }
+      ]},
+      "criteriaText": "휴대용을 포함하며, 중량 5톤 이하"
+    },
+    { "id": 6, "name": "공기압축기",
+      "criteria": { "logic": "AND", "conditions": [
+        { "metric": "airDischarge", "operator": ">=", "value": 2.83, "unit": "m³/min" },
+        { "metric": "mobile", "operator": "==", "value": "이동식" }
+      ]},
+      "criteriaText": "공기토출량이 분당 2.83세제곱미터 이상의 이동식"
+    },
+    { "id": 7, "name": "콘크리트 절단기", "criteria": null, "criteriaText": "(별도 조건 없음)" },
+    { "id": 8, "name": "천공기",          "criteria": null, "criteriaText": "(별도 조건 없음)" },
+    { "id": 9, "name": "항타 및 항발기",   "criteria": null, "criteriaText": "(별도 조건 없음)" }
+  ]
+}

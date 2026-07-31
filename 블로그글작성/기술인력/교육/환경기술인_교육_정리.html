@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>환경기술인 교육 및 법적 근거</title>
+<style>
+  :root{
+    --ink:#000; --ink2:#333; --ink3:#666;
+    --line:#000; --line2:#999; --line3:#ccc;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    font-family:"Malgun Gothic","맑은 고딕","Apple SD Gothic Neo",sans-serif;
+    color:var(--ink); background:#e9ebee; line-height:1.65; font-size:13px;
+    -webkit-print-color-adjust:exact; print-color-adjust:exact;
+    word-break:keep-all; overflow-wrap:break-word;
+  }
+  .page{max-width:210mm; margin:0 auto; background:#fff; padding:7mm 7mm 9mm;}
+
+  .toolbar{max-width:210mm; margin:0 auto; padding:12px 16mm 0; text-align:right;}
+  .btn{
+    font:inherit; font-size:12px; cursor:pointer; color:#333;
+    border:1px solid #999; background:#fff; padding:5px 14px;
+  }
+  .btn:hover{background:#f2f2f2;}
+
+  /* 표: 바깥은 두꺼운 줄, 안은 얇은 줄 */
+  table{width:100%; border-collapse:collapse; font-size:13px; margin:5px 0 3px;
+        border:1.8px solid var(--ink);}
+  th,td{border:1px solid #cfcfcf; padding:7px 9px; vertical-align:middle; text-align:left;
+        line-height:1.5; font-weight:600;}
+  thead th{background:#ededed; text-align:center; font-weight:700; font-size:13px;
+           border-bottom:1px solid var(--ink);}
+  tbody th{background:#f5f5f5; font-weight:700; text-align:center;}
+
+  /* 종합표도 같은 규칙: 바깥 두꺼운 줄 + 안쪽 얇은 줄 */
+  .bt{width:100%; border-collapse:collapse; font-size:12.5px; margin:5px 0 3px;
+      border:1.8px solid var(--ink);}
+  .bt th, .bt td{border:1px solid #cfcfcf; padding:7px 9px; vertical-align:middle;
+                 text-align:left; line-height:1.45; font-weight:600;}
+  .bt thead th{font-weight:700; background:#ededed; text-align:center;
+               border-bottom:1px solid var(--ink);}
+  .bt .sep{border-left:1px solid #cfcfcf;}
+  .bt .grp{font-weight:700; background:#f5f5f5; vertical-align:middle; text-align:center;}
+  .bt .v{vertical-align:middle;}
+  .bt .ctr{text-align:center;}
+  .bt .key{font-weight:700;}
+  .bt .lw{font-weight:400; color:var(--ink3); font-size:11px; margin-left:4px;}
+  .bt .na{color:#8a8a8a;}
+
+  /* 법령 원문 */
+  .law-box{margin:8px 0 4px; padding:11px 14px; border:1px solid var(--line3); background:#fbfbfb;}
+  .law-box .cite{
+    font-size:11.5px; font-weight:700; color:var(--ink); margin:0 0 6px;
+    padding-bottom:4px; border-bottom:1px solid var(--line3);
+  }
+  .law-box .body{
+    font-size:12.5px; line-height:1.75; color:#000;
+  }
+  .law-box .body p{margin:0 0 5px;}
+  .law-box .body p:last-child{margin-bottom:0;}
+  .law-box .body .ho{padding-left:20px;}
+  .law-box .body .amend{font-size:10.5px; color:var(--ink3);}
+
+  /* 각주 */
+  .note{font-size:12.5px; font-weight:600; color:var(--ink2); margin:7px 0 0; padding-left:15px; text-indent:-15px;}
+  .src{font-size:11.5px; color:var(--ink3); margin:6px 0 0;}
+
+  /* 주제(장) 끝 오른쪽 서명 */
+  .mark{text-align:right; font-size:11px; font-weight:700; color:#9a9a9a;
+        margin:6px 0 0; letter-spacing:0.2px;}
+  .mark .u{font-weight:600; color:#b0b0b0; margin-left:4px;}
+
+  footer{margin-top:26px; padding-top:9px; border-top:1px solid var(--line3); font-size:11px; color:var(--ink3);}
+
+  /* 페이지 하단 러닝 푸터 */
+  .runfoot{
+    display:flex; justify-content:space-between; align-items:baseline; gap:12px;
+    margin-top:16px; padding-top:5px; border-top:1px solid var(--line3);
+    font-size:11px; color:#666; font-weight:600;
+  }
+  .runfoot .brand{font-weight:700; color:#555;}
+
+  @page{ size:210mm 1486mm; margin:5mm 6mm 9mm; }
+  @media print{
+    body{background:#fff;}
+    .toolbar{display:none !important;}
+    .page{max-width:none; margin:0; padding:0;}
+    h2{break-after:avoid;} h3{break-after:avoid;}
+    table,.law-box{break-inside:avoid;}
+    /* .brk 사용 안 함 (단일 페이지) */
+    .runfoot{
+      position:fixed; left:0; right:0; bottom:0;
+      margin:0; padding-top:3px; background:#fff;
+    }
+  }
+</style>
+</head>
+<body>
+
+<div class="toolbar"><button class="btn" onclick="window.print()">인쇄 / PDF 저장</button></div>
+
+<div class="page">
+
+<div class="doc-head">
+  <h1>환경기술인 교육 및 법적 근거</h1>
+  <p class="law">대기환경보전법 · 물환경보전법 · 소음ㆍ진동관리법</p>
+  <div class="rule"></div>
+</div>
+
+<!-- 1 -->
+<section>
+  <h2>1. 환경기술인 교육 한눈에</h2>
+
+  <h3>가. 3개 법 비교</h3>
+  <table class="bt">
+    <colgroup><col style="width:19%"><col style="width:27%"><col style="width:27%"><col style="width:27%"></colgroup>
+    <thead>
+      <tr>
+        <th>구분</th>
+        <th>대기</th>
+        <th class="sep">수질</th>
+        <th class="sep">소음ㆍ진동</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="key">교육 의무자</td>
+        <td>환경기술인을 고용한 자</td>
+        <td class="sep">환경기술인을 고용한 자</td>
+        <td class="sep">환경기술인을 두어야 하는 자</td>
+      </tr>
+      <tr>
+        <td class="key">신규(최초)교육</td>
+        <td>환경기술인으로 임명된 날부터 1년 이내 1회</td>
+        <td class="sep">최초로 업무에 종사한 날부터 1년 이내</td>
+        <td class="sep na">규정 없음</td>
+      </tr>
+      <tr>
+        <td class="key">보수교육</td>
+        <td>신규교육을 받은 날을 기준으로 3년마다 1회</td>
+        <td class="sep">최초교육 후 3년마다</td>
+        <td class="sep">3년마다 한 차례 이상</td>
+      </tr>
+      <tr>
+        <td class="key">교육기간</td>
+        <td>4일 이내</td>
+        <td class="sep">4일 이내</td>
+        <td class="sep">3일 이내</td>
+      </tr>
+      <tr>
+        <td class="key">원격교육</td>
+        <td colspan="3" class="ctr">정보통신매체를 이용하는 경우 기후에너지환경부장관이 인정하는 기간 (3개 법 동일)</td>
+      </tr>
+      <tr>
+        <td class="key">교육기관</td>
+        <td>한국환경보전원, 또는 장관·시도지사·대도시 시장이 위탁하는 기관</td>
+        <td class="sep">한국환경보전원</td>
+        <td class="sep">장관이 지정하는 기관, 또는 한국환경보전원</td>
+      </tr>
+      <tr>
+        <td class="key">교육 연기</td>
+        <td class="na">규정 없음</td>
+        <td class="sep">6개월의 범위에서 연기 가능</td>
+        <td class="sep">6개월의 범위에서 연기 가능</td>
+      </tr>
+      <tr>
+        <td class="key">이수 간주</td>
+        <td>기한 마지막 날 이전 3년 이내에 동일 교육을 받은 경우</td>
+        <td class="sep na">규정 없음</td>
+        <td class="sep na">규정 없음</td>
+      </tr>
+      <tr>
+        <td class="key">교육경비</td>
+        <td>교육기관의 장이 정함</td>
+        <td class="sep">기후에너지환경부장관이 정하여 고시</td>
+        <td class="sep">장관이 고시하는 금액의 범위에서 실비</td>
+      </tr>
+      <tr>
+        <td class="key">경비 부담</td>
+        <td colspan="3" class="ctr">교육대상자를 고용한 자 (3개 법 동일)</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>나. 교육을 받게 하지 않은 경우</h3>
+  <table class="bt">
+    <colgroup><col style="width:19%"><col style="width:27%"><col style="width:27%"><col style="width:27%"></colgroup>
+    <thead>
+      <tr>
+        <th>구분</th>
+        <th>대기</th>
+        <th class="sep">수질</th>
+        <th class="sep">소음ㆍ진동</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="key">근거</td>
+        <td>법 제94조제4항제8호</td>
+        <td class="sep">법 제82조제3항제5호</td>
+        <td class="sep">법 제60조제3항제8호</td>
+      </tr>
+      <tr>
+        <td class="key">법정 상한</td>
+        <td>100만원 이하</td>
+        <td class="sep">100만원 이하</td>
+        <td class="sep">200만원 이하</td>
+      </tr>
+      <tr>
+        <td class="key">1차 위반</td>
+        <td>60만원</td>
+        <td class="sep">60만원</td>
+        <td class="sep">60만원</td>
+      </tr>
+      <tr>
+        <td class="key">2차 위반</td>
+        <td>80만원</td>
+        <td class="sep">80만원</td>
+        <td class="sep">80만원</td>
+      </tr>
+      <tr>
+        <td class="key">3차 이상</td>
+        <td>100만원</td>
+        <td class="sep">100만원</td>
+        <td class="sep">100만원</td>
+      </tr>
+      <tr>
+        <td class="key">부과기준</td>
+        <td>시행령 별표 15</td>
+        <td class="sep">시행령 별표 18</td>
+        <td class="sep">시행령 별표 2</td>
+      </tr>
+    </tbody>
+  </table>
+  <p class="note">※ 과태료는 교육을 받지 않은 환경기술인이 아니라 그를 고용한 자에게 부과된다. 가중 부과는 최근 1년간 같은 위반행위로 과태료 부과처분을 받은 경우에 적용한다.</p>
+  <p class="note">※ 신규교육과 보수교육의 기산점이 대기는 “임명된 날”, 수질은 “최초로 업무에 종사한 날”로 서로 다르다. 임명일과 실제 근무 시작일이 다른 경우 두 법의 기한이 어긋날 수 있다.</p>
+  <p class="mark">인허가 서대리 <span class="u">https://seodaeri.com/</span></p>
+</section>
+
+<!-- 2 -->
+<section>
+  <h2>2. 근거 법령 체계</h2>
+  <table>
+    <thead>
+      <tr>
+        <th style="width:14%">분야</th>
+        <th style="width:24%">교육 의무</th>
+        <th style="width:28%">세부 규정</th>
+        <th style="width:34%">과태료</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <th>대기</th>
+        <td>대기환경보전법 제77조</td>
+        <td>시행규칙 제125조부터 제130조까지</td>
+        <td>법 제94조제4항제8호<br>시행령 별표 15(과태료의 부과기준)</td>
+      </tr>
+      <tr>
+        <th>수질</th>
+        <td>물환경보전법 제67조</td>
+        <td>시행규칙 제93조부터 제100조까지</td>
+        <td>법 제82조제3항제5호<br>시행령 별표 18(과태료의 부과기준)</td>
+      </tr>
+      <tr>
+        <th>소음ㆍ진동</th>
+        <td>소음ㆍ진동관리법 제46조</td>
+        <td>시행규칙 제64조부터 제70조까지</td>
+        <td>법 제60조제3항제8호<br>시행령 별표 2(과태료의 부과기준)</td>
+      </tr>
+    </tbody>
+  </table>
+  <p class="mark">인허가 서대리 <span class="u">https://seodaeri.com/</span></p>
+</section>
+
+<!-- 3 대기 -->
+<section>
+  <h2>3. 대기 <span class="sm">대기환경보전법</span></h2>
+
+  <h3>가. 교육 요건</h3>
+  <table>
+    <thead>
+      <tr><th style="width:22%">항목</th><th>내용</th></tr>
+    </thead>
+    <tbody>
+      <tr><th>신규교육</th><td>환경기술인으로 임명된 날부터 1년 이내에 1회</td></tr>
+      <tr><th>보수교육</th><td>신규교육을 받은 날을 기준으로 3년마다 1회</td></tr>
+      <tr><th>이수 간주</th><td>교육을 받아야 하는 기한의 마지막 날 이전 3년 이내에 동일한 교육을 받은 경우 해당 교육을 받은 것으로 본다</td></tr>
+      <tr><th>교육기관</th><td>「환경정책기본법」 제59조에 따른 한국환경보전원, 또는 기후에너지환경부장관·시도지사·대도시 시장이 교육을 실시할 능력이 있다고 인정하여 위탁하는 기관</td></tr>
+      <tr><th>교육기간</th><td>4일 이내 (원격교육은 기후에너지환경부장관이 인정하는 기간)</td></tr>
+      <tr><th>교육경비</th><td>교육내용과 교육기간 등을 고려하여 교육기관의 장이 정하며, 교육대상자를 고용한 자로부터 징수</td></tr>
+    </tbody>
+  </table>
+  <p class="src">대기환경보전법 제77조, 같은 법 시행규칙 제125조</p>
+
+  <h3>나. 관계 법령 원문</h3>
+
+  <div class="law-box">
+    <p class="cite">대기환경보전법 제77조(환경기술인 등의 교육)</p>
+    <div class="body">
+      <p>① 환경기술인을 고용한 자는 기후에너지환경부령으로 정하는 바에 따라 해당하는 자에게 기후에너지환경부장관, 시ㆍ도지사 또는 대도시 시장이 실시하는 교육을 받게 하여야 한다. <span class="amend">&lt;개정 2020.12.29, 2025.10.1&gt;</span></p>
+      <p>② 기후에너지환경부장관, 시ㆍ도지사 또는 대도시 시장은 기후에너지환경부령으로 정하는 바에 따라 제1항에 따른 교육에 드는 경비를 교육대상자를 고용한 자로부터 징수할 수 있다. <span class="amend">&lt;개정 2020.12.29, 2025.10.1&gt;</span></p>
+      <p>③ 기후에너지환경부장관, 시ㆍ도지사 또는 대도시 시장은 제1항에 따른 교육을 관계 전문기관에 위탁할 수 있다. <span class="amend">&lt;개정 2020.12.29, 2025.10.1&gt;</span></p>
+    </div>
+  </div>
+
+  <div class="law-box">
+    <p class="cite">대기환경보전법 시행규칙 제125조(환경기술인의 교육)</p>
+    <div class="body">
+      <p>① 법 제77조에 따라 환경기술인은 다음 각 호의 구분에 따라 「환경정책기본법」 제59조에 따른 한국환경보전원, 기후에너지환경부장관, 시ㆍ도지사 또는 대도시 시장이 교육을 실시할 능력이 있다고 인정하여 위탁하는 기관(이하 “교육기관”이라 한다)에서 실시하는 교육을 받아야 한다. 다만, 교육 대상이 된 사람이 그 교육을 받아야 하는 기한의 마지막 날 이전 3년 이내에 동일한 교육을 받았을 경우에는 해당 교육을 받은 것으로 본다. <span class="amend">&lt;개정 2009.6.30, 2010.12.31, 2016.12.30, 2021.6.30, 2023.8.16, 2025.10.1&gt;</span></p>
+      <p class="ho">1. 신규교육 : 환경기술인으로 임명된 날부터 1년 이내에 1회</p>
+      <p class="ho">2. 보수교육 : 신규교육을 받은 날을 기준으로 3년마다 1회</p>
+      <p>② 제1항에 따른 교육기간은 4일 이내로 한다. 다만, 정보통신매체를 이용하여 원격교육을 하는 경우에는 기후에너지환경부장관이 인정하는 기간으로 한다. <span class="amend">&lt;개정 2009.1.14, 2025.10.1&gt;</span></p>
+      <p>③ 법 제77조제2항에 따라 교육대상자를 고용한 자로부터 징수하는 교육경비는 교육내용 및 교육기간 등을 고려하여 교육기관의 장이 정한다.</p>
+    </div>
+  </div>
+  <p class="mark">인허가 서대리 <span class="u">https://seodaeri.com/</span></p>
+</section>
+
+<!-- 4 수질 -->
+<section>
+  <h2>4. 수질 <span class="sm">물환경보전법</span></h2>
+
+  <h3>가. 교육 요건</h3>
+  <table>
+    <thead>
+      <tr><th style="width:22%">항목</th><th>내용</th></tr>
+    </thead>
+    <tbody>
+      <tr><th>최초교육</th><td>최초로 업무에 종사한 날부터 1년 이내에 실시하는 교육</td></tr>
+      <tr><th>보수교육</th><td>최초교육 후 3년마다 실시하는 교육</td></tr>
+      <tr><th>교육 연기</th><td>부득이한 사유가 있는 경우 6개월의 범위에서 연기 가능. 사유를 증명하는 서류를 관할 시도지사 또는 유역환경청장ㆍ지방환경청장에게 제출</td></tr>
+      <tr><th>교육기관</th><td>환경기술인은 「환경정책기본법」 제59조제1항에 따른 한국환경보전원<br><span style="color:#666">(측정기기 관리대행 기술인력은 국립환경인재개발원 또는 한국상하수도협회, 폐수처리업 기술요원은 국립환경인재개발원)</span></td></tr>
+      <tr><th>교육과정</th><td>환경기술인과정</td></tr>
+      <tr><th>교육기간</th><td>4일 이내 (원격교육은 기후에너지환경부장관이 인정하는 기간)</td></tr>
+      <tr><th>교육경비</th><td>교육내용과 교육기간 등을 고려하여 기후에너지환경부장관이 정하여 고시</td></tr>
+    </tbody>
+  </table>
+  <p class="src">물환경보전법 제67조, 같은 법 시행규칙 제93조·제94조·제100조</p>
+
+  <h3>나. 관계 법령 원문</h3>
+
+  <div class="law-box">
+    <p class="cite">물환경보전법 제67조(환경기술인 등의 교육)</p>
+    <div class="body">
+      <p>① 폐수처리업에 종사하는 기술요원 또는 환경기술인을 고용한 자는 기후에너지환경부령으로 정하는 바에 따라 그 해당자에게 기후에너지환경부장관, 시ㆍ도지사 또는 대도시의 장이 실시하는 교육을 받게 하여야 한다. <span class="amend">&lt;개정 2017.1.17, 2025.10.1&gt;</span></p>
+      <p>② 기후에너지환경부장관, 시ㆍ도지사 또는 대도시의 장은 기후에너지환경부령으로 정하는 바에 따라 제1항에 따른 교육에 드는 경비를 교육대상자를 고용한 자로부터 징수할 수 있다. <span class="amend">&lt;개정 2017.1.17, 2025.10.1&gt;</span></p>
+    </div>
+  </div>
+
+  <div class="law-box">
+    <p class="cite">물환경보전법 시행규칙 제93조(기술인력 등의 교육기간ㆍ대상자 등)</p>
+    <div class="body">
+      <p>① 법 제38조의6제1항에 따른 기술인력, 법 제47조에 따른 환경기술인 또는 법 제62조에 따른 폐수처리업에 종사하는 기술요원(이하 “기술인력등”이라 한다)을 고용한 자는 다음 각 호의 구분에 따른 교육을 받게 하여야 한다. <span class="amend">&lt;개정 2017.1.19&gt;</span></p>
+      <p class="ho">1. 최초교육: 기술인력등이 최초로 업무에 종사한 날부터 1년 이내에 실시하는 교육</p>
+      <p class="ho">2. 보수교육: 제1호에 따른 최초 교육 후 3년마다 실시하는 교육</p>
+      <p>② 제1항에도 불구하고 기술인력등이 다음 각 호의 어느 하나에 해당하는 부득이한 사유로 제1항 각 호에 따른 기간에 교육을 받을 수 없는 경우에는 6개월의 범위에서 해당 교육을 연기할 수 있다. 이 경우 기술인력등을 고용한 자는 관할 시ㆍ도지사 또는 관할 유역환경청장ㆍ지방환경청장에게 그 사유를 증명하는 서류를 제출해야 한다. <span class="amend">&lt;신설 2024.11.13&gt;</span></p>
+      <p class="ho">1. 업무와 관련하여 국외에 체류하고 있는 경우</p>
+      <p class="ho">2. 질병이나 부상으로 입원 중이거나 거동이 심히 곤란한 경우</p>
+      <p class="ho">3. 재해, 사고 등 불가항력적인 사유로 교육을 받기가 곤란한 경우</p>
+      <p class="ho">4. 그 밖에 관할 시ㆍ도지사 또는 관할 유역환경청장ㆍ지방환경청장이 교육을 받기가 곤란한다고 인정하는 경우</p>
+      <p>③ 제1항에 따른 교육은 다음 각 호의 구분에 따른 교육기관에서 실시한다. 다만, 기후에너지환경부장관 또는 시ㆍ도지사는 필요하다고 인정하면 다음 각 호의 교육기관 외의 교육기관에서 기술인력등에 관한 교육을 실시하도록 할 수 있다. <span class="amend">&lt;개정 2011.2.9, 2017.1.19, 2020.11.27, 2024.11.13, 2025.10.1&gt;</span></p>
+      <p class="ho">1. 측정기기 관리대행업에 등록된 기술인력: 국립환경인재개발원 또는 「수도법」 제56조제1항에 따른 한국상하수도협회</p>
+      <p class="ho">2. 폐수처리업에 종사하는 기술요원: 국립환경인재개발원</p>
+      <p class="ho">3. 환경기술인: 「환경정책기본법」 제59조제1항에 따른 한국환경보전원</p>
+    </div>
+  </div>
+
+  <div class="law-box">
+    <p class="cite">물환경보전법 시행규칙 제94조(교육과정의 종류 및 기간), 제100조(교육경비)</p>
+    <div class="body">
+      <p>제94조 ① 기술인력등이 법 제38조의8제2항ㆍ제67조제1항 및 제93조제1항에 따라 이수하여야 하는 교육과정은 다음 각 호의 구분에 따른다. <span class="amend">&lt;개정 2017.1.19&gt;</span></p>
+      <p class="ho">1. 측정기기 관리대행업에 등록된 기술인력: 측정기기 관리대행 기술인력과정</p>
+      <p class="ho">2. 환경기술인: 환경기술인과정</p>
+      <p class="ho">3. 폐수처리업에 종사하는 기술요원: 폐수처리기술요원과정</p>
+      <p>② 제1항의 교육과정의 교육기간은 4일 이내로 한다. 다만, 정보통신매체를 이용하여 원격교육을 실시하는 경우에는 기후에너지환경부장관이 인정하는 기간으로 한다. <span class="amend">&lt;개정 2012.7.5, 2017.1.19, 2025.10.1&gt;</span></p>
+      <p style="margin-top:8px">제100조 법 제38조의8제2항 및 제67조제1항에 따라 교육대상자를 고용하는 자로부터 징수하는 교육경비는 교육내용과 교육기간 등을 고려하여 기후에너지환경부장관이 정하여 고시한다. <span class="amend">&lt;개정 2017.1.19, 2025.10.1&gt;</span></p>
+    </div>
+  </div>
+  <p class="mark">인허가 서대리 <span class="u">https://seodaeri.com/</span></p>
+</section>
+
+<!-- 5 소음 -->
+<section>
+  <h2>5. 소음ㆍ진동 <span class="sm">소음ㆍ진동관리법</span></h2>
+
+  <h3>가. 교육 요건</h3>
+  <table>
+    <thead>
+      <tr><th style="width:22%">항목</th><th>내용</th></tr>
+    </thead>
+    <tbody>
+      <tr><th>교육 주기</th><td>3년마다 한 차례 이상 (신규교육과 보수교육을 구분하지 않는다)</td></tr>
+      <tr><th>교육 연기</th><td>부득이한 사유가 있는 경우 6개월의 범위에서 연기 가능</td></tr>
+      <tr><th>교육기관</th><td>기후에너지환경부장관이 교육을 실시할 능력이 있다고 인정하여 지정하는 기관, 또는 「환경정책기본법」 제59조에 따른 한국환경보전원</td></tr>
+      <tr><th>교육과정</th><td>환경기술인 과정</td></tr>
+      <tr><th>교육기간</th><td>3일 이내 (원격교육은 기후에너지환경부장관이 인정하는 기간)</td></tr>
+      <tr><th>교육경비</th><td>기후에너지환경부장관이 정하여 고시하는 금액의 범위에서 실비를 고용한 자로부터 징수</td></tr>
+    </tbody>
+  </table>
+  <p class="src">소음ㆍ진동관리법 제46조, 같은 법 시행규칙 제64조·제66조·제70조</p>
+
+  <h3>나. 관계 법령 원문</h3>
+
+  <div class="law-box">
+    <p class="cite">소음ㆍ진동관리법 제46조(환경기술인 등의 교육)</p>
+    <div class="body">
+      <p>① 제19조에 따라 환경기술인을 두어야 하는 자는 기후에너지환경부령으로 정하는 바에 따라 환경기술인에게 기후에너지환경부장관 또는 시ㆍ도지사가 실시하는 교육을 받게 하여야 한다. <span class="amend">&lt;개정 2009.6.9, 2025.10.1&gt;</span></p>
+      <p>② 기후에너지환경부장관 또는 시ㆍ도지사는 기후에너지환경부령으로 정하는 바에 따라 제1항의 환경기술인 교육에 드는 경비를 교육 대상자를 고용한 자로부터 징수할 수 있다. <span class="amend">&lt;개정 2025.10.1&gt;</span></p>
+    </div>
+  </div>
+
+  <div class="law-box">
+    <p class="cite">소음ㆍ진동관리법 시행규칙 제64조(환경기술인의 교육)</p>
+    <div class="body">
+      <p>① 법 제46조에 따라 환경기술인은 3년마다 한 차례 이상 다음 각 호의 어느 하나에 해당하는 교육기관(이하 “교육기관”이라 한다)에서 실시하는 교육을 받아야 한다. <span class="amend">&lt;개정 2023.6.30, 2025.10.1&gt;</span></p>
+      <p class="ho">1. 기후에너지환경부장관이 교육을 실시할 능력이 있다고 인정하여 지정하는 기관</p>
+      <p class="ho">2. 「환경정책기본법」 제59조에 따른 한국환경보전원</p>
+      <p>② 제1항에 따른 교육기간은 3일 이내로 한다. 다만, 정보통신매체를 이용하여 원격 교육을 실시하는 경우에는 기후에너지환경부장관이 인정하는 기간으로 한다. <span class="amend">&lt;개정 2024.11.13, 2025.10.1&gt;</span></p>
+      <p>③ 제1항에도 불구하고 환경기술인이 다음 각 호의 어느 하나에 해당하는 부득이한 사유로 제1항에 따른 교육시기에 교육을 받을 수 없는 경우에는 6개월의 범위에서 해당 교육을 연기할 수 있다. <span class="amend">&lt;신설 2024.11.13, 2025.9.30, 2025.10.1&gt;</span></p>
+      <p class="ho">1. 업무와 관련하여 국외에 체류하고 있는 경우</p>
+      <p class="ho">2. 질병이나 부상으로 입원 중이거나 거동이 심히 곤란한 경우</p>
+      <p class="ho">2의2. 임신ㆍ출산한 경우</p>
+      <p class="ho">3. 그 밖에 기후에너지환경부장관 또는 관할 시ㆍ도지사가 교육을 받기가 곤란하다고 인정하는 경우</p>
+      <p style="margin-top:8px">제70조(교육 경비) 교육기관은 교육을 실시하는 데에 드는 실비(實費)를 기후에너지환경부장관이 정하여 고시하는 금액의 범위에서 해당 교육을 받는 환경관리인을 고용한 자로부터 징수할 수 있다. <span class="amend">&lt;개정 2025.10.1&gt;</span></p>
+    </div>
+  </div>
+  <p class="note">※ 시행규칙 제70조는 다른 조문과 달리 현재도 “환경관리인”이라는 옛 용어를 쓰고 있으나, 제64조의 환경기술인과 같은 대상을 가리킨다.</p>
+  <p class="mark">인허가 서대리 <span class="u">https://seodaeri.com/</span></p>
+</section>
+
+<!-- 6 -->
+<section>
+  <h2>6. 교육 시행 절차</h2>
+  <table class="bt">
+    <colgroup><col style="width:22%"><col style="width:26%"><col style="width:26%"><col style="width:26%"></colgroup>
+    <thead>
+      <tr>
+        <th>절차</th>
+        <th>대기</th>
+        <th class="sep">수질</th>
+        <th class="sep">소음ㆍ진동</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="key">교육기관의 다음 해 교육계획 제출 및 승인</td>
+        <td>매년 11월 30일까지<br>시행규칙 제126조</td>
+        <td class="sep">매년 11월 30일까지<br>시행규칙 제95조</td>
+        <td class="sep">매년 11월 30일까지<br>시행규칙 제65조</td>
+      </tr>
+      <tr>
+        <td class="key">장관이 지자체에 교육계획 통보</td>
+        <td>매년 1월 31일까지<br>제127조제1항</td>
+        <td class="sep">매년 1월 31일까지<br>제96조제1항</td>
+        <td class="sep">매년 1월 31일까지<br>제66조제1항</td>
+      </tr>
+      <tr>
+        <td class="key">교육대상자 선발 및 명단 통보</td>
+        <td>교육과정 시작 15일 전까지<br>제127조제2항</td>
+        <td class="sep">교육과정 개시 15일 전까지<br>제96조제2항</td>
+        <td class="sep">교육과정 개시 15일 전까지<br>제66조제2항</td>
+      </tr>
+      <tr>
+        <td class="key">고용한 자에게 통지</td>
+        <td>지체 없이<br>제127조제3항</td>
+        <td class="sep">지체 없이<br>제96조제3항</td>
+        <td class="sep">지체 없이<br>제66조제3항</td>
+      </tr>
+      <tr>
+        <td class="key">대상자의 교육기관 등록</td>
+        <td>교육 시작 전까지<br>제127조제4항</td>
+        <td class="sep">교육 개시 전까지<br>제96조제4항</td>
+        <td class="sep">교육 개시 전까지<br>제66조제4항</td>
+      </tr>
+      <tr>
+        <td class="key">교육기관의 실적 보고</td>
+        <td>매 분기 종료 후 15일 이내<br>제128조</td>
+        <td class="sep">다음 해 1월 15일까지<br>제97조</td>
+        <td class="sep">다음 해 1월 31일까지<br>제67조</td>
+      </tr>
+    </tbody>
+  </table>
+  <p class="note">※ 환경기술인을 고용한 자는 교육의 효과적 수행을 위하여 환경기술인 명단, 교육이수자 현황 등 자료 제출 요청에 협조하여야 한다. 대기 시행규칙 제130조, 물환경 시행규칙 제99조, 소음ㆍ진동 시행규칙 제69조.</p>
+  <p class="mark">인허가 서대리 <span class="u">https://seodaeri.com/</span></p>
+</section>
+
+<footer>
+  출처: 국가법령정보센터(www.law.go.kr) OPEN API. 기준 시행일은 대기환경보전법 2026. 7. 7. 및 같은 법 시행규칙 2026. 7. 15., 물환경보전법 2026. 2. 19. 및 같은 법 시행규칙 2026. 6. 22., 소음ㆍ진동관리법 2025. 10. 1. 및 같은 법 시행규칙 2026. 6. 22., 과태료 부과기준은 각 시행령 별표(대기 2026. 7. 1., 물환경 2026. 3. 24., 소음ㆍ진동 2026. 3. 24.) 기준이다. 실제 적용 시 최신 개정 여부를 확인하여야 한다.
+</footer>
+
+<div class="runfoot">
+  <span><span class="brand">인허가 서대리</span> &nbsp;https://seodaeri.com/</span>
+  <span>출처: 국가법령정보센터(law.go.kr)</span>
+</div>
+
+</div>
+</body>
+</html>

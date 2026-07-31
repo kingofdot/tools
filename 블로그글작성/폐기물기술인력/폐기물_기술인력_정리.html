@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>폐기물 분야 기술인력 총정리</title>
+<style>
+  :root{ --ink:#000; --ink2:#333; --ink3:#5a5a5a; --line2:#8a8a8a; --line3:#c4c4c4; }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    font-family:"Malgun Gothic","맑은 고딕","Apple SD Gothic Neo",sans-serif;
+    color:var(--ink); background:#e9ebee; line-height:1.6; font-size:13px;
+    -webkit-print-color-adjust:exact; print-color-adjust:exact;
+    word-break:keep-all; overflow-wrap:break-word;
+  }
+  .page{max-width:210mm; margin:0 auto; background:#fff; padding:7mm 7mm 9mm;}
+
+  .toolbar{max-width:210mm; margin:0 auto; padding:10px 7mm 0; text-align:right;}
+  .btn{font:inherit; font-size:12px; cursor:pointer; color:#333; border:1px solid #999; background:#fff; padding:5px 14px;}
+
+  .doc-head{text-align:center; margin-bottom:12px;}
+  .doc-head h1{font-size:20px; font-weight:700; margin:0 0 5px; letter-spacing:-0.5px;}
+  .doc-head .law{font-size:12.5px; color:var(--ink2); margin:0 0 9px;}
+  .doc-head .rule{border-top:2px solid var(--ink); border-bottom:1px solid var(--ink); height:3px;}
+
+  h2{font-size:15px; font-weight:700; margin:24px 0 8px; padding-bottom:4px; border-bottom:1.5px solid var(--ink);}
+  h2 .sm{font-size:11.5px; font-weight:400; color:var(--ink3); margin-left:6px;}
+  h3{font-size:13px; font-weight:700; margin:10px 0 4px;}
+
+  section{margin-bottom:10px;}
+
+  /* 표: 바깥은 두꺼운 줄, 안은 얇은 줄 */
+  table{width:100%; border-collapse:collapse; font-size:13px; margin:5px 0 3px;
+        border:1.8px solid var(--ink);}
+  th,td{border:1px solid #cfcfcf; padding:7px 9px; vertical-align:middle; text-align:left;
+        line-height:1.5; font-weight:600;}
+  thead th{background:#ededed; text-align:center; font-weight:700; font-size:13px;
+           border-bottom:1px solid var(--ink);}
+  tbody th{background:#f5f5f5; font-weight:700; text-align:center;}
+
+  /* 종합표도 같은 규칙: 바깥 두꺼운 줄 + 안쪽 얇은 줄 */
+  .bt{width:100%; border-collapse:collapse; font-size:12.5px; margin:5px 0 3px;
+      border:1.8px solid var(--ink);}
+  .bt th, .bt td{border:1px solid #cfcfcf; padding:7px 9px; vertical-align:middle;
+                 text-align:left; line-height:1.45; font-weight:600;}
+  .bt thead th{font-weight:700; background:#ededed; text-align:center;
+               border-bottom:1px solid var(--ink);}
+  .bt .sep{border-left:1px solid #cfcfcf;}
+  .bt .grp{font-weight:700; background:#f5f5f5; vertical-align:middle; text-align:center;}
+  .bt .v{vertical-align:middle;}
+  .bt .ctr{text-align:center;}
+  .bt .key{font-weight:700;}
+  .bt .lw{font-weight:400; color:var(--ink3); font-size:11px; margin-left:4px;}
+  .bt .na{color:#8a8a8a;}
+  .bt .ctr{text-align:center;}
+  .num{white-space:nowrap; font-weight:700;}
+
+  .law-box{margin:6px 0 3px; padding:9px 12px; border:1px solid var(--line3); background:#fafafa;}
+  .law-box .cite{font-size:11.5px; font-weight:700; margin:0 0 5px; padding-bottom:3px; border-bottom:1px solid var(--line3);}
+  .law-box .body{font-family:"Batang","바탕",serif; font-size:12px; line-height:1.75; color:#111;}
+  .law-box .body p{margin:0 0 4px;}
+  .law-box .body p:last-child{margin-bottom:0;}
+  .law-box .body .ho{padding-left:18px;}
+
+  .note{font-size:12.5px; color:var(--ink2); margin:6px 0 0; padding-left:15px; text-indent:-15px; font-weight:600;}
+  .src{font-size:11.5px; color:var(--ink3); margin:5px 0 0;}
+
+  /* 주제(장) 끝 오른쪽 서명 */
+  .mark{text-align:right; font-size:11px; font-weight:700; color:#9a9a9a;
+        margin:6px 0 0; letter-spacing:0.2px;}
+  .mark .u{font-weight:600; color:#b0b0b0; margin-left:4px;}
+
+  footer{margin-top:16px; padding-top:7px; border-top:1px solid var(--line3); font-size:11px; color:var(--ink3);}
+
+  .runfoot{
+    display:flex; justify-content:space-between; align-items:baseline;
+    margin-top:10px; padding-top:4px; border-top:1px solid var(--line3);
+    font-size:11px; color:#666; font-weight:600;
+  }
+  .runfoot .brand{font-weight:700; color:#444;}
+
+  @page{ size:210mm 1373mm; margin:5mm 6mm 9mm; }
+  @media print{
+    body{background:#fff;}
+    .toolbar{display:none !important;}
+    .page{max-width:none; margin:0; padding:0;}
+    h2,h3{break-after:avoid;}
+    table,.law-box{break-inside:avoid;}
+    .runfoot{position:fixed; left:0; right:0; bottom:0; margin:0; padding-top:2px; background:#fff;}
+  }
+</style>
+</head>
+<body>
+
+<div class="toolbar"><button class="btn" onclick="window.print()">인쇄 / PDF 저장</button></div>
+
+<div class="page">
+
+<div class="doc-head">
+  <h1>폐기물 분야 기술인력 총정리</h1>
+  <p class="law">폐기물관리법 · 건설폐기물의 재활용촉진에 관한 법률</p>
+  <div class="rule"></div>
+</div>
+
+<!-- S1 -->
+<section id="s1">
+  <h2>1. 어디에 기술인력이 필요한가</h2>
+  <table class="bt">
+    <colgroup><col style="width:26%"><col style="width:38%"><col style="width:36%"></colgroup>
+    <thead>
+      <tr><th>구분</th><th class="sep">기술인력</th><th class="sep">근거</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="key">폐기물처리업 허가</td>
+        <td class="sep">필요. 업종과 대상 폐기물에 따라 자격과 인원이 다르다</td>
+        <td class="sep">폐기물관리법 제25조<br>시행규칙 별표 7</td>
+      </tr>
+      <tr>
+        <td class="key">폐기물처리 신고<br>(재활용 신고, 수집ㆍ운반 신고)</td>
+        <td class="sep na">요건 없음. 보관시설ㆍ재활용시설ㆍ차량만 규정</td>
+        <td class="sep">폐기물관리법 제46조<br>시행규칙 별표 17</td>
+      </tr>
+      <tr>
+        <td class="key">폐기물처리시설 기술관리인</td>
+        <td class="sep">필요. 시설 종류별로 자격이 다르다<br>폐기물처리업자가 운영하는 시설은 제외</td>
+        <td class="sep">폐기물관리법 제34조<br>시행령 제15조, 시행규칙 별표 14</td>
+      </tr>
+      <tr>
+        <td class="key">건설폐기물 처리업</td>
+        <td class="sep">중간처리업만 필요. 수집ㆍ운반업은 요건 없음</td>
+        <td class="sep">건설폐기물법 제21조<br>같은 법 시행규칙 별표 2</td>
+      </tr>
+      <tr>
+        <td class="key">폐기물분석전문기관</td>
+        <td class="sep">책임자 1명 이상 + 담당자 2명 이상</td>
+        <td class="sep">폐기물관리법 제17조의2<br>시행령 별표 5의2</td>
+      </tr>
+      <tr>
+        <td class="key">폐기물처리시설 검사기관</td>
+        <td class="sep">책임자급 1명 이상 + 담당자급 2명 이상</td>
+        <td class="sep">폐기물관리법 제30조의2<br>시행규칙 별표 10의2</td>
+      </tr>
+      <tr>
+        <td class="key">재활용환경성평가기관</td>
+        <td class="sep">필요. 지정 기준에 따른 기술인력</td>
+        <td class="sep">폐기물관리법 제13조의4<br>시행규칙 별표 5의6</td>
+      </tr>
+    </tbody>
+  </table>
+  <p class="note">※ 실무에서 가장 많이 어긋나는 지점이 폐기물처리 신고다. 허가가 아니라 신고이므로 기술인력을 두지 않아도 되지만, 신고자와 그가 고용한 기술담당자는 교육 대상이다.</p>
+  <p class="mark">인허가 서대리 <span class="u">https://seodaeri.com/</span></p>
+</section>
+
+<!-- S2 -->
+<section id="s2">
+  <h2>2. 폐기물처리업 허가 기술능력 <span class="sm">시행규칙 별표 7</span></h2>
+  <table class="bt">
+    <colgroup><col style="width:14%"><col style="width:28%"><col style="width:48%"><col style="width:10%"></colgroup>
+    <thead>
+      <tr><th>업종</th><th class="sep">대상 폐기물 및 세부 구분</th><th class="sep">기술능력</th><th class="sep ctr">인원</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="grp" rowspan="4">수집ㆍ운반업</td>
+        <td class="sep">생활폐기물, 사업장비배출시설계 폐기물</td>
+        <td class="sep na">요건 없음</td>
+        <td class="sep ctr na">-</td>
+      </tr>
+      <tr>
+        <td class="sep">사업장배출시설계 폐기물</td>
+        <td class="sep na">요건 없음</td>
+        <td class="sep ctr na">-</td>
+      </tr>
+      <tr>
+        <td class="sep">지정폐기물 (의료폐기물 제외)</td>
+        <td class="sep">폐기물처리산업기사, 대기환경산업기사, 수질환경산업기사, 공업화학산업기사 중</td>
+        <td class="sep ctr num">1명</td>
+      </tr>
+      <tr>
+        <td class="sep">의료폐기물</td>
+        <td class="sep na">요건 없음</td>
+        <td class="sep ctr na">-</td>
+      </tr>
+
+      <tr>
+        <td class="grp" rowspan="5">중간처분업</td>
+        <td class="sep">지정폐기물 외 · 소각 전문</td>
+        <td class="sep">폐기물처리산업기사, 대기환경산업기사 중</td>
+        <td class="sep ctr num">1명</td>
+      </tr>
+      <tr>
+        <td class="sep">지정폐기물 외 · 기계적 처분 전문</td>
+        <td class="sep">폐기물처리산업기사, 대기환경산업기사, 수질환경산업기사, 소음진동산업기사, 환경기능사 중</td>
+        <td class="sep ctr num">1명</td>
+      </tr>
+      <tr>
+        <td class="sep">지정폐기물 외 · 화학적 또는 생물학적 처분 전문</td>
+        <td class="sep">폐기물처리산업기사, 대기환경산업기사, 수질환경산업기사, 공업화학산업기사 중</td>
+        <td class="sep ctr num">1명</td>
+      </tr>
+      <tr>
+        <td class="sep">지정폐기물 (의료폐기물 제외)</td>
+        <td class="sep">폐기물처리기사, 대기환경기사, 수질환경기사, 화공기사 중 <b>기사급</b></td>
+        <td class="sep ctr num">1명</td>
+      </tr>
+      <tr>
+        <td class="sep">의료폐기물</td>
+        <td class="sep">폐기물처리산업기사, 임상병리사, 위생사 중</td>
+        <td class="sep ctr num">1명</td>
+      </tr>
+
+      <tr>
+        <td class="grp" rowspan="2">최종처분업</td>
+        <td class="sep">지정폐기물 외</td>
+        <td class="sep">① 폐기물처리산업기사 또는 수질환경산업기사 중 1명<br>② 토목산업기사 또는 폐기물처리산업기사 중 1명</td>
+        <td class="sep ctr num">2명</td>
+      </tr>
+      <tr>
+        <td class="sep">지정폐기물</td>
+        <td class="sep">① 폐기물처리산업기사, 수질환경산업기사, 화공기사 중 1명<br>② 폐기물처리기사 1명</td>
+        <td class="sep ctr num">2명</td>
+      </tr>
+
+      <tr>
+        <td class="grp">종합처분업</td>
+        <td class="sep">중간처분과 최종처분을 함께 하는 경우</td>
+        <td class="sep">① 폐기물처리기사, 대기환경기사, 수질환경기사, 토목기사 중 1명<br>② 폐기물처리산업기사, 대기환경산업기사, 수질환경산업기사, 공업화학산업기사 중 2명</td>
+        <td class="sep ctr num">3명</td>
+      </tr>
+
+      <tr>
+        <td class="grp" rowspan="5">재활용업<br><span style="font-weight:400">중간ㆍ최종ㆍ종합</span></td>
+        <td class="sep">지정폐기물 외 (공통)</td>
+        <td class="sep">폐기물처리산업기사, 대기환경산업기사, 수질환경산업기사, 공업화학산업기사, 환경기능사 중</td>
+        <td class="sep ctr num">1명</td>
+      </tr>
+      <tr>
+        <td class="sep">지정폐기물 외 · 소각열회수시설에서 에너지를 회수하는 경우</td>
+        <td class="sep">폐기물처리산업기사 또는 대기환경산업기사 중</td>
+        <td class="sep ctr num">1명</td>
+      </tr>
+      <tr>
+        <td class="sep">지정폐기물 외 · 소규모 시설<br><span style="font-weight:400">아래 3. 참조</span></td>
+        <td class="sep">자격 불요. 해당 사업장에서 재활용업무에 종사하는 자로서 <b>기술요원으로 임명된 자</b></td>
+        <td class="sep ctr num">1명</td>
+      </tr>
+      <tr>
+        <td class="sep">지정폐기물</td>
+        <td class="sep">폐기물처리산업기사, 대기환경산업기사, 수질환경산업기사, 공업화학산업기사, 환경기능사 중</td>
+        <td class="sep ctr num">1명</td>
+      </tr>
+      <tr>
+        <td class="sep">의료폐기물</td>
+        <td class="sep">폐기물처리산업기사, 임상병리사, 위생사 중</td>
+        <td class="sep ctr num">1명</td>
+      </tr>
+    </tbody>
+  </table>
+  <p class="note">※ 전기자동차 폐이차전지를 재활용하는 경우에는 위 기준에도 불구하고 그린전동자동차기사, 전기기사, 전기공사기사, 또는 전기 관련 분야 학사 이상 학위를 취득한 후 해당 분야에서 1년 이상 종사한 사람 1명 이상을 두어야 한다.</p>
+  <p class="src">폐기물관리법 제25조, 같은 법 시행규칙 제28조제6항 및 별표 7</p>
+  <p class="mark">인허가 서대리 <span class="u">https://seodaeri.com/</span></p>
+</section>
+
+<!-- S3 -->
+<section id="s3">
+  <h2>3. 재활용업에서 자격자 없이 기술요원을 임명할 수 있는 경우</h2>
+  <table>
+    <thead>
+      <tr><th style="width:34%">시설 종류</th><th>1일 재활용 용량</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <th>기계적 재활용시설</th>
+        <td>압축ㆍ압출ㆍ성형ㆍ주조ㆍ파쇄ㆍ분쇄ㆍ탈피ㆍ절단ㆍ탈수ㆍ건조 시설 또는 용융시설(폐합성수지 재활용에 한정)을 이용하고 <span class="num">50톤 미만</span><br>다만 폐목재를 재활용하는 경우에는 <span class="num">100톤 미만</span></td>
+      </tr>
+      <tr>
+        <th>생물학적 재활용시설</th>
+        <td>사료화ㆍ퇴비화ㆍ부숙 시설 또는 부숙토ㆍ분변토 생산시설을 이용하고 <span class="num">10톤 미만</span></td>
+      </tr>
+      <tr>
+        <th>소성시설 또는 용해로</th>
+        <td><span class="num">10톤 미만</span></td>
+      </tr>
+    </tbody>
+  </table>
+  <p class="note">※ 이 경우 임명된 기술요원은 임명된 날부터 <b>6개월 이내</b>에 최초 교육을 받고 그 후 <b>1년마다</b> 재교육을 받아야 한다. 다른 교육대상자의 3년 주기보다 짧다.</p>
+  <p class="src">시행규칙 별표 7 제5호가목1)나)(2), 시행규칙 제50조제1항제2호</p>
+  <p class="mark">인허가 서대리 <span class="u">https://seodaeri.com/</span></p>
+</section>
+
+<!-- S4 -->
+<section id="s4">
+  <h2>4. 폐기물처리시설 기술관리인 <span class="sm">법 제34조</span></h2>
+
+  <h3>가. 기술관리인을 두어야 하는 시설</h3>
+  <table>
+    <thead>
+      <tr><th style="width:30%">시설</th><th>규모 기준</th></tr>
+    </thead>
+    <tbody>
+      <tr><th>매립시설</th><td>규모와 관계없이 전부</td></tr>
+      <tr><th>소각시설</th><td>시간당 처분능력 600kg 이상<br>의료폐기물 대상 소각시설은 200kg 이상</td></tr>
+      <tr><th>압축ㆍ파쇄ㆍ분쇄ㆍ절단시설</th><td>1일 처분능력 또는 재활용능력 100톤 이상</td></tr>
+      <tr><th>사료화ㆍ퇴비화ㆍ연료화시설</th><td>1일 재활용능력 5톤 이상</td></tr>
+      <tr><th>멸균분쇄시설</th><td>시간당 처분능력 100kg 이상</td></tr>
+      <tr><th>시멘트 소성로</th><td>규모와 관계없이 전부</td></tr>
+      <tr><th>용해로</th><td>폐기물에서 비철금속을 추출하는 경우로 한정. 시간당 재활용능력 600kg 이상</td></tr>
+      <tr><th>소각열회수시설</th><td>시간당 재활용능력 600kg 이상</td></tr>
+    </tbody>
+  </table>
+  <p class="note">※ <b>폐기물처리업자가 운영하는 폐기물처리시설은 제외</b>한다. 처리업 허가를 받으면서 이미 기술능력을 갖추었기 때문이다.</p>
+  <p class="src">폐기물관리법 시행령 제15조</p>
+
+  <h3>나. 기술관리인의 자격기준</h3>
+  <table class="bt">
+    <colgroup><col style="width:34%"><col style="width:66%"></colgroup>
+    <thead>
+      <tr><th>대상 시설</th><th class="sep">자격기준 (1명 이상)</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="key">매립시설</td>
+        <td class="sep">폐기물처리기사, 수질환경기사, 토목기사, 일반기계기사, 건설기계설비기사, 화공기사, 토양환경기사 중</td>
+      </tr>
+      <tr>
+        <td class="key">소각시설, 시멘트 소성로, 용해로, 소각열회수시설<br><span style="font-weight:400">의료폐기물 대상 소각시설은 제외</span></td>
+        <td class="sep">폐기물처리기사, 대기환경기사, 토목기사, 일반기계기사, 건설기계설비기사, 화공기사, 전기기사, 전기공사기사, 에너지관리기사 중</td>
+      </tr>
+      <tr>
+        <td class="key">의료폐기물을 대상으로 하는 시설</td>
+        <td class="sep">폐기물처리산업기사, 임상병리사, 위생사 중</td>
+      </tr>
+      <tr>
+        <td class="key">음식물류 폐기물을 대상으로 하는 시설<br><span style="font-weight:400">사료화ㆍ퇴비화시설은 1일 재활용능력 10톤 이상만 해당</span></td>
+        <td class="sep">폐기물처리산업기사, 수질환경산업기사, 화공산업기사, 토목산업기사, 대기환경산업기사, 일반기계기사, 전기기사 중</td>
+      </tr>
+      <tr>
+        <td class="key">그 밖의 시설</td>
+        <td class="sep">같은 시설의 운영을 담당하는 자</td>
+      </tr>
+    </tbody>
+  </table>
+  <p class="note">※ 폐기물 처분시설 또는 재활용시설이 배출시설에 해당하면, 대기환경보전법ㆍ물환경보전법ㆍ소음ㆍ진동관리법에 따른 <b>환경기술인이 기술관리인을 겸임</b>할 수 있다.</p>
+  <p class="src">폐기물관리법 시행규칙 제48조 및 별표 14</p>
+  <p class="mark">인허가 서대리 <span class="u">https://seodaeri.com/</span></p>
+</section>
+
+<!-- S5 -->
+<section id="s5">
+  <h2>5. 건설폐기물 처리업 <span class="sm">건설폐기물의 재활용촉진에 관한 법률</span></h2>
+  <table class="bt">
+    <colgroup><col style="width:18%"><col style="width:42%"><col style="width:40%"></colgroup>
+    <thead>
+      <tr><th>업종</th><th class="sep">기술능력</th><th class="sep">그 밖의 허가기준</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="key">수집ㆍ운반업</td>
+        <td class="sep na">요건 없음</td>
+        <td class="sep">수집ㆍ운반차량 3대 이상<br>서울특별시는 5대 이상<br>자본금 2천만원 이상<br>개인은 자산평가액 4천만원 이상</td>
+      </tr>
+      <tr>
+        <td class="key">중간처리업</td>
+        <td class="sep">폐기물처리산업기사, 소음진동산업기사, 대기환경산업기사 중 <b>1명 이상</b></td>
+        <td class="sep">파쇄ㆍ분쇄시설 1일 600톤 이상<br>자본금 5천만원 이상<br>개인은 자산평가액 8천만원 이상<br>사업장 부지 3,300㎡ 이상</td>
+      </tr>
+    </tbody>
+  </table>
+  <p class="note">※ 폐기물관리법 제25조에 따른 폐기물처리업 허가를 받은 자가 건설폐기물 처리업 허가를 받으려는 경우에는 사무실, <b>기술인력</b> 및 계량시설을 중복하여 갖추지 않아도 된다.</p>
+  <p class="src">건설폐기물의 재활용촉진에 관한 법률 제21조, 같은 법 시행규칙 제12조제5항 및 별표 2</p>
+  <p class="mark">인허가 서대리 <span class="u">https://seodaeri.com/</span></p>
+</section>
+
+<!-- S6 -->
+<section id="s6">
+  <h2>6. 자격 대체와 중복 인정</h2>
+  <table class="bt">
+    <colgroup><col style="width:26%"><col style="width:74%"></colgroup>
+    <thead>
+      <tr><th>구분</th><th class="sep">내용</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="key">기사를 산업기사로 대체</td>
+        <td class="sep">같은 종류의 산업기사 자격을 가지고 해당 분야에 <b>2년 이상</b> 종사한 사람으로 대체할 수 있다</td>
+      </tr>
+      <tr>
+        <td class="key">산업기사를 기능사로 대체</td>
+        <td class="sep">환경기능사 자격을 가지고 해당 분야에서 <b>2년 이상</b> 종사한 사람으로 대체할 수 있다</td>
+      </tr>
+      <tr>
+        <td class="key">둘 이상의 처리업 허가</td>
+        <td class="sep">동일 법인 또는 개인이 둘 이상의 다른 종류의 폐기물처리업 허가를 받거나 같은 처리업으로 둘 이상의 다른 분야 허가를 받으려는 경우, 사무실ㆍ실험실ㆍ시설 및 장비ㆍ기술능력을 중복하여 갖추지 않아도 된다</td>
+      </tr>
+      <tr>
+        <td class="key">중복 인정의 예외</td>
+        <td class="sep">수집ㆍ운반업의 장비 및 기술능력과, 의료폐기물을 대상으로 하는 폐기물처리업의 사무실ㆍ실험실ㆍ시설 및 장비ㆍ기술능력은 <b>중복 인정되지 않는다</b></td>
+      </tr>
+      <tr>
+        <td class="key">건설폐기물 중간처리업</td>
+        <td class="sep">환경기능사 자격 + 해당 분야 2년 이상, 직업능력개발훈련시설의 6개월 이상 관련 분야 훈련과정 수료자, 또는 해당 분야 5년 이상 종사자로서 장관이 지정하는 사업자단체가 능력을 인정한 사람으로 대체할 수 있다</td>
+      </tr>
+      <tr>
+        <td class="key">기술관리인 겸임</td>
+        <td class="sep">시설이 배출시설에 해당하면 대기ㆍ수질ㆍ소음진동 분야 환경기술인이 기술관리인을 겸임할 수 있다</td>
+      </tr>
+    </tbody>
+  </table>
+  <p class="src">시행규칙 별표 7 비고 제1호ㆍ제2호, 별표 14 비고, 건설폐기물법 시행규칙 별표 2 비고</p>
+  <p class="mark">인허가 서대리 <span class="u">https://seodaeri.com/</span></p>
+</section>
+
+<!-- S7 -->
+<section id="s7">
+  <h2>7. 교육 <span class="sm">폐기물관리법 제35조</span></h2>
+
+  <h3>가. 누가, 언제 받나</h3>
+  <table class="bt">
+    <colgroup><col style="width:38%"><col style="width:31%"><col style="width:31%"></colgroup>
+    <thead>
+      <tr><th>교육 대상</th><th class="sep">최초 교육</th><th class="sep">재교육</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="key">별표 7에 따라 임명된 기술요원<br><span style="font-weight:400">재활용업 소규모 시설</span></td>
+        <td class="sep">임명된 날부터 <b>6개월 이내</b></td>
+        <td class="sep"><b>1년마다</b></td>
+      </tr>
+      <tr>
+        <td class="key">사업장폐기물배출자 신고를 한 자<br>폐기물 수집ㆍ운반 신고를 한 자<br>폐기물처리 신고자<br>음식물류 폐기물 배출자<br>음식물류 폐기물 처리시설 설치자</td>
+        <td class="sep">해당 사유가 발생한 날부터 <b>1년 이내</b></td>
+        <td class="sep"><b>3년마다</b></td>
+      </tr>
+      <tr>
+        <td class="key">그 밖의 대상자<br><span style="font-weight:400">폐기물처리업 기술요원, 기술관리인, 처리시설 기술담당자 등</span></td>
+        <td class="sep">교육대상자가 된 날부터 <b>1년 이내</b></td>
+        <td class="sep"><b>3년마다</b></td>
+      </tr>
+      <tr>
+        <td class="key">행정처분을 받은 경우</td>
+        <td class="sep" colspan="2">처분을 받은 날부터 <b>1년 이내에 추가 교육</b></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>나. 교육과정과 기간</h3>
+  <table class="bt">
+    <colgroup><col style="width:60%"><col style="width:40%"></colgroup>
+    <thead>
+      <tr><th>교육과정</th><th class="sep">교육기간</th></tr>
+    </thead>
+    <tbody>
+      <tr><td class="key">사업장폐기물배출자 과정</td><td class="sep" rowspan="4">3일 이내</td></tr>
+      <tr><td class="key">폐기물처리업 기술요원 과정</td></tr>
+      <tr><td class="key">폐기물처리 신고자 과정</td></tr>
+      <tr><td class="key">폐기물 처분시설 또는 재활용시설 기술담당자 과정</td></tr>
+      <tr><td class="key">재활용환경성평가기관 기술인력 과정</td><td class="sep" rowspan="2">5일 이내</td></tr>
+      <tr><td class="key">폐기물분석전문기관 기술요원 과정</td></tr>
+    </tbody>
+  </table>
+  <p class="note">※ 한국환경보전원과 장관이 지정하는 기관이 하는 교육과정은 <b>1일 이내</b>로 한다. 교육은 집합교육 또는 원격교육으로 한다.</p>
+  <p class="note">※ 교육기관은 국립환경인력개발원, 한국환경공단, 한국폐기물협회, 한국환경보전원 등이며 교육대상자에 따라 나뉜다. 재난 등 본인의 귀책사유 없는 사정이 인정되면 <b>6개월의 범위에서 한 차례</b> 교육기한을 연기할 수 있다.</p>
+  <p class="note">※ 교육비는 교육을 받은 자에게서 징수하되, 기술요원ㆍ기술관리인 등 폐기물 처리 담당자이면 <b>그를 고용한 자</b>에게서 징수한다. 고용한 자는 교육을 받게 할 의무와 경비 부담 의무를 함께 진다.</p>
+  <p class="src">폐기물관리법 제35조, 시행령 제17조, 시행규칙 제50조ㆍ제51조ㆍ제57조</p>
+  <p class="mark">인허가 서대리 <span class="u">https://seodaeri.com/</span></p>
+</section>
+
+<!-- S8 -->
+<section id="s8">
+  <h2>8. 지정기관의 기술인력</h2>
+  <table class="bt">
+    <colgroup><col style="width:21%"><col style="width:19%"><col style="width:60%"></colgroup>
+    <thead>
+      <tr><th>기관</th><th class="sep">구분</th><th class="sep">자격기준</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="grp" rowspan="2">폐기물분석<br>전문기관</td>
+        <td class="sep key">책임자 1명 이상</td>
+        <td class="sep">환경ㆍ분석 관련 분야 박사, 기술사, 환경측정분석사<br>관련 석사 취득 후 폐기물 분석업무 2년<br>폐기물ㆍ수질ㆍ토양 분야 환경기사 취득 후 2년<br>관련 학사 취득 후 5년</td>
+      </tr>
+      <tr>
+        <td class="sep key">담당자 2명 이상</td>
+        <td class="sep">관련 석사 또는 폐기물ㆍ수질ㆍ토양 분야 환경기사<br>관련 학사 취득 후 1년<br>관련 전문학사 취득 후 3년</td>
+      </tr>
+      <tr>
+        <td class="grp" rowspan="2">폐기물처리시설<br>검사기관</td>
+        <td class="sep key">책임자급 1명 이상</td>
+        <td class="sep">해당 기술분야 박사 또는 기술사<br>석사 취득 후 2년<br>기사 취득 후 5년</td>
+      </tr>
+      <tr>
+        <td class="sep key">담당자급 2명 이상</td>
+        <td class="sep">해당 기술분야 학사 또는 기사<br>공업계고 졸업 후 3년<br>산업기사 취득 후 4년</td>
+      </tr>
+    </tbody>
+  </table>
+  <p class="note">※ 폐기물분석전문기관의 기술인력은 <b>상시 근무</b>해야 하고 책임자와 담당자를 각각 별도로 두어야 하며, 다른 기관이나 업체에 중복 등록할 수 없다. 한 사람이 두 종류 이상의 자격을 가지고 있어도 한 명으로만 산정한다.</p>
+  <p class="src">폐기물관리법 시행령 별표 5의2, 시행규칙 별표 10의2</p>
+  <p class="mark">인허가 서대리 <span class="u">https://seodaeri.com/</span></p>
+</section>
+
+<footer>
+  출처: 국가법령정보센터(www.law.go.kr) OPEN API. 기준 시행일은 폐기물관리법 2026. 3. 26., 같은 법 시행령 2026. 3. 26., 같은 법 시행규칙 2026. 6. 22., 건설폐기물의 재활용촉진에 관한 법률 2025. 10. 1., 같은 법 시행규칙 2026. 6. 22. 이다. 별표 7은 재활용 대상 폐기물의 종류와 방법에 따라 개별 기준이 더 있으므로 실제 허가 신청 전에는 원문을 확인하여야 한다.
+</footer>
+
+<div class="runfoot">
+  <span><span class="brand">인허가 서대리</span> &nbsp;https://seodaeri.com/</span>
+  <span>출처: 국가법령정보센터(law.go.kr)</span>
+</div>
+
+</div>
+</body>
+</html>
+

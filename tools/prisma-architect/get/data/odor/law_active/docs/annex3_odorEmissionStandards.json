@@ -1,0 +1,255 @@
+{
+  "별표번호": "3",
+  "별표가지번호": "00",
+  "별표제목": "배출허용기준 및 엄격한 배출허용기준의 설정 범위",
+  "법령명": "악취방지법 시행규칙",
+  "관련조문": "제8조제1항",
+  "개정일": "2011-02-01",
+  "_meta": {
+    "_note": "악취 배출허용기준은 (1) 복합악취 — 희석배수 단위, (2) 지정악취물질 — ppm 단위 두 부분. '엄격한 배출허용기준의 범위' 는 지자체가 더 엄격한 기준을 설정할 수 있는 범위 (min ~ max).",
+    "operator": "기본값 <= (~ 이하). 엄격한 범위는 min~max 형태",
+    "지역구분": ["공업지역", "기타지역"]
+  },
+  "1_복합악취": {
+    "title": "복합악취",
+    "단위": "희석배수",
+    "rows": [
+      {
+        "구분": "배출구",
+        "배출허용기준": {
+          "공업지역": { "type": "constant", "limit": 1000, "operator": "<=", "unit": "희석배수" },
+          "기타지역": { "type": "constant", "limit": 500,  "operator": "<=", "unit": "희석배수" }
+        },
+        "엄격한_배출허용기준_범위": {
+          "공업지역": { "type": "range", "min": 500, "max": 1000, "unit": "희석배수" },
+          "기타지역": { "type": "range", "min": 300, "max": 500,  "unit": "희석배수" }
+        }
+      },
+      {
+        "구분": "부지경계선",
+        "배출허용기준": {
+          "공업지역": { "type": "constant", "limit": 20, "operator": "<=", "unit": "희석배수" },
+          "기타지역": { "type": "constant", "limit": 15, "operator": "<=", "unit": "희석배수" }
+        },
+        "엄격한_배출허용기준_범위": {
+          "공업지역": { "type": "range", "min": 15, "max": 20, "unit": "희석배수" },
+          "기타지역": { "type": "range", "min": 10, "max": 15, "unit": "희석배수" }
+        }
+      }
+    ]
+  },
+  "2_지정악취물질": {
+    "title": "지정악취물질",
+    "단위": "ppm",
+    "_note": "표상 엄격한 배출허용기준의 범위는 공업지역 컬럼만 표기됨. 기타지역 엄격범위는 원본 표에 명시되지 않음.",
+    "rows": [
+      { "물질": "암모니아",          "effectiveFrom": "2005-02-10",
+        "배출허용기준": {
+          "공업지역": { "type": "constant", "limit": 2,     "operator": "<=", "unit": "ppm" },
+          "기타지역": { "type": "constant", "limit": 1,     "operator": "<=", "unit": "ppm" }
+        },
+        "엄격한_배출허용기준_범위": {
+          "공업지역": { "type": "range", "min": 1, "max": 2, "unit": "ppm" }
+        }
+      },
+      { "물질": "메틸메르캅탄",      "effectiveFrom": "2005-02-10",
+        "배출허용기준": {
+          "공업지역": { "type": "constant", "limit": 0.004, "operator": "<=", "unit": "ppm" },
+          "기타지역": { "type": "constant", "limit": 0.002, "operator": "<=", "unit": "ppm" }
+        },
+        "엄격한_배출허용기준_범위": {
+          "공업지역": { "type": "range", "min": 0.002, "max": 0.004, "unit": "ppm" }
+        }
+      },
+      { "물질": "황화수소",          "effectiveFrom": "2005-02-10",
+        "배출허용기준": {
+          "공업지역": { "type": "constant", "limit": 0.06,  "operator": "<=", "unit": "ppm" },
+          "기타지역": { "type": "constant", "limit": 0.02,  "operator": "<=", "unit": "ppm" }
+        },
+        "엄격한_배출허용기준_범위": {
+          "공업지역": { "type": "range", "min": 0.02, "max": 0.06, "unit": "ppm" }
+        }
+      },
+      { "물질": "다이메틸설파이드",  "effectiveFrom": "2005-02-10",
+        "배출허용기준": {
+          "공업지역": { "type": "constant", "limit": 0.05,  "operator": "<=", "unit": "ppm" },
+          "기타지역": { "type": "constant", "limit": 0.01,  "operator": "<=", "unit": "ppm" }
+        },
+        "엄격한_배출허용기준_범위": {
+          "공업지역": { "type": "range", "min": 0.01, "max": 0.05, "unit": "ppm" }
+        }
+      },
+      { "물질": "다이메틸다이설파이드", "effectiveFrom": "2005-02-10",
+        "배출허용기준": {
+          "공업지역": { "type": "constant", "limit": 0.03,  "operator": "<=", "unit": "ppm" },
+          "기타지역": { "type": "constant", "limit": 0.009, "operator": "<=", "unit": "ppm" }
+        },
+        "엄격한_배출허용기준_범위": {
+          "공업지역": { "type": "range", "min": 0.009, "max": 0.03, "unit": "ppm" }
+        }
+      },
+      { "물질": "트라이메틸아민",    "effectiveFrom": "2005-02-10",
+        "배출허용기준": {
+          "공업지역": { "type": "constant", "limit": 0.02,  "operator": "<=", "unit": "ppm" },
+          "기타지역": { "type": "constant", "limit": 0.005, "operator": "<=", "unit": "ppm" }
+        },
+        "엄격한_배출허용기준_범위": {
+          "공업지역": { "type": "range", "min": 0.005, "max": 0.02, "unit": "ppm" }
+        }
+      },
+      { "물질": "아세트알데하이드",  "effectiveFrom": "2005-02-10",
+        "배출허용기준": {
+          "공업지역": { "type": "constant", "limit": 0.1,   "operator": "<=", "unit": "ppm" },
+          "기타지역": { "type": "constant", "limit": 0.05,  "operator": "<=", "unit": "ppm" }
+        },
+        "엄격한_배출허용기준_범위": {
+          "공업지역": { "type": "range", "min": 0.05, "max": 0.1, "unit": "ppm" }
+        }
+      },
+      { "물질": "스타이렌",          "effectiveFrom": "2005-02-10",
+        "배출허용기준": {
+          "공업지역": { "type": "constant", "limit": 0.8,   "operator": "<=", "unit": "ppm" },
+          "기타지역": { "type": "constant", "limit": 0.4,   "operator": "<=", "unit": "ppm" }
+        },
+        "엄격한_배출허용기준_범위": {
+          "공업지역": { "type": "range", "min": 0.4, "max": 0.8, "unit": "ppm" }
+        }
+      },
+      { "물질": "프로피온알데하이드", "effectiveFrom": "2005-02-10",
+        "배출허용기준": {
+          "공업지역": { "type": "constant", "limit": 0.1,   "operator": "<=", "unit": "ppm" },
+          "기타지역": { "type": "constant", "limit": 0.05,  "operator": "<=", "unit": "ppm" }
+        },
+        "엄격한_배출허용기준_범위": {
+          "공업지역": { "type": "range", "min": 0.05, "max": 0.1, "unit": "ppm" }
+        }
+      },
+      { "물질": "뷰틸알데하이드",    "effectiveFrom": "2005-02-10",
+        "배출허용기준": {
+          "공업지역": { "type": "constant", "limit": 0.1,   "operator": "<=", "unit": "ppm" },
+          "기타지역": { "type": "constant", "limit": 0.029, "operator": "<=", "unit": "ppm" }
+        },
+        "엄격한_배출허용기준_범위": {
+          "공업지역": { "type": "range", "min": 0.029, "max": 0.1, "unit": "ppm" }
+        }
+      },
+      { "물질": "n-발레르알데하이드", "effectiveFrom": "2005-02-10",
+        "배출허용기준": {
+          "공업지역": { "type": "constant", "limit": 0.02,  "operator": "<=", "unit": "ppm" },
+          "기타지역": { "type": "constant", "limit": 0.009, "operator": "<=", "unit": "ppm" }
+        },
+        "엄격한_배출허용기준_범위": {
+          "공업지역": { "type": "range", "min": 0.009, "max": 0.02, "unit": "ppm" }
+        }
+      },
+      { "물질": "i-발레르알데하이드", "effectiveFrom": "2005-02-10",
+        "배출허용기준": {
+          "공업지역": { "type": "constant", "limit": 0.006, "operator": "<=", "unit": "ppm" },
+          "기타지역": { "type": "constant", "limit": 0.003, "operator": "<=", "unit": "ppm" }
+        },
+        "엄격한_배출허용기준_범위": {
+          "공업지역": { "type": "range", "min": 0.003, "max": 0.006, "unit": "ppm" }
+        }
+      },
+      { "물질": "톨루엔",            "effectiveFrom": "2008-01-01",
+        "배출허용기준": {
+          "공업지역": { "type": "constant", "limit": 30,    "operator": "<=", "unit": "ppm" },
+          "기타지역": { "type": "constant", "limit": 10,    "operator": "<=", "unit": "ppm" }
+        },
+        "엄격한_배출허용기준_범위": {
+          "공업지역": { "type": "range", "min": 10, "max": 30, "unit": "ppm" }
+        }
+      },
+      { "물질": "자일렌",            "effectiveFrom": "2008-01-01",
+        "배출허용기준": {
+          "공업지역": { "type": "constant", "limit": 2,     "operator": "<=", "unit": "ppm" },
+          "기타지역": { "type": "constant", "limit": 1,     "operator": "<=", "unit": "ppm" }
+        },
+        "엄격한_배출허용기준_범위": {
+          "공업지역": { "type": "range", "min": 1, "max": 2, "unit": "ppm" }
+        }
+      },
+      { "물질": "메틸에틸케톤",      "effectiveFrom": "2008-01-01",
+        "배출허용기준": {
+          "공업지역": { "type": "constant", "limit": 35,    "operator": "<=", "unit": "ppm" },
+          "기타지역": { "type": "constant", "limit": 13,    "operator": "<=", "unit": "ppm" }
+        },
+        "엄격한_배출허용기준_범위": {
+          "공업지역": { "type": "range", "min": 13, "max": 35, "unit": "ppm" }
+        }
+      },
+      { "물질": "메틸아이소뷰틸케톤", "effectiveFrom": "2008-01-01",
+        "배출허용기준": {
+          "공업지역": { "type": "constant", "limit": 3,     "operator": "<=", "unit": "ppm" },
+          "기타지역": { "type": "constant", "limit": 1,     "operator": "<=", "unit": "ppm" }
+        },
+        "엄격한_배출허용기준_범위": {
+          "공업지역": { "type": "range", "min": 1, "max": 3, "unit": "ppm" }
+        }
+      },
+      { "물질": "뷰틸아세테이트",    "effectiveFrom": "2008-01-01",
+        "배출허용기준": {
+          "공업지역": { "type": "constant", "limit": 4,     "operator": "<=", "unit": "ppm" },
+          "기타지역": { "type": "constant", "limit": 1,     "operator": "<=", "unit": "ppm" }
+        },
+        "엄격한_배출허용기준_범위": {
+          "공업지역": { "type": "range", "min": 1, "max": 4, "unit": "ppm" }
+        }
+      },
+      { "물질": "프로피온산",        "effectiveFrom": "2010-01-01",
+        "배출허용기준": {
+          "공업지역": { "type": "constant", "limit": 0.07,  "operator": "<=", "unit": "ppm" },
+          "기타지역": { "type": "constant", "limit": 0.03,  "operator": "<=", "unit": "ppm" }
+        },
+        "엄격한_배출허용기준_범위": {
+          "공업지역": { "type": "range", "min": 0.03, "max": 0.07, "unit": "ppm" }
+        }
+      },
+      { "물질": "n-뷰틸산",          "effectiveFrom": "2010-01-01",
+        "배출허용기준": {
+          "공업지역": { "type": "constant", "limit": 0.002, "operator": "<=", "unit": "ppm" },
+          "기타지역": { "type": "constant", "limit": 0.001, "operator": "<=", "unit": "ppm" }
+        },
+        "엄격한_배출허용기준_범위": {
+          "공업지역": { "type": "range", "min": 0.001, "max": 0.002, "unit": "ppm" }
+        }
+      },
+      { "물질": "n-발레르산",        "effectiveFrom": "2010-01-01",
+        "배출허용기준": {
+          "공업지역": { "type": "constant", "limit": 0.002,  "operator": "<=", "unit": "ppm" },
+          "기타지역": { "type": "constant", "limit": 0.0009, "operator": "<=", "unit": "ppm" }
+        },
+        "엄격한_배출허용기준_범위": {
+          "공업지역": { "type": "range", "min": 0.0009, "max": 0.002, "unit": "ppm" }
+        }
+      },
+      { "물질": "i-발레르산",        "effectiveFrom": "2010-01-01",
+        "배출허용기준": {
+          "공업지역": { "type": "constant", "limit": 0.004, "operator": "<=", "unit": "ppm" },
+          "기타지역": { "type": "constant", "limit": 0.001, "operator": "<=", "unit": "ppm" }
+        },
+        "엄격한_배출허용기준_범위": {
+          "공업지역": { "type": "range", "min": 0.001, "max": 0.004, "unit": "ppm" }
+        }
+      },
+      { "물질": "i-뷰틸알코올",      "effectiveFrom": "2010-01-01",
+        "배출허용기준": {
+          "공업지역": { "type": "constant", "limit": 4.0,   "operator": "<=", "unit": "ppm" },
+          "기타지역": { "type": "constant", "limit": 0.9,   "operator": "<=", "unit": "ppm" }
+        },
+        "엄격한_배출허용기준_범위": {
+          "공업지역": { "type": "range", "min": 0.9, "max": 4.0, "unit": "ppm" }
+        }
+      }
+    ]
+  },
+  "비고": [
+    "배출허용기준의 측정은 복합악취를 측정하는 것을 원칙으로 한다. 다만, 사업자의 악취물질 배출 여부를 확인할 필요가 있는 경우에는 지정악취물질을 측정할 수 있다. 이 경우 어느 하나의 측정방법에 따라 측정한 결과 기준을 초과하였을 때에는 배출허용기준을 초과한 것으로 본다.",
+    "복합악취는 「환경분야 시험·검사 등에 관한 법률」 제6조제1항제4호에 따른 환경오염공정시험기준의 공기희석관능법(空氣稀釋官能法)을 적용하여 측정하고, 지정악취물질은 기기분석법(機器分析法)을 적용하여 측정한다.",
+    "복합악취의 시료는 다음과 같이 구분하여 채취한다. 가. 사업장 안에 지면으로부터 높이 5m 이상의 일정한 악취배출구와 다른 악취발생원이 섞여 있는 경우에는 부지경계선 및 배출구에서 각각 채취한다. 나. 사업장 안에 지면으로부터 높이 5m 이상의 일정한 악취배출구 외에 다른 악취발생원이 없는 경우에는 일정한 배출구에서 채취한다. 다. 가목 및 나목 외의 경우에는 부지경계선에서 채취한다.",
+    "지정악취물질의 시료는 부지경계선에서 채취한다.",
+    "\"희석배수\"란 채취한 시료를 냄새가 없는 공기로 단계적으로 희석시켜 냄새를 느낄 수 없을 때까지 최대로 희석한 배수를 말한다.",
+    "\"배출구\"란 악취를 송풍기 등 기계장치 등을 통하여 강제로 배출하는 통로(자연 환기가 되는 창문·통기관 등은 제외한다)를 말한다.",
+    "\"공업지역\"이란 다음 각 호의 어느 하나에 해당하는 지역을 말한다. 가. 「산업입지 및 개발에 관한 법률」 제6조·제7조·제7조의2 및 제8조에 따른 국가산업단지·일반산업단지·도시첨단산업단지 및 농공단지. 나. 「국토의 계획 및 이용에 관한 법률 시행령」 제30조제3호가목에 따른 전용공업지역. 다. 「국토의 계획 및 이용에 관한 법률 시행령」 제30조제3호나목에 따른 일반공업지역(「자유무역지역의 지정 및 운영에 관한 법률」 제4조에 따른 자유무역지역만 해당한다)."
+  ]
+}

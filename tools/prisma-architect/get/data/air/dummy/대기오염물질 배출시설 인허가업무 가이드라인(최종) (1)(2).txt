@@ -1,0 +1,2918 @@
+﻿
+224
+▣ 美 EPA 배출계수 예(AP-42)
+
+
+
+
+대기배출시설 대분류
+
+대기배출시설
+
+공정(EPA)
+
+EPA 중분류
+
+EPA 소분류
+대기오염물질 배출계수
+먼지
+황 산화물
+질소 산화물
+단위
+
+
+
+
+
+
+
+
+
+
+
+제 1차 금속 제조시설 및
+조립금속제품･
+기계･기기･장 비･운송 장비･
+가구 제조시설
+
+
+
+가열로
+primary aluminum production process
+　
+anode baking furnace
+1.500
+　
+　
+kg/ton
+
+iron and steel mills
+miscellaneous combustion sources boiler,soaking pit, and
+slab reheat
+blast furnace gas
+0.015
+　
+　
+kg/109J
+
+coke oven gas
+
+0.005
+
+　
+
+　
+kg/109J
+납의 제2차 정련용 또는
+납의 관･판･선
+제조용 용해로
+
+
+secondary lead processing
+　
+　
+　
+　
+　
+reverberatory smelting
+162
+40.00
+　
+kg/ton
+blast smelting cupola
+153
+27
+　
+kg/ton
+sweating
+16-35
+
+　
+kg/ton
+kettle refining
+0.02
+
+　
+kg/ton
+kettle oxidation
+≤20
+
+　
+kg/ton
+도가니로
+secondary aluminum operation
+smelting
+crucible furnace
+0.95
+
+　
+kg/ton
+반사로
+secondary aluminum operation
+smelting
+reverberatory
+2.15
+
+　
+kg/ton
+
+배소로
+
+zinc smelting
+
+roasting
+multiple hearth
+113
+
+　
+kg/ton
+suspension
+1,000
+
+　
+kg/ton
+fluidized bed
+1,083
+
+　
+kg/ton
+
+
+
+
+용융 용해로
+secondary zinc smelting
+Kettle pot
+　
+0.05
+
+　
+kg/ton
+primary copper smelters
+　
+smelting furnace
+0.2
+2
+　
+kg/ton
+iron and steel mills
+basic oxygen furnace
+top blown furnace melting and refining
+14.25
+
+　
+kg/ton
+secondary magnesium smelting
+　
+pot furnace
+2
+
+　
+kg/ton
+
+225
+
+
+
+
+
+
+
+대기배출시설 대분류
+
+대기배출시설
+
+공정(EPA)
+
+EPA 중분류
+
+EPA 소분류
+대기오염물질 배출계수
+먼지
+황 산화물
+질소 산화물
+단위
+
+
+
+
+
+
+
+
+
+
+제 1차 금속 제조시설 및
+조립금속제품･
+기계･기기･장 비･운송 장비･
+가구 제조시설
+
+
+
+
+
+
+
+
+전기 아크로
+
+
+
+
+
+
+ferroalloy production
+
+FeSi (50%)
+Open
+35
+
+　
+kg/ton
+Covered
+46
+
+　
+kg/ton
+
+FeSi (75%)
+Open
+158
+
+　
+kg/ton
+Covered
+103
+
+　
+kg/ton
+FeSi (90%)
+Open
+282
+
+　
+kg/ton
+Si metal (98%)
+Open
+436
+
+　
+kg/ton
+FeMn (80%)
+Open
+14
+
+　
+kg/ton
+
+FeMn (1% Si)
+Covered
+6
+
+　
+kg/ton
+Sealed
+37
+
+　
+kg/ton
+FeCr (high carbon)
+Open
+78
+
+　
+kg/ton
+SiMn
+Open
+96
+
+　
+kg/ton
+
+iron and steel mills
+melting and refining
+carbon steel
+19
+
+　
+kg/ton
+melting,refiningg,charg ing,tapping,slagging
+alloy steel
+5.65
+
+　
+kg/ton
+carbon steel
+25
+
+　
+kg/ton
+
+
+
+제선로
+
+
+
+iron and steel mills
+
+
+
+blast furnace
+slip
+39.5
+
+　
+kg/ton
+roof monitor
+0.3
+
+　
+kg/ton
+furnace with local evacuation
+
+0.65
+
+
+　
+
+kg/ton
+taphole and trough only (not runners)
+
+0.15
+
+
+　
+
+kg/ton
+제 1차 금속 제조시설 및
+조립금속제품･
+기계･기기･장 비･운송 장비･
+가구 제조시설
+
+
+도금시설
+
+
+chromium electroplating
+
+　
+　
+　
+hard chromium electroplating
+
+0.25
+
+　
+
+　
+grains/ A-hr
+decorative chromium electroplating
+
+0.069
+　
+　
+　
+　
+grains/ A-hr
+
+주물사처리시설
+secondary lead processing
+
+　
+
+casting
+
+0.02
+
+　
+
+　
+
+kg/ton
+
+
+
+ 
+226
+
+
+대기배출시설 대분류
+
+대기배출시설
+
+공정(EPA)
+
+EPA 중분류
+
+EPA 소분류
+대기오염물질 배출계수
+먼지
+황 산화물
+질소 산화물
+단위
+
+
+
+
+
+
+
+
+
+
+기초화합물 제조시설
+
+
+
+반응시설
+
+
+
+ammonium nitrate manufacturing
+
+　
+
+neutralizer
+0.045-
+4.3
+
+　
+
+　
+
+kg/ton
+
+solids formation operation
+high density prill towers
+1.59
+　
+　
+kg/ton
+low density prill towers
+0.46
+　
+　
+kg/ton
+rotary drum granulators
+146
+　
+　
+kg/ton
+pen granulators
+1.34
+　
+　
+kg/ton
+
+
+
+
+농축시설
+ammonium nitrate manufacturing
+
+　
+evaporation/concentration operations
+
+0.26
+
+
+　
+
+kg/ton
+
+
+
+urea production
+
+　
+solution formation and concentration
+
+0.0105
+
+
+　
+
+kg/ton
+nonfluidized bed prilling
+agricultural grade
+1.9
+
+　
+kg/ton
+feed grade
+1.8
+
+　
+kg/ton
+
+fluidized bed prilling
+agricultural grade
+3.1
+
+　
+kg/ton
+feed grade
+1.8
+
+　
+kg/ton
+
+
+
+응축시설
+
+
+ammonium nitrate manufacturing
+
+
+coolers and dryers
+high density prill cooler
+0.8
+
+　
+kg/ton
+low density prill cooler
+25.8
+
+　
+kg/ton
+rotary drum granulators cooler
+
+8.1
+
+
+　
+
+kg/ton
+pan granulators cooler
+18.3
+
+　
+kg/ton
+urea productions
+rotary drum cooler
+　
+3.89
+
+　
+kg/ton
+
+
+기초화합물 제조시설
+
+건조시설
+
+ammonium sulfate manufacture
+　
+　
+　
+rotary dryers
+23
+
+　
+kg/ton
+fluidized-bed dryers
+109
+
+　
+kg/ton
+low density prill dryer
+57.2
+
+　
+kg/ton
+
+회수시설
+
+ammonia plant
+
+　
+desulfurization unit regeneration
+
+
+0.0288
+
+　
+
+kg/ton
+
+ 	
+
+227
+
+
+
+
+
+
+
+대기배출시설 대분류
+
+대기배출시설
+
+공정(EPA)
+
+EPA 중분류
+
+EPA 소분류
+대기오염물질 배출계수
+먼지
+황 산화물
+질소 산화물
+단위
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+기타화학제품 제조시설
+
+
+건조시설
+secondary oxidation adipic acid manufacturing
+
+　
+adipic acid drying/cooling/ storage
+
+0.4
+
+
+
+kg/ton
+hydrofluoric acid manufacture
+
+　
+
+spar drying
+
+37.5
+
+
+　
+
+kg/ton
+
+농축시설
+
+explosives manufacturing
+nitration reactors
+nitric acid concentrators
+
+
+18.5
+kg/ton
+
+nitrocellulose
+nitric acid concentrators
+
+
+7
+kg/ton
+sulfuric acid concentrators
+
+34
+
+kg/ton
+
+
+
+
+
+반응시설
+secondary oxidation adipic acid manufacturing
+
+　
+
+oxidation reactor
+
+
+
+6.300
+
+kg/ton
+explosives manufacturing
+
+nitrocellulose
+
+nitration reactors
+
+
+0.7
+
+7
+
+kg/ton
+
+phthalic anhydride
+oxidation of o-xylene
+main process stream
+69
+4.7
+
+kg/ton
+oxidation of naphthalene
+
+main process stream
+
+28
+
+
+
+kg/ton
+
+
+
+
+연소시설
+
+
+carbon black manufacture
+
+
+
+oil furnace prcess
+main process vent
+3.27
+
+0.28
+kg/ton
+flare
+1.35
+25
+
+kg/ton
+CO boiler and incinerator
+1.04
+17.5
+4.65
+kg/ton
+Solid waste incinerator
+0.12
+0.01
+0.04
+kg/ton
+
+explosives manufacturing
+TNT-batch process
+red water incineratior
+25
+2
+26
+kg/ton
+TNT-continuous process
+
+red water incineratior
+
+0.25
+
+0.24
+
+7
+
+kg/ton
+
+기타화학제품 제조시설
+
+
+정제시설
+
+secondary oxidation adipic acid manufacturing
+
+
+　
+
+
+adipic acid refining
+
+
+0.1
+
+
+
+0.3
+
+
+kg/ton
+
+
+
+
+228
+
+
+대기배출시설 대분류
+
+대기배출시설
+
+공정(EPA)
+
+EPA 중분류
+
+EPA 소분류
+대기오염물질 배출계수
+먼지
+황 산화물
+질소 산화물
+단위
+
+
+
+phthalic anhydride
+oxidation of o-xlyene
+distillation
+45
+
+
+kg/ton
+oxidation of naphthalene
+
+distillation
+
+19
+
+
+
+kg/ton
+
+혼합시설
+printing ink manufacturing
+
+　
+
+pigment mixing
+
+1
+
+
+
+kg/ton
+
+
+
+
+회수시설
+
+
+explosives manufacturing
+nitration reactors (TNT-batch process)
+fume recovery
+
+
+12.5
+kg/ton
+acid recovery
+
+
+27.5
+kg/ton
+nitration reactors (TNT-continuous
+process)
+fume recovery
+
+
+4
+kg/ton
+acid recovery
+
+
+1.5
+kg/ton
+
+sulfur recovery plant
+　
+sulfur recovery : 93.5%
+
+139
+
+kg/ton
+　
+sulfur recovery : 95.5%
+
+94
+
+kg/ton
+　
+sulfur recovery : 96.5%
+
+73
+
+kg/ton
+
+석유정제품제조 시설
+
+반응시설
+
+petroreum refineries
+　
+fluid catalytic cracking units
+0.695
+1.413
+0.204
+kg/kL
+　
+moving-catalytic cracking units
+0.049
+0.171
+0.014
+kg/kL
+응축시설
+petroreum refineries
+　
+fluid coking units
+1.500
+
+
+kg/kL
+
+
+코크스 및 관련제품제조 시설
+
+
+
+코크스로
+
+
+
+coke manufacturing
+
+Preheater
+1.800
+
+
+kg/ton
+oven leaks and charging
+
+oven charging
+
+0.600
+
+
+
+kg/ton
+oven leaks and charging
+
+oven door leaks
+
+0.260
+
+
+
+kg/ton
+coke oven pushing
+oven pushing
+0.695
+0.049
+0.0097
+kg/ton
+
+코크스 및 관련제품제조 시설
+
+
+코크스로
+
+
+coke manufacturing
+
+quenching
+dirty water
+2.60
+
+
+kg/ton
+clean water
+0.57
+
+
+kg/ton
+
+combustion stack
+Raw COG
+0.20
+1.47
+
+kg/ton
+desulfurized COG
+0.034
+0.12
+
+kg/ton
+
+ 	
+
+229
+
+
+
+
+
+
+
+대기배출시설 대분류
+
+대기배출시설
+
+공정(EPA)
+
+EPA 중분류
+
+EPA 소분류
+대기오염물질 배출계수
+먼지
+황 산화물
+질소 산화물
+단위
+
+
+
+
+유리및유리제품
+제조시설 도자기･요업제 품제조시설 시멘트･석회･ 플라스터및그제
+품제조시설 기타비금속광물 제품제조시설 아스팔트제품 제조시설
+
+
+
+
+
+
+
+
+
+건조시설
+
+
+
+
+
+
+hot mix asphalt plants
+Dryer, hot screen, mixer
+　
+16
+
+
+kg/ton
+Dryer
+　
+14
+
+
+kg/ton
+
+batch mix hot mix asphalt plants
+Natural gas-fired
+
+0.002
+0.013
+kg/ton
+No.2 fuel oil-fired
+
+0.044
+0.060
+kg/ton
+Waste oil-fired
+
+0.044
+0.060
+kg/ton
+Coal-fired
+
+0.022
+
+kg/ton
+
+drum mix hot mix asphalt plants
+Natural gas-fired
+
+0.002
+0.013
+kg/ton
+No.2 fuel oil-fired
+
+0.006
+0.028
+kg/ton
+Waste oil-fired
+
+0.029
+0.028
+kg/ton
+Coal-fired
+
+0.095
+
+kg/ton
+
+brick manufacturing
+
+　
+　
+Brick Dryer
+0.039
+
+
+kg/ton
+Sawdust-fired kiln and sawdust dryer
+
+0.65
+
+
+
+kg/ton
+calcium carbide manufacturing
+　
+　
+Coke dryer
+1.0
+1.5
+
+kg/ton
+Furnace room vent
+13
+
+
+kg/ton
+
+
+유리및유리제품 제조시설
+도자기･요업제
+품제조시설 시멘트･석회･ 플라스터및그제
+품제조시설 기타비금속광물 제품제조시설 아스팔트제품 제조시설
+
+
+
+
+
+
+
+건조시설
+refractory manufacturing
+
+　
+
+Rotary dryer(fire clay)
+
+33
+
+
+
+kg/ton
+
+refractory manufacturing
+
+　
+Rotary dryer
+(chromite-magnesite ore)
+
+0.83
+
+
+
+kg/ton
+ceramic products
+manufacturing operations
+
+　
+
+Dryer
+
+1.15
+
+
+
+kg/ton
+
+coal cleaning
+　
+　
+Multilouvered dryer
+7.4
+
+
+kg/ton
+Fluidized bed dryer
+52.00
+2.8
+0.32
+kg/ton
+glass fiber manufacturing
+
+Oven curing- wool
+
+Flame attenuation
+
+3
+
+　
+
+1
+
+kg/ton
+gypsum processing
+　　
+Rotary ore dryers
+0.042
+　
+　
+kg/ton
+
+
+
+
+230
+
+
+대기배출시설 대분류
+
+대기배출시설
+
+공정(EPA)
+
+EPA 중분류
+
+EPA 소분류
+대기오염물질 배출계수
+먼지
+황 산화물
+질소 산화물
+단위
+
+
+sand and gravel processing
+
+　
+
+Sand dryer
+
+0.98
+
+
+0.016
+
+kg/ton
+phosphate rock processing
+
+　
+
+Dryer
+
+2.9
+
+
+
+kg/ton
+kaolin processing
+　
+Apron Dryer
+0.62
+
+
+kg/ton
+bentonite processing
+　
+rotary dryer
+140
+
+
+kg/ton
+
+계량시설
+glass fiber manufacturing
+
+　
+
+Mixing and Weighing
+
+0.3
+
+
+
+kg/ton
+권취시설･압 착시설･탈판 시설･방사집 면시설･절단
+시설
+
+
+gypsum processing
+
+　
+　
+Board end sawing-2.4m boards
+
+0.040
+
+
+
+kg/㎡
+Board end sawing-3.7m boards
+
+0.030
+
+
+
+kg/㎡
+
+
+
+냉각시설
+ceramic products
+manufacturing operations
+
+　
+
+Cooler
+
+0.055
+
+
+
+kg/ton
+glass fiber manufacturing
+　
+Oven curing and cooling-textile
+0.6
+
+1.3
+kg/ton
+lime manufacturing
+　
+Product cooler
+3.4
+
+　
+kg/ton
+mineral wool manufacturing
+
+　
+
+Cooler
+
+1.2
+
+0.034
+
+　
+
+kg/ton
+유리및유리제품
+제조시설 도자기･요업제 품제조시설 시멘트･석회･ 플라스터및그제
+품제조시설 기타비금속광물
+
+
+
+
+소성시설
+
+
+brick manufacturing
+
+　
+　
+　
+　
+Natural gas-fired kiln
+0.48
+0.335
+0.175
+kg/ton
+Coal-fired kiln
+0.9
+0.6
+0.255
+kg/ton
+Sawdust-fired kiln
+0.465
+0.335
+0.185
+kg/ton
+Natural gas-fired kiln (high-sulfur material)
+
+
+2.55
+
+0.175
+
+kg/ton
+refractory manufacturing
+fire clay
+Rotary Calciner
+62
+
+
+kg/ton
+magnesite ore
+tunnel kiln
+0.410
+
+
+kg/ton
+
+ 	
+
+231
+
+
+
+
+
+
+
+대기배출시설 대분류
+
+대기배출시설
+
+공정(EPA)
+
+EPA 중분류
+
+EPA 소분류
+대기오염물질 배출계수
+먼지
+황 산화물
+질소 산화물
+단위
+
+
+
+
+
+
+
+
+
+제품제조시설 아스팔트제품 제조시설
+
+
+portland cement manufacturing
+　
+　
+　
+　
+Wet process kiln
+65
+4.100
+3.700
+kg/ton
+Preheater kiln
+130
+0.270
+2.400
+kg/ton
+Long dry process kiln
+
+4.900
+3
+kg/ton
+Preheater/precalciner kiln
+
+0.540
+2.100
+kg/ton
+ceramic products manufacturing
+operations
+
+　
+　
+Refiring-natural gas-fired kiln
+
+0.0335
+
+
+
+kg/ton
+firing-natural gas-fired kiln
+0.245
+22･S
+0.270
+kg/ton
+
+clay and fly ash sintering
+
+　
+　
+Clay/coke mixture sintering
+
+20
+
+
+
+kg/ton
+Natrual clay sintering
+6
+
+
+kg/ton
+
+gypsum processing
+
+　
+　
+Continuous kettle calciners and hot pit
+
+21
+
+
+
+kg/ton
+Flash calciners
+19
+
+
+kg/ton
+
+
+lime manufacturing
+
+　
+　
+　
+　
+Coal-fired rotary kiln
+180
+2.700
+1.600
+kg/ton
+Coal and gas fired rotary kiln
+
+40
+
+
+
+kg/ton
+Gas-fired calcimatic kiln
+48
+
+0.076
+kg/ton
+Gas-fired rotary kiln
+
+
+1.700
+kg/ton
+유리및유리제품 제조시설
+도자기･요업제
+품제조시설 시멘트･석회･ 플라스터및그제
+품제조시설 기타비금속광물 제품제조시설 아스팔트제품
+제조시설
+
+소성시설
+phosphate rock processing
+
+　
+
+Calciner
+
+7.700
+
+
+
+kg/ton
+kaolin processing
+　
+Flash calciners
+550
+
+
+kg/ton
+
+
+
+용융･ 용해시설
+
+
+
+glass fiber manufacturing
+
+
+
+
+Glass furnace
+Electric(wool)
+0.250
+0.020
+0.140
+kg/ton
+Gas-recuperative(wool)
+13-15
+5
+0.850
+kg/ton
+Gas-regeration(wool)
+11
+5
+2.500
+kg/ton
+Gas-unit melter(wool)
+4.500
+0.300
+0.150
+kg/ton
+Gas-recuperative(textile)
+1
+1.500
+10
+kg/ton
+Gas-regeration(textile)
+8
+15
+10
+kg/ton
+
+
+
+
+232
+
+
+대기배출시설 대분류
+
+대기배출시설
+
+공정(EPA)
+
+EPA 중분류
+
+EPA 소분류
+대기오염물질 배출계수
+먼지
+황 산화물
+질소 산화물
+단위
+
+
+
+
+Gas-unit melter(textile)
+3
+
+10
+kg/ton
+frit manufacturing
+　
+Smelting furmance
+8
+
+8
+kg/ton
+
+glass manufacturing
+
+Melting furnace
+Container
+0.700
+1.700
+3.100
+kg/ton
+Flat
+1
+1.500
+4
+kg/ton
+Pressed and blown
+8.400
+2.800
+4.300
+kg/ton
+mineral wool manufacturing
+　
+　
+Cupolar
+8.200
+4
+0.800
+kg/ton
+Reverberatory furnace
+2.400
+
+
+kg/ton
+lightweight aggregate production
+
+　
+
+Rotary kiln
+
+6.500
+
+2.800
+
+
+kg/ton
+
+taconite ore processing
+　
+　
+　
+　
+　
+Natural gas-fired grate/ kiln
+3.700
+0.150
+0.750
+kg/ton
+Oil-fired straight grate
+0.600
+
+
+kg/ton
+
+
+유리및유리제품
+제조시설 도자기･요업제 품제조시설 시멘트･석회･ 플라스터및그제
+품제조시설 기타비금속광물 제품제조시설 아스팔트제품 제조시설
+
+용융･ 용해시설
+
+taconite ore processing
+Coke-fired grate/kiln
+
+0.900
+
+kg/ton
+coal/coke-fired grate/kiln
+
+1.100
+
+kg/ton
+Coke/gas-fired straight-grate
+
+
+0.220
+kg/ton
+kaolin processing
+　
+Multiple hearth furnace
+17
+
+
+kg/ton
+
+
+
+
+
+혼합시설
+clay and fly ash sintering
+
+　
+Clay/coke mixture crushing, screening and storage
+
+7.500
+
+
+
+kg/ton
+taconite ore processing
+　
+Bentonite blending
+9.500
+
+
+kg/ton
+
+
+hot mix asphalt plants
+　
+Dryer, hot screen, mixer
+3.200
+
+
+kg/ton
+
+Dryer, hot screen, mixer
+Natural gas-fired
+
+0.0034
+0.0026
+kg/ton
+No.2 fuel oil-fired
+
+0.011
+0.055
+kg/ton
+Waste oil-fired
+
+0.058
+0.055
+kg/ton
+Coal-fired
+
+0.019
+
+kg/ton
+glass fiber manufacturing
+
+　
+
+Mixing and Weighing
+
+0.300
+
+
+
+kg/ton
+제재 및 목재가공시설
+
+건조시설
+
+plywood manufacturing
+　
+　
+Indirect heated, heated zones, softwood
+
+0.175
+
+
+
+kg/m3
+
+ 	
+
+233
+
+
+
+
+
+
+
+대기배출시설 대분류
+
+대기배출시설
+
+공정(EPA)
+
+EPA 중분류
+
+EPA 소분류
+대기오염물질 배출계수
+먼지
+황 산화물
+질소 산화물
+단위
+
+
+
+
+
+　
+　
+Direct natural gas-fired, heated zones, softwood
+
+0.040
+
+
+0.006
+kg/m3
+Radio frequency-heated redryer, softwood
+
+0.120
+
+
+kg/m3
+Direct wood-fired, heated, softwood
+
+
+
+0.085
+kg/m3
+
+oriented strandboard manufacturing
+
+
+
+
+
+　
+　
+　
+　
+　
+Rotray dryer, direct wood-fired, softwood
+
+2.050
+
+
+0.350
+
+kg/ton
+Rotray dryer, direct wood-fired, hardwood
+
+2.100
+
+
+0.315
+
+kg/ton
+
+
+
+
+
+
+
+
+
+
+제재 및 목재가공시설
+
+
+
+
+
+
+
+
+
+
+
+건조시설
+
+
+
+
+oriented strandboard manufacturing
+Rotary dryer, direct wood-fired, mixed
+species(40-60% softwood,
+40-60% hardwood)
+
+
+2.350
+
+
+
+0.255
+
+
+kg/ton
+Conveyor dryer, indirect-heated, heated
+zones, hardwood
+
+0.360
+
+
+
+kg/ton
+Rotary dryer, direct natural gas-fired, hardwood
+
+
+
+0.340
+
+kg/ton
+
+
+
+
+
+particleboard manufacturing
+
+
+　
+　
+　
+　
+　
+　
+　
+　
+Rotray dryer, direct wood-fired, hardwood
+
+1.650
+
+
+0.460
+
+kg/ton
+Rotray dryer, direct wood-fired, softwood
+
+1.700
+
+
+0.290
+
+kg/ton
+Rotary dryer, direct wood-fired, mixed
+species(35-60% softwood, 40-65% hardwood)
+
+
+1.100
+
+
+
+0.900
+
+
+kg/ton
+Rotary dryer, green,direct wood- fired(inlet moisture
+
+1.100
+
+
+1.350
+
+kg/ton
+
+
+
+
+234
+
+
+대기배출시설 대분류
+
+대기배출시설
+
+공정(EPA)
+
+EPA 중분류
+
+EPA 소분류
+대기오염물질 배출계수
+먼지
+황 산화물
+질소 산화물
+단위
+
+
+
+
+content>50%, dry basis), softwood
+
+
+
+
+Rotary dryer, direct natural gas-fired, soft wood
+
+0.210
+
+
+
+kg/ton
+Rotary dryer, green,direct wood- fired(inlet moisture content >50%, dry basis), mixed  species(40-60% soft wood, 40-60%
+hardwood)
+
+
+
+
+0.700
+
+
+kg/ton
+Rotary dryer, direct natural gas-fired, hardwood
+
+
+
+0.012
+
+kg/ton
+Rotary dryer, indirect
+heated with auxiliary natural gas, softwood
+
+0.210
+
+
+-
+
+kg/ton
+medium density fiberboard
+manufacturing
+
+　
+Tube dryer, direct wood-fired, blowling
+blend, UF resin, softwood
+
+5.200
+
+
+
+kg/ton
+
+
+
+hardboard and fiberboard manufacturing
+
+
+
+　
+　
+　
+Tube dryer, direct wood-fired, blowling
+blend, UF resin, softwood
+
+0.950
+
+
+
+kg/ton
+Hardboard tube dryer, direct natural gas-fired, blowline blend, PF resin,
+hardwood
+
+
+
+0.220
+
+kg/ton
+Hardboard humidification kiln, indirect heated
+
+
+
+0.004
+kg/m3
+
+제재 및 목재가공시설
+
+건조시설
+
+engineered wood products manufacturing
+　
+　
+　
+LVL veneer dryer, indirect- heated, cooling
+section, hardwood
+
+0.09
+
+
+
+kg/m3
+
+ 	
+
+235
+
+
+
+
+
+
+
+대기배출시설 대분류
+
+대기배출시설
+
+공정(EPA)
+
+EPA 중분류
+
+EPA 소분류
+대기오염물질 배출계수
+먼지
+황 산화물
+질소 산화물
+단위
+
+
+
+
+LSL rotary dryer, direct wood-fired, hardwood
+
+
+
+0.235
+
+kg/ton
+LSL conveyer dryer, indirect heated, hardwood
+
+
+
+1.15
+
+kg/ton
+
+
+
+
+
+
+
+
+목재가공 연마시설
+
+plywood manufacturing
+
+　
+Hot press, PF resin, softwood plywood
+
+0.060
+
+
+kg/m3
+
+
+oriented strandboard manufacturing
+
+　
+　
+　
+　
+Hot press, PF resin, liquid
+0.060
+
+0.0245
+kg/m3
+Hot press, PF resin, powder
+
+0.055
+
+
+0.0007
+kg/m3
+Hot press, MDI resin,
+0.065
+
+0.0095
+kg/m3
+Hot press, PF /MDI resins,
+0.185
+0.0185
+0.0205
+kg/m3
+particleboard manufacturing
+　
+　
+Hot press, UF resin
+0.052
+
+0.004
+kg/m3
+Board cooler, UF resin
+0.039
+
+
+kg/m3
+medium density
+fiberboard manufacturing
+　
+　
+　
+bach hot press, UF resin
+0.047
+
+0.008
+kg/m3
+Board cooler, UF resin
+0.014
+
+
+kg/m3
+hardboard manufacturing
+
+　
+Hardboard hot press, PF resin
+
+0.216
+
+　
+
+　
+kg/m3
+engineered wood products manufacturing
+
+　
+
+LSL hot press, MDI resin
+
+0.007
+
+　
+
+　
+kg/m3
+펄프, 종이제품 제조시설과인쇄 및 각종 기록
+매체 제조시설
+
+석회로시설･ 가열시설
+
+
+kraft pulping
+
+　
+　
+Lime kiln
+28
+0.15
+
+kg/ton
+Recovery boiler and direct evaporator
+
+90
+
+3.5
+
+
+kg/ton
+­음식료품제조 시설, 단백질 및 배합사료 제조시설 (유기질비료
+
+
+건조시설
+natural and processed cheese manufacture
+　
+Cheese dryer
+1.250
+
+
+kg/ton
+　
+Whey dryer
+0.620
+
+
+kg/ton
+
+grain elevator
+
+Grain drying
+Column dryer
+0.110
+
+
+kg/ton
+Rack dryer
+1.500
+
+
+kg/ton
+
+
+
+
+236
+
+
+대기배출시설 대분류
+
+대기배출시설
+
+공정(EPA)
+
+EPA 중분류
+
+EPA 소분류
+대기오염물질 배출계수
+먼지
+황 산화물
+질소 산화물
+단위
+
+
+
+
+
+제조시설을 포함)
+
+sugarbeet processing operation
+　
+Coal-fired pulp dryer
+2.200
+0.395
+0.330
+kg/ton
+　
+Fuel oil-fired pulp dryer
+0.700
+0.500
+0.300
+kg/ton
+fish canning and byproduct manufacture
+　
+steam tube dryer
+2.500
+
+
+kg/ton
+　
+Drect-fired dryer
+4
+
+
+kg/ton
+grain processing facilities
+
+Rice mill
+
+Rice drying
+
+0.032
+
+
+
+kg/ton
+
+제분시설
+grain processing facilities
+
+Wheat milling
+
+roller mill
+
+35
+
+　
+
+　
+
+kg/ton
+
+증자시설(훈증 시설포함)
+
+meat smokehouse
+
+　
+Batch smokehouse, smoking cycle
+
+11.5
+
+　
+
+　
+
+kg/ton
+
+　
+Continuous smokehouse, smoke zone
+
+3
+
+　
+
+　
+
+kg/ton
+
+
+
+소각시설
+
+적출물 소각시설
+
+Medical Waste Incinerators
+　
+Medical Waste Incinerators
+2.330
+1.090
+1.780
+kg/ton
+
+　
+Rotary Klin Medical Waste Incinerator
+
+17.300
+
+0.543
+
+2.310
+
+kg/ton
+
+폐기물 소각시설
+
+refuse combustion
+
+　
+Mass burn waterwall combustor
+
+12.600
+
+1.730
+
+1.830
+
+kg/ton
+
+　
+Mass burn rotary waterwall combustor
+
+12.600
+
+1.730
+
+1.130
+
+kg/ton
+
+
+
+
+소각시설
+
+
+
+
+폐기물 소각시설
+
+
+
+
+refuse combustion
+
+　
+Mass burn rotary refractory wall combustor
+
+12.600
+
+1.730
+
+1.230
+
+kg/ton
+
+　
+Modular excess air combustor
+
+12.600
+
+1.730
+
+1.240
+
+kg/ton
+
+　
+Refuse-Derived Fuel-Fired Combustors
+
+34.800
+
+1.950
+
+2.510
+
+kg/ton
+
+　
+
+Modular starved Air Combustors
+
+1.720
+
+1.610
+
+1.580
+
+kg/ton
+
+ 	
+
+237
+
+
+
+
+
+
+
+대기배출시설 대분류
+
+대기배출시설
+
+공정(EPA)
+
+EPA 중분류
+
+EPA 소분류
+대기오염물질 배출계수
+먼지
+황 산화물
+질소 산화물
+단위
+
+
+
+
+Industrial/Commercial
+Multiple chamber
+3.500
+1.250
+1.50
+kg/ton
+Single chamber
+7.500
+1.250
+1
+kg/ton
+
+Trench
+Wood
+6.500
+0.050
+2
+kg/ton
+Rubber tires
+69
+
+
+kg/ton
+Municipal refuse
+18.500
+1.250
+
+kg/ton
+Flue-fed single Chamber
+
+　
+
+15
+
+0.250
+
+1.50
+
+kg/ton
+Flue-fed(modified)
+　
+3
+0.250
+5
+kg/ton
+Domestic single chamber
+Without primary burner
+17.500
+0.250
+0.500
+kg/ton
+With primary burner
+3.500
+0.250
+1
+kg/ton
+
+Waste Incineration
+
+conical burners
+Municipal refuse
+10
+1
+2.500
+kg/ton
+wood refuse
+3.500
+0.050
+0.500
+kg/ton
+automobile body incineration
+
+　
+
+auto body incinerator
+
+0.900
+
+
+
+kg/car
+
+
+소각시설
+
+슬러지 소각시설
+
+sewage sludge incineration
+sewage sludge incinerator
+multiple hearth
+52
+14
+2.500
+kg/ton
+Fluidized Bed
+230
+0.150
+0.880
+kg/ton
+Sewage Sludge Incinerators
+
+Electric Infrared
+
+3.700
+
+9.200
+
+4.300
+
+kg/ton
+
+
+
+
+
+공통시설
+유무기산 저장시설
+hydrofluoric acid manufacture
+
+Spar handling silos
+
+uncontrolled
+
+30.00
+
+　
+
+　
+
+kg/ton
+유기화합물 저장시설
+sodium carbonate production
+
+　
+Soda ash storage/loading and unloading
+
+0.002
+
+　
+
+　
+
+kg/ton
+
+고체입자상물 질 저장시설
+glass fiber manufacturing
+
+　
+
+Storage bins
+
+0.1
+
+　
+
+　
+
+kg/ton
+
+taconite ore processing
+
+　
+
+Pellet sotrage bin loading
+
+1.85
+
+　
+
+　
+
+kg/ton
+
+도장시설
+ceramic products manufacturing
+
+　
+
+Ceramic glaze spray booth
+
+9.5
+
+　
+
+　
+
+kg/ton
+
+
+
+
+238
+
+
+대기배출시설 대분류
+
+대기배출시설
+
+공정(EPA)
+
+EPA 중분류
+
+EPA 소분류
+대기오염물질 배출계수
+먼지
+황 산화물
+질소 산화물
+단위
+
+
+ammonium nitrate manufacturing
+
+coating operationg
+
+　
+
+1.80
+
+　
+
+　
+
+kg/Mg
+
+
+
+
+
+
+분쇄시설
+
+brick manufacturing
+Grinding and screening operation
+processing wet material
+0.013
+　
+　
+kg/ton
+processing dry material
+4.25
+　
+　
+kg/ton
+
+
+
+clay and fly ash sintering
+
+　
+Clay/coke mixture
+crushing, screening and storage
+
+7.5
+
+　
+
+　
+
+kg/ton
+
+　
+Fly ash crushing, screening, sintering and
+storage
+
+55
+
+　
+
+　
+
+kg/ton
+
+　
+Natural clay curshing, screening, and storage
+
+6
+
+　
+
+　
+
+kg/ton
+
+lime manufacturing
+　
+Primary crusher
+0.008
+　
+　
+kg/ton
+
+　
+Scalping screen and hammermill(secondary
+crusher)
+
+0.310
+
+　
+
+　
+
+kg/ton
+
+공통시설
+
+분쇄시설
+primary aluminum production process
+
+　
+
+bauxite grinding
+
+3.000
+
+　
+
+　
+
+kg/ton
+선별시설
+taconite ore processing
+　
+Pellet screen
+5.000
+　
+　
+kg/ton
+
+ 	

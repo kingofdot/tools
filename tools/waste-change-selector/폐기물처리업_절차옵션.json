@@ -25,7 +25,20 @@
       "FR": "폐기물최종재활용업",
       "CR": "폐기물종합재활용업"
     },
-    "필터_사용법": "item.bizType 에 사용자 처리업 코드 포함 + changeType 일치 → 노출"
+    "필터_사용법": "item.bizType 에 사용자 처리업 코드 포함 + changeType 일치 → 노출",
+    "공통_첨부서류": [
+      "폐기물처리업 변경허가 신청서 (시행규칙 별지 제18호서식)",
+      "폐기물처리업 변경신고서 (시행규칙 별지 제21호서식)",
+      "사업자등록증 사본",
+      "법인등기부등본 (법인의 경우)"
+    ],
+    "적합성확인_첨부서류": [
+      "폐기물처리업 적합성확인 신청서",
+      "시설 및 장비 명세서",
+      "기술능력의 보유 현황",
+      "신청 당시 보관시설의 현장사진",
+      "직전년도 연간 폐기물 반입량·처리량·가동일수 확인 서류"
+    ]
   },
   "items": [
     {
@@ -133,11 +146,22 @@
           "min": 1,
           "addLabel": "+ 줄 추가",
           "fields": [
-            { "key": "category",  "label": "구분",     "type": "select", "options": ["전용차량","임시차량"], "defaultValue": "전용차량" },
-            { "key": "before",    "label": "변경 전",  "type": "text",   "placeholder": "12가 3456" },
-            { "key": "change",    "label": "변경사항", "type": "select", "options": ["증차","감차","기존"], "onChangeAction": "v01SyncBeforeAfter" },
-            { "key": "after",     "label": "변경 후",  "type": "text",   "placeholder": "12가 3456" },
-            { "key": "procedure", "label": "절차",     "type": "auto",   "compute": "classifyVehicleProcedure", "hideFromUI": true }
+            {
+              "key": "change",
+              "label": "변경사항",
+              "type": "select",
+              "options": ["증차","감차","기존"],
+              "onChangeAction": "v01SyncBeforeAfter",
+              "controlsState": {
+                "증차": { "disable": ["before"] },
+                "감차": { "disable": ["after"] },
+                "기존": { "disable": ["after"] }
+              }
+            },
+            { "key": "category",  "label": "구분",            "type": "select", "options": ["전용차량","임시차량"], "defaultValue": "전용차량" },
+            { "key": "before",    "label": "차량번호 변경전", "type": "text",   "placeholder": "12가 3456" },
+            { "key": "after",     "label": "차량번호 변경후", "type": "text",   "placeholder": "12가 3456" },
+            { "key": "procedure", "label": "절차",            "type": "auto",   "compute": "classifyVehicleProcedure", "hideFromUI": true }
           ]
         },
         {
@@ -193,11 +217,46 @@
               "key": "note",
               "label": "비고",
               "type": "text"
+            },
+            {
+              "_devNote": "기존 스타일대로 수정바람",
+              "key": "frontImageUrl",
+              "label": "전면 사진",
+              "type": "text",
+              "placeholder": "이미지 경로/URL"
+            },
+            {
+              "_devNote": "기존 스타일대로 수정바람",
+              "key": "rearImageUrl",
+              "label": "후면 사진",
+              "type": "text",
+              "placeholder": "이미지 경로/URL"
+            },
+            {
+              "_devNote": "기존 스타일대로 수정바람",
+              "key": "leftImageUrl",
+              "label": "좌측 사진",
+              "type": "text",
+              "placeholder": "이미지 경로/URL"
+            },
+            {
+              "_devNote": "기존 스타일대로 수정바람",
+              "key": "rightImageUrl",
+              "label": "우측 사진",
+              "type": "text",
+              "placeholder": "이미지 경로/URL"
             }
           ]
         }
       ],
-      "description": "차량 변경사항의 전·후 사항을 적습니다."
+      "description": "차량 변경사항의 전·후 사항을 적습니다.",
+      "attachments": [
+        "운반차량의 증차계획서 (변경허가: 전용차량 증차 시 — 시행규칙 제29조①1.라.)",
+        "임시차량증 발급신청서 (변경신고: 임시차량 증차 시 — 시행규칙 제33조①4.)",
+        "수집·운반증 반납 (변경신고: 운반차량 감차 시 — 시행규칙 제33조①4.)",
+        "차량등록증 사본 (신청인 명의 등록 확인용)",
+        "수집·운반전용차량 개요 및 구비서류 (별지 제68호 서식 — 시행규칙 별표5 제6호다목 단서)"
+      ]
     },
     {
       "id": "P05",
@@ -483,7 +542,7 @@
       "신고시점": "사후 30일 이내",
       "조건": "법 제33조에 따라 권리ㆍ의무를 승계하는 경우는 제외한다",
       "비고": "법 제33조 권리·의무 승계 케이스는 제외",
-      "description": "변경 전 대표자는 성명·생년월일만, 변경 후 대표자는 성명·주민등록번호·본적·연락처를 적습니다.",
+      "description": "변경 전 대표자는 성명·생년월일만, 변경 후 대표자는 성명·주민등록번호·등록기준지·연락처를 적습니다.",
       "fields": [
         {
           "key": "beforeRepresentatives",
@@ -507,7 +566,7 @@
           "fields": [
             { "key": "name",       "label": "성명",         "type": "text" },
             { "key": "residentId", "label": "주민등록번호", "type": "text", "placeholder": "800101-1234567" },
-            { "key": "domicile",   "label": "본적",         "type": "text" },
+            { "key": "domicile",   "label": "등록기준지",         "type": "text" },
             { "key": "phone",      "label": "연락처",       "type": "text", "placeholder": "010-1234-5678" }
           ]
         }
@@ -558,7 +617,36 @@
       "신고시점": "사전",
       "조건": null,
       "비고": null,
-      "description": "변경 전·후 내용을 적습니다."
+      "description": "변경 전은 주소만, 변경 후는 사무실 상세 정보를 적습니다.",
+      "fields": [
+        {
+          "key": "beforeLocations",
+          "label": "변경 전 연락장소",
+          "type": "repeat",
+          "compact": true,
+          "min": 1,
+          "addLabel": "+ 추가",
+          "fields": [
+            { "key": "address", "label": "주소", "type": "text" }
+          ]
+        },
+        {
+          "key": "afterLocations",
+          "label": "변경 후 연락장소",
+          "type": "repeat",
+          "compact": true,
+          "min": 1,
+          "addLabel": "+ 추가",
+          "fields": [
+            { "key": "officeAddress", "label": "사무실주소",  "type": "text" },
+            { "key": "buildingName",  "label": "동명칭",      "type": "text", "required": false },
+            { "key": "floor",         "label": "층",          "type": "text", "required": false },
+            { "key": "usage",         "label": "용도",        "type": "text", "required": false },
+            { "key": "officeArea",    "label": "사무실면적",  "type": "text", "suffix": "㎡" },
+            { "key": "phone",         "label": "연락처",      "type": "text", "placeholder": "010-1234-5678" }
+          ]
+        }
+      ]
     },
     {
       "id": "N05",
@@ -639,15 +727,20 @@
       "신고시점": "사후 30일 이내",
       "조건": null,
       "비고": "별표 7 기술능력 변경",
-      "description": "변경 전·후 기술인의 성명·자격사항·생년월일을 적습니다.",
+      "description": "변경 전·후 기술능력의 성명·자격사항·생년월일을 적습니다.",
+      "attachments": [
+        "변경 후 기술인의 자격증 사본",
+        "변경 후 기술인의 경력증명서 (대체인력의 경우)",
+        "(현장 확인용) 기술 인력의 의료보험 가입 서류"
+      ],
       "fields": [
         {
           "key": "beforePersonnel",
-          "label": "변경 전 기술인",
+          "label": "변경 전 기술능력",
           "type": "repeat",
           "compact": true,
           "min": 1,
-          "addLabel": "+ 인원 추가",
+          "addLabel": "+ 추가",
           "fields": [
             { "key": "name",      "label": "성명",     "type": "text" },
             { "key": "cert",      "label": "자격사항", "type": "text", "placeholder": "예: 폐기물처리기사" },
@@ -656,11 +749,11 @@
         },
         {
           "key": "afterPersonnel",
-          "label": "변경 후 기술인",
+          "label": "변경 후 기술능력",
           "type": "repeat",
           "compact": true,
           "min": 1,
-          "addLabel": "+ 인원 추가",
+          "addLabel": "+ 추가",
           "fields": [
             { "key": "name",      "label": "성명",     "type": "text" },
             { "key": "cert",      "label": "자격사항", "type": "text", "placeholder": "예: 폐기물처리기사" },

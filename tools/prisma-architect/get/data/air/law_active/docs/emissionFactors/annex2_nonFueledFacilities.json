@@ -1,0 +1,5163 @@
+{
+  "schemaVersion": "1.0",
+  "sourceId": "notice2021-41/annex2",
+  "legalStatus": "법정",
+  "annexNo": "2",
+  "title": "연료를 사용하지 않는 대기배출시설의 배출계수",
+  "관련조문": "제4조",
+  "noticeRef": "국립환경과학원고시 제2021-41호",
+  "noticeTitle": "배출시설의 대기오염물질 배출계수 고시",
+  "_meta": {
+    "_note": "배출계수 단위는 행별로 unit 필드에 명시. 비어있는 오염물질 칸은 null (해당 없음).",
+    "오염물질": [
+      "먼지",
+      "황산화물",
+      "질소산화물"
+    ],
+    "valueTypes": {
+      "constant": "{type:'constant',   value}",
+      "range": "{type:'range',      min, max}",
+      "qualifier": "{type:'qualifier',  op, value}      // op: '<=' | '>=' | '<' | '>'",
+      "expression": "{type:'expression', coefficient, variable, variableMeaning}  // result = coefficient × variable",
+      "null": "데이터 없음 (해당 오염물질 미적용)"
+    },
+    "unitSchema": {
+      "raw": "원본 표기 (예: 'kg/폴리프로필렌생산량(ton)')",
+      "numerator": "배출량 단위 (kg 등)",
+      "denominator": "단위량의 단위 (ton, ㎘, 10³㎥, m², 109J 등)",
+      "basis": "단위량의 의미 (생산량 | 사용량 | 처리량 | 소각량 | 회수량 | 저장량 | 투입량 | null)"
+    },
+    "calculationFormula": "시간당 발생량(kg/h) = factor.value × 시간당 단위량 (factor.type 별 평가 방법은 valueTypes 참조)",
+    "basisVocabulary": [
+      "생산량",
+      "사용량",
+      "처리량",
+      "소각량",
+      "회수량",
+      "저장량",
+      "투입량"
+    ],
+    "materialTypeRules": {
+      "제품": "basis ∈ {생산량, 회수량}",
+      "원료": "basis ∈ {사용량, 저장량, 투입량, 처리량}",
+      "폐기물": "basis = 소각량",
+      "연료": "단위에 한글 basis 가 없는 연료성 단위 (kg/ton, kg/㎘, kg/10³㎥) — annex3 전용",
+      "null": "분류 불가"
+    },
+    "별표3매핑": "각 entry 의 airFacilityRefs 는 시행규칙 별표3 배출시설 카테고리 번호와 매핑"
+  },
+  "entryCount": 159,
+  "entries": [
+    {
+      "id": "annex2-001",
+      "airFacilityRefs": [
+        "3)",
+        "5)"
+      ],
+      "facilityGroup": "펄프, 종이 및 판지 제조시설 + 인쇄 및 각종 기록 매체 제조(복제)시설",
+      "subFacility": "분쇄시설",
+      "materialType": "제품",
+      "material": "펄프",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 2.1647
+        },
+        "황산화물": null,
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/제품생산량(ton)",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": "생산량"
+      }
+    },
+    {
+      "id": "annex2-002",
+      "airFacilityRefs": [
+        "6)"
+      ],
+      "facilityGroup": "코크스 제조시설 및 관련제품 저장시설",
+      "subFacility": "고체입자상물질 저장시설",
+      "materialType": "제품",
+      "material": "슬래그포밍제",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 0.026
+        },
+        "황산화물": null,
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/슬래그포밍제생산량(ton)",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": "생산량"
+      }
+    },
+    {
+      "id": "annex2-003",
+      "airFacilityRefs": [
+        "6)"
+      ],
+      "facilityGroup": "코크스 제조시설 및 관련제품 저장시설",
+      "subFacility": "분쇄시설",
+      "materialType": "제품",
+      "material": "가탄제",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 0.44
+        },
+        "황산화물": null,
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/가탄제생산량(ton)",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": "생산량"
+      }
+    },
+    {
+      "id": "annex2-004",
+      "airFacilityRefs": [
+        "6)"
+      ],
+      "facilityGroup": "코크스 제조시설 및 관련제품 저장시설",
+      "subFacility": "분쇄시설",
+      "materialType": "제품",
+      "material": "슬래그포밍제",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 0.0714
+        },
+        "황산화물": null,
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/슬래그포밍제생산량(ton)",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": "생산량"
+      }
+    },
+    {
+      "id": "annex2-005",
+      "airFacilityRefs": [
+        "8)",
+        "9)",
+        "10)",
+        "11)",
+        "12)",
+        "13)",
+        "14)",
+        "15)",
+        "16)",
+        "17)"
+      ],
+      "facilityGroup": "기초유기화합물·가스·기초무기화합물·무기안료·합성염료/유연제/기타착색제·비료/질소화합물·의료용 물질/의약품·그 밖의 화학제품·탄화시설·화학섬유 제조시설",
+      "subFacility": "고체입자상물질 저장시설",
+      "materialType": "제품",
+      "material": "농약(수화제)",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 0.3413
+        },
+        "황산화물": null,
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/제품생산량(ton)",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": "생산량"
+      }
+    },
+    {
+      "id": "annex2-006",
+      "airFacilityRefs": [
+        "8)",
+        "9)",
+        "10)",
+        "11)",
+        "12)",
+        "13)",
+        "14)",
+        "15)",
+        "16)",
+        "17)"
+      ],
+      "facilityGroup": "기초유기화합물·가스·기초무기화합물·무기안료·합성염료/유연제/기타착색제·비료/질소화합물·의료용 물질/의약품·그 밖의 화학제품·탄화시설·화학섬유 제조시설",
+      "subFacility": "고체입자상물질 저장시설",
+      "materialType": "제품",
+      "material": "무수석고",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 0.0091
+        },
+        "황산화물": null,
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/무수석고생산량(ton)",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": "생산량"
+      }
+    },
+    {
+      "id": "annex2-007",
+      "airFacilityRefs": [
+        "8)",
+        "9)",
+        "10)",
+        "11)",
+        "12)",
+        "13)",
+        "14)",
+        "15)",
+        "16)",
+        "17)"
+      ],
+      "facilityGroup": "기초유기화합물·가스·기초무기화합물·무기안료·합성염료/유연제/기타착색제·비료/질소화합물·의료용 물질/의약품·그 밖의 화학제품·탄화시설·화학섬유 제조시설",
+      "subFacility": "고체입자상물질 저장시설",
+      "materialType": "원료",
+      "material": "소다회",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 0.7556
+        },
+        "황산화물": null,
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/소다회사용량(ton)",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": "사용량"
+      }
+    },
+    {
+      "id": "annex2-008",
+      "airFacilityRefs": [
+        "8)",
+        "9)",
+        "10)",
+        "11)",
+        "12)",
+        "13)",
+        "14)",
+        "15)",
+        "16)",
+        "17)"
+      ],
+      "facilityGroup": "기초유기화합물·가스·기초무기화합물·무기안료·합성염료/유연제/기타착색제·비료/질소화합물·의료용 물질/의약품·그 밖의 화학제품·탄화시설·화학섬유 제조시설",
+      "subFacility": "고체입자상물질 저장시설",
+      "materialType": "원료",
+      "material": "소석회",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 0.111
+        },
+        "황산화물": null,
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/소석회사용량(ton)",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": "사용량"
+      }
+    },
+    {
+      "id": "annex2-009",
+      "airFacilityRefs": [
+        "8)",
+        "9)",
+        "10)",
+        "11)",
+        "12)",
+        "13)",
+        "14)",
+        "15)",
+        "16)",
+        "17)"
+      ],
+      "facilityGroup": "기초유기화합물·가스·기초무기화합물·무기안료·합성염료/유연제/기타착색제·비료/질소화합물·의료용 물질/의약품·그 밖의 화학제품·탄화시설·화학섬유 제조시설",
+      "subFacility": "고체입자상물질 저장시설",
+      "materialType": "제품",
+      "material": "페인트반제품",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 0.1027
+        },
+        "황산화물": null,
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/제품페인트생산량(ton)",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": "생산량"
+      }
+    },
+    {
+      "id": "annex2-010",
+      "airFacilityRefs": [
+        "8)",
+        "9)",
+        "10)",
+        "11)",
+        "12)",
+        "13)",
+        "14)",
+        "15)",
+        "16)",
+        "17)"
+      ],
+      "facilityGroup": "기초유기화합물·가스·기초무기화합물·무기안료·합성염료/유연제/기타착색제·비료/질소화합물·의료용 물질/의약품·그 밖의 화학제품·탄화시설·화학섬유 제조시설",
+      "subFacility": "고체입자상물질 저장시설",
+      "materialType": "제품",
+      "material": "페인트(유성/수성)원료",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 0.026
+        },
+        "황산화물": null,
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/제품페인트생산량(ton)",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": "생산량"
+      }
+    },
+    {
+      "id": "annex2-011",
+      "airFacilityRefs": [
+        "8)",
+        "9)",
+        "10)",
+        "11)",
+        "12)",
+        "13)",
+        "14)",
+        "15)",
+        "16)",
+        "17)"
+      ],
+      "facilityGroup": "기초유기화합물·가스·기초무기화합물·무기안료·합성염료/유연제/기타착색제·비료/질소화합물·의료용 물질/의약품·그 밖의 화학제품·탄화시설·화학섬유 제조시설",
+      "subFacility": "고체입자상물질 저장시설",
+      "materialType": "제품",
+      "material": "폴리에틸렌",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 0.0755
+        },
+        "황산화물": null,
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/폴리에틸렌생산량(ton)",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": "생산량"
+      }
+    },
+    {
+      "id": "annex2-012",
+      "airFacilityRefs": [
+        "8)",
+        "9)",
+        "10)",
+        "11)",
+        "12)",
+        "13)",
+        "14)",
+        "15)",
+        "16)",
+        "17)"
+      ],
+      "facilityGroup": "기초유기화합물·가스·기초무기화합물·무기안료·합성염료/유연제/기타착색제·비료/질소화합물·의료용 물질/의약품·그 밖의 화학제품·탄화시설·화학섬유 제조시설",
+      "subFacility": "고체입자상물질 저장시설",
+      "materialType": "제품",
+      "material": "폴리프로필렌",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 0.0636
+        },
+        "황산화물": null,
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/폴리프로필렌생산량(ton)",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": "생산량"
+      }
+    },
+    {
+      "id": "annex2-013",
+      "airFacilityRefs": [
+        "8)",
+        "9)",
+        "10)",
+        "11)",
+        "12)",
+        "13)",
+        "14)",
+        "15)",
+        "16)",
+        "17)"
+      ],
+      "facilityGroup": "기초유기화합물·가스·기초무기화합물·무기안료·합성염료/유연제/기타착색제·비료/질소화합물·의료용 물질/의약품·그 밖의 화학제품·탄화시설·화학섬유 제조시설",
+      "subFacility": "고체입자상물질 저장시설",
+      "materialType": "원료",
+      "material": "형석(CaF2)",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 0.0133
+        },
+        "황산화물": null,
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/형석투입량(ton)",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": "투입량"
+      }
+    },
+    {
+      "id": "annex2-014",
+      "airFacilityRefs": [
+        "8)",
+        "9)",
+        "10)",
+        "11)",
+        "12)",
+        "13)",
+        "14)",
+        "15)",
+        "16)",
+        "17)"
+      ],
+      "facilityGroup": "기초유기화합물·가스·기초무기화합물·무기안료·합성염료/유연제/기타착색제·비료/질소화합물·의료용 물질/의약품·그 밖의 화학제품·탄화시설·화학섬유 제조시설",
+      "subFacility": "고체입자상물질 저장시설",
+      "materialType": "제품",
+      "material": "에틸비닐아세테이트(EVA)",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 0.531
+        },
+        "황산화물": null,
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/EVA생산량(ton)",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": "생산량"
+      }
+    },
+    {
+      "id": "annex2-015",
+      "airFacilityRefs": [
+        "8)",
+        "9)",
+        "10)",
+        "11)",
+        "12)",
+        "13)",
+        "14)",
+        "15)",
+        "16)",
+        "17)"
+      ],
+      "facilityGroup": "기초유기화합물·가스·기초무기화합물·무기안료·합성염료/유연제/기타착색제·비료/질소화합물·의료용 물질/의약품·그 밖의 화학제품·탄화시설·화학섬유 제조시설",
+      "subFacility": "고체입자상물질 저장시설",
+      "materialType": "제품",
+      "material": "PVC 수지",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 0.21
+        },
+        "황산화물": null,
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/PVC수지생산량(ton)",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": "생산량"
+      }
+    },
+    {
+      "id": "annex2-016",
+      "airFacilityRefs": [
+        "8)",
+        "9)",
+        "10)",
+        "11)",
+        "12)",
+        "13)",
+        "14)",
+        "15)",
+        "16)",
+        "17)"
+      ],
+      "facilityGroup": "기초유기화합물·가스·기초무기화합물·무기안료·합성염료/유연제/기타착색제·비료/질소화합물·의료용 물질/의약품·그 밖의 화학제품·탄화시설·화학섬유 제조시설",
+      "subFacility": "고체입자상물질 저장시설",
+      "materialType": "제품",
+      "material": "계면활성제",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 0.0163
+        },
+        "황산화물": null,
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/계면활성제생산량(ton)",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": "생산량"
+      }
+    },
+    {
+      "id": "annex2-017",
+      "airFacilityRefs": [
+        "8)",
+        "9)",
+        "10)",
+        "11)",
+        "12)",
+        "13)",
+        "14)",
+        "15)",
+        "16)",
+        "17)"
+      ],
+      "facilityGroup": "기초유기화합물·가스·기초무기화합물·무기안료·합성염료/유연제/기타착색제·비료/질소화합물·의료용 물질/의약품·그 밖의 화학제품·탄화시설·화학섬유 제조시설",
+      "subFacility": "고체입자상물질 포장시설",
+      "materialType": "원료",
+      "material": "고체상 무수프탈산",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 0.462
+        },
+        "황산화물": null,
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/고체상무수프탈산투입량(ton)",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": "투입량"
+      }
+    },
+    {
+      "id": "annex2-018",
+      "airFacilityRefs": [
+        "8)",
+        "9)",
+        "10)",
+        "11)",
+        "12)",
+        "13)",
+        "14)",
+        "15)",
+        "16)",
+        "17)"
+      ],
+      "facilityGroup": "기초유기화합물·가스·기초무기화합물·무기안료·합성염료/유연제/기타착색제·비료/질소화합물·의료용 물질/의약품·그 밖의 화학제품·탄화시설·화학섬유 제조시설",
+      "subFacility": "고체입자상물질 포장시설",
+      "materialType": "제품",
+      "material": "농약(수화제)",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 1.8015
+        },
+        "황산화물": null,
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/제품생산량(ton)",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": "생산량"
+      }
+    },
+    {
+      "id": "annex2-019",
+      "airFacilityRefs": [
+        "8)",
+        "9)",
+        "10)",
+        "11)",
+        "12)",
+        "13)",
+        "14)",
+        "15)",
+        "16)",
+        "17)"
+      ],
+      "facilityGroup": "기초유기화합물·가스·기초무기화합물·무기안료·합성염료/유연제/기타착색제·비료/질소화합물·의료용 물질/의약품·그 밖의 화학제품·탄화시설·화학섬유 제조시설",
+      "subFacility": "고체입자상물질 포장시설",
+      "materialType": "제품",
+      "material": "농약(입제)",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 0.2158
+        },
+        "황산화물": null,
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/제품생산량(ton)",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": "생산량"
+      }
+    },
+    {
+      "id": "annex2-020",
+      "airFacilityRefs": [
+        "8)",
+        "9)",
+        "10)",
+        "11)",
+        "12)",
+        "13)",
+        "14)",
+        "15)",
+        "16)",
+        "17)"
+      ],
+      "facilityGroup": "기초유기화합물·가스·기초무기화합물·무기안료·합성염료/유연제/기타착색제·비료/질소화합물·의료용 물질/의약품·그 밖의 화학제품·탄화시설·화학섬유 제조시설",
+      "subFacility": "고체입자상물질 포장시설",
+      "materialType": "제품",
+      "material": "변성폴리올레핀",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 6.56
+        },
+        "황산화물": null,
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/변성폴리올레핀생산량(ton)",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": "생산량"
+      }
+    },
+    {
+      "id": "annex2-021",
+      "airFacilityRefs": [
+        "8)",
+        "9)",
+        "10)",
+        "11)",
+        "12)",
+        "13)",
+        "14)",
+        "15)",
+        "16)",
+        "17)"
+      ],
+      "facilityGroup": "기초유기화합물·가스·기초무기화합물·무기안료·합성염료/유연제/기타착색제·비료/질소화합물·의료용 물질/의약품·그 밖의 화학제품·탄화시설·화학섬유 제조시설",
+      "subFacility": "고체입자상물질 포장시설",
+      "materialType": "제품",
+      "material": "복합비료",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 0.0377
+        },
+        "황산화물": null,
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/제품생산량(ton)",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": "생산량"
+      }
+    },
+    {
+      "id": "annex2-022",
+      "airFacilityRefs": [
+        "8)",
+        "9)",
+        "10)",
+        "11)",
+        "12)",
+        "13)",
+        "14)",
+        "15)",
+        "16)",
+        "17)"
+      ],
+      "facilityGroup": "기초유기화합물·가스·기초무기화합물·무기안료·합성염료/유연제/기타착색제·비료/질소화합물·의료용 물질/의약품·그 밖의 화학제품·탄화시설·화학섬유 제조시설",
+      "subFacility": "고체입자상물질 포장시설",
+      "materialType": "제품",
+      "material": "분체도료",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 2.325
+        },
+        "황산화물": null,
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/페인트생산량(ton)",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": "생산량"
+      }
+    },
+    {
+      "id": "annex2-023",
+      "airFacilityRefs": [
+        "8)",
+        "9)",
+        "10)",
+        "11)",
+        "12)",
+        "13)",
+        "14)",
+        "15)",
+        "16)",
+        "17)"
+      ],
+      "facilityGroup": "기초유기화합물·가스·기초무기화합물·무기안료·합성염료/유연제/기타착색제·비료/질소화합물·의료용 물질/의약품·그 밖의 화학제품·탄화시설·화학섬유 제조시설",
+      "subFacility": "고체입자상물질 포장시설",
+      "materialType": "제품",
+      "material": "산화철(비디오)",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 0.1026
+        },
+        "황산화물": null,
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/산화철생산량(ton)",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": "생산량"
+      }
+    },
+    {
+      "id": "annex2-024",
+      "airFacilityRefs": [
+        "8)",
+        "9)",
+        "10)",
+        "11)",
+        "12)",
+        "13)",
+        "14)",
+        "15)",
+        "16)",
+        "17)"
+      ],
+      "facilityGroup": "기초유기화합물·가스·기초무기화합물·무기안료·합성염료/유연제/기타착색제·비료/질소화합물·의료용 물질/의약품·그 밖의 화학제품·탄화시설·화학섬유 제조시설",
+      "subFacility": "고체입자상물질 포장시설",
+      "materialType": "제품",
+      "material": "산화철(오디오)",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 0.0833
+        },
+        "황산화물": null,
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/산화철생산량(ton)",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": "생산량"
+      }
+    },
+    {
+      "id": "annex2-025",
+      "airFacilityRefs": [
+        "8)",
+        "9)",
+        "10)",
+        "11)",
+        "12)",
+        "13)",
+        "14)",
+        "15)",
+        "16)",
+        "17)"
+      ],
+      "facilityGroup": "기초유기화합물·가스·기초무기화합물·무기안료·합성염료/유연제/기타착색제·비료/질소화합물·의료용 물질/의약품·그 밖의 화학제품·탄화시설·화학섬유 제조시설",
+      "subFacility": "고체입자상물질 포장시설",
+      "materialType": "제품",
+      "material": "이산화티타늄",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 0.0338
+        },
+        "황산화물": null,
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/이산화티타늄 생산량(ton)",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": "생산량"
+      }
+    },
+    {
+      "id": "annex2-026",
+      "airFacilityRefs": [
+        "8)",
+        "9)",
+        "10)",
+        "11)",
+        "12)",
+        "13)",
+        "14)",
+        "15)",
+        "16)",
+        "17)"
+      ],
+      "facilityGroup": "기초유기화합물·가스·기초무기화합물·무기안료·합성염료/유연제/기타착색제·비료/질소화합물·의료용 물질/의약품·그 밖의 화학제품·탄화시설·화학섬유 제조시설",
+      "subFacility": "고체입자상물질 포장시설",
+      "materialType": "제품",
+      "material": "인산칼슘",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 0.032
+        },
+        "황산화물": null,
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/인산칼슘생산량(ton)",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": "생산량"
+      }
+    },
+    {
+      "id": "annex2-027",
+      "airFacilityRefs": [
+        "8)",
+        "9)",
+        "10)",
+        "11)",
+        "12)",
+        "13)",
+        "14)",
+        "15)",
+        "16)",
+        "17)"
+      ],
+      "facilityGroup": "기초유기화합물·가스·기초무기화합물·무기안료·합성염료/유연제/기타착색제·비료/질소화합물·의료용 물질/의약품·그 밖의 화학제품·탄화시설·화학섬유 제조시설",
+      "subFacility": "고체입자상물질 포장시설",
+      "materialType": "제품",
+      "material": "지르코늄실리케이트",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 0.1882
+        },
+        "황산화물": null,
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/제품생산량(ton)",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": "생산량"
+      }
+    },
+    {
+      "id": "annex2-028",
+      "airFacilityRefs": [
+        "8)",
+        "9)",
+        "10)",
+        "11)",
+        "12)",
+        "13)",
+        "14)",
+        "15)",
+        "16)",
+        "17)"
+      ],
+      "facilityGroup": "기초유기화합물·가스·기초무기화합물·무기안료·합성염료/유연제/기타착색제·비료/질소화합물·의료용 물질/의약품·그 밖의 화학제품·탄화시설·화학섬유 제조시설",
+      "subFacility": "고체입자상물질 포장시설",
+      "materialType": "제품",
+      "material": "차아황산소다",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 0.0376
+        },
+        "황산화물": null,
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/차아황산소다생산량(ton)",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": "생산량"
+      }
+    },
+    {
+      "id": "annex2-029",
+      "airFacilityRefs": [
+        "8)",
+        "9)",
+        "10)",
+        "11)",
+        "12)",
+        "13)",
+        "14)",
+        "15)",
+        "16)",
+        "17)"
+      ],
+      "facilityGroup": "기초유기화합물·가스·기초무기화합물·무기안료·합성염료/유연제/기타착색제·비료/질소화합물·의료용 물질/의약품·그 밖의 화학제품·탄화시설·화학섬유 제조시설",
+      "subFacility": "고체입자상물질 포장시설",
+      "materialType": "제품",
+      "material": "캅셀",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 6.786
+        },
+        "황산화물": null,
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/캅셀생산량(ton)",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": "생산량"
+      }
+    },
+    {
+      "id": "annex2-030",
+      "airFacilityRefs": [
+        "8)",
+        "9)",
+        "10)",
+        "11)",
+        "12)",
+        "13)",
+        "14)",
+        "15)",
+        "16)",
+        "17)"
+      ],
+      "facilityGroup": "기초유기화합물·가스·기초무기화합물·무기안료·합성염료/유연제/기타착색제·비료/질소화합물·의료용 물질/의약품·그 밖의 화학제품·탄화시설·화학섬유 제조시설",
+      "subFacility": "고체입자상물질 포장시설",
+      "materialType": "제품",
+      "material": "저밀도폴리에틸렌",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 0.1404
+        },
+        "황산화물": null,
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/저밀도폴리에틸렌생산량(ton)",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": "생산량"
+      }
+    },
+    {
+      "id": "annex2-031",
+      "airFacilityRefs": [
+        "8)",
+        "9)",
+        "10)",
+        "11)",
+        "12)",
+        "13)",
+        "14)",
+        "15)",
+        "16)",
+        "17)"
+      ],
+      "facilityGroup": "기초유기화합물·가스·기초무기화합물·무기안료·합성염료/유연제/기타착색제·비료/질소화합물·의료용 물질/의약품·그 밖의 화학제품·탄화시설·화학섬유 제조시설",
+      "subFacility": "고체입자상물질 포장시설",
+      "materialType": "제품",
+      "material": "폴리프로필렌",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 0.112
+        },
+        "황산화물": null,
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/폴리프로필렌생산량(ton)",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": "생산량"
+      }
+    },
+    {
+      "id": "annex2-032",
+      "airFacilityRefs": [
+        "8)",
+        "9)",
+        "10)",
+        "11)",
+        "12)",
+        "13)",
+        "14)",
+        "15)",
+        "16)",
+        "17)"
+      ],
+      "facilityGroup": "기초유기화합물·가스·기초무기화합물·무기안료·합성염료/유연제/기타착색제·비료/질소화합물·의료용 물질/의약품·그 밖의 화학제품·탄화시설·화학섬유 제조시설",
+      "subFacility": "고체입자상물질 포장시설",
+      "materialType": "제품",
+      "material": "PVC 수지",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 0.0385
+        },
+        "황산화물": null,
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/PVC수지생산량(ton)",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": "생산량"
+      }
+    },
+    {
+      "id": "annex2-033",
+      "airFacilityRefs": [
+        "8)",
+        "9)",
+        "10)",
+        "11)",
+        "12)",
+        "13)",
+        "14)",
+        "15)",
+        "16)",
+        "17)"
+      ],
+      "facilityGroup": "기초유기화합물·가스·기초무기화합물·무기안료·합성염료/유연제/기타착색제·비료/질소화합물·의료용 물질/의약품·그 밖의 화학제품·탄화시설·화학섬유 제조시설",
+      "subFacility": "농축시설",
+      "materialType": "제품",
+      "material": "LBR(부타디엔고무)",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 0.609
+        },
+        "황산화물": null,
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/LBR생산량(ton)",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": "생산량"
+      }
+    },
+    {
+      "id": "annex2-034",
+      "airFacilityRefs": [
+        "8)",
+        "9)",
+        "10)",
+        "11)",
+        "12)",
+        "13)",
+        "14)",
+        "15)",
+        "16)",
+        "17)"
+      ],
+      "facilityGroup": "기초유기화합물·가스·기초무기화합물·무기안료·합성염료/유연제/기타착색제·비료/질소화합물·의료용 물질/의약품·그 밖의 화학제품·탄화시설·화학섬유 제조시설",
+      "subFacility": "농축시설",
+      "materialType": "제품",
+      "material": "Salt/Diethyl Glycol",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 0.0223
+        },
+        "황산화물": null,
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/salt,Diethyl Glycol회수량(ton)",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": "회수량"
+      }
+    },
+    {
+      "id": "annex2-035",
+      "airFacilityRefs": [
+        "8)",
+        "9)",
+        "10)",
+        "11)",
+        "12)",
+        "13)",
+        "14)",
+        "15)",
+        "16)",
+        "17)"
+      ],
+      "facilityGroup": "기초유기화합물·가스·기초무기화합물·무기안료·합성염료/유연제/기타착색제·비료/질소화합물·의료용 물질/의약품·그 밖의 화학제품·탄화시설·화학섬유 제조시설",
+      "subFacility": "농축시설",
+      "materialType": "제품",
+      "material": "SBR(Stylenbutadieneblock copolymer)",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 1.0163
+        },
+        "황산화물": null,
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/SBR생산량(ton)",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": "생산량"
+      }
+    },
+    {
+      "id": "annex2-036",
+      "airFacilityRefs": [
+        "8)",
+        "9)",
+        "10)",
+        "11)",
+        "12)",
+        "13)",
+        "14)",
+        "15)",
+        "16)",
+        "17)"
+      ],
+      "facilityGroup": "기초유기화합물·가스·기초무기화합물·무기안료·합성염료/유연제/기타착색제·비료/질소화합물·의료용 물질/의약품·그 밖의 화학제품·탄화시설·화학섬유 제조시설",
+      "subFacility": "농축시설",
+      "materialType": "제품",
+      "material": "SSBR(Solution SBR)",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 0.1805
+        },
+        "황산화물": null,
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/SSBR생산량(ton)",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": "생산량"
+      }
+    },
+    {
+      "id": "annex2-037",
+      "airFacilityRefs": [
+        "8)",
+        "9)",
+        "10)",
+        "11)",
+        "12)",
+        "13)",
+        "14)",
+        "15)",
+        "16)",
+        "17)"
+      ],
+      "facilityGroup": "기초유기화합물·가스·기초무기화합물·무기안료·합성염료/유연제/기타착색제·비료/질소화합물·의료용 물질/의약품·그 밖의 화학제품·탄화시설·화학섬유 제조시설",
+      "subFacility": "농축시설",
+      "materialType": "제품",
+      "material": "헥소겐(RDX)-싸이클로트리메칠렌트리니트라민",
+      "factors": {
+        "먼지": null,
+        "황산화물": {
+          "type": "constant",
+          "value": 0.3636
+        },
+        "질소산화물": {
+          "type": "constant",
+          "value": 1.449
+        }
+      },
+      "unit": {
+        "raw": "kg/RDX생산량(ton)",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": "생산량"
+      }
+    },
+    {
+      "id": "annex2-038",
+      "airFacilityRefs": [
+        "8)",
+        "9)",
+        "10)",
+        "11)",
+        "12)",
+        "13)",
+        "14)",
+        "15)",
+        "16)",
+        "17)"
+      ],
+      "facilityGroup": "기초유기화합물·가스·기초무기화합물·무기안료·합성염료/유연제/기타착색제·비료/질소화합물·의료용 물질/의약품·그 밖의 화학제품·탄화시설·화학섬유 제조시설",
+      "subFacility": "농축시설",
+      "materialType": "제품",
+      "material": "에멀젼폭약(EMX) 제조",
+      "factors": {
+        "먼지": null,
+        "황산화물": null,
+        "질소산화물": {
+          "type": "constant",
+          "value": 0.0247
+        }
+      },
+      "unit": {
+        "raw": "kg/EMX생산량(ton)",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": "생산량"
+      }
+    },
+    {
+      "id": "annex2-039",
+      "airFacilityRefs": [
+        "8)",
+        "9)",
+        "10)",
+        "11)",
+        "12)",
+        "13)",
+        "14)",
+        "15)",
+        "16)",
+        "17)"
+      ],
+      "facilityGroup": "기초유기화합물·가스·기초무기화합물·무기안료·합성염료/유연제/기타착색제·비료/질소화합물·의료용 물질/의약품·그 밖의 화학제품·탄화시설·화학섬유 제조시설",
+      "subFacility": "반응시설",
+      "materialType": "제품",
+      "material": "계면활성제(AOS)",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 0.1795
+        },
+        "황산화물": {
+          "type": "constant",
+          "value": 0.1745
+        },
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/AOS생산량(ton)",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": "생산량"
+      }
+    },
+    {
+      "id": "annex2-040",
+      "airFacilityRefs": [
+        "8)",
+        "9)",
+        "10)",
+        "11)",
+        "12)",
+        "13)",
+        "14)",
+        "15)",
+        "16)",
+        "17)"
+      ],
+      "facilityGroup": "기초유기화합물·가스·기초무기화합물·무기안료·합성염료/유연제/기타착색제·비료/질소화합물·의료용 물질/의약품·그 밖의 화학제품·탄화시설·화학섬유 제조시설",
+      "subFacility": "반응시설",
+      "materialType": "제품",
+      "material": "계면활성제(LAS)",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 0.3508
+        },
+        "황산화물": null,
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/LAS생산량(ton)",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": "생산량"
+      }
+    },
+    {
+      "id": "annex2-041",
+      "airFacilityRefs": [
+        "8)",
+        "9)",
+        "10)",
+        "11)",
+        "12)",
+        "13)",
+        "14)",
+        "15)",
+        "16)",
+        "17)"
+      ],
+      "facilityGroup": "기초유기화합물·가스·기초무기화합물·무기안료·합성염료/유연제/기타착색제·비료/질소화합물·의료용 물질/의약품·그 밖의 화학제품·탄화시설·화학섬유 제조시설",
+      "subFacility": "반응시설",
+      "materialType": "제품",
+      "material": "나이론 칩",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 0.0453
+        },
+        "황산화물": null,
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/나일론칩 생산량(ton)",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": "생산량"
+      }
+    },
+    {
+      "id": "annex2-042",
+      "airFacilityRefs": [
+        "8)",
+        "9)",
+        "10)",
+        "11)",
+        "12)",
+        "13)",
+        "14)",
+        "15)",
+        "16)",
+        "17)"
+      ],
+      "facilityGroup": "기초유기화합물·가스·기초무기화합물·무기안료·합성염료/유연제/기타착색제·비료/질소화합물·의료용 물질/의약품·그 밖의 화학제품·탄화시설·화학섬유 제조시설",
+      "subFacility": "반응시설",
+      "materialType": "원료",
+      "material": "마그네슘실리게이트(MgSiO2)",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 2.16
+        },
+        "황산화물": null,
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/마그네슘실리게이트 사용량(ton)",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": "사용량"
+      }
+    },
+    {
+      "id": "annex2-043",
+      "airFacilityRefs": [
+        "8)",
+        "9)",
+        "10)",
+        "11)",
+        "12)",
+        "13)",
+        "14)",
+        "15)",
+        "16)",
+        "17)"
+      ],
+      "facilityGroup": "기초유기화합물·가스·기초무기화합물·무기안료·합성염료/유연제/기타착색제·비료/질소화합물·의료용 물질/의약품·그 밖의 화학제품·탄화시설·화학섬유 제조시설",
+      "subFacility": "반응시설",
+      "materialType": "제품",
+      "material": "반수 및 이수석고",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 0.0697
+        },
+        "황산화물": null,
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/인산생산량(ton)",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": "생산량"
+      }
+    },
+    {
+      "id": "annex2-044",
+      "airFacilityRefs": [
+        "8)",
+        "9)",
+        "10)",
+        "11)",
+        "12)",
+        "13)",
+        "14)",
+        "15)",
+        "16)",
+        "17)"
+      ],
+      "facilityGroup": "기초유기화합물·가스·기초무기화합물·무기안료·합성염료/유연제/기타착색제·비료/질소화합물·의료용 물질/의약품·그 밖의 화학제품·탄화시설·화학섬유 제조시설",
+      "subFacility": "반응시설",
+      "materialType": "제품",
+      "material": "이산화티타늄",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 0.2266
+        },
+        "황산화물": {
+          "type": "constant",
+          "value": 0.56
+        },
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/이산화티타늄 생산량(ton)",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": "생산량"
+      }
+    },
+    {
+      "id": "annex2-045",
+      "airFacilityRefs": [
+        "8)",
+        "9)",
+        "10)",
+        "11)",
+        "12)",
+        "13)",
+        "14)",
+        "15)",
+        "16)",
+        "17)"
+      ],
+      "facilityGroup": "기초유기화합물·가스·기초무기화합물·무기안료·합성염료/유연제/기타착색제·비료/질소화합물·의료용 물질/의약품·그 밖의 화학제품·탄화시설·화학섬유 제조시설",
+      "subFacility": "반응시설",
+      "materialType": "제품",
+      "material": "정제 인산",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 0.0313
+        },
+        "황산화물": null,
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/제품생산량(ton)",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": "생산량"
+      }
+    },
+    {
+      "id": "annex2-046",
+      "airFacilityRefs": [
+        "8)",
+        "9)",
+        "10)",
+        "11)",
+        "12)",
+        "13)",
+        "14)",
+        "15)",
+        "16)",
+        "17)"
+      ],
+      "facilityGroup": "기초유기화합물·가스·기초무기화합물·무기안료·합성염료/유연제/기타착색제·비료/질소화합물·의료용 물질/의약품·그 밖의 화학제품·탄화시설·화학섬유 제조시설",
+      "subFacility": "반응시설",
+      "materialType": "제품",
+      "material": "초안",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 0.148
+        },
+        "황산화물": null,
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/초안생산량(ton)",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": "생산량"
+      }
+    },
+    {
+      "id": "annex2-047",
+      "airFacilityRefs": [
+        "8)",
+        "9)",
+        "10)",
+        "11)",
+        "12)",
+        "13)",
+        "14)",
+        "15)",
+        "16)",
+        "17)"
+      ],
+      "facilityGroup": "기초유기화합물·가스·기초무기화합물·무기안료·합성염료/유연제/기타착색제·비료/질소화합물·의료용 물질/의약품·그 밖의 화학제품·탄화시설·화학섬유 제조시설",
+      "subFacility": "반응시설",
+      "materialType": "원료",
+      "material": "폐가성소다",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 0.0208
+        },
+        "황산화물": {
+          "type": "constant",
+          "value": 0.0208
+        },
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/폐가성소다처리량(ton)",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": "처리량"
+      }
+    },
+    {
+      "id": "annex2-048",
+      "airFacilityRefs": [
+        "8)",
+        "9)",
+        "10)",
+        "11)",
+        "12)",
+        "13)",
+        "14)",
+        "15)",
+        "16)",
+        "17)"
+      ],
+      "facilityGroup": "기초유기화합물·가스·기초무기화합물·무기안료·합성염료/유연제/기타착색제·비료/질소화합물·의료용 물질/의약품·그 밖의 화학제품·탄화시설·화학섬유 제조시설",
+      "subFacility": "반응시설",
+      "materialType": "제품",
+      "material": "폴리에스터 칩",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 0.0084
+        },
+        "황산화물": null,
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/폴리에스터칩생산량(ton)",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": "생산량"
+      }
+    },
+    {
+      "id": "annex2-049",
+      "airFacilityRefs": [
+        "8)",
+        "9)",
+        "10)",
+        "11)",
+        "12)",
+        "13)",
+        "14)",
+        "15)",
+        "16)",
+        "17)"
+      ],
+      "facilityGroup": "기초유기화합물·가스·기초무기화합물·무기안료·합성염료/유연제/기타착색제·비료/질소화합물·의료용 물질/의약품·그 밖의 화학제품·탄화시설·화학섬유 제조시설",
+      "subFacility": "반응시설",
+      "materialType": "제품",
+      "material": "폴리에틸렌",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 0.0057
+        },
+        "황산화물": null,
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/폴리에틸렌생산량(ton)",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": "생산량"
+      }
+    },
+    {
+      "id": "annex2-050",
+      "airFacilityRefs": [
+        "8)",
+        "9)",
+        "10)",
+        "11)",
+        "12)",
+        "13)",
+        "14)",
+        "15)",
+        "16)",
+        "17)"
+      ],
+      "facilityGroup": "기초유기화합물·가스·기초무기화합물·무기안료·합성염료/유연제/기타착색제·비료/질소화합물·의료용 물질/의약품·그 밖의 화학제품·탄화시설·화학섬유 제조시설",
+      "subFacility": "반응시설",
+      "materialType": "제품",
+      "material": "황산",
+      "factors": {
+        "먼지": null,
+        "황산화물": {
+          "type": "constant",
+          "value": 0.8988
+        },
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/프탈로시아닌안료의 원료(blue유도체)생산량(ton)",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": "생산량"
+      }
+    },
+    {
+      "id": "annex2-051",
+      "airFacilityRefs": [
+        "8)",
+        "9)",
+        "10)",
+        "11)",
+        "12)",
+        "13)",
+        "14)",
+        "15)",
+        "16)",
+        "17)"
+      ],
+      "facilityGroup": "기초유기화합물·가스·기초무기화합물·무기안료·합성염료/유연제/기타착색제·비료/질소화합물·의료용 물질/의약품·그 밖의 화학제품·탄화시설·화학섬유 제조시설",
+      "subFacility": "반응시설",
+      "materialType": "제품",
+      "material": "유황",
+      "factors": {
+        "먼지": null,
+        "황산화물": {
+          "type": "constant",
+          "value": 0.3735
+        },
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/황산생산량(ton)",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": "생산량"
+      }
+    },
+    {
+      "id": "annex2-052",
+      "airFacilityRefs": [
+        "8)",
+        "9)",
+        "10)",
+        "11)",
+        "12)",
+        "13)",
+        "14)",
+        "15)",
+        "16)",
+        "17)"
+      ],
+      "facilityGroup": "기초유기화합물·가스·기초무기화합물·무기안료·합성염료/유연제/기타착색제·비료/질소화합물·의료용 물질/의약품·그 밖의 화학제품·탄화시설·화학섬유 제조시설",
+      "subFacility": "반응시설",
+      "materialType": "제품",
+      "material": "차아황산소다",
+      "factors": {
+        "먼지": null,
+        "황산화물": {
+          "type": "constant",
+          "value": 0.0768
+        },
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/차아황산소다생산량(ton)",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": "생산량"
+      }
+    },
+    {
+      "id": "annex2-053",
+      "airFacilityRefs": [
+        "8)",
+        "9)",
+        "10)",
+        "11)",
+        "12)",
+        "13)",
+        "14)",
+        "15)",
+        "16)",
+        "17)"
+      ],
+      "facilityGroup": "기초유기화합물·가스·기초무기화합물·무기안료·합성염료/유연제/기타착색제·비료/질소화합물·의료용 물질/의약품·그 밖의 화학제품·탄화시설·화학섬유 제조시설",
+      "subFacility": "반응시설",
+      "materialType": "제품",
+      "material": "Nitro Toluene (DNT+MNT) 제품",
+      "factors": {
+        "먼지": null,
+        "황산화물": null,
+        "질소산화물": {
+          "type": "constant",
+          "value": 0.0688
+        }
+      },
+      "unit": {
+        "raw": "kg/nitrotoluene생산량(ton)",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": "생산량"
+      }
+    },
+    {
+      "id": "annex2-054",
+      "airFacilityRefs": [
+        "8)",
+        "9)",
+        "10)",
+        "11)",
+        "12)",
+        "13)",
+        "14)",
+        "15)",
+        "16)",
+        "17)"
+      ],
+      "facilityGroup": "기초유기화합물·가스·기초무기화합물·무기안료·합성염료/유연제/기타착색제·비료/질소화합물·의료용 물질/의약품·그 밖의 화학제품·탄화시설·화학섬유 제조시설",
+      "subFacility": "반응시설",
+      "materialType": "제품",
+      "material": "다이나마이트 제품",
+      "factors": {
+        "먼지": null,
+        "황산화물": null,
+        "질소산화물": {
+          "type": "constant",
+          "value": 0.0028
+        }
+      },
+      "unit": {
+        "raw": "kg/다이너마이트생산량(ton)",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": "생산량"
+      }
+    },
+    {
+      "id": "annex2-055",
+      "airFacilityRefs": [
+        "8)",
+        "9)",
+        "10)",
+        "11)",
+        "12)",
+        "13)",
+        "14)",
+        "15)",
+        "16)",
+        "17)"
+      ],
+      "facilityGroup": "기초유기화합물·가스·기초무기화합물·무기안료·합성염료/유연제/기타착색제·비료/질소화합물·의료용 물질/의약품·그 밖의 화학제품·탄화시설·화학섬유 제조시설",
+      "subFacility": "반응시설",
+      "materialType": "제품",
+      "material": "헥소겐(RDX)-싸이클로트리메칠렌트리니트라민 제품",
+      "factors": {
+        "먼지": null,
+        "황산화물": null,
+        "질소산화물": {
+          "type": "constant",
+          "value": 0.7982
+        }
+      },
+      "unit": {
+        "raw": "kg/RDX생산량(ton)",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": "생산량"
+      }
+    },
+    {
+      "id": "annex2-056",
+      "airFacilityRefs": [
+        "8)",
+        "9)",
+        "10)",
+        "11)",
+        "12)",
+        "13)",
+        "14)",
+        "15)",
+        "16)",
+        "17)"
+      ],
+      "facilityGroup": "기초유기화합물·가스·기초무기화합물·무기안료·합성염료/유연제/기타착색제·비료/질소화합물·의료용 물질/의약품·그 밖의 화학제품·탄화시설·화학섬유 제조시설",
+      "subFacility": "반응시설",
+      "materialType": "제품",
+      "material": "톨루이딘 제품",
+      "factors": {
+        "먼지": null,
+        "황산화물": null,
+        "질소산화물": {
+          "type": "constant",
+          "value": 0.015
+        }
+      },
+      "unit": {
+        "raw": "kg/톨루이딘생산량(ton)",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": "생산량"
+      }
+    },
+    {
+      "id": "annex2-057",
+      "airFacilityRefs": [
+        "8)",
+        "9)",
+        "10)",
+        "11)",
+        "12)",
+        "13)",
+        "14)",
+        "15)",
+        "16)",
+        "17)"
+      ],
+      "facilityGroup": "기초유기화합물·가스·기초무기화합물·무기안료·합성염료/유연제/기타착색제·비료/질소화합물·의료용 물질/의약품·그 밖의 화학제품·탄화시설·화학섬유 제조시설",
+      "subFacility": "반응시설",
+      "materialType": "제품",
+      "material": "디아조니트로페놀(DDNP) 원료",
+      "factors": {
+        "먼지": null,
+        "황산화물": null,
+        "질소산화물": {
+          "type": "constant",
+          "value": 1.0
+        }
+      },
+      "unit": {
+        "raw": "kg/DDNP생산량(ton)",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": "생산량"
+      }
+    },
+    {
+      "id": "annex2-058",
+      "airFacilityRefs": [
+        "8)",
+        "9)",
+        "10)",
+        "11)",
+        "12)",
+        "13)",
+        "14)",
+        "15)",
+        "16)",
+        "17)"
+      ],
+      "facilityGroup": "기초유기화합물·가스·기초무기화합물·무기안료·합성염료/유연제/기타착색제·비료/질소화합물·의료용 물질/의약품·그 밖의 화학제품·탄화시설·화학섬유 제조시설",
+      "subFacility": "반응시설(산화·환원)",
+      "materialType": "제품",
+      "material": "마그네틱테이프용 산화철",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 0.0677
+        },
+        "황산화물": null,
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/산화철생산량(ton)",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": "생산량"
+      }
+    },
+    {
+      "id": "annex2-059",
+      "airFacilityRefs": [
+        "8)",
+        "9)",
+        "10)",
+        "11)",
+        "12)",
+        "13)",
+        "14)",
+        "15)",
+        "16)",
+        "17)"
+      ],
+      "facilityGroup": "기초유기화합물·가스·기초무기화합물·무기안료·합성염료/유연제/기타착색제·비료/질소화합물·의료용 물질/의약품·그 밖의 화학제품·탄화시설·화학섬유 제조시설",
+      "subFacility": "반응시설(짝지움 반응)",
+      "materialType": "제품",
+      "material": "아조계안료(용해성)",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 0.1168
+        },
+        "황산화물": null,
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/아조계안료 생산량(ton)",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": "생산량"
+      }
+    },
+    {
+      "id": "annex2-060",
+      "airFacilityRefs": [
+        "8)",
+        "9)",
+        "10)",
+        "11)",
+        "12)",
+        "13)",
+        "14)",
+        "15)",
+        "16)",
+        "17)"
+      ],
+      "facilityGroup": "기초유기화합물·가스·기초무기화합물·무기안료·합성염료/유연제/기타착색제·비료/질소화합물·의료용 물질/의약품·그 밖의 화학제품·탄화시설·화학섬유 제조시설",
+      "subFacility": "반응시설(Diazo 반응)",
+      "materialType": "제품",
+      "material": "아조계안료(용해성)",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 0.0187
+        },
+        "황산화물": null,
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/아조계안료 생산량(ton)",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": "생산량"
+      }
+    },
+    {
+      "id": "annex2-061",
+      "airFacilityRefs": [
+        "8)",
+        "9)",
+        "10)",
+        "11)",
+        "12)",
+        "13)",
+        "14)",
+        "15)",
+        "16)",
+        "17)"
+      ],
+      "facilityGroup": "기초유기화합물·가스·기초무기화합물·무기안료·합성염료/유연제/기타착색제·비료/질소화합물·의료용 물질/의약품·그 밖의 화학제품·탄화시설·화학섬유 제조시설",
+      "subFacility": "소성시설",
+      "materialType": "제품",
+      "material": "이산화티타늄",
+      "factors": {
+        "먼지": null,
+        "황산화물": null,
+        "질소산화물": {
+          "type": "constant",
+          "value": 1.135
+        }
+      },
+      "unit": {
+        "raw": "kg/이산화티타늄 생산량(ton)",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": "생산량"
+      }
+    },
+    {
+      "id": "annex2-062",
+      "airFacilityRefs": [
+        "8)",
+        "9)",
+        "10)",
+        "11)",
+        "12)",
+        "13)",
+        "14)",
+        "15)",
+        "16)",
+        "17)"
+      ],
+      "facilityGroup": "기초유기화합물·가스·기초무기화합물·무기안료·합성염료/유연제/기타착색제·비료/질소화합물·의료용 물질/의약품·그 밖의 화학제품·탄화시설·화학섬유 제조시설",
+      "subFacility": "응축시설",
+      "materialType": "제품",
+      "material": "농질산",
+      "factors": {
+        "먼지": null,
+        "황산화물": null,
+        "질소산화물": {
+          "type": "constant",
+          "value": 0.0008
+        }
+      },
+      "unit": {
+        "raw": "kg/농질산생산량(ton)",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": "생산량"
+      }
+    },
+    {
+      "id": "annex2-063",
+      "airFacilityRefs": [
+        "8)",
+        "9)",
+        "10)",
+        "11)",
+        "12)",
+        "13)",
+        "14)",
+        "15)",
+        "16)",
+        "17)"
+      ],
+      "facilityGroup": "기초유기화합물·가스·기초무기화합물·무기안료·합성염료/유연제/기타착색제·비료/질소화합물·의료용 물질/의약품·그 밖의 화학제품·탄화시설·화학섬유 제조시설",
+      "subFacility": "응축시설",
+      "materialType": "제품",
+      "material": "헥소겐(RDX)-싸이클로트리메틸렌트리니트라민",
+      "factors": {
+        "먼지": null,
+        "황산화물": null,
+        "질소산화물": {
+          "type": "constant",
+          "value": 0.5709
+        }
+      },
+      "unit": {
+        "raw": "kg/RDX생산량(ton)",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": "생산량"
+      }
+    },
+    {
+      "id": "annex2-064",
+      "airFacilityRefs": [
+        "8)",
+        "9)",
+        "10)",
+        "11)",
+        "12)",
+        "13)",
+        "14)",
+        "15)",
+        "16)",
+        "17)"
+      ],
+      "facilityGroup": "기초유기화합물·가스·기초무기화합물·무기안료·합성염료/유연제/기타착색제·비료/질소화합물·의료용 물질/의약품·그 밖의 화학제품·탄화시설·화학섬유 제조시설",
+      "subFacility": "방사시설",
+      "materialType": "제품",
+      "material": "폴리에스터 필라멘트",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 0.0498
+        },
+        "황산화물": null,
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/폴리에스터필라멘트생산량(ton)",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": "생산량"
+      }
+    },
+    {
+      "id": "annex2-065",
+      "airFacilityRefs": [
+        "8)",
+        "9)",
+        "10)",
+        "11)",
+        "12)",
+        "13)",
+        "14)",
+        "15)",
+        "16)",
+        "17)"
+      ],
+      "facilityGroup": "기초유기화합물·가스·기초무기화합물·무기안료·합성염료/유연제/기타착색제·비료/질소화합물·의료용 물질/의약품·그 밖의 화학제품·탄화시설·화학섬유 제조시설",
+      "subFacility": "분쇄시설",
+      "materialType": "제품",
+      "material": "구리안료(베타형)",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 0.965
+        },
+        "황산화물": null,
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/Copper 프탈로시아닌 안료(Blue)-β형(ton)",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": "생산량",
+        "_basisInferred": true
+      }
+    },
+    {
+      "id": "annex2-066",
+      "airFacilityRefs": [
+        "8)",
+        "9)",
+        "10)",
+        "11)",
+        "12)",
+        "13)",
+        "14)",
+        "15)",
+        "16)",
+        "17)"
+      ],
+      "facilityGroup": "기초유기화합물·가스·기초무기화합물·무기안료·합성염료/유연제/기타착색제·비료/질소화합물·의료용 물질/의약품·그 밖의 화학제품·탄화시설·화학섬유 제조시설",
+      "subFacility": "분쇄시설",
+      "materialType": "제품",
+      "material": "구리안료(알파형)",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 4.227
+        },
+        "황산화물": null,
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/Copper 프탈로시아닌 안료(Blue)-α형생산량(ton)",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": "생산량"
+      }
+    },
+    {
+      "id": "annex2-067",
+      "airFacilityRefs": [
+        "8)",
+        "9)",
+        "10)",
+        "11)",
+        "12)",
+        "13)",
+        "14)",
+        "15)",
+        "16)",
+        "17)"
+      ],
+      "facilityGroup": "기초유기화합물·가스·기초무기화합물·무기안료·합성염료/유연제/기타착색제·비료/질소화합물·의료용 물질/의약품·그 밖의 화학제품·탄화시설·화학섬유 제조시설",
+      "subFacility": "분쇄시설",
+      "materialType": "제품",
+      "material": "농약(입제)",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 0.1988
+        },
+        "황산화물": null,
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/제품생산량(ton)",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": "생산량"
+      }
+    },
+    {
+      "id": "annex2-068",
+      "airFacilityRefs": [
+        "8)",
+        "9)",
+        "10)",
+        "11)",
+        "12)",
+        "13)",
+        "14)",
+        "15)",
+        "16)",
+        "17)"
+      ],
+      "facilityGroup": "기초유기화합물·가스·기초무기화합물·무기안료·합성염료/유연제/기타착색제·비료/질소화합물·의료용 물질/의약품·그 밖의 화학제품·탄화시설·화학섬유 제조시설",
+      "subFacility": "분쇄시설",
+      "materialType": "제품",
+      "material": "복합비료",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 0.1573
+        },
+        "황산화물": null,
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/제품생산량(ton)",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": "생산량"
+      }
+    },
+    {
+      "id": "annex2-069",
+      "airFacilityRefs": [
+        "8)",
+        "9)",
+        "10)",
+        "11)",
+        "12)",
+        "13)",
+        "14)",
+        "15)",
+        "16)",
+        "17)"
+      ],
+      "facilityGroup": "기초유기화합물·가스·기초무기화합물·무기안료·합성염료/유연제/기타착색제·비료/질소화합물·의료용 물질/의약품·그 밖의 화학제품·탄화시설·화학섬유 제조시설",
+      "subFacility": "분쇄시설",
+      "materialType": "제품",
+      "material": "분말세제",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 0.0913
+        },
+        "황산화물": null,
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/분말세제 생산량(ton)",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": "생산량"
+      }
+    },
+    {
+      "id": "annex2-070",
+      "airFacilityRefs": [
+        "8)",
+        "9)",
+        "10)",
+        "11)",
+        "12)",
+        "13)",
+        "14)",
+        "15)",
+        "16)",
+        "17)"
+      ],
+      "facilityGroup": "기초유기화합물·가스·기초무기화합물·무기안료·합성염료/유연제/기타착색제·비료/질소화합물·의료용 물질/의약품·그 밖의 화학제품·탄화시설·화학섬유 제조시설",
+      "subFacility": "분쇄시설",
+      "materialType": "제품",
+      "material": "분체도료",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 1.921
+        },
+        "황산화물": null,
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/제품페인트생산량(ton)",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": "생산량"
+      }
+    },
+    {
+      "id": "annex2-071",
+      "airFacilityRefs": [
+        "8)",
+        "9)",
+        "10)",
+        "11)",
+        "12)",
+        "13)",
+        "14)",
+        "15)",
+        "16)",
+        "17)"
+      ],
+      "facilityGroup": "기초유기화합물·가스·기초무기화합물·무기안료·합성염료/유연제/기타착색제·비료/질소화합물·의료용 물질/의약품·그 밖의 화학제품·탄화시설·화학섬유 제조시설",
+      "subFacility": "분쇄시설",
+      "materialType": "제품",
+      "material": "Copper 프탈로시아닌안료",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 0.3205
+        },
+        "황산화물": null,
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/Halogen화 Copper 프탈로시아닌안료(Green) 생산량(ton)",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": "생산량"
+      }
+    },
+    {
+      "id": "annex2-072",
+      "airFacilityRefs": [
+        "8)",
+        "9)",
+        "10)",
+        "11)",
+        "12)",
+        "13)",
+        "14)",
+        "15)",
+        "16)",
+        "17)"
+      ],
+      "facilityGroup": "기초유기화합물·가스·기초무기화합물·무기안료·합성염료/유연제/기타착색제·비료/질소화합물·의료용 물질/의약품·그 밖의 화학제품·탄화시설·화학섬유 제조시설",
+      "subFacility": "분쇄시설",
+      "materialType": "제품",
+      "material": "아조계안료(용해성)",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 7.613
+        },
+        "황산화물": null,
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/아조계안료 생산량(ton)",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": "생산량"
+      }
+    },
+    {
+      "id": "annex2-073",
+      "airFacilityRefs": [
+        "8)",
+        "9)",
+        "10)",
+        "11)",
+        "12)",
+        "13)",
+        "14)",
+        "15)",
+        "16)",
+        "17)"
+      ],
+      "facilityGroup": "기초유기화합물·가스·기초무기화합물·무기안료·합성염료/유연제/기타착색제·비료/질소화합물·의료용 물질/의약품·그 밖의 화학제품·탄화시설·화학섬유 제조시설",
+      "subFacility": "분쇄시설",
+      "materialType": "제품",
+      "material": "카프로락탐",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 0.0194
+        },
+        "황산화물": null,
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/나일론칩 생산량(ton)",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": "생산량"
+      }
+    },
+    {
+      "id": "annex2-074",
+      "airFacilityRefs": [
+        "8)",
+        "9)",
+        "10)",
+        "11)",
+        "12)",
+        "13)",
+        "14)",
+        "15)",
+        "16)",
+        "17)"
+      ],
+      "facilityGroup": "기초유기화합물·가스·기초무기화합물·무기안료·합성염료/유연제/기타착색제·비료/질소화합물·의료용 물질/의약품·그 밖의 화학제품·탄화시설·화학섬유 제조시설",
+      "subFacility": "분쇄시설",
+      "materialType": "제품",
+      "material": "트리메틸올프로판",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 0.0023
+        },
+        "황산화물": null,
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/트리메틸올프로판 생산량(ton)",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": "생산량"
+      }
+    },
+    {
+      "id": "annex2-075",
+      "airFacilityRefs": [
+        "8)",
+        "9)",
+        "10)",
+        "11)",
+        "12)",
+        "13)",
+        "14)",
+        "15)",
+        "16)",
+        "17)"
+      ],
+      "facilityGroup": "기초유기화합물·가스·기초무기화합물·무기안료·합성염료/유연제/기타착색제·비료/질소화합물·의료용 물질/의약품·그 밖의 화학제품·탄화시설·화학섬유 제조시설",
+      "subFacility": "분쇄시설",
+      "materialType": "제품",
+      "material": "EPOXY수지",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 0.004
+        },
+        "황산화물": null,
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/제품페인트생산량(ton)",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": "생산량"
+      }
+    },
+    {
+      "id": "annex2-076",
+      "airFacilityRefs": [
+        "8)",
+        "9)",
+        "10)",
+        "11)",
+        "12)",
+        "13)",
+        "14)",
+        "15)",
+        "16)",
+        "17)"
+      ],
+      "facilityGroup": "기초유기화합물·가스·기초무기화합물·무기안료·합성염료/유연제/기타착색제·비료/질소화합물·의료용 물질/의약품·그 밖의 화학제품·탄화시설·화학섬유 제조시설",
+      "subFacility": "분쇄시설",
+      "materialType": "제품",
+      "material": "Salt/Diethyl Glycol",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 0.0423
+        },
+        "황산화물": null,
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/salt,Diethyl Glycol 회수량(ton)",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": "회수량"
+      }
+    },
+    {
+      "id": "annex2-077",
+      "airFacilityRefs": [
+        "8)",
+        "9)",
+        "10)",
+        "11)",
+        "12)",
+        "13)",
+        "14)",
+        "15)",
+        "16)",
+        "17)"
+      ],
+      "facilityGroup": "기초유기화합물·가스·기초무기화합물·무기안료·합성염료/유연제/기타착색제·비료/질소화합물·의료용 물질/의약품·그 밖의 화학제품·탄화시설·화학섬유 제조시설",
+      "subFacility": "분쇄시설",
+      "materialType": "제품",
+      "material": "인산칼슘(반제품)",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 0.0539
+        },
+        "황산화물": null,
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/인산칼슘생산량(ton)",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": "생산량"
+      }
+    },
+    {
+      "id": "annex2-078",
+      "airFacilityRefs": [
+        "8)",
+        "9)",
+        "10)",
+        "11)",
+        "12)",
+        "13)",
+        "14)",
+        "15)",
+        "16)",
+        "17)"
+      ],
+      "facilityGroup": "기초유기화합물·가스·기초무기화합물·무기안료·합성염료/유연제/기타착색제·비료/질소화합물·의료용 물질/의약품·그 밖의 화학제품·탄화시설·화학섬유 제조시설",
+      "subFacility": "분쇄시설",
+      "materialType": "제품",
+      "material": "이산화티타늄(제품)",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 0.1138
+        },
+        "황산화물": null,
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/이산화티타늄 생산량(ton)",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": "생산량"
+      }
+    },
+    {
+      "id": "annex2-079",
+      "airFacilityRefs": [
+        "8)",
+        "9)",
+        "10)",
+        "11)",
+        "12)",
+        "13)",
+        "14)",
+        "15)",
+        "16)",
+        "17)"
+      ],
+      "facilityGroup": "기초유기화합물·가스·기초무기화합물·무기안료·합성염료/유연제/기타착색제·비료/질소화합물·의료용 물질/의약품·그 밖의 화학제품·탄화시설·화학섬유 제조시설",
+      "subFacility": "분쇄시설",
+      "materialType": "제품",
+      "material": "티타늄원광석",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 0.45
+        },
+        "황산화물": null,
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/이산화티타늄 생산량(ton)",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": "생산량"
+      }
+    },
+    {
+      "id": "annex2-080",
+      "airFacilityRefs": [
+        "8)",
+        "9)",
+        "10)",
+        "11)",
+        "12)",
+        "13)",
+        "14)",
+        "15)",
+        "16)",
+        "17)"
+      ],
+      "facilityGroup": "기초유기화합물·가스·기초무기화합물·무기안료·합성염료/유연제/기타착색제·비료/질소화합물·의료용 물질/의약품·그 밖의 화학제품·탄화시설·화학섬유 제조시설",
+      "subFacility": "분쇄시설",
+      "materialType": "제품",
+      "material": "인산칼슘(원료)",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 0.0522
+        },
+        "황산화물": null,
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/인산칼슘생산량(ton)",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": "생산량"
+      }
+    },
+    {
+      "id": "annex2-081",
+      "airFacilityRefs": [
+        "8)",
+        "9)",
+        "10)",
+        "11)",
+        "12)",
+        "13)",
+        "14)",
+        "15)",
+        "16)",
+        "17)"
+      ],
+      "facilityGroup": "기초유기화합물·가스·기초무기화합물·무기안료·합성염료/유연제/기타착색제·비료/질소화합물·의료용 물질/의약품·그 밖의 화학제품·탄화시설·화학섬유 제조시설",
+      "subFacility": "분쇄시설(용융혼련)",
+      "materialType": "제품",
+      "material": "페인트(EMC도료)",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 0.2778
+        },
+        "황산화물": null,
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/제품페인트생산량(ton)",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": "생산량"
+      }
+    },
+    {
+      "id": "annex2-082",
+      "airFacilityRefs": [
+        "8)",
+        "9)",
+        "10)",
+        "11)",
+        "12)",
+        "13)",
+        "14)",
+        "15)",
+        "16)",
+        "17)"
+      ],
+      "facilityGroup": "기초유기화합물·가스·기초무기화합물·무기안료·합성염료/유연제/기타착색제·비료/질소화합물·의료용 물질/의약품·그 밖의 화학제품·탄화시설·화학섬유 제조시설",
+      "subFacility": "분쇄시설(원료)",
+      "materialType": "제품",
+      "material": "페인트(EMC도료)",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 0.0139
+        },
+        "황산화물": null,
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/제품페인트생산량(ton)",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": "생산량"
+      }
+    },
+    {
+      "id": "annex2-083",
+      "airFacilityRefs": [
+        "8)",
+        "9)",
+        "10)",
+        "11)",
+        "12)",
+        "13)",
+        "14)",
+        "15)",
+        "16)",
+        "17)"
+      ],
+      "facilityGroup": "기초유기화합물·가스·기초무기화합물·무기안료·합성염료/유연제/기타착색제·비료/질소화합물·의료용 물질/의약품·그 밖의 화학제품·탄화시설·화학섬유 제조시설",
+      "subFacility": "분쇄시설(포장)",
+      "materialType": "제품",
+      "material": "트리메틸올프로판",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 0.0466
+        },
+        "황산화물": null,
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/트리메틸올프로판생산량(ton)",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": "생산량"
+      }
+    },
+    {
+      "id": "annex2-084",
+      "airFacilityRefs": [
+        "8)",
+        "9)",
+        "10)",
+        "11)",
+        "12)",
+        "13)",
+        "14)",
+        "15)",
+        "16)",
+        "17)"
+      ],
+      "facilityGroup": "기초유기화합물·가스·기초무기화합물·무기안료·합성염료/유연제/기타착색제·비료/질소화합물·의료용 물질/의약품·그 밖의 화학제품·탄화시설·화학섬유 제조시설",
+      "subFacility": "선별시설",
+      "materialType": "제품",
+      "material": "농약(수화제)",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 1.522
+        },
+        "황산화물": null,
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/제품생산량(ton)",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": "생산량"
+      }
+    },
+    {
+      "id": "annex2-085",
+      "airFacilityRefs": [
+        "8)",
+        "9)",
+        "10)",
+        "11)",
+        "12)",
+        "13)",
+        "14)",
+        "15)",
+        "16)",
+        "17)"
+      ],
+      "facilityGroup": "기초유기화합물·가스·기초무기화합물·무기안료·합성염료/유연제/기타착색제·비료/질소화합물·의료용 물질/의약품·그 밖의 화학제품·탄화시설·화학섬유 제조시설",
+      "subFacility": "선별시설",
+      "materialType": "제품",
+      "material": "농약(입제)",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 0.03
+        },
+        "황산화물": null,
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/제품생산량(ton)",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": "생산량"
+      }
+    },
+    {
+      "id": "annex2-086",
+      "airFacilityRefs": [
+        "8)",
+        "9)",
+        "10)",
+        "11)",
+        "12)",
+        "13)",
+        "14)",
+        "15)",
+        "16)",
+        "17)"
+      ],
+      "facilityGroup": "기초유기화합물·가스·기초무기화합물·무기안료·합성염료/유연제/기타착색제·비료/질소화합물·의료용 물질/의약품·그 밖의 화학제품·탄화시설·화학섬유 제조시설",
+      "subFacility": "선별시설",
+      "materialType": "제품",
+      "material": "분말세제",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 0.0468
+        },
+        "황산화물": null,
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/분말세제 생산량(ton)",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": "생산량"
+      }
+    },
+    {
+      "id": "annex2-087",
+      "airFacilityRefs": [
+        "8)",
+        "9)",
+        "10)",
+        "11)",
+        "12)",
+        "13)",
+        "14)",
+        "15)",
+        "16)",
+        "17)"
+      ],
+      "facilityGroup": "기초유기화합물·가스·기초무기화합물·무기안료·합성염료/유연제/기타착색제·비료/질소화합물·의료용 물질/의약품·그 밖의 화학제품·탄화시설·화학섬유 제조시설",
+      "subFacility": "선별시설",
+      "materialType": "제품",
+      "material": "인산칼슘",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 0.2042
+        },
+        "황산화물": null,
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/인산칼슘생산량(ton)",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": "생산량"
+      }
+    },
+    {
+      "id": "annex2-088",
+      "airFacilityRefs": [
+        "8)",
+        "9)",
+        "10)",
+        "11)",
+        "12)",
+        "13)",
+        "14)",
+        "15)",
+        "16)",
+        "17)"
+      ],
+      "facilityGroup": "기초유기화합물·가스·기초무기화합물·무기안료·합성염료/유연제/기타착색제·비료/질소화합물·의료용 물질/의약품·그 밖의 화학제품·탄화시설·화학섬유 제조시설",
+      "subFacility": "선별시설",
+      "materialType": "제품",
+      "material": "정제",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 7.8875
+        },
+        "황산화물": null,
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/정제류생산량(ton)",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": "생산량"
+      }
+    },
+    {
+      "id": "annex2-089",
+      "airFacilityRefs": [
+        "8)",
+        "9)",
+        "10)",
+        "11)",
+        "12)",
+        "13)",
+        "14)",
+        "15)",
+        "16)",
+        "17)"
+      ],
+      "facilityGroup": "기초유기화합물·가스·기초무기화합물·무기안료·합성염료/유연제/기타착색제·비료/질소화합물·의료용 물질/의약품·그 밖의 화학제품·탄화시설·화학섬유 제조시설",
+      "subFacility": "선별시설",
+      "materialType": "제품",
+      "material": "캅셀",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 1.226
+        },
+        "황산화물": null,
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/캅셀류생산량(ton)",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": "생산량"
+      }
+    },
+    {
+      "id": "annex2-090",
+      "airFacilityRefs": [
+        "8)",
+        "9)",
+        "10)",
+        "11)",
+        "12)",
+        "13)",
+        "14)",
+        "15)",
+        "16)",
+        "17)"
+      ],
+      "facilityGroup": "기초유기화합물·가스·기초무기화합물·무기안료·합성염료/유연제/기타착색제·비료/질소화합물·의료용 물질/의약품·그 밖의 화학제품·탄화시설·화학섬유 제조시설",
+      "subFacility": "선별시설",
+      "materialType": "제품",
+      "material": "파우더(색조화장품)",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 1.49
+        },
+        "황산화물": null,
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/색조화장품(파우더)생산량(ton)",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": "생산량"
+      }
+    },
+    {
+      "id": "annex2-091",
+      "airFacilityRefs": [
+        "8)",
+        "9)",
+        "10)",
+        "11)",
+        "12)",
+        "13)",
+        "14)",
+        "15)",
+        "16)",
+        "17)"
+      ],
+      "facilityGroup": "기초유기화합물·가스·기초무기화합물·무기안료·합성염료/유연제/기타착색제·비료/질소화합물·의료용 물질/의약품·그 밖의 화학제품·탄화시설·화학섬유 제조시설",
+      "subFacility": "선별시설",
+      "materialType": "제품",
+      "material": "복합비료",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 0.3431
+        },
+        "황산화물": null,
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/제품생산량(ton)",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": "생산량"
+      }
+    },
+    {
+      "id": "annex2-092",
+      "airFacilityRefs": [
+        "8)",
+        "9)",
+        "10)",
+        "11)",
+        "12)",
+        "13)",
+        "14)",
+        "15)",
+        "16)",
+        "17)"
+      ],
+      "facilityGroup": "기초유기화합물·가스·기초무기화합물·무기안료·합성염료/유연제/기타착색제·비료/질소화합물·의료용 물질/의약품·그 밖의 화학제품·탄화시설·화학섬유 제조시설",
+      "subFacility": "정제시설",
+      "materialType": "제품",
+      "material": "과산화수소",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 0.0038
+        },
+        "황산화물": null,
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/과산화수소생산량(ton)",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": "생산량"
+      }
+    },
+    {
+      "id": "annex2-093",
+      "airFacilityRefs": [
+        "8)",
+        "9)",
+        "10)",
+        "11)",
+        "12)",
+        "13)",
+        "14)",
+        "15)",
+        "16)",
+        "17)"
+      ],
+      "facilityGroup": "기초유기화합물·가스·기초무기화합물·무기안료·합성염료/유연제/기타착색제·비료/질소화합물·의료용 물질/의약품·그 밖의 화학제품·탄화시설·화학섬유 제조시설",
+      "subFacility": "정제시설",
+      "materialType": "제품",
+      "material": "톨루이딘",
+      "factors": {
+        "먼지": null,
+        "황산화물": null,
+        "질소산화물": {
+          "type": "constant",
+          "value": 0.03
+        }
+      },
+      "unit": {
+        "raw": "kg/톨루이딘생산량(ton)",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": "생산량"
+      }
+    },
+    {
+      "id": "annex2-094",
+      "airFacilityRefs": [
+        "8)",
+        "9)",
+        "10)",
+        "11)",
+        "12)",
+        "13)",
+        "14)",
+        "15)",
+        "16)",
+        "17)"
+      ],
+      "facilityGroup": "기초유기화합물·가스·기초무기화합물·무기안료·합성염료/유연제/기타착색제·비료/질소화합물·의료용 물질/의약품·그 밖의 화학제품·탄화시설·화학섬유 제조시설",
+      "subFacility": "혼합시설",
+      "materialType": "제품",
+      "material": "고밀도폴리에틸렌",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 0.0008
+        },
+        "황산화물": null,
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/고밀도폴리에틸렌생산량(ton)",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": "생산량"
+      }
+    },
+    {
+      "id": "annex2-095",
+      "airFacilityRefs": [
+        "8)",
+        "9)",
+        "10)",
+        "11)",
+        "12)",
+        "13)",
+        "14)",
+        "15)",
+        "16)",
+        "17)"
+      ],
+      "facilityGroup": "기초유기화합물·가스·기초무기화합물·무기안료·합성염료/유연제/기타착색제·비료/질소화합물·의료용 물질/의약품·그 밖의 화학제품·탄화시설·화학섬유 제조시설",
+      "subFacility": "혼합시설",
+      "materialType": "제품",
+      "material": "과립",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 34.725
+        },
+        "황산화물": null,
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/과립생산량(ton)",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": "생산량"
+      }
+    },
+    {
+      "id": "annex2-096",
+      "airFacilityRefs": [
+        "8)",
+        "9)",
+        "10)",
+        "11)",
+        "12)",
+        "13)",
+        "14)",
+        "15)",
+        "16)",
+        "17)"
+      ],
+      "facilityGroup": "기초유기화합물·가스·기초무기화합물·무기안료·합성염료/유연제/기타착색제·비료/질소화합물·의료용 물질/의약품·그 밖의 화학제품·탄화시설·화학섬유 제조시설",
+      "subFacility": "혼합시설",
+      "materialType": "제품",
+      "material": "과산화벤조일",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 0.5637
+        },
+        "황산화물": null,
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/과산화벤조일생산량(ton)",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": "생산량"
+      }
+    },
+    {
+      "id": "annex2-097",
+      "airFacilityRefs": [
+        "8)",
+        "9)",
+        "10)",
+        "11)",
+        "12)",
+        "13)",
+        "14)",
+        "15)",
+        "16)",
+        "17)"
+      ],
+      "facilityGroup": "기초유기화합물·가스·기초무기화합물·무기안료·합성염료/유연제/기타착색제·비료/질소화합물·의료용 물질/의약품·그 밖의 화학제품·탄화시설·화학섬유 제조시설",
+      "subFacility": "혼합시설",
+      "materialType": "제품",
+      "material": "구리안료(베타형)",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 0.0867
+        },
+        "황산화물": null,
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/구리 프탈로시아닌 안료(Blue)-β형(ton)",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": "생산량",
+        "_basisInferred": true
+      }
+    },
+    {
+      "id": "annex2-098",
+      "airFacilityRefs": [
+        "8)",
+        "9)",
+        "10)",
+        "11)",
+        "12)",
+        "13)",
+        "14)",
+        "15)",
+        "16)",
+        "17)"
+      ],
+      "facilityGroup": "기초유기화합물·가스·기초무기화합물·무기안료·합성염료/유연제/기타착색제·비료/질소화합물·의료용 물질/의약품·그 밖의 화학제품·탄화시설·화학섬유 제조시설",
+      "subFacility": "혼합시설",
+      "materialType": "제품",
+      "material": "농약(수화제)",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 1.956
+        },
+        "황산화물": null,
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/제품생산량(ton)",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": "생산량"
+      }
+    },
+    {
+      "id": "annex2-099",
+      "airFacilityRefs": [
+        "8)",
+        "9)",
+        "10)",
+        "11)",
+        "12)",
+        "13)",
+        "14)",
+        "15)",
+        "16)",
+        "17)"
+      ],
+      "facilityGroup": "기초유기화합물·가스·기초무기화합물·무기안료·합성염료/유연제/기타착색제·비료/질소화합물·의료용 물질/의약품·그 밖의 화학제품·탄화시설·화학섬유 제조시설",
+      "subFacility": "혼합시설",
+      "materialType": "제품",
+      "material": "농약(입제)",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 1.0058
+        },
+        "황산화물": {
+          "type": "constant",
+          "value": 0.0652
+        },
+        "질소산화물": {
+          "type": "constant",
+          "value": 0.0974
+        }
+      },
+      "unit": {
+        "raw": "kg/제품생산량(ton)",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": "생산량"
+      }
+    },
+    {
+      "id": "annex2-100",
+      "airFacilityRefs": [
+        "8)",
+        "9)",
+        "10)",
+        "11)",
+        "12)",
+        "13)",
+        "14)",
+        "15)",
+        "16)",
+        "17)"
+      ],
+      "facilityGroup": "기초유기화합물·가스·기초무기화합물·무기안료·합성염료/유연제/기타착색제·비료/질소화합물·의료용 물질/의약품·그 밖의 화학제품·탄화시설·화학섬유 제조시설",
+      "subFacility": "혼합시설",
+      "materialType": "제품",
+      "material": "다이나마이트",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 0.0352
+        },
+        "황산화물": null,
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/다이너마이트생산량(ton)",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": "생산량"
+      }
+    },
+    {
+      "id": "annex2-101",
+      "airFacilityRefs": [
+        "8)",
+        "9)",
+        "10)",
+        "11)",
+        "12)",
+        "13)",
+        "14)",
+        "15)",
+        "16)",
+        "17)"
+      ],
+      "facilityGroup": "기초유기화합물·가스·기초무기화합물·무기안료·합성염료/유연제/기타착색제·비료/질소화합물·의료용 물질/의약품·그 밖의 화학제품·탄화시설·화학섬유 제조시설",
+      "subFacility": "혼합시설",
+      "materialType": "제품",
+      "material": "드링크류",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 0.9893
+        },
+        "황산화물": null,
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/드링크생산량(ton)",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": "생산량"
+      }
+    },
+    {
+      "id": "annex2-102",
+      "airFacilityRefs": [
+        "8)",
+        "9)",
+        "10)",
+        "11)",
+        "12)",
+        "13)",
+        "14)",
+        "15)",
+        "16)",
+        "17)"
+      ],
+      "facilityGroup": "기초유기화합물·가스·기초무기화합물·무기안료·합성염료/유연제/기타착색제·비료/질소화합물·의료용 물질/의약품·그 밖의 화학제품·탄화시설·화학섬유 제조시설",
+      "subFacility": "혼합시설",
+      "materialType": "제품",
+      "material": "미량광물질제(첨가제)",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 0.2506
+        },
+        "황산화물": null,
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/미량광물질제첨가제생산량(ton)",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": "생산량"
+      }
+    },
+    {
+      "id": "annex2-103",
+      "airFacilityRefs": [
+        "8)",
+        "9)",
+        "10)",
+        "11)",
+        "12)",
+        "13)",
+        "14)",
+        "15)",
+        "16)",
+        "17)"
+      ],
+      "facilityGroup": "기초유기화합물·가스·기초무기화합물·무기안료·합성염료/유연제/기타착색제·비료/질소화합물·의료용 물질/의약품·그 밖의 화학제품·탄화시설·화학섬유 제조시설",
+      "subFacility": "혼합시설",
+      "materialType": "제품",
+      "material": "분말세제",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 0.5186
+        },
+        "황산화물": null,
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/분말세제 생산량(ton)",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": "생산량"
+      }
+    },
+    {
+      "id": "annex2-104",
+      "airFacilityRefs": [
+        "8)",
+        "9)",
+        "10)",
+        "11)",
+        "12)",
+        "13)",
+        "14)",
+        "15)",
+        "16)",
+        "17)"
+      ],
+      "facilityGroup": "기초유기화합물·가스·기초무기화합물·무기안료·합성염료/유연제/기타착색제·비료/질소화합물·의료용 물질/의약품·그 밖의 화학제품·탄화시설·화학섬유 제조시설",
+      "subFacility": "혼합시설",
+      "materialType": "제품",
+      "material": "분제농약",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 0.1311
+        },
+        "황산화물": null,
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/제품생산량(ton)",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": "생산량"
+      }
+    },
+    {
+      "id": "annex2-105",
+      "airFacilityRefs": [
+        "8)",
+        "9)",
+        "10)",
+        "11)",
+        "12)",
+        "13)",
+        "14)",
+        "15)",
+        "16)",
+        "17)"
+      ],
+      "facilityGroup": "기초유기화합물·가스·기초무기화합물·무기안료·합성염료/유연제/기타착색제·비료/질소화합물·의료용 물질/의약품·그 밖의 화학제품·탄화시설·화학섬유 제조시설",
+      "subFacility": "혼합시설",
+      "materialType": "제품",
+      "material": "섬유유연제(액상세제 포함)",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 0.0078
+        },
+        "황산화물": null,
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/섬유유연제 및 액상세제 생산량(ton)",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": "생산량"
+      }
+    },
+    {
+      "id": "annex2-106",
+      "airFacilityRefs": [
+        "8)",
+        "9)",
+        "10)",
+        "11)",
+        "12)",
+        "13)",
+        "14)",
+        "15)",
+        "16)",
+        "17)"
+      ],
+      "facilityGroup": "기초유기화합물·가스·기초무기화합물·무기안료·합성염료/유연제/기타착색제·비료/질소화합물·의료용 물질/의약품·그 밖의 화학제품·탄화시설·화학섬유 제조시설",
+      "subFacility": "혼합시설",
+      "materialType": "제품",
+      "material": "세탁비누",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 0.0493
+        },
+        "황산화물": null,
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/세탁비누 생산량(ton)",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": "생산량"
+      }
+    },
+    {
+      "id": "annex2-107",
+      "airFacilityRefs": [
+        "8)",
+        "9)",
+        "10)",
+        "11)",
+        "12)",
+        "13)",
+        "14)",
+        "15)",
+        "16)",
+        "17)"
+      ],
+      "facilityGroup": "기초유기화합물·가스·기초무기화합물·무기안료·합성염료/유연제/기타착색제·비료/질소화합물·의료용 물질/의약품·그 밖의 화학제품·탄화시설·화학섬유 제조시설",
+      "subFacility": "혼합시설",
+      "materialType": "제품",
+      "material": "소금(crude)",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 0.0527
+        },
+        "황산화물": null,
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/Copper 프탈로시아닌 안료(Blue)-β형(ton)",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": "생산량",
+        "_basisInferred": true
+      }
+    },
+    {
+      "id": "annex2-108",
+      "airFacilityRefs": [
+        "8)",
+        "9)",
+        "10)",
+        "11)",
+        "12)",
+        "13)",
+        "14)",
+        "15)",
+        "16)",
+        "17)"
+      ],
+      "facilityGroup": "기초유기화합물·가스·기초무기화합물·무기안료·합성염료/유연제/기타착색제·비료/질소화합물·의료용 물질/의약품·그 밖의 화학제품·탄화시설·화학섬유 제조시설",
+      "subFacility": "혼합시설",
+      "materialType": "제품",
+      "material": "소금(crude),DEG 휘발",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 0.0351
+        },
+        "황산화물": null,
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/Copper 프탈로시아닌 안료(Blue)-β형(ton)",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": "생산량",
+        "_basisInferred": true
+      }
+    },
+    {
+      "id": "annex2-109",
+      "airFacilityRefs": [
+        "8)",
+        "9)",
+        "10)",
+        "11)",
+        "12)",
+        "13)",
+        "14)",
+        "15)",
+        "16)",
+        "17)"
+      ],
+      "facilityGroup": "기초유기화합물·가스·기초무기화합물·무기안료·합성염료/유연제/기타착색제·비료/질소화합물·의료용 물질/의약품·그 밖의 화학제품·탄화시설·화학섬유 제조시설",
+      "subFacility": "혼합시설",
+      "materialType": "제품",
+      "material": "안료/용제/첨가제",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 0.0138
+        },
+        "황산화물": null,
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/페인트생산량(ton)",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": "생산량"
+      }
+    },
+    {
+      "id": "annex2-110",
+      "airFacilityRefs": [
+        "8)",
+        "9)",
+        "10)",
+        "11)",
+        "12)",
+        "13)",
+        "14)",
+        "15)",
+        "16)",
+        "17)"
+      ],
+      "facilityGroup": "기초유기화합물·가스·기초무기화합물·무기안료·합성염료/유연제/기타착색제·비료/질소화합물·의료용 물질/의약품·그 밖의 화학제품·탄화시설·화학섬유 제조시설",
+      "subFacility": "혼합시설",
+      "materialType": "제품",
+      "material": "접착테이프",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 0.0001
+        },
+        "황산화물": null,
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/접착테이프생산량(m²)",
+        "numerator": "kg",
+        "denominator": "m²",
+        "basis": "생산량"
+      }
+    },
+    {
+      "id": "annex2-111",
+      "airFacilityRefs": [
+        "8)",
+        "9)",
+        "10)",
+        "11)",
+        "12)",
+        "13)",
+        "14)",
+        "15)",
+        "16)",
+        "17)"
+      ],
+      "facilityGroup": "기초유기화합물·가스·기초무기화합물·무기안료·합성염료/유연제/기타착색제·비료/질소화합물·의료용 물질/의약품·그 밖의 화학제품·탄화시설·화학섬유 제조시설",
+      "subFacility": "혼합시설",
+      "materialType": "제품",
+      "material": "이산화티타늄",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 0.0113
+        },
+        "황산화물": null,
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/이산화티타늄 생산량(ton)",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": "생산량"
+      }
+    },
+    {
+      "id": "annex2-112",
+      "airFacilityRefs": [
+        "8)",
+        "9)",
+        "10)",
+        "11)",
+        "12)",
+        "13)",
+        "14)",
+        "15)",
+        "16)",
+        "17)"
+      ],
+      "facilityGroup": "기초유기화합물·가스·기초무기화합물·무기안료·합성염료/유연제/기타착색제·비료/질소화합물·의료용 물질/의약품·그 밖의 화학제품·탄화시설·화학섬유 제조시설",
+      "subFacility": "혼합시설",
+      "materialType": "제품",
+      "material": "자성페인트",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 0.0661
+        },
+        "황산화물": null,
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/자성페인트생산량(ton)",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": "생산량"
+      }
+    },
+    {
+      "id": "annex2-113",
+      "airFacilityRefs": [
+        "8)",
+        "9)",
+        "10)",
+        "11)",
+        "12)",
+        "13)",
+        "14)",
+        "15)",
+        "16)",
+        "17)"
+      ],
+      "facilityGroup": "기초유기화합물·가스·기초무기화합물·무기안료·합성염료/유연제/기타착색제·비료/질소화합물·의료용 물질/의약품·그 밖의 화학제품·탄화시설·화학섬유 제조시설",
+      "subFacility": "혼합시설",
+      "materialType": "제품",
+      "material": "치약",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 0.0364
+        },
+        "황산화물": null,
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/치약생산량(ton)",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": "생산량"
+      }
+    },
+    {
+      "id": "annex2-114",
+      "airFacilityRefs": [
+        "8)",
+        "9)",
+        "10)",
+        "11)",
+        "12)",
+        "13)",
+        "14)",
+        "15)",
+        "16)",
+        "17)"
+      ],
+      "facilityGroup": "기초유기화합물·가스·기초무기화합물·무기안료·합성염료/유연제/기타착색제·비료/질소화합물·의료용 물질/의약품·그 밖의 화학제품·탄화시설·화학섬유 제조시설",
+      "subFacility": "혼합시설",
+      "materialType": "제품",
+      "material": "캅셀",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 28.33
+        },
+        "황산화물": null,
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/캅셀생산량(ton)",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": "생산량"
+      }
+    },
+    {
+      "id": "annex2-115",
+      "airFacilityRefs": [
+        "8)",
+        "9)",
+        "10)",
+        "11)",
+        "12)",
+        "13)",
+        "14)",
+        "15)",
+        "16)",
+        "17)"
+      ],
+      "facilityGroup": "기초유기화합물·가스·기초무기화합물·무기안료·합성염료/유연제/기타착색제·비료/질소화합물·의료용 물질/의약품·그 밖의 화학제품·탄화시설·화학섬유 제조시설",
+      "subFacility": "혼합시설",
+      "materialType": "제품",
+      "material": "타이어코드지",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 0.0169
+        },
+        "황산화물": null,
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/타이어코드지생산량(ton)",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": "생산량"
+      }
+    },
+    {
+      "id": "annex2-116",
+      "airFacilityRefs": [
+        "8)",
+        "9)",
+        "10)",
+        "11)",
+        "12)",
+        "13)",
+        "14)",
+        "15)",
+        "16)",
+        "17)"
+      ],
+      "facilityGroup": "기초유기화합물·가스·기초무기화합물·무기안료·합성염료/유연제/기타착색제·비료/질소화합물·의료용 물질/의약품·그 밖의 화학제품·탄화시설·화학섬유 제조시설",
+      "subFacility": "혼합시설",
+      "materialType": "제품",
+      "material": "파우더(색조화장품)",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 20.09
+        },
+        "황산화물": null,
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/파우더(색조화장품)생산량(ton)",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": "생산량"
+      }
+    },
+    {
+      "id": "annex2-117",
+      "airFacilityRefs": [
+        "8)",
+        "9)",
+        "10)",
+        "11)",
+        "12)",
+        "13)",
+        "14)",
+        "15)",
+        "16)",
+        "17)"
+      ],
+      "facilityGroup": "기초유기화합물·가스·기초무기화합물·무기안료·합성염료/유연제/기타착색제·비료/질소화합물·의료용 물질/의약품·그 밖의 화학제품·탄화시설·화학섬유 제조시설",
+      "subFacility": "혼합시설",
+      "materialType": "제품",
+      "material": "페인트용 고체원료",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 0.0005
+        },
+        "황산화물": null,
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/페인트생산량(ton)",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": "생산량"
+      }
+    },
+    {
+      "id": "annex2-118",
+      "airFacilityRefs": [
+        "8)",
+        "9)",
+        "10)",
+        "11)",
+        "12)",
+        "13)",
+        "14)",
+        "15)",
+        "16)",
+        "17)"
+      ],
+      "facilityGroup": "기초유기화합물·가스·기초무기화합물·무기안료·합성염료/유연제/기타착색제·비료/질소화합물·의료용 물질/의약품·그 밖의 화학제품·탄화시설·화학섬유 제조시설",
+      "subFacility": "혼합시설",
+      "materialType": "제품",
+      "material": "폴리에스터 칩",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 0.0009
+        },
+        "황산화물": null,
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/폴리에스터칩생산량(ton)",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": "생산량"
+      }
+    },
+    {
+      "id": "annex2-119",
+      "airFacilityRefs": [
+        "8)",
+        "9)",
+        "10)",
+        "11)",
+        "12)",
+        "13)",
+        "14)",
+        "15)",
+        "16)",
+        "17)"
+      ],
+      "facilityGroup": "기초유기화합물·가스·기초무기화합물·무기안료·합성염료/유연제/기타착색제·비료/질소화합물·의료용 물질/의약품·그 밖의 화학제품·탄화시설·화학섬유 제조시설",
+      "subFacility": "혼합시설",
+      "materialType": "제품",
+      "material": "폴리에틸렌",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 0.0214
+        },
+        "황산화물": null,
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/폴리에틸렌생산량(ton)",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": "생산량"
+      }
+    },
+    {
+      "id": "annex2-120",
+      "airFacilityRefs": [
+        "8)",
+        "9)",
+        "10)",
+        "11)",
+        "12)",
+        "13)",
+        "14)",
+        "15)",
+        "16)",
+        "17)"
+      ],
+      "facilityGroup": "기초유기화합물·가스·기초무기화합물·무기안료·합성염료/유연제/기타착색제·비료/질소화합물·의료용 물질/의약품·그 밖의 화학제품·탄화시설·화학섬유 제조시설",
+      "subFacility": "혼합시설",
+      "materialType": "제품",
+      "material": "폴리프로필렌글리콜(PPG)",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 0.0053
+        },
+        "황산화물": null,
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/폴리프로필렌글리콜 생산량(ton)",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": "생산량"
+      }
+    },
+    {
+      "id": "annex2-121",
+      "airFacilityRefs": [
+        "8)",
+        "9)",
+        "10)",
+        "11)",
+        "12)",
+        "13)",
+        "14)",
+        "15)",
+        "16)",
+        "17)"
+      ],
+      "facilityGroup": "기초유기화합물·가스·기초무기화합물·무기안료·합성염료/유연제/기타착색제·비료/질소화합물·의료용 물질/의약품·그 밖의 화학제품·탄화시설·화학섬유 제조시설",
+      "subFacility": "혼합시설",
+      "materialType": "제품",
+      "material": "합성고무접착제",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 0.3818
+        },
+        "황산화물": null,
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/제품 생산량(ton)",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": "생산량"
+      }
+    },
+    {
+      "id": "annex2-122",
+      "airFacilityRefs": [
+        "8)",
+        "9)",
+        "10)",
+        "11)",
+        "12)",
+        "13)",
+        "14)",
+        "15)",
+        "16)",
+        "17)"
+      ],
+      "facilityGroup": "기초유기화합물·가스·기초무기화합물·무기안료·합성염료/유연제/기타착색제·비료/질소화합물·의료용 물질/의약품·그 밖의 화학제품·탄화시설·화학섬유 제조시설",
+      "subFacility": "혼합시설",
+      "materialType": "제품",
+      "material": "항생제",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 1.382
+        },
+        "황산화물": null,
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/항생제생산량(ton)",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": "생산량"
+      }
+    },
+    {
+      "id": "annex2-123",
+      "airFacilityRefs": [
+        "8)",
+        "9)",
+        "10)",
+        "11)",
+        "12)",
+        "13)",
+        "14)",
+        "15)",
+        "16)",
+        "17)"
+      ],
+      "facilityGroup": "기초유기화합물·가스·기초무기화합물·무기안료·합성염료/유연제/기타착색제·비료/질소화합물·의료용 물질/의약품·그 밖의 화학제품·탄화시설·화학섬유 제조시설",
+      "subFacility": "혼합시설",
+      "materialType": "제품",
+      "material": "황산",
+      "factors": {
+        "먼지": null,
+        "황산화물": {
+          "type": "constant",
+          "value": 0.8416
+        },
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/Copper 프탈로시아닌 안료(Blue)-α형생산량(ton)",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": "생산량"
+      }
+    },
+    {
+      "id": "annex2-124",
+      "airFacilityRefs": [
+        "8)",
+        "9)",
+        "10)",
+        "11)",
+        "12)",
+        "13)",
+        "14)",
+        "15)",
+        "16)",
+        "17)"
+      ],
+      "facilityGroup": "기초유기화합물·가스·기초무기화합물·무기안료·합성염료/유연제/기타착색제·비료/질소화합물·의료용 물질/의약품·그 밖의 화학제품·탄화시설·화학섬유 제조시설",
+      "subFacility": "혼합시설",
+      "materialType": "제품",
+      "material": "페인트(분체)",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 0.1324
+        },
+        "황산화물": null,
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/페인트생산량(ton)",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": "생산량"
+      }
+    },
+    {
+      "id": "annex2-125",
+      "airFacilityRefs": [
+        "8)",
+        "9)",
+        "10)",
+        "11)",
+        "12)",
+        "13)",
+        "14)",
+        "15)",
+        "16)",
+        "17)"
+      ],
+      "facilityGroup": "기초유기화합물·가스·기초무기화합물·무기안료·합성염료/유연제/기타착색제·비료/질소화합물·의료용 물질/의약품·그 밖의 화학제품·탄화시설·화학섬유 제조시설",
+      "subFacility": "혼합시설",
+      "materialType": "제품",
+      "material": "페인트(수성)",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 3.664
+        },
+        "황산화물": null,
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/페인트생산량(ton)",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": "생산량"
+      }
+    },
+    {
+      "id": "annex2-126",
+      "airFacilityRefs": [
+        "8)",
+        "9)",
+        "10)",
+        "11)",
+        "12)",
+        "13)",
+        "14)",
+        "15)",
+        "16)",
+        "17)"
+      ],
+      "facilityGroup": "기초유기화합물·가스·기초무기화합물·무기안료·합성염료/유연제/기타착색제·비료/질소화합물·의료용 물질/의약품·그 밖의 화학제품·탄화시설·화학섬유 제조시설",
+      "subFacility": "혼합시설",
+      "materialType": "제품",
+      "material": "수지",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 0.1974
+        },
+        "황산화물": null,
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/수지생산량(ton)",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": "생산량"
+      }
+    },
+    {
+      "id": "annex2-127",
+      "airFacilityRefs": [
+        "8)",
+        "9)",
+        "10)",
+        "11)",
+        "12)",
+        "13)",
+        "14)",
+        "15)",
+        "16)",
+        "17)"
+      ],
+      "facilityGroup": "기초유기화합물·가스·기초무기화합물·무기안료·합성염료/유연제/기타착색제·비료/질소화합물·의료용 물질/의약품·그 밖의 화학제품·탄화시설·화학섬유 제조시설",
+      "subFacility": "혼합시설 정제(원료)",
+      "materialType": "제품",
+      "material": "정제(원료)",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 6.43
+        },
+        "황산화물": null,
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/정제류생산량(ton)",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": "생산량"
+      }
+    },
+    {
+      "id": "annex2-128",
+      "airFacilityRefs": [
+        "8)",
+        "9)",
+        "10)",
+        "11)",
+        "12)",
+        "13)",
+        "14)",
+        "15)",
+        "16)",
+        "17)"
+      ],
+      "facilityGroup": "기초유기화합물·가스·기초무기화합물·무기안료·합성염료/유연제/기타착색제·비료/질소화합물·의료용 물질/의약품·그 밖의 화학제품·탄화시설·화학섬유 제조시설",
+      "subFacility": "혼합시설 정제(정립)",
+      "materialType": "제품",
+      "material": "정제(정립)",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 9.685
+        },
+        "황산화물": null,
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/정제류생산량(ton)",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": "생산량"
+      }
+    },
+    {
+      "id": "annex2-129",
+      "airFacilityRefs": [
+        "8)",
+        "9)",
+        "10)",
+        "11)",
+        "12)",
+        "13)",
+        "14)",
+        "15)",
+        "16)",
+        "17)"
+      ],
+      "facilityGroup": "기초유기화합물·가스·기초무기화합물·무기안료·합성염료/유연제/기타착색제·비료/질소화합물·의료용 물질/의약품·그 밖의 화학제품·탄화시설·화학섬유 제조시설",
+      "subFacility": "혼합시설 페인트(유성)",
+      "materialType": "제품",
+      "material": "페인트(유성)",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 2.0873
+        },
+        "황산화물": null,
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/페인트생산량(ton)",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": "생산량"
+      }
+    },
+    {
+      "id": "annex2-130",
+      "airFacilityRefs": [
+        "8)",
+        "9)",
+        "10)",
+        "11)",
+        "12)",
+        "13)",
+        "14)",
+        "15)",
+        "16)",
+        "17)"
+      ],
+      "facilityGroup": "기초유기화합물·가스·기초무기화합물·무기안료·합성염료/유연제/기타착색제·비료/질소화합물·의료용 물질/의약품·그 밖의 화학제품·탄화시설·화학섬유 제조시설",
+      "subFacility": "혼합시설(1차)",
+      "materialType": "제품",
+      "material": "페인트(EMC도료)",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 0.1944
+        },
+        "황산화물": null,
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/페인트생산량(ton)",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": "생산량"
+      }
+    },
+    {
+      "id": "annex2-131",
+      "airFacilityRefs": [
+        "8)",
+        "9)",
+        "10)",
+        "11)",
+        "12)",
+        "13)",
+        "14)",
+        "15)",
+        "16)",
+        "17)"
+      ],
+      "facilityGroup": "기초유기화합물·가스·기초무기화합물·무기안료·합성염료/유연제/기타착색제·비료/질소화합물·의료용 물질/의약품·그 밖의 화학제품·탄화시설·화학섬유 제조시설",
+      "subFacility": "혼합시설(2차)",
+      "materialType": "제품",
+      "material": "페인트(EMC도료)",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 0.7847
+        },
+        "황산화물": null,
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/페인트생산량(ton)",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": "생산량"
+      }
+    },
+    {
+      "id": "annex2-132",
+      "airFacilityRefs": [
+        "8)",
+        "9)",
+        "10)",
+        "11)",
+        "12)",
+        "13)",
+        "14)",
+        "15)",
+        "16)",
+        "17)"
+      ],
+      "facilityGroup": "기초유기화합물·가스·기초무기화합물·무기안료·합성염료/유연제/기타착색제·비료/질소화합물·의료용 물질/의약품·그 밖의 화학제품·탄화시설·화학섬유 제조시설",
+      "subFacility": "혼합시설(건조공정)",
+      "materialType": "제품",
+      "material": "정제",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 13.64
+        },
+        "황산화물": null,
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/정제류생산량(ton)",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": "생산량"
+      }
+    },
+    {
+      "id": "annex2-133",
+      "airFacilityRefs": [
+        "8)",
+        "9)",
+        "10)",
+        "11)",
+        "12)",
+        "13)",
+        "14)",
+        "15)",
+        "16)",
+        "17)"
+      ],
+      "facilityGroup": "기초유기화합물·가스·기초무기화합물·무기안료·합성염료/유연제/기타착색제·비료/질소화합물·의료용 물질/의약품·그 밖의 화학제품·탄화시설·화학섬유 제조시설",
+      "subFacility": "혼합시설(저장)",
+      "materialType": "제품",
+      "material": "농약(수화제)",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 1.4196
+        },
+        "황산화물": null,
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/제품생산량(ton)",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": "생산량"
+      }
+    },
+    {
+      "id": "annex2-134",
+      "airFacilityRefs": [
+        "8)",
+        "9)",
+        "10)",
+        "11)",
+        "12)",
+        "13)",
+        "14)",
+        "15)",
+        "16)",
+        "17)"
+      ],
+      "facilityGroup": "기초유기화합물·가스·기초무기화합물·무기안료·합성염료/유연제/기타착색제·비료/질소화합물·의료용 물질/의약품·그 밖의 화학제품·탄화시설·화학섬유 제조시설",
+      "subFacility": "혼합시설(충전)",
+      "materialType": "제품",
+      "material": "과립",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 1.766
+        },
+        "황산화물": null,
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/과립생산량(ton)",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": "생산량"
+      }
+    },
+    {
+      "id": "annex2-135",
+      "airFacilityRefs": [
+        "8)",
+        "9)",
+        "10)",
+        "11)",
+        "12)",
+        "13)",
+        "14)",
+        "15)",
+        "16)",
+        "17)"
+      ],
+      "facilityGroup": "기초유기화합물·가스·기초무기화합물·무기안료·합성염료/유연제/기타착색제·비료/질소화합물·의료용 물질/의약품·그 밖의 화학제품·탄화시설·화학섬유 제조시설",
+      "subFacility": "혼합시설(충전)",
+      "materialType": "제품",
+      "material": "캅셀",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 9.362
+        },
+        "황산화물": null,
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/캅셀생산량(ton)",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": "생산량"
+      }
+    },
+    {
+      "id": "annex2-136",
+      "airFacilityRefs": [
+        "8)",
+        "9)",
+        "10)",
+        "11)",
+        "12)",
+        "13)",
+        "14)",
+        "15)",
+        "16)",
+        "17)"
+      ],
+      "facilityGroup": "기초유기화합물·가스·기초무기화합물·무기안료·합성염료/유연제/기타착색제·비료/질소화합물·의료용 물질/의약품·그 밖의 화학제품·탄화시설·화학섬유 제조시설",
+      "subFacility": "회수시설",
+      "materialType": "제품",
+      "material": "나이론 칩",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 0.075
+        },
+        "황산화물": null,
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/나일론칩 생산량(ton)",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": "생산량"
+      }
+    },
+    {
+      "id": "annex2-137",
+      "airFacilityRefs": [
+        "8)",
+        "9)",
+        "10)",
+        "11)",
+        "12)",
+        "13)",
+        "14)",
+        "15)",
+        "16)",
+        "17)"
+      ],
+      "facilityGroup": "기초유기화합물·가스·기초무기화합물·무기안료·합성염료/유연제/기타착색제·비료/질소화합물·의료용 물질/의약품·그 밖의 화학제품·탄화시설·화학섬유 제조시설",
+      "subFacility": "회수시설",
+      "materialType": "제품",
+      "material": "염소",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 0.0005
+        },
+        "황산화물": {
+          "type": "constant",
+          "value": 0.0013
+        },
+        "질소산화물": {
+          "type": "constant",
+          "value": 0.0007
+        }
+      },
+      "unit": {
+        "raw": "kg/염소생산량(ton)",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": "생산량"
+      }
+    },
+    {
+      "id": "annex2-138",
+      "airFacilityRefs": [
+        "8)",
+        "9)",
+        "10)",
+        "11)",
+        "12)",
+        "13)",
+        "14)",
+        "15)",
+        "16)",
+        "17)"
+      ],
+      "facilityGroup": "기초유기화합물·가스·기초무기화합물·무기안료·합성염료/유연제/기타착색제·비료/질소화합물·의료용 물질/의약품·그 밖의 화학제품·탄화시설·화학섬유 제조시설",
+      "subFacility": "회수시설",
+      "materialType": "제품",
+      "material": "Salt/Diethyl Glycol",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 0.0488
+        },
+        "황산화물": null,
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/salt,Diethyl Glycol회수량(ton)",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": "회수량"
+      }
+    },
+    {
+      "id": "annex2-139",
+      "airFacilityRefs": [
+        "8)",
+        "9)",
+        "10)",
+        "11)",
+        "12)",
+        "13)",
+        "14)",
+        "15)",
+        "16)",
+        "17)"
+      ],
+      "facilityGroup": "기초유기화합물·가스·기초무기화합물·무기안료·합성염료/유연제/기타착색제·비료/질소화합물·의료용 물질/의약품·그 밖의 화학제품·탄화시설·화학섬유 제조시설",
+      "subFacility": "회수시설",
+      "materialType": "제품",
+      "material": "무수프탈산(Phthalic Anhydride)",
+      "factors": {
+        "먼지": null,
+        "황산화물": {
+          "type": "constant",
+          "value": 0.0549
+        },
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/무수프탈산생산량(ton)",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": "생산량"
+      }
+    },
+    {
+      "id": "annex2-140",
+      "airFacilityRefs": [
+        "8)",
+        "9)",
+        "10)",
+        "11)",
+        "12)",
+        "13)",
+        "14)",
+        "15)",
+        "16)",
+        "17)"
+      ],
+      "facilityGroup": "기초유기화합물·가스·기초무기화합물·무기안료·합성염료/유연제/기타착색제·비료/질소화합물·의료용 물질/의약품·그 밖의 화학제품·탄화시설·화학섬유 제조시설",
+      "subFacility": "흡수시설",
+      "materialType": "제품",
+      "material": "타이어코드지",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 0.0095
+        },
+        "황산화물": null,
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/타이어코드지 생산량(ton)",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": "생산량"
+      }
+    },
+    {
+      "id": "annex2-141",
+      "airFacilityRefs": [
+        "8)",
+        "9)",
+        "10)",
+        "11)",
+        "12)",
+        "13)",
+        "14)",
+        "15)",
+        "16)",
+        "17)"
+      ],
+      "facilityGroup": "기초유기화합물·가스·기초무기화합물·무기안료·합성염료/유연제/기타착색제·비료/질소화합물·의료용 물질/의약품·그 밖의 화학제품·탄화시설·화학섬유 제조시설",
+      "subFacility": "흡수시설",
+      "materialType": "제품",
+      "material": "질산",
+      "factors": {
+        "먼지": null,
+        "황산화물": null,
+        "질소산화물": {
+          "type": "constant",
+          "value": 0.3866
+        }
+      },
+      "unit": {
+        "raw": "kg/질산(65%)생산량(ton)",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": "생산량"
+      }
+    },
+    {
+      "id": "annex2-142",
+      "airFacilityRefs": [
+        "21)"
+      ],
+      "facilityGroup": "비금속광물제품 제조시설",
+      "subFacility": "고체입자상물질 저장시설",
+      "materialType": "원료",
+      "material": "인광석",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 0.0929
+        },
+        "황산화물": null,
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/인광석 저장량(ton)",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": "저장량"
+      }
+    },
+    {
+      "id": "annex2-143",
+      "airFacilityRefs": [
+        "21)"
+      ],
+      "facilityGroup": "비금속광물제품 제조시설",
+      "subFacility": "고체입자상물질 저장시설",
+      "materialType": "제품",
+      "material": "정제 인산",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 0.3752
+        },
+        "황산화물": null,
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/제품생산량(ton)",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": "생산량"
+      }
+    },
+    {
+      "id": "annex2-144",
+      "airFacilityRefs": [
+        "21)"
+      ],
+      "facilityGroup": "비금속광물제품 제조시설",
+      "subFacility": "고체입자상물질 저장시설",
+      "materialType": "제품",
+      "material": "탄산바륨",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 0.295
+        },
+        "황산화물": null,
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/탄산바륨생산량(ton)",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": "생산량"
+      }
+    },
+    {
+      "id": "annex2-145",
+      "airFacilityRefs": [
+        "21)"
+      ],
+      "facilityGroup": "비금속광물제품 제조시설",
+      "subFacility": "고체입자상물질 저장시설",
+      "materialType": "제품",
+      "material": "탄산스트론튬",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 0.366
+        },
+        "황산화물": null,
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/탄산스트론튬생산량(ton)",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": "생산량"
+      }
+    },
+    {
+      "id": "annex2-146",
+      "airFacilityRefs": [
+        "21)"
+      ],
+      "facilityGroup": "비금속광물제품 제조시설",
+      "subFacility": "분쇄시설",
+      "materialType": "제품",
+      "material": "인광석",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 0.0276
+        },
+        "황산화물": null,
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/인산생산량(ton)",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": "생산량"
+      }
+    },
+    {
+      "id": "annex2-147",
+      "airFacilityRefs": [
+        "21)"
+      ],
+      "facilityGroup": "비금속광물제품 제조시설",
+      "subFacility": "선별시설",
+      "materialType": "제품",
+      "material": "인광석",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 0.0062
+        },
+        "황산화물": null,
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/인산생산량(ton)",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": "생산량"
+      }
+    },
+    {
+      "id": "annex2-148",
+      "airFacilityRefs": [
+        "21)"
+      ],
+      "facilityGroup": "비금속광물제품 제조시설",
+      "subFacility": "혼합시설",
+      "materialType": "제품",
+      "material": "탄산바륨",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 1.03
+        },
+        "황산화물": null,
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/탄산바륨생산량(ton)",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": "생산량"
+      }
+    },
+    {
+      "id": "annex2-149",
+      "airFacilityRefs": [
+        "21)"
+      ],
+      "facilityGroup": "비금속광물제품 제조시설",
+      "subFacility": "혼합시설",
+      "materialType": "제품",
+      "material": "탄산스트론튬",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 1.08
+        },
+        "황산화물": null,
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/탄산스트론튬생산량(ton)",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": "생산량"
+      }
+    },
+    {
+      "id": "annex2-150",
+      "airFacilityRefs": [
+        "22)",
+        "23)",
+        "24)",
+        "25)"
+      ],
+      "facilityGroup": "1차 철강·1차 비철금속·금속가공제품/기계/기기/장비/운송장비/가구·자동차 부품 제조시설",
+      "subFacility": "고체입자상물질 포장시설",
+      "materialType": "제품",
+      "material": "Mn합금철",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 0.383
+        },
+        "황산화물": null,
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/Mn합금철 생산량(ton)",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": "생산량"
+      }
+    },
+    {
+      "id": "annex2-151",
+      "airFacilityRefs": [
+        "22)",
+        "23)",
+        "24)",
+        "25)"
+      ],
+      "facilityGroup": "1차 철강·1차 비철금속·금속가공제품/기계/기기/장비/운송장비/가구·자동차 부품 제조시설",
+      "subFacility": "전기 아크로",
+      "materialType": "제품",
+      "material": "Mn합금철",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 3.9735
+        },
+        "황산화물": {
+          "type": "constant",
+          "value": 2.448
+        },
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/Mn합금철 생산량(ton)",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": "생산량"
+      }
+    },
+    {
+      "id": "annex2-152",
+      "airFacilityRefs": [
+        "22)",
+        "23)",
+        "24)",
+        "25)"
+      ],
+      "facilityGroup": "1차 철강·1차 비철금속·금속가공제품/기계/기기/장비/운송장비/가구·자동차 부품 제조시설",
+      "subFacility": "전기 아크로",
+      "materialType": "원료",
+      "material": "고철",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 1.3
+        },
+        "황산화물": null,
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/고철사용량(ton)",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": "사용량"
+      }
+    },
+    {
+      "id": "annex2-153",
+      "airFacilityRefs": [
+        "22)",
+        "23)",
+        "24)",
+        "25)"
+      ],
+      "facilityGroup": "1차 철강·1차 비철금속·금속가공제품/기계/기기/장비/운송장비/가구·자동차 부품 제조시설",
+      "subFacility": "전기 아크로",
+      "materialType": "원료",
+      "material": "알루미늄",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 1.55
+        },
+        "황산화물": null,
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/알루미늄사용량(ton)",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": "사용량"
+      }
+    },
+    {
+      "id": "annex2-154",
+      "airFacilityRefs": [
+        "22)",
+        "23)",
+        "24)",
+        "25)"
+      ],
+      "facilityGroup": "1차 철강·1차 비철금속·금속가공제품/기계/기기/장비/운송장비/가구·자동차 부품 제조시설",
+      "subFacility": "전기 유도로",
+      "materialType": "제품",
+      "material": "주강쇼트",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 0.187
+        },
+        "황산화물": null,
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/주강쇼트생산량(ton)",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": "생산량"
+      }
+    },
+    {
+      "id": "annex2-155",
+      "airFacilityRefs": [
+        "22)",
+        "23)",
+        "24)",
+        "25)"
+      ],
+      "facilityGroup": "1차 철강·1차 비철금속·금속가공제품/기계/기기/장비/운송장비/가구·자동차 부품 제조시설",
+      "subFacility": "분쇄시설",
+      "materialType": "제품",
+      "material": "주강그리트",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 0.698
+        },
+        "황산화물": null,
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/주강그리트생산량(ton)",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": "생산량"
+      }
+    },
+    {
+      "id": "annex2-156",
+      "airFacilityRefs": [
+        "22)",
+        "23)",
+        "24)",
+        "25)"
+      ],
+      "facilityGroup": "1차 철강·1차 비철금속·금속가공제품/기계/기기/장비/운송장비/가구·자동차 부품 제조시설",
+      "subFacility": "분쇄시설",
+      "materialType": "제품",
+      "material": "Mn합금철",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 0.3961
+        },
+        "황산화물": null,
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/Mn합금철 생산량(ton)",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": "생산량"
+      }
+    },
+    {
+      "id": "annex2-157",
+      "airFacilityRefs": [
+        "22)",
+        "23)",
+        "24)",
+        "25)"
+      ],
+      "facilityGroup": "1차 철강·1차 비철금속·금속가공제품/기계/기기/장비/운송장비/가구·자동차 부품 제조시설",
+      "subFacility": "분쇄시설",
+      "materialType": "제품",
+      "material": "슬래그",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 0.0013
+        },
+        "황산화물": null,
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/슬래그 생산량(ton)",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": "생산량"
+      }
+    },
+    {
+      "id": "annex2-158",
+      "airFacilityRefs": [
+        "22)",
+        "23)",
+        "24)",
+        "25)"
+      ],
+      "facilityGroup": "1차 철강·1차 비철금속·금속가공제품/기계/기기/장비/운송장비/가구·자동차 부품 제조시설",
+      "subFacility": "도장시설",
+      "materialType": "제품",
+      "material": "실린더헤드(알루미늄합금주강)",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 3.4
+        },
+        "황산화물": null,
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/제품생산량(ton)",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": "생산량"
+      }
+    },
+    {
+      "id": "annex2-159",
+      "airFacilityRefs": [
+        "22)",
+        "23)",
+        "24)",
+        "25)"
+      ],
+      "facilityGroup": "1차 철강·1차 비철금속·금속가공제품/기계/기기/장비/운송장비/가구·자동차 부품 제조시설",
+      "subFacility": "탈사시설",
+      "materialType": "제품",
+      "material": "실린더헤드(알루미늄합금주강)",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 0.805
+        },
+        "황산화물": null,
+        "질소산화물": null
+      },
+      "unit": {
+        "raw": "kg/제품생산량(ton)",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": "생산량"
+      }
+    }
+  ]
+}

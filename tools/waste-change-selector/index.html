@@ -260,6 +260,17 @@
     color:var(--text); outline:none; text-align:center;
   }
   .fld-table-th{text-align:center;}
+  .req-mark{
+    color:var(--danger); font-weight:700; margin-left:3px;
+  }
+  .fld-table-td.cell-disabled{
+    background:var(--surface-3);
+    opacity:0.55;
+  }
+  .fld-table-td.cell-disabled input,
+  .fld-table-td.cell-disabled select{
+    cursor:not-allowed; color:var(--muted);
+  }
   .fld-table-td input:focus,
   .fld-table-td select:focus,
   .fld-table-td textarea:focus{
@@ -641,11 +652,20 @@ var DATA = {
           "key":"changes","label":"차량 변경","type":"repeat","compact":true,"min":1,
           "addLabel":"+ 줄 추가",
           "fields":[
-            {"key":"category", "label":"구분",     "type":"select","options":["전용차량","임시차량"],"defaultValue":"전용차량"},
-            {"key":"before",   "label":"변경 전",  "type":"text",  "placeholder":"12가 3456"},
-            {"key":"change",   "label":"변경사항", "type":"select","options":["증차","감차","기존"],"onChangeAction":"v01SyncBeforeAfter"},
-            {"key":"after",    "label":"변경 후",  "type":"text",  "placeholder":"12가 3456"},
-            {"key":"procedure","label":"절차",     "type":"auto",  "compute":"classifyVehicleProcedure","hideFromUI":true}
+            {
+              "key":"change","label":"변경사항","type":"select",
+              "options":["증차","감차","기존"],
+              "onChangeAction":"v01SyncBeforeAfter",
+              "controlsState":{
+                "증차":{"disable":["before"]},
+                "감차":{"disable":["after"]},
+                "기존":{"disable":["after"]}
+              }
+            },
+            {"key":"category", "label":"구분",            "type":"select","options":["전용차량","임시차량"],"defaultValue":"전용차량"},
+            {"key":"before",   "label":"차량번호 변경전", "type":"text",  "placeholder":"12가 3456"},
+            {"key":"after",    "label":"차량번호 변경후", "type":"text",  "placeholder":"12가 3456"},
+            {"key":"procedure","label":"절차",            "type":"auto",  "compute":"classifyVehicleProcedure","hideFromUI":true}
           ]
         },
         {
@@ -654,18 +674,30 @@ var DATA = {
           "bindField":"after","titleLabel":"차량등록번호","specsKey":"specs",
           "emptyText":"증차 행이 생기면 여기에 제원 카드가 자동으로 추가됩니다",
           "fields":[
-            {"key":"vehicleType",  "label":"차종(명)",     "type":"text"},
-            {"key":"ownerName",    "label":"소유자",       "type":"text"},
-            {"key":"ownerRrn",     "label":"주민등록번호", "type":"text","placeholder":"주민/외국인등록번호"},
-            {"key":"manufacturer", "label":"제작사",       "type":"text"},
-            {"key":"typeApproval", "label":"형식승인번호", "type":"text"},
-            {"key":"firstRegDate", "label":"최초차등록일", "type":"date"},
-            {"key":"maxLoad",      "label":"최대적재량",   "type":"text","suffix":"톤"},
-            {"key":"note",         "label":"비고",         "type":"text"}
+            {"key":"vehicleType",   "label":"차종(명)",     "type":"text"},
+            {"key":"ownerName",     "label":"소유자",       "type":"text"},
+            {"key":"ownerRrn",      "label":"주민등록번호", "type":"text","placeholder":"주민/외국인등록번호"},
+            {"key":"manufacturer",  "label":"제작사",       "type":"text"},
+            {"key":"typeApproval",  "label":"형식승인번호", "type":"text"},
+            {"key":"firstRegDate",  "label":"최초차등록일", "type":"date"},
+            {"key":"maxLoad",       "label":"최대적재량",   "type":"text","suffix":"톤"},
+            {"key":"note",          "label":"비고",         "type":"text"},
+            /* TODO(개발자): 아래 차량 사진 4개 필드는 임시로 text 입력 — 기존 스타일대로 수정바람 */
+            {"_devNote":"기존 스타일대로 수정바람","key":"frontImageUrl","label":"전면 사진","type":"text","placeholder":"이미지 경로/URL"},
+            {"_devNote":"기존 스타일대로 수정바람","key":"rearImageUrl", "label":"후면 사진","type":"text","placeholder":"이미지 경로/URL"},
+            {"_devNote":"기존 스타일대로 수정바람","key":"leftImageUrl", "label":"좌측 사진","type":"text","placeholder":"이미지 경로/URL"},
+            {"_devNote":"기존 스타일대로 수정바람","key":"rightImageUrl","label":"우측 사진","type":"text","placeholder":"이미지 경로/URL"}
           ]
         }
       ],
-      "description":"차량 변경사항의 전·후 사항을 적습니다."
+      "description":"차량 변경사항의 전·후 사항을 적습니다.",
+      "attachments":[
+        "운반차량의 증차계획서 (변경허가: 전용차량 증차 시 — 시행규칙 제29조①1.라.)",
+        "임시차량증 발급신청서 (변경신고: 임시차량 증차 시 — 시행규칙 제33조①4.)",
+        "수집·운반증 반납 (변경신고: 운반차량 감차 시 — 시행규칙 제33조①4.)",
+        "차량등록증 사본 (신청인 명의 등록 확인용)",
+        "수집·운반전용차량 개요 및 구비서류 (별지 제68호 서식 — 시행규칙 별표5 제6호다목 단서)"
+      ]
     },
     { "id":"P05","changeType":"변경허가","조항":"시행규칙 제29조①2.가.","label":"처분대상 폐기물의 변경","bizType":["ID","FD"],"처리업종":"폐기물 중간처분업, 폐기물 최종처분업 및 폐기물 종합처분업","신고시점":null,"조건":null,"비고":null,
       "description":"변경 전·후 내용을 적습니다."
@@ -719,7 +751,7 @@ var DATA = {
       "description":"변경 전·후 내용을 적습니다."
     },
     { "id":"N02","changeType":"변경신고","조항":"시행규칙 제33조①2.","label":"대표자의 변경","bizType":["TR","ID","FD","IR","FR","CR"],"처리업종":"전체","신고시점":"사후 30일 이내","조건":"법 제33조에 따라 권리ㆍ의무를 승계하는 경우는 제외한다","비고":"법 제33조 권리·의무 승계 케이스는 제외",
-      "description":"변경 전 대표자는 성명·생년월일만, 변경 후 대표자는 성명·주민등록번호·본적·연락처를 적습니다.",
+      "description":"변경 전 대표자는 성명·생년월일만, 변경 후 대표자는 성명·주민등록번호·등록기준지·연락처를 적습니다.",
       "fields":[
         {
           "key":"beforeRepresentatives","label":"변경 전 대표자","type":"repeat","compact":true,"min":1,
@@ -735,7 +767,7 @@ var DATA = {
           "fields":[
             {"key":"name",      "label":"성명",         "type":"text"},
             {"key":"residentId","label":"주민등록번호", "type":"text","placeholder":"800101-1234567"},
-            {"key":"domicile",  "label":"본적",         "type":"text"},
+            {"key":"domicile",  "label":"등록기준지",         "type":"text"},
             {"key":"phone",     "label":"연락처",       "type":"text","placeholder":"010-1234-5678"}
           ]
         }
@@ -755,7 +787,28 @@ var DATA = {
       }
     },
     { "id":"N03","changeType":"변경신고","조항":"시행규칙 제33조①3.","label":"연락장소나 사무실 소재지의 변경","bizType":["TR","ID","FD","IR","FR","CR"],"처리업종":"전체","신고시점":"사전","조건":null,"비고":null,
-      "description":"변경 전·후 내용을 적습니다."
+      "description":"변경 전은 주소만, 변경 후는 사무실 상세 정보를 적습니다.",
+      "fields":[
+        {
+          "key":"beforeLocations","label":"변경 전 연락장소","type":"repeat","compact":true,"min":1,
+          "addLabel":"+ 추가",
+          "fields":[
+            {"key":"address","label":"주소","type":"text"}
+          ]
+        },
+        {
+          "key":"afterLocations","label":"변경 후 연락장소","type":"repeat","compact":true,"min":1,
+          "addLabel":"+ 추가",
+          "fields":[
+            {"key":"officeAddress","label":"사무실주소", "type":"text"},
+            {"key":"buildingName", "label":"동명칭",     "type":"text","required":false},
+            {"key":"floor",        "label":"층",         "type":"text","required":false},
+            {"key":"usage",        "label":"용도",       "type":"text","required":false},
+            {"key":"officeArea",   "label":"사무실면적", "type":"text","suffix":"㎡"},
+            {"key":"phone",        "label":"연락처",     "type":"text","placeholder":"010-1234-5678"}
+          ]
+        }
+      ]
     },
     { "id":"N05","changeType":"변경신고","조항":"시행규칙 제33조①5.","label":"재활용 대상 부지의 변경","bizType":["IR","FR","CR"],"처리업종":"재활용업","신고시점":"사전","조건":"별표 4의2 제4호에 따른 재활용 유형으로 재활용하는 경우만 해당한다","비고":"별표 4의2 제4호 재활용 유형(매체접촉형)에 한정",
       "description":"변경 전·후 내용을 적습니다."
@@ -770,11 +823,11 @@ var DATA = {
       "description":"변경 전·후 내용을 적습니다."
     },
     { "id":"N09","changeType":"변경신고","조항":"시행규칙 제33조①9.","label":"별표 7에 따른 기술능력의 변경","bizType":["TR","ID","FD","IR","FR","CR"],"처리업종":"전체","신고시점":"사후 30일 이내","조건":null,"비고":"별표 7 기술능력 변경",
-      "description":"변경 전·후 기술인의 성명·자격사항·생년월일을 적습니다.",
+      "description":"변경 전·후 기술능력의 성명·자격사항·생년월일을 적습니다.",
       "fields":[
         {
-          "key":"beforePersonnel","label":"변경 전 기술인","type":"repeat","compact":true,"min":1,
-          "addLabel":"+ 인원 추가",
+          "key":"beforePersonnel","label":"변경 전 기술능력","type":"repeat","compact":true,"min":1,
+          "addLabel":"+ 추가",
           "fields":[
             {"key":"name",     "label":"성명",     "type":"text"},
             {"key":"cert",     "label":"자격사항", "type":"text","placeholder":"예: 폐기물처리기사"},
@@ -782,14 +835,19 @@ var DATA = {
           ]
         },
         {
-          "key":"afterPersonnel","label":"변경 후 기술인","type":"repeat","compact":true,"min":1,
-          "addLabel":"+ 인원 추가",
+          "key":"afterPersonnel","label":"변경 후 기술능력","type":"repeat","compact":true,"min":1,
+          "addLabel":"+ 추가",
           "fields":[
             {"key":"name",     "label":"성명",     "type":"text"},
             {"key":"cert",     "label":"자격사항", "type":"text","placeholder":"예: 폐기물처리기사"},
             {"key":"birthDate","label":"생년월일", "type":"date"}
           ]
         }
+      ],
+      "attachments":[
+        "변경 후 기술인의 자격증 사본",
+        "변경 후 기술인의 경력증명서 (대체인력의 경우)",
+        "(현장 확인용) 기술 인력의 의료보험 가입 서류"
       ]
     }
   ]
@@ -1168,6 +1226,24 @@ var FIELD_ACTIONS = {
   }
 };
 
+/* 페이로드/요약 출력 시 행 필터링 — 빈 행 또는 의미 없는 '기존' 행 제거
+   (입력 표에는 표시됨 — 편집 가능해야 하므로) */
+function isRowEmptyForPayload(fields, row){
+  return !(fields || []).some(function(f){
+    if(f.type === "auto") return false;   // auto 는 계산값 — 무시
+    var v = row[f.key];
+    if(v == null || String(v).trim() === "") return false;
+    // defaultValue 와 동일하면 사용자가 채운 게 아니라 자동값 → '비어있다'로 간주
+    if(f.defaultValue !== undefined && v === f.defaultValue) return false;
+    return true;
+  });
+}
+function isRowSkipForPayload(fields, row){
+  // 'change' 컬럼이 있고 값이 '기존'이면 변경 없는 행 → 출력 제외
+  if(row.change === "기존") return true;
+  return isRowEmptyForPayload(fields, row);
+}
+
 /* repeat 새 행 추가 시 defaultValue 적용 */
 function makeDefaultRow(subFields){
   var row = {};
@@ -1388,13 +1464,18 @@ function renderFields(fields, val, container){
       /* hideFromUI 필드는 표에 보이지 않음 (페이로드에는 포함) */
       var visibleFields = (f.fields || []).filter(function(s){ return !s.hideFromUI; });
 
-      /* 헤더 */
+      /* 헤더 — required !== false 이면 (*) 표시 (기본 required) */
       var hdr = document.createElement("div");
       hdr.className = "fld-table-tr fld-table-header";
       visibleFields.forEach(function(sub){
         var th = document.createElement("div");
         th.className = "fld-table-th";
-        th.textContent = sub.label || sub.key;
+        var lbl = sub.label || sub.key;
+        if(sub.required !== false){
+          th.innerHTML = escapeHtml(lbl) + '<span class="req-mark">*</span>';
+        } else {
+          th.textContent = lbl;
+        }
         hdr.appendChild(th);
       });
       var thA = document.createElement("div");
@@ -1476,6 +1557,26 @@ function renderFields(fields, val, container){
           });
         }
         refreshAutoCells();
+        /* controlsState — 한 필드(보통 select)의 값이 다른 필드들의 활성/비활성 결정 */
+        function refreshConditionalStates(){
+          (f.fields || []).forEach(function(sub){
+            if(!sub.controlsState) return;
+            var curVal = child[sub.key];
+            var state = sub.controlsState[curVal] || {};
+            var disableKeys = Array.isArray(state.disable) ? state.disable : [];
+            /* 같은 row 의 모든 입력에 대해 적용 */
+            tr.querySelectorAll("[data-key]").forEach(function(el){
+              var k = el.getAttribute("data-key");
+              if(k === sub.key) return;   // 자기 자신은 건드리지 않음
+              var should = disableKeys.includes(k);
+              var td = el.closest(".fld-table-td");
+              if(el.tagName === "SELECT") el.disabled = should;
+              else el.readOnly = should;
+              if(td) td.classList.toggle("cell-disabled", should);
+            });
+          });
+        }
+        refreshConditionalStates();
         if(autoCells.length){
           /* 행 밖으로 진짜 나갈 때만 갱신 — 행 내부 이동(변경전→변경후)에선 보류 */
           tr.addEventListener("focusout", function(e){
@@ -1670,7 +1771,9 @@ function formSummaryHtml(fields, val){
       var arr = Array.isArray(val[f.key]) ? val[f.key] : [];
       if(!arr.length) return;
       var visible = (f.fields || []).filter(function(s){ return !s.hideFromUI; });
-      var rowsHtml = arr.map(function(child){
+      var rowsHtml = arr.filter(function(child){
+        return !isRowSkipForPayload(f.fields, child);
+      }).map(function(child){
         var cells = visible.map(function(sub){
           if(sub.type === "auto"){
             var fn = AUTO_COMPUTERS[sub.compute];
@@ -1759,6 +1862,7 @@ function formTextLines(fields, val, indent){
     if(f.type === "repeat" && f.compact){
       var arr = Array.isArray(val[f.key]) ? val[f.key] : [];
       arr.forEach(function(child){
+        if(isRowSkipForPayload(f.fields, child)) return;   // 빈 행 / '기존' 행 제외
         var parts = (f.fields || []).map(function(sub){
           if(sub.type === "auto"){
             var fn = AUTO_COMPUTERS[sub.compute];
@@ -1821,7 +1925,11 @@ function renderApplicant(){
     wrap.className = "app-fld" + (f.full ? " app-fld-full" : "");
     var lbl = document.createElement("span");
     lbl.className = "app-fld-label";
-    lbl.textContent = f.label;
+    if(f.required !== false){
+      lbl.innerHTML = escapeHtml(f.label) + '<span class="req-mark">*</span>';
+    } else {
+      lbl.textContent = f.label;
+    }
     var inp = document.createElement("input");
     inp.type = f.type || "text";
     if(f.placeholder) inp.placeholder = f.placeholder;

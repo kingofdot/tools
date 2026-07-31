@@ -1,0 +1,46 @@
+{
+  "별표번호": "8",
+  "별표가지번호": "02",
+  "별표제목": "설치허가 대상 특정대기유해물질 배출시설의 적용기준",
+  "법령명": "대기환경보전법 시행규칙",
+  "관련조문": "제24조의2",
+  "개정일": "2019-12-20",
+  "별표내용": [
+    { "substance": "염소 및 염화수소",       "thresholdConcentration": 0.4,    "unit": "ppm" },
+    { "substance": "불소화물",              "thresholdConcentration": 0.05,   "unit": "ppm" },
+    { "substance": "시안화수소",            "thresholdConcentration": 0.05,   "unit": "ppm" },
+    { "substance": "염화비닐",              "thresholdConcentration": 0.1,    "unit": "ppm" },
+    { "substance": "페놀 및 그 화합물",      "thresholdConcentration": 0.2,    "unit": "ppm" },
+    { "substance": "벤젠",                 "thresholdConcentration": 0.1,    "unit": "ppm" },
+    { "substance": "사염화탄소",            "thresholdConcentration": 0.1,    "unit": "ppm" },
+    { "substance": "클로로포름",            "thresholdConcentration": 0.1,    "unit": "ppm" },
+    { "substance": "포름알데히드",          "thresholdConcentration": 0.08,   "unit": "ppm" },
+    { "substance": "아세트알데히드",        "thresholdConcentration": 0.01,   "unit": "ppm" },
+    { "substance": "1,3-부타디엔",         "thresholdConcentration": 0.03,   "unit": "ppm" },
+    { "substance": "에틸렌옥사이드",        "thresholdConcentration": 0.05,   "unit": "ppm" },
+    { "substance": "디클로로메탄",          "thresholdConcentration": 0.5,    "unit": "ppm" },
+    { "substance": "트리클로로에틸렌",      "thresholdConcentration": 0.3,    "unit": "ppm" },
+    { "substance": "히드라진",              "thresholdConcentration": 0.45,   "unit": "ppm" },
+    { "substance": "카드뮴 및 그 화합물",    "thresholdConcentration": 0.01,   "unit": "mg/m³" },
+    { "substance": "납 및 그 화합물",        "thresholdConcentration": 0.05,   "unit": "mg/m³" },
+    { "substance": "크롬 및 그 화합물",      "thresholdConcentration": 0.1,    "unit": "mg/m³" },
+    { "substance": "비소 및 그 화합물",      "thresholdConcentration": 0.003,  "unit": "ppm" },
+    { "substance": "수은 및 그 화합물",      "thresholdConcentration": 0.0005, "unit": "mg/m³" },
+    { "substance": "니켈 및 그 화합물",      "thresholdConcentration": 0.01,   "unit": "mg/m³" },
+    { "substance": "베릴륨 및 그 화합물",    "thresholdConcentration": 0.05,   "unit": "mg/m³" },
+    { "substance": "폴리염화비페닐",        "thresholdConcentration": 1,      "unit": "pg/m³" },
+    { "substance": "다이옥신",              "thresholdConcentration": 0.001,  "unit": "ng-TEQ/m³",
+      "unitDescription": "독성 등가치(TEQ) 기준" },
+    { "substance": "다환방향족 탄화수소류",   "thresholdConcentration": 10,     "unit": "ng/m³" },
+    { "substance": "이황화메틸",            "thresholdConcentration": 0.1,    "unit": "ppb" },
+    { "substance": "총 VOCs",
+      "components": ["아닐린", "스틸렌", "테트라클로로에틸렌", "1,2-디클로로에탄", "에틸벤젠", "아크릴로니트릴"],
+      "thresholdConcentration": 0.4, "unit": "mg/m³" }
+  ],
+  "비고": [
+    {
+      "no": "1",
+      "text": "별표 2에 따른 특정대기유해물질 중 위 표에서 기준농도가 정해지지 않은 물질의 기준 농도는 0.00으로 한다."
+    }
+  ]
+}

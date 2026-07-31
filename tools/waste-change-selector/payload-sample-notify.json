@@ -49,7 +49,11 @@
               "typeApproval":  "KIA-LT-2024-01023",
               "firstRegDate":  "2024-08-30",
               "maxLoad":       "1",
-              "note":          "임시 — 3개월 사용"
+              "note":          "임시 — 3개월 사용",
+              "frontImageUrl": "vehicles/2026/06/34_5678-front.jpg",
+              "rearImageUrl":  "vehicles/2026/06/34_5678-rear.jpg",
+              "leftImageUrl":  "vehicles/2026/06/34_5678-left.jpg",
+              "rightImageUrl": "vehicles/2026/06/34_5678-right.jpg"
             }
           }
         ]

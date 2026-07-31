@@ -1,0 +1,5088 @@
+{
+  "별표번호": "3",
+  "별표가지번호": "00",
+  "별표제목": "대기오염물질배출시설",
+  "법령명": "대기환경보전법 시행규칙",
+  "관련조문": "제5조",
+  "개정일": "2025-10-01",
+  "_schema": [
+    "대기오염물질배출시설 (대기환경보전법 시행규칙 별표3, 제5조 관련)",
+    "적용: 2020년 1월 1일부터 (현행)",
+    "개정: 2025-10-01",
+    "",
+    "─────────────────────────────────────────────────────────────────────────────",
+    "데이터 구조",
+    "─────────────────────────────────────────────────────────────────────────────",
+    "",
+    "각 노드 (시설 또는 시설그룹):",
+    "  {",
+    "    code           : 본문 마커 (\"1)\" / \"가)\" / \"(1)\" / \"(가)\")",
+    "    name           : 시설명 (자식 노드의 핵심 명칭, 그룹 노드는 null)",
+    "    text           : 본문 그대로 (마커 제외)",
+    "    criteria       : 적용 기준 (구조화) — 부모에 있으면 자식이 상속",
+    "    criteriaText   : 적용 기준 원문 (criteria 와 매칭)",
+    "    exception      : 예외/단서 텍스트 (구조화 어려운 부분)",
+    "    children       : 하위 노드 배열 (있을 때만)",
+    "  }",
+    "",
+    "criteria 구조:",
+    "  {",
+    "    logic      : \"AND\" | \"OR\"  (단일 조건도 일관성 위해 명시)",
+    "    conditions : [{ metric, operator, value, unit, qualifier? }, ...]",
+    "  }",
+    "",
+    "metric 종류:",
+    "  power              : 동력 (kW)",
+    "  volume             : 용적 (m³)",
+    "  fuelUsage          : 연료사용량 (kg/h, kg/day)",
+    "  area               : 면적 (m²) — qualifier: \"노상\", \"풍구면 횡단\" 등",
+    "  batchAmount        : 1회 주입량 (ton)",
+    "  capacity           : 처리능력 (ton/h, kg/h, m³/h, kg/day) — qualifier: \"소각\"",
+    "  evaporation        : 증발량 (ton/h)",
+    "  heatOutput         : 열량 (kcal/h)",
+    "  installedCapacity  : 설비용량 (kW)",
+    "  production         : 생산량 (Nm³/h)",
+    "  usage              : 사용량 (kg/h)",
+    "  usageRatio         : 사용비율 (%)",
+    "  length             : 길이 (m)",
+    "",
+    "operator: \">=\", \">\", \"<=\", \"<\", \"=\"",
+    "자식 노드는 부모 criteria 를 상속한다 (자체 criteria 가 있으면 추가 적용).",
+    "─────────────────────────────────────────────────────────────────────────────"
+  ],
+  "별표내용": [
+    {
+      "code": "1)",
+      "name": "섬유제품 제조시설",
+      "children": [
+        {
+          "code": "가)",
+          "name": "선별(혼타)시설",
+          "text": "선별(혼타)시설",
+          "criteria": {
+            "logic": "AND",
+            "conditions": [
+              {
+                "metric": "power",
+                "operator": ">=",
+                "value": 2.25,
+                "unit": "kW"
+              }
+            ]
+          },
+          "criteriaText": "동력이 2.25킬로와트 이상"
+        },
+        {
+          "code": "나)",
+          "name": null,
+          "criteria": {
+            "logic": "OR",
+            "conditions": [
+              {
+                "metric": "fuelUsage",
+                "operator": ">=",
+                "value": 60,
+                "unit": "kg/h"
+              },
+              {
+                "metric": "volume",
+                "operator": ">=",
+                "value": 5,
+                "unit": "m³"
+              }
+            ]
+          },
+          "criteriaText": "연료사용량이 시간당 60킬로그램 이상이거나 용적이 5세제곱미터 이상",
+          "children": [
+            {
+              "code": "(1)",
+              "name": "다림질(텐터)시설",
+              "text": "다림질(텐터)시설"
+            },
+            {
+              "code": "(2)",
+              "name": "코팅시설",
+              "text": "코팅시설(실리콘·불소수지 외의 유연제 또는 방수용 수지를 사용하는 시설만 해당한다)"
+            }
+          ]
+        },
+        {
+          "code": "다)",
+          "name": "모소시설",
+          "text": "모소시설(모직물만 해당한다)",
+          "criteria": {
+            "logic": "OR",
+            "conditions": [
+              {
+                "metric": "fuelUsage",
+                "operator": ">=",
+                "value": 20,
+                "unit": "kg/day"
+              },
+              {
+                "metric": "volume",
+                "operator": ">=",
+                "value": 1,
+                "unit": "m³"
+              }
+            ]
+          },
+          "criteriaText": "연료사용량이 일일 20킬로그램 이상이거나 용적이 1세제곱미터 이상"
+        },
+        {
+          "code": "라)",
+          "name": "기모시설",
+          "text": "기모(식모, 전모)시설",
+          "criteria": {
+            "logic": "AND",
+            "conditions": [
+              {
+                "metric": "power",
+                "operator": ">=",
+                "value": 7.5,
+                "unit": "kW"
+              }
+            ]
+          },
+          "criteriaText": "동력이 7.5킬로와트 이상"
+        }
+      ]
+    },
+    {
+      "code": "2)",
+      "name": "가죽·모피가공시설 및 모피제품·신발 제조시설",
+      "criteria": {
+        "logic": "AND",
+        "conditions": [
+          {
+            "metric": "volume",
+            "operator": ">=",
+            "value": 3,
+            "unit": "m³"
+          }
+        ]
+      },
+      "criteriaText": "용적이 3세제곱미터 이상",
+      "children": [
+        {
+          "code": "가)",
+          "name": "염색시설",
+          "text": "염색시설"
+        },
+        {
+          "code": "나)",
+          "name": "접착시설",
+          "text": "접착시설"
+        },
+        {
+          "code": "다)",
+          "name": "건조시설",
+          "text": "건조시설(유기용제를 사용하는 시설만 해당한다)"
+        }
+      ]
+    },
+    {
+      "code": "3)",
+      "name": "펄프, 종이 및 판지 제조시설",
+      "children": [
+        {
+          "code": "가)",
+          "name": null,
+          "criteria": {
+            "logic": "AND",
+            "conditions": [
+              {
+                "metric": "volume",
+                "operator": ">=",
+                "value": 3,
+                "unit": "m³"
+              }
+            ]
+          },
+          "criteriaText": "용적이 3세제곱미터 이상",
+          "children": [
+            {
+              "code": "(1)",
+              "name": "증해시설",
+              "text": "증해(蒸解)시설"
+            },
+            {
+              "code": "(2)",
+              "name": "표백시설",
+              "text": "표백(漂白)시설"
+            }
+          ]
+        },
+        {
+          "code": "나)",
+          "name": null,
+          "criteria": {
+            "logic": "AND",
+            "conditions": [
+              {
+                "metric": "fuelUsage",
+                "operator": ">=",
+                "value": 30,
+                "unit": "kg/h"
+              }
+            ]
+          },
+          "criteriaText": "연료사용량이 시간당 30킬로그램 이상",
+          "children": [
+            {
+              "code": "(1)",
+              "name": "석회로시설",
+              "text": "석회로시설"
+            },
+            {
+              "code": "(2)",
+              "name": "가열시설",
+              "text": "가열시설(연소시설을 포함한다)"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "code": "4)",
+      "name": "기타 종이 및 판지 제품 제조시설",
+      "children": [
+        {
+          "code": "가)",
+          "name": null,
+          "criteria": {
+            "logic": "AND",
+            "conditions": [
+              {
+                "metric": "volume",
+                "operator": ">=",
+                "value": 3,
+                "unit": "m³"
+              }
+            ]
+          },
+          "criteriaText": "용적이 3세제곱미터 이상",
+          "children": [
+            {
+              "code": "(1)",
+              "name": "증해시설",
+              "text": "증해시설"
+            },
+            {
+              "code": "(2)",
+              "name": "표백시설",
+              "text": "표백시설"
+            }
+          ]
+        },
+        {
+          "code": "나)",
+          "name": null,
+          "criteria": {
+            "logic": "AND",
+            "conditions": [
+              {
+                "metric": "fuelUsage",
+                "operator": ">=",
+                "value": 30,
+                "unit": "kg/h"
+              }
+            ]
+          },
+          "criteriaText": "연료사용량이 시간당 30킬로그램 이상",
+          "children": [
+            {
+              "code": "(1)",
+              "name": "석회로시설",
+              "text": "석회로시설"
+            },
+            {
+              "code": "(2)",
+              "name": "가열시설",
+              "text": "가열시설(연소시설을 포함한다)"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "code": "5)",
+      "name": "인쇄 및 각종 기록 매체 제조(복제)시설",
+      "text": "그라비아 인쇄·건조시설(유기용제류를 사용하는 인쇄시설과 이 시설들과 연계되어 유기용제류를 사용하는 코팅시설, 건조시설만 해당한다)",
+      "criteria": {
+        "logic": "OR",
+        "conditions": [
+          {
+            "metric": "fuelUsage",
+            "operator": ">=",
+            "value": 30,
+            "unit": "kg/h"
+          },
+          {
+            "metric": "volume",
+            "operator": ">=",
+            "value": 1,
+            "unit": "m³",
+            "qualifier": "합계"
+          }
+        ]
+      },
+      "criteriaText": "연료사용량이 시간당 30킬로그램 이상이거나 합계용적이 1세제곱미터 이상"
+    },
+    {
+      "code": "6)",
+      "name": "코크스 제조시설 및 관련제품 저장시설",
+      "text": "석탄 코크스 제조시설(코크스로·인출시설·냉각시설을 포함한다. 다만, 석탄 장입시설 및 코크스 오븐가스 방산시설은 제외한다), 석유 코크스 제조시설 및 저장시설",
+      "criteria": {
+        "logic": "AND",
+        "conditions": [
+          {
+            "metric": "fuelUsage",
+            "operator": ">=",
+            "value": 30,
+            "unit": "kg/h"
+          }
+        ]
+      },
+      "criteriaText": "연료사용량이 시간당 30킬로그램 이상"
+    },
+    {
+      "code": "7)",
+      "name": "석유 정제품 제조시설 및 관련 제품 저장시설",
+      "children": [
+        {
+          "code": "가)",
+          "name": null,
+          "criteria": {
+            "logic": "AND",
+            "conditions": [
+              {
+                "metric": "volume",
+                "operator": ">=",
+                "value": 1,
+                "unit": "m³"
+              }
+            ]
+          },
+          "criteriaText": "용적이 1세제곱미터 이상",
+          "children": [
+            {
+              "code": "(1)",
+              "name": "반응시설",
+              "text": "반응(反應)시설"
+            },
+            {
+              "code": "(2)",
+              "name": "흡수시설",
+              "text": "흡수(吸收)시설"
+            },
+            {
+              "code": "(3)",
+              "name": "응축시설",
+              "text": "응축시설"
+            },
+            {
+              "code": "(4)",
+              "name": "정제시설",
+              "text": "정제(精製)시설[분리(分離)시설, 증류(蒸溜)시설, 추출(抽出)시설 및 여과(濾過)시설을 포함한다]"
+            },
+            {
+              "code": "(5)",
+              "name": "농축시설",
+              "text": "농축(濃縮)시설"
+            },
+            {
+              "code": "(6)",
+              "name": "표백시설",
+              "text": "표백시설"
+            }
+          ]
+        },
+        {
+          "code": "나)",
+          "name": null,
+          "criteria": {
+            "logic": "OR",
+            "conditions": [
+              {
+                "metric": "volume",
+                "operator": ">=",
+                "value": 1,
+                "unit": "m³"
+              },
+              {
+                "metric": "fuelUsage",
+                "operator": ">=",
+                "value": 30,
+                "unit": "kg/h"
+              }
+            ]
+          },
+          "criteriaText": "용적이 1세제곱미터 이상이거나 연료사용량이 시간당 30킬로그램 이상",
+          "children": [
+            {
+              "code": "(1)",
+              "name": "용융·용해시설",
+              "text": "용융·용해시설"
+            },
+            {
+              "code": "(2)",
+              "name": "소성시설",
+              "text": "소성(燒成)시설"
+            },
+            {
+              "code": "(3)",
+              "name": "가열시설",
+              "text": "가열시설"
+            },
+            {
+              "code": "(4)",
+              "name": "건조시설",
+              "text": "건조시설"
+            },
+            {
+              "code": "(5)",
+              "name": "회수시설",
+              "text": "회수(回收)시설"
+            },
+            {
+              "code": "(6)",
+              "name": "연소시설",
+              "text": "연소(撚燒)시설(석유제품의 연소시설, 중질유 분해시설의 일산화탄소 소각시설 및 황 회수장치의 부산물 연소시설만 해당한다)"
+            },
+            {
+              "code": "(7)",
+              "name": "촉매재생시설",
+              "text": "촉매재생시설"
+            },
+            {
+              "code": "(8)",
+              "name": "황산화물제거시설",
+              "text": "황산화물제거시설"
+            }
+          ]
+        },
+        {
+          "code": "다)",
+          "name": "유기화합물 저장시설",
+          "text": "유기화합물(원유·휘발유·나프타) 저장시설(주유소의 저장시설은 제외한다)",
+          "criteria": {
+            "logic": "AND",
+            "conditions": [
+              {
+                "metric": "volume",
+                "operator": ">=",
+                "value": 50,
+                "unit": "m³"
+              }
+            ]
+          },
+          "criteriaText": "용적이 50세제곱미터 이상"
+        }
+      ]
+    },
+    {
+      "code": "8)",
+      "name": "기초유기화합물 제조시설",
+      "children": [
+        {
+          "code": "가)",
+          "name": null,
+          "criteria": {
+            "logic": "AND",
+            "conditions": [
+              {
+                "metric": "volume",
+                "operator": ">=",
+                "value": 1,
+                "unit": "m³"
+              }
+            ]
+          },
+          "criteriaText": "용적이 1세제곱미터 이상",
+          "children": [
+            {
+              "code": "(1)",
+              "name": "반응시설",
+              "text": "반응시설"
+            },
+            {
+              "code": "(2)",
+              "name": "흡수시설",
+              "text": "흡수시설"
+            },
+            {
+              "code": "(3)",
+              "name": "응축시설",
+              "text": "응축시설"
+            },
+            {
+              "code": "(4)",
+              "name": "정제시설",
+              "text": "정제시설(분리·증류·추출·여과시설을 포함한다)"
+            },
+            {
+              "code": "(5)",
+              "name": "농축시설",
+              "text": "농축시설"
+            },
+            {
+              "code": "(6)",
+              "name": "표백시설",
+              "text": "표백시설"
+            }
+          ]
+        },
+        {
+          "code": "나)",
+          "name": null,
+          "criteria": {
+            "logic": "OR",
+            "conditions": [
+              {
+                "metric": "volume",
+                "operator": ">=",
+                "value": 1,
+                "unit": "m³"
+              },
+              {
+                "metric": "fuelUsage",
+                "operator": ">=",
+                "value": 30,
+                "unit": "kg/h"
+              }
+            ]
+          },
+          "criteriaText": "용적이 1세제곱미터 이상이거나 연료사용량이 시간당 30킬로그램 이상",
+          "children": [
+            {
+              "code": "(1)",
+              "name": "용융·용해시설",
+              "text": "용융·용해시설"
+            },
+            {
+              "code": "(2)",
+              "name": "소성시설",
+              "text": "소성시설"
+            },
+            {
+              "code": "(3)",
+              "name": "가열시설",
+              "text": "가열시설"
+            },
+            {
+              "code": "(4)",
+              "name": "건조시설",
+              "text": "건조시설"
+            },
+            {
+              "code": "(5)",
+              "name": "회수시설",
+              "text": "회수시설"
+            },
+            {
+              "code": "(6)",
+              "name": "연소시설",
+              "text": "연소시설(중질유 분해시설의 일산화탄소 소각시설 및 황 회수장치의 부산물 연소시설을 포함한 기초유기화합물 제조시설의 연소시설만 해당한다)"
+            },
+            {
+              "code": "(7)",
+              "name": "촉매재생시설",
+              "text": "촉매재생시설"
+            },
+            {
+              "code": "(8)",
+              "name": "황산화물제거시설",
+              "text": "황산화물제거시설"
+            }
+          ]
+        },
+        {
+          "code": "다)",
+          "name": "성형시설",
+          "text": "성형(成形)시설[압출(壓出)방법, 압연(壓延)방법 또는 사출(射出)방법에 의한 시설을 포함한다]",
+          "criteria": {
+            "logic": "AND",
+            "conditions": [
+              {
+                "metric": "power",
+                "operator": ">=",
+                "value": 37.5,
+                "unit": "kW"
+              }
+            ]
+          },
+          "criteriaText": "37.5킬로와트 이상"
+        }
+      ]
+    },
+    {
+      "code": "9)",
+      "name": "가스 제조시설",
+      "children": [
+        {
+          "code": "가)",
+          "name": null,
+          "criteria": {
+            "logic": "AND",
+            "conditions": [
+              {
+                "metric": "volume",
+                "operator": ">=",
+                "value": 1,
+                "unit": "m³"
+              }
+            ]
+          },
+          "criteriaText": "용적이 1세제곱미터 이상",
+          "children": [
+            {
+              "code": "(1)",
+              "name": "반응시설",
+              "text": "반응시설"
+            },
+            {
+              "code": "(2)",
+              "name": "흡수시설",
+              "text": "흡수시설"
+            },
+            {
+              "code": "(3)",
+              "name": "응축시설",
+              "text": "응축시설"
+            },
+            {
+              "code": "(4)",
+              "name": "정제시설",
+              "text": "정제시설(분리·증류·추출·여과시설을 포함한다)"
+            },
+            {
+              "code": "(5)",
+              "name": "농축시설",
+              "text": "농축시설"
+            },
+            {
+              "code": "(6)",
+              "name": "표백시설",
+              "text": "표백시설"
+            }
+          ]
+        },
+        {
+          "code": "나)",
+          "name": null,
+          "criteria": {
+            "logic": "OR",
+            "conditions": [
+              {
+                "metric": "volume",
+                "operator": ">=",
+                "value": 1,
+                "unit": "m³"
+              },
+              {
+                "metric": "fuelUsage",
+                "operator": ">=",
+                "value": 30,
+                "unit": "kg/h"
+              }
+            ]
+          },
+          "criteriaText": "용적이 1세제곱미터 이상이거나 연료사용량이 시간당 30킬로그램 이상",
+          "children": [
+            {
+              "code": "(1)",
+              "name": "용융·용해시설",
+              "text": "용융·용해시설"
+            },
+            {
+              "code": "(2)",
+              "name": "소성시설",
+              "text": "소성시설"
+            },
+            {
+              "code": "(3)",
+              "name": "가열시설",
+              "text": "가열시설(연소시설을 포함한다)"
+            },
+            {
+              "code": "(4)",
+              "name": "건조시설",
+              "text": "건조시설"
+            },
+            {
+              "code": "(5)",
+              "name": "회수시설",
+              "text": "회수시설"
+            },
+            {
+              "code": "(6)",
+              "name": "촉매재생시설",
+              "text": "촉매재생시설"
+            },
+            {
+              "code": "(7)",
+              "name": "황산화물제거시설",
+              "text": "황산화물제거시설"
+            }
+          ]
+        },
+        {
+          "code": "다)",
+          "name": "성형시설",
+          "text": "성형시설(압출방법, 압연방법 또는 사출방법에 의한 시설을 포함한다)",
+          "criteria": {
+            "logic": "AND",
+            "conditions": [
+              {
+                "metric": "power",
+                "operator": ">=",
+                "value": 37.5,
+                "unit": "kW"
+              }
+            ]
+          },
+          "criteriaText": "37.5킬로와트 이상"
+        },
+        {
+          "code": "라)",
+          "name": "석탄가스화 연료 제조시설",
+          "criteria": {
+            "logic": "OR",
+            "conditions": [
+              {
+                "metric": "volume",
+                "operator": ">=",
+                "value": 1,
+                "unit": "m³"
+              },
+              {
+                "metric": "fuelUsage",
+                "operator": ">=",
+                "value": 30,
+                "unit": "kg/h"
+              }
+            ]
+          },
+          "criteriaText": "용적이 1세제곱미터 이상이거나 연료사용량이 시간당 30킬로그램 이상",
+          "children": [
+            {
+              "code": "(1)",
+              "name": "건조시설",
+              "text": "건조시설"
+            },
+            {
+              "code": "(2)",
+              "name": "분쇄시설",
+              "text": "분쇄시설"
+            },
+            {
+              "code": "(3)",
+              "name": "가스화시설",
+              "text": "가스화시설"
+            },
+            {
+              "code": "(4)",
+              "name": "제진시설",
+              "text": "제진시설"
+            },
+            {
+              "code": "(5)",
+              "name": "황 회수시설",
+              "text": "황 회수시설(황산제조시설, 황산화물제거시설을 포함한다)"
+            },
+            {
+              "code": "(6)",
+              "name": "연소시설",
+              "text": "연소시설(석탄가스화 연료 제조시설의 각종 부산물 연소시설만 해당한다)"
+            },
+            {
+              "code": "(7)",
+              "name": "고체입자상물질 및 유·무기산 저장시설",
+              "text": "고체입자상물질 및 유·무기산 저장시설",
+              "criteria": {
+                "logic": "AND",
+                "conditions": [
+                  {
+                    "metric": "volume",
+                    "operator": ">=",
+                    "value": 50,
+                    "unit": "m³"
+                  }
+                ]
+              },
+              "criteriaText": "용적이 50세제곱미터 이상"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "code": "10)",
+      "name": "기초무기화합물 제조시설",
+      "children": [
+        {
+          "code": "가)",
+          "name": null,
+          "criteria": {
+            "logic": "AND",
+            "conditions": [
+              {
+                "metric": "volume",
+                "operator": ">=",
+                "value": 1,
+                "unit": "m³"
+              }
+            ]
+          },
+          "criteriaText": "용적이 1세제곱미터 이상",
+          "children": [
+            {
+              "code": "(1)",
+              "name": "반응시설",
+              "text": "반응시설"
+            },
+            {
+              "code": "(2)",
+              "name": "흡수시설",
+              "text": "흡수시설"
+            },
+            {
+              "code": "(3)",
+              "name": "응축시설",
+              "text": "응축시설"
+            },
+            {
+              "code": "(4)",
+              "name": "정제시설",
+              "text": "정제시설(분리·증류·추출·여과시설을 포함한다)"
+            },
+            {
+              "code": "(5)",
+              "name": "농축시설",
+              "text": "농축시설"
+            },
+            {
+              "code": "(6)",
+              "name": "표백시설",
+              "text": "표백시설"
+            }
+          ]
+        },
+        {
+          "code": "나)",
+          "name": null,
+          "criteria": {
+            "logic": "OR",
+            "conditions": [
+              {
+                "metric": "volume",
+                "operator": ">=",
+                "value": 1,
+                "unit": "m³"
+              },
+              {
+                "metric": "fuelUsage",
+                "operator": ">=",
+                "value": 30,
+                "unit": "kg/h"
+              }
+            ]
+          },
+          "criteriaText": "용적이 1세제곱미터 이상이거나 연료사용량이 시간당 30킬로그램 이상",
+          "children": [
+            {
+              "code": "(1)",
+              "name": "용융·용해시설",
+              "text": "용융·용해시설"
+            },
+            {
+              "code": "(2)",
+              "name": "소성시설",
+              "text": "소성시설"
+            },
+            {
+              "code": "(3)",
+              "name": "가열시설",
+              "text": "가열시설"
+            },
+            {
+              "code": "(4)",
+              "name": "건조시설",
+              "text": "건조시설"
+            },
+            {
+              "code": "(5)",
+              "name": "회수시설",
+              "text": "회수시설"
+            },
+            {
+              "code": "(6)",
+              "name": "연소시설",
+              "text": "연소시설(기초무기화합물의 연소시설만 해당한다)"
+            },
+            {
+              "code": "(7)",
+              "name": "촉매재생시설",
+              "text": "촉매재생시설"
+            },
+            {
+              "code": "(8)",
+              "name": "탈황시설",
+              "text": "탈황시설"
+            }
+          ]
+        },
+        {
+          "code": "다)",
+          "name": "염산제조시설 및 폐염산정제시설",
+          "text": "염산제조시설 및 폐염산정제시설(염화수소 회수시설을 포함한다)"
+        },
+        {
+          "code": "라)",
+          "name": "황산제조시설",
+          "text": "황산제조시설"
+        },
+        {
+          "code": "마)",
+          "name": "형석의 용융·용해시설 및 소성시설, 불소화합물 제조시설",
+          "text": "형석의 용융·용해시설 및 소성시설, 불소화합물 제조시설"
+        },
+        {
+          "code": "바)",
+          "name": "과인산암모늄 제조시설",
+          "text": "과인산암모늄 제조시설"
+        },
+        {
+          "code": "사)",
+          "name": "인광석의 용융·용해시설 및 소성시설, 인산제조시설",
+          "text": "인광석의 용융·용해시설 및 소성시설, 인산제조시설"
+        },
+        {
+          "code": "아)",
+          "name": "카본블랙 제조시설",
+          "criteria": {
+            "logic": "OR",
+            "conditions": [
+              {
+                "metric": "volume",
+                "operator": ">=",
+                "value": 1,
+                "unit": "m³"
+              },
+              {
+                "metric": "fuelUsage",
+                "operator": ">=",
+                "value": 30,
+                "unit": "kg/h",
+                "qualifier": "원료사용량"
+              }
+            ]
+          },
+          "criteriaText": "용적이 1세제곱미터 이상이거나 원료사용량이 시간당 30킬로그램 이상",
+          "children": [
+            {
+              "code": "(1)",
+              "name": "반응시설",
+              "text": "반응시설"
+            },
+            {
+              "code": "(2)",
+              "name": "분리정제시설",
+              "text": "분리정제시설"
+            },
+            {
+              "code": "(3)",
+              "name": "분쇄시설",
+              "text": "분쇄시설"
+            },
+            {
+              "code": "(4)",
+              "name": "성형시설",
+              "text": "성형시설"
+            },
+            {
+              "code": "(5)",
+              "name": "가열시설",
+              "text": "가열시설(연소시설을 포함한다)"
+            },
+            {
+              "code": "(6)",
+              "name": "건조시설",
+              "text": "건조시설"
+            },
+            {
+              "code": "(7)",
+              "name": "저장시설",
+              "text": "저장시설"
+            },
+            {
+              "code": "(8)",
+              "name": "포장시설",
+              "text": "포장시설"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "code": "11)",
+      "name": "무기안료 기타 금속산화물 제조시설",
+      "children": [
+        {
+          "code": "가)",
+          "name": null,
+          "criteria": {
+            "logic": "AND",
+            "conditions": [
+              {
+                "metric": "volume",
+                "operator": ">=",
+                "value": 1,
+                "unit": "m³"
+              }
+            ]
+          },
+          "criteriaText": "용적이 1세제곱미터 이상",
+          "children": [
+            {
+              "code": "(1)",
+              "name": "반응시설",
+              "text": "반응시설"
+            },
+            {
+              "code": "(2)",
+              "name": "흡수시설",
+              "text": "흡수시설"
+            },
+            {
+              "code": "(3)",
+              "name": "응축시설",
+              "text": "응축시설"
+            },
+            {
+              "code": "(4)",
+              "name": "정제시설",
+              "text": "정제시설(분리·증류·추출·여과시설을 포함한다)"
+            },
+            {
+              "code": "(5)",
+              "name": "농축시설",
+              "text": "농축시설"
+            },
+            {
+              "code": "(6)",
+              "name": "표백시설",
+              "text": "표백시설"
+            }
+          ]
+        },
+        {
+          "code": "나)",
+          "name": null,
+          "criteria": {
+            "logic": "OR",
+            "conditions": [
+              {
+                "metric": "fuelUsage",
+                "operator": ">=",
+                "value": 30,
+                "unit": "kg/h"
+              },
+              {
+                "metric": "volume",
+                "operator": ">=",
+                "value": 1,
+                "unit": "m³"
+              }
+            ]
+          },
+          "criteriaText": "연료사용량이 시간당 30킬로그램 이상이거나 용적이 1세제곱미터 이상",
+          "children": [
+            {
+              "code": "(1)",
+              "name": "용융·용해시설",
+              "text": "용융·용해시설"
+            },
+            {
+              "code": "(2)",
+              "name": "소성시설",
+              "text": "소성시설"
+            },
+            {
+              "code": "(3)",
+              "name": "가열시설",
+              "text": "가열시설(연소시설을 포함한다)"
+            },
+            {
+              "code": "(4)",
+              "name": "건조시설",
+              "text": "건조시설"
+            },
+            {
+              "code": "(5)",
+              "name": "회수시설",
+              "text": "회수시설"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "code": "12)",
+      "name": "합성염료, 유연제 및 기타 착색제 제조시설",
+      "children": [
+        {
+          "code": "가)",
+          "name": null,
+          "criteria": {
+            "logic": "AND",
+            "conditions": [
+              {
+                "metric": "volume",
+                "operator": ">=",
+                "value": 1,
+                "unit": "m³"
+              }
+            ]
+          },
+          "criteriaText": "용적이 1세제곱미터 이상",
+          "children": [
+            {
+              "code": "(1)",
+              "name": "반응시설",
+              "text": "반응시설"
+            },
+            {
+              "code": "(2)",
+              "name": "흡수시설",
+              "text": "흡수시설"
+            },
+            {
+              "code": "(3)",
+              "name": "응축시설",
+              "text": "응축시설"
+            },
+            {
+              "code": "(4)",
+              "name": "정제시설",
+              "text": "정제시설(분리·증류·추출·여과시설을 포함한다)"
+            },
+            {
+              "code": "(5)",
+              "name": "농축시설",
+              "text": "농축시설"
+            },
+            {
+              "code": "(6)",
+              "name": "표백시설",
+              "text": "표백시설"
+            }
+          ]
+        },
+        {
+          "code": "나)",
+          "name": null,
+          "criteria": {
+            "logic": "OR",
+            "conditions": [
+              {
+                "metric": "fuelUsage",
+                "operator": ">=",
+                "value": 30,
+                "unit": "kg/h"
+              },
+              {
+                "metric": "volume",
+                "operator": ">=",
+                "value": 1,
+                "unit": "m³"
+              }
+            ]
+          },
+          "criteriaText": "연료사용량이 시간당 30킬로그램 이상이거나 용적이 1세제곱미터 이상",
+          "children": [
+            {
+              "code": "(1)",
+              "name": "용융·용해시설",
+              "text": "용융·용해시설"
+            },
+            {
+              "code": "(2)",
+              "name": "소성시설",
+              "text": "소성시설"
+            },
+            {
+              "code": "(3)",
+              "name": "가열시설",
+              "text": "가열시설(연소시설을 포함한다)"
+            },
+            {
+              "code": "(4)",
+              "name": "건조시설",
+              "text": "건조시설"
+            },
+            {
+              "code": "(5)",
+              "name": "회수시설",
+              "text": "회수시설"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "code": "13)",
+      "name": "비료 및 질소화합물 제조시설",
+      "children": [
+        {
+          "code": "가)",
+          "name": null,
+          "criteria": {
+            "logic": "AND",
+            "conditions": [
+              {
+                "metric": "volume",
+                "operator": ">=",
+                "value": 1,
+                "unit": "m³"
+              }
+            ]
+          },
+          "criteriaText": "용적이 1세제곱미터 이상",
+          "children": [
+            {
+              "code": "(1)",
+              "name": "반응시설",
+              "text": "반응시설"
+            },
+            {
+              "code": "(2)",
+              "name": "흡수시설",
+              "text": "흡수시설"
+            },
+            {
+              "code": "(3)",
+              "name": "응축시설",
+              "text": "응축시설"
+            },
+            {
+              "code": "(4)",
+              "name": "정제시설",
+              "text": "정제시설(분리·증류·추출·여과시설을 포함한다)"
+            },
+            {
+              "code": "(5)",
+              "name": "농축시설",
+              "text": "농축시설"
+            },
+            {
+              "code": "(6)",
+              "name": "표백시설",
+              "text": "표백시설"
+            }
+          ]
+        },
+        {
+          "code": "나)",
+          "name": null,
+          "criteria": {
+            "logic": "OR",
+            "conditions": [
+              {
+                "metric": "fuelUsage",
+                "operator": ">=",
+                "value": 30,
+                "unit": "kg/h"
+              },
+              {
+                "metric": "volume",
+                "operator": ">=",
+                "value": 1,
+                "unit": "m³"
+              }
+            ]
+          },
+          "criteriaText": "연료사용량이 시간당 30킬로그램 이상이거나 용적이 1세제곱미터 이상",
+          "children": [
+            {
+              "code": "(1)",
+              "name": "용융·용해시설",
+              "text": "용융·용해시설"
+            },
+            {
+              "code": "(2)",
+              "name": "소성시설",
+              "text": "소성시설"
+            },
+            {
+              "code": "(3)",
+              "name": "가열시설",
+              "text": "가열시설(연소시설을 포함한다)"
+            },
+            {
+              "code": "(4)",
+              "name": "건조시설",
+              "text": "건조시설"
+            },
+            {
+              "code": "(5)",
+              "name": "회수시설",
+              "text": "회수시설"
+            }
+          ]
+        },
+        {
+          "code": "다)",
+          "name": null,
+          "criteria": {
+            "logic": "OR",
+            "conditions": [
+              {
+                "metric": "volume",
+                "operator": ">=",
+                "value": 3,
+                "unit": "m³"
+              },
+              {
+                "metric": "power",
+                "operator": ">=",
+                "value": 7.5,
+                "unit": "kW"
+              }
+            ]
+          },
+          "criteriaText": "용적이 3세제곱미터 이상이거나 동력이 7.5킬로와트 이상",
+          "children": [
+            {
+              "code": "(1)",
+              "name": "혼합시설",
+              "text": "혼합시설"
+            },
+            {
+              "code": "(2)",
+              "name": "입자상물질 계량시설",
+              "text": "입자상물질 계량시설"
+            }
+          ]
+        },
+        {
+          "code": "라)",
+          "name": "질소화합물 및 질산 제조시설",
+          "text": "질소화합물 및 질산 제조시설"
+        }
+      ]
+    },
+    {
+      "code": "14)",
+      "name": "의료용 물질 및 의약품 제조시설",
+      "children": [
+        {
+          "code": "가)",
+          "name": null,
+          "criteria": {
+            "logic": "AND",
+            "conditions": [
+              {
+                "metric": "volume",
+                "operator": ">=",
+                "value": 1,
+                "unit": "m³"
+              }
+            ]
+          },
+          "criteriaText": "용적이 1세제곱미터 이상",
+          "children": [
+            {
+              "code": "(1)",
+              "name": "반응시설",
+              "text": "반응시설"
+            },
+            {
+              "code": "(2)",
+              "name": "흡수시설",
+              "text": "흡수시설"
+            },
+            {
+              "code": "(3)",
+              "name": "응축시설",
+              "text": "응축시설"
+            },
+            {
+              "code": "(4)",
+              "name": "정제시설",
+              "text": "정제시설(분리·증류·추출·여과시설을 포함한다)"
+            },
+            {
+              "code": "(5)",
+              "name": "농축시설",
+              "text": "농축시설"
+            },
+            {
+              "code": "(6)",
+              "name": "표백시설",
+              "text": "표백시설"
+            }
+          ]
+        },
+        {
+          "code": "나)",
+          "name": null,
+          "criteria": {
+            "logic": "OR",
+            "conditions": [
+              {
+                "metric": "fuelUsage",
+                "operator": ">=",
+                "value": 30,
+                "unit": "kg/h"
+              },
+              {
+                "metric": "volume",
+                "operator": ">=",
+                "value": 1,
+                "unit": "m³"
+              }
+            ]
+          },
+          "criteriaText": "연료사용량이 시간당 30킬로그램 이상이거나 용적이 1세제곱미터 이상",
+          "children": [
+            {
+              "code": "(1)",
+              "name": "용융·용해시설",
+              "text": "용융·용해시설"
+            },
+            {
+              "code": "(2)",
+              "name": "소성시설",
+              "text": "소성시설"
+            },
+            {
+              "code": "(3)",
+              "name": "가열시설",
+              "text": "가열시설(의약품의 연소시설을 포함한다)"
+            },
+            {
+              "code": "(4)",
+              "name": "건조시설",
+              "text": "건조시설"
+            },
+            {
+              "code": "(5)",
+              "name": "회수시설",
+              "text": "회수시설"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "code": "15)",
+      "name": "그 밖의 화학제품 제조시설",
+      "children": [
+        {
+          "code": "가)",
+          "name": null,
+          "criteria": {
+            "logic": "AND",
+            "conditions": [
+              {
+                "metric": "volume",
+                "operator": ">=",
+                "value": 1,
+                "unit": "m³"
+              }
+            ]
+          },
+          "criteriaText": "용적이 1세제곱미터 이상",
+          "children": [
+            {
+              "code": "(1)",
+              "name": "반응시설",
+              "text": "반응시설"
+            },
+            {
+              "code": "(2)",
+              "name": "흡수시설",
+              "text": "흡수시설"
+            },
+            {
+              "code": "(3)",
+              "name": "응축시설",
+              "text": "응축시설"
+            },
+            {
+              "code": "(4)",
+              "name": "정제시설",
+              "text": "정제시설(분리·증류·추출·여과시설을 포함한다)"
+            },
+            {
+              "code": "(5)",
+              "name": "농축시설",
+              "text": "농축시설"
+            },
+            {
+              "code": "(6)",
+              "name": "표백시설",
+              "text": "표백시설"
+            }
+          ]
+        },
+        {
+          "code": "나)",
+          "name": null,
+          "criteria": {
+            "logic": "OR",
+            "conditions": [
+              {
+                "metric": "fuelUsage",
+                "operator": ">=",
+                "value": 30,
+                "unit": "kg/h"
+              },
+              {
+                "metric": "volume",
+                "operator": ">=",
+                "value": 1,
+                "unit": "m³"
+              }
+            ]
+          },
+          "criteriaText": "연료사용량이 시간당 30킬로그램 이상이거나 용적이 1세제곱미터 이상",
+          "children": [
+            {
+              "code": "(1)",
+              "name": "용융·용해시설",
+              "text": "용융·용해시설"
+            },
+            {
+              "code": "(2)",
+              "name": "소성시설",
+              "text": "소성시설"
+            },
+            {
+              "code": "(3)",
+              "name": "가열시설",
+              "text": "가열시설(화학제품의 연소시설을 포함한다)"
+            },
+            {
+              "code": "(4)",
+              "name": "건조시설",
+              "text": "건조시설"
+            },
+            {
+              "code": "(5)",
+              "name": "회수시설",
+              "text": "회수시설"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "code": "16)",
+      "name": "탄화시설",
+      "children": [
+        {
+          "code": "가)",
+          "name": "탄화시설",
+          "text": "탄화(炭火)시설",
+          "criteria": {
+            "logic": "AND",
+            "conditions": [
+              {
+                "metric": "volume",
+                "operator": ">=",
+                "value": 30,
+                "unit": "m³"
+              }
+            ]
+          },
+          "criteriaText": "용적이 30세제곱미터 이상"
+        },
+        {
+          "code": "나)",
+          "name": "욕장업의 숯가마·찜질방 및 그 부대시설",
+          "text": "욕장업의 숯가마·찜질방 및 그 부대시설(목재를 연료로 사용)",
+          "criteria": {
+            "logic": "AND",
+            "conditions": [
+              {
+                "metric": "volume",
+                "operator": ">=",
+                "value": 30,
+                "unit": "m³"
+              }
+            ]
+          },
+          "criteriaText": "목재를 연료로 사용하는 용적이 30세제곱미터 이상"
+        },
+        {
+          "code": "다)",
+          "name": "전통식 숯가마 및 그 부대시설",
+          "text": "숯 및 목초액을 제조하는 전통식 숯가마 및 그 부대시설",
+          "criteria": {
+            "logic": "AND",
+            "conditions": [
+              {
+                "metric": "volume",
+                "operator": ">=",
+                "value": 100,
+                "unit": "m³"
+              }
+            ]
+          },
+          "criteriaText": "용적이 100세제곱미터 이상"
+        }
+      ]
+    },
+    {
+      "code": "17)",
+      "name": "화학섬유 제조시설",
+      "children": [
+        {
+          "code": "가)",
+          "name": null,
+          "criteria": {
+            "logic": "AND",
+            "conditions": [
+              {
+                "metric": "volume",
+                "operator": ">=",
+                "value": 1,
+                "unit": "m³"
+              }
+            ]
+          },
+          "criteriaText": "용적이 1세제곱미터 이상",
+          "children": [
+            {
+              "code": "(1)",
+              "name": "반응시설",
+              "text": "반응시설"
+            },
+            {
+              "code": "(2)",
+              "name": "흡수시설",
+              "text": "흡수시설"
+            },
+            {
+              "code": "(3)",
+              "name": "응축시설",
+              "text": "응축시설"
+            },
+            {
+              "code": "(4)",
+              "name": "정제시설",
+              "text": "정제시설(분리·증류·추출·여과시설을 포함한다)"
+            },
+            {
+              "code": "(5)",
+              "name": "농축시설",
+              "text": "농축시설"
+            },
+            {
+              "code": "(6)",
+              "name": "표백시설",
+              "text": "표백시설"
+            }
+          ]
+        },
+        {
+          "code": "나)",
+          "name": null,
+          "criteria": {
+            "logic": "OR",
+            "conditions": [
+              {
+                "metric": "fuelUsage",
+                "operator": ">=",
+                "value": 30,
+                "unit": "kg/h"
+              },
+              {
+                "metric": "volume",
+                "operator": ">=",
+                "value": 1,
+                "unit": "m³"
+              }
+            ]
+          },
+          "criteriaText": "연료사용량이 시간당 30킬로그램 이상이거나 용적이 1세제곱미터 이상",
+          "children": [
+            {
+              "code": "(1)",
+              "name": "용융·용해시설",
+              "text": "용융·용해시설"
+            },
+            {
+              "code": "(2)",
+              "name": "소성시설",
+              "text": "소성시설"
+            },
+            {
+              "code": "(3)",
+              "name": "건조시설",
+              "text": "건조시설"
+            },
+            {
+              "code": "(4)",
+              "name": "회수시설",
+              "text": "회수시설"
+            },
+            {
+              "code": "(5)",
+              "name": "가열시설",
+              "text": "가열시설(화학섬유의 연소시설을 포함한다)"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "code": "18)",
+      "name": "고무 및 고무제품 제조시설",
+      "children": [
+        {
+          "code": "가)",
+          "name": null,
+          "criteria": {
+            "logic": "AND",
+            "conditions": [
+              {
+                "metric": "volume",
+                "operator": ">=",
+                "value": 1,
+                "unit": "m³"
+              }
+            ]
+          },
+          "criteriaText": "용적이 1세제곱미터 이상",
+          "children": [
+            {
+              "code": "(1)",
+              "name": "반응시설",
+              "text": "반응시설"
+            },
+            {
+              "code": "(2)",
+              "name": "흡수시설",
+              "text": "흡수시설"
+            },
+            {
+              "code": "(3)",
+              "name": "응축시설",
+              "text": "응축시설"
+            },
+            {
+              "code": "(4)",
+              "name": "정제시설",
+              "text": "정제시설(분리·증류·추출·여과시설을 포함한다)"
+            },
+            {
+              "code": "(5)",
+              "name": "농축시설",
+              "text": "농축시설"
+            },
+            {
+              "code": "(6)",
+              "name": "표백시설",
+              "text": "표백시설"
+            }
+          ]
+        },
+        {
+          "code": "나)",
+          "name": null,
+          "criteria": {
+            "logic": "OR",
+            "conditions": [
+              {
+                "metric": "fuelUsage",
+                "operator": ">=",
+                "value": 30,
+                "unit": "kg/h"
+              },
+              {
+                "metric": "volume",
+                "operator": ">=",
+                "value": 1,
+                "unit": "m³"
+              }
+            ]
+          },
+          "criteriaText": "연료사용량이 시간당 30킬로그램 이상이거나 용적이 1세제곱미터 이상",
+          "children": [
+            {
+              "code": "(1)",
+              "name": "용융·용해시설",
+              "text": "용융·용해시설"
+            },
+            {
+              "code": "(2)",
+              "name": "소성시설",
+              "text": "소성시설"
+            },
+            {
+              "code": "(3)",
+              "name": "가열시설",
+              "text": "가열시설(고무제품의 연소시설을 포함한다)"
+            },
+            {
+              "code": "(4)",
+              "name": "건조시설",
+              "text": "건조시설"
+            },
+            {
+              "code": "(5)",
+              "name": "회수시설",
+              "text": "회수시설"
+            }
+          ]
+        },
+        {
+          "code": "다)",
+          "name": null,
+          "criteria": {
+            "logic": "OR",
+            "conditions": [
+              {
+                "metric": "volume",
+                "operator": ">=",
+                "value": 3,
+                "unit": "m³"
+              },
+              {
+                "metric": "power",
+                "operator": ">=",
+                "value": 7.5,
+                "unit": "kW"
+              }
+            ]
+          },
+          "criteriaText": "용적이 3세제곱미터 이상이거나 동력이 7.5킬로와트 이상",
+          "children": [
+            {
+              "code": "(1)",
+              "name": "소련시설",
+              "text": "소련(蘇鍊)시설"
+            },
+            {
+              "code": "(2)",
+              "name": "분리시설",
+              "text": "분리시설"
+            },
+            {
+              "code": "(3)",
+              "name": "정련시설",
+              "text": "정련시설"
+            },
+            {
+              "code": "(4)",
+              "name": "접착시설",
+              "text": "접착시설"
+            }
+          ]
+        },
+        {
+          "code": "라)",
+          "name": "가황시설",
+          "text": "가황시설(열과 압력을 가하여 제품을 성형하는 시설을 포함한다)",
+          "criteria": {
+            "logic": "OR",
+            "conditions": [
+              {
+                "metric": "volume",
+                "operator": ">=",
+                "value": 3,
+                "unit": "m³"
+              },
+              {
+                "metric": "power",
+                "operator": ">=",
+                "value": 15,
+                "unit": "kW"
+              }
+            ]
+          },
+          "criteriaText": "용적이 3세제곱미터 이상이거나 동력이 15킬로와트 이상"
+        }
+      ]
+    },
+    {
+      "code": "19)",
+      "name": "합성고무 및 플라스틱물질 제조시설",
+      "children": [
+        {
+          "code": "가)",
+          "name": null,
+          "criteria": {
+            "logic": "AND",
+            "conditions": [
+              {
+                "metric": "volume",
+                "operator": ">=",
+                "value": 1,
+                "unit": "m³"
+              }
+            ]
+          },
+          "criteriaText": "용적이 1세제곱미터 이상",
+          "children": [
+            {
+              "code": "(1)",
+              "name": "반응시설",
+              "text": "반응시설"
+            },
+            {
+              "code": "(2)",
+              "name": "흡수시설",
+              "text": "흡수시설"
+            },
+            {
+              "code": "(3)",
+              "name": "응축시설",
+              "text": "응축시설"
+            },
+            {
+              "code": "(4)",
+              "name": "정제시설",
+              "text": "정제시설(분리·증류·추출·여과시설을 포함한다)"
+            },
+            {
+              "code": "(5)",
+              "name": "농축시설",
+              "text": "농축시설"
+            },
+            {
+              "code": "(6)",
+              "name": "표백시설",
+              "text": "표백시설"
+            }
+          ]
+        },
+        {
+          "code": "나)",
+          "name": null,
+          "criteria": {
+            "logic": "OR",
+            "conditions": [
+              {
+                "metric": "fuelUsage",
+                "operator": ">=",
+                "value": 30,
+                "unit": "kg/h"
+              },
+              {
+                "metric": "volume",
+                "operator": ">=",
+                "value": 1,
+                "unit": "m³"
+              }
+            ]
+          },
+          "criteriaText": "연료사용량이 시간당 30킬로그램 이상이거나 용적이 1세제곱미터 이상",
+          "children": [
+            {
+              "code": "(1)",
+              "name": "용융·용해시설",
+              "text": "용융·용해시설"
+            },
+            {
+              "code": "(2)",
+              "name": "소성시설",
+              "text": "소성시설"
+            },
+            {
+              "code": "(3)",
+              "name": "가열시설",
+              "text": "가열시설(플라스틱물질의 연소시설을 포함한다)"
+            },
+            {
+              "code": "(4)",
+              "name": "건조시설",
+              "text": "건조시설"
+            },
+            {
+              "code": "(5)",
+              "name": "회수시설",
+              "text": "회수시설"
+            }
+          ]
+        },
+        {
+          "code": "다)",
+          "name": null,
+          "criteria": {
+            "logic": "OR",
+            "conditions": [
+              {
+                "metric": "volume",
+                "operator": ">=",
+                "value": 3,
+                "unit": "m³"
+              },
+              {
+                "metric": "power",
+                "operator": ">=",
+                "value": 7.5,
+                "unit": "kW"
+              }
+            ]
+          },
+          "criteriaText": "용적이 3세제곱미터 이상이거나 동력이 7.5킬로와트 이상",
+          "children": [
+            {
+              "code": "(1)",
+              "name": "소련시설",
+              "text": "소련시설"
+            },
+            {
+              "code": "(2)",
+              "name": "분리시설",
+              "text": "분리시설"
+            },
+            {
+              "code": "(3)",
+              "name": "정련시설",
+              "text": "정련시설"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "code": "20)",
+      "name": "플라스틱제품 제조시설",
+      "children": [
+        {
+          "code": "가)",
+          "name": null,
+          "criteria": {
+            "logic": "AND",
+            "conditions": [
+              {
+                "metric": "volume",
+                "operator": ">=",
+                "value": 1,
+                "unit": "m³"
+              }
+            ]
+          },
+          "criteriaText": "용적이 1세제곱미터 이상",
+          "children": [
+            {
+              "code": "(1)",
+              "name": "반응시설",
+              "text": "반응시설"
+            },
+            {
+              "code": "(2)",
+              "name": "흡수시설",
+              "text": "흡수시설"
+            },
+            {
+              "code": "(3)",
+              "name": "응축시설",
+              "text": "응축시설"
+            },
+            {
+              "code": "(4)",
+              "name": "정제시설",
+              "text": "정제시설(분리·증류·추출·여과시설을 포함한다)"
+            },
+            {
+              "code": "(5)",
+              "name": "농축시설",
+              "text": "농축시설"
+            },
+            {
+              "code": "(6)",
+              "name": "표백시설",
+              "text": "표백시설"
+            }
+          ]
+        },
+        {
+          "code": "나)",
+          "name": null,
+          "criteria": {
+            "logic": "OR",
+            "conditions": [
+              {
+                "metric": "fuelUsage",
+                "operator": ">=",
+                "value": 30,
+                "unit": "kg/h"
+              },
+              {
+                "metric": "volume",
+                "operator": ">=",
+                "value": 1,
+                "unit": "m³"
+              }
+            ]
+          },
+          "criteriaText": "연료사용량이 시간당 30킬로그램 이상이거나 용적이 1세제곱미터 이상",
+          "children": [
+            {
+              "code": "(1)",
+              "name": "용융·용해시설",
+              "text": "용융·용해시설"
+            },
+            {
+              "code": "(2)",
+              "name": "소성시설",
+              "text": "소성시설"
+            },
+            {
+              "code": "(3)",
+              "name": "가열시설",
+              "text": "가열시설(연소시설을 포함한다)"
+            },
+            {
+              "code": "(4)",
+              "name": "건조시설",
+              "text": "건조시설"
+            },
+            {
+              "code": "(5)",
+              "name": "회수시설",
+              "text": "회수시설"
+            }
+          ]
+        },
+        {
+          "code": "다)",
+          "name": null,
+          "criteria": {
+            "logic": "OR",
+            "conditions": [
+              {
+                "metric": "volume",
+                "operator": ">=",
+                "value": 3,
+                "unit": "m³"
+              },
+              {
+                "metric": "power",
+                "operator": ">=",
+                "value": 7.5,
+                "unit": "kW"
+              }
+            ]
+          },
+          "criteriaText": "용적이 3세제곱미터 이상이거나 동력이 7.5킬로와트 이상",
+          "children": [
+            {
+              "code": "(1)",
+              "name": "소련시설",
+              "text": "소련시설"
+            },
+            {
+              "code": "(2)",
+              "name": "분리시설",
+              "text": "분리시설"
+            },
+            {
+              "code": "(3)",
+              "name": "정련시설",
+              "text": "정련시설"
+            }
+          ]
+        },
+        {
+          "code": "라)",
+          "name": "성형시설",
+          "text": "폴리프로필렌 또는 폴리에틸렌 외의 물질을 원료로 사용하는 성형시설(압출방법, 압연방법 또는 사출방법에 의한 시설을 포함한다)",
+          "criteria": {
+            "logic": "AND",
+            "conditions": [
+              {
+                "metric": "power",
+                "operator": ">=",
+                "value": 187.5,
+                "unit": "kW"
+              }
+            ]
+          },
+          "criteriaText": "동력이 187.5킬로와트 이상"
+        }
+      ]
+    },
+    {
+      "code": "21)",
+      "name": "비금속광물제품 제조시설",
+      "children": [
+        {
+          "code": "가)",
+          "name": "유리 및 유리제품 제조시설",
+          "text": "유리 및 유리제품 제조시설[재생용 원료가공시설을 포함한다]",
+          "criteria": {
+            "logic": "OR",
+            "conditions": [
+              {
+                "metric": "fuelUsage",
+                "operator": ">=",
+                "value": 30,
+                "unit": "kg/h"
+              },
+              {
+                "metric": "volume",
+                "operator": ">=",
+                "value": 3,
+                "unit": "m³"
+              }
+            ]
+          },
+          "criteriaText": "연료사용량이 시간당 30킬로그램 이상이거나 용적이 3세제곱미터 이상",
+          "children": [
+            {
+              "code": "(1)",
+              "name": "혼합시설",
+              "text": "혼합시설"
+            },
+            {
+              "code": "(2)",
+              "name": "용융·용해시설",
+              "text": "용융·용해시설"
+            },
+            {
+              "code": "(3)",
+              "name": "소성시설",
+              "text": "소성시설"
+            },
+            {
+              "code": "(4)",
+              "name": "유리제품 산처리시설",
+              "text": "유리제품 산처리시설(부식시설을 포함한다)"
+            },
+            {
+              "code": "(5)",
+              "name": "입자상물질 계량시설",
+              "text": "입자상물질 계량시설"
+            }
+          ]
+        },
+        {
+          "code": "나)",
+          "name": "도자기·요업제품 제조시설",
+          "text": "도자기·요업제품 제조시설(재생용 원료가공시설을 포함한다)",
+          "criteria": {
+            "logic": "OR",
+            "conditions": [
+              {
+                "metric": "fuelUsage",
+                "operator": ">=",
+                "value": 30,
+                "unit": "kg/h"
+              },
+              {
+                "metric": "volume",
+                "operator": ">=",
+                "value": 3,
+                "unit": "m³"
+              }
+            ]
+          },
+          "criteriaText": "연료사용량이 시간당 30킬로그램 이상이거나 용적이 3세제곱미터 이상",
+          "children": [
+            {
+              "code": "(1)",
+              "name": "혼합시설",
+              "text": "혼합시설"
+            },
+            {
+              "code": "(2)",
+              "name": "용융·용해시설",
+              "text": "용융·용해시설"
+            },
+            {
+              "code": "(3)",
+              "name": "소성시설",
+              "text": "소성시설(예열시설을 포함하되, 나무를 연료로 사용하는 시설은 제외한다)"
+            },
+            {
+              "code": "(4)",
+              "name": "건조시설",
+              "text": "건조시설"
+            },
+            {
+              "code": "(5)",
+              "name": "입자상물질 계량시설",
+              "text": "입자상물질 계량시설"
+            }
+          ]
+        },
+        {
+          "code": "다)",
+          "name": "시멘트·석회·플라스터 및 그 제품 제조시설",
+          "text": "시멘트·석회·플라스터 및 그 제품 제조시설",
+          "criteria": {
+            "logic": "OR",
+            "conditions": [
+              {
+                "metric": "fuelUsage",
+                "operator": ">=",
+                "value": 30,
+                "unit": "kg/h"
+              },
+              {
+                "metric": "volume",
+                "operator": ">=",
+                "value": 3,
+                "unit": "m³"
+              }
+            ]
+          },
+          "criteriaText": "연료사용량이 시간당 30킬로그램 이상이거나 용적이 3세제곱미터 이상",
+          "children": [
+            {
+              "code": "(1)",
+              "name": "혼합시설",
+              "text": "혼합시설(습식은 제외한다)"
+            },
+            {
+              "code": "(2)",
+              "name": "소성시설",
+              "text": "소성시설(예열시설을 포함한다)"
+            },
+            {
+              "code": "(3)",
+              "name": "건조시설",
+              "text": "건조시설(시멘트 양생시설은 제외한다)"
+            },
+            {
+              "code": "(4)",
+              "name": "용융·용해시설",
+              "text": "용융·용해시설"
+            },
+            {
+              "code": "(5)",
+              "name": "냉각시설",
+              "text": "냉각시설"
+            },
+            {
+              "code": "(6)",
+              "name": "입자상물질 계량시설",
+              "text": "입자상물질 계량시설"
+            }
+          ]
+        },
+        {
+          "code": "라)",
+          "name": "그 밖의 비금속광물제품 제조시설",
+          "children": [
+            {
+              "code": "(1)",
+              "name": null,
+              "criteria": {
+                "logic": "OR",
+                "conditions": [
+                  {
+                    "metric": "fuelUsage",
+                    "operator": ">=",
+                    "value": 30,
+                    "unit": "kg/h"
+                  },
+                  {
+                    "metric": "volume",
+                    "operator": ">=",
+                    "value": 3,
+                    "unit": "m³"
+                  }
+                ]
+              },
+              "criteriaText": "연료사용량이 시간당 30킬로그램 이상이거나 용적이 3세제곱미터 이상",
+              "children": [
+                {
+                  "code": "(가)",
+                  "name": "혼합시설",
+                  "text": "혼합시설(습식은 제외한다)"
+                },
+                {
+                  "code": "(나)",
+                  "name": "용융·용해시설",
+                  "text": "용융·용해시설"
+                },
+                {
+                  "code": "(다)",
+                  "name": "소성시설",
+                  "text": "소성시설(예열시설을 포함한다)"
+                },
+                {
+                  "code": "(라)",
+                  "name": "건조시설",
+                  "text": "건조시설"
+                },
+                {
+                  "code": "(마)",
+                  "name": "입자상물질 계량시설",
+                  "text": "입자상물질 계량시설"
+                }
+              ]
+            },
+            {
+              "code": "(2)",
+              "name": "석면 및 암면제품 제조시설",
+              "text": "석면 및 암면제품 제조시설의 권취(卷取)시설, 압착시설, 탈판시설, 방사(紡絲)시설, 집면(集綿)시설, 절단(切斷)시설"
+            },
+            {
+              "code": "(3)",
+              "name": "아스콘 제조시설",
+              "text": "아스콘(아스팔트를 포함한다) 제조시설",
+              "criteria": {
+                "logic": "OR",
+                "conditions": [
+                  {
+                    "metric": "fuelUsage",
+                    "operator": ">=",
+                    "value": 30,
+                    "unit": "kg/h"
+                  },
+                  {
+                    "metric": "volume",
+                    "operator": ">=",
+                    "value": 3,
+                    "unit": "m³"
+                  }
+                ]
+              },
+              "criteriaText": "연료사용량이 시간당 30킬로그램 이상이거나 용적이 3세제곱미터 이상",
+              "children": [
+                {
+                  "code": "(가)",
+                  "name": "가열·건조시설",
+                  "text": "가열·건조시설"
+                },
+                {
+                  "code": "(나)",
+                  "name": "선별시설",
+                  "text": "선별(選別)시설"
+                },
+                {
+                  "code": "(다)",
+                  "name": "혼합시설",
+                  "text": "혼합시설"
+                },
+                {
+                  "code": "(라)",
+                  "name": "용융·용해시설",
+                  "text": "용융·용해시설"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "code": "22)",
+      "name": "1차 철강 제조시설",
+      "children": [
+        {
+          "code": "가)",
+          "name": "금속의 용융·용해 또는 열처리시설",
+          "children": [
+            {
+              "code": "(1)",
+              "name": "전기아크로",
+              "text": "전기아크로[유도로(誘導爐)를 포함한다]",
+              "criteria": {
+                "logic": "AND",
+                "conditions": [
+                  {
+                    "metric": "power",
+                    "operator": ">=",
+                    "value": 300,
+                    "unit": "kW",
+                    "qualifier": "시간당"
+                  }
+                ]
+              },
+              "criteriaText": "시간당 300킬로와트 이상"
+            },
+            {
+              "code": "(2)",
+              "name": "반사로",
+              "text": "반사로(反射爐)",
+              "criteria": {
+                "logic": "AND",
+                "conditions": [
+                  {
+                    "metric": "area",
+                    "operator": ">=",
+                    "value": 4.5,
+                    "unit": "m²",
+                    "qualifier": "노상"
+                  }
+                ]
+              },
+              "criteriaText": "노상면적이 4.5제곱미터 이상"
+            },
+            {
+              "code": "(3)",
+              "name": null,
+              "criteria": {
+                "logic": "OR",
+                "conditions": [
+                  {
+                    "metric": "batchAmount",
+                    "operator": ">=",
+                    "value": 0.5,
+                    "unit": "ton",
+                    "qualifier": "1회 주입 연료+원료 합계"
+                  },
+                  {
+                    "metric": "area",
+                    "operator": ">=",
+                    "value": 0.2,
+                    "unit": "m²",
+                    "qualifier": "풍구면 횡단"
+                  }
+                ]
+              },
+              "criteriaText": "1회 주입 연료 및 원료량의 합계가 0.5톤 이상이거나 풍구면의 횡단면적이 0.2제곱미터 이상",
+              "children": [
+                {
+                  "code": "(가)",
+                  "name": "용선로 또는 제선로",
+                  "text": "용선로(鎔銑爐) 또는 제선로"
+                },
+                {
+                  "code": "(나)",
+                  "name": "용융·용광로 및 관련시설",
+                  "text": "용융·용광로 및 관련시설[원료처리시설, 성형탄 제조시설, 열풍로 및 용선출탕시설을 포함하되, 고로(高爐)슬래그 냉각시설은 제외한다]"
+                }
+              ]
+            },
+            {
+              "code": "(4)",
+              "name": "도가니로",
+              "text": "도가니로",
+              "criteria": {
+                "logic": "OR",
+                "conditions": [
+                  {
+                    "metric": "batchAmount",
+                    "operator": ">=",
+                    "value": 0.5,
+                    "unit": "ton",
+                    "qualifier": "1회 주입 원료"
+                  },
+                  {
+                    "metric": "fuelUsage",
+                    "operator": ">=",
+                    "value": 30,
+                    "unit": "kg/h"
+                  }
+                ]
+              },
+              "criteriaText": "1회 주입 원료량이 0.5톤 이상이거나 연료사용량이 시간당 30킬로그램 이상"
+            },
+            {
+              "code": "(5)",
+              "name": null,
+              "criteria": {
+                "logic": "OR",
+                "conditions": [
+                  {
+                    "metric": "fuelUsage",
+                    "operator": ">=",
+                    "value": 30,
+                    "unit": "kg/h"
+                  },
+                  {
+                    "metric": "volume",
+                    "operator": ">=",
+                    "value": 1,
+                    "unit": "m³"
+                  }
+                ]
+              },
+              "criteriaText": "연료사용량이 시간당 30킬로그램 이상이거나 용적이 1세제곱미터 이상",
+              "children": [
+                {
+                  "code": "(가)",
+                  "name": "전로",
+                  "text": "전로"
+                },
+                {
+                  "code": "(나)",
+                  "name": "정련로",
+                  "text": "정련로"
+                },
+                {
+                  "code": "(다)",
+                  "name": "배소로",
+                  "text": "배소로(焙燒爐)"
+                },
+                {
+                  "code": "(라)",
+                  "name": "소결로 및 관련시설",
+                  "text": "소결로(燒結爐) 및 관련시설(원료 장입, 소결광 후처리시설을 포함한다)"
+                },
+                {
+                  "code": "(마)",
+                  "name": "환형로",
+                  "text": "환형로(環形爐)"
+                },
+                {
+                  "code": "(바)",
+                  "name": "가열로",
+                  "text": "가열로(연소시설을 포함한다)"
+                },
+                {
+                  "code": "(사)",
+                  "name": "용융·용해로",
+                  "text": "용융·용해로"
+                },
+                {
+                  "code": "(아)",
+                  "name": "열처리로",
+                  "text": "열처리로[소둔로(燒鈍爐), 소려로(燒戾爐)를 포함한다]"
+                },
+                {
+                  "code": "(자)",
+                  "name": "전해로",
+                  "text": "전해로(電解爐)"
+                },
+                {
+                  "code": "(차)",
+                  "name": "건조로",
+                  "text": "건조로"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "code": "나)",
+          "name": "금속 표면처리시설",
+          "children": [
+            {
+              "code": "(1)",
+              "name": null,
+              "criteria": {
+                "logic": "AND",
+                "conditions": [
+                  {
+                    "metric": "volume",
+                    "operator": ">=",
+                    "value": 1,
+                    "unit": "m³"
+                  }
+                ]
+              },
+              "criteriaText": "용적이 1세제곱미터 이상",
+              "children": [
+                {
+                  "code": "(가)",
+                  "name": "도금시설",
+                  "text": "도금시설"
+                },
+                {
+                  "code": "(나)",
+                  "name": "탈지시설",
+                  "text": "탈지시설"
+                },
+                {
+                  "code": "(다)",
+                  "name": "산·알칼리 처리시설",
+                  "text": "산·알칼리 처리시설"
+                },
+                {
+                  "code": "(라)",
+                  "name": "화성처리시설",
+                  "text": "화성처리시설"
+                }
+              ]
+            },
+            {
+              "code": "(2)",
+              "name": "금속의 표면처리용 건조시설",
+              "text": "금속의 표면처리용 건조시설[수세(水洗) 후 건조시설은 제외한다]",
+              "criteria": {
+                "logic": "OR",
+                "conditions": [
+                  {
+                    "metric": "fuelUsage",
+                    "operator": ">=",
+                    "value": 30,
+                    "unit": "kg/h"
+                  },
+                  {
+                    "metric": "volume",
+                    "operator": ">=",
+                    "value": 3,
+                    "unit": "m³"
+                  }
+                ]
+              },
+              "criteriaText": "연료사용량이 시간당 30킬로그램 이상이거나 용적이 3세제곱미터 이상"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "code": "23)",
+      "name": "1차 비철금속 제조시설",
+      "children": [
+        {
+          "code": "가)",
+          "name": "금속의 용융·용해 또는 열처리시설",
+          "children": [
+            {
+              "code": "(1)",
+              "name": "전기아크로",
+              "text": "전기아크로(유도로를 포함한다)",
+              "criteria": {
+                "logic": "AND",
+                "conditions": [
+                  {
+                    "metric": "power",
+                    "operator": ">=",
+                    "value": 300,
+                    "unit": "kW",
+                    "qualifier": "시간당"
+                  }
+                ]
+              },
+              "criteriaText": "시간당 300킬로와트 이상"
+            },
+            {
+              "code": "(2)",
+              "name": "반사로",
+              "text": "반사로",
+              "criteria": {
+                "logic": "AND",
+                "conditions": [
+                  {
+                    "metric": "area",
+                    "operator": ">=",
+                    "value": 4.5,
+                    "unit": "m²",
+                    "qualifier": "노상"
+                  }
+                ]
+              },
+              "criteriaText": "노상면적이 4.5제곱미터 이상"
+            },
+            {
+              "code": "(3)",
+              "name": null,
+              "criteria": {
+                "logic": "OR",
+                "conditions": [
+                  {
+                    "metric": "batchAmount",
+                    "operator": ">=",
+                    "value": 0.5,
+                    "unit": "ton",
+                    "qualifier": "1회 주입 연료+원료 합계"
+                  },
+                  {
+                    "metric": "area",
+                    "operator": ">=",
+                    "value": 0.2,
+                    "unit": "m²",
+                    "qualifier": "풍구면 횡단"
+                  }
+                ]
+              },
+              "criteriaText": "1회 주입 연료 및 원료량의 합계가 0.5톤 이상이거나 풍구면의 횡단면적이 0.2제곱미터 이상",
+              "children": [
+                {
+                  "code": "(가)",
+                  "name": "용선로 또는 제선로",
+                  "text": "용선로 또는 제선로"
+                },
+                {
+                  "code": "(나)",
+                  "name": "용융·용광로 및 관련 시설",
+                  "text": "용융·용광로 및 관련 시설(원료처리시설, 성형탄 제조시설, 열풍로 및 용선출탕시설을 포함하되, 고로슬래그 냉각시설은 제외한다)"
+                }
+              ]
+            },
+            {
+              "code": "(4)",
+              "name": "도가니로",
+              "text": "도가니로",
+              "criteria": {
+                "logic": "OR",
+                "conditions": [
+                  {
+                    "metric": "batchAmount",
+                    "operator": ">=",
+                    "value": 0.5,
+                    "unit": "ton",
+                    "qualifier": "1회 주입 원료"
+                  },
+                  {
+                    "metric": "fuelUsage",
+                    "operator": ">=",
+                    "value": 30,
+                    "unit": "kg/h"
+                  }
+                ]
+              },
+              "criteriaText": "1회 주입 원료량이 0.5톤 이상이거나 연료사용량이 시간당 30킬로그램 이상"
+            },
+            {
+              "code": "(5)",
+              "name": null,
+              "criteria": {
+                "logic": "OR",
+                "conditions": [
+                  {
+                    "metric": "fuelUsage",
+                    "operator": ">=",
+                    "value": 30,
+                    "unit": "kg/h"
+                  },
+                  {
+                    "metric": "volume",
+                    "operator": ">=",
+                    "value": 1,
+                    "unit": "m³"
+                  }
+                ]
+              },
+              "criteriaText": "연료사용량이 시간당 30킬로그램 이상이거나 용적이 1세제곱미터 이상",
+              "children": [
+                {
+                  "code": "(가)",
+                  "name": "전로",
+                  "text": "전로"
+                },
+                {
+                  "code": "(나)",
+                  "name": "정련로",
+                  "text": "정련로"
+                },
+                {
+                  "code": "(다)",
+                  "name": "배소로",
+                  "text": "배소로"
+                },
+                {
+                  "code": "(라)",
+                  "name": "소결로 및 관련시설",
+                  "text": "소결로 및 관련시설(원료 장입, 소결광 후처리시설을 포함한다)"
+                },
+                {
+                  "code": "(마)",
+                  "name": "환형로",
+                  "text": "환형로"
+                },
+                {
+                  "code": "(바)",
+                  "name": "가열로",
+                  "text": "가열로(연소시설을 포함한다)"
+                },
+                {
+                  "code": "(사)",
+                  "name": "용융·용해로",
+                  "text": "용융·용해로"
+                },
+                {
+                  "code": "(아)",
+                  "name": "열처리로",
+                  "text": "열처리로(소둔로, 소려로를 포함한다)"
+                },
+                {
+                  "code": "(자)",
+                  "name": "전해로",
+                  "text": "전해로"
+                },
+                {
+                  "code": "(차)",
+                  "name": "건조로",
+                  "text": "건조로"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "code": "나)",
+          "name": "금속 표면처리시설",
+          "children": [
+            {
+              "code": "(1)",
+              "name": null,
+              "criteria": {
+                "logic": "AND",
+                "conditions": [
+                  {
+                    "metric": "volume",
+                    "operator": ">=",
+                    "value": 1,
+                    "unit": "m³"
+                  }
+                ]
+              },
+              "criteriaText": "용적이 1세제곱미터 이상",
+              "children": [
+                {
+                  "code": "(가)",
+                  "name": "도금시설",
+                  "text": "도금시설"
+                },
+                {
+                  "code": "(나)",
+                  "name": "탈지시설",
+                  "text": "탈지시설"
+                },
+                {
+                  "code": "(다)",
+                  "name": "산·알칼리 처리시설",
+                  "text": "산·알칼리 처리시설"
+                },
+                {
+                  "code": "(라)",
+                  "name": "화성처리시설",
+                  "text": "화성처리시설"
+                }
+              ]
+            },
+            {
+              "code": "(2)",
+              "name": "금속의 표면처리용 건조시설",
+              "text": "금속의 표면처리용 건조시설(수세 후 건조시설은 제외한다)",
+              "criteria": {
+                "logic": "OR",
+                "conditions": [
+                  {
+                    "metric": "fuelUsage",
+                    "operator": ">=",
+                    "value": 30,
+                    "unit": "kg/h"
+                  },
+                  {
+                    "metric": "volume",
+                    "operator": ">=",
+                    "value": 3,
+                    "unit": "m³"
+                  }
+                ]
+              },
+              "criteriaText": "연료사용량이 시간당 30킬로그램 이상이거나 용적이 3세제곱미터 이상"
+            }
+          ]
+        },
+        {
+          "code": "다)",
+          "name": "주물사 사용 및 처리시설",
+          "criteria": {
+            "logic": "OR",
+            "conditions": [
+              {
+                "metric": "capacity",
+                "operator": ">=",
+                "value": 0.1,
+                "unit": "ton/h",
+                "qualifier": "처리능력"
+              },
+              {
+                "metric": "volume",
+                "operator": ">=",
+                "value": 1,
+                "unit": "m³"
+              }
+            ]
+          },
+          "criteriaText": "시간당 처리능력이 0.1톤 이상이거나 용적이 1세제곱미터 이상",
+          "children": [
+            {
+              "code": "(1)",
+              "name": "저장시설",
+              "text": "저장시설"
+            },
+            {
+              "code": "(2)",
+              "name": "혼합시설",
+              "text": "혼합시설"
+            },
+            {
+              "code": "(3)",
+              "name": "코어 제조시설 및 건조시설",
+              "text": "코어(Core) 제조시설 및 건조(乾燥)시설"
+            },
+            {
+              "code": "(4)",
+              "name": "주형 장입 및 해체시설",
+              "text": "주형 장입 및 해체시설"
+            },
+            {
+              "code": "(5)",
+              "name": "주물사 재생시설",
+              "text": "주물사 재생시설"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "code": "24)",
+      "name": "금속가공제품·기계·기기·장비·운송장비·가구 제조시설",
+      "children": [
+        {
+          "code": "가)",
+          "name": "금속의 용융·용해 또는 열처리시설",
+          "children": [
+            {
+              "code": "(1)",
+              "name": "전기아크로",
+              "text": "전기아크로(유도로를 포함한다)",
+              "criteria": {
+                "logic": "AND",
+                "conditions": [
+                  {
+                    "metric": "power",
+                    "operator": ">=",
+                    "value": 300,
+                    "unit": "kW",
+                    "qualifier": "시간당"
+                  }
+                ]
+              },
+              "criteriaText": "시간당 300킬로와트 이상"
+            },
+            {
+              "code": "(2)",
+              "name": "반사로",
+              "text": "반사로",
+              "criteria": {
+                "logic": "AND",
+                "conditions": [
+                  {
+                    "metric": "area",
+                    "operator": ">=",
+                    "value": 4.5,
+                    "unit": "m²",
+                    "qualifier": "노상"
+                  }
+                ]
+              },
+              "criteriaText": "노상면적이 4.5제곱미터 이상"
+            },
+            {
+              "code": "(3)",
+              "name": "도가니로",
+              "text": "도가니로",
+              "criteria": {
+                "logic": "OR",
+                "conditions": [
+                  {
+                    "metric": "batchAmount",
+                    "operator": ">=",
+                    "value": 0.5,
+                    "unit": "ton",
+                    "qualifier": "1회 주입 원료"
+                  },
+                  {
+                    "metric": "fuelUsage",
+                    "operator": ">=",
+                    "value": 30,
+                    "unit": "kg/h"
+                  }
+                ]
+              },
+              "criteriaText": "1회 주입 원료량이 0.5톤 이상이거나 연료사용량이 시간당 30킬로그램 이상"
+            },
+            {
+              "code": "(4)",
+              "name": null,
+              "criteria": {
+                "logic": "OR",
+                "conditions": [
+                  {
+                    "metric": "fuelUsage",
+                    "operator": ">=",
+                    "value": 30,
+                    "unit": "kg/h"
+                  },
+                  {
+                    "metric": "volume",
+                    "operator": ">=",
+                    "value": 1,
+                    "unit": "m³"
+                  }
+                ]
+              },
+              "criteriaText": "연료사용량이 시간당 30킬로그램 이상이거나 용적이 1세제곱미터 이상",
+              "children": [
+                {
+                  "code": "(가)",
+                  "name": "전로",
+                  "text": "전로"
+                },
+                {
+                  "code": "(나)",
+                  "name": "정련로",
+                  "text": "정련로"
+                },
+                {
+                  "code": "(다)",
+                  "name": "용융·용해로",
+                  "text": "용융·용해로"
+                },
+                {
+                  "code": "(라)",
+                  "name": "가열로",
+                  "text": "가열로(연소시설을 포함한다.)"
+                },
+                {
+                  "code": "(마)",
+                  "name": "열처리로",
+                  "text": "열처리로(소둔로·소려로를 포함한다)"
+                },
+                {
+                  "code": "(바)",
+                  "name": "전해로",
+                  "text": "전해로"
+                },
+                {
+                  "code": "(사)",
+                  "name": "건조로",
+                  "text": "건조로"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "code": "나)",
+          "name": "표면 처리시설",
+          "children": [
+            {
+              "code": "(1)",
+              "name": null,
+              "criteria": {
+                "logic": "AND",
+                "conditions": [
+                  {
+                    "metric": "volume",
+                    "operator": ">=",
+                    "value": 1,
+                    "unit": "m³"
+                  }
+                ]
+              },
+              "criteriaText": "용적이 1세제곱미터 이상",
+              "children": [
+                {
+                  "code": "(가)",
+                  "name": "도금시설",
+                  "text": "도금시설"
+                },
+                {
+                  "code": "(나)",
+                  "name": "탈지시설",
+                  "text": "탈지시설"
+                },
+                {
+                  "code": "(다)",
+                  "name": "산·알칼리 처리시설",
+                  "text": "산·알칼리 처리시설"
+                },
+                {
+                  "code": "(라)",
+                  "name": "화성처리시설",
+                  "text": "화성처리시설"
+                }
+              ]
+            },
+            {
+              "code": "(2)",
+              "name": "금속 또는 가구의 표면처리용 건조시설",
+              "text": "금속 또는 가구의 표면처리용 건조시설(수세 후 건조시설은 제외한다)",
+              "criteria": {
+                "logic": "OR",
+                "conditions": [
+                  {
+                    "metric": "fuelUsage",
+                    "operator": ">=",
+                    "value": 30,
+                    "unit": "kg/h"
+                  },
+                  {
+                    "metric": "volume",
+                    "operator": ">=",
+                    "value": 3,
+                    "unit": "m³"
+                  }
+                ]
+              },
+              "criteriaText": "연료사용량이 시간당 30킬로그램 이상이거나 용적이 3세제곱미터 이상"
+            }
+          ]
+        },
+        {
+          "code": "다)",
+          "name": "주물사 사용 및 처리시설",
+          "criteria": {
+            "logic": "OR",
+            "conditions": [
+              {
+                "metric": "capacity",
+                "operator": ">=",
+                "value": 0.1,
+                "unit": "ton/h",
+                "qualifier": "처리능력"
+              },
+              {
+                "metric": "volume",
+                "operator": ">=",
+                "value": 1,
+                "unit": "m³"
+              }
+            ]
+          },
+          "criteriaText": "시간당 처리능력이 0.1톤 이상이거나 용적이 1세제곱미터 이상",
+          "children": [
+            {
+              "code": "(1)",
+              "name": "저장시설",
+              "text": "저장시설"
+            },
+            {
+              "code": "(2)",
+              "name": "혼합시설",
+              "text": "혼합시설"
+            },
+            {
+              "code": "(3)",
+              "name": "코어 제조시설 및 건조시설",
+              "text": "코어(Core) 제조시설 및 건조시설"
+            },
+            {
+              "code": "(4)",
+              "name": "주형 장입 및 해체시설",
+              "text": "주형 장입 및 해체시설"
+            },
+            {
+              "code": "(5)",
+              "name": "주물사 재생시설",
+              "text": "주물사 재생시설"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "code": "25)",
+      "name": "자동차 부품 제조시설",
+      "children": [
+        {
+          "code": "가)",
+          "name": "금속의 용융·용해 또는 열처리시설",
+          "children": [
+            {
+              "code": "(1)",
+              "name": "전기아크로",
+              "text": "전기아크로(유도로를 포함한다)",
+              "criteria": {
+                "logic": "AND",
+                "conditions": [
+                  {
+                    "metric": "power",
+                    "operator": ">=",
+                    "value": 300,
+                    "unit": "kW",
+                    "qualifier": "시간당"
+                  }
+                ]
+              },
+              "criteriaText": "시간당 300킬로와트 이상"
+            },
+            {
+              "code": "(2)",
+              "name": "반사로",
+              "text": "반사로",
+              "criteria": {
+                "logic": "AND",
+                "conditions": [
+                  {
+                    "metric": "area",
+                    "operator": ">=",
+                    "value": 4.5,
+                    "unit": "m²",
+                    "qualifier": "노상"
+                  }
+                ]
+              },
+              "criteriaText": "노상면적이 4.5제곱미터 이상"
+            },
+            {
+              "code": "(3)",
+              "name": "도가니로",
+              "text": "도가니로",
+              "criteria": {
+                "logic": "OR",
+                "conditions": [
+                  {
+                    "metric": "batchAmount",
+                    "operator": ">=",
+                    "value": 0.5,
+                    "unit": "ton",
+                    "qualifier": "1회 주입 원료"
+                  },
+                  {
+                    "metric": "fuelUsage",
+                    "operator": ">=",
+                    "value": 30,
+                    "unit": "kg/h"
+                  }
+                ]
+              },
+              "criteriaText": "1회 주입 원료량이 0.5톤 이상이거나 연료사용량이 시간당 30킬로그램 이상"
+            },
+            {
+              "code": "(4)",
+              "name": null,
+              "criteria": {
+                "logic": "OR",
+                "conditions": [
+                  {
+                    "metric": "fuelUsage",
+                    "operator": ">=",
+                    "value": 30,
+                    "unit": "kg/h"
+                  },
+                  {
+                    "metric": "volume",
+                    "operator": ">=",
+                    "value": 1,
+                    "unit": "m³"
+                  }
+                ]
+              },
+              "criteriaText": "연료사용량이 시간당 30킬로그램 이상이거나 용적이 1세제곱미터 이상",
+              "children": [
+                {
+                  "code": "(가)",
+                  "name": "전로",
+                  "text": "전로"
+                },
+                {
+                  "code": "(나)",
+                  "name": "정련로",
+                  "text": "정련로"
+                },
+                {
+                  "code": "(다)",
+                  "name": "용융·용해로",
+                  "text": "용융·용해로"
+                },
+                {
+                  "code": "(라)",
+                  "name": "가열로",
+                  "text": "가열로(연소시설을 포함한다)"
+                },
+                {
+                  "code": "(마)",
+                  "name": "열처리로",
+                  "text": "열처리로(소둔로·소려로를 포함한다)"
+                },
+                {
+                  "code": "(바)",
+                  "name": "전해로",
+                  "text": "전해로"
+                },
+                {
+                  "code": "(사)",
+                  "name": "건조로",
+                  "text": "건조로"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "code": "나)",
+          "name": "표면 처리시설",
+          "children": [
+            {
+              "code": "(1)",
+              "name": null,
+              "criteria": {
+                "logic": "AND",
+                "conditions": [
+                  {
+                    "metric": "volume",
+                    "operator": ">=",
+                    "value": 1,
+                    "unit": "m³"
+                  }
+                ]
+              },
+              "criteriaText": "용적이 1세제곱미터 이상",
+              "children": [
+                {
+                  "code": "(가)",
+                  "name": "도금시설",
+                  "text": "도금시설"
+                },
+                {
+                  "code": "(나)",
+                  "name": "탈지시설",
+                  "text": "탈지시설"
+                },
+                {
+                  "code": "(다)",
+                  "name": "산·알칼리 처리시설",
+                  "text": "산·알칼리 처리시설"
+                },
+                {
+                  "code": "(라)",
+                  "name": "화성처리시설",
+                  "text": "화성처리시설"
+                }
+              ]
+            },
+            {
+              "code": "(2)",
+              "name": "금속 또는 가구의 표면처리용 건조시설",
+              "text": "금속 또는 가구의 표면처리용 건조시설(수세 후 건조시설은 제외한다)",
+              "criteria": {
+                "logic": "OR",
+                "conditions": [
+                  {
+                    "metric": "fuelUsage",
+                    "operator": ">=",
+                    "value": 30,
+                    "unit": "kg/h"
+                  },
+                  {
+                    "metric": "volume",
+                    "operator": ">=",
+                    "value": 3,
+                    "unit": "m³"
+                  }
+                ]
+              },
+              "criteriaText": "연료사용량이 시간당 30킬로그램 이상이거나 용적이 3세제곱미터 이상"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "code": "26)",
+      "name": "컴퓨터·영상·음향·통신장비 및 전기장비 제조시설",
+      "children": [
+        {
+          "code": "가)",
+          "name": null,
+          "criteria": {
+            "logic": "AND",
+            "conditions": [
+              {
+                "metric": "volume",
+                "operator": ">=",
+                "value": 3,
+                "unit": "m³"
+              }
+            ]
+          },
+          "criteriaText": "용적이 3세제곱미터 이상",
+          "children": [
+            {
+              "code": "(1)",
+              "name": "증착시설",
+              "text": "증착시설"
+            },
+            {
+              "code": "(2)",
+              "name": "식각시설",
+              "text": "식각(蝕刻)시설"
+            }
+          ]
+        },
+        {
+          "code": "나)",
+          "name": "금속의 용융·용해 또는 열처리시설",
+          "children": [
+            {
+              "code": "(1)",
+              "name": "전기아크로",
+              "text": "전기아크로(유도로를 포함한다)",
+              "criteria": {
+                "logic": "AND",
+                "conditions": [
+                  {
+                    "metric": "power",
+                    "operator": ">=",
+                    "value": 300,
+                    "unit": "kW",
+                    "qualifier": "시간당"
+                  }
+                ]
+              },
+              "criteriaText": "시간당 300킬로와트 이상"
+            },
+            {
+              "code": "(2)",
+              "name": "반사로",
+              "text": "반사로",
+              "criteria": {
+                "logic": "AND",
+                "conditions": [
+                  {
+                    "metric": "area",
+                    "operator": ">=",
+                    "value": 4.5,
+                    "unit": "m²",
+                    "qualifier": "노상"
+                  }
+                ]
+              },
+              "criteriaText": "노상면적이 4.5제곱미터 이상"
+            },
+            {
+              "code": "(3)",
+              "name": "도가니로",
+              "text": "도가니로",
+              "criteria": {
+                "logic": "OR",
+                "conditions": [
+                  {
+                    "metric": "batchAmount",
+                    "operator": ">=",
+                    "value": 0.5,
+                    "unit": "ton",
+                    "qualifier": "1회 주입 원료"
+                  },
+                  {
+                    "metric": "fuelUsage",
+                    "operator": ">=",
+                    "value": 30,
+                    "unit": "kg/h"
+                  }
+                ]
+              },
+              "criteriaText": "1회 주입 원료량이 0.5톤 이상이거나 연료사용량이 시간당 30킬로그램 이상"
+            },
+            {
+              "code": "(4)",
+              "name": null,
+              "criteria": {
+                "logic": "OR",
+                "conditions": [
+                  {
+                    "metric": "fuelUsage",
+                    "operator": ">=",
+                    "value": 30,
+                    "unit": "kg/h"
+                  },
+                  {
+                    "metric": "volume",
+                    "operator": ">=",
+                    "value": 1,
+                    "unit": "m³"
+                  }
+                ]
+              },
+              "criteriaText": "연료사용량이 시간당 30킬로그램 이상이거나 용적이 1세제곱미터 이상",
+              "children": [
+                {
+                  "code": "(가)",
+                  "name": "전로",
+                  "text": "전로"
+                },
+                {
+                  "code": "(나)",
+                  "name": "정련로",
+                  "text": "정련로"
+                },
+                {
+                  "code": "(다)",
+                  "name": "용융·용해로",
+                  "text": "용융·용해로"
+                },
+                {
+                  "code": "(라)",
+                  "name": "가열로",
+                  "text": "가열로(연소시설을 포함한다)"
+                },
+                {
+                  "code": "(마)",
+                  "name": "열처리로",
+                  "text": "열처리로(소둔로·소려로를 포함한다)"
+                },
+                {
+                  "code": "(바)",
+                  "name": "전해로",
+                  "text": "전해로"
+                },
+                {
+                  "code": "(사)",
+                  "name": "건조로",
+                  "text": "건조로"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "code": "다)",
+          "name": "표면 처리시설",
+          "children": [
+            {
+              "code": "(1)",
+              "name": null,
+              "criteria": {
+                "logic": "AND",
+                "conditions": [
+                  {
+                    "metric": "volume",
+                    "operator": ">=",
+                    "value": 1,
+                    "unit": "m³"
+                  }
+                ]
+              },
+              "criteriaText": "용적이 1세제곱미터 이상",
+              "children": [
+                {
+                  "code": "(가)",
+                  "name": "도금시설",
+                  "text": "도금시설"
+                },
+                {
+                  "code": "(나)",
+                  "name": "탈지시설",
+                  "text": "탈지시설"
+                },
+                {
+                  "code": "(다)",
+                  "name": "산·알칼리 처리시설",
+                  "text": "산·알칼리 처리시설"
+                },
+                {
+                  "code": "(라)",
+                  "name": "화성처리시설",
+                  "text": "화성처리시설"
+                }
+              ]
+            },
+            {
+              "code": "(2)",
+              "name": "금속의 표면처리용 건조시설",
+              "text": "금속의 표면처리용 건조시설(수세 후 건조시설은 제외한다)",
+              "criteria": {
+                "logic": "OR",
+                "conditions": [
+                  {
+                    "metric": "fuelUsage",
+                    "operator": ">=",
+                    "value": 30,
+                    "unit": "kg/h"
+                  },
+                  {
+                    "metric": "volume",
+                    "operator": ">=",
+                    "value": 3,
+                    "unit": "m³"
+                  }
+                ]
+              },
+              "criteriaText": "연료사용량이 시간당 30킬로그램 이상이거나 용적이 3세제곱미터 이상"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "code": "27)",
+      "name": "전자부품 제조시설(반도체 제조시설은 제외한다)",
+      "children": [
+        {
+          "code": "가)",
+          "name": null,
+          "criteria": {
+            "logic": "AND",
+            "conditions": [
+              {
+                "metric": "volume",
+                "operator": ">=",
+                "value": 3,
+                "unit": "m³"
+              }
+            ]
+          },
+          "criteriaText": "용적이 3세제곱미터 이상",
+          "children": [
+            {
+              "code": "(1)",
+              "name": "증착시설",
+              "text": "증착시설"
+            },
+            {
+              "code": "(2)",
+              "name": "식각시설",
+              "text": "식각시설"
+            }
+          ]
+        },
+        {
+          "code": "나)",
+          "name": "금속의 용융·용해 또는 열처리시설",
+          "children": [
+            {
+              "code": "(1)",
+              "name": "전기아크로",
+              "text": "전기아크로(유도로를 포함한다)",
+              "criteria": {
+                "logic": "AND",
+                "conditions": [
+                  {
+                    "metric": "power",
+                    "operator": ">=",
+                    "value": 300,
+                    "unit": "kW",
+                    "qualifier": "시간당"
+                  }
+                ]
+              },
+              "criteriaText": "시간당 300킬로와트 이상"
+            },
+            {
+              "code": "(2)",
+              "name": "반사로",
+              "text": "반사로",
+              "criteria": {
+                "logic": "AND",
+                "conditions": [
+                  {
+                    "metric": "area",
+                    "operator": ">=",
+                    "value": 4.5,
+                    "unit": "m²",
+                    "qualifier": "노상"
+                  }
+                ]
+              },
+              "criteriaText": "노상면적이 4.5제곱미터 이상"
+            },
+            {
+              "code": "(3)",
+              "name": "도가니로",
+              "text": "도가니로",
+              "criteria": {
+                "logic": "OR",
+                "conditions": [
+                  {
+                    "metric": "batchAmount",
+                    "operator": ">=",
+                    "value": 0.5,
+                    "unit": "ton",
+                    "qualifier": "1회 주입 원료"
+                  },
+                  {
+                    "metric": "fuelUsage",
+                    "operator": ">=",
+                    "value": 30,
+                    "unit": "kg/h"
+                  }
+                ]
+              },
+              "criteriaText": "1회 주입 원료량이 0.5톤 이상이거나 연료사용량이 시간당 30킬로그램 이상"
+            },
+            {
+              "code": "(4)",
+              "name": null,
+              "criteria": {
+                "logic": "OR",
+                "conditions": [
+                  {
+                    "metric": "fuelUsage",
+                    "operator": ">=",
+                    "value": 30,
+                    "unit": "kg/h"
+                  },
+                  {
+                    "metric": "volume",
+                    "operator": ">=",
+                    "value": 1,
+                    "unit": "m³"
+                  }
+                ]
+              },
+              "criteriaText": "연료사용량이 시간당 30킬로그램 이상이거나 용적이 1세제곱미터 이상",
+              "children": [
+                {
+                  "code": "(가)",
+                  "name": "전로",
+                  "text": "전로"
+                },
+                {
+                  "code": "(나)",
+                  "name": "정련로",
+                  "text": "정련로"
+                },
+                {
+                  "code": "(다)",
+                  "name": "용융·용해로",
+                  "text": "용융·용해로"
+                },
+                {
+                  "code": "(라)",
+                  "name": "가열로",
+                  "text": "가열로(연소시설을 포함한다)"
+                },
+                {
+                  "code": "(마)",
+                  "name": "열처리로",
+                  "text": "열처리로(소둔로·소려로를 포함한다)"
+                },
+                {
+                  "code": "(바)",
+                  "name": "전해로",
+                  "text": "전해로"
+                },
+                {
+                  "code": "(사)",
+                  "name": "건조로",
+                  "text": "건조로"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "code": "다)",
+          "name": "표면 처리시설",
+          "children": [
+            {
+              "code": "(1)",
+              "name": null,
+              "criteria": {
+                "logic": "AND",
+                "conditions": [
+                  {
+                    "metric": "volume",
+                    "operator": ">=",
+                    "value": 1,
+                    "unit": "m³"
+                  }
+                ]
+              },
+              "criteriaText": "용적이 1세제곱미터 이상",
+              "children": [
+                {
+                  "code": "(가)",
+                  "name": "도금시설",
+                  "text": "도금시설"
+                },
+                {
+                  "code": "(나)",
+                  "name": "탈지시설",
+                  "text": "탈지시설"
+                },
+                {
+                  "code": "(다)",
+                  "name": "산·알칼리 처리시설",
+                  "text": "산·알칼리 처리시설"
+                },
+                {
+                  "code": "(라)",
+                  "name": "화성처리시설",
+                  "text": "화성처리시설"
+                }
+              ]
+            },
+            {
+              "code": "(2)",
+              "name": "금속의 표면처리용 건조시설",
+              "text": "금속의 표면처리용 건조시설(수세 후 건조시설은 제외한다)",
+              "criteria": {
+                "logic": "OR",
+                "conditions": [
+                  {
+                    "metric": "fuelUsage",
+                    "operator": ">=",
+                    "value": 30,
+                    "unit": "kg/h"
+                  },
+                  {
+                    "metric": "volume",
+                    "operator": ">=",
+                    "value": 3,
+                    "unit": "m³"
+                  }
+                ]
+              },
+              "criteriaText": "연료사용량이 시간당 30킬로그램 이상이거나 용적이 3세제곱미터 이상"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "code": "28)",
+      "name": "반도체 제조시설",
+      "children": [
+        {
+          "code": "가)",
+          "name": null,
+          "criteria": {
+            "logic": "AND",
+            "conditions": [
+              {
+                "metric": "volume",
+                "operator": ">=",
+                "value": 3,
+                "unit": "m³"
+              }
+            ]
+          },
+          "criteriaText": "용적이 3세제곱미터 이상",
+          "children": [
+            {
+              "code": "(1)",
+              "name": "증착시설",
+              "text": "증착시설"
+            },
+            {
+              "code": "(2)",
+              "name": "식각시설",
+              "text": "식각시설"
+            }
+          ]
+        },
+        {
+          "code": "나)",
+          "name": "금속의 용융·용해 또는 열처리시설",
+          "children": [
+            {
+              "code": "(1)",
+              "name": "전기아크로",
+              "text": "전기아크로(유도로를 포함한다)",
+              "criteria": {
+                "logic": "AND",
+                "conditions": [
+                  {
+                    "metric": "power",
+                    "operator": ">=",
+                    "value": 300,
+                    "unit": "kW",
+                    "qualifier": "시간당"
+                  }
+                ]
+              },
+              "criteriaText": "시간당 300킬로와트 이상"
+            },
+            {
+              "code": "(2)",
+              "name": "반사로",
+              "text": "반사로",
+              "criteria": {
+                "logic": "AND",
+                "conditions": [
+                  {
+                    "metric": "area",
+                    "operator": ">=",
+                    "value": 4.5,
+                    "unit": "m²",
+                    "qualifier": "노상"
+                  }
+                ]
+              },
+              "criteriaText": "노상면적이 4.5제곱미터 이상"
+            },
+            {
+              "code": "(3)",
+              "name": "도가니로",
+              "text": "도가니로",
+              "criteria": {
+                "logic": "OR",
+                "conditions": [
+                  {
+                    "metric": "batchAmount",
+                    "operator": ">=",
+                    "value": 0.5,
+                    "unit": "ton",
+                    "qualifier": "1회 주입 원료"
+                  },
+                  {
+                    "metric": "fuelUsage",
+                    "operator": ">=",
+                    "value": 30,
+                    "unit": "kg/h"
+                  }
+                ]
+              },
+              "criteriaText": "1회 주입 원료량이 0.5톤 이상이거나 연료사용량이 시간당 30킬로그램 이상"
+            },
+            {
+              "code": "(4)",
+              "name": null,
+              "criteria": {
+                "logic": "OR",
+                "conditions": [
+                  {
+                    "metric": "fuelUsage",
+                    "operator": ">=",
+                    "value": 30,
+                    "unit": "kg/h"
+                  },
+                  {
+                    "metric": "volume",
+                    "operator": ">=",
+                    "value": 1,
+                    "unit": "m³"
+                  }
+                ]
+              },
+              "criteriaText": "연료사용량이 시간당 30킬로그램 이상이거나 용적이 1세제곱미터 이상",
+              "children": [
+                {
+                  "code": "(가)",
+                  "name": "전로",
+                  "text": "전로"
+                },
+                {
+                  "code": "(나)",
+                  "name": "정련로",
+                  "text": "정련로"
+                },
+                {
+                  "code": "(다)",
+                  "name": "용융·용해로",
+                  "text": "용융·용해로"
+                },
+                {
+                  "code": "(라)",
+                  "name": "가열로",
+                  "text": "가열로(연소시설을 포함한다)"
+                },
+                {
+                  "code": "(마)",
+                  "name": "열처리로",
+                  "text": "열처리로(소둔로·소려로를 포함한다)"
+                },
+                {
+                  "code": "(바)",
+                  "name": "전해로",
+                  "text": "전해로"
+                },
+                {
+                  "code": "(사)",
+                  "name": "건조로",
+                  "text": "건조로"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "code": "다)",
+          "name": "표면 처리시설",
+          "children": [
+            {
+              "code": "(1)",
+              "name": null,
+              "criteria": {
+                "logic": "AND",
+                "conditions": [
+                  {
+                    "metric": "volume",
+                    "operator": ">=",
+                    "value": 1,
+                    "unit": "m³"
+                  }
+                ]
+              },
+              "criteriaText": "용적이 1세제곱미터 이상",
+              "children": [
+                {
+                  "code": "(가)",
+                  "name": "도금시설",
+                  "text": "도금시설"
+                },
+                {
+                  "code": "(나)",
+                  "name": "탈지시설",
+                  "text": "탈지시설"
+                },
+                {
+                  "code": "(다)",
+                  "name": "산·알칼리 처리시설",
+                  "text": "산·알칼리 처리시설"
+                },
+                {
+                  "code": "(라)",
+                  "name": "화성처리시설",
+                  "text": "화성처리시설"
+                }
+              ]
+            },
+            {
+              "code": "(2)",
+              "name": "금속의 표면처리용 건조시설",
+              "text": "금속의 표면처리용 건조시설(수세 후 건조시설은 제외한다)",
+              "criteria": {
+                "logic": "OR",
+                "conditions": [
+                  {
+                    "metric": "fuelUsage",
+                    "operator": ">=",
+                    "value": 30,
+                    "unit": "kg/h"
+                  },
+                  {
+                    "metric": "volume",
+                    "operator": ">=",
+                    "value": 3,
+                    "unit": "m³"
+                  }
+                ]
+              },
+              "criteriaText": "연료사용량이 시간당 30킬로그램 이상이거나 용적이 3세제곱미터 이상"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "code": "29)",
+      "name": "발전시설(수력, 원자력 발전시설은 제외한다)",
+      "children": [
+        {
+          "code": "가)",
+          "name": "화력발전시설",
+          "text": "화력발전시설"
+        },
+        {
+          "code": "나)",
+          "name": "열병합발전시설",
+          "text": "열병합발전시설",
+          "criteria": {
+            "logic": "AND",
+            "conditions": [
+              {
+                "metric": "installedCapacity",
+                "operator": ">=",
+                "value": 120,
+                "unit": "kW"
+              }
+            ]
+          },
+          "criteriaText": "설비용량이 120킬로와트 이상"
+        },
+        {
+          "code": "다)",
+          "name": "발전용 내연기관",
+          "text": "발전용 내연기관(비상용, 수송용 또는 설비용량이 1.5메가와트 미만인 도서지방용은 제외한다)",
+          "criteria": {
+            "logic": "AND",
+            "conditions": [
+              {
+                "metric": "installedCapacity",
+                "operator": ">=",
+                "value": 120,
+                "unit": "kW"
+              }
+            ]
+          },
+          "criteriaText": "설비용량이 120킬로와트 이상"
+        },
+        {
+          "code": "라)",
+          "name": "발전용 매립·바이오가스 사용시설",
+          "text": "발전용 매립·바이오가스 사용시설",
+          "criteria": {
+            "logic": "AND",
+            "conditions": [
+              {
+                "metric": "installedCapacity",
+                "operator": ">=",
+                "value": 120,
+                "unit": "kW"
+              }
+            ]
+          },
+          "criteriaText": "설비용량이 120킬로와트 이상"
+        },
+        {
+          "code": "마)",
+          "name": "발전용 석탄가스화 연료 사용시설",
+          "text": "발전용 석탄가스화 연료 사용시설",
+          "criteria": {
+            "logic": "AND",
+            "conditions": [
+              {
+                "metric": "installedCapacity",
+                "operator": ">=",
+                "value": 120,
+                "unit": "kW"
+              }
+            ]
+          },
+          "criteriaText": "설비용량이 120킬로와트 이상"
+        },
+        {
+          "code": "바)",
+          "name": "카본블랙 제조시설의 폐가스재이용시설",
+          "text": "카본블랙 제조시설의 폐가스재이용시설",
+          "criteria": {
+            "logic": "AND",
+            "conditions": [
+              {
+                "metric": "installedCapacity",
+                "operator": ">=",
+                "value": 120,
+                "unit": "kW"
+              }
+            ]
+          },
+          "criteriaText": "설비용량이 120킬로와트 이상"
+        },
+        {
+          "code": "사)",
+          "name": "린번엔진 발전시설",
+          "text": "린번엔진 발전시설",
+          "criteria": {
+            "logic": "AND",
+            "conditions": [
+              {
+                "metric": "installedCapacity",
+                "operator": ">=",
+                "value": 120,
+                "unit": "kW"
+              }
+            ]
+          },
+          "criteriaText": "설비용량이 120킬로와트 이상"
+        }
+      ]
+    },
+    {
+      "code": "30)",
+      "name": "폐수·폐기물·폐가스소각시설·동물장묘시설(소각보일러를 포함한다)",
+      "children": [
+        {
+          "code": "가)",
+          "name": "폐수·폐기물소각시설",
+          "text": "폐수·폐기물소각시설",
+          "criteria": {
+            "logic": "AND",
+            "conditions": [
+              {
+                "metric": "capacity",
+                "operator": ">=",
+                "value": 25,
+                "unit": "kg/h",
+                "qualifier": "소각능력"
+              }
+            ]
+          },
+          "criteriaText": "시간당 소각능력이 25킬로그램 이상"
+        },
+        {
+          "code": "나)",
+          "name": "동물화장시설",
+          "text": "「동물보호법」 제32조에 따른 동물화장시설"
+        },
+        {
+          "code": "다)",
+          "name": "폐가스소각시설·폐가스소각보일러",
+          "text": "폐가스소각시설·폐가스소각보일러 또는 폐가스소각시설",
+          "criteria": {
+            "logic": "OR",
+            "conditions": [
+              {
+                "metric": "fuelUsage",
+                "operator": ">=",
+                "value": 30,
+                "unit": "kg/h"
+              },
+              {
+                "metric": "volume",
+                "operator": ">=",
+                "value": 1,
+                "unit": "m³"
+              },
+              {
+                "metric": "capacity",
+                "operator": ">=",
+                "value": 100,
+                "unit": "kg/h",
+                "qualifier": "소각능력"
+              }
+            ]
+          },
+          "criteriaText": "연료사용량이 시간당 30킬로그램 이상이거나 용적이 1세제곱미터 이상 또는 소각능력이 시간당 100킬로그램 이상",
+          "exception": "별표 10의2 제3호가목1)나)(2)(다), 같은 호 다목 1)나)(2)(나) 및 같은 호 라목1)라)에 따른 직접연소에 의한 시설 및 별표 16에 따른 기준에 맞는 휘발성유기화합물 배출억제·방지시설 및 악취소각시설은 제외한다."
+        },
+        {
+          "code": "라)",
+          "name": null,
+          "text": "가), 나) 및 다)의 부대시설(해당 시설의 공정에 일체되는 경우를 포함한다)",
+          "criteria": {
+            "logic": "AND",
+            "conditions": [
+              {
+                "metric": "power",
+                "operator": ">=",
+                "value": 15,
+                "unit": "kW"
+              }
+            ]
+          },
+          "criteriaText": "동력 15킬로와트 이상",
+          "children": [
+            {
+              "code": "(1)",
+              "name": "분쇄시설",
+              "text": "분쇄시설"
+            },
+            {
+              "code": "(2)",
+              "name": "파쇄시설",
+              "text": "파쇄시설"
+            },
+            {
+              "code": "(3)",
+              "name": "용융시설",
+              "text": "용융시설"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "code": "31)",
+      "name": "폐수·폐기물 처리시설",
+      "children": [
+        {
+          "code": "가)",
+          "name": "폐수·폐기물 증발/농축/건조/정제시설",
+          "text": "폐수·폐기물 증발시설 및 농축시설(시간당 처리능력 기준), 폐수·폐기물 건조시설 및 정제시설(용적 기준)",
+          "criteria": {
+            "logic": "OR",
+            "conditions": [
+              {
+                "metric": "capacity",
+                "operator": ">=",
+                "value": 0.5,
+                "unit": "m³/h",
+                "qualifier": "증발/농축"
+              },
+              {
+                "metric": "volume",
+                "operator": ">=",
+                "value": 0.15,
+                "unit": "m³",
+                "qualifier": "건조/정제"
+              }
+            ]
+          },
+          "criteriaText": "시간당 처리능력이 0.5세제곱미터 이상(증발/농축) 또는 용적이 0.15세제곱미터 이상(건조/정제)"
+        },
+        {
+          "code": "나)",
+          "name": null,
+          "criteria": {
+            "logic": "OR",
+            "conditions": [
+              {
+                "metric": "fuelUsage",
+                "operator": ">=",
+                "value": 30,
+                "unit": "kg/h"
+              },
+              {
+                "metric": "power",
+                "operator": ">=",
+                "value": 15,
+                "unit": "kW"
+              }
+            ]
+          },
+          "criteriaText": "연료사용량이 시간당 30킬로그램 이상이거나 동력이 15킬로와트 이상",
+          "children": [
+            {
+              "code": "(1)",
+              "name": "분쇄시설",
+              "text": "분쇄시설(멸균시설을 포함한다)"
+            },
+            {
+              "code": "(2)",
+              "name": "파쇄시설",
+              "text": "파쇄시설"
+            },
+            {
+              "code": "(3)",
+              "name": "용융시설",
+              "text": "용융시설"
+            }
+          ]
+        },
+        {
+          "code": "다)",
+          "name": "음식물류 폐기물 처리시설",
+          "text": "음식물류 폐기물 처리시설(「악취방지법」 제8조에 따른 악취배출시설로 설치 신고된 시설은 제외한다)",
+          "criteria": {
+            "logic": "AND",
+            "conditions": [
+              {
+                "metric": "capacity",
+                "operator": ">=",
+                "value": 100,
+                "unit": "kg/day",
+                "qualifier": "처리능력"
+              }
+            ]
+          },
+          "criteriaText": "1일 처리능력이 100킬로그램 이상",
+          "children": [
+            {
+              "code": "(1)",
+              "name": "분쇄 및 파쇄시설",
+              "text": "분쇄 및 파쇄시설",
+              "criteria": {
+                "logic": "OR",
+                "conditions": [
+                  {
+                    "metric": "fuelUsage",
+                    "operator": ">=",
+                    "value": 30,
+                    "unit": "kg/h"
+                  },
+                  {
+                    "metric": "power",
+                    "operator": ">=",
+                    "value": 15,
+                    "unit": "kW"
+                  }
+                ]
+              },
+              "criteriaText": "연료사용량이 시간당 30킬로그램 이상이거나 동력이 15킬로와트 이상"
+            },
+            {
+              "code": "(2)",
+              "name": "건조시설",
+              "text": "건조시설",
+              "criteria": {
+                "logic": "OR",
+                "conditions": [
+                  {
+                    "metric": "fuelUsage",
+                    "operator": ">=",
+                    "value": 30,
+                    "unit": "kg/h"
+                  },
+                  {
+                    "metric": "power",
+                    "operator": ">=",
+                    "value": 15,
+                    "unit": "kW"
+                  }
+                ]
+              },
+              "criteriaText": "연료사용량이 시간당 30킬로그램 이상이거나 동력이 15킬로와트 이상"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "code": "32)",
+      "name": "보일러·흡수식 냉·온수기 및 가스열펌프",
+      "exception": "다른 배출시설에서 규정한 보일러 및 흡수식 냉·온수기는 제외한다.",
+      "children": [
+        {
+          "code": "나)",
+          "name": "보일러와 흡수식 냉·온수기 (일반)",
+          "text": "보일러와 흡수식 냉·온수기",
+          "criteria": {
+            "logic": "OR",
+            "conditions": [
+              {
+                "metric": "evaporation",
+                "operator": ">=",
+                "value": 0.5,
+                "unit": "ton/h"
+              },
+              {
+                "metric": "heatOutput",
+                "operator": ">=",
+                "value": 309500,
+                "unit": "kcal/h"
+              }
+            ]
+          },
+          "criteriaText": "시간당 증발량이 0.5톤 이상이거나 시간당 열량이 309,500킬로칼로리 이상",
+          "exception": "기후에너지환경부장관이 고체연료 사용금지 지역으로 고시한 지역에서는 시간당 증발량이 0.2톤 이상이거나 시간당 열량이 123,800킬로칼로리 이상",
+          "exceptionCriteria": {
+            "logic": "OR",
+            "conditions": [
+              {
+                "metric": "evaporation",
+                "operator": ">=",
+                "value": 0.2,
+                "unit": "ton/h"
+              },
+              {
+                "metric": "heatOutput",
+                "operator": ">=",
+                "value": 123800,
+                "unit": "kcal/h"
+              }
+            ]
+          }
+        },
+        {
+          "code": "다)",
+          "name": "보일러와 흡수식 냉·온수기 (가스/경질유)",
+          "text": "가스(바이오가스를 포함한다) 또는 경질유[경유·등유·부생연료유1호(등유형)·휘발유·나프타·정제연료유]만을 연료로 사용하는 보일러와 흡수식 냉·온수기",
+          "criteria": {
+            "logic": "OR",
+            "conditions": [
+              {
+                "metric": "evaporation",
+                "operator": ">=",
+                "value": 2,
+                "unit": "ton/h"
+              },
+              {
+                "metric": "heatOutput",
+                "operator": ">=",
+                "value": 1238000,
+                "unit": "kcal/h"
+              }
+            ]
+          },
+          "criteriaText": "시간당 증발량이 2톤 이상이거나 시간당 열량이 1,238,000킬로칼로리 이상"
+        },
+        {
+          "code": "라)",
+          "name": "가스열펌프(GHP)",
+          "text": "가스열펌프(Gas Heat Pump): 액화천연가스나 액화석유가스를 연료로 사용하는 가스엔진을 이용하여 압축기를 구동하는 열펌프식 냉·난방기",
+          "exception": "가스열펌프에서 배출되는 대기오염물질이 배출허용기준의 30퍼센트 미만인 경우나 가스열펌프에 기후에너지환경부장관이 정하여 고시하는 기준에 따라 인증 받은 대기오염물질 저감장치를 부착한 경우는 제외한다."
+        }
+      ]
+    },
+    {
+      "code": "33)",
+      "name": "고형연료·기타 연료 제품 제조·사용시설 및 관련 시설",
+      "children": [
+        {
+          "code": "가)",
+          "name": "고형연료제품 제조시설",
+          "text": "「자원의 절약과 재활용촉진에 관한 법률」 제25조의8에 따른 일반 고형연료제품[SRF] 및 바이오 고형연료제품[BIO-SRF] 제조시설",
+          "criteria": {
+            "logic": "OR",
+            "conditions": [
+              {
+                "metric": "fuelUsage",
+                "operator": ">=",
+                "value": 30,
+                "unit": "kg/h"
+              },
+              {
+                "metric": "volume",
+                "operator": ">=",
+                "value": 3,
+                "unit": "m³"
+              },
+              {
+                "metric": "power",
+                "operator": ">=",
+                "value": 2.25,
+                "unit": "kW"
+              }
+            ]
+          },
+          "criteriaText": "연료사용량이 시간당 30킬로그램 이상이거나 용적이 3세제곱미터 이상이거나 동력이 2.25킬로와트 이상",
+          "children": [
+            {
+              "code": "(1)",
+              "name": "선별시설",
+              "text": "선별시설"
+            },
+            {
+              "code": "(2)",
+              "name": "건조·가열시설",
+              "text": "건조·가열시설"
+            },
+            {
+              "code": "(3)",
+              "name": "파쇄·분쇄시설",
+              "text": "파쇄·분쇄시설"
+            },
+            {
+              "code": "(4)",
+              "name": "압축·성형시설",
+              "text": "압축·성형시설"
+            }
+          ]
+        },
+        {
+          "code": "나)",
+          "name": "바이오매스 연료제품 및 목재펠릿 제조시설",
+          "text": "바이오매스 연료제품(BIO-SRF 제외) 및 목재펠릿 제조시설",
+          "criteria": {
+            "logic": "OR",
+            "conditions": [
+              {
+                "metric": "fuelUsage",
+                "operator": ">=",
+                "value": 30,
+                "unit": "kg/h"
+              },
+              {
+                "metric": "volume",
+                "operator": ">=",
+                "value": 3,
+                "unit": "m³"
+              },
+              {
+                "metric": "power",
+                "operator": ">=",
+                "value": 2.25,
+                "unit": "kW",
+                "qualifier": "파쇄·분쇄시설은 15kW"
+              }
+            ]
+          },
+          "criteriaText": "연료사용량이 시간당 30킬로그램 이상이거나 용적이 3세제곱미터 이상이거나 동력이 2.25킬로와트(파쇄·분쇄시설은 15킬로와트) 이상",
+          "children": [
+            {
+              "code": "(1)",
+              "name": "선별시설",
+              "text": "선별시설"
+            },
+            {
+              "code": "(2)",
+              "name": "건조·가열시설",
+              "text": "건조·가열시설"
+            },
+            {
+              "code": "(3)",
+              "name": "파쇄·분쇄시설",
+              "text": "파쇄·분쇄시설"
+            },
+            {
+              "code": "(4)",
+              "name": "압축·성형시설",
+              "text": "압축·성형시설"
+            }
+          ]
+        },
+        {
+          "code": "다)",
+          "name": "바이오가스 제조시설",
+          "text": "바이오가스 제조시설",
+          "criteria": {
+            "logic": "AND",
+            "conditions": [
+              {
+                "metric": "production",
+                "operator": ">=",
+                "value": 1,
+                "unit": "Nm³/h"
+              }
+            ]
+          },
+          "criteriaText": "제품 생산량이 시간당 1N㎥ 이상"
+        },
+        {
+          "code": "라)",
+          "name": "고형연료제품 사용시설",
+          "text": "고형연료제품 사용시설(「자원의 절약과 재활용촉진에 관한 법률」 제25조의7에 따른 시설만 해당)",
+          "criteria": {
+            "logic": "AND",
+            "conditions": [
+              {
+                "metric": "usage",
+                "operator": ">=",
+                "value": 200,
+                "unit": "kg/h"
+              },
+              {
+                "metric": "usageRatio",
+                "operator": ">=",
+                "value": 30,
+                "unit": "%"
+              }
+            ]
+          },
+          "criteriaText": "연료제품 사용량이 시간당 200킬로그램 이상이고 사용비율이 30퍼센트 이상",
+          "children": [
+            {
+              "code": "(1)",
+              "name": "일반 고형연료제품 사용시설",
+              "text": "일반 고형연료제품[SRF] 사용시설"
+            },
+            {
+              "code": "(2)",
+              "name": "바이오 고형연료제품 사용시설",
+              "text": "바이오 고형연료제품[BIO-SRF] 사용시설"
+            }
+          ]
+        },
+        {
+          "code": "마)",
+          "name": "바이오매스 연료제품 및 목재펠릿 사용시설",
+          "text": "바이오매스 연료제품(BIO-SRF 제외) 및 목재펠릿 사용시설",
+          "criteria": {
+            "logic": "AND",
+            "conditions": [
+              {
+                "metric": "usage",
+                "operator": ">=",
+                "value": 200,
+                "unit": "kg/h"
+              }
+            ]
+          },
+          "criteriaText": "연료제품 사용량이 시간당 200킬로그램 이상",
+          "exception": "다른 연료와 목재펠릿을 함께 연소하는 시설 및 발전시설은 제외한다."
+        },
+        {
+          "code": "바)",
+          "name": "바이오가스 사용시설",
+          "text": "바이오가스 사용시설",
+          "criteria": {
+            "logic": "AND",
+            "conditions": [
+              {
+                "metric": "usage",
+                "operator": ">=",
+                "value": 1,
+                "unit": "Nm³/h"
+              }
+            ]
+          },
+          "criteriaText": "연료 사용량이 시간당 1N㎥ 이상"
+        }
+      ]
+    },
+    {
+      "code": "34)",
+      "name": "화장로 시설",
+      "text": "「장사 등에 관한 법률」에 따른 화장시설"
+    },
+    {
+      "code": "35)",
+      "name": "도장시설",
+      "text": "도장시설(분무·분체·침지도장시설, 건조시설을 포함한다)",
+      "criteria": {
+        "logic": "OR",
+        "conditions": [
+          {
+            "metric": "volume",
+            "operator": ">=",
+            "value": 5,
+            "unit": "m³"
+          },
+          {
+            "metric": "power",
+            "operator": ">=",
+            "value": 2.25,
+            "unit": "kW"
+          }
+        ]
+      },
+      "criteriaText": "용적이 5세제곱미터 이상이거나 동력이 2.25킬로와트 이상"
+    },
+    {
+      "code": "36)",
+      "name": "입자상물질 및 가스상물질 발생시설",
+      "children": [
+        {
+          "code": "가)",
+          "name": null,
+          "criteria": {
+            "logic": "AND",
+            "conditions": [
+              {
+                "metric": "power",
+                "operator": ">=",
+                "value": 15,
+                "unit": "kW"
+              }
+            ]
+          },
+          "criteriaText": "동력이 15킬로와트 이상",
+          "children": [
+            {
+              "code": "(1)",
+              "name": "연마시설",
+              "text": "연마시설"
+            },
+            {
+              "code": "(2)",
+              "name": "제재시설",
+              "text": "제재시설"
+            },
+            {
+              "code": "(3)",
+              "name": "제분시설",
+              "text": "제분시설"
+            },
+            {
+              "code": "(4)",
+              "name": "선별시설",
+              "text": "선별시설"
+            },
+            {
+              "code": "(5)",
+              "name": "파쇄·분쇄시설",
+              "text": "파쇄·분쇄시설"
+            },
+            {
+              "code": "(6)",
+              "name": "탈사시설",
+              "text": "탈사(脫砂)시설"
+            },
+            {
+              "code": "(7)",
+              "name": "탈청시설",
+              "text": "탈청(脫靑)시설"
+            }
+          ]
+        },
+        {
+          "code": "나)",
+          "name": null,
+          "criteria": {
+            "logic": "OR",
+            "conditions": [
+              {
+                "metric": "volume",
+                "operator": ">=",
+                "value": 3,
+                "unit": "m³"
+              },
+              {
+                "metric": "power",
+                "operator": ">=",
+                "value": 7.5,
+                "unit": "kW"
+              }
+            ]
+          },
+          "criteriaText": "용적이 3세제곱미터 이상이거나 동력이 7.5킬로와트 이상",
+          "children": [
+            {
+              "code": "(1)",
+              "name": "고체입자상물질 계량시설",
+              "text": "고체입자상물질 계량시설"
+            },
+            {
+              "code": "(2)",
+              "name": "혼합시설",
+              "text": "혼합시설(농산물 가공시설은 제외한다)"
+            }
+          ]
+        },
+        {
+          "code": "다)",
+          "name": "포장시설",
+          "text": "포장시설(소분시설을 포함한다)",
+          "criteria": {
+            "logic": "AND",
+            "conditions": [
+              {
+                "metric": "capacity",
+                "operator": ">=",
+                "value": 100,
+                "unit": "kg/h",
+                "qualifier": "처리능력"
+              }
+            ]
+          },
+          "criteriaText": "처리능력이 시간당 100킬로그램 이상"
+        },
+        {
+          "code": "라)",
+          "name": "도정시설",
+          "text": "도정(搗精)시설",
+          "criteria": {
+            "logic": "AND",
+            "conditions": [
+              {
+                "metric": "power",
+                "operator": ">=",
+                "value": 52.5,
+                "unit": "kW"
+              }
+            ]
+          },
+          "criteriaText": "동력이 52.5킬로와트 이상"
+        },
+        {
+          "code": "마)",
+          "name": null,
+          "criteria": {
+            "logic": "AND",
+            "conditions": [
+              {
+                "metric": "volume",
+                "operator": ">=",
+                "value": 50,
+                "unit": "m³"
+              }
+            ]
+          },
+          "criteriaText": "용적이 50세제곱미터 이상",
+          "children": [
+            {
+              "code": "(1)",
+              "name": "고체입자상물질 저장시설",
+              "text": "고체입자상물질 저장시설"
+            },
+            {
+              "code": "(2)",
+              "name": "유·무기산 저장시설",
+              "text": "유·무기산 저장시설"
+            },
+            {
+              "code": "(3)",
+              "name": "유기화합물 저장시설",
+              "text": "유기화합물(알켄족·알킨족·방향족·알데히드류·케톤류가 50퍼센트 이상 함유된 것만 해당한다) 저장시설"
+            }
+          ]
+        },
+        {
+          "code": "바)",
+          "name": null,
+          "criteria": {
+            "logic": "OR",
+            "conditions": [
+              {
+                "metric": "fuelUsage",
+                "operator": ">=",
+                "value": 30,
+                "unit": "kg/h"
+              },
+              {
+                "metric": "volume",
+                "operator": ">=",
+                "value": 1,
+                "unit": "m³"
+              }
+            ]
+          },
+          "criteriaText": "연료사용량이 시간당 30킬로그램 이상이거나 용적이 1세제곱미터 이상",
+          "children": [
+            {
+              "code": "(1)",
+              "name": "반응시설",
+              "text": "반응시설"
+            },
+            {
+              "code": "(2)",
+              "name": "흡수시설",
+              "text": "흡수시설"
+            },
+            {
+              "code": "(3)",
+              "name": "응축시설",
+              "text": "응축시설"
+            },
+            {
+              "code": "(4)",
+              "name": "정제시설",
+              "text": "정제시설(분리, 증류, 추출, 여과시설을 포함한다)"
+            },
+            {
+              "code": "(5)",
+              "name": "농축시설",
+              "text": "농축시설"
+            },
+            {
+              "code": "(6)",
+              "name": "표백시설",
+              "text": "표백시설"
+            },
+            {
+              "code": "(7)",
+              "name": "화학물질 저장탱크 세척시설",
+              "text": "화학물질 저장탱크 세척시설"
+            },
+            {
+              "code": "(8)",
+              "name": "가열시설",
+              "text": "가열시설(연소시설을 포함한다)"
+            },
+            {
+              "code": "(9)",
+              "name": "성형시설",
+              "text": "성형시설"
+            }
+          ]
+        },
+        {
+          "code": "사)",
+          "name": null,
+          "text": "가)부터 바)까지의 배출시설 외의 시설",
+          "criteria": {
+            "logic": "OR",
+            "conditions": [
+              {
+                "metric": "fuelUsage",
+                "operator": ">=",
+                "value": 60,
+                "unit": "kg/h"
+              },
+              {
+                "metric": "volume",
+                "operator": ">=",
+                "value": 5,
+                "unit": "m³"
+              },
+              {
+                "metric": "power",
+                "operator": ">=",
+                "value": 2.25,
+                "unit": "kW"
+              }
+            ]
+          },
+          "criteriaText": "연료사용량이 시간당 60킬로그램 이상이거나 용적이 5세제곱미터 이상이거나 동력이 2.25킬로와트 이상",
+          "children": [
+            {
+              "code": "(1)",
+              "name": "건조시설",
+              "text": "건조시설(도포시설 및 분리시설을 포함한다)"
+            },
+            {
+              "code": "(2)",
+              "name": "훈증시설",
+              "text": "훈증시설"
+            },
+            {
+              "code": "(3)",
+              "name": "산·알칼리 처리시설",
+              "text": "산·알칼리 처리시설"
+            },
+            {
+              "code": "(4)",
+              "name": "소성시설",
+              "text": "소성시설"
+            },
+            {
+              "code": "(5)",
+              "name": "그 밖의 로",
+              "text": "그 밖의 로(爐)"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "code": "37)",
+      "name": "그 밖의 시설",
+      "text": "별표 8에 따라 배출허용기준이 설정된 대기오염물질을 제조하거나 해당 대기오염물질을 발생시켜 배출하는 모든 시설",
+      "exception": "대기오염물질이 해당 물질 배출허용기준의 30퍼센트 미만으로 배출되는 시설은 제외한다."
+    }
+  ]
+}

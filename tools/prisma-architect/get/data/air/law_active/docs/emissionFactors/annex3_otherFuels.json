@@ -1,0 +1,514 @@
+{
+  "schemaVersion": "1.0",
+  "sourceId": "notice2021-41/annex3",
+  "legalStatus": "법정",
+  "annexNo": "3",
+  "title": "기타연료의 대기오염물질 배출계수",
+  "관련조문": "제4조",
+  "noticeRef": "국립환경과학원고시 제2021-41호",
+  "noticeTitle": "배출시설의 대기오염물질 배출계수 고시",
+  "_meta": {
+    "_note": "표 내 값에 포함된 알파벳 기호는 연료의 조성 변수를 의미함. S = 연료 중 황 함량(%), A = 연료 중 회분 함량(%). 예: '17.0S'는 17.0 × (황 함량 %)을 의미.",
+    "오염물질": [
+      "먼지",
+      "황산화물",
+      "질소산화물"
+    ],
+    "valueTypes": {
+      "constant": "{type:'constant',   value}",
+      "range": "{type:'range',      min, max}",
+      "qualifier": "{type:'qualifier',  op, value}      // op: '<=' | '>=' | '<' | '>'",
+      "expression": "{type:'expression', coefficient, variable, variableMeaning}  // result = coefficient × variable",
+      "null": "데이터 없음 (해당 오염물질 미적용)"
+    },
+    "unitSchema": {
+      "raw": "원본 표기 (예: 'kg/폴리프로필렌생산량(ton)')",
+      "numerator": "배출량 단위 (kg 등)",
+      "denominator": "단위량의 단위 (ton, ㎘, 10³㎥, m², 109J 등)",
+      "basis": "단위량의 의미 (생산량 | 사용량 | 처리량 | 소각량 | 회수량 | 저장량 | 투입량 | null)"
+    },
+    "calculationFormula": "시간당 발생량(kg/h) = factor.value × 시간당 단위량 (factor.type 별 평가 방법은 valueTypes 참조)",
+    "basisVocabulary": [
+      "생산량",
+      "사용량",
+      "처리량",
+      "소각량",
+      "회수량",
+      "저장량",
+      "투입량"
+    ],
+    "materialTypeRules": {
+      "제품": "basis ∈ {생산량, 회수량}",
+      "원료": "basis ∈ {사용량, 저장량, 투입량, 처리량}",
+      "폐기물": "basis = 소각량",
+      "연료": "단위에 한글 basis 가 없는 연료성 단위 (kg/ton, kg/㎘, kg/10³㎥) — annex3 전용",
+      "null": "분류 불가"
+    },
+    "기호": [
+      {
+        "symbol": "C1, C2, C3",
+        "meaning": "탄소 수"
+      },
+      {
+        "symbol": "S",
+        "meaning": "연료 중 황 함량(%)"
+      },
+      {
+        "symbol": "A",
+        "meaning": "연료 중 회분 함량(%)"
+      }
+    ]
+  },
+  "entryCount": 15,
+  "entries": [
+    {
+      "id": "annex3-001",
+      "airFacilityRefs": null,
+      "facilityGroup": "기체연료 (저분자 탄화수소·일산화탄소)",
+      "subFacility": null,
+      "materialType": "연료",
+      "material": "일산화탄소",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 0.03
+        },
+        "황산화물": {
+          "type": "constant",
+          "value": 0.01
+        },
+        "질소산화물": {
+          "type": "constant",
+          "value": 3.7
+        }
+      },
+      "unit": {
+        "raw": "kg/10³㎥",
+        "numerator": "kg",
+        "denominator": "10³㎥",
+        "basis": "사용량",
+        "_basisInferred": true
+      }
+    },
+    {
+      "id": "annex3-002",
+      "airFacilityRefs": null,
+      "facilityGroup": "기체연료 (저분자 탄화수소·일산화탄소)",
+      "subFacility": null,
+      "materialType": "연료",
+      "material": "메탄",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 0.03
+        },
+        "황산화물": {
+          "type": "constant",
+          "value": 0.01
+        },
+        "질소산화물": {
+          "type": "constant",
+          "value": 3.7
+        }
+      },
+      "unit": {
+        "raw": "kg/10³㎥",
+        "numerator": "kg",
+        "denominator": "10³㎥",
+        "basis": "사용량",
+        "_basisInferred": true
+      }
+    },
+    {
+      "id": "annex3-003",
+      "airFacilityRefs": null,
+      "facilityGroup": "기체연료 (저분자 탄화수소·일산화탄소)",
+      "subFacility": null,
+      "materialType": "연료",
+      "material": "에탄",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 0.03
+        },
+        "황산화물": {
+          "type": "constant",
+          "value": 0.01
+        },
+        "질소산화물": {
+          "type": "constant",
+          "value": 3.7
+        }
+      },
+      "unit": {
+        "raw": "kg/10³㎥",
+        "numerator": "kg",
+        "denominator": "10³㎥",
+        "basis": "사용량",
+        "_basisInferred": true
+      }
+    },
+    {
+      "id": "annex3-004",
+      "airFacilityRefs": null,
+      "facilityGroup": "기체연료 (저분자 탄화수소·일산화탄소)",
+      "subFacility": null,
+      "materialType": "연료",
+      "material": "아세틸렌",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 0.03
+        },
+        "황산화물": {
+          "type": "constant",
+          "value": 0.01
+        },
+        "질소산화물": {
+          "type": "constant",
+          "value": 3.7
+        }
+      },
+      "unit": {
+        "raw": "kg/10³㎥",
+        "numerator": "kg",
+        "denominator": "10³㎥",
+        "basis": "사용량",
+        "_basisInferred": true
+      }
+    },
+    {
+      "id": "annex3-005",
+      "airFacilityRefs": null,
+      "facilityGroup": "기체연료 (저분자 탄화수소·일산화탄소)",
+      "subFacility": null,
+      "materialType": "연료",
+      "material": "C1~C2가 주성분인 발생로가스 및 혼성가스류",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 0.03
+        },
+        "황산화물": {
+          "type": "constant",
+          "value": 0.01
+        },
+        "질소산화물": {
+          "type": "constant",
+          "value": 3.7
+        }
+      },
+      "unit": {
+        "raw": "kg/10³㎥",
+        "numerator": "kg",
+        "denominator": "10³㎥",
+        "basis": "사용량",
+        "_basisInferred": true
+      }
+    },
+    {
+      "id": "annex3-006",
+      "airFacilityRefs": null,
+      "facilityGroup": "기체연료 (C3 이상)",
+      "subFacility": null,
+      "materialType": "연료",
+      "material": "C3이상이 주성분인 가스류",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 0.07
+        },
+        "황산화물": {
+          "type": "constant",
+          "value": 0.01
+        },
+        "질소산화물": {
+          "type": "constant",
+          "value": 2.28
+        }
+      },
+      "unit": {
+        "raw": "kg/ton",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": "사용량",
+        "_basisInferred": true
+      }
+    },
+    {
+      "id": "annex3-007",
+      "airFacilityRefs": null,
+      "facilityGroup": "액체연료",
+      "subFacility": null,
+      "materialType": "연료",
+      "material": "납사",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 0.24
+        },
+        "황산화물": {
+          "type": "expression",
+          "coefficient": 17.0,
+          "variable": "S",
+          "variableMeaning": "연료 중 황 함량(%)"
+        },
+        "질소산화물": {
+          "type": "constant",
+          "value": 2.4
+        }
+      },
+      "unit": {
+        "raw": "kg/㎘",
+        "numerator": "kg",
+        "denominator": "㎘",
+        "basis": "사용량",
+        "_basisInferred": true
+      }
+    },
+    {
+      "id": "annex3-008",
+      "airFacilityRefs": null,
+      "facilityGroup": "액체연료",
+      "subFacility": null,
+      "materialType": "연료",
+      "material": "메탄올",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 0.24
+        },
+        "황산화물": {
+          "type": "expression",
+          "coefficient": 17.0,
+          "variable": "S",
+          "variableMeaning": "연료 중 황 함량(%)"
+        },
+        "질소산화물": {
+          "type": "constant",
+          "value": 2.4
+        }
+      },
+      "unit": {
+        "raw": "kg/㎘",
+        "numerator": "kg",
+        "denominator": "㎘",
+        "basis": "사용량",
+        "_basisInferred": true
+      }
+    },
+    {
+      "id": "annex3-009",
+      "airFacilityRefs": null,
+      "facilityGroup": "액체연료",
+      "subFacility": null,
+      "materialType": "연료",
+      "material": "에탄올",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 0.24
+        },
+        "황산화물": {
+          "type": "expression",
+          "coefficient": 17.0,
+          "variable": "S",
+          "variableMeaning": "연료 중 황 함량(%)"
+        },
+        "질소산화물": {
+          "type": "constant",
+          "value": 2.4
+        }
+      },
+      "unit": {
+        "raw": "kg/㎘",
+        "numerator": "kg",
+        "denominator": "㎘",
+        "basis": "사용량",
+        "_basisInferred": true
+      }
+    },
+    {
+      "id": "annex3-010",
+      "airFacilityRefs": null,
+      "facilityGroup": "액체연료",
+      "subFacility": null,
+      "materialType": "연료",
+      "material": "벤젠",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 0.24
+        },
+        "황산화물": {
+          "type": "expression",
+          "coefficient": 17.0,
+          "variable": "S",
+          "variableMeaning": "연료 중 황 함량(%)"
+        },
+        "질소산화물": {
+          "type": "constant",
+          "value": 2.4
+        }
+      },
+      "unit": {
+        "raw": "kg/㎘",
+        "numerator": "kg",
+        "denominator": "㎘",
+        "basis": "사용량",
+        "_basisInferred": true
+      }
+    },
+    {
+      "id": "annex3-011",
+      "airFacilityRefs": null,
+      "facilityGroup": "액체연료",
+      "subFacility": null,
+      "materialType": "연료",
+      "material": "톨루엔",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 0.24
+        },
+        "황산화물": {
+          "type": "expression",
+          "coefficient": 17.0,
+          "variable": "S",
+          "variableMeaning": "연료 중 황 함량(%)"
+        },
+        "질소산화물": {
+          "type": "constant",
+          "value": 2.4
+        }
+      },
+      "unit": {
+        "raw": "kg/㎘",
+        "numerator": "kg",
+        "denominator": "㎘",
+        "basis": "사용량",
+        "_basisInferred": true
+      }
+    },
+    {
+      "id": "annex3-012",
+      "airFacilityRefs": null,
+      "facilityGroup": "액체연료",
+      "subFacility": null,
+      "materialType": "연료",
+      "material": "기타 액체연료",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 0.24
+        },
+        "황산화물": {
+          "type": "expression",
+          "coefficient": 17.0,
+          "variable": "S",
+          "variableMeaning": "연료 중 황 함량(%)"
+        },
+        "질소산화물": {
+          "type": "constant",
+          "value": 2.4
+        }
+      },
+      "unit": {
+        "raw": "kg/㎘",
+        "numerator": "kg",
+        "denominator": "㎘",
+        "basis": "사용량",
+        "_basisInferred": true
+      }
+    },
+    {
+      "id": "annex3-013",
+      "airFacilityRefs": null,
+      "facilityGroup": "고체연료 - 목재",
+      "subFacility": null,
+      "materialType": "연료",
+      "material": "목재",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 31.78
+        },
+        "황산화물": null,
+        "질소산화물": {
+          "type": "constant",
+          "value": 5.24
+        }
+      },
+      "unit": {
+        "raw": "kg/ton",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": "사용량",
+        "_basisInferred": true
+      }
+    },
+    {
+      "id": "annex3-014",
+      "airFacilityRefs": null,
+      "facilityGroup": "고체연료 - 목재 팰릿",
+      "subFacility": null,
+      "materialType": "연료",
+      "material": "목재 팰릿",
+      "factors": {
+        "먼지": {
+          "type": "constant",
+          "value": 0.93
+        },
+        "황산화물": null,
+        "질소산화물": {
+          "type": "constant",
+          "value": 2.42
+        }
+      },
+      "unit": {
+        "raw": "kg/ton",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": "사용량",
+        "_basisInferred": true
+      }
+    },
+    {
+      "id": "annex3-015",
+      "airFacilityRefs": null,
+      "facilityGroup": "고체연료 - 기타",
+      "subFacility": null,
+      "materialType": "연료",
+      "material": "기타 고체연료",
+      "factors": {
+        "먼지": {
+          "type": "expression",
+          "coefficient": 5.0,
+          "variable": "A",
+          "variableMeaning": "연료 중 회분 함량(%)"
+        },
+        "황산화물": {
+          "type": "expression",
+          "coefficient": 19.5,
+          "variable": "S",
+          "variableMeaning": "연료 중 황 함량(%)"
+        },
+        "질소산화물": {
+          "type": "constant",
+          "value": 5.83
+        }
+      },
+      "unit": {
+        "raw": "kg/ton",
+        "numerator": "kg",
+        "denominator": "ton",
+        "basis": "사용량",
+        "_basisInferred": true
+      }
+    }
+  ],
+  "remarks": [
+    "C1, C2, C3는 탄소 수를 말함.",
+    "S는 연료 중 황 함량(%), A는 연료 중 회분 함량(%)을 말함."
+  ]
+}
