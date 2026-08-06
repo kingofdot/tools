@@ -67,7 +67,12 @@ Authorization: Bearer {access_token}
 | `content` | ✅ | 글 본문(HTML 가능). **URL 인코딩(UTF-8) 필수** |
 | `openyn` | ❌ | 공개여부. `true`=전체공개, 미지정/`false`=회원공개 |
 
-- **응답**: XML. 성공 시 생성된 글 정보(article id, 링크 등). 실패 시 `<error>` 코드/메시지.
+- **응답**: **JSON**(문서엔 XML이라 되어 있으나 실제 JSON 반환). 성공 예:
+  ```json
+  {"message":{"status":"200","result":{"msg":"Success","cafeUrl":"seodaericom","articleId":2,"articleUrl":"https://cafe.naver.com/seodaericom/2"}}}
+  ```
+  → `result.articleUrl` 에 생성된 글 링크. 인증 실패 시 `{"errorCode":"028",...}`.
+- **실측 확인(2026-08-06)**: clubid `31762412`(서대리 카페) 자유게시판(menuid 1) 글쓰기 성공. 한글 안 깨짐(UTF-8 quote).
 
 ### ⚠️ 한글 깨짐 이슈
 - `subject`, `content`는 반드시 `urllib.parse.quote()` 로 **UTF-8 URL 인코딩**해서 바디에 넣는다. 인코딩 안 하면 한글이 깨져서 올라감(가장 흔한 실수).
