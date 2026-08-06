@@ -1,0 +1,7 @@
+# 비밀정보/토큰 절대 커밋 금지
+config.local.py
+secret*
+token*
+*.token
+*.secret
+access_token*
