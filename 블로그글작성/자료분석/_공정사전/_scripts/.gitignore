@@ -1,0 +1,4 @@
+# 중간 산출물 — 최종본은 상위 폴더의 공정사전.json / 공정_사업장별.json
+gj_raw.json
+gj_cls.json
+__pycache__/
