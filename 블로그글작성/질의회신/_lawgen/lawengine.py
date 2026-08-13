@@ -28,7 +28,13 @@ CIRC="①②③④⑤⑥⑦⑧⑨⑩⑪⑫⑬⑭⑮⑯⑰⑱⑲⑳㉑㉒㉓㉔�
 
 def trim(s,n=430):
     s=sp(s); s=re.sub(r'\s*<(?:개정|신설|전문개정|본조신설|제목개정|본조제목개정)[^>]*>','',s).strip()
-    return s if len(s)<=n else s[:n].rstrip()+" …"
+    s=re.sub(r'\s*…\s*$','',s)   # 기존 말줄임 제거
+    if len(s)<=n: return s
+    cut=s[:n]
+    # 완결 경계(문장끝/호 시작)에서 자르고 말줄임표 안 붙임
+    ms=list(re.finditer(r'(?:다|함|음|됨|한다|없다|된다|이다|여부)\.(?=\s|$)',cut))
+    if ms: return cut[:ms[-1].end()].strip()
+    return (cut[:cut.rfind(' ')] if ' ' in cut else cut).strip()
 
 def _txt(o):
     if o is None: return ""
@@ -37,7 +43,22 @@ def _txt(o):
     if isinstance(o,dict): return " ".join(_txt(v) for v in o.values())
     return str(o)
 
+ALIAS_STRIP={
+    '수질및수생태계보전에관한법률':'물환경보전법',
+    '수질및수생태계보전에관한법률시행령':'물환경보전법 시행령',
+    '수질및수생태계보전에관한법률시행규칙':'물환경보전법 시행규칙',
+}
+def canon_law(name):
+    n=name.replace('「','').replace('」','').strip()
+    n=re.sub(r'시행\s+령','시행령',n); n=re.sub(r'시행\s+규칙','시행규칙',n)   # OCR 공백
+    n=re.sub(r'\s*제\d+장.*$','',n)                          # '…시행령 제1장 전략…' 꼬리 제거
+    n=re.sub(r'\s*\([^)]*(?:개정|제정|대통령령|환경부령|법률)[^)]*\)','',n).strip()
+    n=re.sub(r'^진동관리법','소음ㆍ진동관리법',n)
+    st=re.sub(r'\s+','',n)
+    if st in ALIAS_STRIP: return ALIAS_STRIP[st]
+    return n
 def law_mst(name):
+    name=canon_law(name)
     key=re.sub(r'^구\s+','',name).replace('「','').replace('」','').split('(')[0].strip()
     if key in MSTC: return MSTC[key]
     mst=None
@@ -167,7 +188,9 @@ def unit_text(c,hang=None,ho=None,mok=None):
     H=None
     if hang and hangs:
         cand={str(hang)}
-        if str(hang).isdigit() and int(hang)<=len(CIRC): cand.add(CIRC[int(hang)-1])
+        hs=str(hang)
+        if hs.isascii() and hs.isdigit() and int(hs)<=len(CIRC): cand.add(CIRC[int(hs)-1])  # 1→①
+        elif hs in CIRC: cand.add(str(CIRC.index(hs)+1))                                     # ①→1
         H=next((h for h in hangs if str(h.get('항번호','')).strip() in cand),None)
     if H is None and (ho or mok) and len(hangs)==1:
         H=hangs[0]  # 항 하나뿐이면 그걸로
@@ -224,6 +247,7 @@ def byl_num_code(num):
     m=re.match(r'(\d+)(?:의(\d+))?',num.replace(' ',''))
     return f"00{int(m.group(1)):02d}{int(m.group(2) or 0):02d}" if m else None
 def byl_fetch(law,num):
+    law=canon_law(law)
     lawc=law.replace(' ',''); key=lawc+'|'+num
     if key in BYLC: return BYLC[key]
     res=None
@@ -248,6 +272,15 @@ def byl_fetch(law,num):
     except Exception: res=None
     BYLC[key]=res; return res
 
+def byl_fetch_any(law,num):
+    """법 → 시행령 → 시행규칙 순으로 별표 탐색(법이 시행령/규칙 별표를 '법'으로 느슨히 인용한 경우 대응)."""
+    bt=byl_fetch(law,num)
+    if bt and bt.get('text'): return bt,law
+    if not re.search(r'시행(령|규칙)$',law):
+        for suf in (' 시행령',' 시행규칙'):
+            bt=byl_fetch(law+suf,num)
+            if bt and bt.get('text'): return bt,law+suf
+    return None,law
 HO_KR="가나다라마바사아자차카타파하"
 def byl_excerpt(text,ho=None,mok=None,keyword=None):
     if keyword:

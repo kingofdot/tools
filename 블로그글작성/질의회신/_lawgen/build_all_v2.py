@@ -44,16 +44,16 @@ def supp_waste(a,seen):
         c=E.jo_get(law,jo,ji)
         if not c: return
         lab=R.label_of({'kind':'조','jo':jo,'ji':ji,'hang':hang,'ho':ho,'mok':mok})
-        out.append((f"「{law}」 {lab}<br><small>{small}</small>", E.unit_text(c,hang,ho,mok)))
+        out.append((f"「{law}」 {lab}", small, E.unit_text(c,hang,ho,mok)))
     if re.search(r'폐기물이란|폐기물에 해당|폐기물의 정의|폐기물인지|제품인지|폐기물이 아닌|폐기물 여부',a):
         add_jo('폐기물관리법','2','0',None,'1',None,'정의 · 폐기물')
     apc=re.search(r'\((\d{2}-\d{2}-\d{2})\)',a)
     if apc and TYPEMAP.get(apc.group(1)) and not has(lambda k:'4의3' in str(k)):
         cur=TYPEMAP[apc.group(1)]
-        out.append(("「폐기물관리법 시행규칙」 [별표 4의3]<br><small>폐기물의 종류별 재활용 가능 유형</small>",
+        out.append(("「폐기물관리법 시행규칙」 [별표 4의3]","폐기물의 종류별 재활용 가능 유형",
                     f"{cur['name']}({apc.group(1)})의 재활용 가능 유형 : "+", ".join(cur['types'])))
     if ('재활용' in a) and JO13 and not has(lambda k:k[0]=='조' and k[2]=='13' and str(k[3])=='2'):
-        out.append(("「폐기물관리법」 제13조의2<br><small>폐기물의 재활용 원칙 및 준수사항</small>", R.E.trim(JO13,300)))
+        out.append(("「폐기물관리법」 제13조의2","폐기물의 재활용 원칙 및 준수사항", R.E.trim(JO13,300)))
     if not out and not any(k[0] in ('조','별표') for k in seen):
         add_jo('폐기물관리법','2','0',None,'1',None,'정의 · 폐기물')
     return out[:3]

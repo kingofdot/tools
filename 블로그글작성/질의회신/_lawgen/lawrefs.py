@@ -135,21 +135,25 @@ def sp(s): return re.sub(r'\s+',' ',s or '').strip()
 STOP={'폐기물','재활용','시행규칙','폐기물관리법','관리법','기준','경우','따라','대상','해당','이하','이상',
       '규모','시설','장비','기술능력','폐기물처리업','처리업','다음','관련','포함','사항','방법','종류','설치','운영'}
 def _answer_anchor(ans,byl,text):
-    m=re.search(r'별표\s*'+re.escape(byl)+r'\]?(.{0,180})',ans)
-    clause=m.group(1) if m else ans
-    nums=re.findall(r'\d+일분|\d+톤|\d+퍼센트|\d+세제곱|\d+킬로|\d+개월',clause)
-    nouns=[w for w in re.findall(r'[가-힣]{3,9}',clause) if w not in STOP]
-    # 긴 명사(특이) 먼저 → 숫자단위 → 짧은 명사
+    # 답변에서 '별표 N' 인용 뒤 구절을 우선, 없으면 답변 전체를 키워드원으로
+    m=re.search(r'별표\s*'+re.escape(byl)+r'\]?(.{0,200})',ans)
+    clause=(m.group(1) if m else '')+' '+ans
+    nums=re.findall(r'\d+일분|\d+톤|\d+퍼센트|\d+세제곱미터|\d+세제곱|\d+킬로|\d+개월|\d+미터',clause)
+    nouns=[w for w in re.findall(r'[가-힣]{3,10}',clause) if w not in STOP]
     cands=sorted(set(nouns),key=len,reverse=True)+nums
     for c in cands:
         p=text.find(c)
         if p>40: return p
     return None
+def _byl_clean(text):
+    text=re.sub(r'^■[^0-9]*?\(제\d+조[^)]*관련\)\s*','',text)
+    text=re.sub(r'\[시행일\][^0-9]*?(?=\d+\.\s)','',text,count=1)
+    text=re.sub(r'\s*[·…]{2,}\s*',' ',text)   # PDF 점선 리더 제거
+    return text
 def byl_excerpt_hinted(bt,ref,ans):
     text=bt.get('text','') if bt else ''
     if not text: return ""
-    text=re.sub(r'^■[^0-9]*?\(제\d+조[^)]*관련\)\s*','',text)
-    text=re.sub(r'\[시행일\][^0-9]*?(?=\d+\.\s)','',text,count=1)
+    text=_byl_clean(text)
     ho=ref.get('ho'); mok=ref.get('mok'); seg=None
     # (1) 호 지정 → 최상위 호 경계로 점프
     if ho:
@@ -163,24 +167,74 @@ def byl_excerpt_hinted(bt,ref,ans):
             if mok:
                 mm=re.search(rf'(?<![가-힣0-9]){mok}\.\s.*',seg)
                 if mm: seg=mm.group(0)
-    # (2) 호 없음(또는 호 탐지 실패) → 답변 문구를 앵커로 검색
+    # (2) 호 없음/탐지실패 → 답변 앵커, 그래도 없으면 별표 시작부(내용 우선)
     if seg is None:
         p=_answer_anchor(ans,ref['byl'],text)
-        if p is None: return ""          # 관련부분 못 찾으면 무관한 앞부분 대신 제목만
-        seg=text[max(0,p-6):]
+        seg=text[max(0,p-6):] if p is not None else text
     return E.trim(sp(seg),440)
 
 # ---- 관련법령 3계층 표 ----
 def esc(s): return re.sub(r'\s+',' ',s or '').strip().replace('&','&amp;').replace('<','&lt;').replace('>','&gt;')
-def _row(badge,title,moon):
-    b={"본문":"본문 인용","연계":"연계 법령","보충":"보충(인허가 서대리)"}[badge]
-    lab=f'<small><strong>[{b}]</strong></small> {title}'
-    return f"<tr><td>{esc_rich(lab)}</td><td>{esc_rich(moon)}</td></tr>"
+def _head(badge,lawref,subtitle):
+    b={"본문":"본문 인용","연계":"연계","보충":"보충"}[badge]
+    tail=" · ".join(x for x in [subtitle,f'[{b}]'] if x)
+    return f'<strong>{esc(lawref)}</strong>'+(f'　<small>{esc(tail)}</small>' if tail else '')
+def _row(badge,lawref,subtitle,moon):        # 표 셀
+    return f'<tr><td>{_head(badge,lawref,subtitle)}<br>{esc_rich(fmt_moon(moon))}</td></tr>'
+def _quote(badge,lawref,subtitle,moon):      # blockquote 박스(테마가 td를 볼드로 렌더할 때 대안)
+    return f'<blockquote>\n<p>{_head(badge,lawref,subtitle)}<br>{esc_rich(fmt_moon(moon))}</p>\n</blockquote>'
 def esc_rich(s):
     ok={'<br>','<small>','</small>','<strong>','</strong>'}
     return ''.join(p if p in ok else esc(p) for p in re.split(r'(<br>|<small>|</small>|<strong>|</strong>)',s))
+CIRC2="②③④⑤⑥⑦⑧⑨⑩⑪⑫⑬⑭⑮⑯⑰⑱⑲⑳"
+def fmt_moon(s):
+    # 항(②~) · 호(숫자.) 앞에 줄바꿈. [현행]/[당시] 기존 <br>는 유지.
+    parts=re.split(r'(<br><small>\[당시[^<]*</small>)',s)  # 구법병기 경계 보존
+    def brk(t):
+        t=re.sub(r'\s+(['+CIRC2+r'])',r'<br>\1',t)             # 항 ②~
+        t=re.sub(r'(?<!\d)\s+(\d{1,2}\.)\s(?=[가-힣])',r'<br>\1 ',t)  # 호 N.
+        t=re.sub(r'^\s*<br>','',t)
+        return t
+    return ''.join(brk(p) if not p.startswith('<br><small>[당시') else p for p in parts)
 
-def build_table(q,a,refdate=None,default_law=None,supp=None):
+NAME_GBLOCK={'방법','위법','불법','적법','준법','편법','탈법','수법','기법','용법','어법','문법','상법','민법','형법','헌법','세법','현행법','실정법','특별법','일반법','국내법','관계법','해당법','여과법','건식법','습식법','소각법','매립법'}
+def _law_names(text):
+    out=[]
+    for m in re.finditer(r'「([^」]+)」',text):
+        nm=re.sub(r'\s+',' ',m.group(1)).strip()
+        if nm and nm not in out: out.append(nm)
+    if not out:
+        for m in re.finditer(r'([가-힣][가-힣·]{1,22}(?:법|법률)(?:\s*시행령|\s*시행규칙)?)',text):
+            nm=re.sub(r'\s+',' ',m.group(1)).strip()
+            if nm.replace(' 시행령','').replace(' 시행규칙','') in NAME_GBLOCK: continue
+            if nm.rstrip('법률')[-1:] and nm not in out: out.append(nm)
+    return out[:6]
+def _no_ref_note(text):
+    names=_law_names(text)
+    if names:
+        return ('<p>○ 이 회신은 특정 조문을 직접 인용하지 않은 해석성 답변입니다. '
+                '본문에서 언급된 법령: '+esc(', '.join(names))+'.</p>')
+    return '<p>○ 이 회신은 특정 법령 조항을 인용하지 않은 해석성 답변입니다.</p>'
+CIRCLED="①②③④⑤⑥⑦⑧⑨⑩⑪⑫⑬⑭⑮⑯⑰⑱⑲⑳"
+ASTOP=set("폐기물 재활용 시행규칙 시행령 관리법 대상 경우 해당 이하 이상 규정 사항 방법 종류 관련 포함 제외 위하 위한 따라 또는 있는 없는 하는 되는 이란 여부 하여 대하 관하 정하 필요 다음 각호 각목 신고 허가 변경 처리 시설 장비 물질 발생 기준".split())
+def _anchor_hang(c,ans,jo,ji):
+    hangs=E._hang_list(c)
+    if len(hangs)<=1: return None,None       # 항 1개 이하 → 그대로(=그 항)
+    pat=r'제'+re.escape(jo)+r'조'+(r'의'+re.escape(ji) if ji and ji!='0' else '')+r'(.{0,160})'
+    m=re.search(pat,ans); clause=m.group(1) if m else ans
+    cands=set(w for w in re.findall(r'[가-힣]{3,10}',clause) if w not in ASTOP)
+    best=None;bs=0
+    for h in hangs:
+        ht=E._txt(h.get('항내용',''))+' '+' '.join(E._txt(x.get('호내용','')) for x in E._ho_list(h))
+        sc=sum(1 for w in cands if w in ht)
+        if sc>bs: bs=sc;best=h
+    if best is not None and bs>=1:
+        hn=str(best.get('항번호','')).strip()
+        num=str(CIRCLED.find(hn)+1) if hn in CIRCLED else hn.strip('.')
+        return hn,(num or None)
+    return "①",None                           # 못 찾으면 제1항(통째 dump 금지)
+
+def build_table(q,a,refdate=None,default_law=None,supp=None,style="table"):
     text=q+" \n "+a
     body=parse_refs(text,default_law)
     rows=[]; seen=set()
@@ -193,24 +247,27 @@ def build_table(q,a,refdate=None,default_law=None,supp=None):
         seen.add(k)
         if r['kind']=='조':
             c=E.jo_get(r['law'],r['jo'],r['ji'])
-            if not c:
-                rows.append(("본문",f"「{r['law']}」 {label_of(r)}","국가법령정보센터에서 현행 조문을 확인하시기 바랍니다.")); continue
-            ti=E.jo_title(c); cur=E.unit_text(c,r['hang'],r['ho'],r['mok']); old=''
+            if not c: continue          # 조 없음(오파싱·고시 등) → 행 자체 생략
+            ti=E.jo_title(c)
+            hang=r['hang']; anch=None
+            if not (r['hang'] or r['ho'] or r['mok']):
+                hang,anch=_anchor_hang(c,a,r['jo'],r['ji'])   # bare 조 → 답변 문맥으로 관련 항
+            cur=E.unit_text(c,hang,r['ho'],r['mok']); old=''
             if refdate:
                 co=E.jo_get_asof(r['law'],r['jo'],r['ji'],refdate)
-                if co: old=E.unit_text(co,r['hang'],r['ho'],r['mok'])
-            moon=(f"<strong>[현행]</strong> {cur}<br><strong>[당시 {refdate[:4]}년]</strong> {old}"
-                  if (old and E.sp(old)!=E.sp(cur)) else cur)
-            title=f"「{r['law']}」 {label_of(r)}"+(f"<br><small>{ti}</small>" if ti else "")
-            rows.append(("본문",title,moon))
+                if co: old=E.unit_text(co,hang,r['ho'],r['mok'])
+            moon=(f"<small>[현행]</small> {cur}<br><small>[당시 {refdate[:4]}년]</small> {old}"
+                  if _substantive_diff(old,cur) else cur)
+            lab=label_of(r)+(f"제{anch}항" if anch else "")
+            rows.append(("본문",f"「{r['law']}」 {lab}",ti,moon))
             linked_all += _linked(E.full_text(c), r['law'])
         else:
-            bt=E.byl_fetch(r['law'],r['byl'])
-            moon=byl_excerpt_hinted(bt,r,a) if bt else ""
-            ti=(bt.get('title','') if bt else '')
-            title=f"「{r['law']}」 {label_of(r)}"+(f"<br><small>{ti}</small>" if ti else "")
-            if not moon: moon="국가법령정보센터의 해당 별표 원문을 확인하시기 바랍니다."
-            rows.append(("본문",title,moon))
+            bt,law_used=E.byl_fetch_any(r['law'],r['byl'])
+            if not bt: continue          # 별표 fetch 실패 → 행 생략(보일러플레이트 금지)
+            moon=byl_excerpt_hinted(bt,r,a)
+            if not moon: continue
+            ti=bt.get('title','')
+            rows.append(("본문",f"「{law_used}」 {label_of(r)}",ti,moon))
     # 2) 연계 법령
     lk=0
     for r in linked_all:
@@ -221,13 +278,24 @@ def build_table(q,a,refdate=None,default_law=None,supp=None):
         if not c: continue
         seen.add(k); lk+=1
         ti=E.jo_title(c); moon=E.unit_text(c,r['hang'],r['ho'],r['mok'])
-        title=f"「{r['law']}」 {label_of(r)}"+(f"<br><small>{ti}</small>" if ti else "")
-        rows.append(("연계",title,moon))
+        rows.append(("연계",f"「{r['law']}」 {label_of(r)}",ti,moon))
         if lk>=4: break
     # 3) 보충
     if supp:
-        for title,moon in supp(a,seen):
-            rows.append(("보충",title,moon))
-    if not rows: return ""
-    tr="\n".join(_row(b,t,m) for b,t,m in rows)
-    return ("<table>\n<thead>\n<tr><th>구분 · 조항</th><th>적용 문구</th></tr>\n</thead>\n<tbody>\n"+tr+"\n</tbody>\n</table>")
+        for lawref,subtitle,moon in supp(a,seen):
+            rows.append(("보충",lawref,subtitle,moon))
+    if not rows:
+        return _no_ref_note(text)
+    if style=="quote":
+        return "\n".join(_quote(b,lr,st,m) for b,lr,st,m in rows)
+    tr="\n".join(_row(b,lr,st,m) for b,lr,st,m in rows)
+    return '<table>\n<tbody>\n'+tr+'\n</tbody>\n</table>'
+
+def _substantive_diff(old,cur):
+    # 부처명 변경만인 경우는 실질 차이 아님 → 현행만. trim 절단점 차이는 공통prefix로 무시.
+    if not old or not cur: return False
+    def norm(s):
+        s=s.replace('기후에너지환경부','환경부').replace('…','')
+        return re.sub(r'\s+','',s)
+    a,b=norm(old),norm(cur); n=min(len(a),len(b))
+    return n>0 and a[:n]!=b[:n]
