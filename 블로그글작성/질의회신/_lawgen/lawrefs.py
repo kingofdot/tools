@@ -289,7 +289,8 @@ def build_table(q,a,refdate=None,default_law=None,supp=None,style="table"):
     if style=="quote":
         return "\n".join(_quote(b,lr,st,m) for b,lr,st,m in rows)
     tr="\n".join(_row(b,lr,st,m) for b,lr,st,m in rows)
-    return '<table>\n<tbody>\n'+tr+'\n</tbody>\n</table>'
+    # thead 헤더행: 플랫폼 테마가 표 첫 행을 헤더(볼드+음영)로 렌더 → 실제 조항행이 볼드되지 않게 흡수
+    return '<table>\n<thead>\n<tr><th>조항 · 적용 문구</th></tr>\n</thead>\n<tbody>\n'+tr+'\n</tbody>\n</table>'
 
 def _substantive_diff(old,cur):
     # 부처명 변경만인 경우는 실질 차이 아님 → 현행만. trim 절단점 차이는 공통prefix로 무시.
