@@ -73,9 +73,11 @@ def parse_refs(text,default_law=None):
             if re.search(r'(방법|기준|규정|지침|요령|고시|계획|사업|제도|절차|방식|기법|공법)$',b0): continue  # 고시·용어 오탐
             cur=norm_law(law)   # 일반법(예: 건축법)은 cur만 갱신, anchor는 유지
         elif m.group(5):
-            if cur: refs.append(_parse_jo(cur,re.sub(r'\s+','',m.group(5))))
+            if cur and '고시' not in text[max(0,m.start()-16):m.start()]:   # 고시 제N조는 실제법 오결합 → 스킵
+                refs.append(_parse_jo(cur,re.sub(r'\s+','',m.group(5))))
         elif m.group(6):
-            if cur: refs.append(_parse_byl(cur,m.group(6)))
+            if cur and '고시' not in text[max(0,m.start()-16):m.start()]:
+                refs.append(_parse_byl(cur,m.group(6)))
     # dedup 유지순서
     seen=set(); out=[]
     for r in refs:
