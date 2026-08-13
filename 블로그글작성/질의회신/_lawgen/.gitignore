@@ -1,0 +1,5 @@
+# 법령 캐시(재실행 시 자동 생성, 대용량)
+generic_lawcache.json
+byl_textcache.json
+_*.log
+__pycache__/
