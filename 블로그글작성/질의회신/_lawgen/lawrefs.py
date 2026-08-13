@@ -217,6 +217,8 @@ def _looks_garbled(s):
     if len(re.findall(r'법 제\d+조',s))>=3 and ('행정처분' in s or '위반' in s or '영업정지' in s): return True
     return False
 def byl_excerpt_hinted(bt,ref,ans):
+    # 별표4의3(폐기물 종류별 재활용 가능 유형)은 2단 OCR로 raw 부정확 → 보충(TYPEMAP)이 코드별 정확 대체
+    if ref.get('byl')=='4의3': return ""
     res=_byl_excerpt_raw(bt,ref,ans)
     return "" if _looks_garbled(res) else res     # 깨진 표 별표는 행 생략
 def _byl_excerpt_raw(bt,ref,ans):
