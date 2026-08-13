@@ -129,38 +129,46 @@ def _linked(text,cur_law):
         out.append({"kind":"별표","law":cur_law,"byl":m.group(1),"ho":None,"mok":None,"sub":None,"label":""})
     return out[:4]
 
-# ---- 별표 excerpt: 인용 호로 점프 + 답변 힌트 ----
+def sp(s): return re.sub(r'\s+',' ',s or '').strip()
+
+# ---- 별표 excerpt: 인용 호로 점프, 없으면 답변 앵커, 그래도 없으면 비움(제목만) ----
+STOP={'폐기물','재활용','시행규칙','폐기물관리법','관리법','기준','경우','따라','대상','해당','이하','이상',
+      '규모','시설','장비','기술능력','폐기물처리업','처리업','다음','관련','포함','사항','방법','종류','설치','운영'}
+def _answer_anchor(ans,byl,text):
+    m=re.search(r'별표\s*'+re.escape(byl)+r'\]?(.{0,180})',ans)
+    clause=m.group(1) if m else ans
+    nums=re.findall(r'\d+일분|\d+톤|\d+퍼센트|\d+세제곱|\d+킬로|\d+개월',clause)
+    nouns=[w for w in re.findall(r'[가-힣]{3,9}',clause) if w not in STOP]
+    # 긴 명사(특이) 먼저 → 숫자단위 → 짧은 명사
+    cands=sorted(set(nouns),key=len,reverse=True)+nums
+    for c in cands:
+        p=text.find(c)
+        if p>40: return p
+    return None
 def byl_excerpt_hinted(bt,ref,ans):
     text=bt.get('text','') if bt else ''
     if not text: return ""
-    # 앞머리 헤더/시행일 노트 제거
     text=re.sub(r'^■[^0-9]*?\(제\d+조[^)]*관련\)\s*','',text)
     text=re.sub(r'\[시행일\][^0-9]*?(?=\d+\.\s)','',text,count=1)
-    ho=ref.get('ho'); mok=ref.get('mok')
-    seg=text
+    ho=ref.get('ho'); mok=ref.get('mok'); seg=None
+    # (1) 호 지정 → 최상위 호 경계로 점프
     if ho:
-        # 최상위 호 'N. ' 경계로 분할(1)2) 같은 sub는 제외 = 뒤에 ')' 아닌 '.')
         marks=[(int(m.group(1)),m.start()) for m in re.finditer(r'(?<![\d)])(\d{1,2})\.\s',text)]
-        # 오름차순 최상위만: 번호가 증가하는 시퀀스 위치
-        starts={}
-        prev=0
+        starts={}; prev=0
         for n,pos in marks:
             if n==prev+1 or (n>prev and n<=int(ho)+2):
                 starts.setdefault(n,pos); prev=n
         if int(ho) in starts:
-            s=starts[int(ho)]
-            nxt=starts.get(int(ho)+1,len(text))
-            seg=text[s:nxt]
-    if mok and seg:
-        mm=re.search(rf'{mok}\.\s.*',seg)
-        if mm: seg=mm.group(0)
-    # 답변 힌트 키워드로 추가 정렬
-    m=re.search(r'별표\s*'+re.escape(ref['byl'])+r'[^.]{0,40}?에\s*따라\s*[가-힣]*?\s*([가-힣]{2,6})',ans)
-    if m and m.group(1) in seg:
-        i=seg.find(m.group(1)); seg=seg[max(0,i-4):]
-    return E.trim(sp(seg),440) if seg else E.byl_excerpt(text)
-
-def sp(s): return re.sub(r'\s+',' ',s or '').strip()
+            s=starts[int(ho)]; seg=text[s:starts.get(int(ho)+1,len(text))]
+            if mok:
+                mm=re.search(rf'(?<![가-힣0-9]){mok}\.\s.*',seg)
+                if mm: seg=mm.group(0)
+    # (2) 호 없음(또는 호 탐지 실패) → 답변 문구를 앵커로 검색
+    if seg is None:
+        p=_answer_anchor(ans,ref['byl'],text)
+        if p is None: return ""          # 관련부분 못 찾으면 무관한 앞부분 대신 제목만
+        seg=text[max(0,p-6):]
+    return E.trim(sp(seg),440)
 
 # ---- 관련법령 3계층 표 ----
 def esc(s): return re.sub(r'\s+',' ',s or '').strip().replace('&','&amp;').replace('<','&lt;').replace('>','&gt;')
