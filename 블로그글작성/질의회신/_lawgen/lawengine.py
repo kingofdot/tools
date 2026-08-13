@@ -30,11 +30,20 @@ def trim(s,n=430):
     s=sp(s); s=re.sub(r'\s*<(?:개정|신설|전문개정|본조신설|제목개정|본조제목개정)[^>]*>','',s).strip()
     s=re.sub(r'\s*…\s*$','',s)   # 기존 말줄임 제거
     if len(s)<=n: return s
-    cut=s[:n]
-    # 완결 경계(문장끝/호 시작)에서 자르고 말줄임표 안 붙임
-    ms=list(re.finditer(r'(?:다|함|음|됨|한다|없다|된다|이다|여부)\.(?=\s|$)',cut))
-    if ms: return cut[:ms[-1].end()].strip()
-    return (cut[:cut.rfind(' ')] if ' ' in cut else cut).strip()
+    cut=s[:n]; cands=[]
+    # 1) 문장끝(~다./~음. 등)
+    for m in re.finditer(r'(?:다|함|음|됨|한다|없다|된다|이다|여부)\.(?=\s|$)',cut): cands.append(m.end())
+    # 2) 다음 호/목 시작 직전(그 앞 항목까지 완결)
+    for m in re.finditer(r'\s(?:\d{1,2}\.|[가-하]\.)\s',cut):
+        if m.start()>n*0.45: cands.append(m.start())
+    # 3) 항목 종결어(~자/~경우/~시설/~것) 뒤
+    for m in re.finditer(r'(?:자|경우|시설|센터|것|물질|상태|제품|장|자원)(?=\s)',cut):
+        if m.end()>n*0.45: cands.append(m.end())
+    if cands: return cut[:max(cands)].strip()
+    # 폴백: 마지막 공백에서 자르고, 조사로 끝나면 그 단어까지 백오프
+    r=cut[:cut.rfind(' ')] if ' ' in cut else cut
+    r=re.sub(r'\s*\S*[을를이가와과의에및로는나]$','',r)
+    return r.strip()
 
 def _txt(o):
     if o is None: return ""

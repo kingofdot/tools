@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 # 인용 파서(법령명 상속) + 연계 + 보충 → 관련법령 3계층 표
-import re
+import re, difflib
 import lawengine as E
 
 GBLOCK={'방법','위법','불법','적법','준법','편법','탈법','수법','기법','용법','어법','문법','상법','민법','형법','헌법','세법','약법','작법','서법','화법','타법','현행법','실정법','절차법','특별법','일반법','모법','국내법','관계법','해당법'}
@@ -133,47 +133,110 @@ def sp(s): return re.sub(r'\s+',' ',s or '').strip()
 
 # ---- 별표 excerpt: 인용 호로 점프, 없으면 답변 앵커, 그래도 없으면 비움(제목만) ----
 STOP={'폐기물','재활용','시행규칙','폐기물관리법','관리법','기준','경우','따라','대상','해당','이하','이상',
-      '규모','시설','장비','기술능력','폐기물처리업','처리업','다음','관련','포함','사항','방법','종류','설치','운영'}
+      '규모','시설','장비','기술능력','폐기물처리업','처리업','다음','관련','포함','사항','방법','종류','설치','운영',
+      '있는','없는','하는','되는','따른','위한','또는','대한','등의','같은','기후에너지','에너지환경부','환경부령'}
+_JOSA=re.compile(r'(으로써|으로서|으로|에서는|에서|에게서|에게|께서|부터|까지|보다|처럼|만큼|마다|이라도|이나마|이나|나마'
+                 r'|은|는|이|가|을|를|의|에|와|과|도|만|나|고|며|라|로|한|할|하여|하는|하고|하되|하며)$')
+def _kw(text,minlen=2,extra=None):
+    # 조사 제거 명사 키워드 집합(폐의류의→폐의류). STOP·extra 제외.
+    st=STOP|(extra or set())
+    out=set()
+    for w in re.findall(r'[가-힣]{2,12}',text):
+        s=_JOSA.sub('',_JOSA.sub('',w))
+        if len(s)>=minlen and s not in st: out.add(s)
+    return out
+_MIDDOT=chr(0x318D)   # ㆍ 국가법령 표준 중점(조문 렌더와 통일)
+def _byl_norm(s):
+    s=(s or '').replace(chr(0x119E),_MIDDOT).replace(chr(0x00B7),_MIDDOT)  # ᆞ, · → ㆍ 통일
+    s=re.sub(r'\s*'+_MIDDOT+r'\s*',_MIDDOT,s)                              # 중점 주변 공백 제거
+    s=re.sub(r'별표\s*(\d+)의\s+(\d+)',r'별표 \1의\2',s)                    # '4의 2' → '4의2'
+    s=re.sub(r'제\s*(\d+)\s*호',r'제\1호',s)
+    s=re.sub(r'또\s+는','또는',s)
+    return s
+def _byl_clean(text):
+    text=_byl_norm(text)
+    text=re.sub(r'^■.*?\(제\d+조[^)]*관련\)\s*','',text,count=1,flags=re.S)  # 머리말+반복제목 제거
+    text=re.sub(r'<(?:개정|신설|전문개정|본조신설)[^>]*>','',text)
+    text=re.sub(r'\[시행[^\]]*\]','',text)
+    text=re.sub(r'\s*[.·]{3,}\s*',' ',text)     # PDF 점선 리더
+    text=re.sub(r'\s*…+\s*',' ',text)
+    return re.sub(r'[ \t]+',' ',text).strip()
+def _byl_items(text):
+    # 최상위 호 분해: '1. ' '4의2. ' '20. ' (가.나. 목·연도·수량 배제)
+    marks=[(m.group(1),m.start()) for m in re.finditer(r'(?<![\d)가-힣의])(\d{1,2}(?:의\d+)?)\.\s',text)]
+    kept=[]; prev=0
+    for lab,pos in marks:
+        base=int(lab.split('의')[0])
+        if base>=1 and prev<=base<=prev+2:
+            kept.append((lab,pos)); prev=base
+    out=[]
+    for i,(lab,pos) in enumerate(kept):
+        end=kept[i+1][1] if i+1<len(kept) else len(text)
+        out.append((lab,sp(text[pos:end])))
+    return out
+def _byl_trim(s,n=460):
+    return E.trim(sp(s),n)   # 공통 경계 로직(문장끝·호·목·종결어) 사용
 def _answer_anchor(ans,byl,text):
-    # 답변에서 '별표 N' 인용 뒤 구절을 우선, 없으면 답변 전체를 키워드원으로
     m=re.search(r'별표\s*'+re.escape(byl)+r'\]?(.{0,200})',ans)
     clause=(m.group(1) if m else '')+' '+ans
     nums=re.findall(r'\d+일분|\d+톤|\d+퍼센트|\d+세제곱미터|\d+세제곱|\d+킬로|\d+개월|\d+미터',clause)
-    nouns=[w for w in re.findall(r'[가-힣]{3,10}',clause) if w not in STOP]
-    cands=sorted(set(nouns),key=len,reverse=True)+nums
-    for c in cands:
+    for c in sorted(_kw(clause,3),key=len,reverse=True)+nums:
         p=text.find(c)
-        if p>40: return p
+        if p>=0: return p
     return None
-def _byl_clean(text):
-    text=re.sub(r'^■[^0-9]*?\(제\d+조[^)]*관련\)\s*','',text)
-    text=re.sub(r'\[시행일\][^0-9]*?(?=\d+\.\s)','',text,count=1)
-    text=re.sub(r'\s*[·…]{2,}\s*',' ',text)   # PDF 점선 리더 제거
-    return text
+def _looks_garbled(s):
+    # 2단 표가 컬럼 뒤섞여 추출된 판독불가 텍스트 감지 → 게시 금지
+    if not s: return False
+    if s.count('「')>=3: return True
+    names=re.findall(r'「([^」]+)」',s)
+    if names and len(names)!=len(set(names)): return True   # 동일 법령명 반복 = 컬럼 splice
+    if re.search(r'제\s+「',s): return True                   # '제 「법」' 조번호 분리
+    if len(re.findall(r'조제\d+항에 따라',s))>=2 and '협의하는 때' in s: return True
+    return False
 def byl_excerpt_hinted(bt,ref,ans):
-    text=bt.get('text','') if bt else ''
+    res=_byl_excerpt_raw(bt,ref,ans)
+    return "" if _looks_garbled(res) else res     # 깨진 표 별표는 행 생략
+def _byl_excerpt_raw(bt,ref,ans):
+    text=_byl_clean(bt.get('text','') if bt else '')
     if not text: return ""
-    text=_byl_clean(text)
-    ho=ref.get('ho'); mok=ref.get('mok'); seg=None
-    # (1) 호 지정 → 최상위 호 경계로 점프
-    if ho:
-        marks=[(int(m.group(1)),m.start()) for m in re.finditer(r'(?<![\d)])(\d{1,2})\.\s',text)]
-        starts={}; prev=0
-        for n,pos in marks:
-            if n==prev+1 or (n>prev and n<=int(ho)+2):
-                starts.setdefault(n,pos); prev=n
-        if int(ho) in starts:
-            s=starts[int(ho)]; seg=text[s:starts.get(int(ho)+1,len(text))]
-            if mok:
-                mm=re.search(rf'(?<![가-힣0-9]){mok}\.\s.*',seg)
-                if mm: seg=mm.group(0)
-    # (2) 호 없음/탐지실패 → 답변 앵커, 그래도 없으면 별표 시작부(내용 우선)
-    if seg is None:
-        p=_answer_anchor(ans,ref['byl'],text)
-        seg=text[max(0,p-6):] if p is not None else text
-    return E.trim(sp(seg),440)
+    ho=ref.get('ho'); mok=ref.get('mok')
+    # 별표 뒤 제목이 낀 '제N호' 답변서 복구(예: '[별표 16] …할 수 있는 자 제13호에 해당')
+    if not ho:
+        mh=re.search(r'별표\s*'+re.escape(ref['byl'])+r'\D{0,80}?제(\d+)호',ans)
+        if mh: ho=mh.group(1)
+    items=_byl_items(text)
+    # (1) 호 지정 → 그 호 단일 항목만(하위 4의2 등 안 삼킴)
+    if ho and items:
+        for lab,it in items:
+            if lab==str(ho):
+                if mok:
+                    mm=re.search(r'(?<![가-힣0-9])'+re.escape(mok)+r'\.\s.*?(?=[가-힣]\.\s|$)',it)
+                    if mm: return _byl_trim(sp(mm.group(0)))
+                return _byl_trim(it)
+    # (2) 열거형(호 3개+) → 답변 키워드로 가장 관련된 단일 호 선택
+    if len(items)>=3:
+        kws=_kw(ans)
+        best=None; bs=0
+        for lab,it in items:
+            sc=sum(it.count(w)*len(w) for w in kws)
+            if sc>bs: bs=sc; best=it
+        if best and bs>0: return _byl_trim(best)
+        return _byl_trim(items[0][1])
+    # (3) 비열거형 문단 → 답변 앵커(문장 시작으로 되감기, 쓰레기 접두 없음)
+    p=_answer_anchor(ans,ref['byl'],text)
+    if p is not None:
+        st=text.rfind('. ',0,p); st=st+2 if st>=0 else 0
+        return _byl_trim(text[st:])
+    return _byl_trim(text)
 
 # ---- 관련법령 3계층 표 ----
+def _law_clean(s):
+    # 조문 노이즈 제거: '삭제<날짜>', 빈 '삭제' 호, 중점·공백 정리
+    s=(s or '').replace(chr(0x119E),chr(0x318D)).replace(chr(0x00B7),chr(0x318D))
+    s=re.sub(r'\s*\d{1,2}\.\s*삭제\s*<[^>]*>','',s)   # '1. 삭제<2012.7.3>'
+    s=re.sub(r'\s*삭제\s*<[^>]*>','',s)               # 남은 '삭제<..>'
+    s=re.sub(r'\s*<(?:개정|신설|전문개정|본조신설)[^>]*>','',s)
+    return re.sub(r'\s+',' ',s).strip()
 def esc(s): return re.sub(r'\s+',' ',s or '').strip().replace('&','&amp;').replace('<','&lt;').replace('>','&gt;')
 def _head(badge,lawref,subtitle):
     b={"본문":"본문 인용","연계":"연계","보충":"보충"}[badge]
@@ -217,22 +280,24 @@ def _no_ref_note(text):
     return '<p>○ 이 회신은 특정 법령 조항을 인용하지 않은 해석성 답변입니다.</p>'
 CIRCLED="①②③④⑤⑥⑦⑧⑨⑩⑪⑫⑬⑭⑮⑯⑰⑱⑲⑳"
 ASTOP=set("폐기물 재활용 시행규칙 시행령 관리법 대상 경우 해당 이하 이상 규정 사항 방법 종류 관련 포함 제외 위하 위한 따라 또는 있는 없는 하는 되는 이란 여부 하여 대하 관하 정하 필요 다음 각호 각목 신고 허가 변경 처리 시설 장비 물질 발생 기준".split())
+def _hang_score(h,cands):
+    ht=E._txt(h.get('항내용',''))+' '+' '.join(E._txt(x.get('호내용','')) for x in E._ho_list(h))
+    return sum(len(w) for w in cands if w in ht)
 def _anchor_hang(c,ans,jo,ji):
     hangs=E._hang_list(c)
     if len(hangs)<=1: return None,None       # 항 1개 이하 → 그대로(=그 항)
     pat=r'제'+re.escape(jo)+r'조'+(r'의'+re.escape(ji) if ji and ji!='0' else '')+r'(.{0,160})'
     m=re.search(pat,ans); clause=m.group(1) if m else ans
-    cands=set(w for w in re.findall(r'[가-힣]{3,10}',clause) if w not in ASTOP)
-    best=None;bs=0
-    for h in hangs:
-        ht=E._txt(h.get('항내용',''))+' '+' '.join(E._txt(x.get('호내용','')) for x in E._ho_list(h))
-        sc=sum(1 for w in cands if w in ht)
-        if sc>bs: bs=sc;best=h
-    if best is not None and bs>=1:
-        hn=str(best.get('항번호','')).strip()
-        num=str(CIRCLED.find(hn)+1) if hn in CIRCLED else hn.strip('.')
-        return hn,(num or None)
-    return "①",None                           # 못 찾으면 제1항(통째 dump 금지)
+    cands=_kw(clause,3,ASTOP)                 # 조사 제거 키워드(길이 가중)
+    scored=sorted(((_hang_score(h,cands),i,h) for i,h in enumerate(hangs)),key=lambda x:(-x[0],x[1]))
+    bsc,_,best=scored[0]
+    first_sc=_hang_score(hangs[0],cands)
+    # 강한 신호(길이합 6+ & ①보다 4+ 우세)일 때만 비-① 항 선택, 아니면 제1항 기본
+    if best is hangs[0] or bsc<6 or bsc<first_sc+4:
+        best=hangs[0]
+    hn=str(best.get('항번호','')).strip()
+    num=str(CIRCLED.find(hn)+1) if hn in CIRCLED else hn.strip('.')
+    return hn,(num or None)
 
 def build_table(q,a,refdate=None,default_law=None,supp=None,style="table"):
     text=q+" \n "+a
@@ -252,10 +317,10 @@ def build_table(q,a,refdate=None,default_law=None,supp=None,style="table"):
             hang=r['hang']; anch=None
             if not (r['hang'] or r['ho'] or r['mok']):
                 hang,anch=_anchor_hang(c,a,r['jo'],r['ji'])   # bare 조 → 답변 문맥으로 관련 항
-            cur=E.unit_text(c,hang,r['ho'],r['mok']); old=''
+            cur=_law_clean(E.unit_text(c,hang,r['ho'],r['mok'])); old=''
             if refdate:
                 co=E.jo_get_asof(r['law'],r['jo'],r['ji'],refdate)
-                if co: old=E.unit_text(co,hang,r['ho'],r['mok'])
+                if co: old=_law_clean(E.unit_text(co,hang,r['ho'],r['mok']))
             moon=(f"<small>[현행]</small> {cur}<br><small>[당시 {refdate[:4]}년]</small> {old}"
                   if _substantive_diff(old,cur) else cur)
             lab=label_of(r)+(f"제{anch}항" if anch else "")
@@ -277,7 +342,7 @@ def build_table(q,a,refdate=None,default_law=None,supp=None,style="table"):
         c=E.jo_get(r['law'],r['jo'],r['ji'])
         if not c: continue
         seen.add(k); lk+=1
-        ti=E.jo_title(c); moon=E.unit_text(c,r['hang'],r['ho'],r['mok'])
+        ti=E.jo_title(c); moon=_law_clean(E.unit_text(c,r['hang'],r['ho'],r['mok']))
         rows.append(("연계",f"「{r['law']}」 {label_of(r)}",ti,moon))
         if lk>=4: break
     # 3) 보충
@@ -293,10 +358,12 @@ def build_table(q,a,refdate=None,default_law=None,supp=None,style="table"):
     return '<table>\n<thead>\n<tr><th>조항 · 적용 문구</th></tr>\n</thead>\n<tbody>\n'+tr+'\n</tbody>\n</table>'
 
 def _substantive_diff(old,cur):
-    # 부처명 변경만인 경우는 실질 차이 아님 → 현행만. trim 절단점 차이는 공통prefix로 무시.
+    # 실질 차이 있을 때만 구법 병기. 부처명 변경·사소한 용어차(유사도 90%+)는 현행만.
     if not old or not cur: return False
     def norm(s):
         s=s.replace('기후에너지환경부','환경부').replace('…','')
+        s=s.replace(chr(0x119E),chr(0x318D)).replace(chr(0x00B7),chr(0x318D))
         return re.sub(r'\s+','',s)
-    a,b=norm(old),norm(cur); n=min(len(a),len(b))
-    return n>0 and a[:n]!=b[:n]
+    a,b=norm(old),norm(cur)
+    if a==b: return False
+    return difflib.SequenceMatcher(None,a,b).ratio()<0.90
