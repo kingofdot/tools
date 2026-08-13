@@ -106,6 +106,9 @@ def build(o):
     q=o['q']; a=o['a']; subj=o['subject']
     summ=holding(a)
     table=R.build_table(q,a,refdate=refdate_of(o),default_law=DEFLAW,supp=supp_fn)
+    # 환경부 고시(부숙토 원료·제품기준·유기질비료 공정규격) 근거 회신은 법령API에 없어 조문 오결합 → 관련법령 미기재
+    if ('부숙토' in a or '공정규격' in a or '유기질비료' in a) and '고시' in a:
+        table=""
     add=("<p><small>※ ‘본문 인용’은 질의·답변에 나온 조항을, ‘연계 법령’은 그 조항이 다시 인용하는 조항을, "
          "‘보충’은 인허가 서대리가 이해를 돕기 위해 덧붙인 조항을 정리한 것입니다. "
          "조문은 회신 당시와 현행이 다르면 함께 표기하였으며, 실제 적용 시 국가법령정보센터의 현행 조문 전문을 확인하시기 바랍니다.</small></p>")
