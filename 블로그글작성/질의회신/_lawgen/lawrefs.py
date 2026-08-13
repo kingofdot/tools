@@ -293,8 +293,8 @@ def _head(badge,lawref,subtitle):
     b={"본문":"본문 인용","연계":"연계","보충":"보충"}[badge]
     tail=" · ".join(x for x in [subtitle,f'[{b}]'] if x)
     return f'<strong>{esc(lawref)}</strong>'+(f'　<small>{esc(tail)}</small>' if tail else '')
-def _row(badge,lawref,subtitle,moon):        # 표 셀
-    return f'<tr><td>{_head(badge,lawref,subtitle)}<br>{esc_rich(fmt_moon(moon))}</td></tr>'
+def _row(badge,lawref,subtitle,moon):        # 표 셀(데이터셀은 흰 배경 강제 → 헤더 음영이 안 번지게)
+    return f'<tr><td style="background-color:#ffffff;">{_head(badge,lawref,subtitle)}<br>{esc_rich(fmt_moon(moon))}</td></tr>'
 def _quote(badge,lawref,subtitle,moon):      # blockquote 박스(테마가 td를 볼드로 렌더할 때 대안)
     return f'<blockquote>\n<p>{_head(badge,lawref,subtitle)}<br>{esc_rich(fmt_moon(moon))}</p>\n</blockquote>'
 def esc_rich(s):
@@ -413,7 +413,8 @@ def build_table(q,a,refdate=None,default_law=None,supp=None,style="table"):
         return "\n".join(_quote(b,lr,st,m) for b,lr,st,m in rows)
     tr="\n".join(_row(b,lr,st,m) for b,lr,st,m in rows)
     # thead 헤더행: 플랫폼 테마가 표 첫 행을 헤더(볼드+음영)로 렌더 → 실제 조항행이 볼드되지 않게 흡수
-    return '<table>\n<thead>\n<tr><th>조항 · 적용 문구</th></tr>\n</thead>\n<tbody>\n'+tr+'\n</tbody>\n</table>'
+    return ('<table>\n<thead>\n<tr><th style="background-color:#eef1f5;text-align:left;">조항 · 적용 문구</th></tr>\n</thead>\n'
+            '<tbody>\n'+tr+'\n</tbody>\n</table>')
 
 def _substantive_diff(old,cur):
     # 실질 차이 있을 때만 구법 병기. 부처명 변경·사소한 용어차(유사도 90%+)는 현행만.

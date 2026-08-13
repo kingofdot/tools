@@ -45,13 +45,12 @@ def supp_fn(a,seen):
         cur=TYPEMAP[apc.group(1)]
         out.append(("「폐기물관리법 시행규칙」 [별표 4의3]","폐기물의 종류별 재활용 가능 유형",
                     f"{cur['name']}({apc.group(1)})의 재활용 가능 유형 : "+", ".join(cur['types'])))
-    # 재활용 원칙(제13조의2)
-    if ('재활용' in a) and JO13 and not has(lambda k:k[0]=='조' and k[2]=='13' and str(k[3])=='2'):
+    # 재활용 원칙·준수사항(제13조의2) — 실제로 재활용 원칙/가능여부/금지·제한/준수사항 논점일 때만(남발 금지)
+    j13=re.search(r'재활용\s*원칙|재활용의?\s*준수사항|재활용할\s*수\s*(있|없)|재활용\s*가능\s*(여부|한지)|'
+                  r'재활용을?\s*금지|재활용을?\s*제한|위반하지\s*아니|준수사항을?\s*(지켜|모두|준수)|재활용\s*기준을?\s*(지켜|준수)',a)
+    if j13 and JO13 and not has(lambda k:k[0]=='조' and k[2]=='13' and str(k[3])=='2'):
         out.append(("「폐기물관리법」 제13조의2","폐기물의 재활용 원칙 및 준수사항", R.E.trim(JO13,300)))
-    # 기초 보충: 인용·개념 아무것도 없으면 폐기물 정의라도
-    if not out and not any(k[0] in ('조','별표') for k in seen):
-        add_jo('폐기물관리법','2','0',None,'1',None,'정의 · 폐기물')
-    return out[:3]
+    return out[:3]   # 무의미 폴백(아무거나 폐기물 정의) 제거
 
 # 내용 스캔 태그맵: (본문에 있으면, 붙일 태그). 구체어 먼저 → 캡 걸려도 살아남게.
 _TAGMAP=[
