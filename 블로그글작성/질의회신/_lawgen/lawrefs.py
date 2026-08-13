@@ -41,8 +41,18 @@ TOKEN=re.compile(
 )
 
 GENSET=re.compile(GEN)
+def _prenorm(text):
+    # OCR 줄바꿈으로 갈린 법령명 재결합(레벨 오결합 방지). '시행 규칙'→'시행규칙' 등.
+    text=re.sub(r'시행\s+규칙','시행규칙',text)
+    text=re.sub(r'시행\s+령','시행령',text)
+    text=re.sub(r'환경영향\s+평가','환경영향평가',text)
+    text=re.sub(r'물\s*환경\s*보전\s*법','물환경보전법',text)
+    text=re.sub(r'같은\s*법\s*시행\s*규칙','같은 법 시행규칙',text)
+    text=re.sub(r'같은\s*법\s*시행\s*령','같은 법 시행령',text)
+    return text
 def parse_refs(text,default_law=None):
     # cur=직전 인용 대상, anchor=‘같은 법’ 기준. default_law 있으면 그 base가 기본 anchor(주법령 고정).
+    text=_prenorm(text)
     refs=[]; cur=default_law; anchor=(base_of(default_law) if default_law else None)
     fixed=bool(default_law)   # default 있으면 anchor를 그 주법령으로 고정
     for m in TOKEN.finditer(text):
@@ -146,12 +156,21 @@ def _kw(text,minlen=2,extra=None):
         if len(s)>=minlen and s not in st: out.add(s)
     return out
 _MIDDOT=chr(0x318D)   # ㆍ 국가법령 표준 중점(조문 렌더와 통일)
+# PDF 줄바꿈으로 낱글자 갈린 상용 법령어 재결합(단어 내부만 결합, 단어 경계 공백은 보존)
+_DESPACE=['지정폐기물','사업장폐기물','생활폐기물','폐기물','재활용업','재활용','시행규칙','시행령',
+ '합성수지','폐합성수지','유기성오니','무기성오니','폐수처리오니','폐수처리','처리시설',
+ '환경부장관','기후에너지환경부','성토재','보조기층재','도로기층재','재활용업자','수집ㆍ운반']
+_DESPACE_PATS=[(re.compile(r'\s*'.join(map(re.escape,w))),w) for w in sorted(_DESPACE,key=len,reverse=True)]
+def _despace(s):
+    for pat,w in _DESPACE_PATS: s=pat.sub(w,s)
+    return s
 def _byl_norm(s):
     s=(s or '').replace(chr(0x119E),_MIDDOT).replace(chr(0x00B7),_MIDDOT)  # ᆞ, · → ㆍ 통일
     s=re.sub(r'\s*'+_MIDDOT+r'\s*',_MIDDOT,s)                              # 중점 주변 공백 제거
     s=re.sub(r'별표\s*(\d+)의\s+(\d+)',r'별표 \1의\2',s)                    # '4의 2' → '4의2'
     s=re.sub(r'제\s*(\d+)\s*호',r'제\1호',s)
     s=re.sub(r'또\s+는','또는',s)
+    s=_despace(s)
     return s
 def _byl_clean(text):
     text=_byl_norm(text)
@@ -192,6 +211,10 @@ def _looks_garbled(s):
     if names and len(names)!=len(set(names)): return True   # 동일 법령명 반복 = 컬럼 splice
     if re.search(r'제\s+「',s): return True                   # '제 「법」' 조번호 분리
     if len(re.findall(r'조제\d+항에 따라',s))>=2 and '협의하는 때' in s: return True
+    # 낱글자(양쪽 공백) 다발 = 컬럼 블리드
+    if len(re.findall(r'(?<=\s)[가-힣](?=\s)',s))>=5: return True
+    # 행정처분표 근거법령 열 뒤섞임 신호
+    if len(re.findall(r'법 제\d+조',s))>=3 and ('행정처분' in s or '위반' in s or '영업정지' in s): return True
     return False
 def byl_excerpt_hinted(bt,ref,ans):
     res=_byl_excerpt_raw(bt,ref,ans)
@@ -204,6 +227,14 @@ def _byl_excerpt_raw(bt,ref,ans):
     if not ho:
         mh=re.search(r'별표\s*'+re.escape(ref['byl'])+r'\D{0,80}?제(\d+)호',ans)
         if mh: ho=mh.group(1)
+    # (0) 답변의 R코드/폐기물코드로 해당 행 타겟팅(별표4의2·5의3 등 유형 표)
+    codes=re.findall(r'R-\d(?:-\d)?|\d\d-\d\d-\d\d',ans)
+    for code in sorted(set(codes),key=len,reverse=True):
+        p=text.find(code)
+        if p>=0:
+            st=text.rfind('. ',0,p); st2=text.rfind(') ',0,p)
+            st=max(st,st2); st=st+2 if st>=0 and p-st<120 else p
+            return _byl_trim(text[st:])
     items=_byl_items(text)
     # (1) 호 지정 → 그 호 단일 항목만(하위 4의2 등 안 삼킴)
     if ho and items:
@@ -236,7 +267,13 @@ def _law_clean(s):
     s=re.sub(r'\s*\d{1,2}\.\s*삭제\s*<[^>]*>','',s)   # '1. 삭제<2012.7.3>'
     s=re.sub(r'\s*삭제\s*<[^>]*>','',s)               # 남은 '삭제<..>'
     s=re.sub(r'\s*<(?:개정|신설|전문개정|본조신설)[^>]*>','',s)
+    s=_despace(s)
     return re.sub(r'\s+',' ',s).strip()
+def _empty_law(s):
+    # 내용 없는 조문(빈 문자열, '제N조'만, '삭제'만) 판별 → 행 생략용
+    s=(s or '').strip()
+    if not s: return True
+    return bool(re.fullmatch(r'(?:제\d+조(?:의\d+)?)?\s*(?:삭제)?\s*',s))
 def esc(s): return re.sub(r'\s+',' ',s or '').strip().replace('&','&amp;').replace('<','&lt;').replace('>','&gt;')
 def _head(badge,lawref,subtitle):
     b={"본문":"본문 인용","연계":"연계","보충":"보충"}[badge]
@@ -321,16 +358,22 @@ def build_table(q,a,refdate=None,default_law=None,supp=None,style="table"):
             if refdate:
                 co=E.jo_get_asof(r['law'],r['jo'],r['ji'],refdate)
                 if co: old=_law_clean(E.unit_text(co,hang,r['ho'],r['mok']))
-            moon=(f"<small>[현행]</small> {cur}<br><small>[당시 {refdate[:4]}년]</small> {old}"
-                  if _substantive_diff(old,cur) else cur)
+            ce,oe=_empty_law(cur),_empty_law(old)
+            if ce and oe: continue                                   # 현행·당시 모두 빈/삭제 → 행 생략
+            yr=(refdate[:4] if refdate else '')
+            if ce and not oe:                                        # 현행 삭제/이동 → 회신 당시 조문만
+                moon=f"<small>[회신 당시 {yr}년]</small> {old}"
+            elif _substantive_diff(old,cur):                         # 현행 먼저, 구법(당시) 아래
+                moon=f"<small>[현행]</small> {cur}<br><small>[회신 당시 {yr}년]</small> {old}"
+            else:
+                moon=cur
             lab=label_of(r)+(f"제{anch}항" if anch else "")
             rows.append(("본문",f"「{r['law']}」 {lab}",ti,moon))
             linked_all += _linked(E.full_text(c), r['law'])
         else:
             bt,law_used=E.byl_fetch_any(r['law'],r['byl'])
-            if not bt: continue          # 별표 fetch 실패 → 행 생략(보일러플레이트 금지)
-            moon=byl_excerpt_hinted(bt,r,a)
-            if not moon: continue
+            moon=byl_excerpt_hinted(bt,r,a) if bt else ''
+            if not moon: seen.discard(k); continue   # fetch실패/깨짐 → 보충(TYPEMAP)이 채우게 seen에서 제외
             ti=bt.get('title','')
             rows.append(("본문",f"「{law_used}」 {label_of(r)}",ti,moon))
     # 2) 연계 법령
@@ -341,8 +384,9 @@ def build_table(q,a,refdate=None,default_law=None,supp=None,style="table"):
         if r['kind']!='조': continue
         c=E.jo_get(r['law'],r['jo'],r['ji'])
         if not c: continue
-        seen.add(k); lk+=1
         ti=E.jo_title(c); moon=_law_clean(E.unit_text(c,r['hang'],r['ho'],r['mok']))
+        if _empty_law(moon): continue
+        seen.add(k); lk+=1
         rows.append(("연계",f"「{r['law']}」 {label_of(r)}",ti,moon))
         if lk>=4: break
     # 3) 보충
