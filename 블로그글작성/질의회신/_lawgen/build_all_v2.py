@@ -122,6 +122,14 @@ def build_post(it,cfg):
          "‘보충’은 인허가 서대리가 덧붙인 조항을 정리한 것입니다. 조문은 회신 당시와 현행이 다르면 함께 표기하였습니다. "
          "실제 적용 시 국가법령정보센터의 현행 조문 전문을 확인하시기 바랍니다.</small></p>")
     page=it.get('page','')
+    lawsec=(f"""<p>&nbsp;</p>
+<h2>3. 관련 법령</h2>
+{table}
+
+<p>&nbsp;</p>
+<h2>4. 추가 정보 <small>(인허가 서대리 확인 · 참고용)</small></h2>
+{add}
+""" if table.strip() else "")   # 신뢰 가능한 조문 없으면 법령 섹션 통째 생략
     content=f"""<table>
 <thead>
 <tr><th>※ 요약</th></tr>
@@ -142,14 +150,7 @@ def build_post(it,cfg):
 <h2>2. 답변</h2>
 <p>{R.esc(a)}</p>
 
-<p>&nbsp;</p>
-<h2>3. 관련 법령</h2>
-{table}
-
-<p>&nbsp;</p>
-<h2>4. 추가 정보 <small>(인허가 서대리 확인 · 참고용)</small></h2>
-{add}
-
+{lawsec}
 <hr>
 
 <p><small><strong>출처</strong> · {R.esc(cfg['source'])}{(' ['+str(page)+'페이지]') if page else ''}</small></p>

@@ -15,6 +15,12 @@ def base_of(law):
     return re.sub(r'\s*(시행규칙|시행령)$','',law).strip()
 def norm_law(law):
     return re.sub(r'\s+',' ',law).replace('「','').replace('」','').strip()
+# OCR로 잘리거나 약칭돼 엉뚱한 실제법으로 오조회되는 법령명(예: '관리법'→건설기계관리법) → 인용 스킵
+GENERIC_LAW={'관리법','기본법','특례법','평가법','촉진법','진흥법','보전법','지원법','처벌법','방지법','육성법',
+ '정비법','영향평가법','관리법률','기본법률','특별법','경자법','법','법률','관리','평가','기본'}
+def _generic_law(law):
+    b=re.sub(r'\s*(시행령|시행규칙)$','',norm_law(law)).strip()
+    return (b in GENERIC_LAW) or len(b)<=2
 
 # 조문 라벨 파싱
 def _parse_jo(law,s):
@@ -55,28 +61,32 @@ def parse_refs(text,default_law=None):
     text=_prenorm(text)
     refs=[]; cur=default_law; anchor=(base_of(default_law) if default_law else None)
     fixed=bool(default_law)   # default 있으면 anchor를 그 주법령으로 고정
+    curok=bool(default_law) and not _generic_law(default_law)  # 현재 법령 신뢰 가능?
+    ankok=curok
     for m in TOKEN.finditer(text):
         if m.group(1):
-            cur=norm_law(m.group(1))
-            if not fixed: anchor=base_of(cur)
+            cur=norm_law(m.group(1)); curok=not _generic_law(cur)
+            if not fixed: anchor=base_of(cur); ankok=curok
         elif m.group(2):
-            cur=norm_law(m.group(2))
-            if not fixed: anchor=base_of(cur)
+            cur=norm_law(m.group(2)); curok=not _generic_law(cur)
+            if not fixed: anchor=base_of(cur); ankok=curok
         elif m.group(3):
             g=m.group(3).replace(' ','')
             if not anchor: continue
             cur = anchor+' 시행규칙' if '시행규칙' in g or g=='규칙' else (anchor+' 시행령' if '시행령' in g or g=='영' else anchor)
+            curok=ankok
         elif m.group(4):
             law=re.sub(r'\s+',' ',m.group(4)).strip()
             b0=base_of(law).split(' ')[0]
             if b0 in GBLOCK: continue
             if re.search(r'(방법|기준|규정|지침|요령|고시|계획|사업|제도|절차|방식|기법|공법)$',b0): continue  # 고시·용어 오탐
-            cur=norm_law(law)   # 일반법(예: 건축법)은 cur만 갱신, anchor는 유지
+            cur=norm_law(law); curok=not _generic_law(cur)   # 일반법(예: 건축법)은 cur만 갱신, anchor는 유지
         elif m.group(5):
-            if cur and '고시' not in text[max(0,m.start()-16):m.start()]:   # 고시 제N조는 실제법 오결합 → 스킵
+            # 신뢰 가능 법령 + 고시 문맥 아님일 때만 조문 인용(약칭 오매칭·고시 오결합 방지)
+            if cur and curok and '고시' not in text[max(0,m.start()-16):m.start()]:
                 refs.append(_parse_jo(cur,re.sub(r'\s+','',m.group(5))))
         elif m.group(6):
-            if cur and '고시' not in text[max(0,m.start()-16):m.start()]:
+            if cur and curok and '고시' not in text[max(0,m.start()-16):m.start()]:
                 refs.append(_parse_byl(cur,m.group(6)))
     # dedup 유지순서
     seen=set(); out=[]
@@ -398,7 +408,7 @@ def build_table(q,a,refdate=None,default_law=None,supp=None,style="table"):
         for lawref,subtitle,moon in supp(a,seen):
             rows.append(("보충",lawref,subtitle,moon))
     if not rows:
-        return _no_ref_note(text)
+        return ""          # 신뢰 가능한 조문 0 → 관련법령 섹션 통째 생략(엉뚱한 법 기재 안 함)
     if style=="quote":
         return "\n".join(_quote(b,lr,st,m) for b,lr,st,m in rows)
     tr="\n".join(_row(b,lr,st,m) for b,lr,st,m in rows)
