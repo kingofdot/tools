@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="ko"><head><meta charset="utf-8">
+<link rel="stylesheet" href="design.css">
+<style>.stack{display:flex;flex-direction:column;gap:34px}</style>
+</head><body>
+<div class="stack">
+
+  <!-- 01 개요 -->
+  <div class="sbox">
+    <div class="sbox-head">
+      <div class="sno">01</div>
+      <div class="t">개요</div>
+    </div>
+    <div class="sbox-body">
+      <p class="hook">여러 장의 갑지에 사업장 정보를<br>일일이 입력하기 귀찮으셨죠?</p>
+      <p class="solve">이제 한 방에 해결해 드립니다!</p>
+      <p class="body mt-m">실수 없이, 매우 빠르게 여러 장의 갑지를 한 번에 생성할 수 있습니다.</p>
+
+      <!-- 아이콘 플로우: 서류 선택 → 사업장 정보 → 갑지 생성 -->
+      <div class="flowmini">
+        <div class="fm">
+          <div class="ib"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M4.268 21a2 2 0 0 0 1.727 1H18a2 2 0 0 0 2-2V7l-5-5H6a2 2 0 0 0-2 2v3"/><path d="m9 18-1.5-1.5"/><circle cx="5" cy="14" r="3"/></svg></div>
+          <div class="tx"><div class="t">서류 선택</div><div class="d">필요한 갑지 고르기</div></div>
+        </div>
+        <div class="fm-sep">›</div>
+        <div class="fm">
+          <div class="ib"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 10h.01"/><path d="M12 14h.01"/><path d="M12 6h.01"/><path d="M16 10h.01"/><path d="M16 14h.01"/><path d="M16 6h.01"/><path d="M8 10h.01"/><path d="M8 14h.01"/><path d="M8 6h.01"/><path d="M9 22v-3a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v3"/><rect x="4" y="2" width="16" height="20" rx="2"/></svg></div>
+          <div class="tx"><div class="t">사업장 정보</div><div class="d">자동으로 반영</div></div>
+        </div>
+        <div class="fm-sep">›</div>
+        <div class="fm">
+          <div class="ib"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 15V3"/><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="m7 10 5 5 5-5"/></svg></div>
+          <div class="tx"><div class="t">갑지 생성</div><div class="d">한 번에 다운로드</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 02 필요서류 -->
+  <div class="sbox">
+    <div class="sbox-head">
+      <div class="sno">02</div>
+      <div class="t">필요서류</div>
+    </div>
+    <div class="sbox-body">
+      <div class="cases">
+        <!-- 개인사업자 -->
+        <div class="case">
+          <span class="cl"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>개인사업자의 경우</span>
+          <div class="checks one">
+            <div class="check"><span class="ck"></span><span>사업자등록증</span></div>
+            <div class="check"><span class="ck"></span><span>대표자 신분증 사본</span></div>
+            <div class="check"><span class="ck"></span><span>대표자 인감증명서</span></div>
+            <div class="check"><span class="ck"></span><span>사업장 배치도</span></div>
+            <div class="check"><span class="ck"></span><span>배출시설 설치명세서</span></div>
+          </div>
+        </div>
+        <!-- 법인사업자 -->
+        <div class="case">
+          <span class="cl"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 10h.01"/><path d="M12 14h.01"/><path d="M12 6h.01"/><path d="M16 10h.01"/><path d="M16 14h.01"/><path d="M16 6h.01"/><path d="M8 10h.01"/><path d="M8 14h.01"/><path d="M8 6h.01"/><path d="M9 22v-3a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v3"/><rect x="4" y="2" width="16" height="20" rx="2"/></svg>법인사업자의 경우</span>
+          <div class="checks one">
+            <div class="check"><span class="ck"></span><span>사업자등록증</span></div>
+            <div class="check"><span class="ck"></span><span>법인등기부등본</span></div>
+            <div class="check"><span class="ck"></span><span>법인 인감증명서</span></div>
+            <div class="check"><span class="ck"></span><span>사용인감계 (위임 시)</span></div>
+            <div class="check"><span class="ck"></span><span>사업장 배치도</span></div>
+            <div class="check"><span class="ck"></span><span>배출시설 설치명세서</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+</body></html>
