@@ -3,8 +3,9 @@
  "total_source": 64,
  "dropped": 2,
  "posted": 62,
- "postNumbers": "#604~665",
+ "postNumbers": "#666~727",
  "public": true,
- "method": "AI인용판(build_cited_gen)",
+ "method": "AI인용판+텍스트전수교정+재감수(build_cited_gen)",
+ "note": "구 #604~665(손상본)은 사용자가 수동삭제, 교정본 재게시",
  "date": "2026-08-14"
 }
