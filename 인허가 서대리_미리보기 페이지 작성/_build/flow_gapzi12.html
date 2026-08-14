@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="ko"><head><meta charset="utf-8"><style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:'Malgun Gothic','맑은 고딕',sans-serif;background:#F7F9FC}
+  .sheet{position:relative;width:1560px;height:800px;padding:30px}
+  .shot{position:absolute;left:40px}
+  .shot img{display:block;border:1px solid #E1E8F4;border-radius:12px;background:#fff}
+  .tag{position:absolute;left:40px;font-size:16px;font-weight:800;color:#1E51D5}
+  .ov{position:absolute;inset:0;pointer-events:none}
+  .hl{position:absolute;border:2.2px solid #F5820A;border-radius:9px;
+    box-shadow:0 0 6px rgba(245,130,10,.35), 0 0 15px 1px rgba(245,130,10,.16)}
+  .cap{position:absolute;font-weight:700;font-size:16px;white-space:nowrap;
+    padding:8px 14px;border-radius:10px;color:#F5820A;background:#FFFFFF;
+    border:1.6px solid #F5820A;
+    box-shadow:0 0 6px rgba(245,130,10,.35), 0 0 15px 1px rgba(245,130,10,.16)}
+</style></head><body>
+<div class="sheet">
+
+  <div class="tag" style="top:44px">서류 생성 중</div>
+  <div class="shot" style="top:76px"><img src="../자료/갑지생성자료/갑지생성12.png" style="width:1252px"></div>
+
+  <div class="tag" style="top:420px">생성 완료</div>
+  <div class="shot" style="top:452px"><img src="../자료/갑지생성자료/갑지생성12-1.png" style="width:1245px"></div>
+
+  <!-- 12: 처리중 배지 / 12-1: 완료 배지·다운로드 버튼 -->
+  <div class="hl" style="left:1164.8px;top:118.8px;width:90.4px;height:46.4px"></div>
+  <div class="hl" style="left:1156.8px;top:500.8px;width:98.4px;height:44.4px"></div>
+  <div class="hl" style="left:1111.8px;top:660.8px;width:143.4px;height:55.4px"></div>
+
+  <svg class="ov" viewBox="0 0 1560 800" fill="none">
+    <defs>
+      <marker id="a12" markerWidth="9" markerHeight="9" refX="6.5" refY="4.5" orient="auto">
+        <path d="M1 1.2 L7.5 4.5 L1 7.8 Z" fill="#F5820A"/>
+      </marker>
+    </defs>
+    <!-- 생성 중 → 완료 흐름 -->
+    <path d="M660 330 L660 410" stroke="#F5820A" stroke-width="2.4" stroke-linecap="round" stroke-dasharray="7 6" marker-end="url(#a12)"/>
+
+    <!-- 12 '생성 중...' 앵커 -->
+    <circle cx="145" cy="272" r="7" fill="#F5820A" opacity="0.20"/><circle cx="145" cy="272" r="4" fill="#F5820A"/>
+    <path d="M145 272 L180 300 L226 300" stroke="#F5820A" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+    <!-- 12-1 '3일간 보관' 앵커 -->
+    <circle cx="178" cy="688" r="7" fill="#F5820A" opacity="0.20"/><circle cx="178" cy="688" r="4" fill="#F5820A"/>
+    <path d="M178 688 L213 716 L259 716" stroke="#F5820A" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+    <!-- 배지·버튼 라벨 리더선 -->
+    <path d="M1257 142 L1320 142" stroke="#F5820A" stroke-width="2.2" stroke-linecap="round"/>
+    <path d="M1259 523 L1300 523" stroke="#F5820A" stroke-width="2.2" stroke-linecap="round"/>
+    <path d="M1257 688 L1300 688" stroke="#F5820A" stroke-width="2.2" stroke-linecap="round"/>
+  </svg>
+
+  <div class="cap" style="left:226px;top:300px;transform:translateY(-50%)">서류를 만드는 동안 잠시 기다려 주세요</div>
+  <div class="cap" style="left:1320px;top:142px;transform:translateY(-50%)">처리 중</div>
+  <div class="cap" style="left:1300px;top:523px;transform:translateY(-50%)">생성 완료</div>
+  <div class="cap" style="left:1300px;top:688px;transform:translateY(-50%)">눌러서 받으세요</div>
+  <div class="cap" style="left:259px;top:716px;transform:translateY(-50%)">만들어진 서류는 3일간 보관됩니다</div>
+</div>
+</body></html>

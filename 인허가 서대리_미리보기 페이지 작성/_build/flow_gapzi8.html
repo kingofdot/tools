@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="ko"><head><meta charset="utf-8"><style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:'Malgun Gothic','맑은 고딕',sans-serif;background:#F7F9FC}
+  .sheet{position:relative;width:1065px;height:420px;padding:26px 30px}
+  .main{position:absolute;left:30px;top:96px;width:1005px}
+  .main img{display:block;width:1005px;border:1px solid #E1E8F4;border-radius:12px;background:#fff}
+  .ov{position:absolute;inset:0;pointer-events:none}
+  .cap{position:absolute;font-weight:700;font-size:16px;white-space:nowrap;
+    padding:8px 14px;border-radius:10px;color:#F5820A;background:#FFFFFF;
+    border:1.6px solid #F5820A;
+    box-shadow:0 0 6px rgba(245,130,10,.35), 0 0 15px 1px rgba(245,130,10,.16)}
+</style></head><body>
+<div class="sheet">
+  <div class="main"><img src="../자료/갑지생성자료/갑지생성8.png" alt=""></div>
+
+  <svg class="ov" viewBox="0 0 1065 420" fill="none">
+    <!-- 3개 단위 버튼 앵커(글씨 우측) : 원본 y149 → 화면 y = 96+1+149 = 246 -->
+    <circle cx="232" cy="246" r="7" fill="#F5820A" opacity="0.20"/><circle cx="232" cy="246" r="4" fill="#F5820A"/>
+    <circle cx="556" cy="246" r="7" fill="#F5820A" opacity="0.20"/><circle cx="556" cy="246" r="4" fill="#F5820A"/>
+    <circle cx="878" cy="246" r="7" fill="#F5820A" opacity="0.20"/><circle cx="878" cy="246" r="4" fill="#F5820A"/>
+    <!-- 각 앵커 → 위쪽 공통 라벨선 -->
+    <path d="M232 246 L232 62 L470 62" stroke="#F5820A" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M556 246 L556 62" stroke="#F5820A" stroke-width="2.2" stroke-linecap="round"/>
+    <path d="M878 246 L878 62 L640 62" stroke="#F5820A" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+
+    <!-- 제출일 앵커 + 리더선(우하) : 원본 y252 → 화면 y = 349 -->
+    <circle cx="205" cy="349" r="7" fill="#F5820A" opacity="0.20"/><circle cx="205" cy="349" r="4" fill="#F5820A"/>
+    <path d="M205 349 L240 379 L286 379" stroke="#F5820A" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+  </svg>
+
+  <div class="cap" style="left:555px;top:62px;transform:translate(-50%,-50%)">셋 중 서류에 기재할 단위를 하나 고릅니다</div>
+  <div class="cap" style="left:286px;top:379px;transform:translateY(-50%)">고른 단위에 맞춰 제출 시점을 입력합니다</div>
+</div>
+</body></html>

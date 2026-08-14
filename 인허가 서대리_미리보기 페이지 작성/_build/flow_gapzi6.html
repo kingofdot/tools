@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="ko"><head><meta charset="utf-8"><style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:'Malgun Gothic','맑은 고딕',sans-serif;background:#F7F9FC}
+  .sheet{position:relative;width:1660px;height:1140px;padding:28px 30px}
+  /* 자동완성 인셋 */
+  .auto{position:absolute;left:30px;top:760px;width:1018px}
+  .auto img{display:block;width:1018px;border:1px solid #D8E0EE;border-radius:12px;
+    box-shadow:0 16px 38px -14px rgba(20,45,110,.30);background:#fff}
+  .autotag{position:absolute;left:30px;top:724px;font-size:16px;font-weight:800;color:#1E51D5}
+  .main{position:absolute;left:30px;top:28px;width:1013px}
+  .main img{display:block;width:1013px;border:1px solid #E1E8F4;border-radius:12px;background:#fff}
+  /* 주소 검색 팝업 인셋 */
+  .pop{position:absolute;left:1118px;top:96px;width:492px}
+  .pop img{display:block;width:492px;border:1px solid #D8E0EE;border-radius:12px;
+    box-shadow:0 16px 38px -14px rgba(20,45,110,.30)}
+  .poptag{position:absolute;left:1118px;top:60px;font-size:16px;font-weight:800;color:#1E51D5}
+  .ov{position:absolute;inset:0;pointer-events:none}
+  .hl{position:absolute;border:2.2px solid #F5820A;border-radius:9px;
+    box-shadow:0 0 6px rgba(245,130,10,.35), 0 0 15px 1px rgba(245,130,10,.16)}
+  .cap{position:absolute;font-weight:700;font-size:16px;white-space:nowrap;
+    padding:8px 14px;border-radius:10px;color:#F5820A;background:#FFFFFF;
+    border:1.6px solid #F5820A;
+    box-shadow:0 0 6px rgba(245,130,10,.35), 0 0 15px 1px rgba(245,130,10,.16)}
+</style></head><body>
+<div class="sheet">
+
+  <div class="main"><img src="../자료/갑지생성자료/갑지생성6.png" alt=""></div>
+  <div class="poptag">주소 검색 버튼을 누르면 나오는 화면</div>
+  <div class="pop"><img src="../자료/갑지생성자료/갑지생성6-1.png" alt=""></div>
+
+  <!-- 하이라이트: 주소 검색 버튼 / 업종 코드·분류명 각각 -->
+  <div class="hl" style="left:911px;top:122px;width:104px;height:41px"></div>
+  <div class="hl" style="left:949px;top:39px;width:75px;height:24px"></div>
+  <div class="hl" style="left:949px;top:423px;width:75px;height:24px"></div>
+  <div class="hl" style="left:58px;top:527px;width:381px;height:43px"></div>
+  <div class="hl" style="left:448px;top:527px;width:569px;height:43px"></div>
+
+  <div class="autotag">코드 앞자리만 입력하면 나오는 자동완성 목록</div>
+  <div class="auto"><img src="../자료/갑지생성자료/갑지생성6-2.png" alt=""></div>
+
+  <svg class="ov" viewBox="0 0 1660 1140" fill="none">
+    <defs>
+      <marker id="a6" markerWidth="9" markerHeight="9" refX="6.5" refY="4.5" orient="auto">
+        <path d="M1 1.2 L7.5 4.5 L1 7.8 Z" fill="#F5820A"/>
+      </marker>
+    </defs>
+    <!-- 주소검색 버튼 → 팝업 -->
+    <path d="M1022 144 C 1060 144, 1080 170, 1112 200"
+      stroke="#F5820A" stroke-width="2.4" stroke-linecap="round" marker-end="url(#a6)"/>
+
+    <!-- 주소 추가 → 좌하 라벨 -->
+    <path d="M949 51 L914 75 L872 75" stroke="#F5820A" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+    <!-- 업종 추가 → 좌상 라벨 -->
+    <path d="M986 423 L986 386 L900 386" stroke="#F5820A" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+
+    <!-- 전화번호 앵커 + 리더선(우측 상단) -->
+    <circle cx="178" cy="238" r="7" fill="#F5820A" opacity="0.20"/>
+    <circle cx="178" cy="238" r="4" fill="#F5820A"/>
+    <path d="M178 238 L213 208 L262 208" stroke="#F5820A" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+
+    <!-- 업종: 코드 앵커 → 좌하 라벨 -->
+    <circle cx="90" cy="549" r="7" fill="#F5820A" opacity="0.20"/>
+    <circle cx="90" cy="549" r="4" fill="#F5820A"/>
+    <path d="M90 549 L125 616 L168 616" stroke="#F5820A" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+
+    <!-- 업종: 분류명 앵커 → 우하 라벨(코드 라벨과 같은 y) -->
+    <circle cx="620" cy="549" r="7" fill="#F5820A" opacity="0.20"/>
+    <circle cx="620" cy="549" r="4" fill="#F5820A"/>
+    <path d="M620 549 L655 616 L698 616" stroke="#F5820A" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+
+    <!-- 코드 ↔ 분류명 양방향 자동완성 -->
+    <marker id="a6b" markerWidth="9" markerHeight="9" refX="6.5" refY="4.5" orient="auto">
+      <path d="M1 1.2 L7.5 4.5 L1 7.8 Z" fill="#F5820A"/>
+    </marker>
+    <marker id="a6s" markerWidth="9" markerHeight="9" refX="2.5" refY="4.5" orient="auto">
+      <path d="M8 1.2 L1.5 4.5 L8 7.8 Z" fill="#F5820A"/>
+    </marker>
+    <path d="M300 519 C 380 484, 620 484, 700 519"
+      stroke="#F5820A" stroke-width="2.2" stroke-linecap="round"
+      marker-start="url(#a6s)" marker-end="url(#a6b)"/>
+
+    <!-- 자동완성 인셋: 입력값 앵커 → 우측 라벨 -->
+    <circle cx="105" cy="890" r="7" fill="#F5820A" opacity="0.20"/><circle cx="105" cy="890" r="4" fill="#F5820A"/>
+    <path d="M105 890 L140 862 L186 862" stroke="#F5820A" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+    <!-- 후보 목록 → 선택 시 두 칸 자동 입력 -->
+    <circle cx="430" cy="945" r="7" fill="#F5820A" opacity="0.20"/><circle cx="430" cy="945" r="4" fill="#F5820A"/>
+    <path d="M430 945 L500 945 L546 945" stroke="#F5820A" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+  </svg>
+  <div class="cap" style="left:186px;top:862px;transform:translateY(-50%)">코드 앞자리만 입력해도 됩니다</div>
+  <div class="cap" style="left:546px;top:945px;transform:translateY(-50%)">목록에서 고르면 코드와 분류명이 함께 채워집니다</div>
+  <div class="cap" style="left:500px;top:466px;transform:translate(-50%,-50%);font-size:15px">하나만 입력하면 나머지 한 칸이 자동으로 채워집니다</div>
+
+  <div class="cap" style="left:872px;top:75px;transform:translate(-100%,-50%)">주소가 여러 곳이면 추가할 수 있습니다</div>
+  <div class="cap" style="left:900px;top:386px;transform:translate(-100%,-50%)">업종이 여러 개면 추가할 수 있습니다</div>
+  <div class="cap" style="left:262px;top:208px;transform:translateY(-50%)">사업장 전화번호가 없다면 연락 가능한 휴대폰 번호를 적어 주세요</div>
+  <div class="cap" style="left:168px;top:616px;transform:translateY(-50%)">한국표준산업분류 11차 <b>코드</b>를 입력합니다</div>
+  <div class="cap" style="left:698px;top:616px;transform:translateY(-50%)">한국표준산업분류 11차 <b>분류명</b>을 입력합니다</div>
+</div>
+</body></html>
