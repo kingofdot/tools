@@ -80,6 +80,7 @@ def _delabel(s):  # 멀티파트 '(질의 N)/(답변 N)' 라벨 제거(게시 �
 
 def build(o, cites):
     q = _delabel(o['q']); a = _delabel(o['a']); subj = o['subject']; summ = B2.holding(a)
+    summ = re.sub(r'^\([^)]{2,40}\)\s*(※\s*)?(다만,?\s*)?', '', summ).strip() or summ  # 요약 선행 괄호인용 정리
     table = table_from_cites(list(cites), a, REFDATE)
     add = ("<p><small>※ ‘본문 인용’은 질의·답변이 근거로 삼은 조항을, ‘보충’은 이해를 돕기 위해 덧붙인 조항을 정리한 것입니다. "
            "조문은 회신 당시와 현행이 다르면 함께 표기하였으며, 실제 적용 시 국가법령정보센터의 현행 조문 전문을 확인하시기 바랍니다.</small></p>")
