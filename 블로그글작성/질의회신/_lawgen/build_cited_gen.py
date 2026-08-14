@@ -74,8 +74,12 @@ def table_from_cites(cites, ans, refdate):
     return ('<table>\n<thead>\n<tr><th style="background-color:#eef1f5;text-align:left;">조항 · 적용 문구</th></tr>\n</thead>\n'
             '<tbody>\n' + tr + '\n</tbody>\n</table>')
 
+def _delabel(s):  # 멀티파트 '(질의 N)/(답변 N)' 라벨 제거(게시 텍스트 흐름화)
+    s = re.sub(r'\(\s*(답변|질의)\s*\d*\s*\)\s*', ' ', s or '')
+    return re.sub(r'\s{2,}', ' ', s).strip()
+
 def build(o, cites):
-    q = o['q']; a = o['a']; subj = o['subject']; summ = B2.holding(a)
+    q = _delabel(o['q']); a = _delabel(o['a']); subj = o['subject']; summ = B2.holding(a)
     table = table_from_cites(list(cites), a, REFDATE)
     add = ("<p><small>※ ‘본문 인용’은 질의·답변이 근거로 삼은 조항을, ‘보충’은 이해를 돕기 위해 덧붙인 조항을 정리한 것입니다. "
            "조문은 회신 당시와 현행이 다르면 함께 표기하였으며, 실제 적용 시 국가법령정보센터의 현행 조문 전문을 확인하시기 바랍니다.</small></p>")
