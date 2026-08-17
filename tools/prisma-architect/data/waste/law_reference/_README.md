@@ -40,6 +40,8 @@
 ├── 보완자료_원본/            ← 다른 포맷에서 복사한 별표·법령 원문 (대조용)
 ├── 운영문서/                 ← 적합성확인 가이드라인, 업무처리지침
 ├── 도구/                     ← 자동화 스크립트
+│   ├── law_api.py           (국가법령정보 API → 캐시. fetch / byeolpyo / show)
+│   ├── sync_waste_info.py   (별표4 → wasteInformation.json 현행화)
 │   ├── compare_chamgo.py    (쓸자료/별표 ↔ API 대조)
 │   ├── compare_waste.py     (검토사항 ↔ API 대조)
 │   └── build_definitions.py (md자료 + 쓸자료/definitions.json 빌드)
@@ -70,14 +72,33 @@ md자료/
 
 ```
 국가법령정보 API
-   ↓ (law_api.py fetch)
-d:/tmp/law_*.json
-   ↓ (compare_chamgo.py / compare_waste.py)
+   ↓ (도구/law_api.py fetch)              ← OC 는 LAW_OC 환경변수
+<LAW_CACHE_DIR>/law_*.json                 ← 기본 d:/tmp
+   ↓ (도구/compare_chamgo.py / compare_waste.py)
 검토자료/_API검토_*.md (대조 결과)
    ↓ (사용자 검토 → 수정 지시)
 쓸자료/별표/, 검토자료/검토사항/ 갱신
-   ↓ (build_definitions.py)
+   ↓ (도구/build_definitions.py)           ← SEODAERI_ROOT 환경변수로 저장소 위치 지정
 md자료/*.md + 쓸자료/definitions.json 재생성
 ```
+
+폐기물 세부분류코드(별표4) 갱신은 별도 경로:
+
+```
+도구/law_api.py fetch --target 시행규칙
+도구/law_api.py byeolpyo 4 4의2 4의3
+   ↓
+도구/sync_waste_info.py --byeolpyo <캐시>/byeolpyo/별표4.json --dry-run
+   ↓ (차이 확인 후 --dry-run 제거)
+쓸자료/wasteInformation.json 현행화 (신설 코드는 `_todo` 로 표시)
+```
+
+**환경변수**
+
+| 이름 | 기본값 | 용도 |
+|---|---|---|
+| `LAW_OC` | `123` | 국가법령정보 OPEN API 사용자 식별값 |
+| `LAW_CACHE_DIR` | `d:/tmp` | API 덤프 저장 위치 |
+| `SEODAERI_ROOT` | `d:/seodaeri/seodaeri-lambda` | `data/waste/law_reference` 의 상위 경로 |
 
 운영 코드는 `data/waste/law_active/` 만 읽음 (이 폴더 외부). `law_reference/` 는 모두 사람·도구가 다루는 가공·검토 영역.

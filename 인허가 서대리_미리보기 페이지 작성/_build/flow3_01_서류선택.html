@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="ko"><head><meta charset="utf-8"><style>
+  :root{
+    --ink:#0F172A; --muted:#64748B; --edge:#E5EAF2;
+    --accent:#EA580C; --accent-15:rgba(234,88,12,.15); --accent-30:rgba(234,88,12,.30);
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:'Malgun Gothic','맑은 고딕',sans-serif;background:#FFFFFF;
+    -webkit-font-smoothing:antialiased}
+  .sheet{position:relative;width:1568px;height:1056px;padding:40px}
+
+  /* 화면: 얇은 테두리 + 낮고 넓은 그림자로 살짝 띄운다 */
+  .main{position:absolute;left:40px;top:40px;width:1040px;height:976px;
+    overflow:hidden;border:1px solid var(--edge);border-radius:14px;background:#fff;
+    box-shadow:0 18px 40px -26px rgba(15,23,42,.28), 0 1px 3px rgba(15,23,42,.04)}
+  .main img{display:block;width:1549px;margin:-0px 0 0 -0px}
+
+  /* 강조: 글로우 대신 포커스 링 */
+  .hl{position:absolute;border:1.5px solid var(--accent);border-radius:7px;
+    box-shadow:0 0 0 3px var(--accent-15)}
+
+  .ov{position:absolute;inset:0;pointer-events:none}
+
+  /* 레일 */
+  .rail{position:absolute}
+  .rail .no{position:absolute;left:0;top:0;width:23px;height:23px;border-radius:50%;
+    background:var(--accent);color:#fff;font-size:12px;font-weight:800;
+    display:flex;align-items:center;justify-content:center;letter-spacing:-.2px}
+  .rail .tx{margin-left:35px}
+  .rail .t{font-size:17px;font-weight:700;color:var(--ink);letter-spacing:-.3px;line-height:1.35}
+  .rail .d{margin-top:4px;font-size:14.5px;color:var(--muted);line-height:1.5}
+</style></head><body>
+<div class="sheet">
+  <div class="main"><img src="../갑지/자료/화면캡처/test_컷/test_2.png" alt=""></div>
+
+  <div class="hl" style="left:79px;top:359px;width:982px;height:64px"></div>
+  <div class="hl" style="left:79px;top:443px;width:874px;height:106px"></div>
+  <div class="hl" style="left:879px;top:637px;width:164px;height:40px"></div>
+
+  <svg class="ov" viewBox="0 0 1568 1056" fill="none">
+    <defs><marker id="ar" markerWidth="8" markerHeight="8" refX="6" refY="4"
+      orient="auto"><path d="M1 1.3 L6.8 4 L1 6.7 Z" fill="var(--accent)"/></marker></defs>
+    <path d="M1061 391 C 1094 391, 1094 379, 1121 379" stroke="var(--accent)" stroke-width="1.4" stroke-opacity=".5" stroke-linecap="round"/>
+    <circle cx="1061" cy="391" r="3.6" fill="var(--accent)"/><circle cx="1061" cy="391" r="7" fill="none" stroke="var(--accent)" stroke-opacity=".28" stroke-width="1.4"/>
+    <path d="M953 496 C 1045 496, 1045 484, 1121 484" stroke="var(--accent)" stroke-width="1.4" stroke-opacity=".5" stroke-linecap="round"/>
+    <circle cx="953" cy="496" r="3.6" fill="var(--accent)"/><circle cx="953" cy="496" r="7" fill="none" stroke="var(--accent)" stroke-opacity=".28" stroke-width="1.4"/>
+    <path d="M1043 657 C 1085 657, 1085 645, 1121 645" stroke="var(--accent)" stroke-width="1.4" stroke-opacity=".5" stroke-linecap="round"/>
+    <circle cx="1043" cy="657" r="3.6" fill="var(--accent)"/><circle cx="1043" cy="657" r="7" fill="none" stroke="var(--accent)" stroke-opacity=".28" stroke-width="1.4"/>
+  </svg>
+
+  <div class="rail" style="left:1136px;top:368px;width:392px">
+    <div class="no">1</div><div class="tx"><div class="t">이름으로 검색</div><div class="d">서류 이름 일부만 넣어도 관련 서류만 남습니다</div></div>
+  </div>
+  <div class="rail" style="left:1136px;top:473px;width:392px">
+    <div class="no">2</div><div class="tx"><div class="t">분야별로 선택</div><div class="d">대기 · 폐수 · 소음 등 분야를 눌러 좁힙니다</div></div>
+  </div>
+  <div class="rail" style="left:1136px;top:634px;width:392px">
+    <div class="no">3</div><div class="tx"><div class="t">펼쳐서 상세 선택</div><div class="d">설치신고 · 변경신고처럼 세부 서류를 고릅니다</div></div>
+  </div>
+</div>
+</body></html>

@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="ko"><head><meta charset="utf-8"><style>
+  :root{
+    --ink:#0F172A; --muted:#64748B; --faint:#94A3B8;
+    --edge:#E5EAF2; --line:#EEF2F7; --accent:#EA580C;
+    --a03:rgba(234,88,12,.03); --a11:rgba(234,88,12,.11);
+    --a16:rgba(234,88,12,.16); --a24:rgba(234,88,12,.24);
+    --a42:rgba(234,88,12,.42);
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:'Malgun Gothic','맑은 고딕',sans-serif;background:#FFFFFF;
+    -webkit-font-smoothing:antialiased}
+  .sheet{position:relative;width:1568px;height:1176px}
+
+  /* 머리말 · 꼬리말: 도판 영역을 위아래 헤어라인으로 닫는다 */
+  .bar{position:absolute;left:40px;right:40px;display:flex;
+    align-items:baseline;justify-content:space-between}
+  .top{top:40px;padding-bottom:11px;border-bottom:1px solid var(--line)}
+  .foot{top:1102px;padding-top:13px;border-top:1px solid var(--line)}
+  .step{font-size:12px;font-weight:800;color:var(--accent);letter-spacing:1.6px}
+  .brand{font-size:12.5px;font-weight:700;color:var(--faint);letter-spacing:.2px}
+  .note{font-size:12.5px;color:var(--faint);letter-spacing:-.1px}
+  .pg{font-size:12.5px;font-weight:700;color:var(--muted);letter-spacing:.6px}
+
+  /* 화면 */
+  .main{position:absolute;left:40px;top:96px;width:1040px;height:976px;
+    overflow:hidden;border:1px solid var(--edge);border-radius:14px;background:#fff;
+    box-shadow:0 18px 40px -26px rgba(15,23,42,.28), 0 1px 3px rgba(15,23,42,.04)}
+  .main img{display:block;width:1549px}
+  .ov{position:absolute;inset:0;pointer-events:none}
+  .mk{position:absolute}
+
+  /* 레일: 항목마다 구분선을 두어 표처럼 정렬한다 */
+  .rail{position:absolute;padding-top:14px;border-top:1px solid var(--line)}
+  .rail .no{position:absolute;left:0;top:14px;width:22px;height:22px;border-radius:6px;
+    background:var(--accent);color:#fff;font-size:11.5px;font-weight:800;
+    display:flex;align-items:center;justify-content:center;letter-spacing:-.2px}
+  .rail .tx{margin-left:34px}
+  .rail .t{font-size:17px;font-weight:700;color:var(--ink);letter-spacing:-.3px;line-height:1.3}
+  .rail .d{margin-top:5px;font-size:14.5px;color:var(--muted);line-height:1.5;letter-spacing:-.2px}
+
+  .mk{background:var(--a11);border:1px solid var(--a42);border-radius:8px}
+</style></head><body>
+<div class="sheet">
+  <div class="bar top"><div class="step">STEP 01</div><div class="brand">인허가 서대리</div></div>
+  <div class="main"><img src="../갑지/자료/화면캡처/test_컷/test_2.png" alt=""></div>
+  <div class="mk" style="left:77px;top:413px;width:987px;height:69px"></div>
+  <div class="mk" style="left:77px;top:497px;width:879px;height:111px"></div>
+  <div class="mk" style="left:877px;top:691px;width:168px;height:45px"></div>
+
+  <svg class="ov" viewBox="0 0 1568 1176" fill="none">
+    <path d="M1061 447 C 1094 447, 1094 448, 1122 448" stroke="#EA580C" stroke-width="1.3" stroke-opacity=".42" stroke-linecap="round"/>
+    <circle cx="1061" cy="447" r="3.2" fill="#EA580C"/><circle cx="1061" cy="447" r="6.5" fill="none" stroke="#EA580C" stroke-opacity=".24" stroke-width="1.3"/>
+    <path d="M953 552 C 1045 552, 1045 553, 1122 553" stroke="#EA580C" stroke-width="1.3" stroke-opacity=".42" stroke-linecap="round"/>
+    <circle cx="953" cy="552" r="3.2" fill="#EA580C"/><circle cx="953" cy="552" r="6.5" fill="none" stroke="#EA580C" stroke-opacity=".24" stroke-width="1.3"/>
+    <path d="M1043 713 C 1086 713, 1086 714, 1122 714" stroke="#EA580C" stroke-width="1.3" stroke-opacity=".42" stroke-linecap="round"/>
+    <circle cx="1043" cy="713" r="3.2" fill="#EA580C"/><circle cx="1043" cy="713" r="6.5" fill="none" stroke="#EA580C" stroke-opacity=".24" stroke-width="1.3"/>
+  </svg>
+
+  <div class="rail" style="left:1136px;top:423px;width:392px"><div class="no">01</div><div class="tx"><div class="t">이름으로 검색</div><div class="d">서류 이름 일부만 넣어도 관련 서류만 남습니다</div></div></div>
+  <div class="rail" style="left:1136px;top:528px;width:392px"><div class="no">02</div><div class="tx"><div class="t">분야별로 선택</div><div class="d">대기 · 폐수 · 소음 등 분야를 눌러 좁힙니다</div></div></div>
+  <div class="rail" style="left:1136px;top:689px;width:392px"><div class="no">03</div><div class="tx"><div class="t">펼쳐서 상세 선택</div><div class="d">설치신고 · 변경신고처럼 세부 서류를 고릅니다</div></div></div>
+  <div class="bar foot"><div class="note">헤어라인 &nbsp;·&nbsp; 필을 낮추고 1px 실선</div><div class="pg">01 / 08</div></div>
+</div>
+</body></html>

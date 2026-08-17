@@ -1,13 +1,17 @@
 <!doctype html>
 <html lang="ko"><head><meta charset="utf-8"><style>
   *{margin:0;padding:0;box-sizing:border-box}
-  body{font-family:'Malgun Gothic','맑은 고딕',sans-serif;background:#F7F9FC}
+  body{font-family:'Malgun Gothic','맑은 고딕',sans-serif;background:#FFFFFF}
   .sheet{position:relative;width:1660px;height:700px;padding:28px 30px}
   .main{position:absolute;left:30px;top:28px;width:1011px}
   .main img{display:block;width:1011px;border:1px solid #E1E8F4;border-radius:12px;background:#fff}
-  .pop{position:absolute;left:1096px;top:150px;width:513px}
-  .pop img{display:block;width:513px;border:1px solid #D8E0EE;border-radius:12px;
+  /* _popup7.png 에는 진한 회색 테두리가 구워져 있고 두께도 변(위2·우1·하1·좌0)마다 다르다.
+     원본은 두지 않고 사방 3px 을 잘라낸 뒤, 다른 컷과 같은 테두리를 CSS 로 입힌다. */
+  .pop{position:absolute;left:1096px;top:150px;width:507px}
+  .pop .clip{width:507px;height:155px;overflow:hidden;background:#fff;
+    border:1px solid #E1E8F4;border-radius:12px;
     box-shadow:0 16px 38px -14px rgba(20,45,110,.30)}
+  .pop .clip img{display:block;width:513px;margin:-3px 0 0 -3px}
   .poptag{position:absolute;left:1096px;top:114px;font-size:16px;font-weight:800;color:#1E51D5}
   .ov{position:absolute;inset:0;pointer-events:none}
   .hl{position:absolute;border:2.2px solid #F5820A;border-radius:9px;
@@ -21,7 +25,7 @@
 
   <div class="main"><img src="../자료/갑지생성자료/갑지생성7.png" alt=""></div>
   <div class="poptag">첫 제출청을 입력하면 나오는 확인 창</div>
-  <div class="pop"><img src="../자료/갑지생성자료/_popup7.png" alt=""></div>
+  <div class="pop"><div class="clip"><img src="../자료/갑지생성자료/_popup7.png" alt=""></div></div>
 
   <!-- 첫 제출청 필드 / 나머지 3건 -->
   <div class="hl" style="left:109px;top:193px;width:902px;height:41px"></div>

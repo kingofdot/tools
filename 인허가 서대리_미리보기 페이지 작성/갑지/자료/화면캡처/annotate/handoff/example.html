@@ -1,0 +1,13 @@
+<!DOCTYPE html><html lang="ko"><head><meta charset="utf-8"><title>주석 가이드 – 실행 예제</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<link rel="stylesheet" href="annotation-guide.css">
+<style>body{margin:0;padding:40px;background:#eef1f6;display:flex;flex-direction:column;gap:32px}a{color:#2563eb}a:hover{color:#1d4ed8}</style>
+</head><body>
+<div id="root"></div>
+<script src="annotation-guide.js"></script>
+<script>
+fetch('guide-data.json').then(r=>r.json()).then(sections=>{
+  document.getElementById('root').innerHTML=sections.map(s=>{s.imgBase='img/';return renderGuideSection(s);}).join('');
+}).catch(e=>{document.getElementById('root').textContent='guide-data.json 로드 실패: '+e.message+' (로컬 파일로 열면 fetch가 차단됩니다. VS Code Live Server 등으로 실행하세요.)';});
+</script>
+</body></html>

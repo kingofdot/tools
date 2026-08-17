@@ -372,8 +372,7 @@
       "tags": {
         "category": null,
         "bizType": [
-          "TR",
-          "RTR"
+          "TR"
         ],
         "wasteClass": null,
         "wasteCode": null,
@@ -677,8 +676,7 @@
         "bizType": [
           "IR",
           "CR",
-          "FR",
-          "RREC"
+          "FR"
         ],
         "wasteClass": null,
         "wasteCode": null,

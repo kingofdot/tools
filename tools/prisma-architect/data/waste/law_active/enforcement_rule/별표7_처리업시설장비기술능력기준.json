@@ -43,8 +43,7 @@
       "tags": {
         "category": null,
         "bizType": [
-          "TR",
-          "RTR"
+          "TR"
         ],
         "wasteClass": null,
         "wasteCode": null,
@@ -3308,8 +3307,7 @@
       "tags": {
         "category": null,
         "bizType": [
-          "ID",
-          "FD"
+          "CD"
         ],
         "wasteClass": null,
         "wasteCode": null,

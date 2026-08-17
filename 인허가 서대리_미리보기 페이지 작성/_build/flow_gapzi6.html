@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="ko"><head><meta charset="utf-8"><style>
   *{margin:0;padding:0;box-sizing:border-box}
-  body{font-family:'Malgun Gothic','맑은 고딕',sans-serif;background:#F7F9FC}
+  body{font-family:'Malgun Gothic','맑은 고딕',sans-serif;background:#FFFFFF}
   .sheet{position:relative;width:1660px;height:1140px;padding:28px 30px}
   /* 자동완성 인셋 */
   .auto{position:absolute;left:30px;top:760px;width:1018px}
@@ -69,17 +69,6 @@
     <circle cx="620" cy="549" r="4" fill="#F5820A"/>
     <path d="M620 549 L655 616 L698 616" stroke="#F5820A" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
 
-    <!-- 코드 ↔ 분류명 양방향 자동완성 -->
-    <marker id="a6b" markerWidth="9" markerHeight="9" refX="6.5" refY="4.5" orient="auto">
-      <path d="M1 1.2 L7.5 4.5 L1 7.8 Z" fill="#F5820A"/>
-    </marker>
-    <marker id="a6s" markerWidth="9" markerHeight="9" refX="2.5" refY="4.5" orient="auto">
-      <path d="M8 1.2 L1.5 4.5 L8 7.8 Z" fill="#F5820A"/>
-    </marker>
-    <path d="M300 519 C 380 484, 620 484, 700 519"
-      stroke="#F5820A" stroke-width="2.2" stroke-linecap="round"
-      marker-start="url(#a6s)" marker-end="url(#a6b)"/>
-
     <!-- 자동완성 인셋: 입력값 앵커 → 우측 라벨 -->
     <circle cx="105" cy="890" r="7" fill="#F5820A" opacity="0.20"/><circle cx="105" cy="890" r="4" fill="#F5820A"/>
     <path d="M105 890 L140 862 L186 862" stroke="#F5820A" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -89,7 +78,6 @@
   </svg>
   <div class="cap" style="left:186px;top:862px;transform:translateY(-50%)">코드 앞자리만 입력해도 됩니다</div>
   <div class="cap" style="left:546px;top:945px;transform:translateY(-50%)">목록에서 고르면 코드와 분류명이 함께 채워집니다</div>
-  <div class="cap" style="left:500px;top:466px;transform:translate(-50%,-50%);font-size:15px">하나만 입력하면 나머지 한 칸이 자동으로 채워집니다</div>
 
   <div class="cap" style="left:872px;top:75px;transform:translate(-100%,-50%)">주소가 여러 곳이면 추가할 수 있습니다</div>
   <div class="cap" style="left:900px;top:386px;transform:translate(-100%,-50%)">업종이 여러 개면 추가할 수 있습니다</div>

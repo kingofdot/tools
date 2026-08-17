@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="ko"><head><meta charset="utf-8"><style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:'Malgun Gothic','맑은 고딕',sans-serif;background:#FFFFFF}
+  .sheet{position:relative;width:1097px;height:655px;padding:28px 30px}
+  /* 원본 PNG는 그대로 두고 CSS로만 잘라 쓴다.
+     갑지생성1.png(1333x703) 에서 좌측 SECTIONS·상단 베타배너를 뺀
+     (268,104)~(1305,703) 영역 = 1037x599 만 남긴다. */
+  .main{position:absolute;left:30px;top:28px;width:1037px;height:599px;overflow:hidden;
+    border:1px solid #E1E8F4;border-radius:12px;background:#fff}
+  .main img{display:block;margin:-104px 0 0 -268px}
+  .ov{position:absolute;inset:0;pointer-events:none}
+  .hl{position:absolute;border:2.2px solid #F5820A;border-radius:9px;
+    box-shadow:0 0 6px rgba(245,130,10,.35), 0 0 15px 1px rgba(245,130,10,.16)}
+  .cap{position:absolute;font-weight:700;font-size:16px;white-space:nowrap;
+    padding:8px 14px;border-radius:10px;color:#F5820A;background:#FFFFFF;
+    border:1.6px solid #F5820A;
+    box-shadow:0 0 6px rgba(245,130,10,.35), 0 0 15px 1px rgba(245,130,10,.16)}
+</style></head><body>
+<div class="sheet">
+
+  <div class="main"><img src="../자료/갑지생성자료/갑지생성1.png" alt=""></div>
+
+  <!-- 원본 마커컷과 동일: 강조박스 없이 앵커 점 → 리더선 → 라벨만 쓴다.
+       sheet 좌표 = 갑지생성1.png 이미지 좌표 - (268, 104) + (31, 29) -->
+  <svg class="ov" viewBox="0 0 1097 655" fill="none">
+    <!-- 검색창 -->
+    <circle cx="74" cy="260" r="8" fill="#F5820A" opacity="0.20"/>
+    <circle cx="74" cy="260" r="4.5" fill="#F5820A"/>
+    <path d="M74 260 L109 227 L167 227" stroke="#F5820A" stroke-width="2.2"
+          stroke-linecap="round" stroke-linejoin="round"/>
+
+    <!-- 분야 필터 칩 -->
+    <circle cx="136" cy="311" r="8" fill="#F5820A" opacity="0.20"/>
+    <circle cx="136" cy="311" r="4.5" fill="#F5820A"/>
+    <path d="M136 311 L171 345 L227 345" stroke="#F5820A" stroke-width="2.2"
+          stroke-linecap="round" stroke-linejoin="round"/>
+
+    <!-- 목록 펼치기 -->
+    <circle cx="597" cy="438" r="8" fill="#F5820A" opacity="0.20"/>
+    <circle cx="597" cy="438" r="4.5" fill="#F5820A"/>
+    <path d="M597 438 L632 404 L688 404" stroke="#F5820A" stroke-width="2.2"
+          stroke-linecap="round" stroke-linejoin="round"/>
+  </svg>
+
+  <div class="cap" style="left:167px;top:227px;transform:translateY(-50%)">원하시는 서류를 이름으로 검색하시거나</div>
+  <div class="cap" style="left:227px;top:345px;transform:translateY(-50%)">아래에서 직접 선택해 주세요</div>
+  <div class="cap" style="left:688px;top:404px;transform:translateY(-50%)">클릭하면 상세선택 가능합니다</div>
+</div>
+</body></html>

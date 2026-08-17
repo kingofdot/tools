@@ -17,15 +17,21 @@ import sys
 from pathlib import Path
 from typing import Any, Optional
 
-ROOT = Path("d:/seodaeri/seodaeri-lambda")
+import os
+
+# 저장소 위치는 환경변수로 덮어쓸 수 있다 (기본값은 종전 하드코딩 경로).
+#   SEODAERI_ROOT  — data/waste/law_reference 의 상위 경로
+#   LAW_CACHE_DIR  — 국가법령정보 API 덤프(law_*.json) 디렉터리
+ROOT = Path(os.environ.get("SEODAERI_ROOT", "d:/seodaeri/seodaeri-lambda"))
 _BASE = ROOT / "data/waste/law_reference"
 OUT_MD = _BASE / "md자료"
 OUT_DATA = _BASE / "쓸자료"
 REF = OUT_DATA / "별표"
 
-API_LAW = json.loads(Path("d:/tmp/law_law_001771.json").read_text(encoding="utf-8"))
-API_DECREE = json.loads(Path("d:/tmp/law_decree_005353.json").read_text(encoding="utf-8"))
-API_RULE = json.loads(Path("d:/tmp/law_rule_008567.json").read_text(encoding="utf-8"))
+LAW_CACHE = Path(os.environ.get("LAW_CACHE_DIR", "d:/tmp"))
+API_LAW = json.loads((LAW_CACHE / "law_law_001771.json").read_text(encoding="utf-8"))
+API_DECREE = json.loads((LAW_CACHE / "law_decree_005353.json").read_text(encoding="utf-8"))
+API_RULE = json.loads((LAW_CACHE / "law_rule_008567.json").read_text(encoding="utf-8"))
 CODE_TABLE = json.loads((OUT_DATA / "상황코드_코드표.json").read_text(encoding="utf-8"))
 
 
@@ -49,6 +55,25 @@ def get_별표(api: dict, num: str, gaji: str = "00") -> Optional[dict]:
 
 def get_ref(category: str, name: str) -> dict:
     return json.loads((REF / category / name).read_text(encoding="utf-8"))
+
+
+def code_values(seg: dict) -> dict:
+    """코드표 세그먼트에서 코드→명칭 매핑을 꺼낸다.
+
+    현행 스키마는 seg["값"] 이 {코드: 명칭} dict 이고, 구버전 일부는 seg["값"] 이
+    코드 리스트 + seg["레이블"] 이 별도 dict 였다. 둘 다 받아 dict 로 정규화한다.
+    """
+    vals = seg.get("값")
+    labels = seg.get("레이블", {})
+    if isinstance(vals, dict):
+        return {c: (labels.get(c) or n) for c, n in vals.items()}
+    if isinstance(vals, (list, tuple)):
+        return {c: labels.get(c, "") for c in vals}
+    return dict(labels)
+
+
+def code_label(seg: dict, code: str) -> str:
+    return code_values(seg).get(code, "")
 
 
 def 조문_label(num: str, gaji: str) -> str:
@@ -355,7 +380,7 @@ def build_facilities_md() -> str:
             L.append("| 코드 | 시설명 |")
             L.append("|---|---|")
             for code in grp_codes:
-                label = ft.get("레이블", {}).get(code, "")
+                label = code_label(ft, code)
                 L.append(f"| `{code}` | {label} |")
             L.append("")
     return "\n".join(L)
@@ -395,10 +420,15 @@ def build_biz_md() -> str:
     L.append("")
     L.append("| 코드 | 의미 | 근거 |")
     L.append("|---|---|---|")
-    for code, label in cat.get("레이블", {}).items():
+    # 코드표 스키마는 "값"(구버전 일부는 "레이블")에 코드→의미 매핑을 둔다.
+    cat_values = cat.get("값") or cat.get("레이블") or {}
+    for code, label in cat_values.items():
         근거 = cat.get("근거_상세", {}).get(code, "")
         L.append(f"| `{code}` | {label} | {근거} |")
     L.append("")
+    if cat.get("비고"):
+        L.append(f"> {cat['비고']}")
+        L.append("")
 
     bt = ct.get("bizType", {})
     L.append(f"### bizType — {bt.get('설명','-')}")
@@ -415,13 +445,37 @@ def build_biz_md() -> str:
             labels = [f"`{c}`" for c in codes]
             L.append(f"| {cat_code} | {', '.join(labels)} |")
     L.append("")
-    if "레이블" in bt:
+
+    # bizType 레이블 — 구버전은 bt["레이블"], 현행 스키마는 카테고리별 dict 에 코드→명칭이 들어있다.
+    bt_labels = dict(bt.get("레이블", {}))
+    if not bt_labels:
+        for cat_code in ["W01", "W02", "W03", "W04", "W05"]:
+            codes = bt.get(cat_code, {})
+            if isinstance(codes, dict):
+                for code, name in codes.items():
+                    bt_labels.setdefault(f"{cat_code} · {code}", name)
+    if bt_labels:
         L.append("**bizType 레이블:**")
         L.append("")
         L.append("| 코드 | 명칭 |")
         L.append("|---|---|")
-        for code, name in bt["레이블"].items():
+        for code, name in bt_labels.items():
             L.append(f"| `{code}` | {name} |")
+        L.append("")
+
+    확장 = bt.get("확장규칙")
+    if 확장:
+        L.append("**종합업 확장규칙:**")
+        L.append("")
+        L.append(f"_{확장.get('설명','')}_")
+        L.append("")
+        L.append("| 상위 코드 | 상속하는 코드 |")
+        L.append("|---|---|")
+        for code, children in 확장.get("상속", {}).items():
+            L.append(f"| `{code}` | {', '.join(f'`{c}`' for c in children)} |")
+        L.append("")
+        if 확장.get("적용방향"):
+            L.append(f"> {확장['적용방향']}")
         L.append("")
 
     return "\n".join(L)
@@ -476,9 +530,10 @@ def build_methods_md() -> str:
         "FI": ("최종처분", "법 제2조 6호 \"처분\" — 매립·해역배출"),
         "RCY": ("재활용", "법 제2조 7호 — 재사용·재생이용·에너지회수"),
     }
+    ac_values = code_values(ac)
     for code, (name, src) in action_defs.items():
-        if code in ac.get("값", []):
-            L.append(f"| `{code}` | {name} | {src} |")
+        if code in ac_values:
+            L.append(f"| `{code}` | {ac_values[code] or name} | {src} |")
     L.append("")
 
     L.append("## 4. 매핑 — `rCode` (재활용 유형, 시행규칙 별표4의2)")
@@ -492,10 +547,17 @@ def build_methods_md() -> str:
     L.append("")
     L.append("| 코드 | 의미 |")
     L.append("|---|---|")
-    for code in rc.get("값", []):
-        label = rc.get("레이블", {}).get(code, "")
+    for code, label in code_values(rc).items():
         L.append(f"| `{code}` | {label} |")
     L.append("")
+    if rc.get("세부"):
+        L.append("**서브코드 (태그·자동판단용, 별표4의2 원형 표기):**")
+        L.append("")
+        L.append("| 서브코드 | 의미 |")
+        L.append("|---|---|")
+        for code, label in rc["세부"].items():
+            L.append(f"| `{code}` | {label} |")
+        L.append("")
     L.append("**세부 R 코드 — 시행규칙 별표4의2 원문 참조:**")
     L.append("")
     L.append("→ `쓸자료/별표/시행규칙/별표4의2_R코드정의.json`")
@@ -512,8 +574,7 @@ def build_methods_md() -> str:
     L.append("")
     L.append("| 코드 | 상태 |")
     L.append("|---|---|")
-    for code in ps.get("값", []):
-        label = ps.get("레이블", {}).get(code, "")
+    for code, label in code_values(ps).items():
         L.append(f"| `{code}` | {label} |")
     L.append("")
     return "\n".join(L)
