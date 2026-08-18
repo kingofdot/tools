@@ -47,8 +47,8 @@ WIDTH_GROUPS = {
     '섹션카드': ['갑지_01개요_marker', '갑지_02필요서류_marker', '갑지_03작성안내_marker'],
 }
 # STEP 컷과 같은 폭. 묶음 안에서 가장 넓은 컷보다 이 값이 크면 여기에 맞춘다.
-GROUP_WIDTH = 3001
-NORM_WIDTH = 3001
+GROUP_WIDTH = 2955
+NORM_WIDTH = 2955
 SHEET_BG = (255, 255, 255)
 
 CANDIDATES = [

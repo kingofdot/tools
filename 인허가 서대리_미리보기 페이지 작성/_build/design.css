@@ -78,8 +78,8 @@ body{background:var(--page);display:inline-block;padding:70px}
 .check .ck{flex:0 0 auto;width:9px;height:9px;border-radius:50%;background:var(--brand);margin-top:11px}
 
 /* ===== 섹션 박스 틀 (5개 파트 공용) ===== */
-.sbox{width:1080px;background:var(--card);border:1.5px solid var(--edge);border-radius:26px;
-  box-shadow:0 26px 60px -24px rgba(20,45,110,.28),0 3px 10px rgba(16,24,40,.05);overflow:hidden}
+.sbox{width:1080px;background:var(--card);border:1px solid var(--edge);border-radius:26px;
+  overflow:hidden}
 .sbox-head{display:flex;align-items:center;gap:22px;padding:32px 40px;
   background:var(--band);border-bottom:1px solid var(--line)}
 .sno{width:64px;height:64px;border-radius:18px;background:var(--brand);color:#fff;flex:0 0 auto;

@@ -1,4 +1,4 @@
-/* annotation-guide.css · 서류 폼 입력 안내(2안: 주황 박스 + 화살표 + 콜아웃) */
+<!doctype html><html lang="ko"><head><meta charset="utf-8"><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css"><style>/* annotation-guide.css · 서류 폼 입력 안내(2안: 주황 박스 + 화살표 + 콜아웃) */
 /* 폰트: Pretendard Variable 권장. 없으면 시스템 산세리프로 폴백. */
 
 .ag{--ag-ink:#0f172a;--ag-sub:#5b6779;--ag-line:#e2e8f0;--ag-edge:#C9D6EC;--ag-accent:#ea580c;--ag-accent-ink:#9a3412;--ag-accent-line:#fcd9bd;--ag-accent-chip:#fff3ea;
@@ -60,3 +60,21 @@
 .ag-co{position:absolute;background:#fff;border:1px solid var(--ag-accent-line);border-radius:9px;padding:9px 12px;box-shadow:0 2px 6px rgba(124,45,18,.07)}
 .ag-co h3{margin:0 0 3px;font-size:12.5px;font-weight:700;letter-spacing:-.01em;color:var(--ag-accent-ink)}
 .ag-co p{margin:0;font-size:12px;line-height:1.55;color:var(--ag-sub);text-wrap:pretty}
+
+.ag{width:1440px}
+.ag-head{padding:24px 30px 22px}
+.ag-head h2{font-size:22px}
+
+.ag-docs{display:flex;flex-wrap:wrap;gap:26px 22px;justify-content:center}
+.ag-doc{width:444px}
+.ag-doc .t{font-size:12.5px;font-weight:700;color:var(--ag-blue-ink);margin-bottom:8px;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ag-doc .s{border:1px solid var(--ag-line);border-radius:10px;overflow:hidden;background:#fff;
+  box-shadow:0 8px 20px -12px rgba(20,45,110,.30)}
+.ag-doc .s img{display:block;width:100%}
+.ag-note{display:flex;justify-content:center;margin-top:28px}
+.ag-note span{font-size:12.5px;font-weight:700;color:var(--ag-accent-ink);background:#fff;
+  border:1px solid var(--ag-accent-line);border-radius:9px;padding:8px 14px;
+  box-shadow:0 2px 6px rgba(124,45,18,.07)}
+
+html,body{margin:0;padding:36px;background:#fff}</style></head><body><div class="ag" data-section="s11"><div class="ag-head"><h2>결과물</h2><p>입력한 사업장 정보가 선택한 갑지에 그대로 채워져 나옵니다</p></div><div class="ag-panels" style="padding:26px 30px 30px"><div class="ag-docs"><div class="ag-doc"><div class="t">대기배출시설 설치신고</div><div class="s"><img src="file:///C:/Users/USER/OneDrive/바탕 화면/py/tools/인허가 서대리_미리보기 페이지 작성/갑지/결과물/_모자이크/예시1_대기배출시설 설치신고.png" alt=""></div></div><div class="ag-doc"><div class="t">폐수배출시설 설치신고</div><div class="s"><img src="file:///C:/Users/USER/OneDrive/바탕 화면/py/tools/인허가 서대리_미리보기 페이지 작성/갑지/결과물/_모자이크/예시5_폐수배출시설 설치신고.png" alt=""></div></div><div class="ag-doc"><div class="t">소음·진동배출시설 설치신고</div><div class="s"><img src="file:///C:/Users/USER/OneDrive/바탕 화면/py/tools/인허가 서대리_미리보기 페이지 작성/갑지/결과물/_모자이크/예시3_소음진동배출시설 설치신고.png" alt=""></div></div><div class="ag-doc"><div class="t">사업장폐기물배출자 신고</div><div class="s"><img src="file:///C:/Users/USER/OneDrive/바탕 화면/py/tools/인허가 서대리_미리보기 페이지 작성/갑지/결과물/_모자이크/예시2_사업장폐기물배출자(별지6호) 신고.png" alt=""></div></div><div class="ag-doc"><div class="t">폐기물중간재활용업 허가신청</div><div class="s"><img src="file:///C:/Users/USER/OneDrive/바탕 화면/py/tools/인허가 서대리_미리보기 페이지 작성/갑지/결과물/_모자이크/예시4_폐기물중간재활용업 허가신청.png" alt=""></div></div></div><div class="ag-note"><span>한 번 넣은 사업장 정보로 선택한 서류가 모두 함께 만들어집니다</span></div></div></div></body></html>
