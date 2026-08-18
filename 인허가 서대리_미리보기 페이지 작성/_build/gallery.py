@@ -29,7 +29,10 @@ PRETENDARD = ('<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncac
 
 
 def render(sec, *, root, work, out, tmp, chrome, card_w, css_override, per_row=3):
-    docs_dir = os.path.join(root, '갑지', '결과물')
+    # 모자이크 사본이 있으면 그쪽을 쓴다(개인정보 값이 가려진 판).
+    docs_dir = os.path.join(root, '갑지', '결과물', '_모자이크')
+    if not os.path.isdir(docs_dir):
+        docs_dir = os.path.join(root, '갑지', '결과물')
     w = (card_w - 62 - 22 * (per_row - 1)) // per_row
     css = (open(os.path.join(work, 'annotation-guide.css'), encoding='utf-8').read()
            + css_override + CSS % dict(w=w))
