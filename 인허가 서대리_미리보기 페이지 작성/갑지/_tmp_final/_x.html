@@ -43,6 +43,12 @@
   background:linear-gradient(95deg,var(--ag-fill-a),var(--ag-fill-b));
   box-shadow:0 0 9px 1px var(--ag-glow)}
 /* 번호는 알약이 아니라 **정원**. 좌우 패딩이 없어 자리를 덜 차지한다. */
+.ag-panels{position:relative}
+.ag-flow{position:absolute;left:0;top:0;pointer-events:none;overflow:visible}
+.ag-flow path{fill:none;stroke:var(--ag-accent);stroke-width:1.2;stroke-linecap:round;stroke-linejoin:round}
+.ag-flow polygon{fill:var(--ag-accent)}
+.ag-flowlab{position:absolute;transform:translate(-50%,-50%);white-space:nowrap;font-size:12px;font-weight:700;color:var(--ag-accent-ink);background:#fff;border:1px solid var(--ag-accent-line);border-radius:8px;padding:5px 10px;box-shadow:0 2px 6px rgba(124,45,18,.07)}
+.ag-dot{position:absolute;transform:translate(-50%,-50%);width:7px;height:7px;border-radius:50%;background:var(--ag-accent);box-shadow:0 0 0 5px rgba(234,88,12,.18)}
 .ag-num{position:absolute;transform:translate(-50%,-50%);width:16px;height:16px;padding:0;border-radius:50%;background:var(--ag-accent);color:#fff;font-size:9.5px;font-weight:800;line-height:1;display:flex;align-items:center;justify-content:center;box-shadow:0 0 0 1.5px #fff}
 
 /* 연결선 — 화살촉 없이 얇은 점선 곡선. 꺾인 직선 대신 3차 베지어 한 획. */
@@ -108,15 +114,20 @@ html,body{margin:0;padding:36px;background:#fff}</style></head><body><div id="ro
     const MID = IX + IW + 11, CX = IX + IW + GAP;
     const rows = toRows(sec, group, k);
     let cy = 0;
-    rows.forEach((r) => { // 콜아웃은 박스 세로 중심에 맞추고, 겹치면 아래로 밀어냄
-      r.ch = estH(r.f.desc, CPL);
-      const c = r.y + r.h / 2;
-      r.ct = Math.max(cy, Math.round(c - r.ch / 2));
-      cy = r.ct + r.ch + 10;
-    });
+    // 콜아웃 쌓는 순서. 기본은 번호순이지만 f.co 로 뒤집을 수 있다.
+    // 나란히 놓인 박스에서 왼쪽 것이 위 콜아웃에 붙으면 지시선이 오른쪽 박스를 가로지른다.
+    // 그때 왼쪽을 아래(co 큰 값)로 내리면 선이 서로 안 겹친다.
+    rows.slice().sort((a, b) => (a.f.co === undefined ? a.n : a.f.co)
+                              - (b.f.co === undefined ? b.n : b.f.co))
+      .forEach((r) => { // 콜아웃은 박스 세로 중심에 맞추고, 겹치면 아래로 밀어냄
+        r.ch = estH(r.f.desc, CPL);
+        const c = r.y + r.h / 2;
+        r.ct = Math.max(cy, Math.round(c - r.ch / 2));
+        cy = r.ct + r.ch + 10;
+      });
     // 항목별 여백(f.pad). 위아래로 맞붙은 박스는 0 을 주어 서로 겹치지 않게 한다.
     const P = (r) => (r.f.pad === undefined ? BP : r.f.pad);
-    const boxes = rows.map((r) => `<div class="ag-box" style="left:${r.x - P(r)}px;top:${r.y - P(r)}px;width:${r.w + P(r) * 2}px;height:${r.h + P(r) * 2}px"></div>`).join('');
+    const boxes = rows.map((r) => `<div class="ag-box" data-n="${r.n}" style="left:${r.x - P(r)}px;top:${r.y - P(r)}px;width:${r.w + P(r) * 2}px;height:${r.h + P(r) * 2}px"></div>`).join('');
     // 번호 위치는 f.np 로 항목별 재정의(맞붙은 박스는 'mid' 로 빼야 위 박스와 안 부딪친다).
     const nums = rows.map((r) => {
       const bx = IX + r.x - P(r), by = r.y - P(r);
@@ -126,6 +137,13 @@ html,body{margin:0;padding:36px;background:#fff}</style></head><body><div id="ro
         : { x: bx, y: by };                                    // 왼쪽 위 모서리 중심
       return `<div class="ag-num" style="left:${Math.round(p.x)}px;top:${Math.round(p.y)}px">${r.n}</div>`;
     }).join('');
+    // f.dots = [[x,y], ...] — 한 박스 안에서 '여기 여기 여기' 를 짚어 주는 점.
+    // 선택지가 여럿인 컨트롤은 칸마다 박스를 치는 대신 박스 하나 + 점으로 두는 게 덜 시끄럽다.
+    const dots = rows.flatMap((r) => (r.f.dots || []).map((d) => {
+      const dx = Math.round((d[0] - group.crop[0]) * k) + IB + IX;
+      const dy = Math.round((d[1] - group.crop[1]) * k) + IB;
+      return `<div class="ag-dot" style="left:${dx}px;top:${dy}px"></div>`;
+    })).join('');
     // 연결선: 박스 오른쪽 바깥 변 → 콜아웃 왼쪽 변. 양끝이 수평으로 붙는 S자 곡선.
     const stageH = Math.max(IH, cy), stageW = CX + CW;
     // 끝점 y 는 콜아웃의 '실제' 세로 중심이라야 한다. 여기서는 추정 높이로 한 번 그리고,
@@ -141,7 +159,7 @@ html,body{margin:0;padding:36px;background:#fff}</style></head><body><div id="ro
     }).join('');
     const wires = `<svg class="ag-wire" width="${stageW}" height="${stageH}" viewBox="0 0 ${stageW} ${stageH}">${paths}</svg>`;
     const cos = rows.map((r) => `<div class="ag-co" style="left:${CX}px;top:${r.ct}px;width:${CW}px"><h3>${r.n}. ${esc(r.f.title)}</h3><p>${esc(r.f.desc)}</p></div>`).join('');
-    return panelShell(sec, group, gi, stageH, stageW, IX, IW, boxes, nums, wires, cos);
+    return panelShell(sec, group, gi, stageH, stageW, IX, IW, boxes + dots, nums, wires, cos);
   }
 
   function belowPanel(sec, group, gi) {
@@ -184,7 +202,9 @@ html,body{margin:0;padding:36px;background:#fff}</style></head><body><div id="ro
     const panels = sec.g.map((g, gi) => (g.mode === 'below' ? belowPanel(sec, g, gi) : sidePanel(sec, g, gi))).join('');
     return `<div class="ag" data-section="${sec.key}">`
       + `<div class="ag-head"><span class="ag-step">${sec.step}</span><h2>${esc(sec.title)}</h2><p>${esc(sec.sub)}</p></div>`
-      + `<div class="ag-panels">${panels}</div></div>`;
+      + `<div class="ag-panels">${panels}`
+      + (sec.flow && sec.flow.length ? `<svg class="ag-flow"></svg>` : '')
+      + `</div></div>`;
   }
 
   /* 렌더 직후 한 번 호출한다. 콜아웃의 실제 높이를 재서 연결선 끝점을
@@ -203,10 +223,53 @@ html,body{margin:0;padding:36px;background:#fff}</style></head><body><div id="ro
     });
   }
 
+  /* 패널을 가로지르는 흐름 화살표. sec.flow = [{from, to, text}] (from·to 는 박스 번호).
+     "여기서 체크하면 → 저기에 담긴다" 처럼 서로 다른 패널의 두 박스를 잇는다.
+     콜아웃 지시선과 달리 실선 + 화살촉이라 '이동'으로 읽힌다. */
+  function fixFlows(root, sec) {
+    if (!sec || !sec.flow || !sec.flow.length) return;
+    const wrap = (root || document).querySelector('.ag-panels');
+    const svg = wrap && wrap.querySelector('.ag-flow');
+    if (!svg) return;
+    const W = wrap.offsetWidth, H = wrap.offsetHeight;
+    svg.setAttribute('width', W); svg.setAttribute('height', H);
+    svg.setAttribute('viewBox', `0 0 ${W} ${H}`);
+    const base = wrap.getBoundingClientRect();
+    const at = (n) => {
+      const el = wrap.querySelector(`.ag-box[data-n="${n}"]`);
+      if (!el) return null;
+      const b = el.getBoundingClientRect();
+      return { l: b.left - base.left, t: b.top - base.top, w: b.width, h: b.height };
+    };
+    let out = '';
+    wrap.querySelectorAll('.ag-flowlab').forEach((e) => e.remove());
+    sec.flow.forEach((f) => {
+      const a = at(f.from), z = at(f.to);
+      if (!a || !z) return;
+      // 시작: 위 박스 아래 변에서 오른쪽으로 치우친 지점. 끝: 아래 박스 위 변 가운데.
+      const sx = Math.round(a.l + a.w * (f.fx === undefined ? 0.72 : f.fx));
+      const sy = Math.round(a.t + a.h + 4);
+      const ex = Math.round(z.l + z.w / 2), ey = Math.round(z.t - 12);
+      const k = Math.max(40, (ey - sy) * 0.45);
+      out += `<path d="M${sx} ${sy} C ${sx} ${sy + k}, ${ex} ${ey - k}, ${ex} ${ey}"/>`;
+      out += `<polygon points="${ex},${ey + 7} ${ex - 3.6},${ey - 2} ${ex + 3.6},${ey - 2}"/>`;
+      if (f.text) {
+        const d = document.createElement('div');
+        d.className = 'ag-flowlab';
+        d.textContent = f.text;
+        d.style.left = Math.round((sx + ex) / 2) + 'px';
+        d.style.top = Math.round((sy + ey) / 2) + 'px';
+        wrap.appendChild(d);
+      }
+    });
+    svg.innerHTML = out;
+  }
+
+  global.AG_fixFlows = fixFlows;
   global.renderGuideSection = renderGuideSection;
   global.AG_fixWires = fixWires;
   global.AG_LAYOUT = LAYOUT;
   global.AG_NUM = NUM;
 })(typeof window !== 'undefined' ? window : globalThis);
 </script>
-<script>AG_LAYOUT.side.IW=940;AG_LAYOUT.side.GAP=26;AG_LAYOUT.side.CW=412;AG_LAYOUT.side.IX=0;AG_LAYOUT.side.CPL=43;document.getElementById("root").innerHTML=renderGuideSection({"key": "s10", "src": "갑지생성12.png", "scale": 1, "step": "STEP 10", "title": "생성 · 다운로드", "sub": "서류를 만드는 동안 잠시 기다리시면 됩니다", "f": [{"b": [1124, 42, 92, 47], "title": "처리 중", "desc": "서류를 만드는 동안 상태가 [처리 중] 으로 표시됩니다."}, {"b": [1116, 48, 100, 45], "src": "갑지생성12-1.png", "title": "생성 완료", "desc": "다 만들어지면 [생성 완료] 로 바뀝니다."}, {"b": [1071, 208, 144, 56], "src": "갑지생성12-1.png", "wire": "bottom", "title": "눌러서 받으세요", "desc": "만들어진 서류는 3일간 보관됩니다. 그 안에 내려받아 주세요."}], "g": [{"f": [0], "label": "만드는 중", "crop": [0, 26, 1252, 79], "mode": "side", "img": "s10-1.png"}, {"f": [1, 2], "label": "완료 · 내려받기", "src": "갑지생성12-1.png", "crop": [0, 32, 1245, 246], "mode": "side", "img": "s10-2.png"}], "cw": 1252, "ch": 243, "imgBase": "file:///D:/dev/tools/인허가 서대리_미리보기 페이지 작성/갑지/자료/화면캡처/미리보기_갑지_최종/img/"});AG_fixWires();</script></body></html>
+<script>AG_LAYOUT.side.IW=940;AG_LAYOUT.side.GAP=26;AG_LAYOUT.side.CW=412;AG_LAYOUT.side.IX=0;AG_LAYOUT.side.CPL=43;const DATA={"key": "s10", "src": "갑지생성12.png", "scale": 1, "step": "STEP 10", "title": "생성 · 다운로드", "sub": "서류를 만드는 동안 잠시 기다리시면 됩니다", "f": [{"b": [1124, 42, 92, 47], "title": "처리 중", "desc": "서류를 만드는 동안 상태가 [처리 중] 으로 표시됩니다."}, {"b": [1116, 48, 100, 45], "src": "갑지생성12-1.png", "title": "생성 완료", "desc": "다 만들어지면 [생성 완료] 로 바뀝니다."}, {"b": [1071, 208, 144, 56], "src": "갑지생성12-1.png", "wire": "bottom", "title": "눌러서 받으세요", "desc": "만들어진 서류는 3일간 보관됩니다. 그 안에 내려받아 주세요."}], "g": [{"f": [0], "label": "만드는 중", "crop": [0, 2, 1252, 105], "mode": "side", "img": "s10-1.png"}, {"f": [1, 2], "label": "완료 · 내려받기", "src": "갑지생성12-1.png", "crop": [0, 8, 1245, 282], "mode": "side", "img": "s10-2.png"}], "cw": 1252, "ch": 243, "imgBase": "file:///C:/Users/USER/OneDrive/바탕 화면/py/tools/인허가 서대리_미리보기 페이지 작성/갑지/자료/화면캡처/미리보기_갑지_최종/img/"};document.getElementById("root").innerHTML=renderGuideSection(DATA);AG_fixWires();AG_fixFlows(document, DATA);</script></body></html>

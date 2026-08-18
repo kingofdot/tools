@@ -47,15 +47,20 @@
     const MID = IX + IW + 11, CX = IX + IW + GAP;
     const rows = toRows(sec, group, k);
     let cy = 0;
-    rows.forEach((r) => { // 콜아웃은 박스 세로 중심에 맞추고, 겹치면 아래로 밀어냄
-      r.ch = estH(r.f.desc, CPL);
-      const c = r.y + r.h / 2;
-      r.ct = Math.max(cy, Math.round(c - r.ch / 2));
-      cy = r.ct + r.ch + 10;
-    });
+    // 콜아웃 쌓는 순서. 기본은 번호순이지만 f.co 로 뒤집을 수 있다.
+    // 나란히 놓인 박스에서 왼쪽 것이 위 콜아웃에 붙으면 지시선이 오른쪽 박스를 가로지른다.
+    // 그때 왼쪽을 아래(co 큰 값)로 내리면 선이 서로 안 겹친다.
+    rows.slice().sort((a, b) => (a.f.co === undefined ? a.n : a.f.co)
+                              - (b.f.co === undefined ? b.n : b.f.co))
+      .forEach((r) => { // 콜아웃은 박스 세로 중심에 맞추고, 겹치면 아래로 밀어냄
+        r.ch = estH(r.f.desc, CPL);
+        const c = r.y + r.h / 2;
+        r.ct = Math.max(cy, Math.round(c - r.ch / 2));
+        cy = r.ct + r.ch + 10;
+      });
     // 항목별 여백(f.pad). 위아래로 맞붙은 박스는 0 을 주어 서로 겹치지 않게 한다.
     const P = (r) => (r.f.pad === undefined ? BP : r.f.pad);
-    const boxes = rows.map((r) => `<div class="ag-box" style="left:${r.x - P(r)}px;top:${r.y - P(r)}px;width:${r.w + P(r) * 2}px;height:${r.h + P(r) * 2}px"></div>`).join('');
+    const boxes = rows.map((r) => `<div class="ag-box" data-n="${r.n}" style="left:${r.x - P(r)}px;top:${r.y - P(r)}px;width:${r.w + P(r) * 2}px;height:${r.h + P(r) * 2}px"></div>`).join('');
     // 번호 위치는 f.np 로 항목별 재정의(맞붙은 박스는 'mid' 로 빼야 위 박스와 안 부딪친다).
     const nums = rows.map((r) => {
       const bx = IX + r.x - P(r), by = r.y - P(r);
@@ -65,6 +70,13 @@
         : { x: bx, y: by };                                    // 왼쪽 위 모서리 중심
       return `<div class="ag-num" style="left:${Math.round(p.x)}px;top:${Math.round(p.y)}px">${r.n}</div>`;
     }).join('');
+    // f.dots = [[x,y], ...] — 한 박스 안에서 '여기 여기 여기' 를 짚어 주는 점.
+    // 선택지가 여럿인 컨트롤은 칸마다 박스를 치는 대신 박스 하나 + 점으로 두는 게 덜 시끄럽다.
+    const dots = rows.flatMap((r) => (r.f.dots || []).map((d) => {
+      const dx = Math.round((d[0] - group.crop[0]) * k) + IB + IX;
+      const dy = Math.round((d[1] - group.crop[1]) * k) + IB;
+      return `<div class="ag-dot" style="left:${dx}px;top:${dy}px"></div>`;
+    })).join('');
     // 연결선: 박스 오른쪽 바깥 변 → 콜아웃 왼쪽 변. 양끝이 수평으로 붙는 S자 곡선.
     const stageH = Math.max(IH, cy), stageW = CX + CW;
     // 끝점 y 는 콜아웃의 '실제' 세로 중심이라야 한다. 여기서는 추정 높이로 한 번 그리고,
@@ -80,7 +92,7 @@
     }).join('');
     const wires = `<svg class="ag-wire" width="${stageW}" height="${stageH}" viewBox="0 0 ${stageW} ${stageH}">${paths}</svg>`;
     const cos = rows.map((r) => `<div class="ag-co" style="left:${CX}px;top:${r.ct}px;width:${CW}px"><h3>${r.n}. ${esc(r.f.title)}</h3><p>${esc(r.f.desc)}</p></div>`).join('');
-    return panelShell(sec, group, gi, stageH, stageW, IX, IW, boxes, nums, wires, cos);
+    return panelShell(sec, group, gi, stageH, stageW, IX, IW, boxes + dots, nums, wires, cos);
   }
 
   function belowPanel(sec, group, gi) {
@@ -123,7 +135,9 @@
     const panels = sec.g.map((g, gi) => (g.mode === 'below' ? belowPanel(sec, g, gi) : sidePanel(sec, g, gi))).join('');
     return `<div class="ag" data-section="${sec.key}">`
       + `<div class="ag-head"><span class="ag-step">${sec.step}</span><h2>${esc(sec.title)}</h2><p>${esc(sec.sub)}</p></div>`
-      + `<div class="ag-panels">${panels}</div></div>`;
+      + `<div class="ag-panels">${panels}`
+      + (sec.flow && sec.flow.length ? `<svg class="ag-flow"></svg>` : '')
+      + `</div></div>`;
   }
 
   /* 렌더 직후 한 번 호출한다. 콜아웃의 실제 높이를 재서 연결선 끝점을
@@ -142,6 +156,49 @@
     });
   }
 
+  /* 패널을 가로지르는 흐름 화살표. sec.flow = [{from, to, text}] (from·to 는 박스 번호).
+     "여기서 체크하면 → 저기에 담긴다" 처럼 서로 다른 패널의 두 박스를 잇는다.
+     콜아웃 지시선과 달리 실선 + 화살촉이라 '이동'으로 읽힌다. */
+  function fixFlows(root, sec) {
+    if (!sec || !sec.flow || !sec.flow.length) return;
+    const wrap = (root || document).querySelector('.ag-panels');
+    const svg = wrap && wrap.querySelector('.ag-flow');
+    if (!svg) return;
+    const W = wrap.offsetWidth, H = wrap.offsetHeight;
+    svg.setAttribute('width', W); svg.setAttribute('height', H);
+    svg.setAttribute('viewBox', `0 0 ${W} ${H}`);
+    const base = wrap.getBoundingClientRect();
+    const at = (n) => {
+      const el = wrap.querySelector(`.ag-box[data-n="${n}"]`);
+      if (!el) return null;
+      const b = el.getBoundingClientRect();
+      return { l: b.left - base.left, t: b.top - base.top, w: b.width, h: b.height };
+    };
+    let out = '';
+    wrap.querySelectorAll('.ag-flowlab').forEach((e) => e.remove());
+    sec.flow.forEach((f) => {
+      const a = at(f.from), z = at(f.to);
+      if (!a || !z) return;
+      // 시작: 위 박스 아래 변에서 오른쪽으로 치우친 지점. 끝: 아래 박스 위 변 가운데.
+      const sx = Math.round(a.l + a.w * (f.fx === undefined ? 0.72 : f.fx));
+      const sy = Math.round(a.t + a.h + 4);
+      const ex = Math.round(z.l + z.w / 2), ey = Math.round(z.t - 12);
+      const k = Math.max(40, (ey - sy) * 0.45);
+      out += `<path d="M${sx} ${sy} C ${sx} ${sy + k}, ${ex} ${ey - k}, ${ex} ${ey}"/>`;
+      out += `<polygon points="${ex},${ey + 7} ${ex - 3.6},${ey - 2} ${ex + 3.6},${ey - 2}"/>`;
+      if (f.text) {
+        const d = document.createElement('div');
+        d.className = 'ag-flowlab';
+        d.textContent = f.text;
+        d.style.left = Math.round((sx + ex) / 2) + 'px';
+        d.style.top = Math.round((sy + ey) / 2) + 'px';
+        wrap.appendChild(d);
+      }
+    });
+    svg.innerHTML = out;
+  }
+
+  global.AG_fixFlows = fixFlows;
   global.renderGuideSection = renderGuideSection;
   global.AG_fixWires = fixWires;
   global.AG_LAYOUT = LAYOUT;
