@@ -48,7 +48,7 @@ PADY = 40              # crop 위·아래 최소 여백(섹션 좌표). 패널�
 #   따라서 탐색 범위가 카드 바깥까지 닿을 만큼 넉넉해야 후보를 찾는다.
 
 # ── 섹션 정의 ──────────────────────────────────────────────────────
-#   b   : 시드 박스 [x,y,w,h] — 소스의 CSS 좌표. 스냅으로 보정된다.
+#   b   : 시드 박스 [x,y,w,h] · 소스의 CSS 좌표. 스냅으로 보정된다.
 #   g   : 패널 = 항목 인덱스 묶음 + 라벨
 S = [
  dict(key='s01', src='test_2.png', step='STEP 01', title='서류 선택',
@@ -81,7 +81,7 @@ S = [
       # 목록에서 체크한 것이 오른쪽 담은 목록으로 넘어간다는 흐름을 화살표로 잇는다.
       flow=[dict(**{'from': 1, 'to': 2, 'text': '체크하면 바로 담깁니다'})]),
 
- dict(key='s03', src='test_3.png', step='STEP 03', title='사업장 정보 — 기본',
+ dict(key='s03', src='test_3.png', step='STEP 03', title='사업장 정보 · 기본',
       sub='선택한 모든 서류에 공통으로 기재되는 정보입니다',
       # 개인(왼쪽) 콜아웃을 위에 두면 지시선이 법인 박스를 가로지른다 → co 로 아래에 배치
       f=[dict(b=[38, 312, 730, 58], wire='bottom', co=2, title='개인 선택',
@@ -103,7 +103,7 @@ S = [
          dict(f=[3], label='법인 · 법인등록번호', src='갑지생성5.png', scale=1,
               ycrop=(445, 629))]),
 
- dict(key='s04', src='test_3.png', step='STEP 04', title='사업장 정보 — 주소 · 연락처',
+ dict(key='s04', src='test_3.png', step='STEP 04', title='사업장 정보 · 주소와 연락처',
       sub='주소는 검색으로 넣고, 여러 곳이면 칸을 늘립니다',
       f=[dict(b=[1400, 976, 110, 26], title='주소 추가',
               desc='사업장 주소가 여러 곳이면 칸을 늘릴 수 있습니다.'),
@@ -115,7 +115,7 @@ S = [
          # 칸만 보이면 무슨 번호를 넣는지 모른다. 머리와 휴대폰 칸까지 함께 넣는다.
          dict(f=[2], label='연락처', ycrop=(1192, 1414))]),
 
- dict(key='s05', src='test_3.png', step='STEP 05', title='사업장 정보 — 업종',
+ dict(key='s05', src='test_3.png', step='STEP 05', title='사업장 정보 · 업종',
       sub='코드 앞자리만 넣으면 목록에서 골라 분류명까지 한 번에 채워집니다',
       # 코드(왼쪽) 콜아웃을 위에 두면 지시선이 분류명 박스를 가로지른다 → co 로 아래에 배치
       # 업종 추가 버튼과 코드·분류명 칸은 같은 카드라 한 장으로 묶는다.
@@ -297,7 +297,7 @@ def build_section(sec, ratio_cache):
         ratio_cache[ck] = bg_rows(np.asarray(im).astype(int)[:, x0 * SRC_SCALE:x1 * SRC_SCALE])
     ratio = ratio_cache[ck]
 
-    print('■ %s %s — %s (%dx%d CSS · 가로 %d~%d)'
+    print('■ %s %s · %s (%dx%d CSS · 가로 %d~%d)'
           % (sec['step'], sec['title'], sec['src'], cw, ch, x0, x1))
 
     # 1) 시드 → 스냅 (소스 픽셀 좌표에서 수행하고 CSS 로 되돌린다)
@@ -313,7 +313,7 @@ def build_section(sec, ratio_cache):
                                 search=9 * SRC_SCALE, pad=0)
         nb = [round(sx / SRC_SCALE), round(sy / SRC_SCALE),
               round(sw / SRC_SCALE), round(sh / SRC_SCALE)]
-        # grow=(dx,dy) — 스냅이 대상에 딱 붙인 뒤 사면 여백을 따로 벌린다.
+        # grow=(dx,dy) · 스냅이 대상에 딱 붙인 뒤 사면 여백을 따로 벌린다.
         # 여러 요소를 한 박스로 묶을 때 좌우 여백만 넓고 위아래가 붙어 보이는 걸 맞춘다.
         gx, gy = f.get('grow', (0, 0))
         nb = [nb[0] - gx, nb[1] - gy, nb[2] + gx * 2, nb[3] + gy * 2]
@@ -339,7 +339,7 @@ def build_section(sec, ratio_cache):
                 print('   ! %s ↔ %s 간격 %dpx → 여백 0, %s 번호는 중앙'
                       % (A['title'], B['title'], gap, B['title']))
 
-    # 2) 패널 crop — 항목 범위 + 여백, 위아래를 배경 행에 스냅
+    # 2) 패널 crop · 항목 범위 + 여백, 위아래를 배경 행에 스냅
     for gi, g in enumerate(sec['g'], 1):
         gim = open_src(g['src']) if g.get('src') else im
         SRC_SCALE = g.get('scale', sec.get('scale', 2))
@@ -402,7 +402,7 @@ def render(sec):
     os.makedirs(TMP, exist_ok=True)
     p = os.path.join(TMP, '_x.html')
     open(p, 'w', encoding='utf-8').write(html)
-    # 업로드용 — 파일명은 순번 ASCII 로만. 한글이 들어가면 인코딩 문제가 난다.
+    # 업로드용 · 파일명은 순번 ASCII 로만. 한글이 들어가면 인코딩 문제가 난다.
     dst = os.path.join(OUT, 'step%02d.png' % int(sec['key'][1:]))
     subprocess.run([CHROME, '--headless', '--disable-gpu', '--hide-scrollbars',
                     '--force-device-scale-factor=2', '--virtual-time-budget=20000',

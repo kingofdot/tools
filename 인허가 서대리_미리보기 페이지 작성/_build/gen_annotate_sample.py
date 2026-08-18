@@ -18,8 +18,8 @@ sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8')
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(HERE)
 ANN = os.path.join(ROOT, '갑지', '자료', '화면캡처', 'annotate')
-HAND = os.path.join(ANN, 'handoff')          # 받은 원본 — 건드리지 않는다
-WORK = os.path.join(ANN, 'work')             # 수정본 — 있으면 이쪽을 쓴다
+HAND = os.path.join(ANN, 'handoff')          # 받은 원본 · 건드리지 않는다
+WORK = os.path.join(ANN, 'work')             # 수정본 · 있으면 이쪽을 쓴다
 SRC = WORK if os.path.exists(os.path.join(WORK, 'annotation-guide.js')) else HAND
 OUT = os.path.join(ANN, '샘플')
 TMP = os.path.join(ROOT, '갑지', '_tmp_annotate')
@@ -36,7 +36,7 @@ SIDE = dict(IW=600, GAP=22, CW=326, IX=0, CPL=34)
 
 def verify(sec):
     """데이터가 스스로 모순되지 않는지 확인한다. 눈으로 보기 전에 숫자로 거른다."""
-    print('■ %s %s — 섹션 좌표계 %dx%d · 항목 %d · 패널 %d'
+    print('■ %s %s · 섹션 좌표계 %dx%d · 항목 %d · 패널 %d'
           % (sec['step'], sec['title'], sec['cw'], sec['ch'], len(sec['f']), len(sec['g'])))
     inner = CARD_W - 2 - PANEL_PAD * 2
     bad = 0
@@ -69,7 +69,7 @@ def verify(sec):
     return bad
 
 
-# 번호 표기 변형 — (파일명 꼬리, 렌더 전 JS, 덧붙일 CSS)
+# 번호 표기 변형 · (파일명 꼬리, 렌더 전 JS, 덧붙일 CSS)
 VARIANTS = {
     '': ('', '', ''),
     'outside': ('_숫자바깥', 'AG_NUM.place="outside";', ''),

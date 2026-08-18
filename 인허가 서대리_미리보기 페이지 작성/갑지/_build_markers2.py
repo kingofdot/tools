@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-r"""마커컷2 생성 — 강조박스를 대상에 균일하게 물리고, 라벨 글씨를 한 크기로 통일한다.
+r"""마커컷2 생성 · 강조박스를 대상에 균일하게 물리고, 라벨 글씨를 한 크기로 통일한다.
 
 기존 마커컷의 문제
   · 강조박스를 눈대중으로 찍어 대상과의 여백이 컷마다 제각각이었다.
@@ -29,8 +29,8 @@ SHOTS = os.path.join(HERE, '자료', '화면캡처')
 OUT = os.path.join(SHOTS, '마커컷2')
 TMP = os.path.join(HERE, '_tmp_markers2')
 
-PAD = 2               # 대상 바깥 여백(px) — 전 컷 공통
-FONT_PX = 16          # 라벨 글씨 크기 — 전 컷 공통
+PAD = 2               # 대상 바깥 여백(px) · 전 컷 공통
+FONT_PX = 16          # 라벨 글씨 크기 · 전 컷 공통
 # 컷별로 글씨 크기를 다르게 주고 싶을 때 여기에 적는다. 없으면 FONT_PX(공통)를 쓴다.
 #   예) '갑지생성1_marker': 18
 FONT_OVERRIDE = {'갑지생성1_marker': 12}
@@ -250,7 +250,7 @@ def build(flow, name):
 
     dst = os.path.join(OUT, name + '.png')
     im = shoot(final, dst, scale=2)
-    # 시트 배경 여백 잘라내기 — 배경색은 파일마다 달라서 모서리 픽셀에서 직접 읽는다
+    # 시트 배경 여백 잘라내기 · 배경색은 파일마다 달라서 모서리 픽셀에서 직접 읽는다
     a = np.asarray(im).astype(int)
     # 배경색은 파일마다 다르다(흰색이거나 연회색 시트). 가장 많은 색을 배경으로 본다.
     vals, cnt = np.unique(a.reshape(-1, 3), axis=0, return_counts=True)
@@ -314,7 +314,7 @@ def write_record(recs, partial=False):
                   '라벨안쪽여백': '4px 9px', '라벨모서리': '10px', '라벨테두리': '1.6px',
                   '강조박스테두리': '2.2px', '강조박스모서리': '9px',
                   '폭통일': ('전량 생성 시 가장 넓은 컷에 맞춰 좌우 여백만 채움'
-                            if NORMALIZE else '끔 — 컷마다 내용에 맞춰 꽉 자름')},
+                            if NORMALIZE else '끔 · 컷마다 내용에 맞춰 꽉 자름')},
           '컷': recs}
     mode = 'a' if partial else 'w'
     with open(os.path.join(OUT, '_기록.json'), 'w', encoding='utf-8') as f:

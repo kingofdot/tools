@@ -24,7 +24,7 @@ head = head.replace('</head>', '<style>body{background:#FFFFFF;padding:30px}</st
 
 marks = [(m.start(), m.group(1)) for m in re.finditer(r'<!--\s*(\d{2})\s', body)]
 if not marks:
-    sys.exit('섹션 주석(<!-- 01 … -->)을 찾지 못했습니다.')
+    sys.exit('섹션 주석(<!-- 01 ... -->)을 찾지 못했습니다.')
 
 # 웹 페이지에 이미 '01 개요' 같은 제목이 있으므로, 카드 안의 헤더 밴드는 뺀다
 HEAD_RE = re.compile(r'\s*<div class="sbox-head">.*?</div>\s*</div>', re.S)

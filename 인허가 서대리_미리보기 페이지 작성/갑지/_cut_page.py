@@ -7,7 +7,7 @@ r"""전체 페이지 캡처 한 장을 카드 단위로 잘라낸다.
   python _cut_page.py 자료/화면캡처/test.png
   python _cut_page.py 자료/화면캡처/test.png --out 자료/화면캡처/test_컷 --margin 12
 
-결과 파일 이름은 `<원본>_1.png` … 순서대로. 잘린 카드를 마커컷 flow 에서
+결과 파일 이름은 `<원본>_1.png` ... 순서대로. 잘린 카드를 마커컷 flow 에서
 `<img>` 로 그대로 물려 쓰면 된다(원본은 건드리지 않는다).
 """
 import io, os, sys

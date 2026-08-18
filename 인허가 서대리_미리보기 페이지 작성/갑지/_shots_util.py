@@ -21,7 +21,7 @@ def unify(folder, margin=44, pattern='*.png'):
     """폴더 안 컷들을 한 캔버스 크기로 맞춘다.
 
     먼저 흰 여백을 걷어낸 뒤 다시 채우므로 몇 번 돌려도 결과가 같다.
-    리사이즈는 하지 않는다 — 나란히 놓고 볼 때 글씨가 같은 크기로 보여야 한다.
+    리사이즈는 하지 않는다 · 나란히 놓고 볼 때 글씨가 같은 크기로 보여야 한다.
     """
     paths = sorted(p for p in _glob.glob(os.path.join(folder, pattern))
                    if not os.path.basename(p).startswith('_'))

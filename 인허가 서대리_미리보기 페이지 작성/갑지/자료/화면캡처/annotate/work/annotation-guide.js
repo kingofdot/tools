@@ -1,4 +1,4 @@
-/* annotation-guide.js — 데이터(JSON) → 주석 패널 HTML 렌더러. 의존성 없음.
+/* annotation-guide.js · 데이터(JSON) → 주석 패널 HTML 렌더러. 의존성 없음.
    사용: renderGuideSection(sectionData) → HTML 문자열
    좌표계: 모든 박스 b=[x,y,w,h]는 "섹션 원본 스크린샷" 좌표(cw × ch) 기준.
            패널 이미지는 섹션 스크린샷을 crop=[x,y,w,h]로 잘라낸 것.
@@ -12,7 +12,7 @@
     below: { IW: 940, CW: 226, LANE: 24, CPL: 22 },       // 가로로 나열된 항목 → 콜아웃 아래
   };
   const BP = 2;   // 박스를 대상 바깥으로 띄우는 여백(px). 사면 동일.
-  const IB = 1;   // .ag-img img 의 1px 테두리 — 스크린샷 원점이 그만큼 밀린다.
+  const IB = 1;   // .ag-img img 의 1px 테두리 · 스크린샷 원점이 그만큼 밀린다.
   // 번호 위치: 'corner' = 박스 왼쪽 위 모서리 중심, 'outside' = 박스 왼쪽 바깥(위 정렬)
   const NUM = { place: 'corner', gap: 6, w: 22 };
   const esc = (s) => String(s).replace(/[&<>]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;' }[c]));
@@ -70,7 +70,7 @@
         : { x: bx, y: by };                                    // 왼쪽 위 모서리 중심
       return `<div class="ag-num" style="left:${Math.round(p.x)}px;top:${Math.round(p.y)}px">${r.n}</div>`;
     }).join('');
-    // f.dots = [[x,y], ...] — 한 박스 안에서 '여기 여기 여기' 를 짚어 주는 체크 표시.
+    // f.dots = [[x,y], ...] · 한 박스 안에서 '여기 여기 여기' 를 짚어 주는 체크 표시.
     // 선택지가 여럿인 컨트롤은 칸마다 박스를 치는 대신 박스 하나 + 점으로 두는 게 덜 시끄럽다.
     const dots = rows.flatMap((r) => (r.f.dots || []).map((d) => {
       const dx = Math.round((d[0] - group.crop[0]) * k) + IB + IX;

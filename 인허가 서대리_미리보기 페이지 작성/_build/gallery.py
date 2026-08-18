@@ -72,6 +72,6 @@ def render(sec, *, root, work, out, tmp, chrome, card_w, css_override, per_row=3
         img = img.crop((max(0, xs.min() - pad), max(0, ys.min() - pad),
                         min(img.width, xs.max() + pad), min(img.height, ys.max() + pad)))
         img.save(dst)
-    print('■ %s %s — 서류 %d장 → %s  %dx%d'
+    print('■ %s %s · 서류 %d장 → %s  %dx%d'
           % (sec['step'], sec['title'], len(sec['docs']),
              os.path.basename(dst), img.width, img.height))
