@@ -40,13 +40,16 @@ def render(sec, *, root, work, out, tmp, chrome, card_w, css_override, per_row=3
         cells.append('<div class="ag-doc"><div class="t">%s</div>'
                      '<div class="s"><img src="file:///%s" alt=""></div></div>' % (tag, src))
 
-    body = ('<div class="ag" data-section="%s">'
-            '<div class="ag-head"><span class="ag-step">%s</span><h2>%s</h2><p>%s</p></div>'
+    # 결과물 컷은 서류마다 제목이 따로 붙어 단계 번호가 겹친다. step 이 비면 칩을 안 그린다.
+    chip = ('<span class="ag-step">%s</span>' % sec['step']) if sec.get('step') else ''
+    head = ('<div class="ag-head">%s<h2>%s</h2><p>%s</p></div>'
+            % (chip, sec['title'], sec['sub']))
+    body = ('<div class="ag" data-section="%s">%s'
             '<div class="ag-panels" style="padding:26px 30px 30px">'
             '<div class="ag-docs">%s</div>'
             '<div class="ag-note"><span>%s</span></div>'
             '</div></div>'
-            % (sec['key'], sec['step'], sec['title'], sec['sub'], ''.join(cells), sec['note']))
+            % (sec['key'], head, ''.join(cells), sec['note']))
 
     html = ('<!doctype html><html lang="ko"><head><meta charset="utf-8">' + PRETENDARD
             + '<style>' + css + '\nhtml,body{margin:0;padding:36px;background:#fff}</style>'
@@ -72,6 +75,6 @@ def render(sec, *, root, work, out, tmp, chrome, card_w, css_override, per_row=3
         img = img.crop((max(0, xs.min() - pad), max(0, ys.min() - pad),
                         min(img.width, xs.max() + pad), min(img.height, ys.max() + pad)))
         img.save(dst)
-    print('■ %s %s · 서류 %d장 → %s  %dx%d'
-          % (sec['step'], sec['title'], len(sec['docs']),
+    print('■ %s · 서류 %d장 → %s  %dx%d'
+          % (sec['title'], len(sec['docs']),
              os.path.basename(dst), img.width, img.height))
