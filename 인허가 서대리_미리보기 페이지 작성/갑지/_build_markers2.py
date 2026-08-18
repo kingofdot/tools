@@ -26,7 +26,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(HERE)
 BUILD = os.path.join(ROOT, '_build')
 SHOTS = os.path.join(HERE, '자료', '화면캡처')
-OUT = os.path.join(SHOTS, '마커컷2')
+OUT = os.path.join(SHOTS, '미리보기_갑지_최종', '_섹션카드')
 TMP = os.path.join(HERE, '_tmp_markers2')
 
 PAD = 2               # 대상 바깥 여백(px) · 전 컷 공통
@@ -46,7 +46,9 @@ NORMALIZE = False
 WIDTH_GROUPS = {
     '섹션카드': ['갑지_01개요_marker', '갑지_02필요서류_marker', '갑지_03작성안내_marker'],
 }
-NORM_WIDTH = 3320
+# STEP 컷과 같은 폭. 묶음 안에서 가장 넓은 컷보다 이 값이 크면 여기에 맞춘다.
+GROUP_WIDTH = 3001
+NORM_WIDTH = 3001
 SHEET_BG = (255, 255, 255)
 
 CANDIDATES = [
@@ -59,21 +61,9 @@ CHROME = next((c for c in CANDIDATES if os.path.exists(c)), CANDIDATES[0])
 
 # 컷 이름 ← flow 파일
 CUTS = [
-    ('flow_overview.html', '갑지_01개요_marker'),      # card_04 에서 분리
+    ('flow_overview.html', '갑지_01개요_marker'),
     ('flow_docs.html',     '갑지_02필요서류_marker'),
     ('flow_guide.html',    '갑지_03작성안내_marker'),
-    ('flow_gapzi1.html',  '갑지생성1_marker'),
-    ('flow_gapzi2.html',  '갑지생성2_marker'),
-    ('flow_gapzi3.html',  '갑지생성3_marker'),
-    ('flow_gapzi45.html', '갑지생성45_marker'),
-    ('flow_gapzi6.html',  '갑지생성6_marker'),
-    ('flow_gapzi7.html',  '갑지생성7_marker'),
-    ('flow_gapzi8.html',  '갑지생성8_marker'),
-    ('flow_gapzi9.html',  '갑지생성9_marker'),
-    ('flow_gapzi10.html', '갑지생성10_marker'),
-    ('flow_gapzi11.html', '갑지생성11_marker'),
-    ('flow_gapzi12.html', '갑지생성12_marker'),
-    ('flow_gapzi13.html', '갑지생성13_marker'),   # 결과물 예시 5종
 ]
 
 # 전 컷 공통 스타일(파일마다 제각각이던 값을 여기서 하나로 맞춘다)
@@ -147,12 +137,23 @@ def snap(img, seed, search=9, thr=18, pad=PAD):
 HL = re.compile(r'<div class="hl"([^>]*)></div>')
 
 
-def prepare(src, font_px=None):
+# STEP 컷(카드 1440px)과 나란히 놓는 섹션 카드는 폭을 맞춰야 한다.
+# design.css 의 .sbox 는 1080px 로 짜여 있어 zoom 으로 통째로 키운다.
+# 리사이즈가 아니라 렌더 배율이라 글씨가 뭉개지지 않는다.
+SBOX_ZOOM = 1440 / 1080
+
+
+def prepare(src, font_px=None, zoom=None):
     s = open(src, encoding='utf-8').read()
     s = s.replace('../자료/갑지생성자료/', SHOTS.replace('\\', '/') + '/')
+    # 임시 폴더에서 렌더하므로 상대 경로 스타일시트는 못 찾는다. 절대 경로로 바꿔 준다.
+    s = s.replace('href="design.css"',
+                  'href="file:///%s"' % os.path.join(BUILD, 'design.css').replace(os.sep, '/'))
     s = s.replace('</style>', tokens(font_px or FONT_PX) + '</style>')
     # 라벨의 개별 글씨 크기 지정을 걷어낸다(통일)
     s = re.sub(r'(<div class="cap"[^>]*style="[^"]*?);?\s*font-size:\s*[\d.]+px', r'\1', s)
+    if zoom:
+        s = s.replace('</style>', '.sbox{zoom:%.4f}</style>' % zoom)
     return s
 
 
@@ -197,7 +198,9 @@ def build(flow, name):
         print('  !! 없음:', flow)
         return None
     font_px = FONT_OVERRIDE.get(name, FONT_PX)
-    html = prepare(src, font_px)
+    # 섹션 카드만 STEP 컷 폭에 맞춰 키운다
+    zoom = SBOX_ZOOM if name in WIDTH_GROUPS['섹션카드'] else None
+    html = prepare(src, font_px, zoom)
     rects = HL.findall(html)
     n = len(rects)
     clean = shoot(HL.sub('', html), os.path.join(TMP, 'clean.png'))
@@ -293,7 +296,7 @@ def enforce_groups():
         paths = [p for p in paths if os.path.exists(p)]
         if len(paths) < 2:
             continue
-        W = max(Image.open(p).width for p in paths)
+        W = max([GROUP_WIDTH] + [Image.open(p).width for p in paths])
         fixed = []
         for p in paths:
             im = Image.open(p).convert('RGB')

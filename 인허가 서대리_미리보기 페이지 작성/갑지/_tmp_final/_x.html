@@ -3,7 +3,7 @@
 <style>/* annotation-guide.css · 서류 폼 입력 안내(2안: 주황 박스 + 화살표 + 콜아웃) */
 /* 폰트: Pretendard Variable 권장. 없으면 시스템 산세리프로 폴백. */
 
-.ag{--ag-ink:#0f172a;--ag-sub:#5b6779;--ag-line:#e2e8f0;--ag-accent:#ea580c;--ag-accent-ink:#9a3412;--ag-accent-line:#fcd9bd;--ag-accent-chip:#fff3ea;
+.ag{--ag-ink:#0f172a;--ag-sub:#5b6779;--ag-line:#e2e8f0;--ag-edge:#C9D6EC;--ag-accent:#ea580c;--ag-accent-ink:#9a3412;--ag-accent-line:#fcd9bd;--ag-accent-chip:#fff3ea;
   /* 강조 계열 투명도는 여기서만 조절한다 */
   --ag-box-line:rgba(234,88,12,.45);        /* 박스 테두리 */
   --ag-fill-a:rgba(234,88,12,.055);         /* 박스 필 · 왼쪽 */
@@ -14,7 +14,7 @@
   --ag-blue:#2B62EF;                        /* 원문 주 버튼 파랑 */
   --ag-blue-ink:#1E4FD0;                    /* 글자용 · 한 단계 짙게 */
   --ag-blue-chip:#EAF0FE;                   /* 스카이 블루 칩 배경 */
-  font-family:"Pretendard Variable",Pretendard,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:var(--ag-ink);position:relative;width:1010px;background:#fff;border:1px solid var(--ag-line);border-radius:16px;overflow:hidden}
+  font-family:"Pretendard Variable",Pretendard,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:var(--ag-ink);position:relative;width:1010px;background:#fff;border:1.5px solid var(--ag-edge);border-radius:20px;overflow:hidden;box-shadow:0 18px 44px -22px rgba(20,45,110,.26),0 2px 8px rgba(16,24,40,.05)}
 
 /* 카드 헤더 */
 .ag-head{padding:22px 30px 20px;border-bottom:1px solid var(--ag-line);display:flex;align-items:baseline;gap:12px}
@@ -277,4 +277,4 @@ html,body{margin:0;padding:36px;background:#fff}</style></head><body><div id="ro
   global.AG_NUM = NUM;
 })(typeof window !== 'undefined' ? window : globalThis);
 </script>
-<script>AG_LAYOUT.side.IW=940;AG_LAYOUT.side.GAP=26;AG_LAYOUT.side.CW=412;AG_LAYOUT.side.IX=0;AG_LAYOUT.side.CPL=43;const DATA={"key": "s10", "src": "갑지생성12.png", "scale": 1, "step": "STEP 10", "title": "생성 · 다운로드", "sub": "서류를 만드는 동안 잠시 기다리시면 됩니다", "f": [{"b": [1124, 42, 92, 47], "title": "처리 중", "desc": "서류를 만드는 동안 상태가 [처리 중] 으로 표시됩니다."}, {"b": [1116, 48, 100, 45], "src": "갑지생성12-1.png", "title": "생성 완료", "desc": "다 만들어지면 [생성 완료] 로 바뀝니다."}, {"b": [1071, 208, 144, 56], "src": "갑지생성12-1.png", "wire": "bottom", "title": "눌러서 받으세요", "desc": "만들어진 서류는 3일간 보관됩니다. 그 안에 내려받아 주세요."}], "g": [{"f": [0], "label": "만드는 중", "crop": [0, 2, 1252, 105], "mode": "side", "img": "s10-1.png"}, {"f": [1, 2], "label": "완료 · 내려받기", "src": "갑지생성12-1.png", "crop": [0, 8, 1245, 282], "mode": "side", "img": "s10-2.png"}], "cw": 1252, "ch": 243, "imgBase": "file:///C:/Users/USER/OneDrive/바탕 화면/py/tools/인허가 서대리_미리보기 페이지 작성/갑지/자료/화면캡처/미리보기_갑지_최종/img/"};document.getElementById("root").innerHTML=renderGuideSection(DATA);AG_fixWires();AG_fixFlows(document, DATA);</script></body></html>
+<script>AG_LAYOUT.side.IW=940;AG_LAYOUT.side.GAP=26;AG_LAYOUT.side.CW=412;AG_LAYOUT.side.IX=0;AG_LAYOUT.side.CPL=43;const DATA={"key": "s07", "src": "test_5.png", "step": "STEP 07", "title": "제출 시점", "sub": "서류에 적을 날짜 단위를 셋 중에 고르고 시점을 넣습니다", "f": [{"b": [38, 198, 1472, 52], "np": "mid", "dots": [[337, 230], [824, 230], [1307, 230]], "title": "입력 단위 선택", "desc": "일자 · 연/월 · 연도 셋 중에서 서류에 기재할 단위를 하나 고릅니다."}, {"b": [38, 356, 1470, 56], "title": "제출 시점 입력", "desc": "고른 단위에 맞춰 칸 모양이 바뀝니다. 달력에서 골라 넣으세요."}], "g": [{"f": [0], "label": "단위 선택", "ycrop": [158, 266], "crop": [0, 158, 1549, 108], "mode": "side", "img": "s07-1.png"}, {"f": [1], "label": "시점 입력", "ycrop": [322, 424], "crop": [0, 322, 1549, 102], "mode": "side", "img": "s07-2.png"}], "cw": 1549, "ch": 455, "imgBase": "file:///C:/Users/USER/OneDrive/바탕 화면/py/tools/인허가 서대리_미리보기 페이지 작성/갑지/자료/화면캡처/미리보기_갑지_최종/img/"};document.getElementById("root").innerHTML=renderGuideSection(DATA);AG_fixWires();AG_fixFlows(document, DATA);</script></body></html>
