@@ -48,7 +48,10 @@
 .ag-flow path{fill:none;stroke:var(--ag-accent);stroke-width:1.2;stroke-linecap:round;stroke-linejoin:round}
 .ag-flow polygon{fill:var(--ag-accent)}
 .ag-flowlab{position:absolute;transform:translate(-50%,-50%);white-space:nowrap;font-size:12px;font-weight:700;color:var(--ag-accent-ink);background:#fff;border:1px solid var(--ag-accent-line);border-radius:8px;padding:5px 10px;box-shadow:0 2px 6px rgba(124,45,18,.07)}
-.ag-dot{position:absolute;transform:translate(-50%,-50%);width:7px;height:7px;border-radius:50%;background:var(--ag-accent);box-shadow:0 0 0 5px rgba(234,88,12,.18)}
+.ag-dot{position:absolute;transform:translate(-50%,-50%);width:15px;height:15px;line-height:0}
+.ag-dot svg{width:15px;height:15px;overflow:visible}
+.ag-dot .h{fill:none;stroke:#fff;stroke-width:4.4;stroke-linecap:round;stroke-linejoin:round}
+.ag-dot .c{fill:none;stroke:var(--ag-accent);stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
 .ag-num{position:absolute;transform:translate(-50%,-50%);width:16px;height:16px;padding:0;border-radius:50%;background:var(--ag-accent);color:#fff;font-size:9.5px;font-weight:800;line-height:1;display:flex;align-items:center;justify-content:center;box-shadow:0 0 0 1.5px #fff}
 
 /* 연결선 — 화살촉 없이 얇은 점선 곡선. 꺾인 직선 대신 3차 베지어 한 획. */
@@ -137,12 +140,14 @@ html,body{margin:0;padding:36px;background:#fff}</style></head><body><div id="ro
         : { x: bx, y: by };                                    // 왼쪽 위 모서리 중심
       return `<div class="ag-num" style="left:${Math.round(p.x)}px;top:${Math.round(p.y)}px">${r.n}</div>`;
     }).join('');
-    // f.dots = [[x,y], ...] — 한 박스 안에서 '여기 여기 여기' 를 짚어 주는 점.
+    // f.dots = [[x,y], ...] — 한 박스 안에서 '여기 여기 여기' 를 짚어 주는 체크 표시.
     // 선택지가 여럿인 컨트롤은 칸마다 박스를 치는 대신 박스 하나 + 점으로 두는 게 덜 시끄럽다.
     const dots = rows.flatMap((r) => (r.f.dots || []).map((d) => {
       const dx = Math.round((d[0] - group.crop[0]) * k) + IB + IX;
       const dy = Math.round((d[1] - group.crop[1]) * k) + IB;
-      return `<div class="ag-dot" style="left:${dx}px;top:${dy}px"></div>`;
+      return `<div class="ag-dot" style="left:${dx}px;top:${dy}px">`
+        + `<svg viewBox="0 0 12 12"><path class="h" d="M2 6.3 L4.7 9 L10 3.2"/>`
+        + `<path class="c" d="M2 6.3 L4.7 9 L10 3.2"/></svg></div>`;
     })).join('');
     // 연결선: 박스 오른쪽 바깥 변 → 콜아웃 왼쪽 변. 양끝이 수평으로 붙는 S자 곡선.
     const stageH = Math.max(IH, cy), stageW = CX + CW;
@@ -272,4 +277,4 @@ html,body{margin:0;padding:36px;background:#fff}</style></head><body><div id="ro
   global.AG_NUM = NUM;
 })(typeof window !== 'undefined' ? window : globalThis);
 </script>
-<script>AG_LAYOUT.side.IW=940;AG_LAYOUT.side.GAP=26;AG_LAYOUT.side.CW=412;AG_LAYOUT.side.IX=0;AG_LAYOUT.side.CPL=43;const DATA={"key": "s05", "src": "test_3.png", "step": "STEP 05", "title": "사업장 정보 — 업종", "sub": "코드 앞자리만 넣으면 목록에서 골라 분류명까지 한 번에 채워집니다", "f": [{"b": [1400, 1555, 100, 22], "co": 1, "title": "업종 추가", "desc": "업종이 여러 개면 칸을 늘릴 수 있습니다."}, {"b": [67, 1706, 548, 54], "snap": false, "wire": "bottom", "co": 3, "np": "mid", "title": "분류코드", "desc": "한국표준산업분류 11차 코드를 넣는 칸입니다. 앞자리만 넣어도 됩니다."}, {"b": [652, 1706, 830, 54], "snap": false, "co": 2, "np": "mid", "title": "분류명", "desc": "코드를 고르면 나머지 한 칸이 자동으로 채워집니다."}, {"b": [28, 114, 375, 37], "src": "갑지생성6-2.png", "scale": 1, "np": "mid", "title": "앞자리만 입력", "desc": "코드 앞자리만 쳐도 해당하는 업종이 목록으로 떠오릅니다.", "pad": 0}, {"b": [28, 154, 375, 54], "src": "갑지생성6-2.png", "scale": 1, "title": "목록에서 선택", "desc": "목록에서 고르면 코드와 분류명이 함께 채워집니다.", "pad": 0, "np": "mid"}], "g": [{"f": [0, 1, 2], "label": "업종 추가 · 코드 · 분류명", "crop": [0, 1513, 1549, 287], "mode": "side", "img": "s05-1.png"}, {"f": [3, 4], "label": "코드 자동완성", "src": "갑지생성6-2.png", "scale": 1, "ycrop": [6, 354], "crop": [0, 6, 1018, 348], "mode": "side", "img": "s05-2.png"}], "cw": 1549, "ch": 1822, "imgBase": "file:///C:/Users/USER/OneDrive/바탕 화면/py/tools/인허가 서대리_미리보기 페이지 작성/갑지/자료/화면캡처/미리보기_갑지_최종/img/"};document.getElementById("root").innerHTML=renderGuideSection(DATA);AG_fixWires();AG_fixFlows(document, DATA);</script></body></html>
+<script>AG_LAYOUT.side.IW=940;AG_LAYOUT.side.GAP=26;AG_LAYOUT.side.CW=412;AG_LAYOUT.side.IX=0;AG_LAYOUT.side.CPL=43;const DATA={"key": "s07", "src": "test_5.png", "step": "STEP 07", "title": "제출 시점", "sub": "서류에 적을 날짜 단위를 셋 중에 고르고 시점을 넣습니다", "f": [{"b": [38, 198, 1472, 52], "np": "mid", "dots": [[337, 230], [824, 230], [1307, 230]], "title": "입력 단위 선택", "desc": "일자 · 연/월 · 연도 셋 중에서 서류에 기재할 단위를 하나 고릅니다."}, {"b": [38, 356, 1470, 56], "title": "제출 시점 입력", "desc": "고른 단위에 맞춰 칸 모양이 바뀝니다. 달력에서 골라 넣으세요."}], "g": [{"f": [0], "label": "단위 선택", "ycrop": [158, 266], "crop": [0, 158, 1549, 108], "mode": "side", "img": "s07-1.png"}, {"f": [1], "label": "시점 입력", "ycrop": [322, 424], "crop": [0, 322, 1549, 102], "mode": "side", "img": "s07-2.png"}], "cw": 1549, "ch": 455, "imgBase": "file:///C:/Users/USER/OneDrive/바탕 화면/py/tools/인허가 서대리_미리보기 페이지 작성/갑지/자료/화면캡처/미리보기_갑지_최종/img/"};document.getElementById("root").innerHTML=renderGuideSection(DATA);AG_fixWires();AG_fixFlows(document, DATA);</script></body></html>

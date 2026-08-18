@@ -70,12 +70,14 @@
         : { x: bx, y: by };                                    // 왼쪽 위 모서리 중심
       return `<div class="ag-num" style="left:${Math.round(p.x)}px;top:${Math.round(p.y)}px">${r.n}</div>`;
     }).join('');
-    // f.dots = [[x,y], ...] — 한 박스 안에서 '여기 여기 여기' 를 짚어 주는 점.
+    // f.dots = [[x,y], ...] — 한 박스 안에서 '여기 여기 여기' 를 짚어 주는 체크 표시.
     // 선택지가 여럿인 컨트롤은 칸마다 박스를 치는 대신 박스 하나 + 점으로 두는 게 덜 시끄럽다.
     const dots = rows.flatMap((r) => (r.f.dots || []).map((d) => {
       const dx = Math.round((d[0] - group.crop[0]) * k) + IB + IX;
       const dy = Math.round((d[1] - group.crop[1]) * k) + IB;
-      return `<div class="ag-dot" style="left:${dx}px;top:${dy}px"></div>`;
+      return `<div class="ag-dot" style="left:${dx}px;top:${dy}px">`
+        + `<svg viewBox="0 0 12 12"><path class="h" d="M2 6.3 L4.7 9 L10 3.2"/>`
+        + `<path class="c" d="M2 6.3 L4.7 9 L10 3.2"/></svg></div>`;
     })).join('');
     // 연결선: 박스 오른쪽 바깥 변 → 콜아웃 왼쪽 변. 양끝이 수평으로 붙는 S자 곡선.
     const stageH = Math.max(IH, cy), stageW = CX + CW;

@@ -46,7 +46,10 @@
 .ag-flow path{fill:none;stroke:var(--ag-accent);stroke-width:1.2;stroke-linecap:round;stroke-linejoin:round}
 .ag-flow polygon{fill:var(--ag-accent)}
 .ag-flowlab{position:absolute;transform:translate(-50%,-50%);white-space:nowrap;font-size:12px;font-weight:700;color:var(--ag-accent-ink);background:#fff;border:1px solid var(--ag-accent-line);border-radius:8px;padding:5px 10px;box-shadow:0 2px 6px rgba(124,45,18,.07)}
-.ag-dot{position:absolute;transform:translate(-50%,-50%);width:7px;height:7px;border-radius:50%;background:var(--ag-accent);box-shadow:0 0 0 5px rgba(234,88,12,.18)}
+.ag-dot{position:absolute;transform:translate(-50%,-50%);width:15px;height:15px;line-height:0}
+.ag-dot svg{width:15px;height:15px;overflow:visible}
+.ag-dot .h{fill:none;stroke:#fff;stroke-width:4.4;stroke-linecap:round;stroke-linejoin:round}
+.ag-dot .c{fill:none;stroke:var(--ag-accent);stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
 .ag-num{position:absolute;transform:translate(-50%,-50%);width:16px;height:16px;padding:0;border-radius:50%;background:var(--ag-accent);color:#fff;font-size:9.5px;font-weight:800;line-height:1;display:flex;align-items:center;justify-content:center;box-shadow:0 0 0 1.5px #fff}
 
 /* 연결선 — 화살촉 없이 얇은 점선 곡선. 꺾인 직선 대신 3차 베지어 한 획. */
