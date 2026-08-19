@@ -138,7 +138,8 @@
     const { IW, CW, LANE, CPL } = LAYOUT.tb;
     // tb 는 콜아웃 글씨를 키울 수 있어(LH=줄높이) 높이 추정을 따로 한다
     const LH = LAYOUT.tb.LH || 19;
-    const estH2 = (t) => 38 + Math.max(1, Math.ceil(String(t).length / CPL)) * LH;
+    const descLines = (d) => (Array.isArray(d) ? d : [d]);   // desc 배열 = 한 문장 한 줄
+    const estH2 = (t) => 38 + descLines(t).reduce((n, s) => n + Math.max(1, Math.ceil(String(s).length / CPL)), 0) * LH;
     const k = IW / group.crop[2], IH = Math.round(group.crop[3] * k);
     const rows = toRows(sec, group, k);
     const free = rows.filter((r) => r.f.cpos);
@@ -219,7 +220,7 @@
     const wires = `<svg class="ag-wire" width="${IW}" height="${H}" viewBox="0 0 ${IW} ${H}">${paths}</svg>`;
     const cos = rows.map((r) => {
       const lb = (!r.f.cpos && r.band === 'top') ? ` data-lb="${r.cb}"` : '';
-      return `<div class="ag-co"${lb} style="left:${r.cx}px;top:${r.ct}px;width:${CW}px"><h3>${r.n}. ${esc(r.f.title)}</h3><p>${esc(r.f.desc)}</p></div>`;
+      return `<div class="ag-co"${lb} style="left:${r.cx}px;top:${r.ct}px;width:${CW}px"><h3>${r.n}. ${esc(r.f.title)}</h3><p>${descLines(r.f.desc).map(esc).join('<br>')}</p></div>`;
     }).join('');
     return panelShell(sec, group, gi, H, IW, 0, IW, boxes + '', nums + dots, wires, cos, iy);
   }
