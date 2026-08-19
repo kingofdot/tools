@@ -1,0 +1,27 @@
+{
+ "source": "사업장폐기물 질의·회신 사례집",
+ "total": 90,
+ "next_index": 90,
+ "history": [
+  {
+   "date": "2026-08-19 10:25",
+   "start": 0,
+   "end": 1,
+   "count": 2,
+   "public": false,
+   "created": 2,
+   "skipped": 0,
+   "posts": "#733~734"
+  },
+  {
+   "date": "2026-08-19 11:41",
+   "start": 2,
+   "end": 89,
+   "count": 88,
+   "public": true,
+   "created": 88,
+   "skipped": 0,
+   "posts": "#735~822"
+  }
+ ]
+}
