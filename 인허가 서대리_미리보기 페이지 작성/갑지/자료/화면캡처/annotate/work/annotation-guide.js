@@ -136,6 +136,9 @@
      위 밴드 콜아웃은 estH 추정으로 놓고 AG_fixBands() 가 실측 높이로 레인 아래 변에 다시 붙인다. */
   function tbPanel(sec, group, gi) {
     const { IW, CW, LANE, CPL } = LAYOUT.tb;
+    // tb 는 콜아웃 글씨를 키울 수 있어(LH=줄높이) 높이 추정을 따로 한다
+    const LH = LAYOUT.tb.LH || 19;
+    const estH2 = (t) => 38 + Math.max(1, Math.ceil(String(t).length / CPL)) * LH;
     const k = IW / group.crop[2], IH = Math.round(group.crop[3] * k);
     const rows = toRows(sec, group, k);
     const free = rows.filter((r) => r.f.cpos);
@@ -147,7 +150,7 @@
       rs.forEach((r) => {
         const want = r.f.cox !== undefined ? r.f.cox
           : Math.max(0, Math.min(IW - CW, Math.round(r.x + r.w / 2 - CW / 2)));
-        r.ch = estH(r.f.desc, CPL);
+        r.ch = estH2(r.f.desc);
         let li = 0;
         for (;; li++) { const l = lanes[li] || (lanes[li] = { right: -12, h: 0 }); if (want >= l.right + 12) break; }
         const l = lanes[li];
@@ -169,7 +172,7 @@
     B.rs.forEach((r) => { r.ct = B.lanes[r.lane].top; });
     let H = B.lanes.length ? ly - 14 : iy + IH;
     free.forEach((r) => {
-      r.ch = estH(r.f.desc, CPL);
+      r.ch = estH2(r.f.desc);
       r.cx = r.f.cpos[0]; r.ct = iy + r.f.cpos[1];
       H = Math.max(H, r.ct + r.ch);
     });

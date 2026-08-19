@@ -35,7 +35,9 @@ CHROME = M.CHROME
 
 # ── 카드 규격 (갑지 gen_final 과 동일) ─────────────────────────────
 CARD_W = 1440
-TB = dict(IW=1378, CW=300, LANE=26, CPL=20)   # tb 모드: 이미지 전폭 + 위·아래 콜아웃 밴드
+# tb 모드: 이미지 전폭 + 위·아래 콜아웃 밴드. 콜아웃 글씨는 갑지보다 3px 큼(15px) →
+# 줄당 글자수 CPL 과 줄높이 LH 도 그에 맞춘다.
+TB = dict(IW=1378, CW=340, LANE=26, CPL=18, LH=24)
 assert TB['IW'] == CARD_W - 62                # 테두리 2 + 좌우 패딩 60
 
 DEFAULT_SCALE = 3      # 원본 캡처는 3배. 목록등자료 보조컷은 scale=1 로 지정.
@@ -145,10 +147,13 @@ CSS_OVERRIDE = """
 .ag{width:%(card)dpx}
 .ag-head{padding:24px 30px 22px}
 .ag-head h2{font-size:22px}
+/* 안내 문구(콜아웃)는 갑지보다 3px 크게 */
+.ag-co h3{font-size:15.5px;margin:0 0 4px}
+.ag-co p{font-size:15px}
 """ % dict(card=CARD_W)
 
-JS_OVERRIDE = ("AG_LAYOUT.tb.IW=%(IW)d;AG_LAYOUT.tb.CW=%(CW)d;"
-               "AG_LAYOUT.tb.LANE=%(LANE)d;AG_LAYOUT.tb.CPL=%(CPL)d;") % TB
+JS_OVERRIDE = ("AG_LAYOUT.tb.IW=%(IW)d;AG_LAYOUT.tb.CW=%(CW)d;AG_LAYOUT.tb.LANE=%(LANE)d;"
+               "AG_LAYOUT.tb.CPL=%(CPL)d;AG_LAYOUT.tb.LH=%(LH)d;") % TB
 
 
 def render(sec):
