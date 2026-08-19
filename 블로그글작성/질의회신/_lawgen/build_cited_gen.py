@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 # 범용 AI 인용판 빌더: qa + AI인용(_cite) → 법령API 원문 → 헤더음영 표 → posts JSON
-# 사용: python build_cited_gen.py <cite_glob> <qa_json> <out_json> <source> <refdate|none> <extratags,콤마>
+# 사용: python build_cited_gen.py <cite_glob> <qa_json> <out_json> <source> <refdate|none> <extratags,콤마> [notes_json|none]
 import os, re, json, glob, sys, statistics
 import lawrefs as R, lawengine as E
 import build_all_v2 as B2   # parse/holding/tags_base/norm (import 시 stdout utf-8 래핑)
@@ -14,6 +14,12 @@ OUTFILE   = sys.argv[3]
 SOURCE    = sys.argv[4]
 REFDATE   = None if (len(sys.argv) <= 5 or sys.argv[5] in ('none', 'None', '')) else sys.argv[5]
 EXTRATAGS = sys.argv[6].split(',') if len(sys.argv) > 6 and sys.argv[6] else []
+NOTEFILE  = sys.argv[7] if len(sys.argv) > 7 and sys.argv[7] not in ('none', 'None', '') else None
+NOTES = {}
+if NOTEFILE:
+    _nd = json.load(open(NOTEFILE, encoding='utf-8'))
+    _nd = _nd.get('notes', _nd)
+    NOTES = {int(k): [x for x in v if str(x).strip()] for k, v in _nd.items()}
 
 qa = json.load(open(QA_FILE, encoding='utf-8'))
 cites_by_idx = {}
@@ -67,10 +73,9 @@ def table_from_cites(cites, ans, refdate):
         if row[1] in seen: continue
         seen.add(row[1]); rows.append(row)
     if not rows: return ""
-    def _mkrow(b, lr, st, m):
-        if m: return R._row(b, lr, st, m)
-        return f'<tr><td style="background-color:#ffffff;">{R._head(b, lr, st)}</td></tr>'  # 포인터 행(내용 생략)
-    tr = "\n".join(_mkrow(b, lr, st, m) for b, lr, st, m in rows)
+    rows = [r for r in rows if r[3]]          # 원문을 못 뽑은 행은 싣지 않는다
+    if not rows: return ""
+    tr = chr(10).join(R._row(b, lr, st, m) for b, lr, st, m in rows)
     return ('<table>\n<thead>\n<tr><th style="background-color:#eef1f5;text-align:left;">조항 · 적용 문구</th></tr>\n</thead>\n'
             '<tbody>\n' + tr + '\n</tbody>\n</table>')
 
@@ -82,16 +87,19 @@ def build(o, cites):
     q = _delabel(o['q']); a = _delabel(o['a']); subj = o['subject']; summ = B2.holding(a)
     summ = re.sub(r'^\([^)]{2,40}\)\s*(※\s*)?(다만,?\s*)?', '', summ).strip() or summ  # 요약 선행 괄호인용 정리
     table = table_from_cites(list(cites), a, REFDATE)
+    notes = NOTES.get(o['idx'], [])
     add = ("<p><small>※ ‘본문 인용’은 질의·답변이 근거로 삼은 조항을, ‘보충’은 이해를 돕기 위해 덧붙인 조항을 정리한 것입니다. "
            "조문은 회신 당시와 현행이 다르면 함께 표기하였으며, 실제 적용 시 국가법령정보센터의 현행 조문 전문을 확인하시기 바랍니다.</small></p>")
-    lawsec = (f"""<p>&nbsp;</p>
+    notehtml = ("<ul>" + "".join(f"<li>{R.esc(n)}</li>" for n in notes) + "</ul>") if notes else ""
+    lawblk = (f"""<p>&nbsp;</p>
 <h2>3. 관련 법령</h2>
 {table}
-
-<p>&nbsp;</p>
-<h2>4. 추가 정보 <small>(인허가 서대리 확인 · 참고용)</small></h2>
-{add}
 """ if table.strip() else "")
+    addblk = (f"""<p>&nbsp;</p>
+<h2>{'4' if table.strip() else '3'}. 추가 정보 <small>(인허가 서대리 확인 · 참고용)</small></h2>
+{notehtml}{add}
+""" if (table.strip() or notes) else "")
+    lawsec = lawblk + addblk
     page = o.get('page', '')
     content = f"""<table>
 <thead>
