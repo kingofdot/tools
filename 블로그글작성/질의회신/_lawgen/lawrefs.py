@@ -277,7 +277,10 @@ def _byl_excerpt_raw(bt,ref,ans):
 # ---- 관련법령 3계층 표 ----
 def _law_clean(s):
     # 조문 노이즈 제거: '삭제<날짜>', 빈 '삭제' 호, 중점·공백 정리
-    s=(s or '').replace(chr(0x119E),chr(0x318D)).replace(chr(0x00B7),chr(0x318D))
+    # 법령 원문의 여러 가운뎃점 변형을 하나로 모은다(ㆍ U+318D 는 화면에서 튄다)
+    s=(s or '')
+    for _c in (0x119E, 0x00B7, 0x318D, 0x2219, 0x2027):
+        s=s.replace(chr(_c), chr(0x00B7))
     s=re.sub(r'\s*\d{1,2}\.\s*삭제\s*<[^>]*>','',s)   # '1. 삭제<2012.7.3>'
     s=re.sub(r'\s*삭제\s*<[^>]*>','',s)               # 남은 '삭제<..>'
     s=re.sub(r'\s*<(?:개정|신설|전문개정|본조신설)[^>]*>','',s)

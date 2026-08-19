@@ -7,6 +7,15 @@ import build_all_v2 as B2   # parse/holding/tags_base/norm (import 시 stdout ut
 
 OUTDIR = r"c:\Users\USER\OneDrive\바탕 화면\py\tools\인허가 서대리 블로그"
 EMDASH = chr(0x2014)
+# 법령 원문이 쓰는 가운뎃점 변형들. 화면에서 튀므로 하나로 모은다.
+MIDDOT = {chr(0x318D): chr(0xB7), chr(0x2219): chr(0xB7), chr(0x2027): chr(0xB7),
+          chr(0x119E): chr(0xB7), chr(0xFF65): chr(0xB7)}
+
+
+def norm_dot(s):
+    for a, b in MIDDOT.items():
+        s = s.replace(a, b)
+    return s
 
 CITE_GLOB = sys.argv[1]
 QA_FILE   = sys.argv[2]
@@ -126,8 +135,10 @@ def build(o, cites):
 
 <p><small><strong>출처</strong> · {R.esc(SOURCE)}{(' ['+str(page)+'페이지]') if page else ''}</small></p>
 <p><small><em>본 자료는 환경부 질의·회신 사례를 정리한 것으로, 행정상 확정의 효력이나 법적 대항력이 없으며 제도·지침 변경에 따라 해석이 달라질 수 있습니다. ※ 참고용으로만 활용하시기 바랍니다.</em></small></p>"""
-    return {"title": subj, "content": content.strip(), "categorySlug": "질의회신",
-            "tags": B2.tags_base(subj, a, EXTRATAGS), "excerpt": summ[:200], "published": False}
+    return {"title": norm_dot(subj), "content": norm_dot(content.strip()),
+            "categorySlug": "질의회신",
+            "tags": B2.tags_base(subj, a, EXTRATAGS),
+            "excerpt": norm_dot(summ[:200]), "published": False}
 
 if __name__ == "__main__":
     missing = [o['idx'] for o in qa if o['idx'] not in cites_by_idx]
