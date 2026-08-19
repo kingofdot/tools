@@ -295,9 +295,16 @@ def esc(s): return re.sub(r'\s+',' ',s or '').strip().replace('&','&amp;').repla
 def _head(badge,lawref,subtitle):
     b={"본문":"본문 인용","연계":"연계","보충":"보충"}[badge]
     tail=" · ".join(x for x in [subtitle,f'[{b}]'] if x)
-    return f'<strong>{esc(lawref)}</strong>'+(f'　<small>{esc(tail)}</small>' if tail else '')
-def _row(badge,lawref,subtitle,moon):        # 표 셀(데이터셀은 흰 배경 강제 → 헤더 음영이 안 번지게)
-    return f'<tr><td style="background-color:#ffffff;">{_head(badge,lawref,subtitle)}<br>{esc_rich(fmt_moon(moon))}</td></tr>'
+    # 제목만 굵게. 꼬리표(조문 제목·구분)는 얇게 둔다.
+    return (f'<strong>{esc(lawref)}</strong>'
+            + (f'　<small style="font-weight:400;">{esc(tail)}</small>' if tail else ''))
+def _row(badge,lawref,subtitle,moon):
+    # 데이터셀은 흰 배경 강제(헤더 음영이 안 번지게).
+    # 조문 본문은 굵기를 못 박는다. 테마가 표 안 글자를 통째로 굵게 그리는 경우가 있어
+    # 제목만 굵고 본문은 얇아야 읽힌다.
+    body = f'<span style="font-weight:400;">{esc_rich(fmt_moon(moon))}</span>'
+    return (f'<tr><td style="background-color:#ffffff;font-weight:400;">'
+            f'{_head(badge,lawref,subtitle)}<br>{body}</td></tr>')
 def _quote(badge,lawref,subtitle,moon):      # blockquote 박스(테마가 td를 볼드로 렌더할 때 대안)
     return f'<blockquote>\n<p>{_head(badge,lawref,subtitle)}<br>{esc_rich(fmt_moon(moon))}</p>\n</blockquote>'
 def esc_rich(s):
