@@ -1,7 +1,7 @@
 {
  "source": "질의회신 사례집(2017.8.~2017.11.)",
  "total": 177,
- "next_index": 7,
+ "next_index": 177,
  "history": [
   {
    "date": "2026-08-19 13:27",
@@ -12,6 +12,36 @@
    "created": 7,
    "skipped": 0,
    "posts": "#823~829"
+  },
+  {
+   "date": "2026-08-19 13:39",
+   "start": 0,
+   "end": 6,
+   "count": 7,
+   "public": true,
+   "created": 6,
+   "skipped": 1,
+   "posts": "#830~835"
+  },
+  {
+   "date": "2026-08-19 13:46",
+   "start": 7,
+   "end": 106,
+   "count": 100,
+   "public": true,
+   "created": 100,
+   "skipped": 0,
+   "posts": "#836~935"
+  },
+  {
+   "date": "2026-08-19 13:47",
+   "start": 107,
+   "end": 176,
+   "count": 70,
+   "public": true,
+   "created": 70,
+   "skipped": 0,
+   "posts": "#936~1005"
   }
  ]
 }
